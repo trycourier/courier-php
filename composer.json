@@ -1,11 +1,11 @@
 {
-    "name": "digs/courier-sdk-php",
+    "name": "@trycourier/courier",
     "description": "PHP implementation of Courier's API as an SDK. With additional support for Laravel 5.8+",
     "license": "MIT",
     "authors": [
         {
-            "name": "Joseph Ahern",
-            "email": "joe@digs.co"
+            "name": "Courier",
+            "email": "support@trycourier.com"
         }
     ],
     "keywords": [
