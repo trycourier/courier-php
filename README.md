@@ -8,7 +8,7 @@ Courier PHP SDK supporting:
 
 ## Official Courier API docs
 
-For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.trycourier.com/reference).
+For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.courier.com/reference).
 
 ## Requirements
 
@@ -38,7 +38,7 @@ Many methods allow the passing of optional data to the Courier endoint. This dat
 $profile = [
 	"firstname" => "Johnny",
 	"lastname" => "Appleseed",
-	"email" => "johnny.appleseed@mail.com"
+	"email" => "courier.pigeon@mail.com"
 ];
 ```
 
