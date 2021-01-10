@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Courier",
-            "email": "support@trycourier.com"
+            "email": "support+sdkphp@trycourier.com"
         }
     ],
     "keywords": [
@@ -28,21 +28,21 @@
     },
     "autoload": {
         "psr-4": {
-            "Digs\\Courier\\" : "src"
+            "Courier\\" : "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Digs\\Courier\\Tests\\": "tests"
+            "Courier\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Digs\\Courier\\Laravel\\Providers\\CourierServiceProvider"
+                "Courier\\Laravel\\Providers\\CourierServiceProvider"
             ],
             "aliases": {
-                "Courier": "Digs\\Courier\\Laravel\\Facades\\CourierFacade"
+                "Courier": "Courier\\Laravel\\Facades\\CourierFacade"
             }
         }
     }

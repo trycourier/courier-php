@@ -1,6 +1,6 @@
 <?php
 
-namespace Digs\Courier\Laravel\Facades;
+namespace Courier\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Digs\Courier\Tests;
+namespace Courier\Tests;
 
 /**
- * @covers Digs\Courier\Courier
+ * @covers Courier\Courier
  */
 class NotificationTest extends TestCase
 {

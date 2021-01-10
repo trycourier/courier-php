@@ -1,19 +1,19 @@
 <?php
 
-namespace Digs\Courier\Tests;
+namespace Courier\Tests;
 
 use Capsule\Request;
 use Capsule\Response;
 use Shuttle\Handler\MockHandler;
 use Shuttle\Shuttle;
-use Digs\Courier\Courier;
-use Digs\Courier\CourierException;
-use Digs\Courier\CourierRequestException;
+use Courier\Courier;
+use Courier\CourierException;
+use Courier\CourierRequestException;
 
 /**
- * @covers Digs\Courier\Courier
- * @covers Digs\Courier\CourierException
- * @covers Digs\Courier\CourierRequestException
+ * @covers Courier\Courier
+ * @covers Courier\CourierException
+ * @covers Courier\CourierRequestException
  */
 class CourierClientTest extends TestCase
 {

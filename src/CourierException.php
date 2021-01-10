@@ -1,6 +1,6 @@
 <?php
 
-namespace Digs\Courier;
+namespace Courier;
 
 use Exception;
 

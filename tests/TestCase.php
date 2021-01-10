@@ -1,13 +1,13 @@
 <?php
 
-namespace Digs\Courier\Tests;
+namespace Courier\Tests;
 
 use Capsule\Request;
 use Capsule\Response;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Shuttle\Handler\MockHandler;
 use Shuttle\Shuttle;
-use Digs\Courier\Courier;
+use Courier\Courier;
 
 
 abstract class TestCase extends PHPUnitTestCase

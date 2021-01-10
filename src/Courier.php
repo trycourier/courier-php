@@ -1,6 +1,6 @@
 <?php
 
-namespace Digs\Courier;
+namespace Courier;
 
 use Capsule\Request;
 use DateTime;
@@ -308,5 +308,5 @@ final class Courier
             $this->buildRequest("put", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
         );
     }
-    
+
 }

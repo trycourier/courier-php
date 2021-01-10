@@ -1,8 +1,8 @@
 <?php
 
-namespace Digs\Courier\Laravel\Providers;
+namespace Courier\Laravel\Providers;
 
-use Digs\Courier\Courier;
+use Courier\Courier;
 use Illuminate\Support\ServiceProvider;
 
 class CourierServiceProvider extends ServiceProvider

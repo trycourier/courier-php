@@ -19,7 +19,7 @@ For a full description of request and response payloads and properties, please s
 ## Installation
 
 ```bash
-composer require digs/courier-sdk-php
+composer require courier/courier-php
 ````
 
 ## Configuration
