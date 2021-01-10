@@ -1,5 +1,5 @@
 {
-    "name": "@trycourier/courier",
+    "name": "trycourier/courier",
     "description": "PHP implementation of Courier's API as an SDK. With additional support for Laravel 5.8+",
     "license": "MIT",
     "authors": [
