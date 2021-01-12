@@ -48,7 +48,7 @@ For a full description of request and response payloads and properties, please s
 
 ### Send API
 
-* ```sendNotification(string $event, string $recipient, array $profile = [], array $data = [], array $preferences = [], array $overrides = []): object``` [[?]](https://docs.trycourier.com/reference#post-send)
+* ```sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $overrides = []): object``` [[?]](https://docs.courier.com/reference/send-api#sendmessage)
 
 ### Messages API
 
