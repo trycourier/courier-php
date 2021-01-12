@@ -168,6 +168,7 @@ final class Courier
      *
      * @param string $event
      * @param string $recipient
+     * @param string|null $brand
      * @param array $profile
      * @param array $data
      * @param array $preferences
@@ -176,12 +177,13 @@ final class Courier
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotification(string $event, string $recipient, array $profile = [], array $data = [], array $preferences = [], array $overrides = []): object
+    public function sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $overrides = []): object
     {
 
         $params = array(
             'event' => $event,
             'recipient' => $recipient,
+            'brand' => $brand,
             'profile' => $profile,
             'data' => $data,
             'preferences' => $preferences,
