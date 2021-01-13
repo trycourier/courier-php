@@ -17,17 +17,6 @@ use Courier\CourierRequestException;
  */
 class CourierClientTest extends TestCase
 {
-
-    /*
-
-    public function test_authorization_header_set_in_constructor(){
-
-        $courier = new Courier("auth_token");
-
-    }
-
-     */
-
     public function test_1xx_responses_throw_exception()
     {
         $httpClient = new Shuttle([
@@ -50,7 +39,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $this->expectException(CourierRequestException::class);
@@ -73,7 +62,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $this->expectException(CourierRequestException::class);
@@ -96,7 +85,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         try {
@@ -125,7 +114,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         try {
@@ -142,7 +131,7 @@ class CourierClientTest extends TestCase
     {
         $httpClient = new Shuttle;
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $reflection = new \ReflectionClass($courier);
@@ -157,7 +146,7 @@ class CourierClientTest extends TestCase
     {
         $httpClient = new Shuttle;
 
-        $courier = new Courier("auth_token", "email");
+        $courier = new Courier(null, "auth_token");
 
         $reflection = new \ReflectionClass($courier);
 

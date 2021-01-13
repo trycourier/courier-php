@@ -17,11 +17,11 @@ final class Courier
     private $version = '0.1.0';
 
     /**
-     * Courier API host name.
+     * Courier API base url.
      *
      * @var string
      */
-    private $host_name = "https://api.courier.com/";
+    private $base_url = "https://api.courier.com/";
 
     /**
      * Courier authorization token.
@@ -31,11 +31,18 @@ final class Courier
     private $auth_token;
 
     /**
-     * Courier authorization email.
+     * Courier username.
      *
      * @var string
      */
-    private $email;
+    private $username;
+
+    /**
+     * Courier password.
+     *
+     * @var string
+     */
+    private $password;
 
     /**
      * Courier authorization header.
@@ -54,35 +61,46 @@ final class Courier
     /**
      * Courier client constructor.
      *
-     * @param string $auth_token
-     * @param string|null $email
+     * @param string|null $base_url
+     * @param string|null $auth_token
+     * @param string|null $username
+     * @param string|null $password
      */
-    public function __construct(string $auth_token, string $email = NULL)
+    public function __construct(string $base_url = NULL, string $auth_token = NULL, string $username = NULL, string $password = NULL)
     {
-        $this->auth_token = $auth_token;
-        $this->email = $email;
+        # Override base_url if passed as a param or set as an environment variable
+        if ($base_url) {
+            $this->base_url = $base_url;
+        } else if (getenv('COURIER_BASE_URL')) {
+            $this->base_url = getenv('COURIER_BASE_URL');
+        }
 
-        $this->setAuthorization($auth_token, $email);
-    }
-
-    /**
-     * Sets authentication header string, either Bearer or Basic
-     *
-     * @param string $auth_token
-     * @param string|null $email
-     * @return void
-     */
-    public function setAuthorization(string $auth_token, string $email = NULL): void
-    {
-        if($email){
-            $this->authorization = [
-                'type' => 'Basic',
-                'token' => base64_encode($email . ':' . $auth_token),
-            ];
-        } else {
+        # Token Auth takes precedence; If no token auth, then Basic Auth
+        if ($auth_token) {
+            $this->auth_token = $auth_token;
             $this->authorization = [
                 'type' => 'Bearer',
                 'token' => $auth_token,
+            ];
+        } else if (getenv('COURIER_AUTH_TOKEN')) {
+            $this->auth_token = getenv('COURIER_AUTH_TOKEN');
+            $this->authorization = [
+                'type' => 'Bearer',
+                'token' => getenv('COURIER_AUTH_TOKEN'),
+            ];
+        } else if ($username and $password) {
+            $this->username = $username;
+            $this->password = $password;
+            $this->authorization = [
+                'type' => 'Basic',
+                'token' => base64_encode($username . ':' . $password),
+            ];
+        } else if (getenv('COURIER_AUTH_USERNAME') and getenv('COURIER_AUTH_PASSWORD')) {
+            $this->username = getenv('COURIER_AUTH_USERNAME');
+            $this->password = getenv('COURIER_AUTH_PASSWORD');
+            $this->authorization = [
+                'type' => 'Basic',
+                'token' => base64_encode(getenv('COURIER_AUTH_USERNAME') . ':' . getenv('COURIER_AUTH_PASSWORD')),
             ];
         }
     }
@@ -153,7 +171,7 @@ final class Courier
     {   
         return new Request(
             $method,
-            $this->host_name . $path,
+            $this->base_url . $path,
             \json_encode($params),
             [
                 "Authorization" => $this->getAuthorizationHeader(),
@@ -176,7 +194,7 @@ final class Courier
     {
         return new Request(
             $method,
-            $this->host_name . $path,
+            $this->base_url . $path,
             \json_encode($params),
             [
                 "Authorization" => $this->getAuthorizationHeader(),
