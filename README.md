@@ -24,10 +24,10 @@ composer require courier/courier-php
 
 ## Configuration
 
-Instantiate the Courier client class with your authorization and (optional) username. Providing just a authorization token will generate a "Bearer" authorization header, while providing a username will generate a "Basic" (base64-encoded) authorization header
+Instantiate the Courier client class with your authorization token OR username and password. Providing just a authorization token will generate a "Bearer" authorization header, while providing a username and password will generate a "Basic" (base64-encoded) authorization header
 
 ```php
-$client = new Courier("authorization-token", "username");
+$client = new Courier("base-url", "authorization-token", "username", "password");
 ```
 
 ### Options
@@ -44,7 +44,7 @@ $profile = [
 
 ## Methods
 
-For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.trycourier.com/reference).
+For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.courier.com/reference).
 
 ### Send API
 

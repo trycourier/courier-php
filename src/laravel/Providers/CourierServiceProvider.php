@@ -13,10 +13,12 @@ class CourierServiceProvider extends ServiceProvider
 
         $this->app->bind('courier', function () {
 
+            $courier_base_url = config('services.courier.base_url');
             $courier_auth_token = config('services.courier.auth_token');
-            $courier_email = config('services.courier.email');
+            $courier_username = config('services.courier.username');
+            $courier_password = config('services.courier.password');
 
-            $client = new Courier($courier_auth_token, $courier_email);
+            $client = new Courier($courier_base_url, $courier_auth_token, $courier_username, $courier_password);
 
             return $client;
 

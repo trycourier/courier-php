@@ -33,8 +33,8 @@ abstract class TestCase extends PHPUnitTestCase
                 }
             ])
         ]);
-
-        $Courier = new Courier("auth_token", "email");
+    
+        $Courier = new Courier(null, "auth_token");
         $Courier->setHttpClient($httpClient);
 
         return $Courier;
