@@ -21,7 +21,7 @@ final class Courier
      *
      * @var string
      */
-    private $host_name = "https://api.trycourier.app/";
+    private $host_name = "https://api.courier.com/";
 
     /**
      * Courier authorization token.
@@ -164,6 +164,30 @@ final class Courier
     }
 
     /**
+     * Build a PSR-7 Request instance with Idempotency Key.
+     *
+     * @param string $method
+     * @param string $path
+     * @param array $params
+     * @param string|null $idempotency_key
+     * @return RequestInterface|Request
+     */
+    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = NULL): RequestInterface
+    {
+        return new Request(
+            $method,
+            $this->host_name . $path,
+            \json_encode($params),
+            [
+                "Authorization" => $this->getAuthorizationHeader(),
+                "Content-Type" => "application/json",
+                'User-Agent' => 'courier-php/'.$this->version,
+                'Idempotency-Key' => $idempotency_key
+            ]
+        );
+    }
+
+    /**
      * Send a notification to a specified recipient.
      *
      * @param string $event
@@ -172,12 +196,13 @@ final class Courier
      * @param array $profile
      * @param array $data
      * @param array $preferences
-     * @param array $overrides
+     * @param array $override
+     * @param string|null $idempotency_key
      * @return object
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $overrides = []): object
+    public function sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $override = [], string $idempotency_key = NULL): object
     {
 
         $params = array(
@@ -187,12 +212,13 @@ final class Courier
             'profile' => $profile,
             'data' => $data,
             'preferences' => $preferences,
-            'overrides' => $overrides
+            'override' => $override
         );
 
         return $this->doRequest(
-            $this->buildRequest("post", "send", $params)
-        );
+            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key) 
+            : $this->buildRequest("post", "send", $params)
+        ); 
     }
 
     /**
