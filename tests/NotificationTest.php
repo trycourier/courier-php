@@ -25,4 +25,31 @@ class NotificationTest extends TestCase
         $this->assertEquals("/send", $response->path);
     }
 
+    public function test_get_messages()
+    {
+        $response = $this->getCourierClient()->getMessages();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/messages", $response->path);
+    }
+
+    public function test_get_message()
+    {
+        $response = $this->getCourierClient()->getMessage("message001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/messages/message001", $response->path);
+    }
+
+    public function test_get_message_history()
+    {
+        $response = $this->getCourierClient()->getMessageHistory("message001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/messages/message001/history", $response->path);
+    }
+
 }
