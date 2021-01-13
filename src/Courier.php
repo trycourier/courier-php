@@ -150,7 +150,7 @@ final class Courier
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {
+    {   
         return new Request(
             $method,
             $this->host_name . $path,
@@ -222,6 +222,34 @@ final class Courier
     }
 
     /**
+     *  Fetch the statuses of messages you've previously sent.
+     *
+     * @param string|null $cursor
+     * @param string|null $event
+     * @param string|null $list
+     * @param string|null $message_id
+     * @param string|null $notification
+     * @param string|null $recipient
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getMessages(string $cursor = NULL, string $event = NULL, string $list = NULL, string $message_id = NULL, string $notification = NULL, string $recipient = NULL): object
+    {
+        $query_params = array(
+            'cursor' => $cursor,
+            'event' => $event,
+            'list' => $list,
+            'message_id' => $message_id,
+            'notification' => $notification,
+            'recipient' => $recipient
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "messages?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
      *  Fetch the status of a message you've previously sent.
      *
      * @param string $message_id
@@ -230,9 +258,29 @@ final class Courier
      */
     public function getMessage(string $message_id): object
     {
+        return $this->doRequest(
+            $this->buildRequest("get", "messages/" . $message_id)
+        );
+    }
+
+    /**
+     *  Fetch the array of events of a message you've previously sent.
+     *
+     * @param string $message_id
+     * @param string|null $type
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getMessageHistory(string $message_id, string $type = NULL): object
+    {
+        $path = "messages/" . $message_id . "/history";
+
+        if ($type) {
+            $path = $path . "?type=" . $type;
+        }
 
         return $this->doRequest(
-            $this->buildRequest("post", "messages/" . $message_id)
+            $this->buildRequest("get", $path)
         );
     }
 

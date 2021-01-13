@@ -52,7 +52,9 @@ For a full description of request and response payloads and properties, please s
 
 ### Messages API
 
-* ```getMessage(string $message_id): object``` [[?]](https://docs.trycourier.com/reference#post-statusrequest_id)
+* ```getMessages(string $cursor = NULL, string $event = NULL, string $list = NULL, string $message_id = NULL, string $notification = NULL, string $recipient = NULL): object``` [[?]](https://docs.courier.com/reference/messages-api#getmessages)
+* ```getMessage(string $message_id): object``` [[?]](https://docs.courier.com/reference/messages-api#getmessagebyid)
+* ```getMessageHistory(string $message_id, string $type = NULL): object``` [[?]](https://docs.courier.com/reference/messages-api#getmessagehistorybyid)
 
 ### Profiles API
 
