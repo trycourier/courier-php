@@ -155,4 +155,64 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/lists/list001/subscriptions/recipient001", $response->path);
     }
+
+    public function test_get_brands()
+    {
+        $response = $this->getCourierClient()->getBrands();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands", $response->path);
+    }
+
+    public function test_create_brand()
+    {
+        $settings = (object) [];
+
+        $response = $this->getCourierClient()->createBrand(NULL, "myBrand", $settings);
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands", $response->path);
+    }
+
+    public function test_create_idempotent_brand()
+    {
+        $settings = (object) [];
+
+        $response = $this->getCourierClient()->createBrand(NULL, "myBrand", $settings, NULL, "idempotent");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands", $response->path);
+    }
+
+    public function test_get_brand()
+    {
+        $response = $this->getCourierClient()->getBrand("brand001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands/brand001", $response->path);
+    }
+
+    public function test_replace_brand()
+    {
+        $settings = (object) [];
+
+        $response = $this->getCourierClient()->replaceBrand("brand001", "myBrand", $settings);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands/brand001", $response->path);
+    }
+
+    public function test_delete_brand()
+    {
+        $response = $this->getCourierClient()->deleteBrand("brand001");
+
+        $this->assertEquals("DELETE", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/brands/brand001", $response->path);
+    }
 }

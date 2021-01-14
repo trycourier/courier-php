@@ -68,6 +68,13 @@ For a full description of request and response payloads and properties, please s
 * ```subscribeRecipientToList(string $list_id, string $recipient_id): object``` [[?]](https://docs.courier.com/reference/lists-api#putlistsubscription)
 * ```deleteListSubscription(string $list_id, string $recipient_id): object``` [[?]](https://docs.courier.com/reference/lists-api#deletelistsubscription)
 
+### Brands API
+* ```getBrands(string $cursor = NULL): object``` [[?]](https://docs.courier.com/reference/brands-api#getbrands)
+* ```createBrand(string $id = NULL, string $name, object $settings, object $snippets = NULL, string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/brands-api#createbrand)
+* ```getBrand(string $brand_id): object``` [[?]](https://docs.courier.com/reference/brands-api#getbrand)
+* ```replaceBrand(string $brand_id, string $name, object $settings, object $snippets = NULL): object``` [[?]](https://docs.courier.com/reference/brands-api#replacebrand)
+* ```deleteBrand(string $brand_id): object``` [[?]](https://docs.courier.com/reference/brands-api#deletebrand)
+
 ### Profiles API
 
 * ```getProfile(string $recipient_id): object``` [[?]](https://docs.trycourier.com/reference#get-preferencesrecipient_id)
