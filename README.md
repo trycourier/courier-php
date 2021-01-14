@@ -75,6 +75,11 @@ For a full description of request and response payloads and properties, please s
 * ```replaceBrand(string $brand_id, string $name, object $settings, object $snippets = NULL): object``` [[?]](https://docs.courier.com/reference/brands-api#replacebrand)
 * ```deleteBrand(string $brand_id): object``` [[?]](https://docs.courier.com/reference/brands-api#deletebrand)
 
+### Events API
+* ```getEvents(): object``` [[?]](https://docs.courier.com/reference/events-api#getevents)
+* ```getEvent(string $event_id): object``` [[?]](https://docs.courier.com/reference/events-api#geteventbyid)
+* ```putEvent(string $event_id, string $id, string $type): object``` [[?]](https://docs.courier.com/reference/events-api#replaceeventbyid)
+
 ### Profiles API
 
 * ```getProfile(string $recipient_id): object``` [[?]](https://docs.trycourier.com/reference#get-preferencesrecipient_id)
