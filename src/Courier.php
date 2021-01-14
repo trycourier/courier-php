@@ -168,7 +168,7 @@ final class Courier
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {
+    {   
         return new Request(
             $method,
             $this->base_url . $path,
@@ -579,6 +579,53 @@ final class Courier
     {
         return $this->doRequest(
             $this->buildRequest("delete", "brands/" . $brand_id)
+        );
+    }
+
+    /**
+     *  Fetch the list of events
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getEvents(): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "events")
+        );
+    }   
+    
+    /**
+     *  Fetch a specific event by event ID.
+     *
+     * @param string $event_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getEvent(string $event_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "events/" . $event_id)
+        );
+    }
+
+    /**
+     *  Replace an existing event with the supplied values or create a new event if one does not already exist.
+     *
+     * @param string $event_id
+     * @param string $id
+     * @param string $type
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putEvent(string $event_id, string $id, string $type): object
+    {
+        $params = array(
+            'id' => $id,
+            'type' => $type
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("put", "events/" . $event_id, $params)
         );
     }
 
