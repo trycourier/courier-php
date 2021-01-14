@@ -168,7 +168,7 @@ final class Courier
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {   
+    {
         return new Request(
             $method,
             $this->base_url . $path,
@@ -484,6 +484,101 @@ final class Courier
     {
         return $this->doRequest(
             $this->buildRequest("delete", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
+        );
+    }
+
+    /**
+     *  Get the list of brands
+     * @param string|null $cursor
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getBrands(string $cursor = NULL): object
+    {
+        $query_params = array(
+            'cursor' => $cursor
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "brands?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     * Create a new brand
+     *
+     * @param string|null $id
+     * @param string $name
+     * @param object $settings
+     * @param object|null $snippets
+     * @param string|null $idempotency_key
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function createBrand(string $id = NULL, string $name, object $settings, object $snippets = NULL, string $idempotency_key = NULL): object
+    {
+        $params = array(
+            'id' => $id,
+            'name' => $name,
+            'settings' => $settings,
+            'snippets' => $snippets
+        );
+
+        return $this->doRequest(
+            $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key) 
+            : $this->buildRequest("post", "brands", $params)
+        ); 
+    }
+
+    /**
+     *  Fetch a specific brand by brand ID.
+     *
+     * @param string $brand_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getBrand(string $brand_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "brands/" . $brand_id)
+        );
+    }
+
+    /**
+     *  Replace an existing brand with the supplied values.
+     *
+     * @param string $brand_id
+     * @param string $name
+     * @param object $settings
+     * @param object|null $snippets
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function replaceBrand(string $brand_id, string $name, object $settings, object $snippets = NULL): object
+    {
+        $params = array(
+            'name' => $name,
+            'settings' => $settings,
+            'snippets' => $snippets
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("put", "brands/" . $brand_id, $params)
+        );
+    }
+
+    /**
+     *  Delete a brand by brand ID.
+     *
+     * @param string $brand_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function deleteBrand(string $brand_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("delete", "brands/" . $brand_id)
         );
     }
 
