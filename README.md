@@ -49,6 +49,7 @@ For a full description of request and response payloads and properties, please s
 ### Send API
 
 * ```sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $override = [], string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendmessage)
+* ```sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, array $data = [], array $override = [], string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendlist)
 
 ### Messages API
 
