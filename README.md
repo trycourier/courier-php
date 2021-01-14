@@ -5,6 +5,9 @@ Courier PHP SDK supporting:
 * Messages API
 * Profiles API
 * Preferences API
+* Events API
+* Brands API
+* Lists API
 
 ## Official Courier API docs
 
@@ -19,7 +22,7 @@ For a full description of request and response payloads and properties, please s
 ## Installation
 
 ```bash
-composer require courier/courier-php
+composer require trycourier/courier
 ````
 
 ## Configuration
