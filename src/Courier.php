@@ -240,6 +240,41 @@ final class Courier
     }
 
     /**
+     * Send a notification to list(s) subscribers
+     *
+     * @param string $event
+     * @param string|null $list
+     * @param string|null $pattern
+     * @param string|null $brand
+     * @param array $data
+     * @param array $override
+     * @param string|null $idempotency_key
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, array $data = [], array $override = [], string $idempotency_key = NULL): object
+    {
+        if ((!$list and !$pattern) or ($list and $pattern)) {
+            throw new CourierRequestException("list.send requires a list id or a pattern");
+        }
+
+        $params = array(
+            'event' => $event,
+            'list' => $list,
+            'pattern' => $pattern,
+            'brand' => $brand,
+            'data' => $data,
+            'override' => $override
+        );
+
+        return $this->doRequest(
+            $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key) 
+            : $this->buildRequest("post", "send/list", $params)
+        ); 
+    }
+
+    /**
      *  Fetch the statuses of messages you've previously sent.
      *
      * @param string|null $cursor

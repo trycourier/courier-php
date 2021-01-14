@@ -25,6 +25,24 @@ class NotificationTest extends TestCase
         $this->assertEquals("/send", $response->path);
     }
 
+    public function test_send_notification_to_list()
+    {
+        $response = $this->getCourierClient()->sendNotificationToList("event", "myList");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/send/list", $response->path);
+    }
+
+    public function test_send_idempotent_notification_to_list()
+    {
+        $response = $this->getCourierClient()->sendNotificationToList("event", "myList", NULL, NULL, [], [], "idempotent");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/send/list", $response->path);
+    }
+
     public function test_get_messages()
     {
         $response = $this->getCourierClient()->getMessages();
