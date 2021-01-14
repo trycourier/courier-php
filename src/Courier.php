@@ -168,7 +168,7 @@ final class Courier
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {   
+    {  
         return new Request(
             $method,
             $this->base_url . $path,
@@ -648,32 +648,14 @@ final class Courier
      *  create a new profile if one doesn't already exist.
      *
      * @param string $recipient_id
-     * @param array $profile_attributes
+     * @param array $profile
      * @return object
      * @throws CourierRequestException
      */
-    public function upsertProfile(string $recipient_id, array $profile_attributes): object
+    public function upsertProfile(string $recipient_id, array $profile): object
     {
-
         return $this->doRequest(
-            $this->buildRequest("post", "profiles/" . $recipient_id, array('profile' => $profile_attributes))
-        );
-    }
-
-    /**
-     *  Replace an existing profile with the supplied values or
-     *  create a new profile if one does not already exist.
-     *
-     * @param string $recipient_id
-     * @param array $profile_attributes
-     * @return object
-     * @throws CourierRequestException
-     */
-    public function replaceProfile(string $recipient_id, array $profile_attributes): object
-    {
-
-        return $this->doRequest(
-            $this->buildRequest("put", "profiles/" . $recipient_id, array('profile' => $profile_attributes))
+            $this->buildRequest("post", "profiles/" . $recipient_id, array('profile' => $profile))
         );
     }
 
@@ -688,9 +670,45 @@ final class Courier
      */
     public function patchProfile(string $recipient_id, array $patch): object
     {
+        return $this->doRequest(
+            $this->buildRequest("patch", "profiles/" . $recipient_id, array('patch' => $patch))
+        );
+    }
+
+    /**
+     *  Replace an existing profile with the supplied values or
+     *  create a new profile if one does not already exist.
+     *
+     * @param string $recipient_id
+     * @param array $profile
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function replaceProfile(string $recipient_id, array $profile): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "profiles/" . $recipient_id, array('profile' => $profile))
+        );
+    }
+
+    /**
+     *  Get the subscribed lists for a specified recipient Profile.
+     *
+     * @param string $recipient_id
+     * @param string|null $cursor
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getProfileLists(string $recipient_id, string $cursor = NULL): object
+    {
+        $path = "profiles/" . $recipient_id . "/lists";
+
+        if ($cursor) {
+            $path = $path . "?cursor=" . $cursor;
+        }
 
         return $this->doRequest(
-            $this->buildRequest("patch", "preferences/" . $recipient_id, array('patch' => $patch))
+            $this->buildRequest("get", $path)
         );
     }
 

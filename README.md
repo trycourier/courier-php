@@ -82,10 +82,11 @@ For a full description of request and response payloads and properties, please s
 
 ### Profiles API
 
-* ```getProfile(string $recipient_id): object``` [[?]](https://docs.trycourier.com/reference#get-preferencesrecipient_id)
-* ```upsertProfile(string $recipient_id, array $profile_attributes): object``` [[?]](https://docs.trycourier.com/reference#post-profilesid)
-* ```replaceProfile(string $recipient_id, array $profile_attributes): object``` [[?]](https://docs.trycourier.com/reference#put-profilesid)
-* ```patchProfile(string $recipient_id, array $patch): object``` [[?]](https://docs.trycourier.com/reference#patch-profilesid)
+* ```getProfile(string $recipient_id): object``` [[?]](https://docs.courier.com/reference/profiles-api#getprofilebyrecipientid)
+* ```upsertProfile(string $recipient_id, array $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#mergeprofilebyrecipientid)
+* ```patchProfile(string $recipient_id, array $patch): object``` [[?]](https://docs.courier.com/reference/profiles-api#patchprofilebyrecipientid)
+* ```replaceProfile(string $recipient_id, array $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#replaceprofilebyrecipientid)
+* ```getProfileLists(string $recipient_id, string $cursor = NULL): object``` [[?]](https://docs.courier.com/reference/profiles-api#getlistsforprofilebyrecipientid)
 
 ### Preferences API
 
