@@ -56,6 +56,15 @@ For a full description of request and response payloads and properties, please s
 * ```getMessage(string $message_id): object``` [[?]](https://docs.courier.com/reference/messages-api#getmessagebyid)
 * ```getMessageHistory(string $message_id, string $type = NULL): object``` [[?]](https://docs.courier.com/reference/messages-api#getmessagehistorybyid)
 
+### Lists API
+* ```getList(string $list_id): object``` [[?]](https://docs.courier.com/reference/lists-api#getlist)
+* ```putList(string $list_id, string $name): object``` [[?]](https://docs.courier.com/reference/lists-api#putlist)
+* ```deleteList(string $list_id): object``` [[?]](https://docs.courier.com/reference/lists-api#deletelist)
+* ```restoreList(string $list_id): object``` [[?]](https://docs.courier.com/reference/lists-api#putlistrestore)
+* ```getListSubscriptions(string $list_id, string $cursor = NULL): object``` [[?]](https://docs.courier.com/reference/lists-api#getlistsubscriptions)
+* ```subscribeRecipientToList(string $list_id, string $recipient_id): object``` [[?]](https://docs.courier.com/reference/lists-api#putlistsubscription)
+* ```deleteListSubscription(string $list_id, string $recipient_id): object``` [[?]](https://docs.courier.com/reference/lists-api#deletelistsubscription)
+
 ### Profiles API
 
 * ```getProfile(string $recipient_id): object``` [[?]](https://docs.trycourier.com/reference#get-preferencesrecipient_id)

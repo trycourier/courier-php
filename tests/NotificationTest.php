@@ -52,4 +52,66 @@ class NotificationTest extends TestCase
         $this->assertEquals("/messages/message001/history", $response->path);
     }
 
+    public function test_get_list()
+    {
+        $response = $this->getCourierClient()->getList("list001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001", $response->path);
+    }
+
+    public function test_put_list()
+    {
+        $response = $this->getCourierClient()->putList("list001", "myList");
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001", $response->path);
+    }
+
+    public function test_delete_list()
+    {
+        $response = $this->getCourierClient()->deleteList("list001");
+
+        $this->assertEquals("DELETE", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001", $response->path);
+    }
+
+    public function test_restore_list()
+    {
+        $response = $this->getCourierClient()->restoreList("list001");
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001/restore", $response->path);
+    }
+
+    public function test_get_list_subscriptions()
+    {
+        $response = $this->getCourierClient()->getListSubscriptions("list001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001/subscriptions", $response->path);
+    }
+
+    public function test_subscribe_recipient_to_list()
+    {
+        $response = $this->getCourierClient()->subscribeRecipientToList("list001", "recipient001");
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001/subscriptions/recipient001", $response->path);
+    }
+
+    public function test_delete_list_subscription()
+    {
+        $response = $this->getCourierClient()->deleteListSubscription("list001", "recipient001");
+
+        $this->assertEquals("DELETE", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001/subscriptions/recipient001", $response->path);
+    }
 }
