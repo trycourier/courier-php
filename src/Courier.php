@@ -303,6 +303,25 @@ final class Courier
     }
 
     /**
+     *  Get the list of lists
+     * @param string|null $cursor
+     * @param string|null $pattern
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getLists(string $cursor = NULL, string $pattern = NULL): object
+    {
+        $query_params = array(
+            'cursor' => $cursor,
+            'pattern' => $pattern
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "lists?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
      *  Get the list items.
      *
      * @param string $list_id
@@ -381,6 +400,25 @@ final class Courier
 
         return $this->doRequest(
             $this->buildRequest("get", $path)
+        );
+    }
+
+    /**
+     *  Subscribe multiple recipients to a list (note: if the List does not exist, it will be automatically created)
+     *
+     * @param string $list_id
+     * @param array $recipients
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function subscribeMultipleRecipientsToList(string $list_id, array $recipients): object
+    {
+        $params = array(
+            'recipients' => $recipients
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("put", "lists/" . $list_id . "/subscriptions", $params)
         );
     }
 

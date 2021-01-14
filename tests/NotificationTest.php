@@ -52,6 +52,15 @@ class NotificationTest extends TestCase
         $this->assertEquals("/messages/message001/history", $response->path);
     }
 
+    public function test_get_lists()
+    {
+        $response = $this->getCourierClient()->getLists();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists", $response->path);
+    }
+
     public function test_get_list()
     {
         $response = $this->getCourierClient()->getList("list001");
@@ -93,6 +102,20 @@ class NotificationTest extends TestCase
         $response = $this->getCourierClient()->getListSubscriptions("list001");
 
         $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/lists/list001/subscriptions", $response->path);
+    }
+
+    public function test_subscribe_multiple_recipients_to_list()
+    {
+        $recipient1 = (object) ['recipientId' => 'recipient001'];
+        $recipient2 = (object) ['recipientId' => 'recipient002'];
+
+        $recipients = array($recipient1, $recipient2);
+
+        $response = $this->getCourierClient()->subscribeMultipleRecipientsToList("list001", $recipients);
+
+        $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/lists/list001/subscriptions", $response->path);
     }
