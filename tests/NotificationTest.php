@@ -242,4 +242,49 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/events/event001", $response->path);
     }
+
+    public function test_get_profile()
+    {
+        $response = $this->getCourierClient()->getProfile("recipient001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/profiles/recipient001", $response->path);
+    }
+
+    public function test_upsert_profile()
+    {
+        $response = $this->getCourierClient()->upsertProfile("recipient001");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/profiles/recipient001", $response->path);
+    }
+
+    public function test_patch_profile()
+    {
+        $response = $this->getCourierClient()->patchProfile("recipient001", []);
+
+        $this->assertEquals("PATCH", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/profiles/recipient001", $response->path);
+    }
+
+    public function test_replace_profile()
+    {
+        $response = $this->getCourierClient()->replaceProfile("recipient001", []);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/profiles/recipient001", $response->path);
+    }
+
+    public function test_get_profile_lists()
+    {
+        $response = $this->getCourierClient()->getProfileLists("recipient001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/profiles/recipient001/lists", $response->path);
+    }
 }
