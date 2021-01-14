@@ -303,6 +303,118 @@ final class Courier
     }
 
     /**
+     *  Get the list items.
+     *
+     * @param string $list_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getList(string $list_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "lists/" . $list_id)
+        );
+    }
+
+    /**
+     *  Create or replace an existing list with the supplied values.
+     *
+     * @param string $list_id
+     * @param string $name
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putList(string $list_id, string $name): object
+    {
+        $params = array(
+            'name' => $name
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("put", "lists/" . $list_id, $params)
+        );
+    }
+
+    /**
+     *  Delete a list by list ID.
+     *
+     * @param string $list_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function deleteList(string $list_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("delete", "lists/" . $list_id)
+        );
+    }
+
+    /**
+     *  Restore an existing list.
+     *
+     * @param string $list_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function restoreList(string $list_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "lists/" . $list_id . "/restore")
+        );
+    }
+
+    /**
+     *  Get the list's subscriptions
+     *
+     * @param string $list_id
+     * @param string|null $cursor
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getListSubscriptions(string $list_id, string $cursor = NULL): object
+    {
+        $path = "lists/" . $list_id . "/subscriptions";
+
+        if ($cursor) {
+            $path = $path . "?cursor=" . $cursor;
+        }
+
+        return $this->doRequest(
+            $this->buildRequest("get", $path)
+        );
+    }
+
+    /**
+     *  Subscribe a recipient to an existing list (note: if the List does not exist, it will be automatically created).
+     *
+     * @param string $list_id
+     * @param string $recipient_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function subscribeRecipientToList(string $list_id, string $recipient_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
+        );
+    }
+
+    /**
+     *  Delete a subscription to a list by list and recipient ID.
+     *
+     * @param string $list_id
+     * @param string $recipient_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function deleteListSubscription(string $list_id, string $recipient_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("delete", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
+        );
+    }
+
+    /**
      *  Get the profile stored under the specified recipient ID.
      *
      * @param string $recipient_id
