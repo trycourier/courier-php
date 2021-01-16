@@ -3,7 +3,7 @@
 namespace Courier\Tests;
 
 /**
- * @covers Courier\Courier
+ * @covers Courier\CourierClient
  */
 class NotificationTest extends TestCase
 {
@@ -254,7 +254,7 @@ class NotificationTest extends TestCase
 
     public function test_upsert_profile()
     {
-        $response = $this->getCourierClient()->upsertProfile("recipient001");
+        $response = $this->getCourierClient()->upsertProfile("recipient001", []);
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
