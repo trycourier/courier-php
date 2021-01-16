@@ -51,8 +51,8 @@ For a full description of request and response payloads and properties, please s
 
 ### Send API
 
-* ```sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $override = [], string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendmessage)
-* ```sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, array $data = [], array $override = [], string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendlist)
+* ```sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendmessage)
+* ```sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object``` [[?]](https://docs.courier.com/reference/send-api#sendlist)
 
 ### Messages API
 
@@ -86,9 +86,9 @@ For a full description of request and response payloads and properties, please s
 ### Profiles API
 
 * ```getProfile(string $recipient_id): object``` [[?]](https://docs.courier.com/reference/profiles-api#getprofilebyrecipientid)
-* ```upsertProfile(string $recipient_id, array $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#mergeprofilebyrecipientid)
+* ```upsertProfile(string $recipient_id, object $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#mergeprofilebyrecipientid)
 * ```patchProfile(string $recipient_id, array $patch): object``` [[?]](https://docs.courier.com/reference/profiles-api#patchprofilebyrecipientid)
-* ```replaceProfile(string $recipient_id, array $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#replaceprofilebyrecipientid)
+* ```replaceProfile(string $recipient_id, object $profile): object``` [[?]](https://docs.courier.com/reference/profiles-api#replaceprofilebyrecipientid)
 * ```getProfileLists(string $recipient_id, string $cursor = NULL): object``` [[?]](https://docs.courier.com/reference/profiles-api#getlistsforprofilebyrecipientid)
 
 ### Preferences API

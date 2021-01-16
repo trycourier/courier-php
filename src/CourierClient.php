@@ -168,7 +168,7 @@ final class CourierClient
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {  
+    {   
         return new Request(
             $method,
             $this->base_url . $path,
@@ -211,16 +211,16 @@ final class CourierClient
      * @param string $event
      * @param string $recipient
      * @param string|null $brand
-     * @param array $profile
-     * @param array $data
-     * @param array $preferences
-     * @param array $override
+     * @param object|null $profile
+     * @param object|null $data
+     * @param object|null $preferences
+     * @param object|null $override
      * @param string|null $idempotency_key
      * @return object
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotification(string $event, string $recipient, string $brand = NULL, array $profile = [], array $data = [], array $preferences = [], array $override = [], string $idempotency_key = NULL): object
+    public function sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object
     {
 
         $params = array(
@@ -246,14 +246,14 @@ final class CourierClient
      * @param string|null $list
      * @param string|null $pattern
      * @param string|null $brand
-     * @param array $data
-     * @param array $override
+     * @param object|null $data
+     * @param object|null $override
      * @param string|null $idempotency_key
      * @return object
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, array $data = [], array $override = [], string $idempotency_key = NULL): object
+    public function sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object
     {
         if ((!$list and !$pattern) or ($list and $pattern)) {
             throw new CourierRequestException("list.send requires a list id or a pattern");
@@ -648,11 +648,11 @@ final class CourierClient
      *  create a new profile if one doesn't already exist.
      *
      * @param string $recipient_id
-     * @param array $profile
+     * @param object $profile
      * @return object
      * @throws CourierRequestException
      */
-    public function upsertProfile(string $recipient_id, array $profile): object
+    public function upsertProfile(string $recipient_id, object $profile = NULL): object
     {
         return $this->doRequest(
             $this->buildRequest("post", "profiles/" . $recipient_id, array('profile' => $profile))
@@ -680,11 +680,11 @@ final class CourierClient
      *  create a new profile if one does not already exist.
      *
      * @param string $recipient_id
-     * @param array $profile
+     * @param object $profile
      * @return object
      * @throws CourierRequestException
      */
-    public function replaceProfile(string $recipient_id, array $profile): object
+    public function replaceProfile(string $recipient_id, object $profile = NULL): object
     {
         return $this->doRequest(
             $this->buildRequest("put", "profiles/" . $recipient_id, array('profile' => $profile))

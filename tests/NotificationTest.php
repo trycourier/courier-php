@@ -18,7 +18,7 @@ class NotificationTest extends TestCase
 
     public function test_send_idempotent_notification()
     {
-        $response = $this->getCourierClient()->sendNotification("event", "recipient", NULL, [], [], [], [], "idempotent");
+        $response = $this->getCourierClient()->sendNotification("event", "recipient", NULL, NULL, NULL, NULL, NULL, "idempotent");
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
@@ -36,7 +36,7 @@ class NotificationTest extends TestCase
 
     public function test_send_idempotent_notification_to_list()
     {
-        $response = $this->getCourierClient()->sendNotificationToList("event", "myList", NULL, NULL, [], [], "idempotent");
+        $response = $this->getCourierClient()->sendNotificationToList("event", "myList", NULL, NULL, NULL, NULL, "idempotent");
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
@@ -254,7 +254,7 @@ class NotificationTest extends TestCase
 
     public function test_upsert_profile()
     {
-        $response = $this->getCourierClient()->upsertProfile("recipient001", []);
+        $response = $this->getCourierClient()->upsertProfile("recipient001", NULL);
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
@@ -272,7 +272,7 @@ class NotificationTest extends TestCase
 
     public function test_replace_profile()
     {
-        $response = $this->getCourierClient()->replaceProfile("recipient001", []);
+        $response = $this->getCourierClient()->replaceProfile("recipient001", NULL);
 
         $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
