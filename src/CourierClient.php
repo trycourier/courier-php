@@ -9,7 +9,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Shuttle\Shuttle;
 
-final class Courier
+final class CourierClient
 {
     /**
      * @var string Library version, used for setting User-Agent

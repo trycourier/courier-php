@@ -6,12 +6,12 @@ use Capsule\Request;
 use Capsule\Response;
 use Shuttle\Handler\MockHandler;
 use Shuttle\Shuttle;
-use Courier\Courier;
+use Courier\CourierClient;
 use Courier\CourierException;
 use Courier\CourierRequestException;
 
 /**
- * @covers Courier\Courier
+ * @covers Courier\CourierClient
  * @covers Courier\CourierException
  * @covers Courier\CourierRequestException
  */
@@ -39,7 +39,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $this->expectException(CourierRequestException::class);
@@ -62,7 +62,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $this->expectException(CourierRequestException::class);
@@ -85,7 +85,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         try {
@@ -114,7 +114,7 @@ class CourierClientTest extends TestCase
             ])
         ]);
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         try {
@@ -131,7 +131,7 @@ class CourierClientTest extends TestCase
     {
         $httpClient = new Shuttle;
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
 
         $reflection = new \ReflectionClass($courier);
@@ -146,7 +146,7 @@ class CourierClientTest extends TestCase
     {
         $httpClient = new Shuttle;
 
-        $courier = new Courier(null, "auth_token");
+        $courier = new CourierClient(null, "auth_token");
 
         $reflection = new \ReflectionClass($courier);
 

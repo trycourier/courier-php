@@ -7,12 +7,12 @@ use Capsule\Response;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Shuttle\Handler\MockHandler;
 use Shuttle\Shuttle;
-use Courier\Courier;
+use Courier\CourierClient;
 
 
 abstract class TestCase extends PHPUnitTestCase
 {
-    protected function getCourierClient(): Courier
+    protected function getCourierClient(): CourierClient
     {
         $httpClient = new Shuttle([
             'handler' => new MockHandler([
@@ -34,7 +34,7 @@ abstract class TestCase extends PHPUnitTestCase
             ])
         ]);
     
-        $Courier = new Courier(null, "auth_token");
+        $Courier = new CourierClient(null, "auth_token");
         $Courier->setHttpClient($httpClient);
 
         return $Courier;

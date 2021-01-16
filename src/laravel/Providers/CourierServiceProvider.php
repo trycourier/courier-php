@@ -2,7 +2,7 @@
 
 namespace Courier\Laravel\Providers;
 
-use Courier\Courier;
+use Courier\CourierClient;
 use Illuminate\Support\ServiceProvider;
 
 class CourierServiceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class CourierServiceProvider extends ServiceProvider
             $courier_username = config('services.courier.username');
             $courier_password = config('services.courier.password');
 
-            $client = new Courier($courier_base_url, $courier_auth_token, $courier_username, $courier_password);
+            $client = new CourierClient($courier_base_url, $courier_auth_token, $courier_username, $courier_password);
 
             return $client;
 

@@ -30,7 +30,7 @@ composer require trycourier/courier
 Instantiate the Courier client class with your authorization token OR username and password. Providing just a authorization token will generate a "Bearer" authorization header, while providing a username and password will generate a "Basic" (base64-encoded) authorization header
 
 ```php
-$client = new Courier("base-url", "authorization-token", "username", "password");
+$client = new CourierClient("base-url", "authorization-token", "username", "password");
 ```
 
 ### Options
