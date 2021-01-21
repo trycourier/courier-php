@@ -222,7 +222,6 @@ final class CourierClient
      */
     public function sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object
     {
-
         $params = array(
             'event' => $event,
             'recipient' => $recipient,
@@ -232,6 +231,8 @@ final class CourierClient
             'preferences' => $preferences,
             'override' => $override
         );
+        
+        $params = array_filter($params);
 
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key) 
@@ -267,6 +268,8 @@ final class CourierClient
             'data' => $data,
             'override' => $override
         );
+
+        $params = array_filter($params);
 
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key) 
@@ -525,6 +528,8 @@ final class CourierClient
             'snippets' => $snippets
         );
 
+        $params = array_filter($params);
+
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key) 
             : $this->buildRequest("post", "brands", $params)
@@ -562,6 +567,8 @@ final class CourierClient
             'settings' => $settings,
             'snippets' => $snippets
         );
+
+        $params = array_filter($params);
 
         return $this->doRequest(
             $this->buildRequest("put", "brands/" . $brand_id, $params)
