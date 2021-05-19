@@ -14,7 +14,7 @@ final class CourierClient
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '0.1.0';
+    private $version = '1.1.0';
 
     /**
      * Courier API base url.
@@ -168,7 +168,7 @@ final class CourierClient
      * @return RequestInterface|Request
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
-    {   
+    {
         return new Request(
             $method,
             $this->base_url . $path,
@@ -231,13 +231,13 @@ final class CourierClient
             'preferences' => $preferences,
             'override' => $override
         );
-        
+
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key) 
+            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key)
             : $this->buildRequest("post", "send", $params)
-        ); 
+        );
     }
 
     /**
@@ -272,9 +272,9 @@ final class CourierClient
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key) 
+            $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key)
             : $this->buildRequest("post", "send/list", $params)
-        ); 
+        );
     }
 
     /**
@@ -531,9 +531,9 @@ final class CourierClient
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key) 
+            $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key)
             : $this->buildRequest("post", "brands", $params)
-        ); 
+        );
     }
 
     /**
@@ -599,8 +599,8 @@ final class CourierClient
         return $this->doRequest(
             $this->buildRequest("get", "events")
         );
-    }   
-    
+    }
+
     /**
      *  Fetch a specific event by event ID.
      *
