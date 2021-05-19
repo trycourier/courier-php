@@ -11,4 +11,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Bump version in `CourierClient`
 
 [unreleased]: https://github.com/trycourier/courier-node/compare/v1.1.0...HEAD
-[v1.0.0]: https://github.com/trycourier/courier-node/compare/v1.0.0...v1.1.0
+[v1.1.0]: https://github.com/trycourier/courier-node/compare/v1.0.0...v1.1.0
