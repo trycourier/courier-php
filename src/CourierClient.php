@@ -9,12 +9,12 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Shuttle\Shuttle;
 
-final class CourierClient
+final class CourierClient implements CourierClientInterface
 {
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.1.0';
+    private $version = '1.2.0';
 
     /**
      * Courier API base url.
@@ -110,7 +110,7 @@ final class CourierClient
      *
      * @return string
      */
-    public function getAuthorizationHeader(): string
+    protected function getAuthorizationHeader(): string
     {
         return $this->authorization['type'] . ' ' . $this->authorization['token'];
     }
