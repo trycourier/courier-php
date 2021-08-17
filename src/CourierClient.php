@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.2.0';
+    private $version = '1.2.1';
 
     /**
      * Courier API base url.
