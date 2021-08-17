@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.2.0';
+    private $version = '1.2.1';
 
     /**
      * Courier API base url.
@@ -133,7 +133,7 @@ final class CourierClient implements CourierClientInterface
      */
     private function getHttpClient(): ClientInterface
     {
-        if( empty($this->httpClient) ){
+        if (empty($this->httpClient)) {
             $this->httpClient = new Shuttle;
         }
 
@@ -152,12 +152,12 @@ final class CourierClient implements CourierClientInterface
     {
         $response = $this->getHttpClient()->sendRequest($request);
 
-        if( $response->getStatusCode() < 200 || $response->getStatusCode() >= 300 ){
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
             throw new CourierRequestException($response);
         }
 
         return \json_decode($response->getBody()->getContents());
-	}
+    }
 
     /**
      * Build a PSR-7 Request instance.
@@ -176,7 +176,7 @@ final class CourierClient implements CourierClientInterface
             [
                 "Authorization" => $this->getAuthorizationHeader(),
                 "Content-Type" => "application/json",
-                'User-Agent' => 'courier-php/'.$this->version
+                'User-Agent' => 'courier-php/' . $this->version
             ]
         );
     }
@@ -199,7 +199,7 @@ final class CourierClient implements CourierClientInterface
             [
                 "Authorization" => $this->getAuthorizationHeader(),
                 "Content-Type" => "application/json",
-                'User-Agent' => 'courier-php/'.$this->version,
+                'User-Agent' => 'courier-php/' . $this->version,
                 'Idempotency-Key' => $idempotency_key
             ]
         );
@@ -236,7 +236,7 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key)
-            : $this->buildRequest("post", "send", $params)
+                : $this->buildRequest("post", "send", $params)
         );
     }
 
@@ -273,7 +273,7 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key)
-            : $this->buildRequest("post", "send/list", $params)
+                : $this->buildRequest("post", "send/list", $params)
         );
     }
 
@@ -532,7 +532,7 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key)
-            : $this->buildRequest("post", "brands", $params)
+                : $this->buildRequest("post", "brands", $params)
         );
     }
 
@@ -754,5 +754,4 @@ final class CourierClient implements CourierClientInterface
             $this->buildRequest("put", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
         );
     }
-
 }
