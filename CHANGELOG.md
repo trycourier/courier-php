@@ -1,9 +1,14 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes to this project will be documented in this file. This
+project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+
+## [v1.2.1] - 2021-08-16
+
+- Loosen `CourierClientInterface` to allow for nullable parameters in
+  appropriate methods
 
 ## [v1.2.0] - 2021-08-16
 
