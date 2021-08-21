@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [v1.3.0] - 2021-08-19
+## [v1.3.0] - 2021-08-23
 
 - Add Notifications API
 
