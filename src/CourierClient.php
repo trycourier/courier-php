@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.2.1';
+    private $version = '1.3.0';
 
     /**
      * Courier API base url.
@@ -755,4 +755,145 @@ final class CourierClient implements CourierClientInterface
         );
     }
 
+    /**
+     *  List of notifications
+     * @param string|null $cursor
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function listNotifications(string $cursor = NULL): object
+    {
+        $query_params = array(
+            'cursor' => $cursor
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "notifications?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     *  Get notification content
+     *
+     * @param string $id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getNotificationContent(string $id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "notifications/" . $id . "/content")
+        );
+    }
+
+    /**
+     *  Get notification draft content
+     *
+     * @param string $id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getNotificationDraftContent(string $id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "notifications/" . $id . "/draft/content")
+        );
+    }
+
+    /**
+     * Post notification variations
+     *
+     * @param string $id
+     * @param array $blocks
+     * @param array|null $channels
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function postNotificationVariations(string $id, array $blocks, array $channels = NULL): object
+    {
+        $params = array(
+            'blocks' => $blocks,
+            'channels' => $channels
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "notifications/" . $id . "/variations", $params)
+        );
+    }
+
+    /**
+     * Post notification draft variations
+     *
+     * @param string $id
+     * @param array $blocks
+     * @param array|null $channels
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function postNotificationDraftVariations(string $id, array $blocks, array $channels = NULL): object
+    {
+        $params = array(
+            'blocks' => $blocks,
+            'channels' => $channels
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "notifications/" . $id . "/draft/variations", $params)
+        );
+    }
+
+    /**
+     *  Get notification submission checks
+     *
+     * @param string $id
+     * @param string $submissionId
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getNotificationSubmissionChecks(string $id, string $submissionId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "notifications/" . $id . "/" . $submissionId . "/checks")
+        );
+    }
+
+    /**
+     *  Put notification submission checks
+     *
+     * @param string $id
+     * @param string $submissionId
+     * @param array $checks
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object
+    {
+        $params = array(
+            'checks' => $checks
+        );
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/" . $submissionId . "/checks", $params)
+        );
+    }
+
+    /**
+     *  Cancel notification submission
+     *
+     * @param string $id
+     * @param string $submissionId
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function deleteNotificationSubmission(string $id, string $submissionId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("delete", "notifications/" . $id . "/" . $submissionId . "/checks")
+        );
+    }
 }

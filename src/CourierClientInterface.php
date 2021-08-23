@@ -36,4 +36,12 @@ interface CourierClientInterface
     public function getProfileLists(string $recipient_id, string $cursor = NULL): object;
     public function getPreferences(string $recipient_id, string $preferred_channel): object;
     public function updatePreferences(string $recipient_id, string $preferred_channel): object;
+    public function listNotifications(string $cursor = NULL): object;
+    public function getNotificationContent(string $id): object;
+    public function getNotificationDraftContent(string $id): object;
+    public function postNotificationVariations(string $id, array $blocks, array $channels = NULL): object;
+    public function postNotificationDraftVariations(string $id, array $blocks, array $channels = NULL): object;
+    public function getNotificationSubmissionChecks(string $id, string $submissionId): object;
+    public function putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object;
+    public function deleteNotificationSubmission(string $id, string $submissionId): object;
 }

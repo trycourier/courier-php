@@ -287,4 +287,93 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/profiles/recipient001/lists", $response->path);
     }
+
+    public function test_list_notifications()
+    {
+        $response = $this->getCourierClient()->listNotifications();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications", $response->path);
+    }
+
+    public function test_get_notification_content()
+    {
+        $response = $this->getCourierClient()->getNotificationContent("notification001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/content", $response->path);
+    }
+
+
+    public function test_get_notification_draft_content()
+    {
+        $response = $this->getCourierClient()->getNotificationDraftContent("notification001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/draft/content", $response->path);
+    }
+
+
+    public function test_post_notification_variations()
+    {
+        $block1 = (object) [];
+        $blocks = array($block1);
+
+        $channel1 = (object) [];
+        $channels = array($channel1);
+
+        $response = $this->getCourierClient()->postNotificationVariations("notification001", $blocks, $channels);
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/variations", $response->path);
+    }
+
+    public function test_post_notification_draft_variations()
+    {
+        $block1 = (object) [];
+        $blocks = array($block1);
+
+        $channel1 = (object) [];
+        $channels = array($channel1);
+
+        $response = $this->getCourierClient()->postNotificationDraftVariations("notification001", $blocks, $channels);
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/draft/variations", $response->path);
+    }
+
+    public function test_get_notification_submission_checks()
+    {
+        $response = $this->getCourierClient()->getNotificationSubmissionChecks("notification001", "submission001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/submission001/checks", $response->path);
+    }
+
+    public function test_put_notification_submission_checks()
+    {
+        $check1 = (object) ['id' => 'check1', 'status' => 'RESOLVED', 'type' => 'custom'];
+        $checks = array($check1);
+
+        $response = $this->getCourierClient()->putNotificationSubmissionChecks("notification001", "submission001", $checks);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/submission001/checks", $response->path);
+    }
+
+    public function test_cancel_notification_submission()
+    {
+        $response = $this->getCourierClient()->deleteNotificationSubmission("notification001", "submission001");
+
+        $this->assertEquals("DELETE", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/submission001/checks", $response->path);
+    }
 }
