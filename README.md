@@ -98,8 +98,8 @@ For a full description of request and response payloads and properties, please s
 
 ### Preferences API
 
-- `getPreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.trycourier.com/reference#get-preferencesrecipient_id)
-- `updatePreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.trycourier.com/reference#put-preferencesrecipient_id)
+- `getPreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.courier.com/reference#get-preferencesrecipient_id)
+- `updatePreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.courier.com/reference#put-preferencesrecipient_id)
 
 ### Notifications API
 
