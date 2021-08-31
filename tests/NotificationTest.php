@@ -317,7 +317,7 @@ class NotificationTest extends TestCase
     }
 
 
-    public function test_post_notification_variations()
+    public function test_post_notification_locales()
     {
         $block1 = (object) [];
         $blocks = array($block1);
@@ -325,14 +325,14 @@ class NotificationTest extends TestCase
         $channel1 = (object) [];
         $channels = array($channel1);
 
-        $response = $this->getCourierClient()->postNotificationVariations("notification001", $blocks, $channels);
+        $response = $this->getCourierClient()->postNotificationLocales("notification001", $blocks, $channels);
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/notifications/notification001/variations", $response->path);
+        $this->assertEquals("/notifications/notification001/locales", $response->path);
     }
 
-    public function test_post_notification_draft_variations()
+    public function test_post_notification_draft_locales()
     {
         $block1 = (object) [];
         $blocks = array($block1);
@@ -340,11 +340,77 @@ class NotificationTest extends TestCase
         $channel1 = (object) [];
         $channels = array($channel1);
 
-        $response = $this->getCourierClient()->postNotificationDraftVariations("notification001", $blocks, $channels);
+        $response = $this->getCourierClient()->postNotificationDraftLocales("notification001", $blocks, $channels);
 
         $this->assertEquals("POST", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/notifications/notification001/draft/variations", $response->path);
+        $this->assertEquals("/notifications/notification001/draft/locales", $response->path);
+    }
+
+    public function test_put_notification_block_locales()
+    {
+        $response = $this->getCourierClient()->putNotificationBlockLocales("notification001", "block001", (array) ['fr_FR' => 'French Text Block', 'it_IT' => 'Italian Text Block']);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/blocks/block001/locales", $response->path);
+    }
+
+    public function test_put_notification_draft_block_locales()
+    {
+        $response = $this->getCourierClient()->putNotificationDraftBlockLocales("notification001", "block001", (array) ['fr_FR' => 'French Text Block', 'it_IT' => 'Italian Text Block']);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/draft/blocks/block001/locales", $response->path);
+    }
+
+    public function test_put_notification_channel_locales()
+    {
+        $response = $this->getCourierClient()->putNotificationChannelLocales("notification001", "channel001", (array) ['fr_FR' => 'French Email Subject', 'it_IT' => 'Italian Email Subject']);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/channels/channel001/locales", $response->path);
+    }
+
+    public function test_put_notification_draft_channel_locales()
+    {
+        $response = $this->getCourierClient()->putNotificationDraftChannelLocales("notification001", "channel001", (array) ['fr_FR' => 'French Email Subject', 'it_IT' => 'Italian Email Subject']);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/draft/channels/channel001/locales", $response->path);
+    }
+
+    public function test_put_notification_locale()
+    {
+        $block1 = (object) [];
+        $blocks = array($block1);
+
+        $channel1 = (object) [];
+        $channels = array($channel1);
+
+        $response = $this->getCourierClient()->putNotificationLocale("notification001", "fr_FR", $blocks, $channels);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/locales/fr_FR", $response->path);
+    }
+
+    public function test_put_notification_draft_locale()
+    {
+        $block1 = (object) [];
+        $blocks = array($block1);
+
+        $channel1 = (object) [];
+        $channels = array($channel1);
+
+        $response = $this->getCourierClient()->putNotificationDraftLocale("notification001", "fr_FR", $blocks, $channels);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/notifications/notification001/draft/locales/fr_FR", $response->path);
     }
 
     public function test_get_notification_submission_checks()

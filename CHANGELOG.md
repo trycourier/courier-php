@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [v1.4.0] - 2021-09-01
+
+- Expose more endpoints in Notifications API
+
 ## [v1.3.0] - 2021-08-23
 
 - Add Notifications API
@@ -23,7 +27,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Rename src/laravel -> src/Laravel
 - Bump version in `CourierClient`
 
-[unreleased]: https://github.com/trycourier/courier-php/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/trycourier/courier-php/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/trycourier/courier-php/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/trycourier/courier-php/compare/v1.2.1...v1.3.0
 [v1.2.1]: https://github.com/trycourier/courier-php/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/trycourier/courier-php/compare/v1.1.0...v1.2.0

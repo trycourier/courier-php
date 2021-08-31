@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.3.0';
+    private $version = '1.4.0';
 
     /**
      * Courier API base url.
@@ -801,7 +801,7 @@ final class CourierClient implements CourierClientInterface
     }
 
     /**
-     * Post notification variations
+     * Post notification locales
      *
      * @param string $id
      * @param array $blocks
@@ -810,7 +810,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationVariations(string $id, array $blocks, array $channels = NULL): object
+    public function postNotificationLocales(string $id, array $blocks, array $channels = NULL): object
     {
         $params = array(
             'blocks' => $blocks,
@@ -820,12 +820,12 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "notifications/" . $id . "/variations", $params)
+            $this->buildRequest("post", "notifications/" . $id . "/locales", $params)
         );
     }
 
     /**
-     * Post notification draft variations
+     * Post notification draft locales
      *
      * @param string $id
      * @param array $blocks
@@ -834,7 +834,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationDraftVariations(string $id, array $blocks, array $channels = NULL): object
+    public function postNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object
     {
         $params = array(
             'blocks' => $blocks,
@@ -844,7 +844,125 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "notifications/" . $id . "/draft/variations", $params)
+            $this->buildRequest("post", "notifications/" . $id . "/draft/locales", $params)
+        );
+    }
+
+    /**
+     * Put notification block locales
+     *
+     * @param string $id
+     * @param string $blockId
+     * @param array $locales
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationBlockLocales(string $id, string $blockId, array $locales): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/blocks/". $blockId ."/locales", $locales)
+        );
+    }
+
+    /**
+     * Put notification draft block locales
+     *
+     * @param string $id
+     * @param string $blockId
+     * @param array $locales
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationDraftBlockLocales(string $id, string $blockId, array $locales): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/draft/blocks/". $blockId ."/locales", $locales)
+        );
+    }
+
+    /**
+     * Put notification channel locales
+     *
+     * @param string $id
+     * @param string $channelId
+     * @param array $locales
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationChannelLocales(string $id, string $channelId, array $locales): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/channels/". $channelId ."/locales", $locales)
+        );
+    }
+
+    /**
+     * Put notification draft channel locales
+     *
+     * @param string $id
+     * @param string $channelId
+     * @param array $locales
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationDraftChannelLocales(string $id, string $channelId, array $locales): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/draft/channels/". $channelId ."/locales", $locales)
+        );
+    }
+
+    /**
+     * Put notification locale
+     *
+     * @param string $id
+     * @param string $localeId
+     * @param array $blocks
+     * @param array|null $channels
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationLocale(string $id, string $localeId, array $blocks, array $channels = NULL): object
+    {
+        $params = array(
+            'blocks' => $blocks,
+            'channels' => $channels
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/locales/". $localeId, $params)
+        );
+    }
+
+    /**
+     * Put notification draft locale
+     *
+     * @param string $id
+     * @param string $localeId
+     * @param array $blocks
+     * @param array|null $channels
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function putNotificationDraftLocale(string $id, string $localeId, array $blocks, array $channels = NULL): object
+    {
+        $params = array(
+            'blocks' => $blocks,
+            'channels' => $channels
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("put", "notifications/" . $id . "/draft/locales/". $localeId, $params)
         );
     }
 
