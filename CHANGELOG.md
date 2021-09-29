@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Expose more endpoints in Notifications API
 - POST locales -> PUT locales
+- Modify the call so that the check ID is always the word “custom” for now
 
 ## [v1.3.0] - 2021-08-23
 

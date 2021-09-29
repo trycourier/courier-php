@@ -424,7 +424,7 @@ class NotificationTest extends TestCase
 
     public function test_put_notification_submission_checks()
     {
-        $check1 = (object) ['id' => 'check1', 'status' => 'RESOLVED', 'type' => 'custom'];
+        $check1 = (object) ['status' => 'RESOLVED'];
         $checks = array($check1);
 
         $response = $this->getCourierClient()->putNotificationSubmissionChecks("notification001", "submission001", $checks);
