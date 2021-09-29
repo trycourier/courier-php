@@ -317,7 +317,7 @@ class NotificationTest extends TestCase
     }
 
 
-    public function test_post_notification_locales()
+    public function test_put_notification_locales()
     {
         $block1 = (object) [];
         $blocks = array($block1);
@@ -325,14 +325,14 @@ class NotificationTest extends TestCase
         $channel1 = (object) [];
         $channels = array($channel1);
 
-        $response = $this->getCourierClient()->postNotificationLocales("notification001", $blocks, $channels);
+        $response = $this->getCourierClient()->putNotificationLocales("notification001", $blocks, $channels);
 
-        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/notifications/notification001/locales", $response->path);
     }
 
-    public function test_post_notification_draft_locales()
+    public function test_put_notification_draft_locales()
     {
         $block1 = (object) [];
         $blocks = array($block1);
@@ -340,9 +340,9 @@ class NotificationTest extends TestCase
         $channel1 = (object) [];
         $channels = array($channel1);
 
-        $response = $this->getCourierClient()->postNotificationDraftLocales("notification001", $blocks, $channels);
+        $response = $this->getCourierClient()->putNotificationDraftLocales("notification001", $blocks, $channels);
 
-        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/notifications/notification001/draft/locales", $response->path);
     }

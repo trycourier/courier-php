@@ -106,8 +106,8 @@ For a full description of request and response payloads and properties, please s
 - `listNotifications(string $cursor = NULL): object`
 - `getNotificationContent(string $id): object`
 - `getNotificationDraftContent(string $id): object`
-- `postNotificationLocales(string $id, array $blocks, array $channels = NULL): object`
-- `postNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object`
+- `putNotificationLocales(string $id, array $blocks, array $channels = NULL): object`
+- `putNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object`
 - `putNotificationBlockLocales(string $id, string $blockId, array $locales): object`
 - `putNotificationDraftBlockLocales(string $id, string $blockId, array $locales): object`
 - `putNotificationChannelLocales(string $id, string $channelId, array $locales): object`

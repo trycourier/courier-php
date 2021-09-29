@@ -810,7 +810,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationLocales(string $id, array $blocks, array $channels = NULL): object
+    public function putNotificationLocales(string $id, array $blocks, array $channels = NULL): object
     {
         $params = array(
             'blocks' => $blocks,
@@ -834,7 +834,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object
+    public function putNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object
     {
         $params = array(
             'blocks' => $blocks,

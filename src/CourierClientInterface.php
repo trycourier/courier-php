@@ -39,8 +39,8 @@ interface CourierClientInterface
     public function listNotifications(string $cursor = NULL): object;
     public function getNotificationContent(string $id): object;
     public function getNotificationDraftContent(string $id): object;
-    public function postNotificationLocales(string $id, array $blocks, array $channels = NULL): object;
-    public function postNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object;
+    public function putNotificationLocales(string $id, array $blocks, array $channels = NULL): object;
+    public function putNotificationDraftLocales(string $id, array $blocks, array $channels = NULL): object;
     public function putNotificationBlockLocales(string $id, string $blockId, array $locales): object;
     public function putNotificationDraftBlockLocales(string $id, string $blockId, array $locales): object;
     public function putNotificationChannelLocales(string $id, string $channelId, array $locales): object;
