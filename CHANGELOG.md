@@ -5,9 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [v1.4.0] - 2021-09-01
+## [v1.4.0] - 2021-09-29
 
 - Expose more endpoints in Notifications API
+- POST locales -> PUT locales
 
 ## [v1.3.0] - 2021-08-23
 
