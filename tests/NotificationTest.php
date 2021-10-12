@@ -395,4 +395,13 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/automations/automation001/invoke", $response->path);
     }
+
+    public function test_get_automation_run()
+    {
+        $response = $this->getCourierClient()->getAutomationRun("run001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/automations/runs/run001", $response->path);
+    }
 }

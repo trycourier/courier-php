@@ -955,4 +955,18 @@ final class CourierClient implements CourierClientInterface
             $this->buildRequest("post", "automations/" . $templateId . "/invoke", $params)
         );
     }
+
+    /**
+     *  Get an automation run
+     *
+     * @param string $runId A unique identifier representing the automation run.
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAutomationRun(string $runId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "automations/runs/" . $runId)
+        );
+    }
 }
