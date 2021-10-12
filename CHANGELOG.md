@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [v1.4.0] - 2021-08-23
+
+- Add Automations API
+
 ## [v1.3.0] - 2021-08-23
 
 - Add Notifications API
