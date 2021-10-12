@@ -44,4 +44,6 @@ interface CourierClientInterface
     public function getNotificationSubmissionChecks(string $id, string $submissionId): object;
     public function putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object;
     public function deleteNotificationSubmission(string $id, string $submissionId): object;
+    public function invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object;
+    public function invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object;
 }

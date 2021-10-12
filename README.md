@@ -10,6 +10,7 @@ Courier PHP SDK supporting:
 - Brands API
 - Lists API
 - Notifications API
+- Automations API
 
 ## Official Courier API docs
 
