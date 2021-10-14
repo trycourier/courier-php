@@ -896,4 +896,77 @@ final class CourierClient implements CourierClientInterface
             $this->buildRequest("delete", "notifications/" . $id . "/" . $submissionId . "/checks")
         );
     }
+
+    /**
+     *  Invoke an ad hoc automation run.
+     *
+     * @param object automation Automations object
+     * @param string|null $brand A unique identifier that represents the brand that should be used for rendering the notification
+     * @param string|null $template A unique identifier that can be mapped to an individual Notification
+     * @param string|null $recipient A unique identifier associated with the recipient of the delivered message
+     * @param object|null $data An object that includes any data you want to pass to a message template. The data will populate the corresponding template variables
+     * @param object|null $profile An object that includes any key-value pairs required by your chosen Integrations
+     * @return object { "runId": string }
+     * @throws CourierRequestException
+     */
+    public function invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object
+    {
+        $params = array(
+            'automation' => $automation,
+            'brand' => $brand,
+            'template' => $template,
+            'recipient' => $recipient,
+            'data' => $data,
+            'profile' => $profile
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "automations/invoke", $params)
+        );
+    }
+
+    /**
+     *  Invoke an automation run from an automation template.
+     *
+     * @param string templateId A unique identifier representing the automation template to be invoked.
+     * @param string|null $brand A unique identifier that represents the brand that should be used for rendering the notification
+     * @param object|null $data An object that includes any data you want to pass to a message template. The data will populate the corresponding template variables
+     * @param object|null $profile An object that includes any key-value pairs required by your chosen Integrations
+     * @param string|null $recipient A unique identifier associated with the recipient of the delivered message
+     * @param string|null $template A unique identifier that can be mapped to an individual Notification
+     * @return object { "runId": string }
+     * @throws CourierRequestException
+     */
+    public function invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object
+    {
+        $params = array(
+            'brand' => $brand,
+            'data' => $data,
+            'profile' => $profile,
+            'recipient' => $recipient,
+            'template' => $template
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "automations/" . $templateId . "/invoke", $params)
+        );
+    }
+
+    /**
+     *  Get an automation run
+     *
+     * @param string $runId A unique identifier representing the automation run.
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAutomationRun(string $runId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "automations/runs/" . $runId)
+        );
+    }
 }

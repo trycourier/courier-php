@@ -10,6 +10,7 @@ Courier PHP SDK supporting:
 - Brands API
 - Lists API
 - Notifications API
+- Automations API
 
 ## Official Courier API docs
 
@@ -112,6 +113,11 @@ For a full description of request and response payloads and properties, please s
 - `putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object`
 - `deleteNotificationSubmission(string $id, string $submissionId): object`
 
+### Automations API
+
+- `invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomation)
+- `invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomationtemplate)
+- `getAutomationRun(string $runId): object`
 ## Errors
 
-All unsuccessfull (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
+All unsuccessful (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
