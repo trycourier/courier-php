@@ -11,6 +11,7 @@ Courier PHP SDK supporting:
 - Lists API
 - Notifications API
 - Automations API
+- Bulk API
 
 ## Official Courier API docs
 
@@ -116,8 +117,17 @@ For a full description of request and response payloads and properties, please s
 ### Automations API
 
 - `invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomation)
-- `invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomationtemplate)
+- `invokeAutomationFromTemplate(string $templateId, string $brand = NULL, object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomationtemplate)
 - `getAutomationRun(string $runId): object`
+
+### Bulk API
+
+- `createBulkJob(object $message): object` [(Create Bulk Job)](https://www.courier.com/docs/reference/bulk/create-job/)
+- `ingestBulkJob(string $jobId, array $users): object` [(Ingest Bulk Job Users)](https://www.courier.com/docs/reference/bulk/ingest-users/)
+- `runBulkJob(string $jobId): object` [(Run Bulk Job)](https://www.courier.com/docs/reference/bulk/run-job/)
+- `getBulkJob(string $jobId): object` [(Get Bulk Job)](https://www.courier.com/docs/reference/bulk/get-job/)
+- `getBulkJobUsers(string $jobId): object` [(Get Bulk Job Users)](https://www.courier.com/docs/reference/bulk/get-users/)
+
 ## Errors
 
 All unsuccessful (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
