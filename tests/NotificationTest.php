@@ -404,4 +404,52 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/automations/runs/run001", $response->path);
     }
+
+    public function test_create_bulk_job()
+    {
+        $message = (object) [];
+        $response = $this->getCourierClient()->createBulkJob($message);
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/bulk", $response->path);
+    }
+
+    public function test_ingest_bulk_job()
+    {
+        $user1 = (object) ['foo' => 'bar'];
+        $users = array($user1);
+        $response = $this->getCourierClient()->ingestBulkJob("job001", $users);
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/bulk/job001", $response->path);
+    }
+
+    public function test_run_bulk_job()
+    {
+        $response = $this->getCourierClient()->runBulkJob("job001");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/bulk/job001/run", $response->path);
+    }
+
+    public function test_get_bulk_job()
+    {
+        $response = $this->getCourierClient()->getBulkJob("job001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/bulk/job001", $response->path);
+    }
+
+    public function test_get_bulk_job_users()
+    {
+        $response = $this->getCourierClient()->getBulkJobUsers("job001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/bulk/job001/users", $response->path);
+    }
 }

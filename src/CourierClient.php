@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.3.0';
+    private $version = '1.5.0';
 
     /**
      * Courier API base url.
@@ -967,6 +967,89 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("get", "automations/runs/" . $runId)
+        );
+    }
+
+    /**
+     *  Create a bulk job
+     *
+     * @param object message Bulk job message input object
+     * @return object { "jobId": string }
+     * @throws CourierRequestException
+     */
+    public function createBulkJob(object $message): object
+    {
+        $params = array(
+            'message' => $message
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "bulk", $params)
+        );
+    }
+
+    /**
+     *  Ingest into a bulk job (for now, only users)
+     *
+     * @param string jobId Bulk job id
+     * @param array users Users to be ingested into the Bulk job
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function ingestBulkJob(string $jobId, array $users): object
+    {
+        $params = array(
+            'users' => $users
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("post", "bulk/" . $jobId, $params)
+        );
+    }
+
+    /**
+     *  Run a bulk job
+     *
+     * @param string jobId Bulk job id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function runBulkJob(string $jobId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("post", "bulk/" . $jobId . "/run")
+        );
+    }
+
+    /**
+     *  Get bulk job
+     *
+     * @param string jobId Bulk job id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getBulkJob(string $jobId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "bulk/" . $jobId)
+        );
+    }
+
+    /**
+     *  Get bulk job users
+     *
+     * @param string jobId Bulk job id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getBulkJobUsers(string $jobId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "bulk/" . $jobId . "/users")
         );
     }
 }

@@ -47,4 +47,9 @@ interface CourierClientInterface
     public function invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object;
     public function invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object;
     public function getAutomationRun(string $runId): object;
+    public function createBulkJob(object $message): object;
+    public function ingestBulkJob(string $job_id, array $users): object;
+    public function runBulkJob(string $job_id): object;
+    public function getBulkJob(string $job_id): object;
+    public function getBulkJobUsers(string $job_id): object;
 }
