@@ -176,10 +176,10 @@ final class CourierClient implements CourierClientInterface
      * @param string $method
      * @param string $path
      * @param array $params
-     * @param string|null $idempotency_key
+     * @param string $idempotency_key
      * @return RequestInterface
      */
-    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = null): RequestInterface
+    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = ''): RequestInterface
     {
         return Psr17FactoryDiscovery::findRequestFactory()
             ->createRequest($method, $this->base_url . $path)
