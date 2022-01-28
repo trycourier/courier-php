@@ -3,27 +3,19 @@
 namespace Courier\Laravel\Providers;
 
 use Courier\CourierClient;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class CourierServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
-
         $this->app->bind('courier', function () {
-
-            $courier_base_url = config('services.courier.base_url');
-            $courier_auth_token = config('services.courier.auth_token');
-            $courier_username = config('services.courier.username');
-            $courier_password = config('services.courier.password');
-
-            $client = new CourierClient($courier_base_url, $courier_auth_token, $courier_username, $courier_password);
-
-            return $client;
-
+            return new CourierClient(
+                Config::get('services.courier.base_url'),
+                Config::get('services.courier.auth_token'),
+                Config::get('services.courier.username'),
+                Config::get('services.courier.password'));
         });
-
     }
-
 }
