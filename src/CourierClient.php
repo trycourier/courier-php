@@ -189,13 +189,18 @@ final class CourierClient implements CourierClientInterface
      */
     private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = NULL): RequestInterface
     {
-        return Psr17FactoryDiscovery::findRequestFactory()
-            ->createRequest($method, $this->base_url . $path)
-            ->withHeader("Authorization", $this->getAuthorizationHeader())
-            ->withHeader("Content-Type", "application/json")
-            ->withHeader("User-Agent", "courier-php/$this->version")
-            ->withHeader("Idempotency-Key", $idempotency_key)
-            ->withBody(StreamFactoryDiscovery::find()->createStream(json_encode($params)));
+        return MessageFactoryDiscovery::find()
+            ->createRequest(
+                $method,
+                $this->base_url . $path,
+                [
+                    "Authorization" => $this->getAuthorizationHeader(),
+                    "Content-Type" => "application/json",
+                    "User-Agent" => "courier-php/$this->version",
+                    "Idempotency-Key" => $idempotency_key
+                ],
+                json_encode($params)
+            );
     }
 
     /**
