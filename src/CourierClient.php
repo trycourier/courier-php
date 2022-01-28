@@ -66,41 +66,37 @@ final class CourierClient implements CourierClientInterface
      * @param string|null $username
      * @param string|null $password
      */
-    public function __construct(string $base_url = NULL, string $auth_token = NULL, string $username = NULL, string $password = NULL)
+    public function __construct(string $base_url = null, string $auth_token = null, string $username = null, string $password = null)
     {
         # Override base_url if passed as a param or set as an environment variable
-        if ($base_url) {
-            $this->base_url = $base_url;
-        } else if (getenv('COURIER_BASE_URL')) {
-            $this->base_url = getenv('COURIER_BASE_URL');
-        }
+        $this->base_url = $base_url ?: getenv('COURIER_BASE_URL') ?:  $this->base_url;
 
         # Token Auth takes precedence; If no token auth, then Basic Auth
         if ($auth_token) {
             $this->auth_token = $auth_token;
             $this->authorization = [
                 'type' => 'Bearer',
-                'token' => $auth_token,
+                'token' => $this->auth_token,
             ];
         } else if (getenv('COURIER_AUTH_TOKEN')) {
-            $this->auth_token = getenv('COURIER_AUTH_TOKEN');
+            $this->auth_token = getenv('COURIER_AUTH_TOKEN') ?: '';
             $this->authorization = [
                 'type' => 'Bearer',
-                'token' => getenv('COURIER_AUTH_TOKEN'),
+                'token' => $this->auth_token,
             ];
         } else if ($username and $password) {
             $this->username = $username;
             $this->password = $password;
             $this->authorization = [
                 'type' => 'Basic',
-                'token' => base64_encode($username . ':' . $password),
+                'token' => base64_encode("$this->username:$this->password"),
             ];
         } else if (getenv('COURIER_AUTH_USERNAME') and getenv('COURIER_AUTH_PASSWORD')) {
-            $this->username = getenv('COURIER_AUTH_USERNAME');
-            $this->password = getenv('COURIER_AUTH_PASSWORD');
+            $this->username = getenv('COURIER_AUTH_USERNAME') ?: '';
+            $this->password = getenv('COURIER_AUTH_PASSWORD') ?: '';
             $this->authorization = [
                 'type' => 'Basic',
-                'token' => base64_encode(getenv('COURIER_AUTH_USERNAME') . ':' . getenv('COURIER_AUTH_PASSWORD')),
+                'token' => base64_encode("$this->username:$this->password"),
             ];
         }
     }
@@ -190,7 +186,7 @@ final class CourierClient implements CourierClientInterface
      * @param string|null $idempotency_key
      * @return RequestInterface|Request
      */
-    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = NULL): RequestInterface
+    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = null): RequestInterface
     {
         return new Request(
             $method,
@@ -200,7 +196,7 @@ final class CourierClient implements CourierClientInterface
                 "Authorization" => $this->getAuthorizationHeader(),
                 "Content-Type" => "application/json",
                 'User-Agent' => 'courier-php/'.$this->version,
-                'Idempotency-Key' => $idempotency_key
+                'Idempotency-Key' => $idempotency_key ?: '',
             ]
         );
     }
@@ -220,7 +216,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object
+    public function sendNotification(string $event, string $recipient, string $brand = null, object $profile = null, object $data = null, object $preferences = null, object $override = null, string $idempotency_key = null): object
     {
         $params = array(
             'event' => $event,
@@ -254,10 +250,10 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object
+    public function sendNotificationToList(string $event, string $list = null, string $pattern = null, string $brand = null, object $data = null, object $override = null, string $idempotency_key = null): object
     {
         if ((!$list and !$pattern) or ($list and $pattern)) {
-            throw new CourierRequestException("list.send requires a list id or a pattern");
+            throw new CourierException("list.send requires a list id or a pattern");
         }
 
         $params = array(
@@ -289,7 +285,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getMessages(string $cursor = NULL, string $event = NULL, string $list = NULL, string $message_id = NULL, string $notification = NULL, string $recipient = NULL): object
+    public function getMessages(string $cursor = null, string $event = null, string $list = null, string $message_id = null, string $notification = null, string $recipient = null): object
     {
         $query_params = array(
             'cursor' => $cursor,
@@ -301,7 +297,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "messages?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("get", "messages?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -327,7 +323,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getMessageHistory(string $message_id, string $type = NULL): object
+    public function getMessageHistory(string $message_id, string $type = null): object
     {
         $path = "messages/" . $message_id . "/history";
 
@@ -347,7 +343,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getLists(string $cursor = NULL, string $pattern = NULL): object
+    public function getLists(string $cursor = null, string $pattern = null): object
     {
         $query_params = array(
             'cursor' => $cursor,
@@ -355,7 +351,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "lists?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("get", "lists?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -428,7 +424,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getListSubscriptions(string $list_id, string $cursor = NULL): object
+    public function getListSubscriptions(string $list_id, string $cursor = null): object
     {
         $path = "lists/" . $list_id . "/subscriptions";
 
@@ -496,14 +492,14 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getBrands(string $cursor = NULL): object
+    public function getBrands(string $cursor = null): object
     {
         $query_params = array(
             'cursor' => $cursor
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "brands?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("get", "brands?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -519,7 +515,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function createBrand(string $id = NULL, string $name, object $settings, object $snippets = NULL, string $idempotency_key = NULL): object
+    public function createBrand(string $id = null, string $name, object $settings, object $snippets = null, string $idempotency_key = null): object
     {
         $params = array(
             'id' => $id,
@@ -560,7 +556,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function replaceBrand(string $brand_id, string $name, object $settings, object $snippets = NULL): object
+    public function replaceBrand(string $brand_id, string $name, object $settings, object $snippets = null): object
     {
         $params = array(
             'name' => $name,
@@ -659,7 +655,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function upsertProfile(string $recipient_id, object $profile = NULL): object
+    public function upsertProfile(string $recipient_id, object $profile = null): object
     {
         return $this->doRequest(
             $this->buildRequest("post", "profiles/" . $recipient_id, array('profile' => $profile))
@@ -691,7 +687,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function replaceProfile(string $recipient_id, object $profile = NULL): object
+    public function replaceProfile(string $recipient_id, object $profile = null): object
     {
         return $this->doRequest(
             $this->buildRequest("put", "profiles/" . $recipient_id, array('profile' => $profile))
@@ -706,7 +702,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getProfileLists(string $recipient_id, string $cursor = NULL): object
+    public function getProfileLists(string $recipient_id, string $cursor = null): object
     {
         $path = "profiles/" . $recipient_id . "/lists";
 
@@ -761,14 +757,14 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function listNotifications(string $cursor = NULL): object
+    public function listNotifications(string $cursor = null): object
     {
         $query_params = array(
             'cursor' => $cursor
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "notifications?" . http_build_query($query_params, null, '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("get", "notifications?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -810,7 +806,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationVariations(string $id, array $blocks, array $channels = NULL): object
+    public function postNotificationVariations(string $id, array $blocks, array $channels = null): object
     {
         $params = array(
             'blocks' => $blocks,
@@ -834,7 +830,7 @@ final class CourierClient implements CourierClientInterface
      * @throws CourierRequestException
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function postNotificationDraftVariations(string $id, array $blocks, array $channels = NULL): object
+    public function postNotificationDraftVariations(string $id, array $blocks, array $channels = null): object
     {
         $params = array(
             'blocks' => $blocks,
@@ -856,10 +852,10 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getNotificationSubmissionChecks(string $id, string $submissionId): object
+    public function getNotificationSubmissionChecks(string $id, string $submission_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "notifications/" . $id . "/" . $submissionId . "/checks")
+            $this->buildRequest("get", "notifications/" . $id . "/" . $submission_id . "/checks")
         );
     }
 
@@ -872,13 +868,13 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object
+    public function putNotificationSubmissionChecks(string $id, string $submission_id, array $checks): object
     {
         $params = array(
             'checks' => $checks
         );
         return $this->doRequest(
-            $this->buildRequest("put", "notifications/" . $id . "/" . $submissionId . "/checks", $params)
+            $this->buildRequest("put", "notifications/" . $id . "/" . $submission_id . "/checks", $params)
         );
     }
 
@@ -890,10 +886,10 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function deleteNotificationSubmission(string $id, string $submissionId): object
+    public function deleteNotificationSubmission(string $id, string $submission_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "notifications/" . $id . "/" . $submissionId . "/checks")
+            $this->buildRequest("delete", "notifications/" . $id . "/" . $submission_id . "/checks")
         );
     }
 
@@ -909,7 +905,7 @@ final class CourierClient implements CourierClientInterface
      * @return object { "runId": string }
      * @throws CourierRequestException
      */
-    public function invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object
+    public function invokeAutomation(object $automation, string $brand = null, string $template = null, string $recipient = null, object $data = null, object $profile = null): object
     {
         $params = array(
             'automation' => $automation,
@@ -939,7 +935,7 @@ final class CourierClient implements CourierClientInterface
      * @return object { "runId": string }
      * @throws CourierRequestException
      */
-    public function invokeAutomationFromTemplate(string $templateId, string $brand = NULL,  object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object
+    public function invokeAutomationFromTemplate(string $template_id, string $brand = null,  object $data = null, object $profile = null, string $recipient = null, string $template = null): object
     {
         $params = array(
             'brand' => $brand,
@@ -952,7 +948,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "automations/" . $templateId . "/invoke", $params)
+            $this->buildRequest("post", "automations/" . $template_id . "/invoke", $params)
         );
     }
 
@@ -963,10 +959,10 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function getAutomationRun(string $runId): object
+    public function getAutomationRun(string $run_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "automations/runs/" . $runId)
+            $this->buildRequest("get", "automations/runs/" . $run_id)
         );
     }
 
@@ -998,7 +994,7 @@ final class CourierClient implements CourierClientInterface
      * @return object
      * @throws CourierRequestException
      */
-    public function ingestBulkJob(string $jobId, array $users): object
+    public function ingestBulkJob(string $job_id, array $users): object
     {
         $params = array(
             'users' => $users
@@ -1007,7 +1003,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "bulk/" . $jobId, $params)
+            $this->buildRequest("post", "bulk/" . $job_id, $params)
         );
     }
 
