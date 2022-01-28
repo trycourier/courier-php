@@ -2,6 +2,7 @@
 
 namespace Courier;
 
+use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
@@ -164,12 +165,17 @@ final class CourierClient implements CourierClientInterface
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
     {
-        return Psr17FactoryDiscovery::findRequestFactory()
-            ->createRequest($method, $this->base_url . $path)
-            ->withHeader("Authorization", $this->getAuthorizationHeader())
-            ->withHeader("Content-Type", "application/json")
-            ->withHeader("User-Agent", "courier-php/$this->version")
-            ->withBody(StreamFactoryDiscovery::find()->createStream(json_encode($params)));
+        return MessageFactoryDiscovery::find()
+            ->createRequest(
+                $method,
+                $this->base_url . $path,
+                [
+                    "Authorization" => $this->getAuthorizationHeader(),
+                    "Content-Type" => "application/json",
+                    "User-Agent" => "courier-php/$this->version",
+                ],
+                json_encode($params)
+            );
     }
 
     /**
