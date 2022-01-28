@@ -30,7 +30,7 @@
         "php-coveralls/php-coveralls": "^2.1",
         "php-http/mock-client": "^1.0",
         "php-http/message": "^1.0",
-        "guzzlehttp/psr7": "^1.0",
+        "guzzlehttp/psr7": "^2.1",
         "illuminate/support": ">=6.0"
     },
     "autoload": {
