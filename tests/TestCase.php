@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psr\Http\Message\RequestInterface;
 use Courier\CourierClient;
 
-
 abstract class TestCase extends PHPUnitTestCase
 {
     protected function getCourierClient(): CourierClient
