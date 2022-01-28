@@ -2,11 +2,11 @@
 
 namespace Courier\Tests;
 
-use Capsule\Request;
-use Capsule\Response;
+use GuzzleHttp\Psr7\Response;
+use Http\Message\RequestMatcher;
+use Http\Mock\Client;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-use Shuttle\Handler\MockHandler;
-use Shuttle\Shuttle;
+use Psr\Http\Message\RequestInterface;
 use Courier\CourierClient;
 
 
@@ -14,29 +14,29 @@ abstract class TestCase extends PHPUnitTestCase
 {
     protected function getCourierClient(): CourierClient
     {
-        $httpClient = new Shuttle([
-            'handler' => new MockHandler([
-                function(Request $request) {
+        $alwaysMatcher = new class implements RequestMatcher {
+            public function matches(RequestInterface $request)
+            {
+                return true;
+            }
+        };
 
-                    $requestParams = [
-                        "method" => $request->getMethod(),
-                        "authorization" => $request->getHeaderLine("Authorization"),
-                        "content" => $request->getHeaderLine("Content-Type"),
-                        "scheme" => $request->getUri()->getScheme(),
-                        "host" => $request->getUri()->getHost(),
-                        "path" => $request->getUri()->getPath(),
-                        "params" => \json_decode($request->getBody()->getContents()),
-                    ];
-
-                    return new Response(200, \json_encode($requestParams));
-
-                }
-            ])
-        ]);
+        $httpClient = new Client();
+        $httpClient->on($alwaysMatcher, function (RequestInterface $request) {
+            return new Response(200, [], json_encode([
+                "method" => $request->getMethod(),
+                "authorization" => $request->getHeaderLine("Authorization"),
+                "content" => $request->getHeaderLine("Content-Type"),
+                "scheme" => $request->getUri()->getScheme(),
+                "host" => $request->getUri()->getHost(),
+                "path" => $request->getUri()->getPath(),
+                "params" => \json_decode($request->getBody()->getContents()),
+            ]));
+        });
     
-        $Courier = new CourierClient(null, "auth_token");
-        $Courier->setHttpClient($httpClient);
+        $courier = new CourierClient(null, "auth_token");
+        $courier->setHttpClient($httpClient);
 
-        return $Courier;
+        return $courier;
     }
 }
