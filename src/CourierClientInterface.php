@@ -8,6 +8,7 @@ interface CourierClientInterface
 {
     public function setHttpClient(ClientInterface $clientInterface): void;
     public function sendNotification(string $event, string $recipient, string $brand = null, object $profile = null, object $data = null, object $preferences = null, object $override = null, string $idempotency_key = null): object;
+    public function sendEnhancedNotification(object $message, string $idempotency_key = null): object;
     public function sendNotificationToList(string $event, string $list = null, string $pattern = null, string $brand = null, object $data = null, object $override = null, string $idempotency_key = null): object;
     public function getMessages(string $cursor = null, string $event = null, string $list = null, string $message_id = null, string $notification = null, string $recipient = null): object;
     public function getMessage(string $message_id): object;

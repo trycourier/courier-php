@@ -14,7 +14,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.5.0';
+    private $version = '1.6.0';
 
     /**
      * Courier API base url.
@@ -226,6 +226,29 @@ final class CourierClient implements CourierClientInterface
             'data' => $data,
             'preferences' => $preferences,
             'override' => $override
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key)
+            : $this->buildRequest("post", "send", $params)
+        );
+    }
+
+    /**
+     * Send an enhanced notification
+     *
+     * @param object $message
+     * @param string|null $idempotency_key
+     * @return object
+     * @throws CourierRequestException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function sendEnhancedNotification(object $message, string $idempotency_key = null): object
+    {
+        $params = array(
+            'message' => $message
         );
 
         $params = array_filter($params);

@@ -55,8 +55,9 @@ For a full description of request and response payloads and properties, please s
 
 ### Send API
 
-- `sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object` [[?]](https://docs.courier.com/reference/send-api#sendmessage)
-- `sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object` [[?]](https://docs.courier.com/reference/send-api#sendlist)
+- `sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object` [(Send API)](https://www.courier.com/docs/reference/send/message/)
+- `sendEnhancedNotification(object $message, string $idempotency_key = NULL): object` [(Send API)](https://www.courier.com/docs/reference/send/message/)
+- `sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object` [(Send list API)](https://www.courier.com/docs/reference/send/list/)
 
 ### Messages API
 
