@@ -25,14 +25,14 @@ For a full description of request and response payloads and properties, please s
 ## Installation
 
 This library uses [HTTPlug](https://github.com/php-http/httplug) as HTTP client. HTTPlug is an abstraction that allows
-this library to support different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP
+this library to support different HTTP Clients. Therefore, you need to provide it with an client and/or adapter for the HTTP
 library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation).
-This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
+This documentation assumes you use the Guzzle Client, but you can replace it with any client that you prefer.
 
 The recommended way to install courier-php is through Composer:
 
 ```bash
-composer require trycourier/courier php-http/guzzle6-adapter
+composer require trycourier/courier guzzlehttp/guzzle
 ```
 
 ## Configuration
