@@ -2,12 +2,11 @@
 
 namespace Courier\Tests;
 
-use Capsule\Request;
-use Capsule\Response;
-use Shuttle\Handler\MockHandler;
-use Shuttle\Shuttle;
+use GuzzleHttp\Psr7\Response;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Strategy\MockClientStrategy;
+use Http\Mock\Client;
 use Courier\CourierClient;
-use Courier\CourierException;
 use Courier\CourierRequestException;
 
 /**
@@ -17,27 +16,17 @@ use Courier\CourierRequestException;
  */
 class CourierClientTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
+    }
+
     public function test_1xx_responses_throw_exception()
     {
-        $httpClient = new Shuttle([
-            'handler' => new MockHandler([
-                function(Request $request) {
-
-                    $requestParams = [
-                        "method" => $request->getMethod(),
-                        "authorization" => $request->getHeaderLine("Authorization"),
-                        "content" => $request->getHeaderLine("Content-Type"),
-                        "scheme" => $request->getUri()->getScheme(),
-                        "host" => $request->getUri()->getHost(),
-                        "path" => $request->getUri()->getPath(),
-                        "params" => \json_decode($request->getBody()->getContents()),
-                    ];
-
-                    return new Response(100, \json_encode($requestParams));
-
-                }
-            ])
-        ]);
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(100, [], "{}")
+        );
 
         $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
@@ -48,19 +37,10 @@ class CourierClientTest extends TestCase
 
     public function test_3xx_responses_and_above_throw_exception()
     {
-        $httpClient = new Shuttle([
-            'handler' => new MockHandler([
-                function(Request $request) {
-
-                    $requestParams = [
-                        "display_message" => "PLAID_ERROR",
-                    ];
-
-                    return new Response(300, \json_encode($requestParams));
-
-                }
-            ])
-        ]);
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(300, [], json_encode(["display_message" => "PLAID_ERROR"]))
+        );
 
         $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
@@ -71,19 +51,10 @@ class CourierClientTest extends TestCase
 
     public function test_request_exception_passes_through_courier_display_message()
     {
-        $httpClient = new Shuttle([
-            'handler' => new MockHandler([
-                function(Request $request) {
-
-                    $requestParams = [
-                        "display_message" => "DISPLAY MESSAGE",
-                    ];
-
-                    return new Response(300, \json_encode($requestParams));
-
-                }
-            ])
-        ]);
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(300, [], json_encode(["display_message" => "DISPLAY MESSAGE"]))
+        );
 
         $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
@@ -100,19 +71,10 @@ class CourierClientTest extends TestCase
 
     public function test_request_exception_passes_through_http_status_code()
     {
-        $httpClient = new Shuttle([
-            'handler' => new MockHandler([
-                function(Request $request) {
-
-                    $requestParams = [
-                        "display_message" => "DISPLAY MESSAGE",
-                    ];
-
-                    return new Response(300, \json_encode($requestParams));
-
-                }
-            ])
-        ]);
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(300, [], json_encode(["display_message" => "DISPLAY MESSAGE"]))
+        );
 
         $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
@@ -129,7 +91,7 @@ class CourierClientTest extends TestCase
 
     public function test_setting_http_client()
     {
-        $httpClient = new Shuttle;
+        $httpClient = new Client();
 
         $courier = new CourierClient(null, "auth_token");
         $courier->setHttpClient($httpClient);
@@ -144,8 +106,6 @@ class CourierClientTest extends TestCase
 
     public function test_getting_http_client_creates_default_client_if_none_set()
     {
-        $httpClient = new Shuttle;
-
         $courier = new CourierClient(null, "auth_token");
 
         $reflection = new \ReflectionClass($courier);
@@ -153,6 +113,6 @@ class CourierClientTest extends TestCase
         $method = $reflection->getMethod('getHttpClient');
         $method->setAccessible(true);
 
-        $this->assertTrue($method->invoke($courier) instanceof Shuttle);
+        $this->assertTrue($method->invoke($courier) instanceof Client);
     }
 }

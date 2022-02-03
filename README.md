@@ -20,18 +20,24 @@ For a full description of request and response payloads and properties, please s
 ## Requirements
 
 - PHP 7.2+
-- ext-curl
 - ext-json
 
 ## Installation
 
+This library uses [HTTPlug](https://github.com/php-http/httplug) as HTTP client. HTTPlug is an abstraction that allows
+this library to support different HTTP Clients. Therefore, you need to provide it with an client and/or adapter for the HTTP
+library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation).
+This documentation assumes you use the Guzzle Client, but you can replace it with any client that you prefer.
+
+The recommended way to install courier-php is through Composer:
+
 ```bash
-composer require trycourier/courier
+composer require trycourier/courier guzzlehttp/guzzle
 ```
 
 ## Configuration
 
-Instantiate the Courier client class with your authorization token OR username and password. Providing just a authorization token will generate a "Bearer" authorization header, while providing a username and password will generate a "Basic" (base64-encoded) authorization header
+Instantiate the Courier client class with your authorization token OR username and password. Providing just an authorization token will generate a "Bearer" authorization header, while providing a username and password will generate a "Basic" (base64-encoded) authorization header
 
 ```php
 $client = new CourierClient("base-url", "authorization-token", "username", "password");
@@ -39,7 +45,7 @@ $client = new CourierClient("base-url", "authorization-token", "username", "pass
 
 ### Options
 
-Many methods allow the passing of optional data to the Courier endoint. This data should be an associative array of key/value pairs. The exact options supported are dependent on the endpoint being called. Please refer to the official Courier documentation for more information.
+Many methods allow the passing of optional data to the Courier endpoints. This data should be an associative array of key/value pairs. The exact options supported are dependent on the endpoint being called. Please refer to the official Courier documentation for more information.
 
 ```php
 $profile = [

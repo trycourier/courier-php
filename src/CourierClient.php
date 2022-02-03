@@ -2,12 +2,10 @@
 
 namespace Courier;
 
-use Capsule\Request;
-use DateTime;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Shuttle\Shuttle;
 
 final class CourierClient implements CourierClientInterface
 {
@@ -129,11 +127,7 @@ final class CourierClient implements CourierClientInterface
      */
     private function getHttpClient(): ClientInterface
     {
-        if( empty($this->httpClient) ){
-            $this->httpClient = new Shuttle;
-        }
-
-        return $this->httpClient;
+        return $this->httpClient ?: Psr18ClientDiscovery::find();
     }
 
     /**
@@ -161,20 +155,19 @@ final class CourierClient implements CourierClientInterface
      * @param string $method
      * @param string $path
      * @param array $params
-     * @return RequestInterface|Request
+     * @return RequestInterface
      */
     private function buildRequest(string $method, string $path, array $params = []): RequestInterface
     {
-        return new Request(
-            $method,
-            $this->base_url . $path,
-            \json_encode($params),
-            [
-                "Authorization" => $this->getAuthorizationHeader(),
-                "Content-Type" => "application/json",
-                'User-Agent' => 'courier-php/'.$this->version
-            ]
-        );
+        return Psr17FactoryDiscovery::findRequestFactory()
+            ->createRequest($method, $this->base_url . $path)
+            ->withHeader("Authorization", $this->getAuthorizationHeader())
+            ->withHeader("Content-Type", "application/json")
+            ->withHeader("User-Agent", "courier-php/$this->version")
+            ->withBody(
+                Psr17FactoryDiscovery::findStreamFactory()
+                    ->createStream(json_encode($params))
+            );
     }
 
     /**
@@ -183,22 +176,21 @@ final class CourierClient implements CourierClientInterface
      * @param string $method
      * @param string $path
      * @param array $params
-     * @param string|null $idempotency_key
-     * @return RequestInterface|Request
+     * @param string $idempotency_key
+     * @return RequestInterface
      */
-    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = null): RequestInterface
+    private function buildIdempotentRequest(string $method, string $path, array $params = [], string $idempotency_key = ''): RequestInterface
     {
-        return new Request(
-            $method,
-            $this->base_url . $path,
-            \json_encode($params),
-            [
-                "Authorization" => $this->getAuthorizationHeader(),
-                "Content-Type" => "application/json",
-                'User-Agent' => 'courier-php/'.$this->version,
-                'Idempotency-Key' => $idempotency_key ?: '',
-            ]
-        );
+        return Psr17FactoryDiscovery::findRequestFactory()
+            ->createRequest($method, $this->base_url . $path)
+            ->withHeader("Authorization", $this->getAuthorizationHeader())
+            ->withHeader("Content-Type", "application/json")
+            ->withHeader("User-Agent", "courier-php/$this->version")
+            ->withHeader("Idempotency-Key", $idempotency_key)
+            ->withBody(
+                Psr17FactoryDiscovery::findStreamFactory()
+                    ->createStream(json_encode($params))
+            );
     }
 
     /**

@@ -2,11 +2,19 @@
 
 namespace Courier\Tests;
 
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Strategy\MockClientStrategy;
+
 /**
  * @covers Courier\CourierClient
  */
 class NotificationTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
+    }
+
     public function test_send_notification()
     {
         $response = $this->getCourierClient()->sendNotification("event", "recipient");
