@@ -15,7 +15,7 @@
     ],
     "type": "library",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-json": "*",
         "psr/http-message": "^1.0",
         "psr/http-client-implementation": "^1.0",
