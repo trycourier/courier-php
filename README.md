@@ -12,6 +12,7 @@ Courier PHP SDK supporting:
 - Notifications API
 - Automations API
 - Bulk API
+- Audiences API
 
 ## Official Courier API docs
 
@@ -134,6 +135,13 @@ For a full description of request and response payloads and properties, please s
 - `runBulkJob(string $jobId): object` [(Run Bulk Job)](https://www.courier.com/docs/reference/bulk/run-job/)
 - `getBulkJob(string $jobId): object` [(Get Bulk Job)](https://www.courier.com/docs/reference/bulk/get-job/)
 - `getBulkJobUsers(string $jobId): object` [(Get Bulk Job Users)](https://www.courier.com/docs/reference/bulk/get-users/)
+
+### Audiences API
+
+- `putAudience(object $audience): object` [(Create Audience)](https://www.courier.com/docs/reference/audiences/put-audience/)
+- `getAudience(string $audienceId): object` [(Get Audience)](https://www.courier.com/docs/reference/audiences/get-audience/)
+- `getAudienceMembers(string $audienceId): object` [(List audience members)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
+- `getAudiences(): object` [(List audiences)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
 
 ## Errors
 

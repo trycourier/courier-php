@@ -53,4 +53,8 @@ interface CourierClientInterface
     public function runBulkJob(string $job_id): object;
     public function getBulkJob(string $job_id): object;
     public function getBulkJobUsers(string $job_id): object;
+    public function putAudience(string $audienceId, object $audience): object;
+    public function getAudience(string $audienceId): object;
+    public function getAudienceMembers(string $audienceId): object;
+    public function getAudiences(): object;
 }

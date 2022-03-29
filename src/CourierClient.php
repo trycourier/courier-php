@@ -12,7 +12,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.6.0';
+    private $version = '1.7.0';
 
     /**
      * Courier API base url.
@@ -1063,4 +1063,62 @@ final class CourierClient implements CourierClientInterface
             $this->buildRequest("get", "bulk/" . $jobId . "/users")
         );
     }
+
+    /**
+     *  Create or update an existing audience
+     * @param string audienceId A unique identifier representing the audience.
+     * @param object audience input object
+     * @return object { "audience": object }
+     * @throws CourierRequestException
+     */
+    public function putAudience(string $audienceId, object $audience): object
+    {
+        $params = array(
+            'audience' => $audience
+        );
+
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("put", "audiences/" . $audienceId, $params)
+        );
+    }
+    /**
+     *  Get list of audiences in your workspace
+     * @param string audienceId A unique identifier representing the audience.
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAudience(string $audienceId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "audiences/" . $audienceId)
+        );
+    }
+    /**
+     *  Get list of audiences in your workspace
+     * @param string audienceId A unique identifier representing the audience.
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAudienceMembers(string $audienceId): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "audiences/" . $audienceId . "/members")
+        );
+    }
+
+    /**
+     *  Get list of audiences in your workspace
+     *
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAudiences(): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "audiences")
+        );
+    }
+
 }

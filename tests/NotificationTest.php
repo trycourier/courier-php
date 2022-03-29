@@ -480,4 +480,36 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/bulk/job001/users", $response->path);
     }
+
+    public function test_put_audience() {
+        $response = $this->getCourierClient()->getAudience("audience001");
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audiences/audience001", $response->path);
+    }
+
+    public function test_get_audience() {
+        $response = $this->getCourierClient()->getAudience("audience001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audiences/audience001", $response->path);
+    }
+
+    public function test_get_audience_members() {
+        $response = $this->getCourierClient()->getAudienceMembers("audience001");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audiences/audience001/members", $response->path);
+    }
+
+    public function test_get_audiences() {
+        $response = $this->getCourierClient()->getAudiences();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audiences", $response->path);
+    }
 }

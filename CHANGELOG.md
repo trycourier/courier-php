@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [v1.7.0] - 2022-02-02
+
+- Add support for audiences API
+
+
 ## [v1.6.0] - 2022-02-02
 
 - Add support for enhanced Send API
@@ -35,7 +40,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Rename src/laravel -> src/Laravel
 - Bump version in `CourierClient`
 
-[unreleased]: https://github.com/trycourier/courier-php/compare/v1.6.0...HEAD
+[unreleased]: https://github.com/trycourier/courier-php/compare/v1.7.0...HEAD
+[v1.7.0]: https://github.com/trycourier/courier-php/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/trycourier/courier-php/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/trycourier/courier-php/compare/v1.4.0...v1.5.0
 [v1.4.0]: https://github.com/trycourier/courier-php/compare/v1.3.0...v1.4.0
