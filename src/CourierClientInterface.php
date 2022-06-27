@@ -57,9 +57,9 @@ interface CourierClientInterface
     public function getAudience(string $audienceId): object;
     public function getAudienceMembers(string $audienceId): object;
     public function getAudiences(): object;
-    public function putUserTokens(string $user_id, array $tokens): object
-    public function putUserToken(string $user_id, array $token): object
-    public function patchUserToken(string $user_id, string $token, array $patch): object
-    public function getUserToken(string $user_id, string $token): object
-    public function getUserTokens(string $user_id): object
+    public function putUserTokens(string $user_id, array $tokens): object;
+    public function putUserToken(string $user_id, array $token): object;
+    public function patchUserToken(string $user_id, string $token, array $patch): object;
+    public function getUserToken(string $user_id, string $token): object;
+    public function getUserTokens(string $user_id): object;
 }
