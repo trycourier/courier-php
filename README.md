@@ -143,6 +143,14 @@ For a full description of request and response payloads and properties, please s
 - `getAudienceMembers(string $audienceId): object` [(List audience members)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
 - `getAudiences(): object` [(List audiences)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
 
+### Token Management API
+
+- `putUserTokens(string $user_id, array $tokens): object` [(Put User Tokens)](https://www.courier.com/docs/reference/token-management/put-tokens/)
+- `putUserToken(string $user_id, array $token): object` [(Put User Token)](https://www.courier.com/docs/reference/token-management/put-token/)
+- `patchUserToken(string $user_id, string $token, array $patch): object` [(Patch User Token)](https://www.courier.com/docs/reference/token-management/patch-token/)
+- `getUserToken(string $user_id, string $token): object` [(Get User Token)](https://www.courier.com/docs/reference/token-management/get-token/)
+- `getUserTokens(string $user_id): object` [(Get User Tokens)](https://www.courier.com/docs/reference/token-management/get-tokens/)
+
 ## Errors
 
 All unsuccessful (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
