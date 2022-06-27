@@ -1121,4 +1121,77 @@ final class CourierClient implements CourierClientInterface
         );
     }
 
+    /**
+     * Associate a group of tokens with the supplied $user_id. Will overwrite any existing tokens associated with that user.
+     * @param string user_id
+     * @param array tokens { "token": string, "provider_key": string }[]
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putUserTokens(string $user_id, array $tokens): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "users/" . $user_id . "/tokens", $tokens)
+        )
+    }
+
+    /**
+     * Associate a token with the supplied &user_id. If token exists it's value will be replaced
+     * with the passed body, otherwise the token will be created.
+     * @param string user_id
+     * @param array token { "token": string, "provider_key": string }
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putUserToken(string $user_id, array $token): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "users/" . $user_id . "/token/" . $token["token"], $token)
+        )
+    }
+
+    /**
+     * Apply a JSON Patch (RFC 6902) to the specified token.
+     * @param string user_id
+     * @param string token - The full token string
+     * @param array patch See https://www.courier.com/docs/reference/token-management/patch-token/ for more info
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function patchUserToken(string $user_id, string $token, array $patch): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("patch", "users/" . $user_id . "/token/" . $token, $patch)
+        )
+    }
+
+    /**
+     * Returns data associated with a token including token status.
+     * @param string user_id
+     * @param string token - The full token string
+     * @param array patch See https://www.courier.com/docs/reference/token-management/patch-token/ for more info
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getUserToken(string $user_id, string $token): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "users/" . $user_id . "/token/" . $token)
+        )
+    }
+
+    /**
+     * Apply a JSON Patch (RFC 6902) to the specified token.
+     * @param string user_id
+     * @param string token - The full token string
+     * @param array patch See https://www.courier.com/docs/reference/token-management/patch-token/ for more info
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getUserTokens(string $user_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "users/" . $user_id . "/token")
+        )
+    }
 }
