@@ -549,8 +549,7 @@ class NotificationTest extends TestCase
         $this->assertEquals("/users/me/tokens/my_token", $response->path);
     }
 
-    public function test_patch_user_tokens() {
-        $patch = array(array("token" => "my_token"));
+    public function test_get_user_tokens() {
         $response = $this->getCourierClient()->getUserTokens("me");
 
         $this->assertEquals("GET", $response->method);
