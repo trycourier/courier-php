@@ -1181,7 +1181,7 @@ final class CourierClient implements CourierClientInterface
     }
 
     /**
-     * Apply a JSON Patch (RFC 6902) to the specified token.
+     * Get the tokens associated with a user
      * @param string user_id
      * @param string token - The full token string
      * @param array patch See https://www.courier.com/docs/reference/token-management/patch-token/ for more info
