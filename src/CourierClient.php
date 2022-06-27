@@ -1146,7 +1146,7 @@ final class CourierClient implements CourierClientInterface
     public function putUserToken(string $user_id, array $token): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "users/" . $user_id . "/token/" . $token["token"], $token)
+            $this->buildRequest("put", "users/" . $user_id . "/tokens/" . $token["token"], $token)
         );
     }
 
@@ -1161,7 +1161,7 @@ final class CourierClient implements CourierClientInterface
     public function patchUserToken(string $user_id, string $token, array $patch): object
     {
         return $this->doRequest(
-            $this->buildRequest("patch", "users/" . $user_id . "/token/" . $token, $patch)
+            $this->buildRequest("patch", "users/" . $user_id . "/tokens/" . $token, $patch)
         );
     }
 
@@ -1176,7 +1176,7 @@ final class CourierClient implements CourierClientInterface
     public function getUserToken(string $user_id, string $token): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "users/" . $user_id . "/token/" . $token)
+            $this->buildRequest("get", "users/" . $user_id . "/tokens/" . $token)
         );
     }
 
@@ -1191,7 +1191,7 @@ final class CourierClient implements CourierClientInterface
     public function getUserTokens(string $user_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "users/" . $user_id . "/token")
+            $this->buildRequest("get", "users/" . $user_id . "/tokens")
         );
     }
 }

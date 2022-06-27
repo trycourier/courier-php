@@ -482,7 +482,8 @@ class NotificationTest extends TestCase
     }
 
     public function test_put_audience() {
-        $response = $this->getCourierClient()->getAudience("audience001");
+        $audience = (object) [];
+        $response = $this->getCourierClient()->putAudience("audience001", $audience);
 
         $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
@@ -511,5 +512,49 @@ class NotificationTest extends TestCase
         $this->assertEquals("GET", $response->method);
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/audiences", $response->path);
+    }
+
+    public function test_put_user_tokens() {
+        $tokens = array();
+        $response = $this->getCourierClient()->putUserTokens("me", $tokens);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/me/tokens", $response->path);
+    }
+
+    public function test_put_user_token() {
+        $token = array("token" => "my_token");
+        $response = $this->getCourierClient()->putUserToken("me", $token);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/me/tokens/my_token", $response->path);
+    }
+
+    public function test_patch_user_token() {
+        $patch = array(array("token" => "my_token"));
+        $response = $this->getCourierClient()->patchUserToken("me", "my_token", $patch);
+
+        $this->assertEquals("PATCH", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/me/tokens/my_token", $response->path);
+    }
+
+    public function test_get_user_token() {
+        $response = $this->getCourierClient()->getUserToken("me", "my_token");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/me/tokens/my_token", $response->path);
+    }
+
+    public function test_patch_user_tokens() {
+        $patch = array(array("token" => "my_token"));
+        $response = $this->getCourierClient()->getUserTokens("me");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/me/tokens", $response->path);
     }
 }
