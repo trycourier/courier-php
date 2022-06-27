@@ -1132,7 +1132,7 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("put", "users/" . $user_id . "/tokens", $tokens)
-        )
+        );
     }
 
     /**
@@ -1147,7 +1147,7 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("put", "users/" . $user_id . "/token/" . $token["token"], $token)
-        )
+        );
     }
 
     /**
@@ -1162,7 +1162,7 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("patch", "users/" . $user_id . "/token/" . $token, $patch)
-        )
+        );
     }
 
     /**
@@ -1177,7 +1177,7 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("get", "users/" . $user_id . "/token/" . $token)
-        )
+        );
     }
 
     /**
@@ -1192,6 +1192,6 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("get", "users/" . $user_id . "/token")
-        )
+        );
     }
 }
