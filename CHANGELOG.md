@@ -5,10 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [v1.8.0] - 2022-02-02
+
+- Add support for Token Management API
+
 ## [v1.7.0] - 2022-02-02
 
 - Add support for audiences API
-
 
 ## [v1.6.0] - 2022-02-02
 
