@@ -62,4 +62,6 @@ interface CourierClientInterface
     public function patchUserToken(string $user_id, string $token, array $patch): object;
     public function getUserToken(string $user_id, string $token): object;
     public function getUserTokens(string $user_id): object;
+    public function getAuditEvent(string $audit_event_id): object;
+    public function listAuditEvents(string $cursor = null): object;
 }

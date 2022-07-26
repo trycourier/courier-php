@@ -13,6 +13,8 @@ Courier PHP SDK supporting:
 - Automations API
 - Bulk API
 - Audiences API
+- Token Management API
+- Audit Events API
 
 ## Official Courier API docs
 
@@ -150,6 +152,11 @@ For a full description of request and response payloads and properties, please s
 - `patchUserToken(string $user_id, string $token, array $patch): object` [(Patch User Token)](https://www.courier.com/docs/reference/token-management/patch-token/)
 - `getUserToken(string $user_id, string $token): object` [(Get User Token)](https://www.courier.com/docs/reference/token-management/get-token/)
 - `getUserTokens(string $user_id): object` [(Get User Tokens)](https://www.courier.com/docs/reference/token-management/get-tokens/)
+
+### Audit Events API
+
+- `getAuditEvent(string $audit_event_id): object` [(Get Audit Event)](https://www.courier.com/docs/reference/audit-events/by-id/)
+- `listAuditEvents(string $cursor = NULL): object` [(List Audit Events)](https://www.courier.com/docs/reference/audit-events/list/)
 
 ## Errors
 

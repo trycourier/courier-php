@@ -12,7 +12,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.7.0';
+    private $version = '1.9.0';
 
     /**
      * Courier API base url.
@@ -1192,6 +1192,36 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("get", "users/" . $user_id . "/tokens")
+        );
+    }
+
+    /**
+     * Returns a specific audit event object
+     * @param string audit_event_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getAuditEvent(string $audit_event_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "audit-events/" . $audit_event_id)
+        );
+    }
+
+    /**
+     * Returns a list of audit events
+     * @param string|null $cursor
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function listAuditEvents(string $cursor = null): object
+    {
+        $query_params = array(
+            'cursor' => $cursor
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "audit-events?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 }

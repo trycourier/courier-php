@@ -556,4 +556,20 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/users/me/tokens", $response->path);
     }
+
+    public function test_get_audit_event() {
+        $response = $this->getCourierClient()->getAuditEvent("my-event");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audit-events/my-event", $response->path);
+    }
+
+    public function test_list_audit_events() {
+        $response = $this->getCourierClient()->listAuditEvents();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/audit-events", $response->path);
+    }
 }

@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [v1.9.0] - 2022-07-25
+
+- Add support for Audit Events API
+
 ## [v1.8.0] - 2022-02-02
 
 - Add support for Token Management API
