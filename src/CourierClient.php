@@ -223,8 +223,8 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key)
-            : $this->buildRequest("post", "send", $params)
+            $idempotency_key ? $this->buildIdempotentRequest("POST", "send", $params, $idempotency_key)
+            : $this->buildRequest("POST", "send", $params)
         );
     }
 
@@ -246,8 +246,8 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "send", $params, $idempotency_key)
-            : $this->buildRequest("post", "send", $params)
+            $idempotency_key ? $this->buildIdempotentRequest("POST", "send", $params, $idempotency_key)
+            : $this->buildRequest("POST", "send", $params)
         );
     }
 
@@ -283,8 +283,8 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "send/list", $params, $idempotency_key)
-            : $this->buildRequest("post", "send/list", $params)
+            $idempotency_key ? $this->buildIdempotentRequest("POST", "send/list", $params, $idempotency_key)
+            : $this->buildRequest("POST", "send/list", $params)
         );
     }
 
@@ -312,7 +312,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "messages?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("GET", "messages?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -326,7 +326,7 @@ final class CourierClient implements CourierClientInterface
     public function getMessage(string $message_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "messages/" . $message_id)
+            $this->buildRequest("GET", "messages/" . $message_id)
         );
     }
 
@@ -347,7 +347,7 @@ final class CourierClient implements CourierClientInterface
         }
 
         return $this->doRequest(
-            $this->buildRequest("get", $path)
+            $this->buildRequest("GET", $path)
         );
     }
 
@@ -366,7 +366,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "lists?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("GET", "lists?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -380,7 +380,7 @@ final class CourierClient implements CourierClientInterface
     public function getList(string $list_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "lists/" . $list_id)
+            $this->buildRequest("GET", "lists/" . $list_id)
         );
     }
 
@@ -399,7 +399,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("put", "lists/" . $list_id, $params)
+            $this->buildRequest("PUT", "lists/" . $list_id, $params)
         );
     }
 
@@ -413,7 +413,7 @@ final class CourierClient implements CourierClientInterface
     public function deleteList(string $list_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "lists/" . $list_id)
+            $this->buildRequest("DELETE", "lists/" . $list_id)
         );
     }
 
@@ -427,7 +427,7 @@ final class CourierClient implements CourierClientInterface
     public function restoreList(string $list_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "lists/" . $list_id . "/restore")
+            $this->buildRequest("PUT", "lists/" . $list_id . "/restore")
         );
     }
 
@@ -448,7 +448,7 @@ final class CourierClient implements CourierClientInterface
         }
 
         return $this->doRequest(
-            $this->buildRequest("get", $path)
+            $this->buildRequest("GET", $path)
         );
     }
 
@@ -467,7 +467,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("put", "lists/" . $list_id . "/subscriptions", $params)
+            $this->buildRequest("PUT", "lists/" . $list_id . "/subscriptions", $params)
         );
     }
 
@@ -482,7 +482,7 @@ final class CourierClient implements CourierClientInterface
     public function subscribeRecipientToList(string $list_id, string $recipient_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
+            $this->buildRequest("PUT", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
         );
     }
 
@@ -497,7 +497,7 @@ final class CourierClient implements CourierClientInterface
     public function deleteListSubscription(string $list_id, string $recipient_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
+            $this->buildRequest("DELETE", "lists/" . $list_id . "/" . "subscriptions/" . $recipient_id)
         );
     }
 
@@ -514,7 +514,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "brands?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("GET", "brands?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -542,8 +542,8 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $idempotency_key ? $this->buildIdempotentRequest("post", "brands", $params, $idempotency_key)
-            : $this->buildRequest("post", "brands", $params)
+            $idempotency_key ? $this->buildIdempotentRequest("POST", "brands", $params, $idempotency_key)
+            : $this->buildRequest("POST", "brands", $params)
         );
     }
 
@@ -557,7 +557,7 @@ final class CourierClient implements CourierClientInterface
     public function getBrand(string $brand_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "brands/" . $brand_id)
+            $this->buildRequest("GET", "brands/" . $brand_id)
         );
     }
 
@@ -582,7 +582,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("put", "brands/" . $brand_id, $params)
+            $this->buildRequest("PUT", "brands/" . $brand_id, $params)
         );
     }
 
@@ -596,7 +596,7 @@ final class CourierClient implements CourierClientInterface
     public function deleteBrand(string $brand_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "brands/" . $brand_id)
+            $this->buildRequest("DELETE", "brands/" . $brand_id)
         );
     }
 
@@ -608,7 +608,7 @@ final class CourierClient implements CourierClientInterface
     public function getEvents(): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "events")
+            $this->buildRequest("GET", "events")
         );
     }
 
@@ -622,7 +622,7 @@ final class CourierClient implements CourierClientInterface
     public function getEvent(string $event_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "events/" . $event_id)
+            $this->buildRequest("GET", "events/" . $event_id)
         );
     }
 
@@ -643,7 +643,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("put", "events/" . $event_id, $params)
+            $this->buildRequest("PUT", "events/" . $event_id, $params)
         );
     }
 
@@ -657,7 +657,7 @@ final class CourierClient implements CourierClientInterface
     public function getProfile(string $recipient_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "profiles/" . $recipient_id)
+            $this->buildRequest("GET", "profiles/" . $recipient_id)
         );
     }
 
@@ -673,7 +673,7 @@ final class CourierClient implements CourierClientInterface
     public function upsertProfile(string $recipient_id, object $profile = null): object
     {
         return $this->doRequest(
-            $this->buildRequest("post", "profiles/" . $recipient_id, array('profile' => $profile))
+            $this->buildRequest("POST", "profiles/" . $recipient_id, array('profile' => $profile))
         );
     }
 
@@ -689,7 +689,7 @@ final class CourierClient implements CourierClientInterface
     public function patchProfile(string $recipient_id, array $patch): object
     {
         return $this->doRequest(
-            $this->buildRequest("patch", "profiles/" . $recipient_id, array('patch' => $patch))
+            $this->buildRequest("PATCH", "profiles/" . $recipient_id, array('patch' => $patch))
         );
     }
 
@@ -705,7 +705,7 @@ final class CourierClient implements CourierClientInterface
     public function replaceProfile(string $recipient_id, object $profile = null): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "profiles/" . $recipient_id, array('profile' => $profile))
+            $this->buildRequest("PUT", "profiles/" . $recipient_id, array('profile' => $profile))
         );
     }
 
@@ -726,7 +726,7 @@ final class CourierClient implements CourierClientInterface
         }
 
         return $this->doRequest(
-            $this->buildRequest("get", $path)
+            $this->buildRequest("GET", $path)
         );
     }
 
@@ -744,7 +744,7 @@ final class CourierClient implements CourierClientInterface
     {
 
         return $this->doRequest(
-            $this->buildRequest("get", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
+            $this->buildRequest("GET", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
         );
     }
 
@@ -762,7 +762,7 @@ final class CourierClient implements CourierClientInterface
     {
 
         return $this->doRequest(
-            $this->buildRequest("put", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
+            $this->buildRequest("PUT", "preferences/" . $recipient_id, array('preferred_channel' => $preferred_channel))
         );
     }
 
@@ -779,7 +779,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "notifications?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("GET", "notifications?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
@@ -793,7 +793,7 @@ final class CourierClient implements CourierClientInterface
     public function getNotificationContent(string $id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "notifications/" . $id . "/content")
+            $this->buildRequest("GET", "notifications/" . $id . "/content")
         );
     }
 
@@ -807,7 +807,7 @@ final class CourierClient implements CourierClientInterface
     public function getNotificationDraftContent(string $id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "notifications/" . $id . "/draft/content")
+            $this->buildRequest("GET", "notifications/" . $id . "/draft/content")
         );
     }
 
@@ -831,7 +831,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "notifications/" . $id . "/variations", $params)
+            $this->buildRequest("POST", "notifications/" . $id . "/variations", $params)
         );
     }
 
@@ -855,7 +855,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "notifications/" . $id . "/draft/variations", $params)
+            $this->buildRequest("POST", "notifications/" . $id . "/draft/variations", $params)
         );
     }
 
@@ -870,7 +870,7 @@ final class CourierClient implements CourierClientInterface
     public function getNotificationSubmissionChecks(string $id, string $submission_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "notifications/" . $id . "/" . $submission_id . "/checks")
+            $this->buildRequest("GET", "notifications/" . $id . "/" . $submission_id . "/checks")
         );
     }
 
@@ -889,7 +889,7 @@ final class CourierClient implements CourierClientInterface
             'checks' => $checks
         );
         return $this->doRequest(
-            $this->buildRequest("put", "notifications/" . $id . "/" . $submission_id . "/checks", $params)
+            $this->buildRequest("PUT", "notifications/" . $id . "/" . $submission_id . "/checks", $params)
         );
     }
 
@@ -904,7 +904,7 @@ final class CourierClient implements CourierClientInterface
     public function deleteNotificationSubmission(string $id, string $submission_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "notifications/" . $id . "/" . $submission_id . "/checks")
+            $this->buildRequest("DELETE", "notifications/" . $id . "/" . $submission_id . "/checks")
         );
     }
 
@@ -934,7 +934,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "automations/invoke", $params)
+            $this->buildRequest("POST", "automations/invoke", $params)
         );
     }
 
@@ -963,7 +963,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "automations/" . $template_id . "/invoke", $params)
+            $this->buildRequest("POST", "automations/" . $template_id . "/invoke", $params)
         );
     }
 
@@ -977,7 +977,7 @@ final class CourierClient implements CourierClientInterface
     public function getAutomationRun(string $run_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "automations/runs/" . $run_id)
+            $this->buildRequest("GET", "automations/runs/" . $run_id)
         );
     }
 
@@ -997,7 +997,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "bulk", $params)
+            $this->buildRequest("POST", "bulk", $params)
         );
     }
 
@@ -1018,7 +1018,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("post", "bulk/" . $job_id, $params)
+            $this->buildRequest("POST", "bulk/" . $job_id, $params)
         );
     }
 
@@ -1032,7 +1032,7 @@ final class CourierClient implements CourierClientInterface
     public function runBulkJob(string $jobId): object
     {
         return $this->doRequest(
-            $this->buildRequest("post", "bulk/" . $jobId . "/run")
+            $this->buildRequest("POST", "bulk/" . $jobId . "/run")
         );
     }
 
@@ -1046,7 +1046,7 @@ final class CourierClient implements CourierClientInterface
     public function getBulkJob(string $jobId): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "bulk/" . $jobId)
+            $this->buildRequest("GET", "bulk/" . $jobId)
         );
     }
 
@@ -1060,7 +1060,7 @@ final class CourierClient implements CourierClientInterface
     public function getBulkJobUsers(string $jobId): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "bulk/" . $jobId . "/users")
+            $this->buildRequest("GET", "bulk/" . $jobId . "/users")
         );
     }
 
@@ -1080,7 +1080,7 @@ final class CourierClient implements CourierClientInterface
         $params = array_filter($params);
 
         return $this->doRequest(
-            $this->buildRequest("put", "audiences/" . $audienceId, $params)
+            $this->buildRequest("PUT", "audiences/" . $audienceId, $params)
         );
     }
     /**
@@ -1092,7 +1092,7 @@ final class CourierClient implements CourierClientInterface
     public function getAudience(string $audienceId): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "audiences/" . $audienceId)
+            $this->buildRequest("GET", "audiences/" . $audienceId)
         );
     }
     /**
@@ -1104,7 +1104,7 @@ final class CourierClient implements CourierClientInterface
     public function getAudienceMembers(string $audienceId): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "audiences/" . $audienceId . "/members")
+            $this->buildRequest("GET", "audiences/" . $audienceId . "/members")
         );
     }
 
@@ -1117,7 +1117,7 @@ final class CourierClient implements CourierClientInterface
     public function getAudiences(): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "audiences")
+            $this->buildRequest("GET", "audiences")
         );
     }
 
@@ -1131,7 +1131,7 @@ final class CourierClient implements CourierClientInterface
     public function putUserTokens(string $user_id, array $tokens): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "users/" . $user_id . "/tokens", $tokens)
+            $this->buildRequest("PUT", "users/" . $user_id . "/tokens", $tokens)
         );
     }
 
@@ -1146,7 +1146,7 @@ final class CourierClient implements CourierClientInterface
     public function putUserToken(string $user_id, array $token): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "users/" . $user_id . "/tokens/" . $token["token"], $token)
+            $this->buildRequest("PUT", "users/" . $user_id . "/tokens/" . $token["token"], $token)
         );
     }
 
@@ -1161,7 +1161,7 @@ final class CourierClient implements CourierClientInterface
     public function patchUserToken(string $user_id, string $token, array $patch): object
     {
         return $this->doRequest(
-            $this->buildRequest("patch", "users/" . $user_id . "/tokens/" . $token, $patch)
+            $this->buildRequest("PATCH", "users/" . $user_id . "/tokens/" . $token, $patch)
         );
     }
 
@@ -1176,7 +1176,7 @@ final class CourierClient implements CourierClientInterface
     public function getUserToken(string $user_id, string $token): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "users/" . $user_id . "/tokens/" . $token)
+            $this->buildRequest("GET", "users/" . $user_id . "/tokens/" . $token)
         );
     }
 
@@ -1191,7 +1191,7 @@ final class CourierClient implements CourierClientInterface
     public function getUserTokens(string $user_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "users/" . $user_id . "/tokens")
+            $this->buildRequest("GET", "users/" . $user_id . "/tokens")
         );
     }
 
@@ -1204,7 +1204,7 @@ final class CourierClient implements CourierClientInterface
     public function getAuditEvent(string $audit_event_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "audit-events/" . $audit_event_id)
+            $this->buildRequest("GET", "audit-events/" . $audit_event_id)
         );
     }
 
@@ -1221,7 +1221,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "audit-events?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("GET", "audit-events?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 }
