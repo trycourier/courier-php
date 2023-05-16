@@ -12,7 +12,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.9.0';
+    private $version = '1.10.0';
 
     /**
      * Courier API base url.
@@ -167,6 +167,27 @@ final class CourierClient implements CourierClientInterface
             ->withBody(
                 Psr17FactoryDiscovery::findStreamFactory()
                     ->createStream(json_encode($params))
+            );
+    }
+
+    /**
+     * Build a PSR-7 Request instance.
+     *
+     * @param string $method
+     * @param string $path
+     * @param string $body
+     * @return RequestInterface
+     */
+    private function buildRequestWithStringBody(string $method, string $path, string $body = ''): RequestInterface
+    {
+        return Psr17FactoryDiscovery::findRequestFactory()
+            ->createRequest($method, $this->base_url . $path)
+            ->withHeader("Authorization", $this->getAuthorizationHeader())
+            ->withHeader("Content-Type", "application/json")
+            ->withHeader("User-Agent", "courier-php/$this->version")
+            ->withBody(
+                Psr17FactoryDiscovery::findStreamFactory()
+                    ->createStream($body)
             );
     }
 
@@ -1222,6 +1243,35 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $this->buildRequest("get", "audit-events?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     * Returns a translation object
+     * @param string app
+     * @param string locale
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function getTranslation(string $app, string $locale): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "translations/" . $app . "/". $locale)
+        );
+    }
+
+    /**
+     * Update a translation object and returns updated one
+     * @param string app
+     * @param string locale
+     * @param string translation
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putTranslation(string $app, string $locale, string $translation): object
+    {
+        return $this->doRequest(
+            $this->buildRequestWithStringBody("put", "translations/" . $app . "/" . $locale, $translation)
         );
     }
 }

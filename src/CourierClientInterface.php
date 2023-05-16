@@ -64,4 +64,6 @@ interface CourierClientInterface
     public function getUserTokens(string $user_id): object;
     public function getAuditEvent(string $audit_event_id): object;
     public function listAuditEvents(string $cursor = null): object;
+    public function getTranslation(string $app, string $locale): object;
+    public function putTranslation(string $app, string $locale, string $translation): object;
 }

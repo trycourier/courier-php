@@ -572,4 +572,20 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/audit-events", $response->path);
     }
+
+    public function test_get_translation() {
+        $response = $this->getCourierClient()->getTranslation("app", "en_US");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/translations/app/en_US", $response->path);
+    }
+
+    public function test_put_translation() {
+        $response = $this->getCourierClient()->putTranslation("app", "en_US", "translation");
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/translations/app/en_US", $response->path);
+    }
 }

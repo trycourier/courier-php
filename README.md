@@ -15,6 +15,7 @@ Courier PHP SDK supporting:
 - Audiences API
 - Token Management API
 - Audit Events API
+- Translations API
 
 ## Official Courier API docs
 
@@ -157,6 +158,11 @@ For a full description of request and response payloads and properties, please s
 
 - `getAuditEvent(string $audit_event_id): object` [(Get Audit Event)](https://www.courier.com/docs/reference/audit-events/by-id/)
 - `listAuditEvents(string $cursor = NULL): object` [(List Audit Events)](https://www.courier.com/docs/reference/audit-events/list/)
+
+### Translations API
+
+- `getTranslation(string $app, string $locale): object` [(Get Translation)](https://www.courier.com/docs/reference/translations/get-translation/)
+- `putTranslation(string $app, string $locale, string $translation): object` [(Put Translation)](https://www.courier.com/docs/reference/translations/put-translation/)
 
 ## Errors
 
