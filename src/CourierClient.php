@@ -12,7 +12,7 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.9.0';
+    private $version = '1.10.0';
 
     /**
      * Courier API base url.
@@ -1222,6 +1222,56 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $this->buildRequest("get", "audit-events?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     * Returns a list of Accounts in your workspace
+     * @param string|null $cursor
+     * @throws CourierRequestException
+     */
+    public function listAccounts(string $cursor = null): object
+    {
+        $query_params = array(
+            'cursor' => $cursor
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("get", "accounts?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     * Returns a specific Account object
+     */
+    public function getAccount(string $account_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("get", "accounts/" . $account_id)
+        );
+    }
+
+    /**
+     * Updates or creates an Account object
+     */
+    public function putAccount(string $account_id, object $account): object
+    {
+        $params = array(
+            'account' => $account
+        );
+
+        return $this->doRequest(
+            $this->buildRequest("put", "accounts/" . $account_id)
+        );
+    }
+
+    /**
+     * Deletes an Account object
+     */
+    public function deleteAccount(string $account_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("delete", "accounts/" . $account_id)
         );
     }
 }

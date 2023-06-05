@@ -64,4 +64,8 @@ interface CourierClientInterface
     public function getUserTokens(string $user_id): object;
     public function getAuditEvent(string $audit_event_id): object;
     public function listAuditEvents(string $cursor = null): object;
+    public function listAccounts(string $cursor = null): object;
+    public function getAccount(string $account_id): object;
+    public function putAccount(string $account_id, object $account): object;
+    public function deleteAccount(string $account_id): object;
 }

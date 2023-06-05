@@ -158,6 +158,13 @@ For a full description of request and response payloads and properties, please s
 - `getAuditEvent(string $audit_event_id): object` [(Get Audit Event)](https://www.courier.com/docs/reference/audit-events/by-id/)
 - `listAuditEvents(string $cursor = NULL): object` [(List Audit Events)](https://www.courier.com/docs/reference/audit-events/list/)
 
+### Accounts API
+
+- `getAccount(): object` [(Get Account)](https://www.courier.com/docs/reference/accounts/get-account/)
+- `listAccounts(string $cursor = NULL): object` [(List Accounts)](https://www.courier.com/docs/reference/accounts/get-accounts/)
+- `putAccount(string $account_id, string $name, string $timezone): object` [(Put Account)](https://www.courier.com/docs/reference/accounts/update/)
+- `deleteAccount(string $account_id): object` [(Delete Account)](https://www.courier.com/docs/reference/accounts/delete-account/)
+
 ## Errors
 
 All unsuccessful (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
