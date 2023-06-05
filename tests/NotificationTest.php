@@ -572,4 +572,37 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/audit-events", $response->path);
     }
+
+    public function test_list_accounts() {
+        $response = $this->getCourierClient()->listAccounts();
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/accounts", $response->path);
+    }
+
+    public function test_get_account() {
+        $response = $this->getCourierClient()->getAccount("my-account");
+
+        $this->assertEquals("GET", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/accounts/my-account", $response->path);
+    }
+
+    public function test_put_account() {
+        $account = (object) [];
+        $response = $this->getCourierClient()->putAccount("my-account", $account);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/accounts/my-account", $response->path);
+    }
+
+    public function test_delete_account() {
+        $response = $this->getCourierClient()->deleteAccount("my-account");
+
+        $this->assertEquals("DELETE", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/accounts/my-account", $response->path);
+    }
 }
