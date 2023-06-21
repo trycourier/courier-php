@@ -317,6 +317,20 @@ final class CourierClient implements CourierClientInterface
     }
 
     /**
+     *  Cancel the delivery of the message.
+     *
+     * @param string $message_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function cancelMessage(string $message_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("post", "messages/" . $message_id . "/cancel")
+        );
+    }
+
+    /**
      *  Fetch the status of a message you've previously sent.
      *
      * @param string $message_id
