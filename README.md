@@ -15,6 +15,8 @@ Courier PHP SDK supporting:
 - Audiences API
 - Token Management API
 - Audit Events API
+- Accounts API
+- Users API
 
 ## Official Courier API docs
 
@@ -164,6 +166,11 @@ For a full description of request and response payloads and properties, please s
 - `listAccounts(string $cursor = NULL): object` [(List Accounts)](https://www.courier.com/docs/reference/accounts/get-accounts/)
 - `putAccount(string $account_id, object $account): object` [(Put Account)](https://www.courier.com/docs/reference/accounts/update/)
 - `deleteAccount(string $account_id): object` [(Delete Account)](https://www.courier.com/docs/reference/accounts/delete-account/)
+
+### Users API
+
+- `putUser(): object` [(Put User)](https://www.courier.com/docs/reference/users/put-user/)
+- `putUserAccounts(): object` [(Put User Accounts)](https://www.courier.com/docs/reference/users/put-user-accounts/)
 
 ## Errors
 
