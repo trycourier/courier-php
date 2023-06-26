@@ -52,5 +52,10 @@
                 "Courier": "Courier\\Laravel\\Facades\\CourierFacade"
             }
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
