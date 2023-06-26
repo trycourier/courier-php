@@ -13,7 +13,7 @@ final class CourierClient implements CourierClientInterface
      * @var string Library version, used for setting User-Agent
      */
     private $version = '1.12.0';
-
+  
     /**
      * Courier API base url.
      *
@@ -313,6 +313,20 @@ final class CourierClient implements CourierClientInterface
 
         return $this->doRequest(
             $this->buildRequest("get", "messages?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+        );
+    }
+
+    /**
+     *  Cancel the delivery of the message.
+     *
+     * @param string $message_id
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function cancelMessage(string $message_id): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("post", "messages/" . $message_id . "/cancel")
         );
     }
 

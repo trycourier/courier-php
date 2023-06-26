@@ -89,6 +89,15 @@ class NotificationTest extends TestCase
         $this->assertEquals("/messages/message001", $response->path);
     }
 
+    public function test_cancel_message()
+    {
+        $response = $this->getCourierClient()->cancelMessage("message001");
+
+        $this->assertEquals("POST", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/messages/message001/cancel", $response->path);
+    }
+
     public function test_get_message_history()
     {
         $response = $this->getCourierClient()->getMessageHistory("message001");
