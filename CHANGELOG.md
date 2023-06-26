@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [v1.10.0] - 2023-06-21
+## [v1.11.0] - 2023-06-21
 
 - Add support for Cancel Message API
 
