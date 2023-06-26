@@ -614,4 +614,22 @@ class NotificationTest extends TestCase
         $this->assertEquals("application/json", $response->content);
         $this->assertEquals("/accounts/my-account", $response->path);
     }
+
+    public function test_put_user() {
+        $user = (object) [];
+        $response = $this->getCourierClient()->putUser("my-user", $user);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/my-user", $response->path);
+    }
+
+    public function test_put_user_accounts() {
+        $accounts = array();
+        $response = $this->getCourierClient()->putUserAccounts("my-user", $accounts);
+
+        $this->assertEquals("PUT", $response->method);
+        $this->assertEquals("application/json", $response->content);
+        $this->assertEquals("/users/my-user/accounts", $response->path);
+    }
 }

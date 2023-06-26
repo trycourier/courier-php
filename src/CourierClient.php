@@ -12,8 +12,8 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.11.0';
-
+    private $version = '1.12.0';
+  
     /**
      * Courier API base url.
      *
@@ -1275,7 +1275,7 @@ final class CourierClient implements CourierClientInterface
         );
 
         return $this->doRequest(
-            $this->buildRequest("put", "accounts/" . $account_id)
+            $this->buildRequest("put", "accounts/" . $account_id, $params)
         );
     }
 
@@ -1286,6 +1286,39 @@ final class CourierClient implements CourierClientInterface
     {
         return $this->doRequest(
             $this->buildRequest("delete", "accounts/" . $account_id)
+        );
+    }
+
+    /**
+     * Update user
+     * @param string user_id
+     * @param object user
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putUser(string $user_id, object $user): object
+    {
+        $params = array(
+            'user' => $user
+        );
+        $params = array_filter($params);
+
+        return $this->doRequest(
+            $this->buildRequest("put", "users/" . $user_id, $params)
+        );
+    }
+
+    /**
+     * Update user accounts
+     * @param string user_id
+     * @param array accounts
+     * @return object
+     * @throws CourierRequestException
+     */
+    public function putUserAccounts(string $user_id, array $accounts): object
+    {
+        return $this->doRequest(
+            $this->buildRequest("put", "users/" . $user_id . "/accounts", $accounts)
         );
     }
 }

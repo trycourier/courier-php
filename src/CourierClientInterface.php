@@ -68,4 +68,6 @@ interface CourierClientInterface
     public function getAccount(string $account_id): object;
     public function putAccount(string $account_id, object $account): object;
     public function deleteAccount(string $account_id): object;
+    public function putUser(string $user_id, object $user): object;
+    public function putUserAccounts(string $user_id, array $accounts): object;
 }
