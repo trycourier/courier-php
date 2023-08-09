@@ -582,37 +582,37 @@ class NotificationTest extends TestCase
         $this->assertEquals("/audit-events", $response->path);
     }
 
-    public function test_list_accounts() {
-        $response = $this->getCourierClient()->listAccounts();
+    public function test_list_tenants() {
+        $response = $this->getCourierClient()->listTenants();
 
         $this->assertEquals("GET", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/accounts", $response->path);
+        $this->assertEquals("/tenants", $response->path);
     }
 
-    public function test_get_account() {
-        $response = $this->getCourierClient()->getAccount("my-account");
+    public function test_get_tenant() {
+        $response = $this->getCourierClient()->getTenant("my-tenant");
 
         $this->assertEquals("GET", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/accounts/my-account", $response->path);
+        $this->assertEquals("/tenants/my-tenant", $response->path);
     }
 
-    public function test_put_account() {
-        $account = (object) [];
-        $response = $this->getCourierClient()->putAccount("my-account", $account);
+    public function test_put_tenant() {
+        $tenant = (object) [];
+        $response = $this->getCourierClient()->putTenant("my-tenant", $tenant);
 
         $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/accounts/my-account", $response->path);
+        $this->assertEquals("/tenants/my-tenant", $response->path);
     }
 
-    public function test_delete_account() {
-        $response = $this->getCourierClient()->deleteAccount("my-account");
+    public function test_delete_tenant() {
+        $response = $this->getCourierClient()->deleteTenant("my-tenant");
 
         $this->assertEquals("DELETE", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/accounts/my-account", $response->path);
+        $this->assertEquals("/tenants/my-tenant", $response->path);
     }
 
     public function test_put_user() {
@@ -624,12 +624,12 @@ class NotificationTest extends TestCase
         $this->assertEquals("/users/my-user", $response->path);
     }
 
-    public function test_put_user_accounts() {
-        $accounts = array();
-        $response = $this->getCourierClient()->putUserAccounts("my-user", $accounts);
+    public function test_put_user_tenants() {
+        $tenants = array();
+        $response = $this->getCourierClient()->putUserTenants("my-user", $tenants);
 
         $this->assertEquals("PUT", $response->method);
         $this->assertEquals("application/json", $response->content);
-        $this->assertEquals("/users/my-user/accounts", $response->path);
+        $this->assertEquals("/users/my-user/tenants", $response->path);
     }
 }
