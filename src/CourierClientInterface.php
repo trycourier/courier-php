@@ -64,10 +64,10 @@ interface CourierClientInterface
     public function getUserTokens(string $user_id): object;
     public function getAuditEvent(string $audit_event_id): object;
     public function listAuditEvents(string $cursor = null): object;
-    public function listAccounts(string $cursor = null): object;
-    public function getAccount(string $account_id): object;
-    public function putAccount(string $account_id, object $account): object;
-    public function deleteAccount(string $account_id): object;
+    public function listTenants(string $cursor = null): object;
+    public function getTenant(string $tenant_id): object;
+    public function putTenant(string $tenant_id, object $tenant): object;
+    public function deleteTenant(string $tenant_id): object;
     public function putUser(string $user_id, object $user): object;
-    public function putUserAccounts(string $user_id, array $accounts): object;
+    public function putUserTenants(string $user_id, array $tenants): object;
 }

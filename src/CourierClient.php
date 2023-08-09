@@ -12,8 +12,8 @@ final class CourierClient implements CourierClientInterface
     /**
      * @var string Library version, used for setting User-Agent
      */
-    private $version = '1.12.0';
-  
+    private $version = '2.0.0';
+
     /**
      * Courier API base url.
      *
@@ -1240,52 +1240,52 @@ final class CourierClient implements CourierClientInterface
     }
 
     /**
-     * Returns a list of Accounts in your workspace
+     * Returns a list of tenants in your workspace
      * @param string|null $cursor
      * @throws CourierRequestException
      */
-    public function listAccounts(string $cursor = null): object
+    public function listTenants(string $cursor = null): object
     {
         $query_params = array(
             'cursor' => $cursor
         );
 
         return $this->doRequest(
-            $this->buildRequest("get", "accounts?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
+            $this->buildRequest("get", "tenants?" . http_build_query($query_params, '', '&', PHP_QUERY_RFC3986))
         );
     }
 
     /**
-     * Returns a specific Account object
+     * Returns a specific Tenant object
      */
-    public function getAccount(string $account_id): object
+    public function getTenant(string $tenant_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("get", "accounts/" . $account_id)
+            $this->buildRequest("get", "tenants/" . $tenant_id)
         );
     }
 
     /**
-     * Updates or creates an Account object
+     * Updates or creates a Tenant object
      */
-    public function putAccount(string $account_id, object $account): object
+    public function putTenant(string $tenant_id, object $tenant): object
     {
         $params = array(
-            'account' => $account
+            'tenant' => $tenant
         );
 
         return $this->doRequest(
-            $this->buildRequest("put", "accounts/" . $account_id, $params)
+            $this->buildRequest("put", "tenants/" . $tenant_id, $params)
         );
     }
 
     /**
-     * Deletes an Account object
+     * Deletes a Tenant object
      */
-    public function deleteAccount(string $account_id): object
+    public function deleteTenant(string $tenant_id): object
     {
         return $this->doRequest(
-            $this->buildRequest("delete", "accounts/" . $account_id)
+            $this->buildRequest("delete", "tenants/" . $tenant_id)
         );
     }
 
@@ -1309,16 +1309,16 @@ final class CourierClient implements CourierClientInterface
     }
 
     /**
-     * Update user accounts
+     * Update user tenants
      * @param string user_id
-     * @param array accounts
+     * @param array tenants
      * @return object
      * @throws CourierRequestException
      */
-    public function putUserAccounts(string $user_id, array $accounts): object
+    public function putUserTenants(string $user_id, array $tenants): object
     {
         return $this->doRequest(
-            $this->buildRequest("put", "users/" . $user_id . "/accounts", $accounts)
+            $this->buildRequest("put", "users/" . $user_id . "/tenants", $tenants)
         );
     }
 }

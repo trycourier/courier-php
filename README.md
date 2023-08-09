@@ -15,7 +15,7 @@ Courier PHP SDK supporting:
 - Audiences API
 - Token Management API
 - Audit Events API
-- Accounts API
+- Tenants API
 - Users API
 
 ## Official Courier API docs
@@ -161,17 +161,24 @@ For a full description of request and response payloads and properties, please s
 - `getAuditEvent(string $audit_event_id): object` [(Get Audit Event)](https://www.courier.com/docs/reference/audit-events/by-id/)
 - `listAuditEvents(string $cursor = NULL): object` [(List Audit Events)](https://www.courier.com/docs/reference/audit-events/list/)
 
-### Accounts API
+### Accounts API (only on v1.12.0)
 
 - `getAccount(): object` [(Get Account)](https://www.courier.com/docs/reference/accounts/get-account/)
 - `listAccounts(string $cursor = NULL): object` [(List Accounts)](https://www.courier.com/docs/reference/accounts/get-accounts/)
-- `putAccount(string $account_id, object $account): object` [(Put Account)](https://www.courier.com/docs/reference/accounts/update/)
+- `putAccount(string $account_id, object $account): object` [(Put Account)](https://www.courier.com/docs/reference/accounts/create-replace/)
 - `deleteAccount(string $account_id): object` [(Delete Account)](https://www.courier.com/docs/reference/accounts/delete-account/)
+
+### Tenants API (v2.0.0+)
+
+- `getTenant(): object` [(Get Tenant)](https://www.courier.com/docs/reference/tenants/get-tenant/)
+- `listTenants(string $cursor = NULL): object` [(List Tenants)](https://www.courier.com/docs/reference/tenants/get-tenants/)
+- `putTenant(string $tenant_id, object $tenant): object` [(Put Tenant)](https://www.courier.com/docs/reference/tenants/create-replace/)
+- `deleteTenant(string $tenant_id): object` [(Delete Tenant)](https://www.courier.com/docs/reference/tenants/delete-tenant/)
 
 ### Users API
 
 - `putUser(): object` [(Put User)](https://www.courier.com/docs/reference/users/put-user/)
-- `putUserAccounts(): object` [(Put User Accounts)](https://www.courier.com/docs/reference/users/put-user-accounts/)
+- `putUserTenants(): object` [(Put User Tenants)](https://www.courier.com/docs/reference/users/put-user-tenants/)
 
 ## Errors
 
