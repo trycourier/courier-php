@@ -3,12 +3,13 @@
 namespace Courier\Send\Types;
 
 use Courier\Core\Json\JsonSerializableType;
-use Courier\Send\Traits\BrandTemplate;
+use Courier\Send\Traits\BrandTemplate as BrandTemplate_;
+use Courier\Send\Types\BrandTemplate;
 use Courier\Core\Json\JsonProperty;
 
 class BrandTemplateOverride extends JsonSerializableType
 {
-    use BrandTemplate;
+    use BrandTemplate_;
 
     /**
      * @var BrandTemplate $mjml
