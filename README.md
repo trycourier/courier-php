@@ -1,185 +1,188 @@
-# Courier SDK
+# Courier PHP SDK
 
-Courier PHP SDK supporting:
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/trycourier/courier)
 
-- Send API
-- Messages API
-- Profiles API
-- Preferences API
-- Events API
-- Brands API
-- Lists API
-- Notifications API
-- Automations API
-- Bulk API
-- Audiences API
-- Token Management API
-- Audit Events API
-- Tenants API
-- Users API
-
-## Official Courier API docs
-
-For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.courier.com/reference).
+The Courier PHP library provides convenient access to the Courier API from PHP.
 
 ## Requirements
 
-- PHP 7.2+
-- ext-json
+Use of the Courier PHP SDK requires:
+* PHP ^8.1
 
 ## Installation
 
-This library uses [HTTPlug](https://github.com/php-http/httplug) as HTTP client. HTTPlug is an abstraction that allows
-this library to support different HTTP Clients. Therefore, you need to provide it with an client and/or adapter for the HTTP
-library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation).
-This documentation assumes you use the Guzzle Client, but you can replace it with any client that you prefer.
+Use Composer to configure and install the Courier PHP SDK:
 
-The recommended way to install courier-php is through Composer:
-
-```bash
-composer require trycourier/courier guzzlehttp/guzzle
+```shell
+composer require trycourier/courier
 ```
 
-## Configuration
-
-Instantiate the Courier client class with your authorization token OR username and password. Providing just an authorization token will generate a "Bearer" authorization header, while providing a username and password will generate a "Basic" (base64-encoded) authorization header
+## Usage
 
 ```php
-$client = new CourierClient("base-url", "authorization-token", "username", "password");
+use Courier\CourierClient;
+use Courier\Requests\SendMessageRequest;
+use Courier\Send\Types\ContentMessage;
+use Courier\Send\Types\ElementalContentSugar;
+use Courier\Send\Types\UserRecipient;
+
+$courier = new CourierClient();
+$response = $courier->send(
+    request: new SendMessageRequest([
+        'message' => new ContentMessage([
+            'to' => [
+                new UserRecipient([
+                    'email' => 'marty_mcfly@email.com',
+                    'data' => [
+                        'name' => 'Marty',
+                    ],
+                ]),
+            ],
+            'content' => new ElementalContentSugar([
+                'title' => 'Back to the Future',
+                'body' => 'Oh my {{name}}, we need 1.21 Gigawatts!',
+            ]),
+        ]),
+    ])
+);
 ```
 
-### Options
+## Instantiation
 
-Many methods allow the passing of optional data to the Courier endpoints. This data should be an associative array of key/value pairs. The exact options supported are dependent on the endpoint being called. Please refer to the official Courier documentation for more information.
+To get started with the Courier SDK, instantiate the `CourierClient` class as follows:
 
 ```php
-$profile = [
-	"firstname" => "Johnny",
-	"lastname" => "Appleseed",
-	"email" => "courier.pigeon@mail.com"
-];
+use Courier\CourierClient;
+
+$courier = new CourierClient("COURIER_AUTH_TOKEN");
 ```
 
-## Methods
+Alternatively, you can omit the token when constructing the client. 
+In this case, the SDK will automatically read the token from the
+`COURIER_AUTH_TOKEN` environment variable:
 
-For a full description of request and response payloads and properties, please see the [official Courier API docs](https://docs.courier.com/reference).
+```php
+use Courier\CourierClient;
 
-### Send API
+$courier = new CourierClient(); // Token is read from the COURIER_AUTH_TOKEN environment variable
+```
 
-- `sendNotification(string $event, string $recipient, string $brand = NULL, object $profile = NULL, object $data = NULL, object $preferences = NULL, object $override = NULL, string $idempotency_key = NULL): object` [(Send API)](https://www.courier.com/docs/reference/send/message/)
-- `sendEnhancedNotification(object $message, string $idempotency_key = NULL): object` [(Send API)](https://www.courier.com/docs/reference/send/message/)
-- `sendNotificationToList(string $event, string $list = NULL, string $pattern = NULL, string $brand = NULL, object $data = NULL, object $override = NULL, string $idempotency_key = NULL): object` [(Send list API)](https://www.courier.com/docs/reference/send/list/)
+### Environment and Custom URLs
 
-### Messages API
+This SDK allows you to configure different environments or custom URLs for API requests. 
+You can either use the predefined environments or specify your own custom URL.
 
-- `cancelMessage(string $message_id): object` [[?]](https://www.courier.com/docs/reference/logs/cancel/)
-- `getMessages(string $cursor = NULL, string $event = NULL, string $list = NULL, string $message_id = NULL, string $notification = NULL, string $recipient = NULL): object` [[?]](https://docs.courier.com/reference/messages-api#getmessages)
-- `getMessage(string $message_id): object` [[?]](https://docs.courier.com/reference/messages-api#getmessagebyid)
-- `getMessageHistory(string $message_id, string $type = NULL): object` [[?]](https://docs.courier.com/reference/messages-api#getmessagehistorybyid)
+#### Environments
 
-### Lists API
+```php
+use Courier\CourierClient;
+use Courier\Environments;
 
-- `getLists(string $cursor = NULL, string $pattern = NULL): object` [[?]](https://docs.courier.com/reference/lists-api#getlists)
-- `getList(string $list_id): object` [[?]](https://docs.courier.com/reference/lists-api#getlist)
-- `putList(string $list_id, string $name): object` [[?]](https://docs.courier.com/reference/lists-api#putlist)
-- `deleteList(string $list_id): object` [[?]](https://docs.courier.com/reference/lists-api#deletelist)
-- `restoreList(string $list_id): object` [[?]](https://docs.courier.com/reference/lists-api#putlistrestore)
-- `getListSubscriptions(string $list_id, string $cursor = NULL): object` [[?]](https://docs.courier.com/reference/lists-api#getlistsubscriptions)
-- `subscribeMultipleRecipientsToList(string $list_id, array $recipients): object` [[?]](https://docs.courier.com/reference/lists-api#createlistsubscriptions)
-- `subscribeRecipientToList(string $list_id, string $recipient_id): object` [[?]](https://docs.courier.com/reference/lists-api#putlistsubscription)
-- `deleteListSubscription(string $list_id, string $recipient_id): object` [[?]](https://docs.courier.com/reference/lists-api#deletelistsubscription)
+$courier = new CourierClient(options: [
+    'baseUrl' => Environments::Production->value // Used by default
+]);
+```
 
-### Brands API
+#### Custom URL
 
-- `getBrands(string $cursor = NULL): object` [[?]](https://docs.courier.com/reference/brands-api#getbrands)
-- `createBrand(string $id = NULL, string $name, object $settings, object $snippets = NULL, string $idempotency_key = NULL): object` [[?]](https://docs.courier.com/reference/brands-api#createbrand)
-- `getBrand(string $brand_id): object` [[?]](https://docs.courier.com/reference/brands-api#getbrand)
-- `replaceBrand(string $brand_id, string $name, object $settings, object $snippets = NULL): object` [[?]](https://docs.courier.com/reference/brands-api#replacebrand)
-- `deleteBrand(string $brand_id): object` [[?]](https://docs.courier.com/reference/brands-api#deletebrand)
+```php
+use Courier\CourierClient;
 
-### Events API
+$courier = new CourierClient(options: [
+    'baseUrl' => 'https://custom-staging.com'
+]);
+```
 
-- `getEvents(): object` [[?]](https://docs.courier.com/reference/events-api#getevents)
-- `getEvent(string $event_id): object` [[?]](https://docs.courier.com/reference/events-api#geteventbyid)
-- `putEvent(string $event_id, string $id, string $type): object` [[?]](https://docs.courier.com/reference/events-api#replaceeventbyid)
+## Enums
 
-### Profiles API
+This SDK leverages PHP 8.1's first-class enums to improve type safety and usability. In order to maintain forward
+compatibility with the API—where new enum values may be introduced in the future—we define enum properties as `string` 
+and use `value-of` annotations to specify the corresponding enum type.
 
-- `getProfile(string $recipient_id): object` [[?]](https://docs.courier.com/reference/profiles-api#getprofilebyrecipientid)
-- `upsertProfile(string $recipient_id, object $profile): object` [[?]](https://docs.courier.com/reference/profiles-api#mergeprofilebyrecipientid)
-- `patchProfile(string $recipient_id, array $patch): object` [[?]](https://docs.courier.com/reference/profiles-api#patchprofilebyrecipientid)
-- `replaceProfile(string $recipient_id, object $profile): object` [[?]](https://docs.courier.com/reference/profiles-api#replaceprofilebyrecipientid)
-- `getProfileLists(string $recipient_id, string $cursor = NULL): object` [[?]](https://docs.courier.com/reference/profiles-api#getlistsforprofilebyrecipientid)
+### Example Usage
+```php
+use Courier\Messages\Types\MessageDetails;
+use Courier\Messages\Types\MessageStatus;
 
-### Preferences API
+$messageDetails = new MessageDetails([
+    'status' => MessageStatus::Delivered->value,
+]);
+```
 
-- `getPreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.courier.com/reference#get-preferencesrecipient_id)
-- `updatePreferences(string $recipient_id, string $preferred_channel): object` [[?]](https://docs.courier.com/reference#put-preferencesrecipient_id)
+### PHPDoc Annotations
+```php
+/**
+ * @var value-of<MessageStatus> $status The current status of the message.
+ */
+```
 
-### Notifications API
+## Exception Handling
 
-- `listNotifications(string $cursor = NULL): object`
-- `getNotificationContent(string $id): object`
-- `getNotificationDraftContent(string $id): object`
-- `postNotificationVariations(string $id, array $blocks, array $channels = NULL): object`
-- `postNotificationDraftVariations(string $id, array $blocks, array $channels = NULL): object`
-- `getNotificationSubmissionChecks(string $id, string $submissionId): object`
-- `putNotificationSubmissionChecks(string $id, string $submissionId, array $checks): object`
-- `deleteNotificationSubmission(string $id, string $submissionId): object`
+When the API returns a non-zero status code, (`4xx` or `5xx` response), a `CourierApiException` will be thrown:
+```php
+use Courier\Exceptions\CourierApiException;
+use Courier\Exceptions\CourierException;
 
-### Automations API
+try {
+    $courier->lists->get(...);
+} catch (CourierApiException $e) {
+    echo 'Courier API Exception occurred: ' . $e->getMessage() . "\n";
+    echo 'Status Code: ' . $e->getCode() . "\n";
+    echo 'Response Body: ' . $e->getBody() . "\n";
+    // Optionally, rethrow the exception or handle accordingly
+}
+```
 
-- `invokeAutomation(object $automation, string $brand = NULL, string $template = NULL, string $recipient = NULL, object $data = NULL, object $profile = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomation)
-- `invokeAutomationFromTemplate(string $templateId, string $brand = NULL, object $data = NULL, object $profile = NULL, string $recipient = NULL, string $template = NULL): object` [[?]](https://docs.courier.com/reference/invokeautomationtemplate)
-- `getAutomationRun(string $runId): object`
+## Advanced
 
-### Bulk API
+### Pagination
 
-- `createBulkJob(object $message): object` [(Create Bulk Job)](https://www.courier.com/docs/reference/bulk/create-job/)
-- `ingestBulkJob(string $jobId, array $users): object` [(Ingest Bulk Job Users)](https://www.courier.com/docs/reference/bulk/ingest-users/)
-- `runBulkJob(string $jobId): object` [(Run Bulk Job)](https://www.courier.com/docs/reference/bulk/run-job/)
-- `getBulkJob(string $jobId): object` [(Get Bulk Job)](https://www.courier.com/docs/reference/bulk/get-job/)
-- `getBulkJobUsers(string $jobId): object` [(Get Bulk Job Users)](https://www.courier.com/docs/reference/bulk/get-users/)
+The SDK supports pagination for endpoints that return lists of items:
 
-### Audiences API
+```php
+use Courier\Lists\Requests\GetAllListsRequest;
 
-- `putAudience(object $audience): object` [(Create Audience)](https://www.courier.com/docs/reference/audiences/put-audience/)
-- `getAudience(string $audienceId): object` [(Get Audience)](https://www.courier.com/docs/reference/audiences/get-audience/)
-- `getAudienceMembers(string $audienceId): object` [(List audience members)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
-- `getAudiences(): object` [(List audiences)](https://www.courier.com/docs/reference/audiences/list-audience-members/)
+$items = $courier->lists->list(
+    request: new GetAllListsRequest([
+        'cursor' => 'abc123',
+        'pageSize' => 10,
+    ])
+)->items;
 
-### Token Management API
+foreach ($items as $list) {
+    echo "Found list with ID: " . $list->id . "\n";
+}
+```
 
-- `putUserTokens(string $user_id, array $tokens): object` [(Put User Tokens)](https://www.courier.com/docs/reference/token-management/put-tokens/)
-- `putUserToken(string $user_id, array $token): object` [(Put User Token)](https://www.courier.com/docs/reference/token-management/put-token/)
-- `patchUserToken(string $user_id, string $token, array $patch): object` [(Patch User Token)](https://www.courier.com/docs/reference/token-management/patch-token/)
-- `getUserToken(string $user_id, string $token): object` [(Get User Token)](https://www.courier.com/docs/reference/token-management/get-token/)
-- `getUserTokens(string $user_id): object` [(Get User Tokens)](https://www.courier.com/docs/reference/token-management/get-tokens/)
+### Custom HTTP Client
 
-### Audit Events API
+This SDK is built to work with any HTTP client that implements Guzzle's `ClientInterface`. By default, if no client
+is provided, the SDK will use Guzzle's default HTTP client. However, you can pass your own client that adheres to
+`ClientInterface`:
 
-- `getAuditEvent(string $audit_event_id): object` [(Get Audit Event)](https://www.courier.com/docs/reference/audit-events/by-id/)
-- `listAuditEvents(string $cursor = NULL): object` [(List Audit Events)](https://www.courier.com/docs/reference/audit-events/list/)
+```php
+use GuzzleHttp\Client;
+use Courier\CourierClient;
 
-### Accounts API (only on v1.12.0)
+// Create a custom Guzzle client with specific configuration.
+$client = new Client([
+    'timeout' => 5.0,
+]);
 
-- `getAccount(): object` [(Get Account)](https://www.courier.com/docs/reference/accounts/get-account/)
-- `listAccounts(string $cursor = NULL): object` [(List Accounts)](https://www.courier.com/docs/reference/accounts/get-accounts/)
-- `putAccount(string $account_id, object $account): object` [(Put Account)](https://www.courier.com/docs/reference/accounts/create-replace/)
-- `deleteAccount(string $account_id): object` [(Delete Account)](https://www.courier.com/docs/reference/accounts/delete-account/)
+// Pass the custom client when creating an instance of the class.
+$courier = new CourierClient(options: [
+    'client' => $client
+]);
+```
 
-### Tenants API (v2.0.0+)
+## Contributing
 
-- `getTenant(): object` [(Get Tenant)](https://www.courier.com/docs/reference/tenants/get-tenant/)
-- `listTenants(string $cursor = NULL): object` [(List Tenants)](https://www.courier.com/docs/reference/tenants/get-tenants/)
-- `putTenant(string $tenant_id, object $tenant): object` [(Put Tenant)](https://www.courier.com/docs/reference/tenants/create-replace/)
-- `deleteTenant(string $tenant_id): object` [(Delete Tenant)](https://www.courier.com/docs/reference/tenants/delete-tenant/)
+While we value open-source contributions to this SDK, this library
+is generated programmatically. Additions made directly to this library
+would have to be moved over to our generation code, otherwise they would
+be overwritten upon the next generated release. Feel free to open a PR as a
+proof of concept, but know that we will not be able to merge it as-is.
+We suggest opening an issue first to discuss with us!
 
-### Users API
-
-- `putUser(): object` [(Put User)](https://www.courier.com/docs/reference/users/put-user/)
-- `putUserTenants(): object` [(Put User Tenants)](https://www.courier.com/docs/reference/users/put-user-tenants/)
-
-## Errors
-
-All unsuccessful (non 2xx) responses will throw a `CourierRequestException`. The full response object is available via the `getResponse()` method.
+On the other hand, contributions to the README are always very welcome!
