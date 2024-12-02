@@ -137,7 +137,7 @@ class CourierClient
             'Authorization' => "Bearer $authorizationToken",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Courier',
-            'X-Fern-SDK-Version' => '2.0.0',
+            'X-Fern-SDK-Version' => 'v2.0.2',
         ];
 
         $this->options = $options ?? [];
