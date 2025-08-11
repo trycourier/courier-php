@@ -17,6 +17,9 @@ use Courier\Tenants\Types\TenantListResponse;
 use Courier\Tenants\Requests\ListUsersForTenantParams;
 use Courier\Tenants\Types\ListUsersForTenantResponse;
 use Courier\Tenants\Types\SubscriptionTopicNew;
+use Courier\Tenants\Types\GetTemplateByTenantResponse;
+use Courier\Tenants\Requests\GetTemplateListByTenantParams;
+use Courier\Tenants\Types\ListTemplatesByTenantResponse;
 
 class TenantsClient
 {
@@ -290,6 +293,88 @@ class TenantsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (ClientExceptionInterface $e) {
+            throw new CourierException(message: $e->getMessage(), previous: $e);
+        }
+        throw new CourierApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $tenantId Id of the tenant for which to retrieve the template.
+     * @param string $templateId Id of the template to be retrieved.
+     * @param ?array{
+     *   baseUrl?: string,
+     * } $options
+     * @return GetTemplateByTenantResponse
+     * @throws CourierException
+     * @throws CourierApiException
+     */
+    public function getTemplateByTenant(string $tenantId, string $templateId, ?array $options = null): GetTemplateByTenantResponse
+    {
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
+                    path: "/tenants/$tenantId/templates/$templateId",
+                    method: HttpMethod::GET,
+                ),
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return GetTemplateByTenantResponse::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (ClientExceptionInterface $e) {
+            throw new CourierException(message: $e->getMessage(), previous: $e);
+        }
+        throw new CourierApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param string $tenantId Id of the tenant for which to retrieve the templates.
+     * @param GetTemplateListByTenantParams $request
+     * @param ?array{
+     *   baseUrl?: string,
+     * } $options
+     * @return ListTemplatesByTenantResponse
+     * @throws CourierException
+     * @throws CourierApiException
+     */
+    public function getTemplateListByTenant(string $tenantId, GetTemplateListByTenantParams $request, ?array $options = null): ListTemplatesByTenantResponse
+    {
+        $query = [];
+        if ($request->limit != null) {
+            $query['limit'] = $request->limit;
+        }
+        if ($request->cursor != null) {
+            $query['cursor'] = $request->cursor;
+        }
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
+                    path: "/tenants/$tenantId/templates",
+                    method: HttpMethod::GET,
+                    query: $query,
+                ),
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return ListTemplatesByTenantResponse::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

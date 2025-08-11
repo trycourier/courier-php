@@ -14,6 +14,7 @@ use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Courier\Lists\Types\List_;
 use Courier\Lists\Types\ListPutParams;
+use Courier\Lists\Requests\RestoreListRequest;
 use Courier\Lists\Requests\GetSubscriptionForListRequest;
 use Courier\Lists\Types\ListGetSubscriptionsResponse;
 use Courier\Lists\Requests\SubscribeUsersToListRequest;
@@ -128,11 +129,10 @@ class ListsClient
      * @param ?array{
      *   baseUrl?: string,
      * } $options
-     * @return List_
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function update(string $listId, ListPutParams $request, ?array $options = null): List_
+    public function update(string $listId, ListPutParams $request, ?array $options = null): void
     {
         try {
             $response = $this->client->sendRequest(
@@ -145,11 +145,8 @@ class ListsClient
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
-                $json = $response->getBody()->getContents();
-                return List_::fromJson($json);
+                return;
             }
-        } catch (JsonException $e) {
-            throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -198,13 +195,14 @@ class ListsClient
      * Restore a previously deleted list.
      *
      * @param string $listId A unique identifier representing the list you wish to retrieve.
+     * @param RestoreListRequest $request
      * @param ?array{
      *   baseUrl?: string,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function restore(string $listId, ?array $options = null): void
+    public function restore(string $listId, RestoreListRequest $request, ?array $options = null): void
     {
         try {
             $response = $this->client->sendRequest(
@@ -212,6 +210,7 @@ class ListsClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
                     path: "/lists/$listId/restore",
                     method: HttpMethod::PUT,
+                    body: $request,
                 ),
             );
             $statusCode = $response->getStatusCode();

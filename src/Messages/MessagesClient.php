@@ -12,6 +12,7 @@ use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
+use Courier\Messages\Types\MessageDetailsExtended;
 use Courier\Messages\Types\MessageDetails;
 use Courier\Messages\Requests\GetMessageHistoryRequest;
 use Courier\Messages\Types\MessageHistoryResponse;
@@ -122,11 +123,11 @@ class MessagesClient
      * @param ?array{
      *   baseUrl?: string,
      * } $options
-     * @return MessageDetails
+     * @return MessageDetailsExtended
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function get(string $messageId, ?array $options = null): MessageDetails
+    public function get(string $messageId, ?array $options = null): MessageDetailsExtended
     {
         try {
             $response = $this->client->sendRequest(
@@ -139,7 +140,7 @@ class MessagesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return MessageDetails::fromJson($json);
+                return MessageDetailsExtended::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

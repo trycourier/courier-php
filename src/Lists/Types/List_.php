@@ -20,23 +20,23 @@ class List_ extends JsonSerializableType
     public string $name;
 
     /**
-     * @var ?int $created
+     * @var ?string $created
      */
     #[JsonProperty('created')]
-    public ?int $created;
+    public ?string $created;
 
     /**
-     * @var ?int $updated
+     * @var ?string $updated
      */
     #[JsonProperty('updated')]
-    public ?int $updated;
+    public ?string $updated;
 
     /**
      * @param array{
      *   id: string,
      *   name: string,
-     *   created?: ?int,
-     *   updated?: ?int,
+     *   created?: ?string,
+     *   updated?: ?string,
      * } $values
      */
     public function __construct(

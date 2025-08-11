@@ -15,8 +15,7 @@ use Courier\Profiles\Requests\MergeProfileRequest;
 use Courier\Profiles\Types\MergeProfileResponse;
 use Courier\Profiles\Requests\ReplaceProfileRequest;
 use Courier\Profiles\Types\ReplaceProfileResponse;
-use Courier\Profiles\Types\UserProfilePatch;
-use Courier\Core\Json\JsonSerializer;
+use Courier\Profiles\Types\ProfileUpdateRequest;
 use Courier\Profiles\Requests\GetListSubscriptionsRequest;
 use Courier\Profiles\Types\GetListSubscriptionsResponse;
 use Courier\Profiles\Types\SubscribeToListsRequest;
@@ -162,14 +161,14 @@ class ProfilesClient
 
     /**
      * @param string $userId A unique identifier representing the user associated with the requested profile.
-     * @param array<UserProfilePatch> $request
+     * @param ProfileUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function mergeProfile(string $userId, array $request, ?array $options = null): void
+    public function mergeProfile(string $userId, ProfileUpdateRequest $request, ?array $options = null): void
     {
         try {
             $response = $this->client->sendRequest(
@@ -177,7 +176,7 @@ class ProfilesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
                     path: "/profiles/$userId",
                     method: HttpMethod::PATCH,
-                    body: JsonSerializer::serializeArray($request, [UserProfilePatch::class]),
+                    body: $request,
                 ),
             );
             $statusCode = $response->getStatusCode();
