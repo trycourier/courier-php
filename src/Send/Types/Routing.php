@@ -4,6 +4,7 @@ namespace Courier\Send\Types;
 
 use Courier\Core\Json\JsonSerializableType;
 use Courier\Core\Json\JsonProperty;
+use Courier\Notifications\Types\MessageRouting;
 use Courier\Core\Types\ArrayType;
 use Courier\Core\Types\Union;
 
@@ -21,17 +22,17 @@ class Routing extends JsonSerializableType
     public string $method;
 
     /**
-     * @var array<RoutingStrategyChannel|RoutingStrategyProvider|string> $channels A list of channels or providers to send the message through. Can also recursively define
+     * @var array<string|MessageRouting> $channels A list of channels or providers to send the message through. Can also recursively define
     sub-routing methods, which can be useful for defining advanced push notification
     delivery strategies.
      */
-    #[JsonProperty('channels'), ArrayType([new Union(RoutingStrategyChannel::class, RoutingStrategyProvider::class, 'string')])]
+    #[JsonProperty('channels'), ArrayType([new Union('string', MessageRouting::class)])]
     public array $channels;
 
     /**
      * @param array{
      *   method: value-of<RoutingMethod>,
-     *   channels: array<RoutingStrategyChannel|RoutingStrategyProvider|string>,
+     *   channels: array<string|MessageRouting>,
      * } $values
      */
     public function __construct(

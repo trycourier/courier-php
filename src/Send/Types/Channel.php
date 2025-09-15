@@ -33,6 +33,7 @@ class Channel extends JsonSerializableType
     /**
      * @var ?string $if A JavaScript conditional expression to determine if the message should
     be sent through the channel. Has access to the data and profile object.
+    Only applies when a custom routing strategy is defined.
     For example, `data.name === profile.name`
      */
     #[JsonProperty('if')]
