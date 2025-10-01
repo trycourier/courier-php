@@ -9,7 +9,7 @@ use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
 use Courier\Send\Message\ContentMessage;
 use Courier\Send\Message\TemplateMessage;
-use Courier\Send\SendSendMessageResponse;
+use Courier\Send\SendMessageResponse;
 
 interface SendContract
 {
@@ -18,26 +18,26 @@ interface SendContract
      *
      * @param ContentMessage|TemplateMessage $message Defines the message to be delivered
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessage(
+    public function message(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse;
+    ): SendMessageResponse;
 
     /**
      * @api
      *
      * @param array<string, mixed> $params
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessageRaw(
+    public function messageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse;
+    ): SendMessageResponse;
 }

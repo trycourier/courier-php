@@ -10,8 +10,8 @@ use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
 use Courier\Send\Message\ContentMessage;
 use Courier\Send\Message\TemplateMessage;
-use Courier\Send\SendSendMessageParams;
-use Courier\Send\SendSendMessageResponse;
+use Courier\Send\SendMessageParams;
+use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendContract;
 
 final class SendService implements SendContract
@@ -28,17 +28,17 @@ final class SendService implements SendContract
      *
      * @param ContentMessage|TemplateMessage $message Defines the message to be delivered
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessage(
+    public function message(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse {
+    ): SendMessageResponse {
         $params = ['message' => $message];
 
-        return $this->sendMessageRaw($params, $requestOptions);
+        return $this->messageRaw($params, $requestOptions);
     }
 
     /**
@@ -46,15 +46,15 @@ final class SendService implements SendContract
      *
      * @param array<string, mixed> $params
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessageRaw(
+    public function messageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse {
-        [$parsed, $options] = SendSendMessageParams::parseRequest(
+    ): SendMessageResponse {
+        [$parsed, $options] = SendMessageParams::parseRequest(
             $params,
             $requestOptions
         );
@@ -65,7 +65,7 @@ final class SendService implements SendContract
             path: 'send',
             body: (object) $parsed,
             options: $options,
-            convert: SendSendMessageResponse::class,
+            convert: SendMessageResponse::class,
         );
     }
 }

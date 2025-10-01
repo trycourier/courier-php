@@ -50,7 +50,7 @@ use Courier\Send\Message\ContentMessage;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   ContentMessage::with(
     content: ElementalContent::with(
       elements: [(new UnionMember0)], version: "version"
@@ -81,7 +81,7 @@ use Courier\Send\ElementalNode\UnionMember0;
 use Courier\Send\Message\ContentMessage;
 
 try {
-  $response = $client->send->sendMessage(
+  $response = $client->send->message(
     ContentMessage::with(
       content: ElementalContent::with(
         elements: [(new UnionMember0)], version: "version"
@@ -136,7 +136,7 @@ use Courier\Send\Message\ContentMessage;
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->send->sendMessage(
+$result = $client->send->message(
   ContentMessage::with(
     content: ElementalContent::with(
       elements: [(new UnionMember0)], version: "version"
@@ -164,7 +164,7 @@ use Courier\Send\Content\ElementalContent;
 use Courier\Send\ElementalNode\UnionMember0;
 use Courier\Send\Message\ContentMessage;
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   ContentMessage::with(
     content: ElementalContent::with(
       elements: [(new UnionMember0)], version: "version"

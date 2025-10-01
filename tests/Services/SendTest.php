@@ -49,13 +49,13 @@ final class SendTest extends TestCase
     }
 
     #[Test]
-    public function testSendMessage(): void
+    public function testMessage(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->sendMessage(
+        $result = $this->client->send->message(
             ContentMessage::with(
                 content: ElementalContent::with(
                     elements: [new UnionMember0],
@@ -68,13 +68,13 @@ final class SendTest extends TestCase
     }
 
     #[Test]
-    public function testSendMessageWithOptionalParams(): void
+    public function testMessageWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->sendMessage(
+        $result = $this->client->send->message(
             ContentMessage::with(
                 content: ElementalContent::with(
                     elements: [
