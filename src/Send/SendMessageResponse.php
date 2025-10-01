@@ -9,15 +9,15 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type send_send_message_response = array{requestID: string}
+ * @phpstan-type send_message_response = array{requestID: string}
  * When used in a response, this type parameter can define a $rawResponse property.
  * @template TRawResponse of object = object{}
  *
  * @mixin TRawResponse
  */
-final class SendSendMessageResponse implements BaseModel
+final class SendMessageResponse implements BaseModel
 {
-    /** @use SdkModel<send_send_message_response> */
+    /** @use SdkModel<send_message_response> */
     use SdkModel;
 
     /**
@@ -31,17 +31,17 @@ final class SendSendMessageResponse implements BaseModel
     public string $requestID;
 
     /**
-     * `new SendSendMessageResponse()` is missing required properties by the API.
+     * `new SendMessageResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendSendMessageResponse::with(requestID: ...)
+     * SendMessageResponse::with(requestID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendSendMessageResponse)->withRequestID(...)
+     * (new SendMessageResponse)->withRequestID(...)
      * ```
      */
     public function __construct()

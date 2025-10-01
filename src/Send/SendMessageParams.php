@@ -15,25 +15,25 @@ use Courier\Send\Message\TemplateMessage;
  * An object containing the method's parameters.
  * Example usage:
  * ```
- * $params = (new SendSendMessageParams); // set properties as needed
- * $client->send->sendMessage(...$params->toArray());
+ * $params = (new SendMessageParams); // set properties as needed
+ * $client->send->message(...$params->toArray());
  * ```
  * Use the send API to send a message to one or more recipients.
  *
  * @method toArray()
  *   Returns the parameters as an associative array suitable for passing to the client method.
  *
- *   `$client->send->sendMessage(...$params->toArray());`
+ *   `$client->send->message(...$params->toArray());`
  *
- * @see Courier\Send->sendMessage
+ * @see Courier\Send->message
  *
- * @phpstan-type send_send_message_params = array{
+ * @phpstan-type send_message_params = array{
  *   message: ContentMessage|TemplateMessage
  * }
  */
-final class SendSendMessageParams implements BaseModel
+final class SendMessageParams implements BaseModel
 {
-    /** @use SdkModel<send_send_message_params> */
+    /** @use SdkModel<send_message_params> */
     use SdkModel;
     use SdkParams;
 
@@ -44,17 +44,17 @@ final class SendSendMessageParams implements BaseModel
     public ContentMessage|TemplateMessage $message;
 
     /**
-     * `new SendSendMessageParams()` is missing required properties by the API.
+     * `new SendMessageParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendSendMessageParams::with(message: ...)
+     * SendMessageParams::with(message: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendSendMessageParams)->withMessage(...)
+     * (new SendMessageParams)->withMessage(...)
      * ```
      */
     public function __construct()
