@@ -1,0 +1,100 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Courier\Auth;
+
+use Courier\Auth\AuthIssueTokenParams\Scope;
+use Courier\Core\Attributes\Api;
+use Courier\Core\Concerns\SdkModel;
+use Courier\Core\Concerns\SdkParams;
+use Courier\Core\Contracts\BaseModel;
+
+/**
+ * An object containing the method's parameters.
+ * Example usage:
+ * ```
+ * $params = (new AuthIssueTokenParams); // set properties as needed
+ * $client->auth->issueToken(...$params->toArray());
+ * ```
+ * Returns a new access token.
+ *
+ * @method toArray()
+ *   Returns the parameters as an associative array suitable for passing to the client method.
+ *
+ *   `$client->auth->issueToken(...$params->toArray());`
+ *
+ * @see Courier\Auth->issueToken
+ *
+ * @phpstan-type auth_issue_token_params = array{
+ *   expiresIn: string, scope: Scope|value-of<Scope>
+ * }
+ */
+final class AuthIssueTokenParams implements BaseModel
+{
+    /** @use SdkModel<auth_issue_token_params> */
+    use SdkModel;
+    use SdkParams;
+
+    #[Api('expires_in')]
+    public string $expiresIn;
+
+    /** @var value-of<Scope> $scope */
+    #[Api(enum: Scope::class)]
+    public string $scope;
+
+    /**
+     * `new AuthIssueTokenParams()` is missing required properties by the API.
+     *
+     * To enforce required parameters use
+     * ```
+     * AuthIssueTokenParams::with(expiresIn: ..., scope: ...)
+     * ```
+     *
+     * Otherwise ensure the following setters are called
+     *
+     * ```
+     * (new AuthIssueTokenParams)->withExpiresIn(...)->withScope(...)
+     * ```
+     */
+    public function __construct()
+    {
+        $this->initialize();
+    }
+
+    /**
+     * Construct an instance from the required parameters.
+     *
+     * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Scope|value-of<Scope> $scope
+     */
+    public static function with(string $expiresIn, Scope|string $scope): self
+    {
+        $obj = new self;
+
+        $obj->expiresIn = $expiresIn;
+        $obj->scope = $scope instanceof Scope ? $scope->value : $scope;
+
+        return $obj;
+    }
+
+    public function withExpiresIn(string $expiresIn): self
+    {
+        $obj = clone $this;
+        $obj->expiresIn = $expiresIn;
+
+        return $obj;
+    }
+
+    /**
+     * @param Scope|value-of<Scope> $scope
+     */
+    public function withScope(Scope|string $scope): self
+    {
+        $obj = clone $this;
+        $obj->scope = $scope instanceof Scope ? $scope->value : $scope;
+
+        return $obj;
+    }
+}

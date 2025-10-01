@@ -1,188 +1,211 @@
-# Courier PHP SDK
+# Courier PHP API library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/trycourier/courier)
+> [!NOTE]
+> The Courier PHP API Library is currently in **beta** and we're excited for you to experiment with it!
+>
+> This library has not yet been exhaustively tested in production environments and may be missing some features you'd expect in a stable release. As we continue development, there may be breaking changes that require updates to your code.
+>
+> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/stainless-sdks/courier-php/issues/new).
 
-The Courier PHP library provides convenient access to the Courier API from PHP.
+The Courier PHP library provides convenient access to the Courier REST API from any PHP 8.1.0+ application.
 
-## Requirements
+It is generated with [Stainless](https://www.stainless.com/).
 
-Use of the Courier PHP SDK requires:
-* PHP ^8.1
+## Documentation
 
 ## Installation
 
-Use Composer to configure and install the Courier PHP SDK:
+To use this package, install via Composer by adding the following to your application's `composer.json`:
 
-```shell
-composer require trycourier/courier
+```json
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:stainless-sdks/courier-php.git"
+    }
+  ],
+  "require": {
+    "org-placeholder/courier": "dev-main"
+  }
+}
 ```
 
 ## Usage
 
-```php
-use Courier\CourierClient;
-use Courier\Requests\SendMessageRequest;
-use Courier\Send\Types\ContentMessage;
-use Courier\Send\Types\ElementalContentSugar;
-use Courier\Send\Types\UserRecipient;
+This library uses named parameters to specify optional arguments.
+Parameters with a default value must be set by name.
 
-$courier = new CourierClient();
-$response = $courier->send(
-    request: new SendMessageRequest([
-        'message' => new ContentMessage([
-            'to' => [
-                new UserRecipient([
-                    'email' => 'marty_mcfly@email.com',
-                    'data' => [
-                        'name' => 'Marty',
-                    ],
-                ]),
-            ],
-            'content' => new ElementalContentSugar([
-                'title' => 'Back to the Future',
-                'body' => 'Oh my {{name}}, we need 1.21 Gigawatts!',
-            ]),
-        ]),
-    ])
+```php
+<?php
+
+use Courier\Client;
+use Courier\Send\Content\ElementalContent;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\Message\ContentMessage;
+
+$client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
+
+$response = $client->send->sendMessage(
+  ContentMessage::with(
+    content: ElementalContent::with(
+      elements: [(new UnionMember0)], version: "version"
+    ),
+  ),
+);
+
+var_dump($response->requestId);
+```
+
+### Value Objects
+
+It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
+and named parameters to initialize value objects.
+
+However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
+
+### Handling errors
+
+When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Courier\Core\Exceptions\APIException` will be thrown:
+
+```php
+<?php
+
+use Courier\Core\Exceptions\APIConnectionException;
+use Courier\Send\Content\ElementalContent;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\Message\ContentMessage;
+
+try {
+  $response = $client->send->sendMessage(
+    ContentMessage::with(
+      content: ElementalContent::with(
+        elements: [(new UnionMember0)], version: "version"
+      ),
+    ),
+  );
+} catch (APIConnectionException $e) {
+  echo "The server could not be reached", PHP_EOL;
+  var_dump($e->getPrevious());
+} catch (RateLimitError $_) {
+  echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
+} catch (APIStatusError $e) {
+  echo "Another non-200-range status code was received", PHP_EOL;
+  echo $e->getMessage();
+}
+```
+
+Error codes are as follows:
+
+| Cause            | Error Type                     |
+| ---------------- | ------------------------------ |
+| HTTP 400         | `BadRequestException`          |
+| HTTP 401         | `AuthenticationException`      |
+| HTTP 403         | `PermissionDeniedException`    |
+| HTTP 404         | `NotFoundException`            |
+| HTTP 409         | `ConflictException`            |
+| HTTP 422         | `UnprocessableEntityException` |
+| HTTP 429         | `RateLimitException`           |
+| HTTP >= 500      | `InternalServerException`      |
+| Other HTTP error | `APIStatusException`           |
+| Timeout          | `APITimeoutException`          |
+| Network error    | `APIConnectionException`       |
+
+### Retries
+
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
+
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.
+
+You can use the `maxRetries` option to configure or disable this:
+
+```php
+<?php
+
+use Courier\Client;
+use Courier\RequestOptions;
+use Courier\Send\Content\ElementalContent;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\Message\ContentMessage;
+
+// Configure the default for all requests:
+$client = new Client(maxRetries: 0);
+
+// Or, configure per-request:
+$result = $client->send->sendMessage(
+  ContentMessage::with(
+    content: ElementalContent::with(
+      elements: [(new UnionMember0)], version: "version"
+    ),
+  ),
+  requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
 
-## Instantiation
+## Advanced concepts
 
-To get started with the Courier SDK, instantiate the `CourierClient` class as follows:
+### Making custom or undocumented requests
 
-```php
-use Courier\CourierClient;
+#### Undocumented properties
 
-$courier = new CourierClient("COURIER_AUTH_TOKEN");
-```
+You can send undocumented parameters to any endpoint, and read undocumented response properties, like so:
 
-Alternatively, you can omit the token when constructing the client. 
-In this case, the SDK will automatically read the token from the
-`COURIER_AUTH_TOKEN` environment variable:
+Note: the `extra*` parameters of the same name overrides the documented parameters.
 
 ```php
-use Courier\CourierClient;
+<?php
 
-$courier = new CourierClient(); // Token is read from the COURIER_AUTH_TOKEN environment variable
+use Courier\RequestOptions;
+use Courier\Send\Content\ElementalContent;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\Message\ContentMessage;
+
+$response = $client->send->sendMessage(
+  ContentMessage::with(
+    content: ElementalContent::with(
+      elements: [(new UnionMember0)], version: "version"
+    ),
+  ),
+  requestOptions: RequestOptions::with(
+    extraQueryParams: ["my_query_parameter" => "value"],
+    extraBodyParams: ["my_body_parameter" => "value"],
+    extraHeaders: ["my-header" => "value"],
+  ),
+);
+
+var_dump($response["my_undocumented_property"]);
 ```
 
-### Environment and Custom URLs
+#### Undocumented request params
 
-This SDK allows you to configure different environments or custom URLs for API requests. 
-You can either use the predefined environments or specify your own custom URL.
+If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.
 
-#### Environments
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:
 
 ```php
-use Courier\CourierClient;
-use Courier\Environments;
+<?php
 
-$courier = new CourierClient(options: [
-    'baseUrl' => Environments::Production->value // Used by default
-]);
+$response = $client->request(
+  method: "post",
+  path: '/undocumented/endpoint',
+  query: ['dog' => 'woof'],
+  headers: ['useful-header' => 'interesting-value'],
+  body: ['hello' => 'world']
+);
 ```
 
-#### Custom URL
+## Versioning
 
-```php
-use Courier\CourierClient;
+This package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.
 
-$courier = new CourierClient(options: [
-    'baseUrl' => 'https://custom-staging.com'
-]);
-```
+This package considers improvements to the (non-runtime) PHPDoc type definitions to be non-breaking changes.
 
-## Enums
+## Requirements
 
-This SDK leverages PHP 8.1's first-class enums to improve type safety and usability. In order to maintain forward
-compatibility with the API—where new enum values may be introduced in the future—we define enum properties as `string` 
-and use `value-of` annotations to specify the corresponding enum type.
-
-### Example Usage
-```php
-use Courier\Messages\Types\MessageDetails;
-use Courier\Messages\Types\MessageStatus;
-
-$messageDetails = new MessageDetails([
-    'status' => MessageStatus::Delivered->value,
-]);
-```
-
-### PHPDoc Annotations
-```php
-/**
- * @var value-of<MessageStatus> $status The current status of the message.
- */
-```
-
-## Exception Handling
-
-When the API returns a non-zero status code, (`4xx` or `5xx` response), a `CourierApiException` will be thrown:
-```php
-use Courier\Exceptions\CourierApiException;
-use Courier\Exceptions\CourierException;
-
-try {
-    $courier->lists->get(...);
-} catch (CourierApiException $e) {
-    echo 'Courier API Exception occurred: ' . $e->getMessage() . "\n";
-    echo 'Status Code: ' . $e->getCode() . "\n";
-    echo 'Response Body: ' . $e->getBody() . "\n";
-    // Optionally, rethrow the exception or handle accordingly
-}
-```
-
-## Advanced
-
-### Pagination
-
-The SDK supports pagination for endpoints that return lists of items:
-
-```php
-use Courier\Lists\Requests\GetAllListsRequest;
-
-$items = $courier->lists->list(
-    request: new GetAllListsRequest([
-        'cursor' => 'abc123',
-        'pageSize' => 10,
-    ])
-)->items;
-
-foreach ($items as $list) {
-    echo "Found list with ID: " . $list->id . "\n";
-}
-```
-
-### Custom HTTP Client
-
-This SDK is built to work with any HTTP client that implements Guzzle's `ClientInterface`. By default, if no client
-is provided, the SDK will use Guzzle's default HTTP client. However, you can pass your own client that adheres to
-`ClientInterface`:
-
-```php
-use GuzzleHttp\Client;
-use Courier\CourierClient;
-
-// Create a custom Guzzle client with specific configuration.
-$client = new Client([
-    'timeout' => 5.0,
-]);
-
-// Pass the custom client when creating an instance of the class.
-$courier = new CourierClient(options: [
-    'client' => $client
-]);
-```
+PHP 8.1.0 or higher.
 
 ## Contributing
 
-While we value open-source contributions to this SDK, this library
-is generated programmatically. Additions made directly to this library
-would have to be moved over to our generation code, otherwise they would
-be overwritten upon the next generated release. Feel free to open a PR as a
-proof of concept, but know that we will not be able to merge it as-is.
-We suggest opening an issue first to discuss with us!
-
-On the other hand, contributions to the README are always very welcome!
+See [the contributing documentation](https://github.com/stainless-sdks/courier-php/tree/main/CONTRIBUTING.md).
