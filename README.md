@@ -60,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `MsTeamsBaseProperties::with(serviceURL: "service_url", ...)`
+It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new MsTeamsBaseProperties)->withServiceURL("service_url")`.
+However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
 
 ### Handling errors
 
