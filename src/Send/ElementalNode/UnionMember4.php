@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\Content\ElementalContent\Element;
+namespace Courier\Send\ElementalNode;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Content\ElementalContent\Element\UnionMember4\Type;
+use Courier\Send\ElementalNode\UnionMember4\Type;
 
 /**
  * @phpstan-type union_member4 = array{

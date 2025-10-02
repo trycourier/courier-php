@@ -20,7 +20,7 @@ use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\BaseMessageSendTo\To\AudienceRecipient;
 use Courier\Send\BaseMessageSendTo\To\AudienceRecipient\Filter;
 use Courier\Send\Content\ElementalContent;
-use Courier\Send\Content\ElementalContent\Element\UnionMember0;
+use Courier\Send\ElementalNode\UnionMember0;
 use Courier\Send\Message\ContentMessage;
 use Courier\Send\MessageContext;
 use Courier\Send\RoutingMethod;

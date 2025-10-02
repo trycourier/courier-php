@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\Content\ElementalContent\Element;
+namespace Courier\Send\ElementalNode;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Content\ElementalContent\Element\UnionMember0\Type;
+use Courier\Send\ElementalNode\UnionMember7\Type;
 
 /**
- * @phpstan-type union_member0 = array{
+ * @phpstan-type union_member7 = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -18,9 +18,9 @@ use Courier\Send\Content\ElementalContent\Element\UnionMember0\Type;
  *   type?: value-of<Type>,
  * }
  */
-final class UnionMember0 implements BaseModel
+final class UnionMember7 implements BaseModel
 {
-    /** @use SdkModel<union_member0> */
+    /** @use SdkModel<union_member7> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

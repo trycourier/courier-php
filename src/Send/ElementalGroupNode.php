@@ -2,26 +2,41 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\Content\ElementalContent\Element;
+namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Content\ElementalContent\Element\UnionMember5\Type;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\ElementalNode\UnionMember1;
+use Courier\Send\ElementalNode\UnionMember2;
+use Courier\Send\ElementalNode\UnionMember3;
+use Courier\Send\ElementalNode\UnionMember4;
+use Courier\Send\ElementalNode\UnionMember5;
+use Courier\Send\ElementalNode\UnionMember6;
+use Courier\Send\ElementalNode\UnionMember7;
 
 /**
- * @phpstan-type union_member5 = array{
+ * @phpstan-type elemental_group_node = array{
+ *   elements: list<UnionMember0|UnionMember1|union_member2|UnionMember3|UnionMember4|UnionMember5|union_member6|UnionMember7>,
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
  * }
  */
-final class UnionMember5 implements BaseModel
+final class ElementalGroupNode implements BaseModel
 {
-    /** @use SdkModel<union_member5> */
+    /** @use SdkModel<elemental_group_node> */
     use SdkModel;
+
+    /**
+     * Sub elements to render.
+     *
+     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
+     */
+    #[Api(list: ElementalNode::class)]
+    public array $elements;
 
     /** @var list<string>|null $channels */
     #[Api(list: 'string', nullable: true, optional: true)]
@@ -36,10 +51,20 @@ final class UnionMember5 implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $ref;
 
-    /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
-    public ?string $type;
-
+    /**
+     * `new ElementalGroupNode()` is missing required properties by the API.
+     *
+     * To enforce required parameters use
+     * ```
+     * ElementalGroupNode::with(elements: ...)
+     * ```
+     *
+     * Otherwise ensure the following setters are called
+     *
+     * ```
+     * (new ElementalGroupNode)->withElements(...)
+     * ```
+     */
     public function __construct()
     {
         $this->initialize();
@@ -50,23 +75,37 @@ final class UnionMember5 implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      * @param list<string>|null $channels
-     * @param Type|value-of<Type> $type
      */
     public static function with(
+        array $elements,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
-        Type|string|null $type = null,
     ): self {
         $obj = new self;
+
+        $obj->elements = $elements;
 
         null !== $channels && $obj->channels = $channels;
         null !== $if && $obj->if = $if;
         null !== $loop && $obj->loop = $loop;
         null !== $ref && $obj->ref = $ref;
-        null !== $type && $obj->type = $type instanceof Type ? $type->value : $type;
+
+        return $obj;
+    }
+
+    /**
+     * Sub elements to render.
+     *
+     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
+     */
+    public function withElements(array $elements): self
+    {
+        $obj = clone $this;
+        $obj->elements = $elements;
 
         return $obj;
     }
@@ -102,17 +141,6 @@ final class UnionMember5 implements BaseModel
     {
         $obj = clone $this;
         $obj->ref = $ref;
-
-        return $obj;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $obj = clone $this;
-        $obj->type = $type instanceof Type ? $type->value : $type;
 
         return $obj;
     }
