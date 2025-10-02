@@ -13,10 +13,10 @@ use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
  * @phpstan-type item_alias = array{
  *   id: string,
  *   createdAt: string,
+ *   data: Data,
  *   publishedAt: string,
  *   updatedAt: string,
  *   version: string,
- *   data: Data,
  * }
  */
 final class Item implements BaseModel
@@ -37,6 +37,12 @@ final class Item implements BaseModel
     public string $createdAt;
 
     /**
+     * The template's data containing it's routing configs.
+     */
+    #[Api]
+    public Data $data;
+
+    /**
      * The timestamp at which the template was published.
      */
     #[Api('published_at')]
@@ -55,12 +61,6 @@ final class Item implements BaseModel
     public string $version;
 
     /**
-     * The template's data containing it's routing configs.
-     */
-    #[Api]
-    public Data $data;
-
-    /**
      * `new Item()` is missing required properties by the API.
      *
      * To enforce required parameters use
@@ -68,10 +68,10 @@ final class Item implements BaseModel
      * Item::with(
      *   id: ...,
      *   createdAt: ...,
+     *   data: ...,
      *   publishedAt: ...,
      *   updatedAt: ...,
      *   version: ...,
-     *   data: ...,
      * )
      * ```
      *
@@ -81,10 +81,10 @@ final class Item implements BaseModel
      * (new Item)
      *   ->withID(...)
      *   ->withCreatedAt(...)
+     *   ->withData(...)
      *   ->withPublishedAt(...)
      *   ->withUpdatedAt(...)
      *   ->withVersion(...)
-     *   ->withData(...)
      * ```
      */
     public function __construct()
@@ -100,19 +100,19 @@ final class Item implements BaseModel
     public static function with(
         string $id,
         string $createdAt,
+        Data $data,
         string $publishedAt,
         string $updatedAt,
         string $version,
-        Data $data,
     ): self {
         $obj = new self;
 
         $obj->id = $id;
         $obj->createdAt = $createdAt;
+        $obj->data = $data;
         $obj->publishedAt = $publishedAt;
         $obj->updatedAt = $updatedAt;
         $obj->version = $version;
-        $obj->data = $data;
 
         return $obj;
     }
@@ -135,6 +135,17 @@ final class Item implements BaseModel
     {
         $obj = clone $this;
         $obj->createdAt = $createdAt;
+
+        return $obj;
+    }
+
+    /**
+     * The template's data containing it's routing configs.
+     */
+    public function withData(Data $data): self
+    {
+        $obj = clone $this;
+        $obj->data = $data;
 
         return $obj;
     }
@@ -168,17 +179,6 @@ final class Item implements BaseModel
     {
         $obj = clone $this;
         $obj->version = $version;
-
-        return $obj;
-    }
-
-    /**
-     * The template's data containing it's routing configs.
-     */
-    public function withData(Data $data): self
-    {
-        $obj = clone $this;
-        $obj->data = $data;
 
         return $obj;
     }

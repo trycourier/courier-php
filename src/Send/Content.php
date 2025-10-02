@@ -7,8 +7,8 @@ namespace Courier\Send;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\Send\Content\ElementalContent;
 use Courier\Send\Content\ElementalContentSugar;
-use Courier\Tenants\Templates\ElementalContent;
 
 /**
  * Syntatic Sugar to provide a fast shorthand for Courier Elemental Blocks.
