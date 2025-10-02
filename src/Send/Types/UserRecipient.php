@@ -60,8 +60,10 @@ class UserRecipient extends JsonSerializableType
     public ?IProfilePreferences $preferences;
 
     /**
-     * @var ?string $tenantId An id of a tenant, [see tenants api docs](https://www.courier.com/docs/reference/tenants).
-    Will load brand, default preferences and any other base context data associated with this tenant.
+     * An id of a tenant, [see tenants api docs](https://www.courier.com/docs/reference/tenants).
+     * Will load brand, default preferences and any other base context data associated with this tenant.
+     *
+     * @var ?string $tenantId
      */
     #[JsonProperty('tenant_id')]
     public ?string $tenantId;
@@ -91,5 +93,13 @@ class UserRecipient extends JsonSerializableType
         $this->phoneNumber = $values['phoneNumber'] ?? null;
         $this->preferences = $values['preferences'] ?? null;
         $this->tenantId = $values['tenantId'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

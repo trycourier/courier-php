@@ -31,4 +31,12 @@ class InvalidListPatternRecipient extends JsonSerializableType
         $this->userId = $values['userId'];
         $this->listId = $values['listId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

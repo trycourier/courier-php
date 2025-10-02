@@ -15,15 +15,21 @@ class Expiry extends JsonSerializableType
     public ?string $expiresAt;
 
     /**
-     * @var string|int $expiresIn A duration in the form of milliseconds or an ISO8601 Duration format (i.e. P1DT4H).
+     * @var (
+     *    string
+     *   |int
+     * ) $expiresIn A duration in the form of milliseconds or an ISO8601 Duration format (i.e. P1DT4H).
      */
     #[JsonProperty('expires_in'), Union('string', 'integer')]
     public string|int $expiresIn;
 
     /**
      * @param array{
+     *   expiresIn: (
+     *    string
+     *   |int
+     * ),
      *   expiresAt?: ?string,
-     *   expiresIn: string|int,
      * } $values
      */
     public function __construct(
@@ -31,5 +37,13 @@ class Expiry extends JsonSerializableType
     ) {
         $this->expiresAt = $values['expiresAt'] ?? null;
         $this->expiresIn = $values['expiresIn'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -45,12 +45,12 @@ class AuditEvent extends JsonSerializableType
 
     /**
      * @param array{
-     *   actor?: ?Actor,
-     *   target?: ?Target,
      *   auditEventId: string,
      *   source: string,
      *   timestamp: string,
      *   type: string,
+     *   actor?: ?Actor,
+     *   target?: ?Target,
      * } $values
      */
     public function __construct(
@@ -62,5 +62,13 @@ class AuditEvent extends JsonSerializableType
         $this->source = $values['source'];
         $this->timestamp = $values['timestamp'];
         $this->type = $values['type'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

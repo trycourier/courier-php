@@ -64,4 +64,12 @@ class NotificationTemplates extends JsonSerializableType
         $this->title = $values['title'];
         $this->updatedAt = $values['updatedAt'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

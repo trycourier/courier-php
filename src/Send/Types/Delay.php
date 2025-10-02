@@ -31,4 +31,12 @@ class Delay extends JsonSerializableType
         $this->duration = $values['duration'] ?? null;
         $this->until = $values['until'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

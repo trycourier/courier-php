@@ -58,13 +58,13 @@ class Brand extends JsonSerializableType
     /**
      * @param array{
      *   created: int,
-     *   id?: ?string,
      *   name: string,
      *   published: int,
      *   settings: BrandSettings,
      *   updated: int,
-     *   snippets?: ?BrandSnippets,
      *   version: string,
+     *   id?: ?string,
+     *   snippets?: ?BrandSnippets,
      * } $values
      */
     public function __construct(
@@ -78,5 +78,13 @@ class Brand extends JsonSerializableType
         $this->updated = $values['updated'];
         $this->snippets = $values['snippets'] ?? null;
         $this->version = $values['version'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

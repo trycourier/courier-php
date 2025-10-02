@@ -4,6 +4,10 @@ namespace Courier\Automations\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property ?string $if
+ * @property ?string $ref
+ */
 trait AutomationStep
 {
     /**

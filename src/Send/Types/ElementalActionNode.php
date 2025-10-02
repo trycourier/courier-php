@@ -60,20 +60,24 @@ class ElementalActionNode extends JsonSerializableType
      * @param array{
      *   content: string,
      *   href: string,
+     *   channels?: ?array<string>,
+     *   ref?: ?string,
+     *   if?: ?string,
+     *   loop?: ?string,
      *   actionId?: ?string,
      *   align?: ?value-of<IAlignment>,
      *   backgroundColor?: ?string,
      *   style?: ?value-of<IActionButtonStyle>,
      *   locales?: ?array<string, Locale>,
-     *   channels?: ?array<string>,
-     *   ref?: ?string,
-     *   if?: ?string,
-     *   loop?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->channels = $values['channels'] ?? null;
+        $this->ref = $values['ref'] ?? null;
+        $this->if = $values['if'] ?? null;
+        $this->loop = $values['loop'] ?? null;
         $this->content = $values['content'];
         $this->href = $values['href'];
         $this->actionId = $values['actionId'] ?? null;
@@ -81,9 +85,13 @@ class ElementalActionNode extends JsonSerializableType
         $this->backgroundColor = $values['backgroundColor'] ?? null;
         $this->style = $values['style'] ?? null;
         $this->locales = $values['locales'] ?? null;
-        $this->channels = $values['channels'] ?? null;
-        $this->ref = $values['ref'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->loop = $values['loop'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

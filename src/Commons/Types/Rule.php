@@ -21,8 +21,8 @@ class Rule extends JsonSerializableType
 
     /**
      * @param array{
-     *   start?: ?string,
      *   until: string,
+     *   start?: ?string,
      * } $values
      */
     public function __construct(
@@ -30,5 +30,13 @@ class Rule extends JsonSerializableType
     ) {
         $this->start = $values['start'] ?? null;
         $this->until = $values['until'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

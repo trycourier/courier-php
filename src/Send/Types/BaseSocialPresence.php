@@ -23,4 +23,12 @@ class BaseSocialPresence extends JsonSerializableType
     ) {
         $this->url = $values['url'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

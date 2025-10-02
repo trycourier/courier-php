@@ -23,4 +23,12 @@ class AudienceMemberGetResponse extends JsonSerializableType
     ) {
         $this->audienceMember = $values['audienceMember'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

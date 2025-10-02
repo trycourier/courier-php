@@ -31,4 +31,12 @@ class AutomationStep extends JsonSerializableType
         $this->if = $values['if'] ?? null;
         $this->ref = $values['ref'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

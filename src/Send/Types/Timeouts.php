@@ -31,4 +31,12 @@ class Timeouts extends JsonSerializableType
         $this->provider = $values['provider'] ?? null;
         $this->channel = $values['channel'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

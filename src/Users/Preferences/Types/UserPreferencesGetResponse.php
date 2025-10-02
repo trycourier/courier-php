@@ -23,4 +23,12 @@ class UserPreferencesGetResponse extends JsonSerializableType
     ) {
         $this->topic = $values['topic'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

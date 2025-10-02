@@ -11,14 +11,20 @@ use Courier\Core\Types\Union;
 class SendMessageRequest extends JsonSerializableType
 {
     /**
-     * @var ContentMessage|TemplateMessage $message Defines the message to be delivered
+     * @var (
+     *    ContentMessage
+     *   |TemplateMessage
+     * ) $message Defines the message to be delivered
      */
     #[JsonProperty('message'), Union(ContentMessage::class, TemplateMessage::class)]
     public ContentMessage|TemplateMessage $message;
 
     /**
      * @param array{
-     *   message: ContentMessage|TemplateMessage,
+     *   message: (
+     *    ContentMessage
+     *   |TemplateMessage
+     * ),
      * } $values
      */
     public function __construct(

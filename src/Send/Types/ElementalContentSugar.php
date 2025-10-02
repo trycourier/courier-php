@@ -34,4 +34,12 @@ class ElementalContentSugar extends JsonSerializableType
         $this->title = $values['title'];
         $this->body = $values['body'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

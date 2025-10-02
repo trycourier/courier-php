@@ -24,4 +24,12 @@ class MultipleTokens extends JsonSerializableType
     ) {
         $this->tokens = $values['tokens'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

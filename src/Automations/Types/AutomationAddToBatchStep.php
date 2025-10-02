@@ -12,7 +12,7 @@ class AutomationAddToBatchStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'add-to-batch' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -30,7 +30,10 @@ class AutomationAddToBatchStep extends JsonSerializableType
     public string $maxWaitPeriod;
 
     /**
-     * @var string|int|null $maxItems If specified, the batch will release as soon as this number is reached
+     * @var (
+     *    string
+     *   |int
+     * )|null $maxItems If specified, the batch will release as soon as this number is reached
      */
     #[JsonProperty('max_items'), Union('string', 'integer', 'null')]
     public string|int|null $maxItems;
@@ -42,8 +45,10 @@ class AutomationAddToBatchStep extends JsonSerializableType
     public AutomationAddToBatchRetain $retain;
 
     /**
-     * @var ?value-of<AutomationAddToBatchScope> $scope Determine the scope of the batching. If user, chosen in this order: recipient, profile.user_id, data.user_id, data.userId.
-    If dynamic, then specify where the batch_key or a reference to the batch_key
+     * Determine the scope of the batching. If user, chosen in this order: recipient, profile.user_id, data.user_id, data.userId.
+     * If dynamic, then specify where the batch_key or a reference to the batch_key
+     *
+     * @var ?value-of<AutomationAddToBatchScope> $scope
      */
     #[JsonProperty('scope')]
     public ?string $scope;
@@ -68,22 +73,27 @@ class AutomationAddToBatchStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'add-to-batch',
      *   waitPeriod: string,
      *   maxWaitPeriod: string,
-     *   maxItems?: string|int|null,
      *   retain: AutomationAddToBatchRetain,
+     *   if?: ?string,
+     *   ref?: ?string,
+     *   maxItems?: (
+     *    string
+     *   |int
+     * )|null,
      *   scope?: ?value-of<AutomationAddToBatchScope>,
      *   batchKey?: ?string,
      *   batchId?: ?string,
      *   categoryKey?: ?string,
-     *   if?: ?string,
-     *   ref?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->if = $values['if'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->action = $values['action'];
         $this->waitPeriod = $values['waitPeriod'];
         $this->maxWaitPeriod = $values['maxWaitPeriod'];
@@ -93,7 +103,13 @@ class AutomationAddToBatchStep extends JsonSerializableType
         $this->batchKey = $values['batchKey'] ?? null;
         $this->batchId = $values['batchId'] ?? null;
         $this->categoryKey = $values['categoryKey'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->ref = $values['ref'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

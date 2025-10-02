@@ -27,7 +27,10 @@ class Audience extends JsonSerializableType
     public string $description;
 
     /**
-     * @var SingleFilterConfig|NestedFilterConfig $filter
+     * @var (
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * ) $filter
      */
     #[JsonProperty('filter'), Union(SingleFilterConfig::class, NestedFilterConfig::class)]
     public SingleFilterConfig|NestedFilterConfig $filter;
@@ -49,7 +52,10 @@ class Audience extends JsonSerializableType
      *   id: string,
      *   name: string,
      *   description: string,
-     *   filter: SingleFilterConfig|NestedFilterConfig,
+     *   filter: (
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * ),
      *   createdAt: string,
      *   updatedAt: string,
      * } $values
@@ -63,5 +69,13 @@ class Audience extends JsonSerializableType
         $this->filter = $values['filter'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

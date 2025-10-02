@@ -111,4 +111,12 @@ class MessageDetails extends JsonSerializableType
         $this->error = $values['error'] ?? null;
         $this->reason = $values['reason'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

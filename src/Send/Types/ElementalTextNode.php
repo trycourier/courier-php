@@ -15,8 +15,10 @@ class ElementalTextNode extends JsonSerializableType
     use ElementalBaseNode;
 
     /**
-     * @var string $content The text content displayed in the notification. Either this
-    field must be specified, or the elements field
+     * The text content displayed in the notification. Either this
+     * field must be specified, or the elements field
+     *
+     * @var string $content
      */
     #[JsonProperty('content')]
     public string $content;
@@ -70,7 +72,7 @@ class ElementalTextNode extends JsonSerializableType
     public ?array $locales;
 
     /**
-     * @var ?string $format
+     * @var ?'markdown' $format
      */
     #[JsonProperty('format')]
     public ?string $format;
@@ -79,6 +81,10 @@ class ElementalTextNode extends JsonSerializableType
      * @param array{
      *   content: string,
      *   align: value-of<TextAlign>,
+     *   channels?: ?array<string>,
+     *   ref?: ?string,
+     *   if?: ?string,
+     *   loop?: ?string,
      *   textStyle?: ?value-of<TextStyle>,
      *   color?: ?string,
      *   bold?: ?string,
@@ -86,16 +92,16 @@ class ElementalTextNode extends JsonSerializableType
      *   strikethrough?: ?string,
      *   underline?: ?string,
      *   locales?: ?array<string, Locale>,
-     *   format?: ?string,
-     *   channels?: ?array<string>,
-     *   ref?: ?string,
-     *   if?: ?string,
-     *   loop?: ?string,
+     *   format?: ?'markdown',
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->channels = $values['channels'] ?? null;
+        $this->ref = $values['ref'] ?? null;
+        $this->if = $values['if'] ?? null;
+        $this->loop = $values['loop'] ?? null;
         $this->content = $values['content'];
         $this->align = $values['align'];
         $this->textStyle = $values['textStyle'] ?? null;
@@ -106,9 +112,13 @@ class ElementalTextNode extends JsonSerializableType
         $this->underline = $values['underline'] ?? null;
         $this->locales = $values['locales'] ?? null;
         $this->format = $values['format'] ?? null;
-        $this->channels = $values['channels'] ?? null;
-        $this->ref = $values['ref'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->loop = $values['loop'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

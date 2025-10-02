@@ -42,4 +42,12 @@ class TopicPreferenceUpdate extends JsonSerializableType
         $this->customRouting = $values['customRouting'] ?? null;
         $this->hasCustomRouting = $values['hasCustomRouting'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

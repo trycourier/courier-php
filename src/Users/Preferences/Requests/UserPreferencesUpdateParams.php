@@ -21,8 +21,8 @@ class UserPreferencesUpdateParams extends JsonSerializableType
 
     /**
      * @param array{
-     *   tenantId?: ?string,
      *   topic: TopicPreferenceUpdate,
+     *   tenantId?: ?string,
      * } $values
      */
     public function __construct(

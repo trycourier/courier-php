@@ -3,9 +3,16 @@
 namespace Courier\Bulk\Traits;
 
 use Courier\Commons\Types\RecipientPreferences;
-use Courier\Core\Json\JsonProperty;
 use Courier\Send\Types\UserRecipient;
+use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property ?RecipientPreferences $preferences
+ * @property mixed $profile
+ * @property ?string $recipient
+ * @property mixed $data
+ * @property ?UserRecipient $to
+ */
 trait InboundBulkMessageUser
 {
     /**

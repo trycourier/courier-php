@@ -18,14 +18,22 @@ class SendToSlackEmail extends JsonSerializableType
 
     /**
      * @param array{
-     *   email: string,
      *   accessToken: string,
+     *   email: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->email = $values['email'];
         $this->accessToken = $values['accessToken'];
+        $this->email = $values['email'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

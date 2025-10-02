@@ -18,14 +18,22 @@ class SendToSlackChannel extends JsonSerializableType
 
     /**
      * @param array{
-     *   channel: string,
      *   accessToken: string,
+     *   channel: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->channel = $values['channel'];
         $this->accessToken = $values['accessToken'];
+        $this->channel = $values['channel'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

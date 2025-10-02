@@ -31,4 +31,12 @@ class Email extends JsonSerializableType
         $this->footer = $values['footer'];
         $this->header = $values['header'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

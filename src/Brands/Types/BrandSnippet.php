@@ -8,7 +8,7 @@ use Courier\Core\Json\JsonProperty;
 class BrandSnippet extends JsonSerializableType
 {
     /**
-     * @var string $format
+     * @var 'handlebars' $format
      */
     #[JsonProperty('format')]
     public string $format;
@@ -27,7 +27,7 @@ class BrandSnippet extends JsonSerializableType
 
     /**
      * @param array{
-     *   format: string,
+     *   format: 'handlebars',
      *   name: string,
      *   value: string,
      * } $values
@@ -38,5 +38,13 @@ class BrandSnippet extends JsonSerializableType
         $this->format = $values['format'];
         $this->name = $values['name'];
         $this->value = $values['value'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

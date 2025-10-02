@@ -2,6 +2,7 @@
 
 namespace Courier\Translations;
 
+use GuzzleHttp\ClientInterface;
 use Courier\Core\Client\RawClient;
 use Courier\Exceptions\CourierException;
 use Courier\Exceptions\CourierApiException;
@@ -10,10 +11,22 @@ use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use Courier\Core\Json\JsonDecoder;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class TranslationsClient
 {
+    /**
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
+     */
+    private array $options;
+
     /**
      * @var RawClient $client
      */
@@ -21,11 +34,20 @@ class TranslationsClient
 
     /**
      * @param RawClient $client
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
     public function __construct(
         RawClient $client,
+        ?array $options = null,
     ) {
         $this->client = $client;
+        $this->options = $options ?? [];
     }
 
     /**
@@ -35,6 +57,11 @@ class TranslationsClient
      * @param string $locale The locale you want to retrieve the translations for
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return string
      * @throws CourierException
@@ -42,13 +69,15 @@ class TranslationsClient
      */
     public function get(string $domain, string $locale, ?array $options = null): string
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/translations/$domain/$locale",
+                    path: "/translations/{$domain}/{$locale}",
                     method: HttpMethod::GET,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -57,6 +86,16 @@ class TranslationsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -75,25 +114,42 @@ class TranslationsClient
      * @param string $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function update(string $domain, string $locale, string $request, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/translations/$domain/$locale",
+                    path: "/translations/{$domain}/{$locale}",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

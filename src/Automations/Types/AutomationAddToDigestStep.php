@@ -11,7 +11,7 @@ class AutomationAddToDigestStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'add-to-digest' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -24,7 +24,7 @@ class AutomationAddToDigestStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'add-to-digest',
      *   subscriptionTopicId: string,
      *   if?: ?string,
      *   ref?: ?string,
@@ -33,9 +33,17 @@ class AutomationAddToDigestStep extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->action = $values['action'];
-        $this->subscriptionTopicId = $values['subscriptionTopicId'];
         $this->if = $values['if'] ?? null;
         $this->ref = $values['ref'] ?? null;
+        $this->action = $values['action'];
+        $this->subscriptionTopicId = $values['subscriptionTopicId'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

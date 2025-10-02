@@ -63,4 +63,12 @@ class Address extends JsonSerializableType
         $this->postalCode = $values['postalCode'];
         $this->country = $values['country'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

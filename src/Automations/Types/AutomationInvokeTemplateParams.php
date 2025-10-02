@@ -29,11 +29,19 @@ class AutomationInvokeTemplateParams extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->templateId = $values['templateId'];
         $this->brand = $values['brand'] ?? null;
         $this->data = $values['data'] ?? null;
         $this->profile = $values['profile'] ?? null;
         $this->recipient = $values['recipient'] ?? null;
         $this->template = $values['template'] ?? null;
+        $this->templateId = $values['templateId'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -11,7 +11,7 @@ class AutomationInvokeStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'invoke' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -24,7 +24,7 @@ class AutomationInvokeStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'invoke',
      *   template: string,
      *   if?: ?string,
      *   ref?: ?string,
@@ -33,9 +33,17 @@ class AutomationInvokeStep extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->action = $values['action'];
-        $this->template = $values['template'];
         $this->if = $values['if'] ?? null;
         $this->ref = $values['ref'] ?? null;
+        $this->action = $values['action'];
+        $this->template = $values['template'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

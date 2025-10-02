@@ -31,4 +31,12 @@ class MsTeamsBaseProperties extends JsonSerializableType
         $this->tenantId = $values['tenantId'];
         $this->serviceUrl = $values['serviceUrl'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

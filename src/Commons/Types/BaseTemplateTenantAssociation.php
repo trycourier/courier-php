@@ -55,4 +55,12 @@ class BaseTemplateTenantAssociation extends JsonSerializableType
         $this->publishedAt = $values['publishedAt'];
         $this->version = $values['version'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

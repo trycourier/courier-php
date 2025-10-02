@@ -2,6 +2,7 @@
 
 namespace Courier\Profiles;
 
+use GuzzleHttp\ClientInterface;
 use Courier\Core\Client\RawClient;
 use Courier\Profiles\Types\ProfileGetResponse;
 use Courier\Exceptions\CourierException;
@@ -10,6 +11,7 @@ use Courier\Core\Json\JsonApiRequest;
 use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Courier\Profiles\Requests\MergeProfileRequest;
 use Courier\Profiles\Types\MergeProfileResponse;
@@ -25,17 +27,37 @@ use Courier\Profiles\Types\DeleteListSubscriptionResponse;
 class ProfilesClient
 {
     /**
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
+     */
+    private array $options;
+
+    /**
      * @var RawClient $client
      */
     private RawClient $client;
 
     /**
      * @param RawClient $client
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
     public function __construct(
         RawClient $client,
+        ?array $options = null,
     ) {
         $this->client = $client;
+        $this->options = $options ?? [];
     }
 
     /**
@@ -44,6 +66,11 @@ class ProfilesClient
      * @param string $userId A unique identifier representing the user associated with the requested profile.
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return ProfileGetResponse
      * @throws CourierException
@@ -51,13 +78,15 @@ class ProfilesClient
      */
     public function get(string $userId, ?array $options = null): ProfileGetResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId",
+                    path: "/profiles/{$userId}",
                     method: HttpMethod::GET,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -66,6 +95,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -83,6 +122,11 @@ class ProfilesClient
      * @param MergeProfileRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return MergeProfileResponse
      * @throws CourierException
@@ -90,14 +134,16 @@ class ProfilesClient
      */
     public function create(string $userId, MergeProfileRequest $request, ?array $options = null): MergeProfileResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId",
+                    path: "/profiles/{$userId}",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -106,6 +152,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -126,6 +182,11 @@ class ProfilesClient
      * @param ReplaceProfileRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return ReplaceProfileResponse
      * @throws CourierException
@@ -133,14 +194,16 @@ class ProfilesClient
      */
     public function replace(string $userId, ReplaceProfileRequest $request, ?array $options = null): ReplaceProfileResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId",
+                    path: "/profiles/{$userId}",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -149,6 +212,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -164,25 +237,42 @@ class ProfilesClient
      * @param ProfileUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function mergeProfile(string $userId, ProfileUpdateRequest $request, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId",
+                    path: "/profiles/{$userId}",
                     method: HttpMethod::PATCH,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -199,24 +289,41 @@ class ProfilesClient
      * @param string $userId A unique identifier representing the user associated with the requested profile.
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function delete(string $userId, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId",
+                    path: "/profiles/{$userId}",
                     method: HttpMethod::DELETE,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -234,13 +341,19 @@ class ProfilesClient
      * @param GetListSubscriptionsRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return GetListSubscriptionsResponse
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function getListSubscriptions(string $userId, GetListSubscriptionsRequest $request, ?array $options = null): GetListSubscriptionsResponse
+    public function getListSubscriptions(string $userId, GetListSubscriptionsRequest $request = new GetListSubscriptionsRequest(), ?array $options = null): GetListSubscriptionsResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         $query = [];
         if ($request->cursor != null) {
             $query['cursor'] = $request->cursor;
@@ -249,10 +362,11 @@ class ProfilesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId/lists",
+                    path: "/profiles/{$userId}/lists",
                     method: HttpMethod::GET,
                     query: $query,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -261,6 +375,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -278,6 +402,11 @@ class ProfilesClient
      * @param SubscribeToListsRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return SubscribeToListsResponse
      * @throws CourierException
@@ -285,14 +414,16 @@ class ProfilesClient
      */
     public function subscribeToLists(string $userId, SubscribeToListsRequest $request, ?array $options = null): SubscribeToListsResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId/lists",
+                    path: "/profiles/{$userId}/lists",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -301,6 +432,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -317,6 +458,11 @@ class ProfilesClient
      * @param string $userId A unique identifier representing the user associated with the requested profile.
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return DeleteListSubscriptionResponse
      * @throws CourierException
@@ -324,13 +470,15 @@ class ProfilesClient
      */
     public function deleteListSubscription(string $userId, ?array $options = null): DeleteListSubscriptionResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/profiles/$userId/lists",
+                    path: "/profiles/{$userId}/lists",
                     method: HttpMethod::DELETE,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -339,6 +487,16 @@ class ProfilesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

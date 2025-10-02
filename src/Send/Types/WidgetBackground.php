@@ -31,4 +31,12 @@ class WidgetBackground extends JsonSerializableType
         $this->topColor = $values['topColor'] ?? null;
         $this->bottomColor = $values['bottomColor'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

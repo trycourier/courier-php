@@ -32,4 +32,12 @@ class RoutingStrategy extends JsonSerializableType
         $this->method = $values['method'];
         $this->channels = $values['channels'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

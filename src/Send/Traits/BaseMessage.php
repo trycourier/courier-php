@@ -2,8 +2,6 @@
 
 namespace Courier\Send\Traits;
 
-use Courier\Core\Json\JsonProperty;
-use Courier\Core\Types\ArrayType;
 use Courier\Send\Types\Channel;
 use Courier\Send\Types\MessageContext;
 use Courier\Send\Types\MessageMetadata;
@@ -13,12 +11,29 @@ use Courier\Send\Types\Routing;
 use Courier\Send\Types\Timeout;
 use Courier\Send\Types\Delay;
 use Courier\Send\Types\Expiry;
+use Courier\Core\Json\JsonProperty;
+use Courier\Core\Types\ArrayType;
 
+/**
+ * @property ?array<string, mixed> $data
+ * @property ?string $brandId
+ * @property ?array<string, Channel> $channels
+ * @property ?MessageContext $context
+ * @property ?MessageMetadata $metadata
+ * @property ?MessagePreferences $preferences
+ * @property ?array<string, MessageProvidersType> $providers
+ * @property ?Routing $routing
+ * @property ?Timeout $timeout
+ * @property ?Delay $delay
+ * @property ?Expiry $expiry
+ */
 trait BaseMessage
 {
     /**
-     * @var ?array<string, mixed> $data An arbitrary object that includes any data you want to pass to the message.
-    The data will populate the corresponding template or elements variables.
+     * An arbitrary object that includes any data you want to pass to the message.
+     * The data will populate the corresponding template or elements variables.
+     *
+     * @var ?array<string, mixed> $data
      */
     #[JsonProperty('data'), ArrayType(['string' => 'mixed'])]
     public ?array $data;
@@ -78,8 +93,10 @@ trait BaseMessage
     public ?Delay $delay;
 
     /**
-     * @var ?Expiry $expiry "Expiry allows you to set an absolute or relative time in which a message expires.
-    Note: This is only valid for the Courier Inbox channel as of 12-08-2022."
+     * "Expiry allows you to set an absolute or relative time in which a message expires.
+     * Note: This is only valid for the Courier Inbox channel as of 12-08-2022."
+     *
+     * @var ?Expiry $expiry
      */
     #[JsonProperty('expiry')]
     public ?Expiry $expiry;

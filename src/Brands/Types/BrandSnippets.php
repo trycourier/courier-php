@@ -24,4 +24,12 @@ class BrandSnippets extends JsonSerializableType
     ) {
         $this->items = $values['items'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

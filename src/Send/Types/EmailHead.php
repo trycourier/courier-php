@@ -31,4 +31,12 @@ class EmailHead extends JsonSerializableType
         $this->inheritDefault = $values['inheritDefault'];
         $this->content = $values['content'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

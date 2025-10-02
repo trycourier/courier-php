@@ -40,4 +40,12 @@ class NotificationPreferenceDetails extends JsonSerializableType
         $this->rules = $values['rules'] ?? null;
         $this->channelPreferences = $values['channelPreferences'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

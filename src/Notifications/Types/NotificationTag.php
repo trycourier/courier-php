@@ -24,4 +24,12 @@ class NotificationTag extends JsonSerializableType
     ) {
         $this->data = $values['data'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

@@ -153,13 +153,19 @@ class UserProfile extends JsonSerializableType
     public string $targetArn;
 
     /**
-     * @var SendToChannel|SendDirectMessage $discord
+     * @var (
+     *    SendToChannel
+     *   |SendDirectMessage
+     * ) $discord
      */
     #[JsonProperty('discord'), Union(SendToChannel::class, SendDirectMessage::class)]
     public SendToChannel|SendDirectMessage $discord;
 
     /**
-     * @var Token|MultipleTokens $expo
+     * @var (
+     *    Token
+     *   |MultipleTokens
+     * ) $expo
      */
     #[JsonProperty('expo'), Union(Token::class, MultipleTokens::class)]
     public Token|MultipleTokens $expo;
@@ -171,7 +177,10 @@ class UserProfile extends JsonSerializableType
     public string $facebookPsid;
 
     /**
-     * @var string|array<string> $firebaseToken
+     * @var (
+     *    string
+     *   |array<string>
+     * ) $firebaseToken
      */
     #[JsonProperty('firebaseToken'), Union('string', ['string'])]
     public string|array $firebaseToken;
@@ -183,13 +192,23 @@ class UserProfile extends JsonSerializableType
     public Intercom $intercom;
 
     /**
-     * @var SendToSlackChannel|SendToSlackEmail|SendToSlackUserId $slack
+     * @var (
+     *    SendToSlackChannel
+     *   |SendToSlackEmail
+     *   |SendToSlackUserId
+     * ) $slack
      */
     #[JsonProperty('slack'), Union(SendToSlackChannel::class, SendToSlackEmail::class, SendToSlackUserId::class)]
     public SendToSlackChannel|SendToSlackEmail|SendToSlackUserId $slack;
 
     /**
-     * @var SendToMsTeamsUserId|SendToMsTeamsEmail|SendToMsTeamsChannelId|SendToMsTeamsConversationId|SendToMsTeamsChannelName $msTeams
+     * @var (
+     *    SendToMsTeamsUserId
+     *   |SendToMsTeamsEmail
+     *   |SendToMsTeamsChannelId
+     *   |SendToMsTeamsConversationId
+     *   |SendToMsTeamsChannelName
+     * ) $msTeams
      */
     #[JsonProperty('ms_teams'), Union(SendToMsTeamsUserId::class, SendToMsTeamsEmail::class, SendToMsTeamsChannelId::class, SendToMsTeamsConversationId::class, SendToMsTeamsChannelName::class)]
     public SendToMsTeamsUserId|SendToMsTeamsEmail|SendToMsTeamsChannelId|SendToMsTeamsConversationId|SendToMsTeamsChannelName $msTeams;
@@ -220,13 +239,32 @@ class UserProfile extends JsonSerializableType
      *   airship: AirshipProfile,
      *   apn: string,
      *   targetArn: string,
-     *   discord: SendToChannel|SendDirectMessage,
-     *   expo: Token|MultipleTokens,
+     *   discord: (
+     *    SendToChannel
+     *   |SendDirectMessage
+     * ),
+     *   expo: (
+     *    Token
+     *   |MultipleTokens
+     * ),
      *   facebookPsid: string,
-     *   firebaseToken: string|array<string>,
+     *   firebaseToken: (
+     *    string
+     *   |array<string>
+     * ),
      *   intercom: Intercom,
-     *   slack: SendToSlackChannel|SendToSlackEmail|SendToSlackUserId,
-     *   msTeams: SendToMsTeamsUserId|SendToMsTeamsEmail|SendToMsTeamsChannelId|SendToMsTeamsConversationId|SendToMsTeamsChannelName,
+     *   slack: (
+     *    SendToSlackChannel
+     *   |SendToSlackEmail
+     *   |SendToSlackUserId
+     * ),
+     *   msTeams: (
+     *    SendToMsTeamsUserId
+     *   |SendToMsTeamsEmail
+     *   |SendToMsTeamsChannelId
+     *   |SendToMsTeamsConversationId
+     *   |SendToMsTeamsChannelName
+     * ),
      * } $values
      */
     public function __construct(
@@ -263,5 +301,13 @@ class UserProfile extends JsonSerializableType
         $this->intercom = $values['intercom'];
         $this->slack = $values['slack'];
         $this->msTeams = $values['msTeams'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

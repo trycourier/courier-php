@@ -5,6 +5,12 @@ namespace Courier\Send\Traits;
 use Courier\Core\Json\JsonProperty;
 use Courier\Core\Types\ArrayType;
 
+/**
+ * @property ?array<string> $channels
+ * @property ?string $ref
+ * @property ?string $if
+ * @property ?string $loop
+ */
 trait ElementalBaseNode
 {
     /**

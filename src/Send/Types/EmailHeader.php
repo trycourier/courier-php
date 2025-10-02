@@ -27,9 +27,9 @@ class EmailHeader extends JsonSerializableType
 
     /**
      * @param array{
+     *   logo: Logo,
      *   inheritDefault?: ?bool,
      *   barColor?: ?string,
-     *   logo: Logo,
      * } $values
      */
     public function __construct(
@@ -38,5 +38,13 @@ class EmailHeader extends JsonSerializableType
         $this->inheritDefault = $values['inheritDefault'] ?? null;
         $this->barColor = $values['barColor'] ?? null;
         $this->logo = $values['logo'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

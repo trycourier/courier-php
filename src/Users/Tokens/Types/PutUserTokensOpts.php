@@ -32,4 +32,12 @@ class PutUserTokensOpts extends JsonSerializableType
         $this->userId = $values['userId'];
         $this->tokens = $values['tokens'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

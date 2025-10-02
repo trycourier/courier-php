@@ -24,26 +24,37 @@ class GetUserTokenResponse extends JsonSerializableType
 
     /**
      * @param array{
-     *   status?: ?value-of<TokenStatus>,
-     *   statusReason?: ?string,
-     *   token?: ?string,
      *   providerKey: value-of<ProviderKey>,
-     *   expiryDate?: string|bool|null,
+     *   token?: ?string,
+     *   expiryDate?: (
+     *    string
+     *   |bool
+     * )|null,
      *   properties?: mixed,
      *   device?: ?Device,
      *   tracking?: ?Tracking,
+     *   status?: ?value-of<TokenStatus>,
+     *   statusReason?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->status = $values['status'] ?? null;
-        $this->statusReason = $values['statusReason'] ?? null;
         $this->token = $values['token'] ?? null;
         $this->providerKey = $values['providerKey'];
         $this->expiryDate = $values['expiryDate'] ?? null;
         $this->properties = $values['properties'] ?? null;
         $this->device = $values['device'] ?? null;
         $this->tracking = $values['tracking'] ?? null;
+        $this->status = $values['status'] ?? null;
+        $this->statusReason = $values['statusReason'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

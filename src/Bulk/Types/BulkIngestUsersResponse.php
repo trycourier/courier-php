@@ -32,4 +32,12 @@ class BulkIngestUsersResponse extends JsonSerializableType
         $this->total = $values['total'];
         $this->errors = $values['errors'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

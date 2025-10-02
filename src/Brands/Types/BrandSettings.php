@@ -40,4 +40,12 @@ class BrandSettings extends JsonSerializableType
         $this->inapp = $values['inapp'] ?? null;
         $this->email = $values['email'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

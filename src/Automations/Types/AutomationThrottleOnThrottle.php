@@ -23,4 +23,12 @@ class AutomationThrottleOnThrottle extends JsonSerializableType
     ) {
         $this->nodeId = $values['nodeId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

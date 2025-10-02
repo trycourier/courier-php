@@ -23,4 +23,12 @@ class BulkGetJobResponse extends JsonSerializableType
     ) {
         $this->job = $values['job'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

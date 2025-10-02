@@ -56,4 +56,12 @@ class WebhookProfile extends JsonSerializableType
         $this->authentication = $values['authentication'] ?? null;
         $this->profile = $values['profile'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

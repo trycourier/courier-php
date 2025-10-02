@@ -20,8 +20,10 @@ class InboundBulkTemplateMessage extends JsonSerializableType
     use BaseMessage;
 
     /**
-     * @var string $template The id of the notification template to be rendered and sent to the recipient(s).
-    This field or the content field must be supplied.
+     * The id of the notification template to be rendered and sent to the recipient(s).
+     * This field or the content field must be supplied.
+     *
+     * @var string $template
      */
     #[JsonProperty('template')]
     public string $template;
@@ -45,7 +47,6 @@ class InboundBulkTemplateMessage extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->template = $values['template'];
         $this->data = $values['data'] ?? null;
         $this->brandId = $values['brandId'] ?? null;
         $this->channels = $values['channels'] ?? null;
@@ -57,5 +58,14 @@ class InboundBulkTemplateMessage extends JsonSerializableType
         $this->timeout = $values['timeout'] ?? null;
         $this->delay = $values['delay'] ?? null;
         $this->expiry = $values['expiry'] ?? null;
+        $this->template = $values['template'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

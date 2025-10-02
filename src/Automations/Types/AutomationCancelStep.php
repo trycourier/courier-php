@@ -11,7 +11,7 @@ class AutomationCancelStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'cancel' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -24,18 +24,26 @@ class AutomationCancelStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
-     *   cancelationToken?: ?string,
+     *   action: 'cancel',
      *   if?: ?string,
      *   ref?: ?string,
+     *   cancelationToken?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->action = $values['action'];
-        $this->cancelationToken = $values['cancelationToken'] ?? null;
         $this->if = $values['if'] ?? null;
         $this->ref = $values['ref'] ?? null;
+        $this->action = $values['action'];
+        $this->cancelationToken = $values['cancelationToken'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -56,4 +56,12 @@ class NotificationChannel extends JsonSerializableType
         $this->locales = $values['locales'] ?? null;
         $this->checksum = $values['checksum'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

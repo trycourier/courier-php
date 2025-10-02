@@ -8,13 +8,13 @@ use Courier\Core\Json\JsonProperty;
 class AudienceFilter extends JsonSerializableType
 {
     /**
-     * @var string $operator Send to users only if they are member of the account
+     * @var 'MEMBER_OF' $operator Send to users only if they are member of the account
      */
     #[JsonProperty('operator')]
     public string $operator;
 
     /**
-     * @var string $path
+     * @var 'account_id' $path
      */
     #[JsonProperty('path')]
     public string $path;
@@ -27,8 +27,8 @@ class AudienceFilter extends JsonSerializableType
 
     /**
      * @param array{
-     *   operator: string,
-     *   path: string,
+     *   operator: 'MEMBER_OF',
+     *   path: 'account_id',
      *   value: string,
      * } $values
      */
@@ -38,5 +38,13 @@ class AudienceFilter extends JsonSerializableType
         $this->operator = $values['operator'];
         $this->path = $values['path'];
         $this->value = $values['value'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

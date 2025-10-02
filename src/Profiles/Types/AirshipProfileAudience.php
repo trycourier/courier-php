@@ -23,4 +23,12 @@ class AirshipProfileAudience extends JsonSerializableType
     ) {
         $this->namedUser = $values['namedUser'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

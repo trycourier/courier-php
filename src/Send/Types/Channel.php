@@ -9,32 +9,40 @@ use Courier\Core\Types\ArrayType;
 class Channel extends JsonSerializableType
 {
     /**
-     * @var ?string $brandId Id of the brand that should be used for rendering the message.
-    If not specified, the brand configured as default brand will be used.
+     * Id of the brand that should be used for rendering the message.
+     * If not specified, the brand configured as default brand will be used.
+     *
+     * @var ?string $brandId
      */
     #[JsonProperty('brand_id')]
     public ?string $brandId;
 
     /**
-     * @var ?array<string> $providers A list of providers enabled for this channel. Courier will select
-    one provider to send through unless routing_method is set to all.
+     * A list of providers enabled for this channel. Courier will select
+     * one provider to send through unless routing_method is set to all.
+     *
+     * @var ?array<string> $providers
      */
     #[JsonProperty('providers'), ArrayType(['string'])]
     public ?array $providers;
 
     /**
-     * @var ?value-of<RoutingMethod> $routingMethod The method for selecting the providers to send the message with.
-    Single will send to one of the available providers for this channel,
-    all will send the message through all channels. Defaults to `single`.
+     * The method for selecting the providers to send the message with.
+     * Single will send to one of the available providers for this channel,
+     * all will send the message through all channels. Defaults to `single`.
+     *
+     * @var ?value-of<RoutingMethod> $routingMethod
      */
     #[JsonProperty('routing_method')]
     public ?string $routingMethod;
 
     /**
-     * @var ?string $if A JavaScript conditional expression to determine if the message should
-    be sent through the channel. Has access to the data and profile object.
-    Only applies when a custom routing strategy is defined.
-    For example, `data.name === profile.name`
+     * A JavaScript conditional expression to determine if the message should
+     * be sent through the channel. Has access to the data and profile object.
+     * Only applies when a custom routing strategy is defined.
+     * For example, `data.name === profile.name`
+     *
+     * @var ?string $if
      */
     #[JsonProperty('if')]
     public ?string $if;
@@ -78,5 +86,13 @@ class Channel extends JsonSerializableType
         $this->timeouts = $values['timeouts'] ?? null;
         $this->override = $values['override'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

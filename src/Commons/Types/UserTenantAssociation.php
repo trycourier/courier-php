@@ -15,7 +15,7 @@ class UserTenantAssociation extends JsonSerializableType
     public ?string $userId;
 
     /**
-     * @var ?string $type
+     * @var ?'user' $type
      */
     #[JsonProperty('type')]
     public ?string $type;
@@ -34,9 +34,9 @@ class UserTenantAssociation extends JsonSerializableType
 
     /**
      * @param array{
-     *   userId?: ?string,
-     *   type?: ?string,
      *   tenantId: string,
+     *   userId?: ?string,
+     *   type?: ?'user',
      *   profile?: ?array<string, mixed>,
      * } $values
      */
@@ -47,5 +47,13 @@ class UserTenantAssociation extends JsonSerializableType
         $this->type = $values['type'] ?? null;
         $this->tenantId = $values['tenantId'];
         $this->profile = $values['profile'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

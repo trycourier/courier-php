@@ -22,22 +22,28 @@ class ElementalChannelNode extends JsonSerializableType
     use ElementalBaseNode;
 
     /**
-     * @var string $channel The channel the contents of this element should be applied to. Can be `email`,
-    `push`, `direct_message`, `sms` or a provider such as slack
+     * The channel the contents of this element should be applied to. Can be `email`,
+     * `push`, `direct_message`, `sms` or a provider such as slack
+     *
+     * @var string $channel
      */
     #[JsonProperty('channel')]
     public string $channel;
 
     /**
-     * @var ?array<mixed> $elements An array of elements to apply to the channel. If `raw` has not been
-    specified, `elements` is `required`.
+     * An array of elements to apply to the channel. If `raw` has not been
+     * specified, `elements` is `required`.
+     *
+     * @var ?array<ElementalNode> $elements
      */
-    #[JsonProperty('elements'), ArrayType(['mixed'])]
+    #[JsonProperty('elements'), ArrayType([ElementalNode::class])]
     public ?array $elements;
 
     /**
-     * @var ?array<string, mixed> $raw Raw data to apply to the channel. If `elements` has not been
-    specified, `raw` is `required`.
+     * Raw data to apply to the channel. If `elements` has not been
+     * specified, `raw` is `required`.
+     *
+     * @var ?array<string, mixed> $raw
      */
     #[JsonProperty('raw'), ArrayType(['string' => 'mixed'])]
     public ?array $raw;
@@ -45,23 +51,31 @@ class ElementalChannelNode extends JsonSerializableType
     /**
      * @param array{
      *   channel: string,
-     *   elements?: ?array<mixed>,
-     *   raw?: ?array<string, mixed>,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
      *   loop?: ?string,
+     *   elements?: ?array<ElementalNode>,
+     *   raw?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->channel = $values['channel'];
-        $this->elements = $values['elements'] ?? null;
-        $this->raw = $values['raw'] ?? null;
         $this->channels = $values['channels'] ?? null;
         $this->ref = $values['ref'] ?? null;
         $this->if = $values['if'] ?? null;
         $this->loop = $values['loop'] ?? null;
+        $this->channel = $values['channel'];
+        $this->elements = $values['elements'] ?? null;
+        $this->raw = $values['raw'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

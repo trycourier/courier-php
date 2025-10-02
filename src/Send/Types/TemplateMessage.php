@@ -13,8 +13,10 @@ class TemplateMessage extends JsonSerializableType
     use BaseMessageSendTo;
 
     /**
-     * @var string $template The id of the notification template to be rendered and sent to the recipient(s).
-    This field or the content field must be supplied.
+     * The id of the notification template to be rendered and sent to the recipient(s).
+     * This field or the content field must be supplied.
+     *
+     * @var string $template
      */
     #[JsonProperty('template')]
     public string $template;
@@ -33,13 +35,33 @@ class TemplateMessage extends JsonSerializableType
      *   timeout?: ?Timeout,
      *   delay?: ?Delay,
      *   expiry?: ?Expiry,
-     *   to?: AudienceRecipient|ListRecipient|ListPatternRecipient|UserRecipient|SlackRecipient|MsTeamsRecipient|array<string, mixed>|PagerdutyRecipient|WebhookRecipient|array<AudienceRecipient|ListRecipient|ListPatternRecipient|UserRecipient|SlackRecipient|MsTeamsRecipient|array<string, mixed>|PagerdutyRecipient|WebhookRecipient>|null,
+     *   to?: (
+     *    AudienceRecipient
+     *   |ListRecipient
+     *   |ListPatternRecipient
+     *   |UserRecipient
+     *   |SlackRecipient
+     *   |MsTeamsRecipient
+     *   |array<string, mixed>
+     *   |PagerdutyRecipient
+     *   |WebhookRecipient
+     *   |array<(
+     *    AudienceRecipient
+     *   |ListRecipient
+     *   |ListPatternRecipient
+     *   |UserRecipient
+     *   |SlackRecipient
+     *   |MsTeamsRecipient
+     *   |array<string, mixed>
+     *   |PagerdutyRecipient
+     *   |WebhookRecipient
+     * )>
+     * )|null,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->template = $values['template'];
         $this->data = $values['data'] ?? null;
         $this->brandId = $values['brandId'] ?? null;
         $this->channels = $values['channels'] ?? null;
@@ -52,5 +74,14 @@ class TemplateMessage extends JsonSerializableType
         $this->delay = $values['delay'] ?? null;
         $this->expiry = $values['expiry'] ?? null;
         $this->to = $values['to'] ?? null;
+        $this->template = $values['template'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

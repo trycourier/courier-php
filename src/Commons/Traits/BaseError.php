@@ -4,6 +4,9 @@ namespace Courier\Commons\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $message
+ */
 trait BaseError
 {
     /**

@@ -12,8 +12,10 @@ class ListTenantParams extends JsonSerializableType
     public ?string $parentTenantId;
 
     /**
-     * @var ?int $limit The number of tenants to return
-    (defaults to 20, maximum value of 100)
+     * The number of tenants to return
+     * (defaults to 20, maximum value of 100)
+     *
+     * @var ?int $limit
      */
     public ?int $limit;
 

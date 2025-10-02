@@ -55,4 +55,12 @@ class Utm extends JsonSerializableType
         $this->term = $values['term'] ?? null;
         $this->content = $values['content'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

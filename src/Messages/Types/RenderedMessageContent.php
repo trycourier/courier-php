@@ -64,4 +64,12 @@ class RenderedMessageContent extends JsonSerializableType
         $this->text = $values['text'];
         $this->blocks = $values['blocks'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

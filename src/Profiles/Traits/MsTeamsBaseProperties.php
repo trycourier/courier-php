@@ -4,6 +4,10 @@ namespace Courier\Profiles\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $tenantId
+ * @property string $serviceUrl
+ */
 trait MsTeamsBaseProperties
 {
     /**

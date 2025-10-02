@@ -40,4 +40,12 @@ class NotificationGetContentResponse extends JsonSerializableType
         $this->channels = $values['channels'] ?? null;
         $this->checksum = $values['checksum'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

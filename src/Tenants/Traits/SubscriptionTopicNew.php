@@ -3,10 +3,15 @@
 namespace Courier\Tenants\Traits;
 
 use Courier\Tenants\Types\SubscriptionTopicStatus;
-use Courier\Core\Json\JsonProperty;
 use Courier\Commons\Types\ChannelClassification;
+use Courier\Core\Json\JsonProperty;
 use Courier\Core\Types\ArrayType;
 
+/**
+ * @property value-of<SubscriptionTopicStatus> $status
+ * @property ?bool $hasCustomRouting
+ * @property ?array<value-of<ChannelClassification>> $customRouting
+ */
 trait SubscriptionTopicNew
 {
     /**

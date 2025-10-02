@@ -23,4 +23,12 @@ class SlackBaseProperties extends JsonSerializableType
     ) {
         $this->accessToken = $values['accessToken'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

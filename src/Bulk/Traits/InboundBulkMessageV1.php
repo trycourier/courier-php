@@ -5,18 +5,29 @@ namespace Courier\Bulk\Traits;
 use Courier\Core\Json\JsonProperty;
 use Courier\Core\Types\ArrayType;
 
+/**
+ * @property ?string $brand
+ * @property ?array<string, mixed> $data
+ * @property ?string $event
+ * @property ?array<string, mixed> $locale
+ * @property mixed $override
+ */
 trait InboundBulkMessageV1
 {
     /**
-     * @var ?string $brand A unique identifier that represents the brand that should be used
-    for rendering the notification.
+     * A unique identifier that represents the brand that should be used
+     * for rendering the notification.
+     *
+     * @var ?string $brand
      */
     #[JsonProperty('brand')]
     public ?string $brand;
 
     /**
-     * @var ?array<string, mixed> $data JSON that includes any data you want to pass to a message template.
-    The data will populate the corresponding template variables.
+     * JSON that includes any data you want to pass to a message template.
+     * The data will populate the corresponding template variables.
+     *
+     * @var ?array<string, mixed> $data
      */
     #[JsonProperty('data'), ArrayType(['string' => 'mixed'])]
     public ?array $data;
@@ -34,9 +45,11 @@ trait InboundBulkMessageV1
     public ?array $locale;
 
     /**
-     * @var mixed $override JSON that is merged into the request sent by Courier to the provider
-    to override properties or to gain access to features in the provider
-    API that are not natively supported by Courier.
+     * JSON that is merged into the request sent by Courier to the provider
+     * to override properties or to gain access to features in the provider
+     * API that are not natively supported by Courier.
+     *
+     * @var mixed $override
      */
     #[JsonProperty('override')]
     public mixed $override;

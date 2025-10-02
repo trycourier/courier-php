@@ -36,4 +36,12 @@ class TenantTemplateData extends JsonSerializableType
         $this->routing = $values['routing'];
         $this->content = $values['content'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

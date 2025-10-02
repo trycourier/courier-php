@@ -23,4 +23,12 @@ class TrackAcceptedResponse extends JsonSerializableType
     ) {
         $this->messageId = $values['messageId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

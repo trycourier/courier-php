@@ -23,7 +23,10 @@ class AudienceUpdateParams extends JsonSerializableType
     public ?string $description;
 
     /**
-     * @var SingleFilterConfig|NestedFilterConfig|null $filter
+     * @var (
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * )|null $filter
      */
     #[JsonProperty('filter'), Union(SingleFilterConfig::class, NestedFilterConfig::class, 'null')]
     public SingleFilterConfig|NestedFilterConfig|null $filter;
@@ -32,7 +35,10 @@ class AudienceUpdateParams extends JsonSerializableType
      * @param array{
      *   name?: ?string,
      *   description?: ?string,
-     *   filter?: SingleFilterConfig|NestedFilterConfig|null,
+     *   filter?: (
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * )|null,
      * } $values
      */
     public function __construct(

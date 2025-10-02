@@ -32,4 +32,12 @@ class RecipientPreferences extends JsonSerializableType
         $this->categories = $values['categories'] ?? null;
         $this->notifications = $values['notifications'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

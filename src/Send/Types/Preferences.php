@@ -24,4 +24,12 @@ class Preferences extends JsonSerializableType
     ) {
         $this->templateIds = $values['templateIds'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

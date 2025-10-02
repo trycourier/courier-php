@@ -55,4 +55,12 @@ class AutomationRunContext extends JsonSerializableType
         $this->template = $values['template'] ?? null;
         $this->recipient = $values['recipient'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

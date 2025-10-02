@@ -47,4 +47,12 @@ class Tracking extends JsonSerializableType
         $this->lat = $values['lat'] ?? null;
         $this->long = $values['long'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

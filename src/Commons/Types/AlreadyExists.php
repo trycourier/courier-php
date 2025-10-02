@@ -11,21 +11,29 @@ class AlreadyExists extends JsonSerializableType
     use BaseError;
 
     /**
-     * @var string $type
+     * @var 'invalid_request_error' $type
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   type: string,
      *   message: string,
+     *   type: 'invalid_request_error',
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->type = $values['type'];
         $this->message = $values['message'];
+        $this->type = $values['type'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

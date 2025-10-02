@@ -24,4 +24,12 @@ class SubmissionChecksGetResponse extends JsonSerializableType
     ) {
         $this->checks = $values['checks'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

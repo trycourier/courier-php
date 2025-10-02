@@ -39,4 +39,12 @@ class SnoozeRule extends JsonSerializableType
         $this->start = $values['start'];
         $this->until = $values['until'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

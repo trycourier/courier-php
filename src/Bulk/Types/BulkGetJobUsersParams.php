@@ -31,4 +31,12 @@ class BulkGetJobUsersParams extends JsonSerializableType
         $this->jobId = $values['jobId'];
         $this->cursor = $values['cursor'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

@@ -16,7 +16,10 @@ class MessageRouting extends JsonSerializableType
     public string $method;
 
     /**
-     * @var array<string|MessageRouting> $channels
+     * @var array<(
+     *    string
+     *   |MessageRouting
+     * )> $channels
      */
     #[JsonProperty('channels'), ArrayType([new Union('string', MessageRouting::class)])]
     public array $channels;
@@ -24,7 +27,10 @@ class MessageRouting extends JsonSerializableType
     /**
      * @param array{
      *   method: value-of<MessageRoutingMethod>,
-     *   channels: array<string|MessageRouting>,
+     *   channels: array<(
+     *    string
+     *   |MessageRouting
+     * )>,
      * } $values
      */
     public function __construct(
@@ -32,5 +38,13 @@ class MessageRouting extends JsonSerializableType
     ) {
         $this->method = $values['method'];
         $this->channels = $values['channels'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

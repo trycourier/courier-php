@@ -18,16 +18,24 @@ class SendToMsTeamsEmail extends JsonSerializableType
 
     /**
      * @param array{
-     *   email: string,
      *   tenantId: string,
      *   serviceUrl: string,
+     *   email: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->email = $values['email'];
         $this->tenantId = $values['tenantId'];
         $this->serviceUrl = $values['serviceUrl'];
+        $this->email = $values['email'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -27,15 +27,23 @@ class InboundBulkContentMessage extends JsonSerializableType
     use BaseMessage;
 
     /**
-     * @var ElementalContent|ElementalContentSugar $content Describes the content of the message in a way that will work for email, push,
-    chat, or any channel. Either this or template must be specified.
+     * Describes the content of the message in a way that will work for email, push,
+     * chat, or any channel. Either this or template must be specified.
+     *
+     * @var (
+     *    ElementalContent
+     *   |ElementalContentSugar
+     * ) $content
      */
     #[JsonProperty('content'), Union(ElementalContent::class, ElementalContentSugar::class)]
     public ElementalContent|ElementalContentSugar $content;
 
     /**
      * @param array{
-     *   content: ElementalContent|ElementalContentSugar,
+     *   content: (
+     *    ElementalContent
+     *   |ElementalContentSugar
+     * ),
      *   data?: ?array<string, mixed>,
      *   brandId?: ?string,
      *   channels?: ?array<string, Channel>,
@@ -52,7 +60,6 @@ class InboundBulkContentMessage extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->content = $values['content'];
         $this->data = $values['data'] ?? null;
         $this->brandId = $values['brandId'] ?? null;
         $this->channels = $values['channels'] ?? null;
@@ -64,5 +71,14 @@ class InboundBulkContentMessage extends JsonSerializableType
         $this->timeout = $values['timeout'] ?? null;
         $this->delay = $values['delay'] ?? null;
         $this->expiry = $values['expiry'] ?? null;
+        $this->content = $values['content'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

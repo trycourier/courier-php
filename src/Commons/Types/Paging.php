@@ -21,8 +21,8 @@ class Paging extends JsonSerializableType
 
     /**
      * @param array{
-     *   cursor?: ?string,
      *   more: bool,
+     *   cursor?: ?string,
      * } $values
      */
     public function __construct(
@@ -30,5 +30,13 @@ class Paging extends JsonSerializableType
     ) {
         $this->cursor = $values['cursor'] ?? null;
         $this->more = $values['more'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

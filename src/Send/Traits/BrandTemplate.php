@@ -4,6 +4,15 @@ namespace Courier\Send\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property ?string $backgroundColor
+ * @property ?string $blocksBackgroundColor
+ * @property bool $enabled
+ * @property ?string $footer
+ * @property ?string $head
+ * @property ?string $header
+ * @property ?string $width
+ */
 trait BrandTemplate
 {
     /**

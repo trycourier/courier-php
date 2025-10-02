@@ -7,8 +7,10 @@ use Courier\Core\Json\JsonSerializableType;
 class ListUsersForTenantParams extends JsonSerializableType
 {
     /**
-     * @var ?int $limit The number of accounts to return
-    (defaults to 20, maximum value of 100)
+     * The number of accounts to return
+     * (defaults to 20, maximum value of 100)
+     *
+     * @var ?int $limit
      */
     public ?int $limit;
 

@@ -27,23 +27,31 @@ class BulkMessageUserResponse extends JsonSerializableType
     /**
      * @param array{
      *   status: value-of<BulkJobUserStatus>,
-     *   messageId?: ?string,
      *   preferences?: ?RecipientPreferences,
      *   profile?: mixed,
      *   recipient?: ?string,
      *   data?: mixed,
      *   to?: ?UserRecipient,
+     *   messageId?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->status = $values['status'];
-        $this->messageId = $values['messageId'] ?? null;
         $this->preferences = $values['preferences'] ?? null;
         $this->profile = $values['profile'] ?? null;
         $this->recipient = $values['recipient'] ?? null;
         $this->data = $values['data'] ?? null;
         $this->to = $values['to'] ?? null;
+        $this->status = $values['status'];
+        $this->messageId = $values['messageId'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Courier\Automations;
 
+use GuzzleHttp\ClientInterface;
 use Courier\Core\Client\RawClient;
 use Courier\Automations\Types\AutomationInvokeParams;
 use Courier\Automations\Types\AutomationInvokeResponse;
@@ -11,11 +12,23 @@ use Courier\Core\Json\JsonApiRequest;
 use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Courier\Automations\Types\AutomationAdHocInvokeParams;
 
 class AutomationsClient
 {
+    /**
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
+     */
+    private array $options;
+
     /**
      * @var RawClient $client
      */
@@ -23,11 +36,20 @@ class AutomationsClient
 
     /**
      * @param RawClient $client
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
     public function __construct(
         RawClient $client,
+        ?array $options = null,
     ) {
         $this->client = $client;
+        $this->options = $options ?? [];
     }
 
     /**
@@ -37,6 +59,11 @@ class AutomationsClient
      * @param AutomationInvokeParams $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return AutomationInvokeResponse
      * @throws CourierException
@@ -44,14 +71,16 @@ class AutomationsClient
      */
     public function invokeAutomationTemplate(string $templateId, AutomationInvokeParams $request, ?array $options = null): AutomationInvokeResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/automations/$templateId/invoke",
+                    path: "/automations/{$templateId}/invoke",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -60,6 +89,16 @@ class AutomationsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -76,6 +115,11 @@ class AutomationsClient
      * @param AutomationAdHocInvokeParams $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return AutomationInvokeResponse
      * @throws CourierException
@@ -83,6 +127,7 @@ class AutomationsClient
      */
     public function invokeAdHocAutomation(AutomationAdHocInvokeParams $request, ?array $options = null): AutomationInvokeResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
@@ -91,6 +136,7 @@ class AutomationsClient
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -99,6 +145,16 @@ class AutomationsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

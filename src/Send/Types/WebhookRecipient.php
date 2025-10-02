@@ -24,4 +24,12 @@ class WebhookRecipient extends JsonSerializableType
     ) {
         $this->webhook = $values['webhook'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

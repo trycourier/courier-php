@@ -48,4 +48,12 @@ class ElementalBaseNode extends JsonSerializableType
         $this->if = $values['if'] ?? null;
         $this->loop = $values['loop'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

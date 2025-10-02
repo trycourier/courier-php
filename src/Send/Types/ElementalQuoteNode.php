@@ -47,27 +47,35 @@ class ElementalQuoteNode extends JsonSerializableType
     /**
      * @param array{
      *   content: string,
-     *   align?: ?value-of<IAlignment>,
-     *   borderColor?: ?string,
      *   textStyle: value-of<TextStyle>,
-     *   locales?: ?array<string, Locale>,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
      *   loop?: ?string,
+     *   align?: ?value-of<IAlignment>,
+     *   borderColor?: ?string,
+     *   locales?: ?array<string, Locale>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->channels = $values['channels'] ?? null;
+        $this->ref = $values['ref'] ?? null;
+        $this->if = $values['if'] ?? null;
+        $this->loop = $values['loop'] ?? null;
         $this->content = $values['content'];
         $this->align = $values['align'] ?? null;
         $this->borderColor = $values['borderColor'] ?? null;
         $this->textStyle = $values['textStyle'];
         $this->locales = $values['locales'] ?? null;
-        $this->channels = $values['channels'] ?? null;
-        $this->ref = $values['ref'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->loop = $values['loop'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

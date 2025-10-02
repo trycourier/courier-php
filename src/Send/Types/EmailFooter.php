@@ -31,4 +31,12 @@ class EmailFooter extends JsonSerializableType
         $this->content = $values['content'] ?? null;
         $this->inheritDefault = $values['inheritDefault'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

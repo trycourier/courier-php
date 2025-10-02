@@ -28,33 +28,37 @@ class ListTemplatesByTenantResponse extends JsonSerializableType
     public string $url;
 
     /**
-     * @var ?string $nextUrl A url that may be used to generate fetch the next set of results.
-    Defined only when `has_more` is set to true
+     * A url that may be used to generate fetch the next set of results.
+     * Defined only when `has_more` is set to true
+     *
+     * @var ?string $nextUrl
      */
     #[JsonProperty('next_url')]
     public ?string $nextUrl;
 
     /**
-     * @var ?string $cursor A pointer to the next page of results. Defined
-    only when `has_more` is set to true
+     * A pointer to the next page of results. Defined
+     * only when `has_more` is set to true
+     *
+     * @var ?string $cursor
      */
     #[JsonProperty('cursor')]
     public ?string $cursor;
 
     /**
-     * @var string $type Always set to `list`. Represents the type of this object.
+     * @var 'list' $type Always set to `list`. Represents the type of this object.
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
      * @param array{
-     *   items?: ?array<ListTemplateTenantAssociation>,
      *   hasMore: bool,
      *   url: string,
+     *   type: 'list',
+     *   items?: ?array<ListTemplateTenantAssociation>,
      *   nextUrl?: ?string,
      *   cursor?: ?string,
-     *   type: string,
      * } $values
      */
     public function __construct(
@@ -66,5 +70,13 @@ class ListTemplatesByTenantResponse extends JsonSerializableType
         $this->nextUrl = $values['nextUrl'] ?? null;
         $this->cursor = $values['cursor'] ?? null;
         $this->type = $values['type'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

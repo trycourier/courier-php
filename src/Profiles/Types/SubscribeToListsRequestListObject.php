@@ -32,4 +32,12 @@ class SubscribeToListsRequestListObject extends JsonSerializableType
         $this->listId = $values['listId'];
         $this->preferences = $values['preferences'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

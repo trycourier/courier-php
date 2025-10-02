@@ -16,21 +16,38 @@ class NestedFilterConfig extends JsonSerializableType
     use BaseFilterConfig;
 
     /**
-     * @var array<SingleFilterConfig|NestedFilterConfig> $rules
+     * @var array<(
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * )> $rules
      */
     #[JsonProperty('rules'), ArrayType([new Union(SingleFilterConfig::class, NestedFilterConfig::class)])]
     public array $rules;
 
     /**
      * @param array{
-     *   rules: array<SingleFilterConfig|NestedFilterConfig>,
-     *   operator: value-of<ComparisonOperator>|value-of<LogicalOperator>,
+     *   operator: (
+     *    value-of<ComparisonOperator>
+     *   |value-of<LogicalOperator>
+     * ),
+     *   rules: array<(
+     *    SingleFilterConfig
+     *   |NestedFilterConfig
+     * )>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->rules = $values['rules'];
         $this->operator = $values['operator'];
+        $this->rules = $values['rules'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

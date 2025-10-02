@@ -27,7 +27,7 @@ class InboundTrackEvent extends JsonSerializableType
     public array $properties;
 
     /**
-     * @var string $type
+     * @var 'track' $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -43,7 +43,7 @@ class InboundTrackEvent extends JsonSerializableType
      *   event: string,
      *   messageId: string,
      *   properties: array<string, mixed>,
-     *   type: string,
+     *   type: 'track',
      *   userId?: ?string,
      * } $values
      */
@@ -55,5 +55,13 @@ class InboundTrackEvent extends JsonSerializableType
         $this->properties = $values['properties'];
         $this->type = $values['type'];
         $this->userId = $values['userId'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }
