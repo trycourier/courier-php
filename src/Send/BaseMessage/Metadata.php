@@ -7,7 +7,7 @@ namespace Courier\Send\BaseMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Utm;
+use Courier\Send\BaseMessage\Metadata\Utm;
 
 /**
  * Metadata such as utm tracking attached with the notification through this channel.

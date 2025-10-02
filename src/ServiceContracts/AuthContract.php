@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\Auth\AuthIssueTokenParams\Scope;
 use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
@@ -16,7 +15,7 @@ interface AuthContract
      * @api
      *
      * @param string $expiresIn
-     * @param Scope|value-of<Scope> $scope
+     * @param string $scope
      *
      * @return AuthIssueTokenResponse<HasRawResponse>
      *

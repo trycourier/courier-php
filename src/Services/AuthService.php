@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Auth\AuthIssueTokenParams;
-use Courier\Auth\AuthIssueTokenParams\Scope;
 use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
@@ -26,7 +25,7 @@ final class AuthService implements AuthContract
      * Returns a new access token.
      *
      * @param string $expiresIn
-     * @param Scope|value-of<Scope> $scope
+     * @param string $scope
      *
      * @return AuthIssueTokenResponse<HasRawResponse>
      *

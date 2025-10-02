@@ -10,6 +10,10 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type automation_invoke_response = array{runID: string}
+ * When used in a response, this type parameter can define a $rawResponse property.
+ * @template TRawResponse of object = object{}
+ *
+ * @mixin TRawResponse
  */
 final class AutomationInvokeResponse implements BaseModel
 {

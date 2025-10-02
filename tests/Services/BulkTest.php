@@ -23,21 +23,19 @@ use Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPrefere
 use Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule as Rule1;
 use Courier\Send\BaseMessage\Channel;
 use Courier\Send\BaseMessage\Channel\Metadata;
+use Courier\Send\BaseMessage\Channel\Metadata\Utm;
 use Courier\Send\BaseMessage\Channel\Timeouts;
 use Courier\Send\BaseMessage\Delay;
 use Courier\Send\BaseMessage\Expiry;
 use Courier\Send\BaseMessage\Metadata as Metadata1;
+use Courier\Send\BaseMessage\Metadata\Utm as Utm1;
 use Courier\Send\BaseMessage\Preferences as Preferences1;
 use Courier\Send\BaseMessage\Provider;
 use Courier\Send\BaseMessage\Provider\Metadata as Metadata2;
+use Courier\Send\BaseMessage\Provider\Metadata\Utm as Utm2;
 use Courier\Send\BaseMessage\Routing;
-use Courier\Send\BaseMessage\Routing\Channel\RoutingStrategyChannel;
-use Courier\Send\BaseMessage\Routing\Channel\RoutingStrategyChannel\Provider as Provider1;
-use Courier\Send\BaseMessage\Routing\Channel\RoutingStrategyChannel\Provider\Metadata as Metadata3;
 use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\MessageContext;
-use Courier\Send\RoutingMethod;
-use Courier\Send\Utm;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -217,7 +215,7 @@ final class BulkTest extends TestCase
                                     )
                                     ->withOverride(['foo' => 'bar'])
                                     ->withProviders(['string'])
-                                    ->withRoutingMethod(RoutingMethod::$ALL)
+                                    ->withRoutingMethod('all')
                                     ->withTimeouts((new Timeouts)->withChannel(0)->withProvider(0)),
                             ],
                         )
@@ -233,7 +231,7 @@ final class BulkTest extends TestCase
                                 ->withTags(['string'])
                                 ->withTraceID('trace_id')
                                 ->withUtm(
-                                    (new Utm)
+                                    (new Utm1)
                                         ->withCampaign('campaign')
                                         ->withContent('content')
                                         ->withMedium('medium')
@@ -251,7 +249,7 @@ final class BulkTest extends TestCase
                                     ->withMetadata(
                                         (new Metadata2)
                                             ->withUtm(
-                                                (new Utm)
+                                                (new Utm2)
                                                     ->withCampaign('campaign')
                                                     ->withContent('content')
                                                     ->withMedium('medium')
@@ -263,36 +261,7 @@ final class BulkTest extends TestCase
                                     ->withTimeouts(0),
                             ],
                         )
-                        ->withRouting(
-                            Routing::with(
-                                channels: [
-                                    RoutingStrategyChannel::with(channel: 'channel')
-                                        ->withConfig(['foo' => 'bar'])
-                                        ->withIf('if')
-                                        ->withMethod(RoutingMethod::$ALL)
-                                        ->withProviders(
-                                            [
-                                                'foo' => (new Provider1)
-                                                    ->withIf('if')
-                                                    ->withMetadata(
-                                                        (new Metadata3)
-                                                            ->withUtm(
-                                                                (new Utm)
-                                                                    ->withCampaign('campaign')
-                                                                    ->withContent('content')
-                                                                    ->withMedium('medium')
-                                                                    ->withSource('source')
-                                                                    ->withTerm('term'),
-                                                            ),
-                                                    )
-                                                    ->withOverride(['foo' => 'bar'])
-                                                    ->withTimeouts(0),
-                                            ],
-                                        ),
-                                ],
-                                method: RoutingMethod::$ALL,
-                            ),
-                        )
+                        ->withRouting(Routing::with(channels: ['string'], method: 'all'))
                         ->withTimeout(
                             (new Timeout)
                                 ->withChannel(['foo' => 0])

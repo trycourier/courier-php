@@ -55,7 +55,7 @@ interface ListsContract{
   * @param RecipientPreferences|null $preferences
   * @param RequestOptions|null $requestOptions
   * 
-  * @return List<HasRawResponse>
+  * @return mixed
   * 
   * @throws APIException
  */public function update(
@@ -63,7 +63,7 @@ interface ListsContract{
         $name,
         $preferences = omit,
         ?RequestOptions $requestOptions = null,
-      ): List;
+      ): mixed;
 
 
 
@@ -74,12 +74,12 @@ interface ListsContract{
   * @param array<string, mixed> $params
   * @param RequestOptions|null $requestOptions
   * 
-  * @return List<HasRawResponse>
+  * @return mixed
   * 
   * @throws APIException
  */public function updateRaw(
         string $listID, array $params, ?RequestOptions $requestOptions = null
-      ): List;
+      ): mixed;
 
 
 

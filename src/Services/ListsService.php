@@ -79,7 +79,7 @@ final class ListsService implements ListsContract
   * @param RecipientPreferences|null $preferences
   * @param RequestOptions|null $requestOptions
   * 
-  * @return List<HasRawResponse>
+  * @return mixed
   * 
   * @throws APIException
  */
@@ -88,7 +88,7 @@ final class ListsService implements ListsContract
     $name,
     $preferences = omit,
     ?RequestOptions $requestOptions = null,
-  ): List {
+  ): mixed {
     $params = ['name' => $name, 'preferences' => $preferences];
     return $this->updateRaw($listID, $params, $requestOptions);
   }
@@ -100,13 +100,13 @@ final class ListsService implements ListsContract
   * @param array<string, mixed> $params
   * @param RequestOptions|null $requestOptions
   * 
-  * @return List<HasRawResponse>
+  * @return mixed
   * 
   * @throws APIException
  */
   public function updateRaw(
     string $listID, array $params, ?RequestOptions $requestOptions = null
-  ): List {
+  ): mixed {
     [$parsed, $options] = ListUpdateParams::parseRequest(
       $params, $requestOptions
     );
@@ -116,7 +116,7 @@ final class ListsService implements ListsContract
       path: ['lists/%1$s', $listID],
       body: (object) $parsed,
       options: $options,
-      convert: List::class,
+      convert: null,
     );
   }
 

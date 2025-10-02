@@ -7,10 +7,9 @@ namespace Courier\Send\BaseMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\BaseMessage\Routing\Channel;
-use Courier\Send\BaseMessage\Routing\Channel\RoutingStrategyChannel;
-use Courier\Send\BaseMessage\Routing\Channel\RoutingStrategyProvider;
-use Courier\Send\RoutingMethod;
+use Courier\Notifications\MessageRouting;
+use Courier\Notifications\MessageRoutingChannel;
+use Courier\Send\BaseMessage\Routing\Method;
 
 /**
  * Allows you to customize which channel(s) Courier will potentially deliver the message.
@@ -18,8 +17,7 @@ use Courier\Send\RoutingMethod;
  * routing defined by the template.
  *
  * @phpstan-type routing_alias = array{
- *   channels: list<string|RoutingStrategyChannel|RoutingStrategyProvider>,
- *   method: value-of<RoutingMethod>,
+ *   channels: list<string|MessageRouting>, method: value-of<Method>
  * }
  */
 final class Routing implements BaseModel
@@ -32,13 +30,13 @@ final class Routing implements BaseModel
      * sub-routing methods, which can be useful for defining advanced push notification
      * delivery strategies.
      *
-     * @var list<string|RoutingStrategyChannel|RoutingStrategyProvider> $channels
+     * @var list<string|MessageRouting> $channels
      */
-    #[Api(list: Channel::class)]
+    #[Api(list: MessageRoutingChannel::class)]
     public array $channels;
 
-    /** @var value-of<RoutingMethod> $method */
-    #[Api(enum: RoutingMethod::class)]
+    /** @var value-of<Method> $method */
+    #[Api(enum: Method::class)]
     public string $method;
 
     /**
@@ -65,17 +63,15 @@ final class Routing implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string|RoutingStrategyChannel|RoutingStrategyProvider> $channels
-     * @param RoutingMethod|value-of<RoutingMethod> $method
+     * @param list<string|MessageRouting> $channels
+     * @param Method|value-of<Method> $method
      */
-    public static function with(
-        array $channels,
-        RoutingMethod|string $method
-    ): self {
+    public static function with(array $channels, Method|string $method): self
+    {
         $obj = new self;
 
         $obj->channels = $channels;
-        $obj->method = $method instanceof RoutingMethod ? $method->value : $method;
+        $obj->method = $method instanceof Method ? $method->value : $method;
 
         return $obj;
     }
@@ -85,7 +81,7 @@ final class Routing implements BaseModel
      * sub-routing methods, which can be useful for defining advanced push notification
      * delivery strategies.
      *
-     * @param list<string|RoutingStrategyChannel|RoutingStrategyProvider> $channels
+     * @param list<string|MessageRouting> $channels
      */
     public function withChannels(array $channels): self
     {
@@ -96,12 +92,12 @@ final class Routing implements BaseModel
     }
 
     /**
-     * @param RoutingMethod|value-of<RoutingMethod> $method
+     * @param Method|value-of<Method> $method
      */
-    public function withMethod(RoutingMethod|string $method): self
+    public function withMethod(Method|string $method): self
     {
         $obj = clone $this;
-        $obj->method = $method instanceof RoutingMethod ? $method->value : $method;
+        $obj->method = $method instanceof Method ? $method->value : $method;
 
         return $obj;
     }

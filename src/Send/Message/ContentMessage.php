@@ -24,7 +24,6 @@ use Courier\Send\BaseMessageSendTo\To\SlackRecipient;
 use Courier\Send\BaseMessageSendTo\To\UnionMember1;
 use Courier\Send\BaseMessageSendTo\To\UnionMember2;
 use Courier\Send\BaseMessageSendTo\To\WebhookRecipient;
-use Courier\Send\Content\ElementalContent;
 use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\MessageContext;
 use Courier\Send\Recipient\AudienceRecipient as AudienceRecipient1;
@@ -34,6 +33,7 @@ use Courier\Send\Recipient\SlackRecipient as SlackRecipient1;
 use Courier\Send\Recipient\UnionMember1 as UnionMember11;
 use Courier\Send\Recipient\UnionMember2 as UnionMember21;
 use Courier\Send\Recipient\WebhookRecipient as WebhookRecipient1;
+use Courier\Tenants\Templates\ElementalContent;
 
 /**
  * Describes the content of the message in a way that will work for email, push, chat, or any channel.
