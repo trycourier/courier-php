@@ -14,7 +14,7 @@ use Courier\Send\ElementalNode\UnionMember6\Type;
  * Allows you to group elements together. This can be useful when used in combination with "if" or "loop". See [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
  *
  * @phpstan-type union_member6 = array{
- *   elements: list<UnionMember0|UnionMember1|union_member2|UnionMember3|UnionMember4|UnionMember5|union_member6|UnionMember7>,
+ *   elements: list<UnionMember0|UnionMember1|Type|UnionMember3|UnionMember4|UnionMember5|union_member6|UnionMember7>,
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -30,7 +30,7 @@ final class UnionMember6 implements BaseModel
     /**
      * Sub elements to render.
      *
-     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
+     * @var list<UnionMember0|UnionMember1|Type|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      */
     #[Api(list: ElementalNode::class)]
     public array $elements;
@@ -76,7 +76,7 @@ final class UnionMember6 implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
+     * @param list<UnionMember0|UnionMember1|Type|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      * @param list<string>|null $channels
      * @param Type|value-of<Type> $type
      */
@@ -104,7 +104,7 @@ final class UnionMember6 implements BaseModel
     /**
      * Sub elements to render.
      *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
+     * @param list<UnionMember0|UnionMember1|Type|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      */
     public function withElements(array $elements): self
     {
