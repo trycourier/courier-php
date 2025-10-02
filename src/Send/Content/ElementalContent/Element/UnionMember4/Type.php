@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\ElementalNode\UnionMember5;
+namespace Courier\Send\Content\ElementalContent\Element\UnionMember4;
 
 enum Type: string
 {
