@@ -60,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ElementalGroupNode::with(elements: [[]], ...)`
+It is recommended to use the static `with` constructor `MsTeamsBaseProperties::with(serviceURL: "service_url", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ElementalGroupNode)->withElements([[]])`.
+However, builders are also provided `(new MsTeamsBaseProperties)->withServiceURL("service_url")`.
 
 ### Handling errors
 
