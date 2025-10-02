@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type base_template_tenant_association = array{
+ * @phpstan-type template_get_response = array{
  *   id: string,
  *   createdAt: string,
  *   publishedAt: string,
@@ -21,9 +21,9 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @mixin TRawResponse
  */
-final class BaseTemplateTenantAssociation implements BaseModel
+final class TemplateGetResponse implements BaseModel
 {
-    /** @use SdkModel<base_template_tenant_association> */
+    /** @use SdkModel<template_get_response> */
     use SdkModel;
 
     /**
@@ -57,11 +57,11 @@ final class BaseTemplateTenantAssociation implements BaseModel
     public string $version;
 
     /**
-     * `new BaseTemplateTenantAssociation()` is missing required properties by the API.
+     * `new TemplateGetResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BaseTemplateTenantAssociation::with(
+     * TemplateGetResponse::with(
      *   id: ..., createdAt: ..., publishedAt: ..., updatedAt: ..., version: ...
      * )
      * ```
@@ -69,7 +69,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BaseTemplateTenantAssociation)
+     * (new TemplateGetResponse)
      *   ->withID(...)
      *   ->withCreatedAt(...)
      *   ->withPublishedAt(...)

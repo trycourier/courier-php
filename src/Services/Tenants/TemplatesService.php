@@ -9,7 +9,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\TemplatesContract;
-use Courier\Tenants\Templates\BaseTemplateTenantAssociation;
+use Courier\Tenants\Templates\TemplateGetResponse;
 use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplateRetrieveParams;
@@ -30,7 +30,7 @@ final class TemplatesService implements TemplatesContract
      *
      * @param string $tenantID
      *
-     * @return BaseTemplateTenantAssociation<HasRawResponse>
+     * @return TemplateGetResponse<HasRawResponse>
      *
      * @throws APIException
      */
@@ -38,7 +38,7 @@ final class TemplatesService implements TemplatesContract
         string $templateID,
         $tenantID,
         ?RequestOptions $requestOptions = null
-    ): BaseTemplateTenantAssociation {
+    ): TemplateGetResponse {
         $params = ['tenantID' => $tenantID];
 
         return $this->retrieveRaw($templateID, $params, $requestOptions);
@@ -49,7 +49,7 @@ final class TemplatesService implements TemplatesContract
      *
      * @param array<string, mixed> $params
      *
-     * @return BaseTemplateTenantAssociation<HasRawResponse>
+     * @return TemplateGetResponse<HasRawResponse>
      *
      * @throws APIException
      */
@@ -57,7 +57,7 @@ final class TemplatesService implements TemplatesContract
         string $templateID,
         array $params,
         ?RequestOptions $requestOptions = null
-    ): BaseTemplateTenantAssociation {
+    ): TemplateGetResponse {
         [$parsed, $options] = TemplateRetrieveParams::parseRequest(
             $params,
             $requestOptions
@@ -70,7 +70,7 @@ final class TemplatesService implements TemplatesContract
             method: 'get',
             path: ['tenants/%1$s/templates/%2$s', $tenantID, $templateID],
             options: $options,
-            convert: BaseTemplateTenantAssociation::class,
+            convert: TemplateGetResponse::class,
         );
     }
 

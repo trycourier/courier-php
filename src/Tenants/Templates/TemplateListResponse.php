@@ -16,7 +16,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Type;
  *   type: value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   items?: list<item_alias>|null,
+ *   items?: list<Item>|null,
  *   nextURL?: string|null,
  * }
  * When used in a response, this type parameter can define a $rawResponse property.
