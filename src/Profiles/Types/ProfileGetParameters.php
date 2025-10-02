@@ -23,4 +23,12 @@ class ProfileGetParameters extends JsonSerializableType
     ) {
         $this->recipientId = $values['recipientId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

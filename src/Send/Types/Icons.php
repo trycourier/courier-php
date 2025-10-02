@@ -31,4 +31,12 @@ class Icons extends JsonSerializableType
         $this->bell = $values['bell'] ?? null;
         $this->message = $values['message'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

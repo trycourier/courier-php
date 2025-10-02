@@ -23,4 +23,12 @@ class IntercomRecipient extends JsonSerializableType
     ) {
         $this->id = $values['id'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

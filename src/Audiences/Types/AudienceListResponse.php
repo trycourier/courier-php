@@ -33,4 +33,12 @@ class AudienceListResponse extends JsonSerializableType
         $this->items = $values['items'];
         $this->paging = $values['paging'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

@@ -8,7 +8,7 @@ use Courier\Core\Json\JsonProperty;
 class AutomationUpdateProfileStep extends JsonSerializableType
 {
     /**
-     * @var string $action
+     * @var 'update-profile' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -33,7 +33,7 @@ class AutomationUpdateProfileStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'update-profile',
      *   recipientId: string,
      *   profile: mixed,
      *   merge: value-of<MergeAlgorithm>,
@@ -46,5 +46,13 @@ class AutomationUpdateProfileStep extends JsonSerializableType
         $this->recipientId = $values['recipientId'];
         $this->profile = $values['profile'];
         $this->merge = $values['merge'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

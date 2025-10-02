@@ -20,7 +20,7 @@ class BaseCheck extends JsonSerializableType
     public string $status;
 
     /**
-     * @var string $type
+     * @var 'custom' $type
      */
     #[JsonProperty('type')]
     public string $type;
@@ -29,7 +29,7 @@ class BaseCheck extends JsonSerializableType
      * @param array{
      *   id: string,
      *   status: value-of<CheckStatus>,
-     *   type: string,
+     *   type: 'custom',
      * } $values
      */
     public function __construct(
@@ -38,5 +38,13 @@ class BaseCheck extends JsonSerializableType
         $this->id = $values['id'];
         $this->status = $values['status'];
         $this->type = $values['type'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

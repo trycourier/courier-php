@@ -2,6 +2,7 @@
 
 namespace Courier\Lists;
 
+use GuzzleHttp\ClientInterface;
 use Courier\Core\Client\RawClient;
 use Courier\Lists\Requests\GetAllListsRequest;
 use Courier\Lists\Types\ListGetAllResponse;
@@ -11,6 +12,7 @@ use Courier\Core\Json\JsonApiRequest;
 use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Courier\Lists\Types\List_;
 use Courier\Lists\Types\ListPutParams;
@@ -24,17 +26,37 @@ use Courier\Lists\Requests\SubscribeUserToListRequest;
 class ListsClient
 {
     /**
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
+     */
+    private array $options;
+
+    /**
      * @var RawClient $client
      */
     private RawClient $client;
 
     /**
      * @param RawClient $client
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
     public function __construct(
         RawClient $client,
+        ?array $options = null,
     ) {
         $this->client = $client;
+        $this->options = $options ?? [];
     }
 
     /**
@@ -43,13 +65,19 @@ class ListsClient
      * @param GetAllListsRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return ListGetAllResponse
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function list(GetAllListsRequest $request, ?array $options = null): ListGetAllResponse
+    public function list(GetAllListsRequest $request = new GetAllListsRequest(), ?array $options = null): ListGetAllResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         $query = [];
         if ($request->cursor != null) {
             $query['cursor'] = $request->cursor;
@@ -65,6 +93,7 @@ class ListsClient
                     method: HttpMethod::GET,
                     query: $query,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -73,6 +102,16 @@ class ListsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -89,6 +128,11 @@ class ListsClient
      * @param string $listId A unique identifier representing the list you wish to retrieve.
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return List_
      * @throws CourierException
@@ -96,13 +140,15 @@ class ListsClient
      */
     public function get(string $listId, ?array $options = null): List_
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId",
+                    path: "/lists/{$listId}",
                     method: HttpMethod::GET,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -111,6 +157,16 @@ class ListsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -128,25 +184,42 @@ class ListsClient
      * @param ListPutParams $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function update(string $listId, ListPutParams $request, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId",
+                    path: "/lists/{$listId}",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -163,24 +236,41 @@ class ListsClient
      * @param string $listId A unique identifier representing the list you wish to retrieve.
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function delete(string $listId, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId",
+                    path: "/lists/{$listId}",
                     method: HttpMethod::DELETE,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -198,25 +288,42 @@ class ListsClient
      * @param RestoreListRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function restore(string $listId, RestoreListRequest $request, ?array $options = null): void
+    public function restore(string $listId, RestoreListRequest $request = new RestoreListRequest(), ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/restore",
+                    path: "/lists/{$listId}/restore",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -234,13 +341,19 @@ class ListsClient
      * @param GetSubscriptionForListRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return ListGetSubscriptionsResponse
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function getSubscribers(string $listId, GetSubscriptionForListRequest $request, ?array $options = null): ListGetSubscriptionsResponse
+    public function getSubscribers(string $listId, GetSubscriptionForListRequest $request = new GetSubscriptionForListRequest(), ?array $options = null): ListGetSubscriptionsResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         $query = [];
         if ($request->cursor != null) {
             $query['cursor'] = $request->cursor;
@@ -249,10 +362,11 @@ class ListsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/subscriptions",
+                    path: "/lists/{$listId}/subscriptions",
                     method: HttpMethod::GET,
                     query: $query,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -261,6 +375,16 @@ class ListsClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -278,25 +402,42 @@ class ListsClient
      * @param SubscribeUsersToListRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function updateSubscribers(string $listId, SubscribeUsersToListRequest $request, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/subscriptions",
+                    path: "/lists/{$listId}/subscriptions",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -314,25 +455,42 @@ class ListsClient
      * @param AddSubscribersToList $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function addSubscribers(string $listId, AddSubscribersToList $request, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/subscriptions",
+                    path: "/lists/{$listId}/subscriptions",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -351,25 +509,42 @@ class ListsClient
      * @param SubscribeUserToListRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function subscribe(string $listId, string $userId, SubscribeUserToListRequest $request, ?array $options = null): void
+    public function subscribe(string $listId, string $userId, SubscribeUserToListRequest $request = new SubscribeUserToListRequest(), ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/subscriptions/$userId",
+                    path: "/lists/{$listId}/subscriptions/{$userId}",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -387,24 +562,41 @@ class ListsClient
      * @param string $userId A unique identifier representing the recipient associated with the list
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function unsubscribe(string $listId, string $userId, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "/lists/$listId/subscriptions/$userId",
+                    path: "/lists/{$listId}/subscriptions/{$userId}",
                     method: HttpMethod::DELETE,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

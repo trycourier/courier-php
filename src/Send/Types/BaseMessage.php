@@ -9,8 +9,10 @@ use Courier\Core\Types\ArrayType;
 class BaseMessage extends JsonSerializableType
 {
     /**
-     * @var ?array<string, mixed> $data An arbitrary object that includes any data you want to pass to the message.
-    The data will populate the corresponding template or elements variables.
+     * An arbitrary object that includes any data you want to pass to the message.
+     * The data will populate the corresponding template or elements variables.
+     *
+     * @var ?array<string, mixed> $data
      */
     #[JsonProperty('data'), ArrayType(['string' => 'mixed'])]
     public ?array $data;
@@ -70,8 +72,10 @@ class BaseMessage extends JsonSerializableType
     public ?Delay $delay;
 
     /**
-     * @var ?Expiry $expiry "Expiry allows you to set an absolute or relative time in which a message expires.
-    Note: This is only valid for the Courier Inbox channel as of 12-08-2022."
+     * "Expiry allows you to set an absolute or relative time in which a message expires.
+     * Note: This is only valid for the Courier Inbox channel as of 12-08-2022."
+     *
+     * @var ?Expiry $expiry
      */
     #[JsonProperty('expiry')]
     public ?Expiry $expiry;
@@ -105,5 +109,13 @@ class BaseMessage extends JsonSerializableType
         $this->timeout = $values['timeout'] ?? null;
         $this->delay = $values['delay'] ?? null;
         $this->expiry = $values['expiry'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

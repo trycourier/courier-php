@@ -48,4 +48,12 @@ class MessageMetadata extends JsonSerializableType
         $this->utm = $values['utm'] ?? null;
         $this->traceId = $values['traceId'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

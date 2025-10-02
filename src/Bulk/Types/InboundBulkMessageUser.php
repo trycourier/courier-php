@@ -57,4 +57,12 @@ class InboundBulkMessageUser extends JsonSerializableType
         $this->data = $values['data'] ?? null;
         $this->to = $values['to'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

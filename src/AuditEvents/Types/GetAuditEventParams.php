@@ -23,4 +23,12 @@ class GetAuditEventParams extends JsonSerializableType
     ) {
         $this->auditEventId = $values['auditEventId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

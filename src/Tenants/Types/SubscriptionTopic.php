@@ -19,8 +19,8 @@ class SubscriptionTopic extends JsonSerializableType
 
     /**
      * @param array{
-     *   id: string,
      *   status: value-of<SubscriptionTopicStatus>,
+     *   id: string,
      *   hasCustomRouting?: ?bool,
      *   customRouting?: ?array<value-of<ChannelClassification>>,
      * } $values
@@ -28,9 +28,17 @@ class SubscriptionTopic extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->id = $values['id'];
         $this->status = $values['status'];
         $this->hasCustomRouting = $values['hasCustomRouting'] ?? null;
         $this->customRouting = $values['customRouting'] ?? null;
+        $this->id = $values['id'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

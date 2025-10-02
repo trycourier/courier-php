@@ -24,4 +24,12 @@ class PatchUserTokenOpts extends JsonSerializableType
     ) {
         $this->patch = $values['patch'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

@@ -47,4 +47,12 @@ class BrandSettingsEmail extends JsonSerializableType
         $this->footer = $values['footer'] ?? null;
         $this->header = $values['header'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

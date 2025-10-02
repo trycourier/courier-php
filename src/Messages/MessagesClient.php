@@ -2,6 +2,7 @@
 
 namespace Courier\Messages;
 
+use GuzzleHttp\ClientInterface;
 use Courier\Core\Client\RawClient;
 use Courier\Messages\Requests\ListMessagesRequest;
 use Courier\Messages\Types\ListMessagesResponse;
@@ -11,6 +12,7 @@ use Courier\Core\Json\JsonApiRequest;
 use Courier\Environments;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Courier\Messages\Types\MessageDetailsExtended;
 use Courier\Messages\Types\MessageDetails;
@@ -21,17 +23,37 @@ use Courier\Messages\Types\RenderOutputResponse;
 class MessagesClient
 {
     /**
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
+     */
+    private array $options;
+
+    /**
      * @var RawClient $client
      */
     private RawClient $client;
 
     /**
      * @param RawClient $client
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
     public function __construct(
         RawClient $client,
+        ?array $options = null,
     ) {
         $this->client = $client;
+        $this->options = $options ?? [];
     }
 
     /**
@@ -40,13 +62,19 @@ class MessagesClient
      * @param ListMessagesRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return ListMessagesResponse
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function list(ListMessagesRequest $request, ?array $options = null): ListMessagesResponse
+    public function list(ListMessagesRequest $request = new ListMessagesRequest(), ?array $options = null): ListMessagesResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         $query = [];
         if ($request->archived != null) {
             $query['archived'] = $request->archived;
@@ -98,6 +126,7 @@ class MessagesClient
                     method: HttpMethod::GET,
                     query: $query,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -106,6 +135,16 @@ class MessagesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -122,6 +161,11 @@ class MessagesClient
      * @param string $messageId A unique identifier associated with the message you wish to retrieve (results from a send).
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return MessageDetailsExtended
      * @throws CourierException
@@ -129,13 +173,15 @@ class MessagesClient
      */
     public function get(string $messageId, ?array $options = null): MessageDetailsExtended
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "messages/$messageId",
+                    path: "messages/{$messageId}",
                     method: HttpMethod::GET,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -144,6 +190,16 @@ class MessagesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -160,6 +216,11 @@ class MessagesClient
      * @param string $messageId A unique identifier representing the message ID
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return MessageDetails
      * @throws CourierException
@@ -167,13 +228,15 @@ class MessagesClient
      */
     public function cancel(string $messageId, ?array $options = null): MessageDetails
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "messages/$messageId/cancel",
+                    path: "messages/{$messageId}/cancel",
                     method: HttpMethod::POST,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -182,6 +245,16 @@ class MessagesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -199,13 +272,19 @@ class MessagesClient
      * @param GetMessageHistoryRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return MessageHistoryResponse
      * @throws CourierException
      * @throws CourierApiException
      */
-    public function getHistory(string $messageId, GetMessageHistoryRequest $request, ?array $options = null): MessageHistoryResponse
+    public function getHistory(string $messageId, GetMessageHistoryRequest $request = new GetMessageHistoryRequest(), ?array $options = null): MessageHistoryResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         $query = [];
         if ($request->type != null) {
             $query['type'] = $request->type;
@@ -214,10 +293,11 @@ class MessagesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "messages/$messageId/history",
+                    path: "messages/{$messageId}/history",
                     method: HttpMethod::GET,
                     query: $query,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -226,6 +306,16 @@ class MessagesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -240,6 +330,11 @@ class MessagesClient
      * @param string $messageId A unique identifier associated with the message you wish to retrieve (results from a send).
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return RenderOutputResponse
      * @throws CourierException
@@ -247,13 +342,15 @@ class MessagesClient
      */
     public function getContent(string $messageId, ?array $options = null): RenderOutputResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "messages/$messageId/output",
+                    path: "messages/{$messageId}/output",
                     method: HttpMethod::GET,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -262,6 +359,16 @@ class MessagesClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }
@@ -276,24 +383,41 @@ class MessagesClient
      * @param string $requestId A unique identifier representing the request ID
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @throws CourierException
      * @throws CourierApiException
      */
     public function archive(string $requestId, ?array $options = null): void
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Production->value,
-                    path: "requests/$requestId/archive",
+                    path: "requests/{$requestId}/archive",
                     method: HttpMethod::PUT,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

@@ -16,15 +16,39 @@ class Automation extends JsonSerializableType
     public ?string $cancelationToken;
 
     /**
-     * @var array<AutomationAddToDigestStep|AutomationAddToBatchStep|AutomationThrottleStep|AutomationCancelStep|AutomationDelayStep|AutomationFetchDataStep|AutomationInvokeStep|AutomationSendStep|AutomationV2SendStep|AutomationSendListStep|AutomationUpdateProfileStep> $steps
+     * @var array<(
+     *    AutomationAddToDigestStep
+     *   |AutomationAddToBatchStep
+     *   |AutomationThrottleStep
+     *   |AutomationCancelStep
+     *   |AutomationDelayStep
+     *   |AutomationFetchDataStep
+     *   |AutomationInvokeStep
+     *   |AutomationSendStep
+     *   |AutomationV2SendStep
+     *   |AutomationSendListStep
+     *   |AutomationUpdateProfileStep
+     * )> $steps
      */
     #[JsonProperty('steps'), ArrayType([new Union(AutomationAddToDigestStep::class, AutomationAddToBatchStep::class, AutomationThrottleStep::class, AutomationCancelStep::class, AutomationDelayStep::class, AutomationFetchDataStep::class, AutomationInvokeStep::class, AutomationSendStep::class, AutomationV2SendStep::class, AutomationSendListStep::class, AutomationUpdateProfileStep::class)])]
     public array $steps;
 
     /**
      * @param array{
+     *   steps: array<(
+     *    AutomationAddToDigestStep
+     *   |AutomationAddToBatchStep
+     *   |AutomationThrottleStep
+     *   |AutomationCancelStep
+     *   |AutomationDelayStep
+     *   |AutomationFetchDataStep
+     *   |AutomationInvokeStep
+     *   |AutomationSendStep
+     *   |AutomationV2SendStep
+     *   |AutomationSendListStep
+     *   |AutomationUpdateProfileStep
+     * )>,
      *   cancelationToken?: ?string,
-     *   steps: array<AutomationAddToDigestStep|AutomationAddToBatchStep|AutomationThrottleStep|AutomationCancelStep|AutomationDelayStep|AutomationFetchDataStep|AutomationInvokeStep|AutomationSendStep|AutomationV2SendStep|AutomationSendListStep|AutomationUpdateProfileStep>,
      * } $values
      */
     public function __construct(
@@ -32,5 +56,13 @@ class Automation extends JsonSerializableType
     ) {
         $this->cancelationToken = $values['cancelationToken'] ?? null;
         $this->steps = $values['steps'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

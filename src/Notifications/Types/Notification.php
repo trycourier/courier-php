@@ -61,10 +61,10 @@ class Notification extends JsonSerializableType
      *   updatedAt: int,
      *   id: string,
      *   routing: MessageRouting,
-     *   tags?: ?NotificationTag,
-     *   title?: ?string,
      *   topicId: string,
      *   note: string,
+     *   tags?: ?NotificationTag,
+     *   title?: ?string,
      * } $values
      */
     public function __construct(
@@ -78,5 +78,13 @@ class Notification extends JsonSerializableType
         $this->title = $values['title'] ?? null;
         $this->topicId = $values['topicId'];
         $this->note = $values['note'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

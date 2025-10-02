@@ -15,14 +15,14 @@ class ElementalGroupNode extends JsonSerializableType
     use ElementalBaseNode;
 
     /**
-     * @var array<mixed> $elements Sub elements to render.
+     * @var array<ElementalNode> $elements Sub elements to render.
      */
-    #[JsonProperty('elements'), ArrayType(['mixed'])]
+    #[JsonProperty('elements'), ArrayType([ElementalNode::class])]
     public array $elements;
 
     /**
      * @param array{
-     *   elements: array<mixed>,
+     *   elements: array<ElementalNode>,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
@@ -32,10 +32,18 @@ class ElementalGroupNode extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->elements = $values['elements'];
         $this->channels = $values['channels'] ?? null;
         $this->ref = $values['ref'] ?? null;
         $this->if = $values['if'] ?? null;
         $this->loop = $values['loop'] ?? null;
+        $this->elements = $values['elements'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

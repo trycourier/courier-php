@@ -63,4 +63,12 @@ class Device extends JsonSerializableType
         $this->manufacturer = $values['manufacturer'] ?? null;
         $this->model = $values['model'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

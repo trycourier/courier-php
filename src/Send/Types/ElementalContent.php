@@ -21,16 +21,16 @@ class ElementalContent extends JsonSerializableType
     public mixed $brand;
 
     /**
-     * @var array<mixed> $elements
+     * @var array<ElementalNode> $elements
      */
-    #[JsonProperty('elements'), ArrayType(['mixed'])]
+    #[JsonProperty('elements'), ArrayType([ElementalNode::class])]
     public array $elements;
 
     /**
      * @param array{
      *   version: string,
+     *   elements: array<ElementalNode>,
      *   brand?: mixed,
-     *   elements: array<mixed>,
      * } $values
      */
     public function __construct(
@@ -39,5 +39,13 @@ class ElementalContent extends JsonSerializableType
         $this->version = $values['version'];
         $this->brand = $values['brand'] ?? null;
         $this->elements = $values['elements'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -51,4 +51,12 @@ class Preference extends JsonSerializableType
         $this->channelPreferences = $values['channelPreferences'] ?? null;
         $this->source = $values['source'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

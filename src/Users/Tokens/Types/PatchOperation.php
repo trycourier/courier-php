@@ -39,4 +39,12 @@ class PatchOperation extends JsonSerializableType
         $this->path = $values['path'];
         $this->value = $values['value'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

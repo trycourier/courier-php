@@ -24,4 +24,12 @@ class PagerdutyRecipient extends JsonSerializableType
     ) {
         $this->pagerduty = $values['pagerduty'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

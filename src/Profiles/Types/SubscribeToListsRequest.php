@@ -24,4 +24,12 @@ class SubscribeToListsRequest extends JsonSerializableType
     ) {
         $this->lists = $values['lists'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

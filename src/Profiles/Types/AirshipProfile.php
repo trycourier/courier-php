@@ -32,4 +32,12 @@ class AirshipProfile extends JsonSerializableType
         $this->audience = $values['audience'];
         $this->deviceTypes = $values['deviceTypes'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

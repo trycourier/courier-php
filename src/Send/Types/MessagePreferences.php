@@ -23,4 +23,12 @@ class MessagePreferences extends JsonSerializableType
     ) {
         $this->subscriptionTopicId = $values['subscriptionTopicId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

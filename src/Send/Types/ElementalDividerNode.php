@@ -21,20 +21,28 @@ class ElementalDividerNode extends JsonSerializableType
 
     /**
      * @param array{
-     *   color?: ?string,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
      *   loop?: ?string,
+     *   color?: ?string,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
-        $this->color = $values['color'] ?? null;
         $this->channels = $values['channels'] ?? null;
         $this->ref = $values['ref'] ?? null;
         $this->if = $values['if'] ?? null;
         $this->loop = $values['loop'] ?? null;
+        $this->color = $values['color'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

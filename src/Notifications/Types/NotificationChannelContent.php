@@ -31,4 +31,12 @@ class NotificationChannelContent extends JsonSerializableType
         $this->subject = $values['subject'] ?? null;
         $this->title = $values['title'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

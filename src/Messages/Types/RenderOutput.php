@@ -39,4 +39,12 @@ class RenderOutput extends JsonSerializableType
         $this->channelId = $values['channelId'];
         $this->content = $values['content'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

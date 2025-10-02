@@ -41,4 +41,12 @@ class SubscriptionTopicNew extends JsonSerializableType
         $this->hasCustomRouting = $values['hasCustomRouting'] ?? null;
         $this->customRouting = $values['customRouting'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

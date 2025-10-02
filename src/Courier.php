@@ -26,10 +26,11 @@ use Courier\Exceptions\CourierApiException;
 use Courier\Core\Json\JsonApiRequest;
 use Courier\Core\Client\HttpMethod;
 use JsonException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Exception;
 
-class CourierClient
+class Courier
 {
     /**
      * @var AudiencesClient $audiences
@@ -107,13 +108,15 @@ class CourierClient
     public UsersClient $users;
 
     /**
-     * @var ?array{
+     * @var array{
      *   baseUrl?: string,
      *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
      *   headers?: array<string, string>,
      * } $options
      */
-    private ?array $options;
+    private array $options;
 
     /**
      * @var RawClient $client
@@ -125,6 +128,8 @@ class CourierClient
      * @param ?array{
      *   baseUrl?: string,
      *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
      *   headers?: array<string, string>,
      * } $options
      */
@@ -137,7 +142,8 @@ class CourierClient
             'Authorization' => "Bearer $authorizationToken",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Courier',
-            'X-Fern-SDK-Version' => '2.2.0',
+            'X-Fern-SDK-Version' => '2.3.0',
+            'User-Agent' => 'courier/courier/2.3.0',
         ];
 
         $this->options = $options ?? [];
@@ -150,21 +156,21 @@ class CourierClient
             options: $this->options,
         );
 
-        $this->audiences = new AudiencesClient($this->client);
-        $this->auditEvents = new AuditEventsClient($this->client);
-        $this->authTokens = new AuthTokensClient($this->client);
-        $this->automations = new AutomationsClient($this->client);
-        $this->brands = new BrandsClient($this->client);
-        $this->bulk = new BulkClient($this->client);
-        $this->inbound = new InboundClient($this->client);
-        $this->lists = new ListsClient($this->client);
-        $this->messages = new MessagesClient($this->client);
-        $this->notifications = new NotificationsClient($this->client);
-        $this->profiles = new ProfilesClient($this->client);
-        $this->templates = new TemplatesClient($this->client);
-        $this->tenants = new TenantsClient($this->client);
-        $this->translations = new TranslationsClient($this->client);
-        $this->users = new UsersClient($this->client);
+        $this->audiences = new AudiencesClient($this->client, $this->options);
+        $this->auditEvents = new AuditEventsClient($this->client, $this->options);
+        $this->authTokens = new AuthTokensClient($this->client, $this->options);
+        $this->automations = new AutomationsClient($this->client, $this->options);
+        $this->brands = new BrandsClient($this->client, $this->options);
+        $this->bulk = new BulkClient($this->client, $this->options);
+        $this->inbound = new InboundClient($this->client, $this->options);
+        $this->lists = new ListsClient($this->client, $this->options);
+        $this->messages = new MessagesClient($this->client, $this->options);
+        $this->notifications = new NotificationsClient($this->client, $this->options);
+        $this->profiles = new ProfilesClient($this->client, $this->options);
+        $this->templates = new TemplatesClient($this->client, $this->options);
+        $this->tenants = new TenantsClient($this->client, $this->options);
+        $this->translations = new TranslationsClient($this->client, $this->options);
+        $this->users = new UsersClient($this->client, $this->options);
     }
 
     /**
@@ -173,6 +179,11 @@ class CourierClient
      * @param SendMessageRequest $request
      * @param ?array{
      *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
      * } $options
      * @return SendMessageResponse
      * @throws CourierException
@@ -180,6 +191,7 @@ class CourierClient
      */
     public function send(SendMessageRequest $request, ?array $options = null): SendMessageResponse
     {
+        $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
@@ -188,6 +200,7 @@ class CourierClient
                     method: HttpMethod::POST,
                     body: $request,
                 ),
+                $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
@@ -196,6 +209,16 @@ class CourierClient
             }
         } catch (JsonException $e) {
             throw new CourierException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new CourierException(message: $e->getMessage(), previous: $e);
+            }
+            throw new CourierApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
         } catch (ClientExceptionInterface $e) {
             throw new CourierException(message: $e->getMessage(), previous: $e);
         }

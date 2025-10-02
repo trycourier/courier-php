@@ -51,9 +51,9 @@ class BrandTemplate extends JsonSerializableType
 
     /**
      * @param array{
+     *   enabled: bool,
      *   backgroundColor?: ?string,
      *   blocksBackgroundColor?: ?string,
-     *   enabled: bool,
      *   footer?: ?string,
      *   head?: ?string,
      *   header?: ?string,
@@ -70,5 +70,13 @@ class BrandTemplate extends JsonSerializableType
         $this->head = $values['head'] ?? null;
         $this->header = $values['header'] ?? null;
         $this->width = $values['width'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

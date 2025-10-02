@@ -2,10 +2,24 @@
 
 namespace Courier\Messages\Traits;
 
-use Courier\Core\Json\JsonProperty;
 use Courier\Messages\Types\MessageStatus;
 use Courier\Messages\Types\Reason;
+use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $id
+ * @property value-of<MessageStatus> $status
+ * @property int $enqueued
+ * @property int $sent
+ * @property int $delivered
+ * @property int $opened
+ * @property int $clicked
+ * @property string $recipient
+ * @property string $event
+ * @property string $notification
+ * @property ?string $error
+ * @property ?value-of<Reason> $reason
+ */
 trait MessageDetails
 {
     /**

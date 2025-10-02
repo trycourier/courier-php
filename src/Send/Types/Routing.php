@@ -22,9 +22,14 @@ class Routing extends JsonSerializableType
     public string $method;
 
     /**
-     * @var array<string|MessageRouting> $channels A list of channels or providers to send the message through. Can also recursively define
-    sub-routing methods, which can be useful for defining advanced push notification
-    delivery strategies.
+     * A list of channels or providers to send the message through. Can also recursively define
+     * sub-routing methods, which can be useful for defining advanced push notification
+     * delivery strategies.
+     *
+     * @var array<(
+     *    string
+     *   |MessageRouting
+     * )> $channels
      */
     #[JsonProperty('channels'), ArrayType([new Union('string', MessageRouting::class)])]
     public array $channels;
@@ -32,7 +37,10 @@ class Routing extends JsonSerializableType
     /**
      * @param array{
      *   method: value-of<RoutingMethod>,
-     *   channels: array<string|MessageRouting>,
+     *   channels: array<(
+     *    string
+     *   |MessageRouting
+     * )>,
      * } $values
      */
     public function __construct(
@@ -40,5 +48,13 @@ class Routing extends JsonSerializableType
     ) {
         $this->method = $values['method'];
         $this->channels = $values['channels'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

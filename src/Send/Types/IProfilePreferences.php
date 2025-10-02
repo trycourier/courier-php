@@ -28,8 +28,8 @@ class IProfilePreferences extends JsonSerializableType
 
     /**
      * @param array{
-     *   categories?: ?array<string, Preference>,
      *   notifications: array<string, Preference>,
+     *   categories?: ?array<string, Preference>,
      *   templateId?: ?string,
      * } $values
      */
@@ -39,5 +39,13 @@ class IProfilePreferences extends JsonSerializableType
         $this->categories = $values['categories'] ?? null;
         $this->notifications = $values['notifications'];
         $this->templateId = $values['templateId'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

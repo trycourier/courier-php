@@ -27,16 +27,27 @@ class SingleFilterConfig extends JsonSerializableType
 
     /**
      * @param array{
+     *   operator: (
+     *    value-of<ComparisonOperator>
+     *   |value-of<LogicalOperator>
+     * ),
      *   value: string,
      *   path: string,
-     *   operator: value-of<ComparisonOperator>|value-of<LogicalOperator>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->operator = $values['operator'];
         $this->value = $values['value'];
         $this->path = $values['path'];
-        $this->operator = $values['operator'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

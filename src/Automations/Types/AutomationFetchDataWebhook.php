@@ -40,11 +40,11 @@ class AutomationFetchDataWebhook extends JsonSerializableType
 
     /**
      * @param array{
+     *   method: value-of<AutomationFetchDataWebhookMethod>,
+     *   url: string,
      *   body?: ?array<string, mixed>,
      *   headers?: ?array<string, mixed>,
      *   params?: ?array<string, mixed>,
-     *   method: value-of<AutomationFetchDataWebhookMethod>,
-     *   url: string,
      * } $values
      */
     public function __construct(
@@ -55,5 +55,13 @@ class AutomationFetchDataWebhook extends JsonSerializableType
         $this->params = $values['params'] ?? null;
         $this->method = $values['method'];
         $this->url = $values['url'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

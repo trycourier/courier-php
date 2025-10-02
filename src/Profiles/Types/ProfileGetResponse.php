@@ -33,4 +33,12 @@ class ProfileGetResponse extends JsonSerializableType
         $this->profile = $values['profile'];
         $this->preferences = $values['preferences'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

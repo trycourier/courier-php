@@ -31,4 +31,12 @@ class Intercom extends JsonSerializableType
         $this->from = $values['from'];
         $this->to = $values['to'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

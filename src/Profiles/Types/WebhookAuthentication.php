@@ -47,4 +47,12 @@ class WebhookAuthentication extends JsonSerializableType
         $this->password = $values['password'] ?? null;
         $this->token = $values['token'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

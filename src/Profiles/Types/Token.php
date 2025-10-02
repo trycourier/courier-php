@@ -23,4 +23,12 @@ class Token extends JsonSerializableType
     ) {
         $this->token = $values['token'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

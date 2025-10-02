@@ -47,4 +47,12 @@ class List_ extends JsonSerializableType
         $this->created = $values['created'] ?? null;
         $this->updated = $values['updated'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

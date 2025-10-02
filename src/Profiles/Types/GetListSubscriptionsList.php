@@ -56,4 +56,12 @@ class GetListSubscriptionsList extends JsonSerializableType
         $this->updated = $values['updated'];
         $this->preferences = $values['preferences'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

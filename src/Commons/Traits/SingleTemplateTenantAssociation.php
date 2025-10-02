@@ -5,6 +5,9 @@ namespace Courier\Commons\Traits;
 use Courier\Commons\Types\TenantTemplateData;
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property TenantTemplateData $data
+ */
 trait SingleTemplateTenantAssociation
 {
     use BaseTemplateTenantAssociation;

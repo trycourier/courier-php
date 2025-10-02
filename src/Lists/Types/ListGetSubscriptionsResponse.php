@@ -33,4 +33,12 @@ class ListGetSubscriptionsResponse extends JsonSerializableType
         $this->paging = $values['paging'];
         $this->items = $values['items'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

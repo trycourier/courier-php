@@ -23,4 +23,12 @@ class SendDirectMessage extends JsonSerializableType
     ) {
         $this->userId = $values['userId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

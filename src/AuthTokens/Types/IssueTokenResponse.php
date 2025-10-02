@@ -23,4 +23,12 @@ class IssueTokenResponse extends JsonSerializableType
     ) {
         $this->token = $values['token'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

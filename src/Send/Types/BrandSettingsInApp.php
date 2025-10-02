@@ -58,14 +58,14 @@ class BrandSettingsInApp extends JsonSerializableType
 
     /**
      * @param array{
-     *   borderRadius?: ?string,
-     *   disableMessageIcon?: ?bool,
-     *   fontFamily?: ?string,
-     *   placement?: ?value-of<InAppPlacement>,
      *   widgetBackground: WidgetBackground,
      *   colors: BrandColors,
      *   icons: Icons,
      *   preferences: Preferences,
+     *   borderRadius?: ?string,
+     *   disableMessageIcon?: ?bool,
+     *   fontFamily?: ?string,
+     *   placement?: ?value-of<InAppPlacement>,
      * } $values
      */
     public function __construct(
@@ -79,5 +79,13 @@ class BrandSettingsInApp extends JsonSerializableType
         $this->colors = $values['colors'];
         $this->icons = $values['icons'];
         $this->preferences = $values['preferences'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -2,12 +2,23 @@
 
 namespace Courier\Users\Tokens\Traits;
 
-use Courier\Core\Json\JsonProperty;
 use Courier\Users\Tokens\Types\ProviderKey;
-use Courier\Core\Types\Union;
 use Courier\Users\Tokens\Types\Device;
 use Courier\Users\Tokens\Types\Tracking;
+use Courier\Core\Json\JsonProperty;
+use Courier\Core\Types\Union;
 
+/**
+ * @property ?string $token
+ * @property value-of<ProviderKey> $providerKey
+ * @property (
+ *    string
+ *   |bool
+ * )|null $expiryDate
+ * @property mixed $properties
+ * @property ?Device $device
+ * @property ?Tracking $tracking
+ */
 trait UserToken
 {
     /**
@@ -23,7 +34,10 @@ trait UserToken
     public string $providerKey;
 
     /**
-     * @var string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     * @var (
+     *    string
+     *   |bool
+     * )|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
     #[JsonProperty('expiry_date'), Union('string', 'bool', 'null')]
     public string|bool|null $expiryDate;

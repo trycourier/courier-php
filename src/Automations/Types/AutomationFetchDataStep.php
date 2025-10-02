@@ -11,7 +11,7 @@ class AutomationFetchDataStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'fetch-data' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -42,24 +42,32 @@ class AutomationFetchDataStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'fetch-data',
      *   webhook: AutomationFetchDataWebhook,
      *   mergeStrategy: value-of<MergeAlgorithm>,
-     *   idempotencyExpiry?: ?string,
-     *   idempotencyKey?: ?string,
      *   if?: ?string,
      *   ref?: ?string,
+     *   idempotencyExpiry?: ?string,
+     *   idempotencyKey?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->if = $values['if'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->action = $values['action'];
         $this->webhook = $values['webhook'];
         $this->mergeStrategy = $values['mergeStrategy'];
         $this->idempotencyExpiry = $values['idempotencyExpiry'] ?? null;
         $this->idempotencyKey = $values['idempotencyKey'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->ref = $values['ref'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

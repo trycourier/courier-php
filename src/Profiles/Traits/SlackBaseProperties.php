@@ -4,6 +4,9 @@ namespace Courier\Profiles\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $accessToken
+ */
 trait SlackBaseProperties
 {
     /**

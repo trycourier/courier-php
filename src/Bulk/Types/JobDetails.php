@@ -55,4 +55,12 @@ class JobDetails extends JsonSerializableType
         $this->received = $values['received'];
         $this->status = $values['status'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

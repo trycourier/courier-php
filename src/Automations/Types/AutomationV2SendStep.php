@@ -14,21 +14,27 @@ class AutomationV2SendStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'send' $action
      */
     #[JsonProperty('action')]
     public string $action;
 
     /**
-     * @var ContentMessage|TemplateMessage $message
+     * @var (
+     *    ContentMessage
+     *   |TemplateMessage
+     * ) $message
      */
     #[JsonProperty('message'), Union(ContentMessage::class, TemplateMessage::class)]
     public ContentMessage|TemplateMessage $message;
 
     /**
      * @param array{
-     *   action: string,
-     *   message: ContentMessage|TemplateMessage,
+     *   action: 'send',
+     *   message: (
+     *    ContentMessage
+     *   |TemplateMessage
+     * ),
      *   if?: ?string,
      *   ref?: ?string,
      * } $values
@@ -36,9 +42,17 @@ class AutomationV2SendStep extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->action = $values['action'];
-        $this->message = $values['message'];
         $this->if = $values['if'] ?? null;
         $this->ref = $values['ref'] ?? null;
+        $this->action = $values['action'];
+        $this->message = $values['message'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

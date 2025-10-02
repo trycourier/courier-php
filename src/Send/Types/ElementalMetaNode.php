@@ -23,20 +23,28 @@ class ElementalMetaNode extends JsonSerializableType
 
     /**
      * @param array{
-     *   title?: ?string,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
      *   loop?: ?string,
+     *   title?: ?string,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
-        $this->title = $values['title'] ?? null;
         $this->channels = $values['channels'] ?? null;
         $this->ref = $values['ref'] ?? null;
         $this->if = $values['if'] ?? null;
         $this->loop = $values['loop'] ?? null;
+        $this->title = $values['title'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

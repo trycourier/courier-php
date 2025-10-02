@@ -55,4 +55,12 @@ class AudienceMember extends JsonSerializableType
         $this->memberId = $values['memberId'];
         $this->reason = $values['reason'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

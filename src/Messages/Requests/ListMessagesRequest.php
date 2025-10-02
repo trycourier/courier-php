@@ -37,9 +37,9 @@ class ListMessagesRequest extends JsonSerializableType
     public ?string $notification;
 
     /**
-     * @var array<?string> $provider The key assocated to the provider you want to filter on. E.g., sendgrid, inbox, twilio, slack, msteams, etc. Allows multiple values to be set in query parameters.
+     * @var ?array<string> $provider The key assocated to the provider you want to filter on. E.g., sendgrid, inbox, twilio, slack, msteams, etc. Allows multiple values to be set in query parameters.
      */
-    public array $provider;
+    public ?array $provider;
 
     /**
      * @var ?string $recipient A unique identifier representing the recipient associated with the requested profile.
@@ -47,14 +47,14 @@ class ListMessagesRequest extends JsonSerializableType
     public ?string $recipient;
 
     /**
-     * @var array<?string> $status An indicator of the current status of the message. Allows multiple values to be set in query parameters.
+     * @var ?array<string> $status An indicator of the current status of the message. Allows multiple values to be set in query parameters.
      */
-    public array $status;
+    public ?array $status;
 
     /**
-     * @var array<?string> $tag A tag placed in the metadata.tags during a notification send. Allows multiple values to be set in query parameters.
+     * @var ?array<string> $tag A tag placed in the metadata.tags during a notification send. Allows multiple values to be set in query parameters.
      */
-    public array $tag;
+    public ?array $tag;
 
     /**
      * @var ?string $tags A comma delimited list of 'tags'. Messages will be returned if they match any of the tags passed in.
@@ -84,10 +84,10 @@ class ListMessagesRequest extends JsonSerializableType
      *   list?: ?string,
      *   messageId?: ?string,
      *   notification?: ?string,
-     *   provider: array<?string>,
+     *   provider?: ?array<string>,
      *   recipient?: ?string,
-     *   status: array<?string>,
-     *   tag: array<?string>,
+     *   status?: ?array<string>,
+     *   tag?: ?array<string>,
      *   tags?: ?string,
      *   tenantId?: ?string,
      *   enqueuedAfter?: ?string,
@@ -95,7 +95,7 @@ class ListMessagesRequest extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->archived = $values['archived'] ?? null;
         $this->cursor = $values['cursor'] ?? null;
@@ -103,10 +103,10 @@ class ListMessagesRequest extends JsonSerializableType
         $this->list = $values['list'] ?? null;
         $this->messageId = $values['messageId'] ?? null;
         $this->notification = $values['notification'] ?? null;
-        $this->provider = $values['provider'];
+        $this->provider = $values['provider'] ?? null;
         $this->recipient = $values['recipient'] ?? null;
-        $this->status = $values['status'];
-        $this->tag = $values['tag'];
+        $this->status = $values['status'] ?? null;
+        $this->tag = $values['tag'] ?? null;
         $this->tags = $values['tags'] ?? null;
         $this->tenantId = $values['tenantId'] ?? null;
         $this->enqueuedAfter = $values['enqueuedAfter'] ?? null;

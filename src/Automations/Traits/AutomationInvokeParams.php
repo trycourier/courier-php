@@ -5,6 +5,13 @@ namespace Courier\Automations\Traits;
 use Courier\Core\Json\JsonProperty;
 use Courier\Core\Types\ArrayType;
 
+/**
+ * @property ?string $brand
+ * @property ?array<string, mixed> $data
+ * @property mixed $profile
+ * @property ?string $recipient
+ * @property ?string $template
+ */
 trait AutomationInvokeParams
 {
     /**

@@ -48,12 +48,12 @@ class TopicPreference extends JsonSerializableType
 
     /**
      * @param array{
-     *   customRouting?: ?array<value-of<ChannelClassification>>,
      *   defaultStatus: value-of<PreferenceStatus>,
-     *   hasCustomRouting?: ?bool,
      *   status: value-of<PreferenceStatus>,
      *   topicId: string,
      *   topicName: string,
+     *   customRouting?: ?array<value-of<ChannelClassification>>,
+     *   hasCustomRouting?: ?bool,
      * } $values
      */
     public function __construct(
@@ -65,5 +65,13 @@ class TopicPreference extends JsonSerializableType
         $this->status = $values['status'];
         $this->topicId = $values['topicId'];
         $this->topicName = $values['topicName'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

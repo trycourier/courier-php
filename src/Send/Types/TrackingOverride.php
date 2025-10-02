@@ -23,4 +23,12 @@ class TrackingOverride extends JsonSerializableType
     ) {
         $this->open = $values['open'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

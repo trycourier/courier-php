@@ -46,27 +46,35 @@ class ElementalImageNode extends JsonSerializableType
     /**
      * @param array{
      *   src: string,
-     *   href?: ?string,
-     *   align?: ?value-of<IAlignment>,
-     *   altText?: ?string,
-     *   width?: ?string,
      *   channels?: ?array<string>,
      *   ref?: ?string,
      *   if?: ?string,
      *   loop?: ?string,
+     *   href?: ?string,
+     *   align?: ?value-of<IAlignment>,
+     *   altText?: ?string,
+     *   width?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->channels = $values['channels'] ?? null;
+        $this->ref = $values['ref'] ?? null;
+        $this->if = $values['if'] ?? null;
+        $this->loop = $values['loop'] ?? null;
         $this->src = $values['src'];
         $this->href = $values['href'] ?? null;
         $this->align = $values['align'] ?? null;
         $this->altText = $values['altText'] ?? null;
         $this->width = $values['width'] ?? null;
-        $this->channels = $values['channels'] ?? null;
-        $this->ref = $values['ref'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->loop = $values['loop'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

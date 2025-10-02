@@ -56,4 +56,12 @@ class Timeout extends JsonSerializableType
         $this->escalation = $values['escalation'] ?? null;
         $this->criteria = $values['criteria'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

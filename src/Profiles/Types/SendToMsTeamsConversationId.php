@@ -18,16 +18,24 @@ class SendToMsTeamsConversationId extends JsonSerializableType
 
     /**
      * @param array{
-     *   conversationId: string,
      *   tenantId: string,
      *   serviceUrl: string,
+     *   conversationId: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->conversationId = $values['conversationId'];
         $this->tenantId = $values['tenantId'];
         $this->serviceUrl = $values['serviceUrl'];
+        $this->conversationId = $values['conversationId'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

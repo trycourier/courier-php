@@ -18,14 +18,22 @@ class SendToSlackUserId extends JsonSerializableType
 
     /**
      * @param array{
-     *   userId: string,
      *   accessToken: string,
+     *   userId: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->userId = $values['userId'];
         $this->accessToken = $values['accessToken'];
+        $this->userId = $values['userId'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

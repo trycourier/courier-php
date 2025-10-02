@@ -2,9 +2,14 @@
 
 namespace Courier\Notifications\Traits;
 
-use Courier\Core\Json\JsonProperty;
 use Courier\Notifications\Types\CheckStatus;
+use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $id
+ * @property value-of<CheckStatus> $status
+ * @property 'custom' $type
+ */
 trait BaseCheck
 {
     /**
@@ -20,7 +25,7 @@ trait BaseCheck
     public string $status;
 
     /**
-     * @var string $type
+     * @var 'custom' $type
      */
     #[JsonProperty('type')]
     public string $type;

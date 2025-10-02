@@ -15,10 +15,12 @@ class MessageProvidersType extends JsonSerializableType
     public ?array $override;
 
     /**
-     * @var ?string $if A JavaScript conditional expression to determine if the message should
-    be sent through the provider. Has access to the data and profile object.
-    Only applies when a custom routing strategy is defined.
-    For example, `data.name === profile.name`
+     * A JavaScript conditional expression to determine if the message should
+     * be sent through the provider. Has access to the data and profile object.
+     * Only applies when a custom routing strategy is defined.
+     * For example, `data.name === profile.name`
+     *
+     * @var ?string $if
      */
     #[JsonProperty('if')]
     public ?string $if;
@@ -50,5 +52,13 @@ class MessageProvidersType extends JsonSerializableType
         $this->if = $values['if'] ?? null;
         $this->timeouts = $values['timeouts'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

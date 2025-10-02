@@ -11,7 +11,7 @@ class AutomationThrottleStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'throttle' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -41,7 +41,7 @@ class AutomationThrottleStep extends JsonSerializableType
     public ?string $throttleKey;
 
     /**
-     * @var bool $shouldAlert Value must be true
+     * @var false $shouldAlert Value must be true
      */
     #[JsonProperty('should_alert')]
     public bool $shouldAlert;
@@ -54,20 +54,22 @@ class AutomationThrottleStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
+     *   action: 'throttle',
      *   maxAllowed: int,
      *   period: string,
      *   scope: value-of<AutomationThrottleScope>,
-     *   throttleKey?: ?string,
-     *   shouldAlert: bool,
+     *   shouldAlert: false,
      *   onThrottle: AutomationThrottleOnThrottle,
      *   if?: ?string,
      *   ref?: ?string,
+     *   throttleKey?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->if = $values['if'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->action = $values['action'];
         $this->maxAllowed = $values['maxAllowed'];
         $this->period = $values['period'];
@@ -75,7 +77,13 @@ class AutomationThrottleStep extends JsonSerializableType
         $this->throttleKey = $values['throttleKey'] ?? null;
         $this->shouldAlert = $values['shouldAlert'];
         $this->onThrottle = $values['onThrottle'];
-        $this->if = $values['if'] ?? null;
-        $this->ref = $values['ref'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

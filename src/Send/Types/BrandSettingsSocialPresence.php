@@ -63,4 +63,12 @@ class BrandSettingsSocialPresence extends JsonSerializableType
         $this->medium = $values['medium'] ?? null;
         $this->twitter = $values['twitter'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

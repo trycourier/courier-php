@@ -33,9 +33,9 @@ class BrandParameters extends JsonSerializableType
 
     /**
      * @param array{
-     *   id?: ?string,
      *   name: string,
      *   settings: BrandSettings,
+     *   id?: ?string,
      *   snippets?: ?BrandSnippets,
      * } $values
      */
@@ -46,5 +46,13 @@ class BrandParameters extends JsonSerializableType
         $this->name = $values['name'];
         $this->settings = $values['settings'];
         $this->snippets = $values['snippets'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

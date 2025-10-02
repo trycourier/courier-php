@@ -59,4 +59,12 @@ class AddUserToSingleTenantsParamsProfile extends JsonSerializableType
         $this->locale = $values['locale'];
         $this->additionalFields = $values['additionalFields'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

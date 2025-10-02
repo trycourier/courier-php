@@ -11,15 +11,19 @@ use Courier\Core\Json\JsonProperty;
 class AutomationAddToBatchRetain extends JsonSerializableType
 {
     /**
-     * @var value-of<AutomationAddToBatchRetainType> $type Keep N number of notifications based on the type. First/Last N based on notification received.
-    highest/lowest based on a scoring key providing in the data accessed by sort_key
+     * Keep N number of notifications based on the type. First/Last N based on notification received.
+     * highest/lowest based on a scoring key providing in the data accessed by sort_key
+     *
+     * @var value-of<AutomationAddToBatchRetainType> $type
      */
     #[JsonProperty('type')]
     public string $type;
 
     /**
-     * @var int $count The number of records to keep in batch. Default is 10 and only configurable by requesting from support.
-    When configurable minimum is 2 and maximum is 100.
+     * The number of records to keep in batch. Default is 10 and only configurable by requesting from support.
+     * When configurable minimum is 2 and maximum is 100.
+     *
+     * @var int $count
      */
     #[JsonProperty('count')]
     public int $count;
@@ -43,5 +47,13 @@ class AutomationAddToBatchRetain extends JsonSerializableType
         $this->type = $values['type'];
         $this->count = $values['count'];
         $this->sortKey = $values['sortKey'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -31,4 +31,12 @@ class Target extends JsonSerializableType
         $this->id = $values['id'] ?? null;
         $this->email = $values['email'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

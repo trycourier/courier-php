@@ -21,7 +21,10 @@ class UserToken extends JsonSerializableType
     public string $providerKey;
 
     /**
-     * @var string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     * @var (
+     *    string
+     *   |bool
+     * )|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
     #[JsonProperty('expiry_date'), Union('string', 'bool', 'null')]
     public string|bool|null $expiryDate;
@@ -46,9 +49,12 @@ class UserToken extends JsonSerializableType
 
     /**
      * @param array{
-     *   token?: ?string,
      *   providerKey: value-of<ProviderKey>,
-     *   expiryDate?: string|bool|null,
+     *   token?: ?string,
+     *   expiryDate?: (
+     *    string
+     *   |bool
+     * )|null,
      *   properties?: mixed,
      *   device?: ?Device,
      *   tracking?: ?Tracking,
@@ -63,5 +69,13 @@ class UserToken extends JsonSerializableType
         $this->properties = $values['properties'] ?? null;
         $this->device = $values['device'] ?? null;
         $this->tracking = $values['tracking'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -32,4 +32,12 @@ class PutSubscriptionsRecipient extends JsonSerializableType
         $this->recipientId = $values['recipientId'];
         $this->preferences = $values['preferences'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

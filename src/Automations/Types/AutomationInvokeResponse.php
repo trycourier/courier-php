@@ -23,4 +23,12 @@ class AutomationInvokeResponse extends JsonSerializableType
     ) {
         $this->runId = $values['runId'];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

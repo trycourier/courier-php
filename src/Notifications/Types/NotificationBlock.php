@@ -34,13 +34,19 @@ class NotificationBlock extends JsonSerializableType
     public string $type;
 
     /**
-     * @var string|NotificationContentHierarchy|null $content
+     * @var (
+     *    string
+     *   |NotificationContentHierarchy
+     * )|null $content
      */
     #[JsonProperty('content'), Union('string', NotificationContentHierarchy::class, 'null')]
     public string|NotificationContentHierarchy|null $content;
 
     /**
-     * @var ?array<string, string|NotificationContentHierarchy> $locales
+     * @var ?array<string, (
+     *    string
+     *   |NotificationContentHierarchy
+     * )> $locales
      */
     #[JsonProperty('locales'), ArrayType(['string' => new Union('string', NotificationContentHierarchy::class)])]
     public ?array $locales;
@@ -53,12 +59,18 @@ class NotificationBlock extends JsonSerializableType
 
     /**
      * @param array{
-     *   alias?: ?string,
-     *   context?: ?string,
      *   id: string,
      *   type: value-of<BlockType>,
-     *   content?: string|NotificationContentHierarchy|null,
-     *   locales?: ?array<string, string|NotificationContentHierarchy>,
+     *   alias?: ?string,
+     *   context?: ?string,
+     *   content?: (
+     *    string
+     *   |NotificationContentHierarchy
+     * )|null,
+     *   locales?: ?array<string, (
+     *    string
+     *   |NotificationContentHierarchy
+     * )>,
      *   checksum?: ?string,
      * } $values
      */
@@ -72,5 +84,13 @@ class NotificationBlock extends JsonSerializableType
         $this->content = $values['content'] ?? null;
         $this->locales = $values['locales'] ?? null;
         $this->checksum = $values['checksum'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

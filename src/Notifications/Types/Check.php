@@ -18,18 +18,26 @@ class Check extends JsonSerializableType
 
     /**
      * @param array{
-     *   updated: int,
      *   id: string,
      *   status: value-of<CheckStatus>,
-     *   type: string,
+     *   type: 'custom',
+     *   updated: int,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->updated = $values['updated'];
         $this->id = $values['id'];
         $this->status = $values['status'];
         $this->type = $values['type'];
+        $this->updated = $values['updated'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

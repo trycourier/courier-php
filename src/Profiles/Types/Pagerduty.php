@@ -47,4 +47,12 @@ class Pagerduty extends JsonSerializableType
         $this->severity = $values['severity'] ?? null;
         $this->source = $values['source'] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 }

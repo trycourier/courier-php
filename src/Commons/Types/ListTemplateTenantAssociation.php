@@ -18,22 +18,30 @@ class ListTemplateTenantAssociation extends JsonSerializableType
 
     /**
      * @param array{
-     *   data: TenantTemplateDataNoContent,
      *   id: string,
      *   createdAt: string,
      *   updatedAt: string,
      *   publishedAt: string,
      *   version: string,
+     *   data: TenantTemplateDataNoContent,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->data = $values['data'];
         $this->id = $values['id'];
         $this->createdAt = $values['createdAt'];
         $this->updatedAt = $values['updatedAt'];
         $this->publishedAt = $values['publishedAt'];
         $this->version = $values['version'];
+        $this->data = $values['data'];
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

@@ -19,7 +19,6 @@ class MessageDetailsExtended extends JsonSerializableType
 
     /**
      * @param array{
-     *   providers?: ?array<array<string, mixed>>,
      *   id: string,
      *   status: value-of<MessageStatus>,
      *   enqueued: int,
@@ -32,12 +31,12 @@ class MessageDetailsExtended extends JsonSerializableType
      *   notification: string,
      *   error?: ?string,
      *   reason?: ?value-of<Reason>,
+     *   providers?: ?array<array<string, mixed>>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->providers = $values['providers'] ?? null;
         $this->id = $values['id'];
         $this->status = $values['status'];
         $this->enqueued = $values['enqueued'];
@@ -50,5 +49,14 @@ class MessageDetailsExtended extends JsonSerializableType
         $this->notification = $values['notification'];
         $this->error = $values['error'] ?? null;
         $this->reason = $values['reason'] ?? null;
+        $this->providers = $values['providers'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

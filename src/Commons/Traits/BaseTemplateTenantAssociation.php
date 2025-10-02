@@ -4,6 +4,13 @@ namespace Courier\Commons\Traits;
 
 use Courier\Core\Json\JsonProperty;
 
+/**
+ * @property string $id
+ * @property string $createdAt
+ * @property string $updatedAt
+ * @property string $publishedAt
+ * @property string $version
+ */
 trait BaseTemplateTenantAssociation
 {
     /**

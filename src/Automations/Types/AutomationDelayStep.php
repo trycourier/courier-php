@@ -11,7 +11,7 @@ class AutomationDelayStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'delay' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -30,20 +30,28 @@ class AutomationDelayStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
-     *   duration?: ?string,
-     *   until?: ?string,
+     *   action: 'delay',
      *   if?: ?string,
      *   ref?: ?string,
+     *   duration?: ?string,
+     *   until?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->if = $values['if'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->action = $values['action'];
         $this->duration = $values['duration'] ?? null;
         $this->until = $values['until'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->ref = $values['ref'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

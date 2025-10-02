@@ -12,7 +12,7 @@ class AutomationSendListStep extends JsonSerializableType
     use AutomationStep;
 
     /**
-     * @var string $action
+     * @var 'send-list' $action
      */
     #[JsonProperty('action')]
     public string $action;
@@ -49,26 +49,34 @@ class AutomationSendListStep extends JsonSerializableType
 
     /**
      * @param array{
-     *   action: string,
-     *   brand?: ?string,
-     *   data?: ?array<string, mixed>,
+     *   action: 'send-list',
      *   list: string,
-     *   override?: ?array<string, mixed>,
-     *   template?: ?string,
      *   if?: ?string,
      *   ref?: ?string,
+     *   brand?: ?string,
+     *   data?: ?array<string, mixed>,
+     *   override?: ?array<string, mixed>,
+     *   template?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->if = $values['if'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->action = $values['action'];
         $this->brand = $values['brand'] ?? null;
         $this->data = $values['data'] ?? null;
         $this->list = $values['list'];
         $this->override = $values['override'] ?? null;
         $this->template = $values['template'] ?? null;
-        $this->if = $values['if'] ?? null;
-        $this->ref = $values['ref'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }
