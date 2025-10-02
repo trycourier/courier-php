@@ -15,8 +15,8 @@ use Courier\Users\Tokens\TokenAddSingleParams\Device;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 use Courier\Users\Tokens\TokenDeleteParams;
-use Courier\Users\Tokens\TokenGetSingleResponse;
-use Courier\Users\Tokens\TokenRetrieveSingleParams;
+use Courier\Users\Tokens\TokenGetResponse;
+use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 use Courier\Users\Tokens\UserToken;
@@ -29,6 +29,57 @@ final class TokensService implements TokensContract
      * @internal
      */
     public function __construct(private Client $client) {}
+
+    /**
+     * @api
+     *
+     * Get single token available for a `:token`
+     *
+     * @param string $userID
+     *
+     * @return TokenGetResponse<HasRawResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $token,
+        $userID,
+        ?RequestOptions $requestOptions = null
+    ): TokenGetResponse {
+        $params = ['userID' => $userID];
+
+        return $this->retrieveRaw($token, $params, $requestOptions);
+    }
+
+    /**
+     * @api
+     *
+     * @param array<string, mixed> $params
+     *
+     * @return TokenGetResponse<HasRawResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieveRaw(
+        string $token,
+        array $params,
+        ?RequestOptions $requestOptions = null
+    ): TokenGetResponse {
+        [$parsed, $options] = TokenRetrieveParams::parseRequest(
+            $params,
+            $requestOptions
+        );
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
+
+        // @phpstan-ignore-next-line;
+        return $this->client->request(
+            method: 'get',
+            path: ['users/%1$s/tokens/%2$s', $userID, $token],
+            options: $options,
+            convert: TokenGetResponse::class,
+        );
+    }
 
     /**
      * @api
@@ -266,57 +317,6 @@ final class TokensService implements TokensContract
             body: (object) array_diff_key($parsed, array_flip(['userID'])),
             options: $options,
             convert: null,
-        );
-    }
-
-    /**
-     * @api
-     *
-     * Get single token available for a `:token`
-     *
-     * @param string $userID
-     *
-     * @return TokenGetSingleResponse<HasRawResponse>
-     *
-     * @throws APIException
-     */
-    public function retrieveSingle(
-        string $token,
-        $userID,
-        ?RequestOptions $requestOptions = null
-    ): TokenGetSingleResponse {
-        $params = ['userID' => $userID];
-
-        return $this->retrieveSingleRaw($token, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @return TokenGetSingleResponse<HasRawResponse>
-     *
-     * @throws APIException
-     */
-    public function retrieveSingleRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): TokenGetSingleResponse {
-        [$parsed, $options] = TokenRetrieveSingleParams::parseRequest(
-            $params,
-            $requestOptions
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
-
-        // @phpstan-ignore-next-line;
-        return $this->client->request(
-            method: 'get',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            options: $options,
-            convert: TokenGetSingleResponse::class,
         );
     }
 }

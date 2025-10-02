@@ -10,6 +10,7 @@ use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
 use Courier\Services\Tenants\DefaultPreferencesService;
+use Courier\Services\Tenants\TemplatesService;
 use Courier\Tenants\DefaultPreferences;
 use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListParams;
@@ -28,11 +29,17 @@ final class TenantsService implements TenantsContract
     public DefaultPreferencesService $defaultPreferences;
 
     /**
+     * @@api
+     */
+    public TemplatesService $templates;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->defaultPreferences = new DefaultPreferencesService($client);
+        $this->templates = new TemplatesService($client);
     }
 
     /**

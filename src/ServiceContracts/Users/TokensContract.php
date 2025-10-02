@@ -10,7 +10,7 @@ use Courier\RequestOptions;
 use Courier\Users\Tokens\TokenAddSingleParams\Device;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
-use Courier\Users\Tokens\TokenGetSingleResponse;
+use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 use Courier\Users\Tokens\UserToken;
 
@@ -18,6 +18,36 @@ use const Courier\Core\OMIT as omit;
 
 interface TokensContract
 {
+    /**
+     * @api
+     *
+     * @param string $userID
+     *
+     * @return TokenGetResponse<HasRawResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $token,
+        $userID,
+        ?RequestOptions $requestOptions = null
+    ): TokenGetResponse;
+
+    /**
+     * @api
+     *
+     * @param array<string, mixed> $params
+     *
+     * @return TokenGetResponse<HasRawResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieveRaw(
+        string $token,
+        array $params,
+        ?RequestOptions $requestOptions = null
+    ): TokenGetResponse;
+
     /**
      * @api
      *
@@ -155,34 +185,4 @@ interface TokensContract
         array $params,
         ?RequestOptions $requestOptions = null
     ): mixed;
-
-    /**
-     * @api
-     *
-     * @param string $userID
-     *
-     * @return TokenGetSingleResponse<HasRawResponse>
-     *
-     * @throws APIException
-     */
-    public function retrieveSingle(
-        string $token,
-        $userID,
-        ?RequestOptions $requestOptions = null
-    ): TokenGetSingleResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @return TokenGetSingleResponse<HasRawResponse>
-     *
-     * @throws APIException
-     */
-    public function retrieveSingleRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): TokenGetSingleResponse;
 }

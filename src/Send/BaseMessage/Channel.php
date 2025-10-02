@@ -8,8 +8,8 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\BaseMessage\Channel\Metadata;
+use Courier\Send\BaseMessage\Channel\RoutingMethod;
 use Courier\Send\BaseMessage\Channel\Timeouts;
-use Courier\Send\RoutingMethod;
 
 /**
  * @phpstan-type channel_alias = array{
@@ -35,8 +35,8 @@ final class Channel implements BaseModel
     public ?string $brandID;
 
     /**
-     * A JavaScript conditional expression to determine if the message should
-     * be sent through the channel. Has access to the data and profile object.
+     * A JavaScript conditional expression to determine if the message should  be sent through the channel. Has access to the data and profile object.
+     * Only applies when a custom routing strategy is defined.
      * For example, `data.name === profile.name`.
      */
     #[Api(nullable: true, optional: true)]
@@ -129,8 +129,8 @@ final class Channel implements BaseModel
     }
 
     /**
-     * A JavaScript conditional expression to determine if the message should
-     * be sent through the channel. Has access to the data and profile object.
+     * A JavaScript conditional expression to determine if the message should  be sent through the channel. Has access to the data and profile object.
+     * Only applies when a custom routing strategy is defined.
      * For example, `data.name === profile.name`.
      */
     public function withIf(?string $if): self

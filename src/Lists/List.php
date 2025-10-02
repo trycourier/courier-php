@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
   * @phpstan-type list_alias = array{
-  *   id: string, name: string, created?: int|null, updated?: int|null
+  *   id: string, name: string, created?: string|null, updated?: string|null
   * }
   * 
   * 
@@ -32,13 +32,13 @@ final class List implements BaseModel
   #[Api]
   public string $name;
 
-  /** @var int|null $created */
+  /** @var string|null $created */
   #[Api(nullable: true, optional: true)]
-  public ?int $created;
+  public ?string $created;
 
-  /** @var int|null $updated */
+  /** @var string|null $updated */
   #[Api(nullable: true, optional: true)]
-  public ?int $updated;
+  public ?string $updated;
 
   /**
   * `new List()` is missing required properties by the API.
@@ -63,13 +63,13 @@ final class List implements BaseModel
   * 
   * @param string $id
   * @param string $name
-  * @param int|null $created
-  * @param int|null $updated
+  * @param string|null $created
+  * @param string|null $updated
   * 
   * @return self
  */
   public static function with(
-    string $id, string $name, ?int $created = null, ?int $updated = null
+    string $id, string $name, ?string $created = null, ?string $updated = null
   ): self {
     $obj = new self;
 
@@ -105,22 +105,22 @@ final class List implements BaseModel
   }
 
   /**
-  * @param int|null $created
+  * @param string|null $created
   * 
   * @return self
  */
-  public function withCreated(?int $created): self {
+  public function withCreated(?string $created): self {
     $obj = clone $this;
     $obj->created = $created;
     return $obj;
   }
 
   /**
-  * @param int|null $updated
+  * @param string|null $updated
   * 
   * @return self
  */
-  public function withUpdated(?int $updated): self {
+  public function withUpdated(?string $updated): self {
     $obj = clone $this;
     $obj->updated = $updated;
     return $obj;

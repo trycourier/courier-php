@@ -7,8 +7,8 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
+use Courier\Messages\MessageContentResponse;
 use Courier\Messages\MessageDetails;
-use Courier\Messages\MessageGetContentResponse;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryParams;
 use Courier\Messages\MessageHistoryResponse;
@@ -198,37 +198,37 @@ final class MessagesService implements MessagesContract
      *
      * Get message content
      *
-     * @return MessageGetContentResponse<HasRawResponse>
+     * @return MessageContentResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function getContent(
+    public function content(
         string $messageID,
         ?RequestOptions $requestOptions = null
-    ): MessageGetContentResponse {
+    ): MessageContentResponse {
         $params = [];
 
-        return $this->getContentRaw($messageID, $params, $requestOptions);
+        return $this->contentRaw($messageID, $params, $requestOptions);
     }
 
     /**
      * @api
      *
-     * @return MessageGetContentResponse<HasRawResponse>
+     * @return MessageContentResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function getContentRaw(
+    public function contentRaw(
         string $messageID,
         mixed $params,
         ?RequestOptions $requestOptions = null
-    ): MessageGetContentResponse {
+    ): MessageContentResponse {
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'get',
             path: ['messages/%1$s/output', $messageID],
             options: $requestOptions,
-            convert: MessageGetContentResponse::class,
+            convert: MessageContentResponse::class,
         );
     }
 

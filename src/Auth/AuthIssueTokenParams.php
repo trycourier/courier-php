@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Auth;
 
-use Courier\Auth\AuthIssueTokenParams\Scope;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -26,9 +25,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Auth->issueToken
  *
- * @phpstan-type auth_issue_token_params = array{
- *   expiresIn: string, scope: Scope|value-of<Scope>
- * }
+ * @phpstan-type auth_issue_token_params = array{expiresIn: string, scope: string}
  */
 final class AuthIssueTokenParams implements BaseModel
 {
@@ -39,8 +36,7 @@ final class AuthIssueTokenParams implements BaseModel
     #[Api('expires_in')]
     public string $expiresIn;
 
-    /** @var value-of<Scope> $scope */
-    #[Api(enum: Scope::class)]
+    #[Api]
     public string $scope;
 
     /**
@@ -66,15 +62,13 @@ final class AuthIssueTokenParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
-     *
-     * @param Scope|value-of<Scope> $scope
      */
-    public static function with(string $expiresIn, Scope|string $scope): self
+    public static function with(string $expiresIn, string $scope): self
     {
         $obj = new self;
 
         $obj->expiresIn = $expiresIn;
-        $obj->scope = $scope instanceof Scope ? $scope->value : $scope;
+        $obj->scope = $scope;
 
         return $obj;
     }
@@ -87,13 +81,10 @@ final class AuthIssueTokenParams implements BaseModel
         return $obj;
     }
 
-    /**
-     * @param Scope|value-of<Scope> $scope
-     */
-    public function withScope(Scope|string $scope): self
+    public function withScope(string $scope): self
     {
         $obj = clone $this;
-        $obj->scope = $scope instanceof Scope ? $scope->value : $scope;
+        $obj->scope = $scope;
 
         return $obj;
     }

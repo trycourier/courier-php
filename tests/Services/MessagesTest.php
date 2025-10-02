@@ -63,13 +63,13 @@ final class MessagesTest extends TestCase
     }
 
     #[Test]
-    public function testGetContent(): void
+    public function testContent(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->messages->getContent('message_id');
+        $result = $this->client->messages->content('message_id');
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

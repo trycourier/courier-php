@@ -28,6 +28,30 @@ final class TokensTest extends TestCase
     }
 
     #[Test]
+    public function testRetrieve(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Prism tests are disabled');
+        }
+
+        $result = $this->client->users->tokens->retrieve('token', 'user_id');
+
+        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+    }
+
+    #[Test]
+    public function testRetrieveWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Prism tests are disabled');
+        }
+
+        $result = $this->client->users->tokens->retrieve('token', 'user_id');
+
+        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+    }
+
+    #[Test]
     public function testUpdate(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -135,30 +159,6 @@ final class TokensTest extends TestCase
             userID: 'user_id',
             providerKey: 'firebase-fcm'
         );
-
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
-    }
-
-    #[Test]
-    public function testRetrieveSingle(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
-        }
-
-        $result = $this->client->users->tokens->retrieveSingle('token', 'user_id');
-
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
-    }
-
-    #[Test]
-    public function testRetrieveSingleWithOptionalParams(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
-        }
-
-        $result = $this->client->users->tokens->retrieveSingle('token', 'user_id');
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

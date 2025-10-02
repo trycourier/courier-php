@@ -35,7 +35,7 @@ final class AuthTest extends TestCase
 
         $result = $this->client->auth->issueToken(
             expiresIn: 'expires_in',
-            scope: 'read:preferences'
+            scope: 'scope'
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -50,7 +50,7 @@ final class AuthTest extends TestCase
 
         $result = $this->client->auth->issueToken(
             expiresIn: 'expires_in',
-            scope: 'read:preferences'
+            scope: 'scope'
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
