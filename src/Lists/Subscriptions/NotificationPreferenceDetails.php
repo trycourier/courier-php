@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Courier\Bulk\UserRecipient\Preferences;
+namespace Courier\Lists\Subscriptions;
 
-use Courier\Bulk\UserRecipient\Preferences\Notification\Source;
 use Courier\ChannelPreference;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
@@ -13,16 +12,15 @@ use Courier\Rule;
 use Courier\Users\Preferences\PreferenceStatus;
 
 /**
- * @phpstan-type notification_alias = array{
+ * @phpstan-type notification_preference_details = array{
  *   status: value-of<PreferenceStatus>,
  *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
- *   source?: value-of<Source>|null,
  * }
  */
-final class Notification implements BaseModel
+final class NotificationPreferenceDetails implements BaseModel
 {
-    /** @use SdkModel<notification_alias> */
+    /** @use SdkModel<notification_preference_details> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
@@ -42,22 +40,18 @@ final class Notification implements BaseModel
     #[Api(list: Rule::class, nullable: true, optional: true)]
     public ?array $rules;
 
-    /** @var value-of<Source>|null $source */
-    #[Api(enum: Source::class, nullable: true, optional: true)]
-    public ?string $source;
-
     /**
-     * `new Notification()` is missing required properties by the API.
+     * `new NotificationPreferenceDetails()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Notification::with(status: ...)
+     * NotificationPreferenceDetails::with(status: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Notification)->withStatus(...)
+     * (new NotificationPreferenceDetails)->withStatus(...)
      * ```
      */
     public function __construct()
@@ -73,13 +67,11 @@ final class Notification implements BaseModel
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      * @param list<ChannelPreference>|null $channelPreferences
      * @param list<Rule>|null $rules
-     * @param Source|value-of<Source>|null $source
      */
     public static function with(
         PreferenceStatus|string $status,
         ?array $channelPreferences = null,
         ?array $rules = null,
-        Source|string|null $source = null,
     ): self {
         $obj = new self;
 
@@ -87,7 +79,6 @@ final class Notification implements BaseModel
 
         null !== $channelPreferences && $obj->channelPreferences = $channelPreferences;
         null !== $rules && $obj->rules = $rules;
-        null !== $source && $obj->source = $source instanceof Source ? $source->value : $source;
 
         return $obj;
     }
@@ -121,17 +112,6 @@ final class Notification implements BaseModel
     {
         $obj = clone $this;
         $obj->rules = $rules;
-
-        return $obj;
-    }
-
-    /**
-     * @param Source|value-of<Source>|null $source
-     */
-    public function withSource(Source|string|null $source): self
-    {
-        $obj = clone $this;
-        $obj->source = $source instanceof Source ? $source->value : $source;
 
         return $obj;
     }

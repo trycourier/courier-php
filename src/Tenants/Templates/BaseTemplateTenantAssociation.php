@@ -2,26 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\Templates\TemplateListResponse;
+namespace Courier\Tenants\Templates;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type base_template_tenant_association = array{
  *   id: string,
  *   createdAt: string,
  *   publishedAt: string,
  *   updatedAt: string,
  *   version: string,
- *   data: Data,
  * }
+ * When used in a response, this type parameter can define a $rawResponse property.
+ * @template TRawResponse of object = object{}
+ *
+ * @mixin TRawResponse
  */
-final class Item implements BaseModel
+final class BaseTemplateTenantAssociation implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<base_template_tenant_association> */
     use SdkModel;
 
     /**
@@ -55,36 +57,24 @@ final class Item implements BaseModel
     public string $version;
 
     /**
-     * The template's data containing it's routing configs.
-     */
-    #[Api]
-    public Data $data;
-
-    /**
-     * `new Item()` is missing required properties by the API.
+     * `new BaseTemplateTenantAssociation()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Item::with(
-     *   id: ...,
-     *   createdAt: ...,
-     *   publishedAt: ...,
-     *   updatedAt: ...,
-     *   version: ...,
-     *   data: ...,
+     * BaseTemplateTenantAssociation::with(
+     *   id: ..., createdAt: ..., publishedAt: ..., updatedAt: ..., version: ...
      * )
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Item)
+     * (new BaseTemplateTenantAssociation)
      *   ->withID(...)
      *   ->withCreatedAt(...)
      *   ->withPublishedAt(...)
      *   ->withUpdatedAt(...)
      *   ->withVersion(...)
-     *   ->withData(...)
      * ```
      */
     public function __construct()
@@ -103,7 +93,6 @@ final class Item implements BaseModel
         string $publishedAt,
         string $updatedAt,
         string $version,
-        Data $data,
     ): self {
         $obj = new self;
 
@@ -112,7 +101,6 @@ final class Item implements BaseModel
         $obj->publishedAt = $publishedAt;
         $obj->updatedAt = $updatedAt;
         $obj->version = $version;
-        $obj->data = $data;
 
         return $obj;
     }
@@ -168,17 +156,6 @@ final class Item implements BaseModel
     {
         $obj = clone $this;
         $obj->version = $version;
-
-        return $obj;
-    }
-
-    /**
-     * The template's data containing it's routing configs.
-     */
-    public function withData(Data $data): self
-    {
-        $obj = clone $this;
-        $obj->data = $data;
 
         return $obj;
     }

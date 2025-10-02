@@ -5,16 +5,13 @@ namespace Tests\Services;
 use Courier\Client;
 use Courier\Send\BaseMessage\Channel;
 use Courier\Send\BaseMessage\Channel\Metadata;
-use Courier\Send\BaseMessage\Channel\Metadata\Utm;
 use Courier\Send\BaseMessage\Channel\Timeouts;
 use Courier\Send\BaseMessage\Delay;
 use Courier\Send\BaseMessage\Expiry;
 use Courier\Send\BaseMessage\Metadata as Metadata1;
-use Courier\Send\BaseMessage\Metadata\Utm as Utm1;
 use Courier\Send\BaseMessage\Preferences;
 use Courier\Send\BaseMessage\Provider;
 use Courier\Send\BaseMessage\Provider\Metadata as Metadata2;
-use Courier\Send\BaseMessage\Provider\Metadata\Utm as Utm2;
 use Courier\Send\BaseMessage\Routing;
 use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\BaseMessageSendTo\To\UnionMember1;
@@ -22,6 +19,7 @@ use Courier\Send\BaseMessageSendTo\To\UnionMember1\Filter;
 use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\Message\ContentMessage;
 use Courier\Send\MessageContext;
+use Courier\Send\Utm;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -113,7 +111,7 @@ final class SendTest extends TestCase
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
                         ->withUtm(
-                            (new Utm1)
+                            (new Utm)
                                 ->withCampaign('campaign')
                                 ->withContent('content')
                                 ->withMedium('medium')
@@ -131,7 +129,7 @@ final class SendTest extends TestCase
                             ->withMetadata(
                                 (new Metadata2)
                                     ->withUtm(
-                                        (new Utm2)
+                                        (new Utm)
                                             ->withCampaign('campaign')
                                             ->withContent('content')
                                             ->withMedium('medium')

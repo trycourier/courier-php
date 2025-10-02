@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Bulk\UserRecipient\Preferences;
 
-use Courier\Bulk\UserRecipient\Preferences\Category\ChannelPreference;
-use Courier\Bulk\UserRecipient\Preferences\Category\Rule;
 use Courier\Bulk\UserRecipient\Preferences\Category\Source;
+use Courier\ChannelPreference;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Rule;
 use Courier\Users\Preferences\PreferenceStatus;
 
 /**

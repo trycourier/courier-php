@@ -15,9 +15,9 @@ use Courier\Send\BaseMessage\Preferences;
 use Courier\Send\BaseMessage\Provider;
 use Courier\Send\BaseMessage\Routing;
 use Courier\Send\BaseMessage\Timeout;
-use Courier\Send\Content\ElementalContent;
 use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\MessageContext;
+use Courier\Tenants\Templates\ElementalContent;
 
 /**
  * A template for a type of message that can be sent more than once.

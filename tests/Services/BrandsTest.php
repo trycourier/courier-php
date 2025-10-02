@@ -2,9 +2,9 @@
 
 namespace Tests\Services;
 
+use Courier\Brands\BrandColors;
 use Courier\Brands\BrandSettings;
-use Courier\Brands\BrandSettings\Colors;
-use Courier\Brands\BrandSettings\Email;
+use Courier\Brands\Email;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -55,7 +55,7 @@ final class BrandsTest extends TestCase
             name: 'name',
             settings: (new BrandSettings)
                 ->withColors(
-                    (new Colors)
+                    (new BrandColors)
                         ->withPrimary('primary')
                         ->withSecondary('secondary')
                         ->withTertiary('tertiary'),
