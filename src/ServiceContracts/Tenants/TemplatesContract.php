@@ -7,7 +7,7 @@ namespace Courier\ServiceContracts\Tenants;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
-use Courier\Tenants\Templates\TemplateGetResponse;
+use Courier\Tenants\Templates\BaseTemplateTenantAssociation;
 use Courier\Tenants\Templates\TemplateListResponse;
 
 use const Courier\Core\OMIT as omit;
@@ -19,7 +19,7 @@ interface TemplatesContract
      *
      * @param string $tenantID
      *
-     * @return TemplateGetResponse<HasRawResponse>
+     * @return BaseTemplateTenantAssociation<HasRawResponse>
      *
      * @throws APIException
      */
@@ -27,14 +27,14 @@ interface TemplatesContract
         string $templateID,
         $tenantID,
         ?RequestOptions $requestOptions = null
-    ): TemplateGetResponse;
+    ): BaseTemplateTenantAssociation;
 
     /**
      * @api
      *
      * @param array<string, mixed> $params
      *
-     * @return TemplateGetResponse<HasRawResponse>
+     * @return BaseTemplateTenantAssociation<HasRawResponse>
      *
      * @throws APIException
      */
@@ -42,7 +42,7 @@ interface TemplatesContract
         string $templateID,
         array $params,
         ?RequestOptions $requestOptions = null,
-    ): TemplateGetResponse;
+    ): BaseTemplateTenantAssociation;
 
     /**
      * @api

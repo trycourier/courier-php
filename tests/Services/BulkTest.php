@@ -7,35 +7,26 @@ use Courier\Bulk\InboundBulkMessage\Message\InboundBulkTemplateMessage;
 use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Bulk\UserRecipient;
 use Courier\Bulk\UserRecipient\Preferences;
-use Courier\Bulk\UserRecipient\Preferences\Category as Category1;
-use Courier\Bulk\UserRecipient\Preferences\Category\ChannelPreference as ChannelPreference3;
-use Courier\Bulk\UserRecipient\Preferences\Category\Rule as Rule3;
-use Courier\Bulk\UserRecipient\Preferences\Notification as Notification1;
-use Courier\Bulk\UserRecipient\Preferences\Notification\ChannelPreference as ChannelPreference2;
-use Courier\Bulk\UserRecipient\Preferences\Notification\Rule as Rule2;
+use Courier\Bulk\UserRecipient\Preferences\Category;
+use Courier\Bulk\UserRecipient\Preferences\Notification;
+use Courier\ChannelPreference;
 use Courier\Client;
+use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
 use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category\ChannelPreference;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category\Rule;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPreference as ChannelPreference1;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule as Rule1;
+use Courier\Rule;
 use Courier\Send\BaseMessage\Channel;
 use Courier\Send\BaseMessage\Channel\Metadata;
-use Courier\Send\BaseMessage\Channel\Metadata\Utm;
 use Courier\Send\BaseMessage\Channel\Timeouts;
 use Courier\Send\BaseMessage\Delay;
 use Courier\Send\BaseMessage\Expiry;
 use Courier\Send\BaseMessage\Metadata as Metadata1;
-use Courier\Send\BaseMessage\Metadata\Utm as Utm1;
 use Courier\Send\BaseMessage\Preferences as Preferences1;
 use Courier\Send\BaseMessage\Provider;
 use Courier\Send\BaseMessage\Provider\Metadata as Metadata2;
-use Courier\Send\BaseMessage\Provider\Metadata\Utm as Utm2;
 use Courier\Send\BaseMessage\Routing;
 use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\MessageContext;
+use Courier\Send\Utm;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -92,7 +83,9 @@ final class BulkTest extends TestCase
                         (new RecipientPreferences)
                             ->withCategories(
                                 [
-                                    'foo' => Category::with(status: PreferenceStatus::$OPTED_IN)
+                                    'foo' => NotificationPreferenceDetails::with(
+                                        status: PreferenceStatus::$OPTED_IN
+                                    )
                                         ->withChannelPreferences(
                                             [
                                                 ChannelPreference::with(
@@ -105,15 +98,17 @@ final class BulkTest extends TestCase
                             )
                             ->withNotifications(
                                 [
-                                    'foo' => Notification::with(status: PreferenceStatus::$OPTED_IN)
+                                    'foo' => NotificationPreferenceDetails::with(
+                                        status: PreferenceStatus::$OPTED_IN
+                                    )
                                         ->withChannelPreferences(
                                             [
-                                                ChannelPreference1::with(
+                                                ChannelPreference::with(
                                                     channel: ChannelClassification::$DIRECT_MESSAGE
                                                 ),
                                             ],
                                         )
-                                        ->withRules([Rule1::with(until: 'until')->withStart('start')]),
+                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
                                 ],
                             ),
                     )
@@ -130,31 +125,29 @@ final class BulkTest extends TestCase
                             ->withPreferences(
                                 Preferences::with(
                                     notifications: [
-                                        'foo' => Notification1::with(
-                                            status: PreferenceStatus::$OPTED_IN
-                                        )
+                                        'foo' => Notification::with(status: PreferenceStatus::$OPTED_IN)
                                             ->withChannelPreferences(
                                                 [
-                                                    ChannelPreference2::with(
+                                                    ChannelPreference::with(
                                                         channel: ChannelClassification::$DIRECT_MESSAGE
                                                     ),
                                                 ],
                                             )
-                                            ->withRules([Rule2::with(until: 'until')->withStart('start')])
+                                            ->withRules([Rule::with(until: 'until')->withStart('start')])
                                             ->withSource('subscription'),
                                     ],
                                 )
                                     ->withCategories(
                                         [
-                                            'foo' => Category1::with(status: PreferenceStatus::$OPTED_IN)
+                                            'foo' => Category::with(status: PreferenceStatus::$OPTED_IN)
                                                 ->withChannelPreferences(
                                                     [
-                                                        ChannelPreference3::with(
+                                                        ChannelPreference::with(
                                                             channel: ChannelClassification::$DIRECT_MESSAGE
                                                         ),
                                                     ],
                                                 )
-                                                ->withRules([Rule3::with(until: 'until')->withStart('start')])
+                                                ->withRules([Rule::with(until: 'until')->withStart('start')])
                                                 ->withSource('subscription'),
                                         ],
                                     )
@@ -231,7 +224,7 @@ final class BulkTest extends TestCase
                                 ->withTags(['string'])
                                 ->withTraceID('trace_id')
                                 ->withUtm(
-                                    (new Utm1)
+                                    (new Utm)
                                         ->withCampaign('campaign')
                                         ->withContent('content')
                                         ->withMedium('medium')
@@ -249,7 +242,7 @@ final class BulkTest extends TestCase
                                     ->withMetadata(
                                         (new Metadata2)
                                             ->withUtm(
-                                                (new Utm2)
+                                                (new Utm)
                                                     ->withCampaign('campaign')
                                                     ->withContent('content')
                                                     ->withMedium('medium')

@@ -9,29 +9,31 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_snippets = array{items: list<BrandSnippet>}
+ * @phpstan-type email_alias = array{footer: mixed, header: mixed}
  */
-final class BrandSnippets implements BaseModel
+final class Email implements BaseModel
 {
-    /** @use SdkModel<brand_snippets> */
+    /** @use SdkModel<email_alias> */
     use SdkModel;
 
-    /** @var list<BrandSnippet> $items */
-    #[Api(list: BrandSnippet::class)]
-    public array $items;
+    #[Api]
+    public mixed $footer;
+
+    #[Api]
+    public mixed $header;
 
     /**
-     * `new BrandSnippets()` is missing required properties by the API.
+     * `new Email()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BrandSnippets::with(items: ...)
+     * Email::with(footer: ..., header: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BrandSnippets)->withItems(...)
+     * (new Email)->withFooter(...)->withHeader(...)
      * ```
      */
     public function __construct()
@@ -43,25 +45,29 @@ final class BrandSnippets implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
-     *
-     * @param list<BrandSnippet> $items
      */
-    public static function with(array $items): self
+    public static function with(mixed $footer, mixed $header): self
     {
         $obj = new self;
 
-        $obj->items = $items;
+        $obj->footer = $footer;
+        $obj->header = $header;
 
         return $obj;
     }
 
-    /**
-     * @param list<BrandSnippet> $items
-     */
-    public function withItems(array $items): self
+    public function withFooter(mixed $footer): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj->footer = $footer;
+
+        return $obj;
+    }
+
+    public function withHeader(mixed $header): self
+    {
+        $obj = clone $this;
+        $obj->header = $header;
 
         return $obj;
     }

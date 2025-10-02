@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Brands\BrandSettings\Colors;
-use Courier\Brands\BrandSettings\Email;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type brand_settings = array{
- *   colors?: Colors|null, email?: Email|null, inapp?: mixed
+ *   colors?: BrandColors|null, email?: Email|null, inapp?: mixed
  * }
  */
 final class BrandSettings implements BaseModel
@@ -21,7 +19,7 @@ final class BrandSettings implements BaseModel
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]
-    public ?Colors $colors;
+    public ?BrandColors $colors;
 
     #[Api(nullable: true, optional: true)]
     public ?Email $email;
@@ -40,7 +38,7 @@ final class BrandSettings implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        ?Colors $colors = null,
+        ?BrandColors $colors = null,
         ?Email $email = null,
         mixed $inapp = null
     ): self {
@@ -53,7 +51,7 @@ final class BrandSettings implements BaseModel
         return $obj;
     }
 
-    public function withColors(?Colors $colors): self
+    public function withColors(?BrandColors $colors): self
     {
         $obj = clone $this;
         $obj->colors = $colors;

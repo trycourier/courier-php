@@ -3,13 +3,10 @@
 namespace Tests\Services\Profiles;
 
 use Courier\Client;
+use Courier\ChannelPreference;
+use Courier\Rule;
 use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category\ChannelPreference;
-use Courier\Lists\Subscriptions\RecipientPreferences\Category\Rule;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPreference as ChannelPreference1;
-use Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule as Rule1;
+use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
 use Courier\Profiles\Lists\ListSubscribeParams\List;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Tenants\DefaultPreferences\Items\DIRECT_MESSAGE;
@@ -88,7 +85,9 @@ final class ListsTest extends TestCase
           (new RecipientPreferences)
             ->withCategories(
             [
-              "foo" => Category::with(status: PreferenceStatus::$OPTED_IN)
+              "foo" => NotificationPreferenceDetails::with(
+                status: PreferenceStatus::$OPTED_IN
+              )
                 ->withChannelPreferences(
                 [
                   ChannelPreference::with(
@@ -101,15 +100,17 @@ final class ListsTest extends TestCase
           )
             ->withNotifications(
             [
-              "foo" => Notification::with(status: PreferenceStatus::$OPTED_IN)
+              "foo" => NotificationPreferenceDetails::with(
+                status: PreferenceStatus::$OPTED_IN
+              )
                 ->withChannelPreferences(
                 [
-                  ChannelPreference1::with(
+                  ChannelPreference::with(
                     channel: ChannelClassification::$DIRECT_MESSAGE
                   ),
                 ],
               )
-                ->withRules([Rule1::with(until: "until")->withStart("start")]),
+                ->withRules([Rule::with(until: "until")->withStart("start")]),
             ],
           ),
         ),
