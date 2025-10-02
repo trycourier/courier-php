@@ -44,18 +44,15 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\Send\Content\ElementalContent;
-use Courier\Send\ElementalNode\UnionMember0;
-use Courier\Send\Message\ContentMessage;
+use Courier\Send\BaseMessageSendTo\To\UnionMember1;
+use Courier\Send\Message\TemplateMessage;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
 $response = $client->send->message(
-  ContentMessage::with(
-    content: ElementalContent::with(
-      elements: [(new UnionMember0)], version: "version"
-    ),
-  ),
+  TemplateMessage::with(template: "your_template")
+    ->withTo((new UnionMember1))
+    ->withData(["foo" => "bar"]),
 );
 
 var_dump($response->requestId);
@@ -76,17 +73,14 @@ When the library is unable to connect to the API, or if the API returns a non-su
 <?php
 
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\Content\ElementalContent;
-use Courier\Send\ElementalNode\UnionMember0;
-use Courier\Send\Message\ContentMessage;
+use Courier\Send\BaseMessageSendTo\To\UnionMember1;
+use Courier\Send\Message\TemplateMessage;
 
 try {
   $response = $client->send->message(
-    ContentMessage::with(
-      content: ElementalContent::with(
-        elements: [(new UnionMember0)], version: "version"
-      ),
-    ),
+    TemplateMessage::with(template: "your_template")
+      ->withTo((new UnionMember1))
+      ->withData(["foo" => "bar"]),
   );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
@@ -128,20 +122,17 @@ You can use the `maxRetries` option to configure or disable this:
 
 use Courier\Client;
 use Courier\RequestOptions;
-use Courier\Send\Content\ElementalContent;
-use Courier\Send\ElementalNode\UnionMember0;
-use Courier\Send\Message\ContentMessage;
+use Courier\Send\BaseMessageSendTo\To\UnionMember1;
+use Courier\Send\Message\TemplateMessage;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
 $result = $client->send->message(
-  ContentMessage::with(
-    content: ElementalContent::with(
-      elements: [(new UnionMember0)], version: "version"
-    ),
-  ),
+  TemplateMessage::with(template: "your_template")
+    ->withTo((new UnionMember1))
+    ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
@@ -160,16 +151,13 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 <?php
 
 use Courier\RequestOptions;
-use Courier\Send\Content\ElementalContent;
-use Courier\Send\ElementalNode\UnionMember0;
-use Courier\Send\Message\ContentMessage;
+use Courier\Send\BaseMessageSendTo\To\UnionMember1;
+use Courier\Send\Message\TemplateMessage;
 
 $response = $client->send->message(
-  ContentMessage::with(
-    content: ElementalContent::with(
-      elements: [(new UnionMember0)], version: "version"
-    ),
-  ),
+  TemplateMessage::with(template: "your_template")
+    ->withTo((new UnionMember1))
+    ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
     extraBodyParams: ["my_body_parameter" => "value"],
