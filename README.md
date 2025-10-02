@@ -60,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
+It is recommended to use the static `with` constructor `ElementalGroupNode::with(elements: [[]], ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
+However, builders are also provided `(new ElementalGroupNode)->withElements([[]])`.
 
 ### Handling errors
 
