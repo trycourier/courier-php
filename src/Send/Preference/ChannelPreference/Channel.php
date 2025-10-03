@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\Recipient\Preferences\Notification\ChannelPreference;
+namespace Courier\Send\Preference\ChannelPreference;
 
 enum Channel: string
 {

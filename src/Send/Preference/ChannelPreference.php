@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Notification;
+namespace Courier\Send\Preference;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Notification\ChannelPreference\Channel;
+use Courier\Send\Preference\ChannelPreference\Channel;
 
 /**
  * @phpstan-type channel_preference = array{channel: value-of<Channel>}

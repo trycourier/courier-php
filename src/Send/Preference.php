@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences;
+namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Category\ChannelPreference;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Category\Rule;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Category\Source;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Category\Status;
+use Courier\Send\Preference\ChannelPreference;
+use Courier\Send\Preference\Rule;
+use Courier\Send\Preference\Source;
+use Courier\Send\Preference\Status;
 
 /**
- * @phpstan-type category_alias = array{
+ * @phpstan-type preference_alias = array{
  *   status: value-of<Status>,
  *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  *   source?: value-of<Source>|null,
  * }
  */
-final class Category implements BaseModel
+final class Preference implements BaseModel
 {
-    /** @use SdkModel<category_alias> */
+    /** @use SdkModel<preference_alias> */
     use SdkModel;
 
     /** @var value-of<Status> $status */
@@ -47,17 +47,17 @@ final class Category implements BaseModel
     public ?string $source;
 
     /**
-     * `new Category()` is missing required properties by the API.
+     * `new Preference()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Category::with(status: ...)
+     * Preference::with(status: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Category)->withStatus(...)
+     * (new Preference)->withStatus(...)
      * ```
      */
     public function __construct()
