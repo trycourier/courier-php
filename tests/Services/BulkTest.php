@@ -19,10 +19,7 @@ use Courier\Send\BaseMessage\Channel\Metadata;
 use Courier\Send\BaseMessage\Channel\Timeouts;
 use Courier\Send\BaseMessage\Delay;
 use Courier\Send\BaseMessage\Expiry;
-use Courier\Send\BaseMessage\Metadata as Metadata1;
-use Courier\Send\BaseMessage\Preferences as Preferences1;
 use Courier\Send\BaseMessage\Provider;
-use Courier\Send\BaseMessage\Provider\Metadata as Metadata2;
 use Courier\Send\BaseMessage\Routing;
 use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\MessageContext;
@@ -219,7 +216,7 @@ final class BulkTest extends TestCase
                             Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
                         )
                         ->withMetadata(
-                            (new Metadata1)
+                            (new Courier\Send\BaseMessage\Metadata)
                                 ->withEvent('event')
                                 ->withTags(['string'])
                                 ->withTraceID('trace_id')
@@ -233,14 +230,16 @@ final class BulkTest extends TestCase
                                 ),
                         )
                         ->withPreferences(
-                            Preferences1::with(subscriptionTopicID: 'subscription_topic_id')
+                            Courier\Send\BaseMessage\Preferences::with(
+                                subscriptionTopicID: 'subscription_topic_id'
+                            ),
                         )
                         ->withProviders(
                             [
                                 'foo' => (new Provider)
                                     ->withIf('if')
                                     ->withMetadata(
-                                        (new Metadata2)
+                                        (new Courier\Send\BaseMessage\Provider\Metadata)
                                             ->withUtm(
                                                 (new Utm)
                                                     ->withCampaign('campaign')
