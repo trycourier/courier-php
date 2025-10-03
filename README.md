@@ -44,12 +44,12 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message\Content;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   Message::with(content: Content::with(body: "body", title: "title"))
 );
 
@@ -71,11 +71,11 @@ When the library is unable to connect to the API, or if the API returns a non-su
 <?php
 
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message\Content;
 
 try {
-  $response = $client->send->sendMessage(
+  $response = $client->send->message(
     Message::with(content: Content::with(body: "body", title: "title"))
   );
 } catch (APIConnectionException $e) {
@@ -118,14 +118,14 @@ You can use the `maxRetries` option to configure or disable this:
 
 use Courier\Client;
 use Courier\RequestOptions;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message\Content;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->send->sendMessage(
+$result = $client->send->message(
   Message::with(content: Content::with(body: "body", title: "title")),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
@@ -145,10 +145,10 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 <?php
 
 use Courier\RequestOptions;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message\Content;
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   Message::with(content: Content::with(body: "body", title: "title")),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
