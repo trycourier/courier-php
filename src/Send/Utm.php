@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\Channel\Metadata;
+namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\Recipient\Preferences\Category;
+namespace Courier\Send\Preference;
 
 enum Source: string
 {

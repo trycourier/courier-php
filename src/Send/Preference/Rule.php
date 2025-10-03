@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Category;
+namespace Courier\Send\Preference;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
