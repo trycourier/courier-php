@@ -25,13 +25,6 @@ use Courier\Send\BaseMessageSendTo\To\UnionMember1;
 use Courier\Send\BaseMessageSendTo\To\UnionMember2;
 use Courier\Send\BaseMessageSendTo\To\WebhookRecipient;
 use Courier\Send\MessageContext;
-use Courier\Send\Recipient\AudienceRecipient as AudienceRecipient1;
-use Courier\Send\Recipient\MsTeamsRecipient as MsTeamsRecipient1;
-use Courier\Send\Recipient\PagerdutyRecipient as PagerdutyRecipient1;
-use Courier\Send\Recipient\SlackRecipient as SlackRecipient1;
-use Courier\Send\Recipient\UnionMember1 as UnionMember11;
-use Courier\Send\Recipient\UnionMember2 as UnionMember21;
-use Courier\Send\Recipient\WebhookRecipient as WebhookRecipient1;
 
 /**
  * A template for a type of message that can be sent more than once. For example, you might create an "Appointment Reminder" Notification or “Reset Password” Notifications.
@@ -48,7 +41,7 @@ use Courier\Send\Recipient\WebhookRecipient as WebhookRecipient1;
  *   providers?: array<string, Provider>|null,
  *   routing?: Routing|null,
  *   timeout?: Timeout|null,
- *   to?: null|AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<AudienceRecipient1|UnionMember11|UnionMember21|UserRecipient|SlackRecipient1|MsTeamsRecipient1|PagerdutyRecipient1|WebhookRecipient1|array<string,
+ *   to?: null|AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<Courier\Send\Recipient\AudienceRecipient|Courier\Send\Recipient\UnionMember1|Courier\Send\Recipient\UnionMember2|UserRecipient|Courier\Send\Recipient\SlackRecipient|Courier\Send\Recipient\MsTeamsRecipient|Courier\Send\Recipient\PagerdutyRecipient|Courier\Send\Recipient\WebhookRecipient|array<string,
  *   mixed,>>|array<string, mixed>,
  *   template: string,
  * }
@@ -128,7 +121,7 @@ final class TemplateMessage implements BaseModel
     /**
      * The recipient or a list of recipients of the message.
      *
-     * @var AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<AudienceRecipient1|UnionMember11|UnionMember21|UserRecipient|SlackRecipient1|MsTeamsRecipient1|PagerdutyRecipient1|WebhookRecipient1|array<string,
+     * @var AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<Courier\Send\Recipient\AudienceRecipient|Courier\Send\Recipient\UnionMember1|Courier\Send\Recipient\UnionMember2|UserRecipient|Courier\Send\Recipient\SlackRecipient|Courier\Send\Recipient\MsTeamsRecipient|Courier\Send\Recipient\PagerdutyRecipient|Courier\Send\Recipient\WebhookRecipient|array<string,
      * mixed,>>|array<string, mixed>|null $to
      */
     #[Api(union: To::class, nullable: true, optional: true)]
@@ -168,7 +161,7 @@ final class TemplateMessage implements BaseModel
      * @param array<string, Channel>|null $channels
      * @param array<string, mixed>|null $data
      * @param array<string, Provider>|null $providers
-     * @param AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<AudienceRecipient1|UnionMember11|UnionMember21|UserRecipient|SlackRecipient1|MsTeamsRecipient1|PagerdutyRecipient1|WebhookRecipient1|array<string,
+     * @param AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<Courier\Send\Recipient\AudienceRecipient|Courier\Send\Recipient\UnionMember1|Courier\Send\Recipient\UnionMember2|UserRecipient|Courier\Send\Recipient\SlackRecipient|Courier\Send\Recipient\MsTeamsRecipient|Courier\Send\Recipient\PagerdutyRecipient|Courier\Send\Recipient\WebhookRecipient|array<string,
      * mixed,>>|array<string, mixed>|null $to
      */
     public static function with(
@@ -331,7 +324,7 @@ final class TemplateMessage implements BaseModel
     /**
      * The recipient or a list of recipients of the message.
      *
-     * @param AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<AudienceRecipient1|UnionMember11|UnionMember21|UserRecipient|SlackRecipient1|MsTeamsRecipient1|PagerdutyRecipient1|WebhookRecipient1|array<string,
+     * @param AudienceRecipient|UnionMember1|UnionMember2|UserRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<Courier\Send\Recipient\AudienceRecipient|Courier\Send\Recipient\UnionMember1|Courier\Send\Recipient\UnionMember2|UserRecipient|Courier\Send\Recipient\SlackRecipient|Courier\Send\Recipient\MsTeamsRecipient|Courier\Send\Recipient\PagerdutyRecipient|Courier\Send\Recipient\WebhookRecipient|array<string,
      * mixed,>>|array<string, mixed>|null $to
      */
     public function withTo(

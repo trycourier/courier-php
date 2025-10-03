@@ -8,10 +8,8 @@ use Courier\Send\BaseMessage\Channel\Metadata;
 use Courier\Send\BaseMessage\Channel\Timeouts;
 use Courier\Send\BaseMessage\Delay;
 use Courier\Send\BaseMessage\Expiry;
-use Courier\Send\BaseMessage\Metadata as Metadata1;
 use Courier\Send\BaseMessage\Preferences;
 use Courier\Send\BaseMessage\Provider;
-use Courier\Send\BaseMessage\Provider\Metadata as Metadata2;
 use Courier\Send\BaseMessage\Routing;
 use Courier\Send\BaseMessage\Timeout;
 use Courier\Send\BaseMessageSendTo\To\UnionMember1;
@@ -106,7 +104,7 @@ final class SendTest extends TestCase
                     Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
                 )
                 ->withMetadata(
-                    (new Metadata1)
+                    (new Courier\Send\BaseMessage\Metadata)
                         ->withEvent('event')
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
@@ -127,7 +125,7 @@ final class SendTest extends TestCase
                         'foo' => (new Provider)
                             ->withIf('if')
                             ->withMetadata(
-                                (new Metadata2)
+                                (new Courier\Send\BaseMessage\Provider\Metadata)
                                     ->withUtm(
                                         (new Utm)
                                             ->withCampaign('campaign')
