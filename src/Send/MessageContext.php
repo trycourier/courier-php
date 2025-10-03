@@ -17,8 +17,7 @@ final class MessageContext implements BaseModel
     use SdkModel;
 
     /**
-     * An id of a tenant, see [tenants api docs](https://www.courier.com/docs/reference/tenants/).
-     * Will load brand, default preferences and any other base context data associated with this tenant.
+     * Tenant id used to load brand/default preferences/context.
      */
     #[Api('tenant_id', nullable: true, optional: true)]
     public ?string $tenantID;
@@ -43,8 +42,7 @@ final class MessageContext implements BaseModel
     }
 
     /**
-     * An id of a tenant, see [tenants api docs](https://www.courier.com/docs/reference/tenants/).
-     * Will load brand, default preferences and any other base context data associated with this tenant.
+     * Tenant id used to load brand/default preferences/context.
      */
     public function withTenantID(?string $tenantID): self
     {

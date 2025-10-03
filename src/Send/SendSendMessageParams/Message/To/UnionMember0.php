@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send;
+namespace Courier\Send\SendSendMessageParams\Message\To;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Recipient\Preferences;
+use Courier\Send\MessageContext;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences;
 
 /**
- * @phpstan-type recipient_alias = array{
+ * @phpstan-type union_member0 = array{
  *   accountID?: string|null,
  *   context?: MessageContext|null,
  *   data?: array<string, mixed>|null,
@@ -22,9 +23,9 @@ use Courier\Send\Recipient\Preferences;
  *   userID?: string|null,
  * }
  */
-final class Recipient implements BaseModel
+final class UnionMember0 implements BaseModel
 {
-    /** @use SdkModel<recipient_alias> */
+    /** @use SdkModel<union_member0> */
     use SdkModel;
 
     /**

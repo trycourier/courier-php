@@ -44,15 +44,13 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1;
-use Courier\Send\Message\TemplateMessage;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message\Content;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->message(
-  TemplateMessage::with(template: "your_template")
-    ->withTo((new UnionMember1))
-    ->withData(["foo" => "bar"]),
+$response = $client->send->sendMessage(
+  Message::with(content: Content::with(body: "body", title: "title"))
 );
 
 var_dump($response->requestId);
@@ -60,10 +58,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `MsTeamsBaseProperties::with(serviceURL: "service_url", ...)`
+It is recommended to use the static `with` constructor `MessageRouting::with(channels: ["string"], ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new MsTeamsBaseProperties)->withServiceURL("service_url")`.
+However, builders are also provided `(new MessageRouting)->withChannels(["string"])`.
 
 ### Handling errors
 
@@ -73,14 +71,12 @@ When the library is unable to connect to the API, or if the API returns a non-su
 <?php
 
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1;
-use Courier\Send\Message\TemplateMessage;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message\Content;
 
 try {
-  $response = $client->send->message(
-    TemplateMessage::with(template: "your_template")
-      ->withTo((new UnionMember1))
-      ->withData(["foo" => "bar"]),
+  $response = $client->send->sendMessage(
+    Message::with(content: Content::with(body: "body", title: "title"))
   );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
@@ -122,17 +118,15 @@ You can use the `maxRetries` option to configure or disable this:
 
 use Courier\Client;
 use Courier\RequestOptions;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1;
-use Courier\Send\Message\TemplateMessage;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message\Content;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->send->message(
-  TemplateMessage::with(template: "your_template")
-    ->withTo((new UnionMember1))
-    ->withData(["foo" => "bar"]),
+$result = $client->send->sendMessage(
+  Message::with(content: Content::with(body: "body", title: "title")),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
@@ -151,13 +145,11 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 <?php
 
 use Courier\RequestOptions;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1;
-use Courier\Send\Message\TemplateMessage;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message\Content;
 
-$response = $client->send->message(
-  TemplateMessage::with(template: "your_template")
-    ->withTo((new UnionMember1))
-    ->withData(["foo" => "bar"]),
+$response = $client->send->sendMessage(
+  Message::with(content: Content::with(body: "body", title: "title")),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
     extraBodyParams: ["my_body_parameter" => "value"],
