@@ -7,8 +7,8 @@ namespace Courier\ServiceContracts;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageResponse;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageResponse;
 
 interface SendContract
 {
@@ -17,26 +17,26 @@ interface SendContract
      *
      * @param Message $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessage(
+    public function message(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse;
+    ): SendMessageResponse;
 
     /**
      * @api
      *
      * @param array<string, mixed> $params
      *
-     * @return SendSendMessageResponse<HasRawResponse>
+     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function sendMessageRaw(
+    public function messageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendSendMessageResponse;
+    ): SendMessageResponse;
 }

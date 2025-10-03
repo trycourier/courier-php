@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences\Notification;
+
+enum Status: string
+{
+    case OPTED_IN = 'OPTED_IN';
+
+    case OPTED_OUT = 'OPTED_OUT';
+
+    case REQUIRED = 'REQUIRED';
+}
