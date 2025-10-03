@@ -8,10 +8,9 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
-use Courier\Send\Message\ContentMessage;
-use Courier\Send\Message\TemplateMessage;
-use Courier\Send\SendMessageParams;
-use Courier\Send\SendMessageResponse;
+use Courier\Send\SendSendMessageParams;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageResponse;
 use Courier\ServiceContracts\SendContract;
 
 final class SendService implements SendContract
@@ -26,19 +25,19 @@ final class SendService implements SendContract
      *
      * Use the send API to send a message to one or more recipients.
      *
-     * @param ContentMessage|TemplateMessage $message Defines the message to be delivered
+     * @param Message $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
-     * @return SendMessageResponse<HasRawResponse>
+     * @return SendSendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function message(
+    public function sendMessage(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse {
+    ): SendSendMessageResponse {
         $params = ['message' => $message];
 
-        return $this->messageRaw($params, $requestOptions);
+        return $this->sendMessageRaw($params, $requestOptions);
     }
 
     /**
@@ -46,15 +45,15 @@ final class SendService implements SendContract
      *
      * @param array<string, mixed> $params
      *
-     * @return SendMessageResponse<HasRawResponse>
+     * @return SendSendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */
-    public function messageRaw(
+    public function sendMessageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse {
-        [$parsed, $options] = SendMessageParams::parseRequest(
+    ): SendSendMessageResponse {
+        [$parsed, $options] = SendSendMessageParams::parseRequest(
             $params,
             $requestOptions
         );
@@ -65,7 +64,7 @@ final class SendService implements SendContract
             path: 'send',
             body: (object) $parsed,
             options: $options,
-            convert: SendMessageResponse::class,
+            convert: SendSendMessageResponse::class,
         );
     }
 }

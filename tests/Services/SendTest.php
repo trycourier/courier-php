@@ -3,21 +3,24 @@
 namespace Tests\Services;
 
 use Courier\Client;
-use Courier\Send\BaseMessage\Channel;
-use Courier\Send\BaseMessage\Channel\Metadata;
-use Courier\Send\BaseMessage\Channel\Timeouts;
-use Courier\Send\BaseMessage\Delay;
-use Courier\Send\BaseMessage\Expiry;
-use Courier\Send\BaseMessage\Preferences;
-use Courier\Send\BaseMessage\Provider;
-use Courier\Send\BaseMessage\Routing;
-use Courier\Send\BaseMessage\Timeout;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1;
-use Courier\Send\BaseMessageSendTo\To\UnionMember1\Filter;
-use Courier\Send\Content\ElementalContentSugar;
-use Courier\Send\Message\ContentMessage;
 use Courier\Send\MessageContext;
-use Courier\Send\Utm;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message\Channel;
+use Courier\Send\SendSendMessageParams\Message\Channel\Metadata;
+use Courier\Send\SendSendMessageParams\Message\Channel\Metadata\Utm;
+use Courier\Send\SendSendMessageParams\Message\Channel\Timeouts;
+use Courier\Send\SendSendMessageParams\Message\Content;
+use Courier\Send\SendSendMessageParams\Message\Delay;
+use Courier\Send\SendSendMessageParams\Message\Expiry;
+use Courier\Send\SendSendMessageParams\Message\Preferences;
+use Courier\Send\SendSendMessageParams\Message\Provider;
+use Courier\Send\SendSendMessageParams\Message\Routing;
+use Courier\Send\SendSendMessageParams\Message\Timeout;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Category;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Notification;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Notification\ChannelPreference;
+use Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Notification\Rule;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -42,15 +45,15 @@ final class SendTest extends TestCase
     }
 
     #[Test]
-    public function testMessage(): void
+    public function testSendMessage(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(
-            ContentMessage::with(
-                content: ElementalContentSugar::with(
+        $result = $this->client->send->sendMessage(
+            Message::with(
+                content: Content::with(
                     body: 'Thanks for signing up, {{name}}',
                     title: 'Welcome!'
                 ),
@@ -61,15 +64,15 @@ final class SendTest extends TestCase
     }
 
     #[Test]
-    public function testMessageWithOptionalParams(): void
+    public function testSendMessageWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(
-            ContentMessage::with(
-                content: ElementalContentSugar::with(
+        $result = $this->client->send->sendMessage(
+            Message::with(
+                content: Content::with(
                     body: 'Thanks for signing up, {{name}}',
                     title: 'Welcome!'
                 ),
@@ -104,12 +107,12 @@ final class SendTest extends TestCase
                     Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
                 )
                 ->withMetadata(
-                    (new Courier\Send\BaseMessage\Metadata)
+                    (new Courier\Send\SendSendMessageParams\Message\Metadata)
                         ->withEvent('event')
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
                         ->withUtm(
-                            (new Utm)
+                            (new Courier\Send\SendSendMessageParams\Message\Metadata\Utm)
                                 ->withCampaign('campaign')
                                 ->withContent('content')
                                 ->withMedium('medium')
@@ -125,9 +128,9 @@ final class SendTest extends TestCase
                         'foo' => (new Provider)
                             ->withIf('if')
                             ->withMetadata(
-                                (new Courier\Send\BaseMessage\Provider\Metadata)
+                                (new Courier\Send\SendSendMessageParams\Message\Provider\Metadata)
                                     ->withUtm(
-                                        (new Utm)
+                                        (new Courier\Send\SendSendMessageParams\Message\Provider\Metadata\Utm)
                                             ->withCampaign('campaign')
                                             ->withContent('content')
                                             ->withMedium('medium')
@@ -149,18 +152,49 @@ final class SendTest extends TestCase
                         ->withProvider(['foo' => 0]),
                 )
                 ->withTo(
-                    (new UnionMember1)
+                    (new UnionMember0)
+                        ->withAccountID('account_id')
+                        ->withContext((new MessageContext)->withTenantID('tenant_id'))
                         ->withData(['foo' => 'bar'])
-                        ->withFilters(
-                            [
-                                Filter::with(
-                                    operator: 'MEMBER_OF',
-                                    path: 'account_id',
-                                    value: 'value'
-                                ),
-                            ],
+                        ->withEmail('email@example.com')
+                        ->withLocale('locale')
+                        ->withPhoneNumber('phone_number')
+                        ->withPreferences(
+                            Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences::with(
+                                notifications: [
+                                    'foo' => Notification::with(status: 'OPTED_IN')
+                                        ->withChannelPreferences(
+                                            [ChannelPreference::with(channel: 'direct_message')]
+                                        )
+                                        ->withRules([Rule::with(until: 'until')->withStart('start')])
+                                        ->withSource('subscription'),
+                                ],
+                            )
+                                ->withCategories(
+                                    [
+                                        'foo' => Category::with(status: 'OPTED_IN')
+                                            ->withChannelPreferences(
+                                                [
+                                                    Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Category\ChannelPreference::with(
+                                                        channel: 'direct_message'
+                                                    ),
+                                                ],
+                                            )
+                                            ->withRules(
+                                                [
+                                                    Courier\Send\SendSendMessageParams\Message\To\UnionMember0\Preferences\Category\Rule::with(
+                                                        until: 'until'
+                                                    )
+                                                        ->withStart('start'),
+                                                ],
+                                            )
+                                            ->withSource('subscription'),
+                                    ],
+                                )
+                                ->withTemplateID('templateId'),
                         )
-                        ->withListID('list_id'),
+                        ->withTenantID('tenant_id')
+                        ->withUserID('user_id'),
                 ),
         );
 
