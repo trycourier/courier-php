@@ -22,7 +22,7 @@ class Client extends BaseClient
     {
         $this->apiKey = (string) ($apiKey ?? getenv('COURIER_API_KEY'));
 
-        $base = $baseUrl ?? getenv('COURIER_BASE_URL') ?: 'https://api.courier.com';
+        $baseUrl ??= getenv('COURIER_BASE_URL') ?: 'https://api.courier.com';
 
         $options = RequestOptions::with(
             uriFactory: Psr17FactoryDiscovery::findUriFactory(),
@@ -35,7 +35,7 @@ class Client extends BaseClient
             headers: [
                 'Content-Type' => 'application/json', 'Accept' => 'application/json',
             ],
-            baseUrl: $base,
+            baseUrl: $baseUrl,
             options: $options,
         );
 

@@ -104,7 +104,7 @@ final class Channel implements BaseModel
         null !== $metadata && $obj->metadata = $metadata;
         null !== $override && $obj->override = $override;
         null !== $providers && $obj->providers = $providers;
-        null !== $routingMethod && $obj->routingMethod = $routingMethod instanceof RoutingMethod ? $routingMethod->value : $routingMethod;
+        null !== $routingMethod && $obj['routingMethod'] = $routingMethod;
         null !== $timeouts && $obj->timeouts = $timeouts;
 
         return $obj;
@@ -175,7 +175,7 @@ final class Channel implements BaseModel
         RoutingMethod|string|null $routingMethod
     ): self {
         $obj = clone $this;
-        $obj->routingMethod = $routingMethod instanceof RoutingMethod ? $routingMethod->value : $routingMethod;
+        $obj['routingMethod'] = $routingMethod;
 
         return $obj;
     }

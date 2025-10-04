@@ -83,11 +83,11 @@ final class Preference implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->status = $status instanceof Status ? $status->value : $status;
+        $obj['status'] = $status;
 
         null !== $channelPreferences && $obj->channelPreferences = $channelPreferences;
         null !== $rules && $obj->rules = $rules;
-        null !== $source && $obj->source = $source instanceof Source ? $source->value : $source;
+        null !== $source && $obj['source'] = $source;
 
         return $obj;
     }
@@ -98,7 +98,7 @@ final class Preference implements BaseModel
     public function withStatus(Status|string $status): self
     {
         $obj = clone $this;
-        $obj->status = $status instanceof Status ? $status->value : $status;
+        $obj['status'] = $status;
 
         return $obj;
     }
@@ -131,7 +131,7 @@ final class Preference implements BaseModel
     public function withSource(Source|string|null $source): self
     {
         $obj = clone $this;
-        $obj->source = $source instanceof Source ? $source->value : $source;
+        $obj['source'] = $source;
 
         return $obj;
     }

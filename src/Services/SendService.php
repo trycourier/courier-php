@@ -6,7 +6,6 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Core\Implementation\HasRawResponse;
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams;
 use Courier\Send\SendMessageParams\Message;
@@ -27,8 +26,6 @@ final class SendService implements SendContract
      *
      * @param Message $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
-     * @return SendMessageResponse<HasRawResponse>
-     *
      * @throws APIException
      */
     public function message(
@@ -44,8 +41,6 @@ final class SendService implements SendContract
      * @api
      *
      * @param array<string, mixed> $params
-     *
-     * @return SendMessageResponse<HasRawResponse>
      *
      * @throws APIException
      */

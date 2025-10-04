@@ -65,7 +65,7 @@ final class Timeout implements BaseModel
         $obj = new self;
 
         null !== $channel && $obj->channel = $channel;
-        null !== $criteria && $obj->criteria = $criteria instanceof Criteria ? $criteria->value : $criteria;
+        null !== $criteria && $obj['criteria'] = $criteria;
         null !== $escalation && $obj->escalation = $escalation;
         null !== $message && $obj->message = $message;
         null !== $provider && $obj->provider = $provider;
@@ -90,7 +90,7 @@ final class Timeout implements BaseModel
     public function withCriteria(Criteria|string|null $criteria): self
     {
         $obj = clone $this;
-        $obj->criteria = $criteria instanceof Criteria ? $criteria->value : $criteria;
+        $obj['criteria'] = $criteria;
 
         return $obj;
     }
