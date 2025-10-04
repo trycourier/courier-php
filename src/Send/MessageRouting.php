@@ -59,7 +59,7 @@ final class MessageRouting implements BaseModel
         $obj = new self;
 
         $obj->channels = $channels;
-        $obj->method = $method instanceof Method ? $method->value : $method;
+        $obj['method'] = $method;
 
         return $obj;
     }
@@ -81,7 +81,7 @@ final class MessageRouting implements BaseModel
     public function withMethod(Method|string $method): self
     {
         $obj = clone $this;
-        $obj->method = $method instanceof Method ? $method->value : $method;
+        $obj['method'] = $method;
 
         return $obj;
     }

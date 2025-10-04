@@ -51,7 +51,7 @@ final class ChannelPreference implements BaseModel
     {
         $obj = new self;
 
-        $obj->channel = $channel instanceof Channel ? $channel->value : $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }
@@ -62,7 +62,7 @@ final class ChannelPreference implements BaseModel
     public function withChannel(Channel|string $channel): self
     {
         $obj = clone $this;
-        $obj->channel = $channel instanceof Channel ? $channel->value : $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }

@@ -8,6 +8,7 @@ use Courier\Client;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @internal
@@ -30,7 +31,7 @@ interface BasePage extends \IteratorAggregate
         Client $client,
         array $request,
         RequestOptions $options,
-        mixed $data,
+        ResponseInterface $response,
     );
 
     public function hasNextPage(): bool;

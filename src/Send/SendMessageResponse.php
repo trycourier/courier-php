@@ -6,19 +6,19 @@ namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
+use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type send_message_response = array{requestID: string}
- * When used in a response, this type parameter can define a $rawResponse property.
- * @template TRawResponse of object = object{}
- *
- * @mixin TRawResponse
  */
-final class SendMessageResponse implements BaseModel
+final class SendMessageResponse implements BaseModel, ResponseConverter
 {
     /** @use SdkModel<send_message_response> */
     use SdkModel;
+
+    use SdkResponse;
 
     /**
      * A successful call to `POST /send` returns a `202` status code along with a `requestId` in the response body.
