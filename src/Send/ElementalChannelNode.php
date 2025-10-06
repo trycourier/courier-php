@@ -2,25 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\ElementalNode;
+namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode;
-use Courier\Send\ElementalNode\UnionMember2\Type;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\ElementalNode\UnionMember1;
+use Courier\Send\ElementalNode\UnionMember2;
+use Courier\Send\ElementalNode\UnionMember3;
+use Courier\Send\ElementalNode\UnionMember4;
+use Courier\Send\ElementalNode\UnionMember5;
+use Courier\Send\ElementalNode\UnionMember6;
+use Courier\Send\ElementalNode\UnionMember7;
 
 /**
- * The channel element allows a notification to be customized based on which channel it is sent through.
- * For example, you may want to display a detailed message when the notification is sent through email,
- * and a more concise message in a push notification. Channel elements are only valid as top-level
- * elements; you cannot nest channel elements. If there is a channel element specified at the top-level
- * of the document, all sibling elements must be channel elements.
- * Note: As an alternative, most elements support a `channel` property. Which allows you to selectively
- * display an individual element on a per channel basis. See the
- * [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
- *
- * @phpstan-type union_member2 = array{
+ * @phpstan-type elemental_channel_node = array{
  *   channel: string,
  *   channels?: list<string>|null,
  *   elements?: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null,
@@ -28,12 +25,11 @@ use Courier\Send\ElementalNode\UnionMember2\Type;
  *   loop?: string|null,
  *   raw?: array<string, mixed>|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
  * }
  */
-final class UnionMember2 implements BaseModel
+final class ElementalChannelNode implements BaseModel
 {
-    /** @use SdkModel<union_member2> */
+    /** @use SdkModel<elemental_channel_node> */
     use SdkModel;
 
     /**
@@ -74,22 +70,18 @@ final class UnionMember2 implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $ref;
 
-    /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
-    public ?string $type;
-
     /**
-     * `new UnionMember2()` is missing required properties by the API.
+     * `new ElementalChannelNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * UnionMember2::with(channel: ...)
+     * ElementalChannelNode::with(channel: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new UnionMember2)->withChannel(...)
+     * (new ElementalChannelNode)->withChannel(...)
      * ```
      */
     public function __construct()
@@ -105,7 +97,6 @@ final class UnionMember2 implements BaseModel
      * @param list<string>|null $channels
      * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null $elements
      * @param array<string, mixed>|null $raw
-     * @param Type|value-of<Type> $type
      */
     public static function with(
         string $channel,
@@ -115,7 +106,6 @@ final class UnionMember2 implements BaseModel
         ?string $loop = null,
         ?array $raw = null,
         ?string $ref = null,
-        Type|string|null $type = null,
     ): self {
         $obj = new self;
 
@@ -127,7 +117,6 @@ final class UnionMember2 implements BaseModel
         null !== $loop && $obj->loop = $loop;
         null !== $raw && $obj->raw = $raw;
         null !== $ref && $obj->ref = $ref;
-        null !== $type && $obj['type'] = $type;
 
         return $obj;
     }
@@ -203,17 +192,6 @@ final class UnionMember2 implements BaseModel
     {
         $obj = clone $this;
         $obj->ref = $ref;
-
-        return $obj;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $obj = clone $this;
-        $obj['type'] = $type;
 
         return $obj;
     }

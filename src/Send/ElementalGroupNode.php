@@ -2,29 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\ElementalNode;
+namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode;
-use Courier\Send\ElementalNode\UnionMember6\Type;
+use Courier\Send\ElementalNode\UnionMember0;
+use Courier\Send\ElementalNode\UnionMember1;
+use Courier\Send\ElementalNode\UnionMember2;
+use Courier\Send\ElementalNode\UnionMember3;
+use Courier\Send\ElementalNode\UnionMember4;
+use Courier\Send\ElementalNode\UnionMember5;
+use Courier\Send\ElementalNode\UnionMember6;
+use Courier\Send\ElementalNode\UnionMember7;
 
 /**
- * Allows you to group elements together. This can be useful when used in combination with "if" or "loop". See [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
- *
- * @phpstan-type union_member6 = array{
+ * @phpstan-type elemental_group_node = array{
  *   elements: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>,
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
  * }
  */
-final class UnionMember6 implements BaseModel
+final class ElementalGroupNode implements BaseModel
 {
-    /** @use SdkModel<union_member6> */
+    /** @use SdkModel<elemental_group_node> */
     use SdkModel;
 
     /**
@@ -48,22 +51,18 @@ final class UnionMember6 implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $ref;
 
-    /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
-    public ?string $type;
-
     /**
-     * `new UnionMember6()` is missing required properties by the API.
+     * `new ElementalGroupNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * UnionMember6::with(elements: ...)
+     * ElementalGroupNode::with(elements: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new UnionMember6)->withElements(...)
+     * (new ElementalGroupNode)->withElements(...)
      * ```
      */
     public function __construct()
@@ -78,7 +77,6 @@ final class UnionMember6 implements BaseModel
      *
      * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      * @param list<string>|null $channels
-     * @param Type|value-of<Type> $type
      */
     public static function with(
         array $elements,
@@ -86,7 +84,6 @@ final class UnionMember6 implements BaseModel
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
-        Type|string|null $type = null,
     ): self {
         $obj = new self;
 
@@ -96,7 +93,6 @@ final class UnionMember6 implements BaseModel
         null !== $if && $obj->if = $if;
         null !== $loop && $obj->loop = $loop;
         null !== $ref && $obj->ref = $ref;
-        null !== $type && $obj['type'] = $type;
 
         return $obj;
     }
@@ -145,17 +141,6 @@ final class UnionMember6 implements BaseModel
     {
         $obj = clone $this;
         $obj->ref = $ref;
-
-        return $obj;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $obj = clone $this;
-        $obj['type'] = $type;
 
         return $obj;
     }
