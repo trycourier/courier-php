@@ -46,13 +46,16 @@ Parameters with a default value must be set by name.
 use Courier\Client;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
 $response = $client->send->message(
   Message::with(
     content: ElementalContentSugar::with(body: "body", title: "title")
-  ),
+  )
+    ->withData(["foo" => "bar"])
+    ->withTo((new UnionMember0)->withUserID("your_user_id")),
 );
 
 var_dump($response->requestId);
@@ -75,12 +78,15 @@ When the library is unable to connect to the API, or if the API returns a non-su
 use Courier\Core\Exceptions\APIConnectionException;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 try {
   $response = $client->send->message(
     Message::with(
       content: ElementalContentSugar::with(body: "body", title: "title")
-    ),
+    )
+      ->withData(["foo" => "bar"])
+      ->withTo((new UnionMember0)->withUserID("your_user_id")),
   );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
@@ -124,6 +130,7 @@ use Courier\Client;
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
@@ -132,7 +139,9 @@ $client = new Client(maxRetries: 0);
 $result = $client->send->message(
   Message::with(
     content: ElementalContentSugar::with(body: "body", title: "title")
-  ),
+  )
+    ->withData(["foo" => "bar"])
+    ->withTo((new UnionMember0)->withUserID("your_user_id")),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
 ```
@@ -153,11 +162,14 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 $response = $client->send->message(
   Message::with(
     content: ElementalContentSugar::with(body: "body", title: "title")
-  ),
+  )
+    ->withData(["foo" => "bar"])
+    ->withTo((new UnionMember0)->withUserID("your_user_id")),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
     extraBodyParams: ["my_body_parameter" => "value"],
