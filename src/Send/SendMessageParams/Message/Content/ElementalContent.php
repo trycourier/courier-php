@@ -20,7 +20,7 @@ use Courier\Send\ElementalNode\UnionMember6;
  * @phpstan-type elemental_content = array{
  *   elements: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>,
  *   version: string,
- *   brand?: mixed,
+ *   brand?: string|null,
  * }
  */
 final class ElementalContent implements BaseModel
@@ -40,8 +40,8 @@ final class ElementalContent implements BaseModel
     #[Api]
     public string $version;
 
-    #[Api(optional: true)]
-    public mixed $brand;
+    #[Api(nullable: true, optional: true)]
+    public ?string $brand;
 
     /**
      * `new ElementalContent()` is missing required properties by the API.
@@ -72,7 +72,7 @@ final class ElementalContent implements BaseModel
     public static function with(
         array $elements,
         string $version,
-        mixed $brand = null
+        ?string $brand = null
     ): self {
         $obj = new self;
 
@@ -106,7 +106,7 @@ final class ElementalContent implements BaseModel
         return $obj;
     }
 
-    public function withBrand(mixed $brand): self
+    public function withBrand(?string $brand): self
     {
         $obj = clone $this;
         $obj->brand = $brand;
