@@ -14,7 +14,6 @@ use Courier\Send\ElementalNode\UnionMember3;
 use Courier\Send\ElementalNode\UnionMember4;
 use Courier\Send\ElementalNode\UnionMember5;
 use Courier\Send\ElementalNode\UnionMember6;
-use Courier\Send\ElementalNode\UnionMember7;
 
 /**
  * The channel element allows a notification to be customized based on which channel it is sent through.
@@ -44,7 +43,6 @@ final class ElementalNode implements ConverterSource
             UnionMember4::class,
             UnionMember5::class,
             UnionMember6::class,
-            UnionMember7::class,
         ];
     }
 }

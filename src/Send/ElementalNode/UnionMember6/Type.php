@@ -6,5 +6,5 @@ namespace Courier\Send\ElementalNode\UnionMember6;
 
 enum Type: string
 {
-    case GROUP = 'group';
+    case QUOTE = 'quote';
 }

@@ -23,7 +23,7 @@ use Courier\Send\ElementalNode\UnionMember2\Type;
  * @phpstan-type union_member2 = array{
  *   channel: string,
  *   channels?: list<string>|null,
- *   elements?: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null,
+ *   elements?: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   raw?: array<string, mixed>|null,
@@ -51,7 +51,7 @@ final class UnionMember2 implements BaseModel
      * An array of elements to apply to the channel. If `raw` has not been
      * specified, `elements` is `required`.
      *
-     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null $elements
+     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>|null $elements
      */
     #[Api(list: ElementalNode::class, nullable: true, optional: true)]
     public ?array $elements;
@@ -103,7 +103,7 @@ final class UnionMember2 implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null $elements
+     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>|null $elements
      * @param array<string, mixed>|null $raw
      * @param Type|value-of<Type> $type
      */
@@ -159,7 +159,7 @@ final class UnionMember2 implements BaseModel
      * An array of elements to apply to the channel. If `raw` has not been
      * specified, `elements` is `required`.
      *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>|null $elements
+     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>|null $elements
      */
     public function withElements(?array $elements): self
     {
