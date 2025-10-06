@@ -44,14 +44,14 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
 $response = $client->send->message(
   (new Message)
-    ->withTo((new UnionMember0)->withUserID("your_user_id"))
+    ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
 );
 
@@ -72,14 +72,14 @@ When the library is unable to connect to the API, or if the API returns a non-su
 ```php
 <?php
 
+use Courier\Bulk\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
 use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 try {
   $response = $client->send->message(
     (new Message)
-      ->withTo((new UnionMember0)->withUserID("your_user_id"))
+      ->withTo((new UserRecipient)->withUserID("your_user_id"))
       ->withData(["foo" => "bar"]),
   );
 } catch (APIConnectionException $e) {
@@ -122,8 +122,8 @@ You can use the `maxRetries` option to configure or disable this:
 
 use Courier\Client;
 use Courier\RequestOptions;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
@@ -131,7 +131,7 @@ $client = new Client(maxRetries: 0);
 // Or, configure per-request:
 $result = $client->send->message(
   (new Message)
-    ->withTo((new UnionMember0)->withUserID("your_user_id"))
+    ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
@@ -151,12 +151,12 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 <?php
 
 use Courier\RequestOptions;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 
 $response = $client->send->message(
   (new Message)
-    ->withTo((new UnionMember0)->withUserID("your_user_id"))
+    ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],

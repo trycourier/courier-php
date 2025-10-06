@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Send;
 
+use Courier\ChannelPreference;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Preference\ChannelPreference;
-use Courier\Send\Preference\Rule;
+use Courier\Rule;
 use Courier\Send\Preference\Source;
-use Courier\Send\Preference\Status;
+use Courier\Users\Preferences\PreferenceStatus;
 
 /**
  * @phpstan-type preference_alias = array{
- *   status: value-of<Status>,
+ *   status: value-of<PreferenceStatus>,
  *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  *   source?: value-of<Source>|null,
@@ -25,8 +25,8 @@ final class Preference implements BaseModel
     /** @use SdkModel<preference_alias> */
     use SdkModel;
 
-    /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    /** @var value-of<PreferenceStatus> $status */
+    #[Api(enum: PreferenceStatus::class)]
     public string $status;
 
     /** @var list<ChannelPreference>|null $channelPreferences */
@@ -70,13 +70,13 @@ final class Preference implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Status|value-of<Status> $status
+     * @param PreferenceStatus|value-of<PreferenceStatus> $status
      * @param list<ChannelPreference>|null $channelPreferences
      * @param list<Rule>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
-        Status|string $status,
+        PreferenceStatus|string $status,
         ?array $channelPreferences = null,
         ?array $rules = null,
         Source|string|null $source = null,
@@ -93,9 +93,9 @@ final class Preference implements BaseModel
     }
 
     /**
-     * @param Status|value-of<Status> $status
+     * @param PreferenceStatus|value-of<PreferenceStatus> $status
      */
-    public function withStatus(Status|string $status): self
+    public function withStatus(PreferenceStatus|string $status): self
     {
         $obj = clone $this;
         $obj['status'] = $status;
