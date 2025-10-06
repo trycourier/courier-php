@@ -11,7 +11,7 @@ use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
 use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
-use Courier\Send\SendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
 use Courier\Send\SendMessageParams\Message\Preferences;
@@ -52,7 +52,7 @@ final class SendTest extends TestCase
 
         $result = $this->client->send->message(
             Message::with(
-                content: Content::with(
+                content: ElementalContentSugar::with(
                     body: 'Thanks for signing up, {{name}}',
                     title: 'Welcome!'
                 ),
@@ -71,7 +71,7 @@ final class SendTest extends TestCase
 
         $result = $this->client->send->message(
             Message::with(
-                content: Content::with(
+                content: ElementalContentSugar::with(
                     body: 'Thanks for signing up, {{name}}',
                     title: 'Welcome!'
                 ),

@@ -4,85 +4,25 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
-use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Contracts\BaseModel;
+use Courier\Core\Concerns\SdkUnion;
+use Courier\Core\Conversion\Contracts\Converter;
+use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContent;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
 
 /**
- * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
- *
- * @phpstan-type content_alias = array{body: string, title: string}
+ * Describes content that will work for email, inbox, push, chat, or any channel id.
  */
-final class Content implements BaseModel
+final class Content implements ConverterSource
 {
-    /** @use SdkModel<content_alias> */
-    use SdkModel;
+    use SdkUnion;
 
     /**
-     * The text content displayed in the notification.
+     * @return list<string|Converter|ConverterSource>|array<string,
+     * string|Converter|ConverterSource,>
      */
-    #[Api]
-    public string $body;
-
-    /**
-     * Title/subject displayed by supported channels.
-     */
-    #[Api]
-    public string $title;
-
-    /**
-     * `new Content()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * Content::with(body: ..., title: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new Content)->withBody(...)->withTitle(...)
-     * ```
-     */
-    public function __construct()
+    public static function variants(): array
     {
-        $this->initialize();
-    }
-
-    /**
-     * Construct an instance from the required parameters.
-     *
-     * You must use named parameters to construct any parameters with a default value.
-     */
-    public static function with(string $body, string $title): self
-    {
-        $obj = new self;
-
-        $obj->body = $body;
-        $obj->title = $title;
-
-        return $obj;
-    }
-
-    /**
-     * The text content displayed in the notification.
-     */
-    public function withBody(string $body): self
-    {
-        $obj = clone $this;
-        $obj->body = $body;
-
-        return $obj;
-    }
-
-    /**
-     * Title/subject displayed by supported channels.
-     */
-    public function withTitle(string $title): self
-    {
-        $obj = clone $this;
-        $obj->title = $title;
-
-        return $obj;
+        return [ElementalContentSugar::class, ElementalContent::class];
     }
 }
