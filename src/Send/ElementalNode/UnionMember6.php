@@ -7,14 +7,10 @@ namespace Courier\Send\ElementalNode;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode;
 use Courier\Send\ElementalNode\UnionMember6\Type;
 
 /**
- * Allows you to group elements together. This can be useful when used in combination with "if" or "loop". See [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
- *
  * @phpstan-type union_member6 = array{
- *   elements: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7>,
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -26,14 +22,6 @@ final class UnionMember6 implements BaseModel
 {
     /** @use SdkModel<union_member6> */
     use SdkModel;
-
-    /**
-     * Sub elements to render.
-     *
-     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
-     */
-    #[Api(list: ElementalNode::class)]
-    public array $elements;
 
     /** @var list<string>|null $channels */
     #[Api(list: 'string', nullable: true, optional: true)]
@@ -52,20 +40,6 @@ final class UnionMember6 implements BaseModel
     #[Api(enum: Type::class, optional: true)]
     public ?string $type;
 
-    /**
-     * `new UnionMember6()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * UnionMember6::with(elements: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new UnionMember6)->withElements(...)
-     * ```
-     */
     public function __construct()
     {
         $this->initialize();
@@ -76,12 +50,10 @@ final class UnionMember6 implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
      * @param list<string>|null $channels
      * @param Type|value-of<Type> $type
      */
     public static function with(
-        array $elements,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
@@ -90,26 +62,11 @@ final class UnionMember6 implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->elements = $elements;
-
         null !== $channels && $obj->channels = $channels;
         null !== $if && $obj->if = $if;
         null !== $loop && $obj->loop = $loop;
         null !== $ref && $obj->ref = $ref;
         null !== $type && $obj['type'] = $type;
-
-        return $obj;
-    }
-
-    /**
-     * Sub elements to render.
-     *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6|UnionMember7> $elements
-     */
-    public function withElements(array $elements): self
-    {
-        $obj = clone $this;
-        $obj->elements = $elements;
 
         return $obj;
     }
