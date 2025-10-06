@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\ElementalNode\UnionMember4;
+namespace Courier\Send;
 
-/**
- * The alignment of the action button. Defaults to "center".
- */
-enum Align: string
+enum Alignment: string
 {
     case CENTER = 'center';
 

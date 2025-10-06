@@ -7,7 +7,7 @@ namespace Courier\Send\ElementalNode;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode\UnionMember4\Align;
+use Courier\Send\Alignment;
 use Courier\Send\ElementalNode\UnionMember4\Locale;
 use Courier\Send\ElementalNode\UnionMember4\Style;
 use Courier\Send\ElementalNode\UnionMember4\Type;
@@ -15,7 +15,7 @@ use Courier\Send\ElementalNode\UnionMember4\Type;
 /**
  * @phpstan-type union_member4 = array{
  *   actionID?: string|null,
- *   align?: value-of<Align>|null,
+ *   align?: value-of<Alignment>|null,
  *   backgroundColor?: string|null,
  *   content?: string,
  *   href?: string,
@@ -38,9 +38,9 @@ final class UnionMember4 implements BaseModel
     /**
      * The alignment of the action button. Defaults to "center".
      *
-     * @var value-of<Align>|null $align
+     * @var value-of<Alignment>|null $align
      */
-    #[Api(enum: Align::class, nullable: true, optional: true)]
+    #[Api(enum: Alignment::class, nullable: true, optional: true)]
     public ?string $align;
 
     /**
@@ -91,14 +91,14 @@ final class UnionMember4 implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Align|value-of<Align>|null $align
+     * @param Alignment|value-of<Alignment>|null $align
      * @param array<string, Locale>|null $locales
      * @param Style|value-of<Style>|null $style
      * @param Type|value-of<Type> $type
      */
     public static function with(
         ?string $actionID = null,
-        Align|string|null $align = null,
+        Alignment|string|null $align = null,
         ?string $backgroundColor = null,
         ?string $content = null,
         ?string $href = null,
@@ -134,9 +134,9 @@ final class UnionMember4 implements BaseModel
     /**
      * The alignment of the action button. Defaults to "center".
      *
-     * @param Align|value-of<Align>|null $align
+     * @param Alignment|value-of<Alignment>|null $align
      */
-    public function withAlign(Align|string|null $align): self
+    public function withAlign(Alignment|string|null $align): self
     {
         $obj = clone $this;
         $obj['align'] = $align;
