@@ -52,10 +52,7 @@ final class SendTest extends TestCase
 
         $result = $this->client->send->message(
             Message::with(
-                content: ElementalContentSugar::with(
-                    body: 'Thanks for signing up, {{name}}',
-                    title: 'Welcome!'
-                ),
+                content: ElementalContentSugar::with(body: 'body', title: 'title')
             ),
         );
 
@@ -71,10 +68,7 @@ final class SendTest extends TestCase
 
         $result = $this->client->send->message(
             Message::with(
-                content: ElementalContentSugar::with(
-                    body: 'Thanks for signing up, {{name}}',
-                    title: 'Welcome!'
-                ),
+                content: ElementalContentSugar::with(body: 'body', title: 'title')
             )
                 ->withBrandID('brand_id')
                 ->withChannels(
@@ -141,7 +135,7 @@ final class SendTest extends TestCase
                             ->withTimeouts(0),
                     ],
                 )
-                ->withRouting(Routing::with(channels: ['email'], method: 'single'))
+                ->withRouting(Routing::with(channels: ['string'], method: 'all'))
                 ->withTimeout(
                     (new Timeout)
                         ->withChannel(['foo' => 0])
@@ -155,7 +149,7 @@ final class SendTest extends TestCase
                         ->withAccountID('account_id')
                         ->withContext((new MessageContext)->withTenantID('tenant_id'))
                         ->withData(['foo' => 'bar'])
-                        ->withEmail('email@example.com')
+                        ->withEmail('email')
                         ->withLocale('locale')
                         ->withPhoneNumber('phone_number')
                         ->withPreferences(
@@ -182,7 +176,7 @@ final class SendTest extends TestCase
                                 ->withTemplateID('templateId'),
                         )
                         ->withTenantID('tenant_id')
-                        ->withUserID('user_id'),
+                        ->withUserID('example_user'),
                 ),
         );
 
