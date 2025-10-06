@@ -10,7 +10,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\MessageContext;
 use Courier\Send\Recipient;
 use Courier\Send\SendMessageParams\Message\Channel;
-use Courier\Send\SendMessageParams\Message\Content;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContent;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
 use Courier\Send\SendMessageParams\Message\Metadata;
@@ -25,7 +26,7 @@ use Courier\Send\SendMessageParams\Message\To\UnionMember0;
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
  * @phpstan-type message_alias = array{
- *   content: Content,
+ *   content: ElementalContentSugar|ElementalContent,
  *   brandID?: string|null,
  *   channels?: array<string, Channel>|null,
  *   context?: MessageContext|null,
@@ -46,10 +47,10 @@ final class Message implements BaseModel
     use SdkModel;
 
     /**
-     * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
+     * Describes content that will work for email, inbox, push, chat, or any channel id.
      */
     #[Api]
-    public Content $content;
+    public ElementalContentSugar|ElementalContent $content;
 
     #[Api('brand_id', nullable: true, optional: true)]
     public ?string $brandID;
@@ -132,7 +133,7 @@ final class Message implements BaseModel
      * @param UnionMember0|list<Recipient>|null $to
      */
     public static function with(
-        Content $content,
+        ElementalContentSugar|ElementalContent $content,
         ?string $brandID = null,
         ?array $channels = null,
         ?MessageContext $context = null,
@@ -167,10 +168,11 @@ final class Message implements BaseModel
     }
 
     /**
-     * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
+     * Describes content that will work for email, inbox, push, chat, or any channel id.
      */
-    public function withContent(Content $content): self
-    {
+    public function withContent(
+        ElementalContentSugar|ElementalContent $content
+    ): self {
         $obj = clone $this;
         $obj->content = $content;
 
