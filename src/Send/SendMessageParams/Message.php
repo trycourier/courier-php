@@ -26,9 +26,9 @@ use Courier\Send\SendMessageParams\Message\To\UnionMember0;
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
  * @phpstan-type message_alias = array{
- *   content: ElementalContentSugar|ElementalContent,
  *   brandID?: string|null,
  *   channels?: array<string, Channel>|null,
+ *   content?: ElementalContentSugar|ElementalContent,
  *   context?: MessageContext|null,
  *   data?: array<string, mixed>|null,
  *   delay?: Delay|null,
@@ -46,12 +46,6 @@ final class Message implements BaseModel
     /** @use SdkModel<message_alias> */
     use SdkModel;
 
-    /**
-     * Describes content that will work for email, inbox, push, chat, or any channel id.
-     */
-    #[Api]
-    public ElementalContentSugar|ElementalContent $content;
-
     #[Api('brand_id', nullable: true, optional: true)]
     public ?string $brandID;
 
@@ -62,6 +56,12 @@ final class Message implements BaseModel
      */
     #[Api(map: Channel::class, nullable: true, optional: true)]
     public ?array $channels;
+
+    /**
+     * Describes content that will work for email, inbox, push, chat, or any channel id.
+     */
+    #[Api(optional: true)]
+    public ElementalContentSugar|ElementalContent|null $content;
 
     #[Api(nullable: true, optional: true)]
     public ?MessageContext $context;
@@ -103,20 +103,6 @@ final class Message implements BaseModel
     #[Api(union: To::class, nullable: true, optional: true)]
     public UnionMember0|array|null $to;
 
-    /**
-     * `new Message()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * Message::with(content: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new Message)->withContent(...)
-     * ```
-     */
     public function __construct()
     {
         $this->initialize();
@@ -133,9 +119,9 @@ final class Message implements BaseModel
      * @param UnionMember0|list<Recipient>|null $to
      */
     public static function with(
-        ElementalContentSugar|ElementalContent $content,
         ?string $brandID = null,
         ?array $channels = null,
+        ElementalContentSugar|ElementalContent|null $content = null,
         ?MessageContext $context = null,
         ?array $data = null,
         ?Delay $delay = null,
@@ -149,10 +135,9 @@ final class Message implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->content = $content;
-
         null !== $brandID && $obj->brandID = $brandID;
         null !== $channels && $obj->channels = $channels;
+        null !== $content && $obj->content = $content;
         null !== $context && $obj->context = $context;
         null !== $data && $obj->data = $data;
         null !== $delay && $obj->delay = $delay;
@@ -163,18 +148,6 @@ final class Message implements BaseModel
         null !== $routing && $obj->routing = $routing;
         null !== $timeout && $obj->timeout = $timeout;
         null !== $to && $obj->to = $to;
-
-        return $obj;
-    }
-
-    /**
-     * Describes content that will work for email, inbox, push, chat, or any channel id.
-     */
-    public function withContent(
-        ElementalContentSugar|ElementalContent $content
-    ): self {
-        $obj = clone $this;
-        $obj->content = $content;
 
         return $obj;
     }
@@ -196,6 +169,18 @@ final class Message implements BaseModel
     {
         $obj = clone $this;
         $obj->channels = $channels;
+
+        return $obj;
+    }
+
+    /**
+     * Describes content that will work for email, inbox, push, chat, or any channel id.
+     */
+    public function withContent(
+        ElementalContentSugar|ElementalContent $content
+    ): self {
+        $obj = clone $this;
+        $obj->content = $content;
 
         return $obj;
     }

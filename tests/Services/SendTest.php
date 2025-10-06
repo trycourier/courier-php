@@ -50,11 +50,7 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(
-            Message::with(
-                content: ElementalContentSugar::with(body: 'body', title: 'title')
-            ),
-        );
+        $result = $this->client->send->message(new Message);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -67,9 +63,7 @@ final class SendTest extends TestCase
         }
 
         $result = $this->client->send->message(
-            Message::with(
-                content: ElementalContentSugar::with(body: 'body', title: 'title')
-            )
+            (new Message)
                 ->withBrandID('brand_id')
                 ->withChannels(
                     [
@@ -93,6 +87,7 @@ final class SendTest extends TestCase
                             ->withTimeouts((new Timeouts)->withChannel(0)->withProvider(0)),
                     ],
                 )
+                ->withContent(ElementalContentSugar::with(body: 'body', title: 'title'))
                 ->withContext((new MessageContext)->withTenantID('tenant_id'))
                 ->withData(['name' => 'bar'])
                 ->withDelay((new Delay)->withDuration(0)->withUntil('until'))
