@@ -60,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `MessageRouting::with(channels: ["string"], ...)`
+It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new MessageRouting)->withChannels(["string"])`.
+However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
 
 ### Handling errors
 
