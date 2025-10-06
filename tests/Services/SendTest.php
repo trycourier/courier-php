@@ -2,24 +2,26 @@
 
 namespace Tests\Services;
 
+use Courier\Bulk\UserRecipient;
+use Courier\ChannelPreference;
 use Courier\Client;
+use Courier\Rule;
+use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\MessageContext;
 use Courier\Send\Preference;
-use Courier\Send\Preference\ChannelPreference;
-use Courier\Send\Preference\Rule;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
 use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
-use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
 use Courier\Send\SendMessageParams\Message\Preferences;
 use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
-use Courier\Send\SendMessageParams\Message\To\UnionMember0;
 use Courier\Send\Utm;
+use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
+use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -140,7 +142,7 @@ final class SendTest extends TestCase
                         ->withProvider(['foo' => 0]),
                 )
                 ->withTo(
-                    (new UnionMember0)
+                    (new UserRecipient)
                         ->withAccountID('account_id')
                         ->withContext((new MessageContext)->withTenantID('tenant_id'))
                         ->withData(['foo' => 'bar'])
@@ -148,11 +150,15 @@ final class SendTest extends TestCase
                         ->withLocale('locale')
                         ->withPhoneNumber('phone_number')
                         ->withPreferences(
-                            Courier\Send\SendMessageParams\Message\To\UnionMember0\Preferences::with(
+                            Courier\Bulk\UserRecipient\Preferences::with(
                                 notifications: [
-                                    'foo' => Preference::with(status: 'OPTED_IN')
+                                    'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
-                                            [ChannelPreference::with(channel: 'direct_message')]
+                                            [
+                                                ChannelPreference::with(
+                                                    channel: ChannelClassification::DIRECT_MESSAGE
+                                                ),
+                                            ],
                                         )
                                         ->withRules([Rule::with(until: 'until')->withStart('start')])
                                         ->withSource('subscription'),
@@ -160,9 +166,13 @@ final class SendTest extends TestCase
                             )
                                 ->withCategories(
                                     [
-                                        'foo' => Preference::with(status: 'OPTED_IN')
+                                        'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
                                             ->withChannelPreferences(
-                                                [ChannelPreference::with(channel: 'direct_message')]
+                                                [
+                                                    ChannelPreference::with(
+                                                        channel: ChannelClassification::DIRECT_MESSAGE
+                                                    ),
+                                                ],
                                             )
                                             ->withRules([Rule::with(until: 'until')->withStart('start')])
                                             ->withSource('subscription'),
