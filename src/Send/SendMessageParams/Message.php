@@ -93,6 +93,9 @@ final class Message implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?Routing $routing;
 
+    /**
+     * The id of the template you want to send.
+     */
     #[Api(nullable: true, optional: true)]
     public ?string $template;
 
@@ -264,6 +267,9 @@ final class Message implements BaseModel
         return $obj;
     }
 
+    /**
+     * The id of the template you want to send.
+     */
     public function withTemplate(?string $template): self
     {
         $obj = clone $this;
