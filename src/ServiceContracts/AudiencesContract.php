@@ -8,8 +8,7 @@ use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter\UnionMember0;
-use Courier\Audiences\NestedFilterConfig;
+use Courier\Audiences\Filter;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
@@ -31,7 +30,7 @@ interface AudiencesContract
      * @api
      *
      * @param string|null $description A description of the audience
-     * @param UnionMember0|NestedFilterConfig|null $filter The operator to use for filtering
+     * @param Filter|null $filter A single filter to use for filtering
      * @param string|null $name The name of the audience
      *
      * @throws APIException

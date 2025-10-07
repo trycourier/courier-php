@@ -11,8 +11,7 @@ use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter\UnionMember0;
-use Courier\Audiences\NestedFilterConfig;
+use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
@@ -53,7 +52,7 @@ final class AudiencesService implements AudiencesContract
      * Creates or updates audience.
      *
      * @param string|null $description A description of the audience
-     * @param UnionMember0|NestedFilterConfig|null $filter The operator to use for filtering
+     * @param Filter|null $filter A single filter to use for filtering
      * @param string|null $name The name of the audience
      *
      * @throws APIException
