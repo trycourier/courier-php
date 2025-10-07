@@ -2,7 +2,6 @@
 
 namespace Tests\Services;
 
-use Courier\Bulk\UserRecipient;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\ElementalContentSugar;
@@ -21,6 +20,7 @@ use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
 use Courier\Send\Utm;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
+use Courier\UserRecipient;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;

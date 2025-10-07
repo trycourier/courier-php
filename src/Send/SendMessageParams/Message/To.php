@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Bulk\UserRecipient;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Core\Conversion\ListOf;
+use Courier\ListRecipient;
 use Courier\Send\Recipient;
+use Courier\UserRecipient;
 
 /**
  * The recipient or a list of recipients of the message.
@@ -24,6 +25,8 @@ final class To implements ConverterSource
      */
     public static function variants(): array
     {
-        return [UserRecipient::class, new ListOf(Recipient::class)];
+        return [
+            UserRecipient::class, ListRecipient::class, new ListOf(Recipient::class),
+        ];
     }
 }

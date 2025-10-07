@@ -4,8 +4,6 @@ namespace Tests\Services;
 
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Bulk\InboundBulkMessageUser;
-use Courier\Bulk\UserRecipient;
-use Courier\Bulk\UserRecipient\Preferences;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
@@ -14,6 +12,8 @@ use Courier\Preference;
 use Courier\Rule;
 use Courier\Send\MessageContext;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
+use Courier\UserRecipient;
+use Courier\UserRecipient\Preferences;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
