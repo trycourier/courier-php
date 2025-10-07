@@ -3,17 +3,15 @@
 namespace Tests\Services;
 
 use Courier\Bulk\UserRecipient;
-use Courier\Bulk\UserRecipient\Preferences\Category;
-use Courier\Bulk\UserRecipient\Preferences\Notification;
-use Courier\Bulk\UserRecipient\Preferences\Notification\ChannelPreference;
-use Courier\Bulk\UserRecipient\Preferences\Notification\Rule;
+use Courier\ChannelPreference;
 use Courier\Client;
+use Courier\Preference;
+use Courier\Rule;
 use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\MessageContext;
 use Courier\Send\SendSendMessageParams\Message;
 use Courier\Send\SendSendMessageParams\Message\Channel;
 use Courier\Send\SendSendMessageParams\Message\Channel\Metadata;
-use Courier\Send\SendSendMessageParams\Message\Channel\Metadata\Utm;
 use Courier\Send\SendSendMessageParams\Message\Channel\Timeouts;
 use Courier\Send\SendSendMessageParams\Message\Delay;
 use Courier\Send\SendSendMessageParams\Message\Expiry;
@@ -21,6 +19,7 @@ use Courier\Send\SendSendMessageParams\Message\Preferences;
 use Courier\Send\SendSendMessageParams\Message\Provider;
 use Courier\Send\SendSendMessageParams\Message\Routing;
 use Courier\Send\SendSendMessageParams\Message\Timeout;
+use Courier\Send\Utm;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -103,7 +102,7 @@ final class SendTest extends TestCase
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
                         ->withUtm(
-                            (new Courier\Send\SendSendMessageParams\Message\Metadata\Utm)
+                            (new Utm)
                                 ->withCampaign('campaign')
                                 ->withContent('content')
                                 ->withMedium('medium')
@@ -121,7 +120,7 @@ final class SendTest extends TestCase
                             ->withMetadata(
                                 (new Courier\Send\SendSendMessageParams\Message\Provider\Metadata)
                                     ->withUtm(
-                                        (new Courier\Send\SendSendMessageParams\Message\Provider\Metadata\Utm)
+                                        (new Utm)
                                             ->withCampaign('campaign')
                                             ->withContent('content')
                                             ->withMedium('medium')
@@ -153,7 +152,7 @@ final class SendTest extends TestCase
                         ->withPreferences(
                             Courier\Bulk\UserRecipient\Preferences::with(
                                 notifications: [
-                                    'foo' => Notification::with(status: PreferenceStatus::OPTED_IN)
+                                    'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
                                                 ChannelPreference::with(
@@ -167,22 +166,15 @@ final class SendTest extends TestCase
                             )
                                 ->withCategories(
                                     [
-                                        'foo' => Category::with(status: PreferenceStatus::OPTED_IN)
+                                        'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
                                             ->withChannelPreferences(
                                                 [
-                                                    Courier\Bulk\UserRecipient\Preferences\Category\ChannelPreference::with(
+                                                    ChannelPreference::with(
                                                         channel: ChannelClassification::DIRECT_MESSAGE
                                                     ),
                                                 ],
                                             )
-                                            ->withRules(
-                                                [
-                                                    Courier\Bulk\UserRecipient\Preferences\Category\Rule::with(
-                                                        until: 'until'
-                                                    )
-                                                        ->withStart('start'),
-                                                ],
-                                            )
+                                            ->withRules([Rule::with(until: 'until')->withStart('start')])
                                             ->withSource('subscription'),
                                     ],
                                 )
