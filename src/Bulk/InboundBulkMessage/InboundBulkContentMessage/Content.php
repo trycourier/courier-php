@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage\Content\ElementalContentSugar;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\ElementalContentSugar;
 use Courier\Tenants\Templates\ElementalContent;
 
 /**

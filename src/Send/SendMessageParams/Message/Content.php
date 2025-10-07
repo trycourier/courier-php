@@ -7,7 +7,7 @@ namespace Courier\Send\SendMessageParams\Message;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\ElementalContentSugar;
 use Courier\Tenants\Templates\ElementalContent;
 
 /**

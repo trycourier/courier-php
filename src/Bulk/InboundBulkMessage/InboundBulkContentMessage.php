@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Bulk\InboundBulkMessage;
 
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage\Content\ElementalContentSugar;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
+use Courier\ElementalContentSugar;
 use Courier\Tenants\Templates\ElementalContent;
 
 /**
