@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Audiences\NestedFilterConfig;
+namespace Courier\Audiences\FilterConfig;
 
 /**
  * The operator to use for filtering.

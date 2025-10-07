@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\UnionMember0;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -27,9 +26,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Audiences->update
  *
  * @phpstan-type audience_update_params = array{
- *   description?: string|null,
- *   filter?: null|UnionMember0|NestedFilterConfig,
- *   name?: string|null,
+ *   description?: string|null, filter?: Filter|null, name?: string|null
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -45,10 +42,10 @@ final class AudienceUpdateParams implements BaseModel
     public ?string $description;
 
     /**
-     * The operator to use for filtering.
+     * A single filter to use for filtering.
      */
     #[Api(nullable: true, optional: true)]
-    public UnionMember0|NestedFilterConfig|null $filter;
+    public ?Filter $filter;
 
     /**
      * The name of the audience.
@@ -68,8 +65,8 @@ final class AudienceUpdateParams implements BaseModel
      */
     public static function with(
         ?string $description = null,
-        UnionMember0|NestedFilterConfig|null $filter = null,
-        ?string $name = null,
+        ?Filter $filter = null,
+        ?string $name = null
     ): self {
         $obj = new self;
 
@@ -92,11 +89,10 @@ final class AudienceUpdateParams implements BaseModel
     }
 
     /**
-     * The operator to use for filtering.
+     * A single filter to use for filtering.
      */
-    public function withFilter(
-        UnionMember0|NestedFilterConfig|null $filter
-    ): self {
+    public function withFilter(?Filter $filter): self
+    {
         $obj = clone $this;
         $obj->filter = $filter;
 

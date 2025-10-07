@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Audiences\FilterConfig\UnionMember0;
+namespace Courier\Audiences\Filter;
 
 /**
  * The operator to use for filtering.

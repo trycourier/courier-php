@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\UnionMember0;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
@@ -16,7 +15,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  *   id: string,
  *   createdAt: string,
  *   description: string,
- *   filter: UnionMember0|NestedFilterConfig,
+ *   filter: Filter,
  *   name: string,
  *   updatedAt: string,
  * }
@@ -44,10 +43,10 @@ final class Audience implements BaseModel, ResponseConverter
     public string $description;
 
     /**
-     * The operator to use for filtering.
+     * A single filter to use for filtering.
      */
     #[Api]
-    public UnionMember0|NestedFilterConfig $filter;
+    public Filter $filter;
 
     /**
      * The name of the audience.
@@ -99,7 +98,7 @@ final class Audience implements BaseModel, ResponseConverter
         string $id,
         string $createdAt,
         string $description,
-        UnionMember0|NestedFilterConfig $filter,
+        Filter $filter,
         string $name,
         string $updatedAt,
     ): self {
@@ -146,9 +145,9 @@ final class Audience implements BaseModel, ResponseConverter
     }
 
     /**
-     * The operator to use for filtering.
+     * A single filter to use for filtering.
      */
-    public function withFilter(UnionMember0|NestedFilterConfig $filter): self
+    public function withFilter(Filter $filter): self
     {
         $obj = clone $this;
         $obj->filter = $filter;
