@@ -9,15 +9,17 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type email_footer = array{content?: mixed, inheritDefault?: bool|null}
+ * @phpstan-type email_footer = array{
+ *   content?: string|null, inheritDefault?: bool|null
+ * }
  */
 final class EmailFooter implements BaseModel
 {
     /** @use SdkModel<email_footer> */
     use SdkModel;
 
-    #[Api(optional: true)]
-    public mixed $content;
+    #[Api(nullable: true, optional: true)]
+    public ?string $content;
 
     #[Api(nullable: true, optional: true)]
     public ?bool $inheritDefault;
@@ -33,7 +35,7 @@ final class EmailFooter implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        mixed $content = null,
+        ?string $content = null,
         ?bool $inheritDefault = null
     ): self {
         $obj = new self;
@@ -44,7 +46,7 @@ final class EmailFooter implements BaseModel
         return $obj;
     }
 
-    public function withContent(mixed $content): self
+    public function withContent(?string $content): self
     {
         $obj = clone $this;
         $obj->content = $content;
