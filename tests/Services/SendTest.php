@@ -97,7 +97,7 @@ final class SendTest extends TestCase
                     Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
                 )
                 ->withMetadata(
-                    (new Courier\Send\SendMessageParams\Message\Metadata)
+                    (new Message\Metadata)
                         ->withEvent('event')
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
@@ -118,7 +118,7 @@ final class SendTest extends TestCase
                         'foo' => (new Provider)
                             ->withIf('if')
                             ->withMetadata(
-                                (new Courier\Send\SendMessageParams\Message\Provider\Metadata)
+                                (new Provider\Metadata)
                                     ->withUtm(
                                         (new Utm)
                                             ->withCampaign('campaign')
@@ -150,7 +150,7 @@ final class SendTest extends TestCase
                         ->withLocale('locale')
                         ->withPhoneNumber('phone_number')
                         ->withPreferences(
-                            Courier\Bulk\UserRecipient\Preferences::with(
+                            UserRecipient\Preferences::with(
                                 notifications: [
                                     'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(

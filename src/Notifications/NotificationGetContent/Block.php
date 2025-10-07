@@ -20,7 +20,7 @@ use Courier\Notifications\NotificationGetContent\Block\Type;
  *   content?: string|null|NotificationContentHierarchy,
  *   context?: string|null,
  *   locales?: array<string,
- *   string|Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null,
+ *   string|\Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null,
  * }
  */
 final class Block implements BaseModel
@@ -49,7 +49,7 @@ final class Block implements BaseModel
 
     /**
      * @var array<string,
-     * string|Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null $locales
+     * string|Locale\NotificationContentHierarchy,>|null $locales
      */
     #[Api(map: Locale::class, nullable: true, optional: true)]
     public ?array $locales;
@@ -80,7 +80,7 @@ final class Block implements BaseModel
      *
      * @param Type|value-of<Type> $type
      * @param array<string,
-     * string|Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null $locales
+     * string|Locale\NotificationContentHierarchy,>|null $locales
      */
     public static function with(
         string $id,
@@ -159,7 +159,7 @@ final class Block implements BaseModel
 
     /**
      * @param array<string,
-     * string|Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null $locales
+     * string|Locale\NotificationContentHierarchy,>|null $locales
      */
     public function withLocales(?array $locales): self
     {
