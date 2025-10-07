@@ -45,11 +45,11 @@ Parameters with a default value must be set by name.
 
 use Courier\Client;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
@@ -60,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ChannelPreference::with(channel: "direct_message", ...)`
+It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ChannelPreference)->withChannel("direct_message")`.
+However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
 
 ### Handling errors
 
@@ -74,10 +74,10 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 use Courier\Bulk\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message;
 
 try {
-  $response = $client->send->sendMessage(
+  $response = $client->send->message(
     (new Message)
       ->withTo((new UserRecipient)->withUserID("your_user_id"))
       ->withData(["foo" => "bar"]),
@@ -123,13 +123,13 @@ You can use the `maxRetries` option to configure or disable this:
 use Courier\Client;
 use Courier\RequestOptions;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->send->sendMessage(
+$result = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
@@ -152,9 +152,9 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 
 use Courier\RequestOptions;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message;
 
-$response = $client->send->sendMessage(
+$response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
