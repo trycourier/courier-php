@@ -37,6 +37,7 @@ use Courier\Tenants\Templates\ElementalContent;
  *   preferences?: Preferences|null,
  *   providers?: array<string, Provider>|null,
  *   routing?: Routing|null,
+ *   template?: string|null,
  *   timeout?: Timeout|null,
  *   to?: null|UserRecipient|list<Recipient>,
  * }
@@ -93,6 +94,9 @@ final class Message implements BaseModel
     public ?Routing $routing;
 
     #[Api(nullable: true, optional: true)]
+    public ?string $template;
+
+    #[Api(nullable: true, optional: true)]
     public ?Timeout $timeout;
 
     /**
@@ -130,6 +134,7 @@ final class Message implements BaseModel
         ?Preferences $preferences = null,
         ?array $providers = null,
         ?Routing $routing = null,
+        ?string $template = null,
         ?Timeout $timeout = null,
         UserRecipient|array|null $to = null,
     ): self {
@@ -146,6 +151,7 @@ final class Message implements BaseModel
         null !== $preferences && $obj->preferences = $preferences;
         null !== $providers && $obj->providers = $providers;
         null !== $routing && $obj->routing = $routing;
+        null !== $template && $obj->template = $template;
         null !== $timeout && $obj->timeout = $timeout;
         null !== $to && $obj->to = $to;
 
@@ -254,6 +260,14 @@ final class Message implements BaseModel
     {
         $obj = clone $this;
         $obj->routing = $routing;
+
+        return $obj;
+    }
+
+    public function withTemplate(?string $template): self
+    {
+        $obj = clone $this;
+        $obj->template = $template;
 
         return $obj;
     }
