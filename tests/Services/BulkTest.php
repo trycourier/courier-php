@@ -6,13 +6,13 @@ use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Bulk\UserRecipient;
 use Courier\Bulk\UserRecipient\Preferences;
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
 use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\Rule;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category\ChannelPreference;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category\Rule;
+use Courier\Lists\Subscriptions\RecipientPreferences\Notification;
 use Courier\Send\MessageContext;
-use Courier\Send\Preference;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -69,9 +69,7 @@ final class BulkTest extends TestCase
                         (new RecipientPreferences)
                             ->withCategories(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Category::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
                                                 ChannelPreference::with(
@@ -84,17 +82,22 @@ final class BulkTest extends TestCase
                             )
                             ->withNotifications(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Notification::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
-                                                ChannelPreference::with(
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPreference::with(
                                                     channel: ChannelClassification::DIRECT_MESSAGE
                                                 ),
                                             ],
                                         )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                                        ->withRules(
+                                            [
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule::with(
+                                                    until: 'until'
+                                                )
+                                                    ->withStart('start'),
+                                            ],
+                                        ),
                                 ],
                             ),
                     )
@@ -111,29 +114,47 @@ final class BulkTest extends TestCase
                             ->withPreferences(
                                 Preferences::with(
                                     notifications: [
-                                        'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
+                                        'foo' => Courier\Bulk\UserRecipient\Preferences\Notification::with(
+                                            status: PreferenceStatus::OPTED_IN
+                                        )
                                             ->withChannelPreferences(
                                                 [
-                                                    ChannelPreference::with(
+                                                    Courier\Bulk\UserRecipient\Preferences\Notification\ChannelPreference::with(
                                                         channel: ChannelClassification::DIRECT_MESSAGE
                                                     ),
                                                 ],
                                             )
-                                            ->withRules([Rule::with(until: 'until')->withStart('start')])
+                                            ->withRules(
+                                                [
+                                                    Courier\Bulk\UserRecipient\Preferences\Notification\Rule::with(
+                                                        until: 'until'
+                                                    )
+                                                        ->withStart('start'),
+                                                ],
+                                            )
                                             ->withSource('subscription'),
                                     ],
                                 )
                                     ->withCategories(
                                         [
-                                            'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
+                                            'foo' => Courier\Bulk\UserRecipient\Preferences\Category::with(
+                                                status: PreferenceStatus::OPTED_IN
+                                            )
                                                 ->withChannelPreferences(
                                                     [
-                                                        ChannelPreference::with(
+                                                        Courier\Bulk\UserRecipient\Preferences\Category\ChannelPreference::with(
                                                             channel: ChannelClassification::DIRECT_MESSAGE
                                                         ),
                                                     ],
                                                 )
-                                                ->withRules([Rule::with(until: 'until')->withStart('start')])
+                                                ->withRules(
+                                                    [
+                                                        Courier\Bulk\UserRecipient\Preferences\Category\Rule::with(
+                                                            until: 'until'
+                                                        )
+                                                            ->withStart('start'),
+                                                    ],
+                                                )
                                                 ->withSource('subscription'),
                                         ],
                                     )

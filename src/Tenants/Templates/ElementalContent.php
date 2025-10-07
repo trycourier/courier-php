@@ -7,14 +7,14 @@ namespace Courier\Tenants\Templates;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode;
-use Courier\Send\ElementalNode\UnionMember0;
-use Courier\Send\ElementalNode\UnionMember1;
-use Courier\Send\ElementalNode\UnionMember2;
-use Courier\Send\ElementalNode\UnionMember3;
-use Courier\Send\ElementalNode\UnionMember4;
-use Courier\Send\ElementalNode\UnionMember5;
-use Courier\Send\ElementalNode\UnionMember6;
+use Courier\Tenants\Templates\ElementalContent\Element;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember0;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember1;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember2;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember3;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember4;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember5;
+use Courier\Tenants\Templates\ElementalContent\Element\UnionMember6;
 
 /**
  * @phpstan-type elemental_content = array{
@@ -31,7 +31,7 @@ final class ElementalContent implements BaseModel
     /**
      * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6> $elements
      */
-    #[Api(list: ElementalNode::class)]
+    #[Api(list: Element::class)]
     public array $elements;
 
     /**

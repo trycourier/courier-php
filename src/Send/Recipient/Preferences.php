@@ -7,12 +7,13 @@ namespace Courier\Send\Recipient;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Preference;
+use Courier\Send\Recipient\Preferences\Category;
+use Courier\Send\Recipient\Preferences\Notification;
 
 /**
  * @phpstan-type preferences_alias = array{
- *   notifications: array<string, Preference>,
- *   categories?: array<string, Preference>|null,
+ *   notifications: array<string, Notification>,
+ *   categories?: array<string, Category>|null,
  *   templateID?: string|null,
  * }
  */
@@ -21,12 +22,12 @@ final class Preferences implements BaseModel
     /** @use SdkModel<preferences_alias> */
     use SdkModel;
 
-    /** @var array<string, Preference> $notifications */
-    #[Api(map: Preference::class)]
+    /** @var array<string, Notification> $notifications */
+    #[Api(map: Notification::class)]
     public array $notifications;
 
-    /** @var array<string, Preference>|null $categories */
-    #[Api(map: Preference::class, nullable: true, optional: true)]
+    /** @var array<string, Category>|null $categories */
+    #[Api(map: Category::class, nullable: true, optional: true)]
     public ?array $categories;
 
     #[Api('templateId', nullable: true, optional: true)]
@@ -56,8 +57,8 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, Preference> $notifications
-     * @param array<string, Preference>|null $categories
+     * @param array<string, Notification> $notifications
+     * @param array<string, Category>|null $categories
      */
     public static function with(
         array $notifications,
@@ -75,7 +76,7 @@ final class Preferences implements BaseModel
     }
 
     /**
-     * @param array<string, Preference> $notifications
+     * @param array<string, Notification> $notifications
      */
     public function withNotifications(array $notifications): self
     {
@@ -86,7 +87,7 @@ final class Preferences implements BaseModel
     }
 
     /**
-     * @param array<string, Preference>|null $categories
+     * @param array<string, Category>|null $categories
      */
     public function withCategories(?array $categories): self
     {

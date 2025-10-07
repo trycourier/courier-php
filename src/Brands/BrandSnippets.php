@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
+use Courier\Brands\BrandSnippets\Item;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_snippets = array{items?: list<BrandSnippet>|null}
+ * @phpstan-type brand_snippets = array{items?: list<Item>|null}
  */
 final class BrandSnippets implements BaseModel
 {
     /** @use SdkModel<brand_snippets> */
     use SdkModel;
 
-    /** @var list<BrandSnippet>|null $items */
-    #[Api(list: BrandSnippet::class, nullable: true, optional: true)]
+    /** @var list<Item>|null $items */
+    #[Api(list: Item::class, nullable: true, optional: true)]
     public ?array $items;
 
     public function __construct()
@@ -30,7 +31,7 @@ final class BrandSnippets implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BrandSnippet>|null $items
+     * @param list<Item>|null $items
      */
     public static function with(?array $items = null): self
     {
@@ -42,7 +43,7 @@ final class BrandSnippets implements BaseModel
     }
 
     /**
-     * @param list<BrandSnippet>|null $items
+     * @param list<Item>|null $items
      */
     public function withItems(?array $items): self
     {
