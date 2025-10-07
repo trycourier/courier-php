@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Courier\Bulk;
+namespace Courier;
 
-use Courier\Bulk\UserRecipient\Preferences;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\MessageContext;
+use Courier\UserRecipient\Preferences;
 
 /**
  * @phpstan-type user_recipient = array{
