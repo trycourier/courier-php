@@ -9,19 +9,17 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_colors = array{
- *   primary?: string|null, secondary?: string|null
- * }
+ * @phpstan-type brand_colors = array{primary?: string, secondary?: string}
  */
 final class BrandColors implements BaseModel
 {
     /** @use SdkModel<brand_colors> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Api(optional: true)]
     public ?string $primary;
 
-    #[Api(nullable: true, optional: true)]
+    #[Api(optional: true)]
     public ?string $secondary;
 
     public function __construct()
@@ -46,7 +44,7 @@ final class BrandColors implements BaseModel
         return $obj;
     }
 
-    public function withPrimary(?string $primary): self
+    public function withPrimary(string $primary): self
     {
         $obj = clone $this;
         $obj->primary = $primary;
@@ -54,7 +52,7 @@ final class BrandColors implements BaseModel
         return $obj;
     }
 
-    public function withSecondary(?string $secondary): self
+    public function withSecondary(string $secondary): self
     {
         $obj = clone $this;
         $obj->secondary = $secondary;
