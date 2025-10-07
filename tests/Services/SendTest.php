@@ -7,18 +7,18 @@ use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Preference;
 use Courier\Rule;
-use Courier\Send\Content\ElementalContentSugar;
 use Courier\Send\MessageContext;
-use Courier\Send\SendSendMessageParams\Message;
-use Courier\Send\SendSendMessageParams\Message\Channel;
-use Courier\Send\SendSendMessageParams\Message\Channel\Metadata;
-use Courier\Send\SendSendMessageParams\Message\Channel\Timeouts;
-use Courier\Send\SendSendMessageParams\Message\Delay;
-use Courier\Send\SendSendMessageParams\Message\Expiry;
-use Courier\Send\SendSendMessageParams\Message\Preferences;
-use Courier\Send\SendSendMessageParams\Message\Provider;
-use Courier\Send\SendSendMessageParams\Message\Routing;
-use Courier\Send\SendSendMessageParams\Message\Timeout;
+use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendMessageParams\Message\Channel;
+use Courier\Send\SendMessageParams\Message\Channel\Metadata;
+use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
+use Courier\Send\SendMessageParams\Message\Content\ElementalContentSugar;
+use Courier\Send\SendMessageParams\Message\Delay;
+use Courier\Send\SendMessageParams\Message\Expiry;
+use Courier\Send\SendMessageParams\Message\Preferences;
+use Courier\Send\SendMessageParams\Message\Provider;
+use Courier\Send\SendMessageParams\Message\Routing;
+use Courier\Send\SendMessageParams\Message\Timeout;
 use Courier\Send\Utm;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
@@ -46,25 +46,25 @@ final class SendTest extends TestCase
     }
 
     #[Test]
-    public function testSendMessage(): void
+    public function testMessage(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->sendMessage(new Message);
+        $result = $this->client->send->message(new Message);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
 
     #[Test]
-    public function testSendMessageWithOptionalParams(): void
+    public function testMessageWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->sendMessage(
+        $result = $this->client->send->message(
             (new Message)
                 ->withBrandID('brand_id')
                 ->withChannels(
@@ -97,7 +97,7 @@ final class SendTest extends TestCase
                     Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
                 )
                 ->withMetadata(
-                    (new Courier\Send\SendSendMessageParams\Message\Metadata)
+                    (new Courier\Send\SendMessageParams\Message\Metadata)
                         ->withEvent('event')
                         ->withTags(['string'])
                         ->withTraceID('trace_id')
@@ -118,7 +118,7 @@ final class SendTest extends TestCase
                         'foo' => (new Provider)
                             ->withIf('if')
                             ->withMetadata(
-                                (new Courier\Send\SendSendMessageParams\Message\Provider\Metadata)
+                                (new Courier\Send\SendMessageParams\Message\Provider\Metadata)
                                     ->withUtm(
                                         (new Utm)
                                             ->withCampaign('campaign')

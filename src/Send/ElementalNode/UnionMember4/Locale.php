@@ -2,38 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\Templates\TemplateListResponse\Item;
+namespace Courier\Send\ElementalNode\UnionMember4;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageRouting;
 
 /**
- * The template's data containing it's routing configs.
- *
- * @phpstan-type data_alias = array{routing: MessageRouting}
+ * @phpstan-type locale_alias = array{content: string}
  */
-final class Data implements BaseModel
+final class Locale implements BaseModel
 {
-    /** @use SdkModel<data_alias> */
+    /** @use SdkModel<locale_alias> */
     use SdkModel;
 
     #[Api]
-    public MessageRouting $routing;
+    public string $content;
 
     /**
-     * `new Data()` is missing required properties by the API.
+     * `new Locale()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Data::with(routing: ...)
+     * Locale::with(content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Data)->withRouting(...)
+     * (new Locale)->withContent(...)
      * ```
      */
     public function __construct()
@@ -46,19 +43,19 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(MessageRouting $routing): self
+    public static function with(string $content): self
     {
         $obj = new self;
 
-        $obj->routing = $routing;
+        $obj->content = $content;
 
         return $obj;
     }
 
-    public function withRouting(MessageRouting $routing): self
+    public function withContent(string $content): self
     {
         $obj = clone $this;
-        $obj->routing = $routing;
+        $obj->content = $content;
 
         return $obj;
     }

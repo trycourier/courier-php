@@ -7,7 +7,7 @@ namespace Courier\Notifications\NotificationListResponse;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Notifications\MessageRouting;
+use Courier\MessageRouting;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
 
 /**
