@@ -7,7 +7,7 @@ namespace Courier\Tenants\Templates\TemplateListResponse\Item;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\MessageRouting;
+use Courier\Notifications\MessageRouting;
 
 /**
  * The template's data containing it's routing configs.

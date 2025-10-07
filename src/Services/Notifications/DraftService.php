@@ -6,7 +6,7 @@ namespace Courier\Services\Notifications;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Notifications\NotificationContent;
+use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\DraftContract;
 
@@ -25,13 +25,13 @@ final class DraftService implements DraftContract
     public function retrieveContent(
         string $id,
         ?RequestOptions $requestOptions = null
-    ): NotificationContent {
+    ): NotificationGetContent {
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/draft/content', $id],
             options: $requestOptions,
-            convert: NotificationContent::class,
+            convert: NotificationGetContent::class,
         );
     }
 }

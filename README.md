@@ -5,7 +5,7 @@
 >
 > This library has not yet been exhaustively tested in production environments and may be missing some features you'd expect in a stable release. As we continue development, there may be breaking changes that require updates to your code.
 >
-> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/trycourier/courier-php/issues/new).
+> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/stainless-sdks/courier-php/issues/new).
 
 The Courier PHP library provides convenient access to the Courier REST API from any PHP 8.1.0+ application.
 
@@ -17,14 +17,12 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
 
-<!-- x-release-please-start-version -->
-
 ```json
 {
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@github.com:trycourier/courier-php.git"
+      "url": "git@github.com:stainless-sdks/courier-php.git"
     }
   ],
   "require": {
@@ -32,8 +30,6 @@ To use this package, install via Composer by adding the following to your applic
   }
 }
 ```
-
-<!-- x-release-please-end -->
 
 ## Usage
 
@@ -45,11 +41,11 @@ Parameters with a default value must be set by name.
 
 use Courier\Client;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->message(
+$response = $client->send->sendMessage(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
@@ -60,10 +56,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
+It is recommended to use the static `with` constructor `NestedFilterConfig::with(operator: "ENDS_WITH", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
+However, builders are also provided `(new NestedFilterConfig)->withOperator("ENDS_WITH")`.
 
 ### Handling errors
 
@@ -74,10 +70,10 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 use Courier\Bulk\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message;
 
 try {
-  $response = $client->send->message(
+  $response = $client->send->sendMessage(
     (new Message)
       ->withTo((new UserRecipient)->withUserID("your_user_id"))
       ->withData(["foo" => "bar"]),
@@ -123,13 +119,13 @@ You can use the `maxRetries` option to configure or disable this:
 use Courier\Client;
 use Courier\RequestOptions;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
-$result = $client->send->message(
+$result = $client->send->sendMessage(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
@@ -152,9 +148,9 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 
 use Courier\RequestOptions;
 use Courier\Bulk\UserRecipient;
-use Courier\Send\SendMessageParams\Message;
+use Courier\Send\SendSendMessageParams\Message;
 
-$response = $client->send->message(
+$response = $client->send->sendMessage(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
     ->withData(["foo" => "bar"]),
@@ -200,4 +196,4 @@ PHP 8.1.0 or higher.
 
 ## Contributing
 
-See [the contributing documentation](https://github.com/trycourier/courier-php/tree/main/CONTRIBUTING.md).
+See [the contributing documentation](https://github.com/stainless-sdks/courier-php/tree/main/CONTRIBUTING.md).

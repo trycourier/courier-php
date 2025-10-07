@@ -36,27 +36,17 @@ class Client extends BaseClient
     /**
      * @api
      */
-    public TenantsService $tenants;
-
-    /**
-     * @api
-     */
     public AudiencesService $audiences;
 
     /**
      * @api
      */
-    public BulkService $bulk;
-
-    /**
-     * @api
-     */
-    public UsersService $users;
-
-    /**
-     * @api
-     */
     public AuditEventsService $auditEvents;
+
+    /**
+     * @api
+     */
+    public AuthService $auth;
 
     /**
      * @api
@@ -71,6 +61,16 @@ class Client extends BaseClient
     /**
      * @api
      */
+    public BulkService $bulk;
+
+    /**
+     * @api
+     */
+    public InboundService $inbound;
+
+    /**
+     * @api
+     */
     public ListsService $lists;
 
     /**
@@ -81,22 +81,12 @@ class Client extends BaseClient
     /**
      * @api
      */
-    public NotificationsService $notifications;
-
-    /**
-     * @api
-     */
-    public AuthService $auth;
-
-    /**
-     * @api
-     */
-    public InboundService $inbound;
-
-    /**
-     * @api
-     */
     public RequestsService $requests;
+
+    /**
+     * @api
+     */
+    public NotificationsService $notifications;
 
     /**
      * @api
@@ -106,7 +96,17 @@ class Client extends BaseClient
     /**
      * @api
      */
+    public TenantsService $tenants;
+
+    /**
+     * @api
+     */
     public TranslationsService $translations;
+
+    /**
+     * @api
+     */
+    public UsersService $users;
 
     public function __construct(?string $apiKey = null, ?string $baseUrl = null)
     {
@@ -130,21 +130,21 @@ class Client extends BaseClient
         );
 
         $this->send = new SendService($this);
-        $this->tenants = new TenantsService($this);
         $this->audiences = new AudiencesService($this);
-        $this->bulk = new BulkService($this);
-        $this->users = new UsersService($this);
         $this->auditEvents = new AuditEventsService($this);
+        $this->auth = new AuthService($this);
         $this->automations = new AutomationsService($this);
         $this->brands = new BrandsService($this);
+        $this->bulk = new BulkService($this);
+        $this->inbound = new InboundService($this);
         $this->lists = new ListsService($this);
         $this->messages = new MessagesService($this);
-        $this->notifications = new NotificationsService($this);
-        $this->auth = new AuthService($this);
-        $this->inbound = new InboundService($this);
         $this->requests = new RequestsService($this);
+        $this->notifications = new NotificationsService($this);
         $this->profiles = new ProfilesService($this);
+        $this->tenants = new TenantsService($this);
         $this->translations = new TranslationsService($this);
+        $this->users = new UsersService($this);
     }
 
     /** @return array<string, string> */

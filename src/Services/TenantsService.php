@@ -25,20 +25,20 @@ final class TenantsService implements TenantsContract
     /**
      * @@api
      */
-    public TemplatesService $templates;
+    public DefaultPreferencesService $defaultPreferences;
 
     /**
      * @@api
      */
-    public DefaultPreferencesService $defaultPreferences;
+    public TemplatesService $templates;
 
     /**
      * @internal
      */
     public function __construct(private Client $client)
     {
-        $this->templates = new TemplatesService($client);
         $this->defaultPreferences = new DefaultPreferencesService($client);
+        $this->templates = new TemplatesService($client);
     }
 
     /**

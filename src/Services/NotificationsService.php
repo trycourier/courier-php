@@ -6,7 +6,7 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Notifications\NotificationContent;
+use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
@@ -21,20 +21,20 @@ final class NotificationsService implements NotificationsContract
     /**
      * @@api
      */
-    public ChecksService $checks;
+    public DraftService $draft;
 
     /**
      * @@api
      */
-    public DraftService $draft;
+    public ChecksService $checks;
 
     /**
      * @internal
      */
     public function __construct(private Client $client)
     {
-        $this->checks = new ChecksService($client);
         $this->draft = new DraftService($client);
+        $this->checks = new ChecksService($client);
     }
 
     /**
@@ -89,13 +89,13 @@ final class NotificationsService implements NotificationsContract
     public function retrieveContent(
         string $id,
         ?RequestOptions $requestOptions = null
-    ): NotificationContent {
+    ): NotificationGetContent {
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/content', $id],
             options: $requestOptions,
-            convert: NotificationContent::class,
+            convert: NotificationGetContent::class,
         );
     }
 }

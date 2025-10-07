@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts\Notifications;
 
 use Courier\Core\Exceptions\APIException;
-use Courier\Notifications\NotificationContent;
+use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
 
 interface DraftContract
@@ -18,5 +18,5 @@ interface DraftContract
     public function retrieveContent(
         string $id,
         ?RequestOptions $requestOptions = null
-    ): NotificationContent;
+    ): NotificationGetContent;
 }

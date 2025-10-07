@@ -7,9 +7,9 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\Send\SendMessageParams;
-use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageResponse;
+use Courier\Send\SendSendMessageParams;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageResponse;
 use Courier\ServiceContracts\SendContract;
 
 final class SendService implements SendContract
@@ -28,13 +28,13 @@ final class SendService implements SendContract
      *
      * @throws APIException
      */
-    public function message(
+    public function sendMessage(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse {
+    ): SendSendMessageResponse {
         $params = ['message' => $message];
 
-        return $this->messageRaw($params, $requestOptions);
+        return $this->sendMessageRaw($params, $requestOptions);
     }
 
     /**
@@ -44,11 +44,11 @@ final class SendService implements SendContract
      *
      * @throws APIException
      */
-    public function messageRaw(
+    public function sendMessageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse {
-        [$parsed, $options] = SendMessageParams::parseRequest(
+    ): SendSendMessageResponse {
+        [$parsed, $options] = SendSendMessageParams::parseRequest(
             $params,
             $requestOptions
         );
@@ -59,7 +59,7 @@ final class SendService implements SendContract
             path: 'send',
             body: (object) $parsed,
             options: $options,
-            convert: SendMessageResponse::class,
+            convert: SendSendMessageResponse::class,
         );
     }
 }

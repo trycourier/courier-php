@@ -2,12 +2,13 @@
 
 namespace Tests\Services\Lists;
 
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
 use Courier\Lists\Subscriptions\PutSubscriptionsRecipient;
 use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\Rule;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category\ChannelPreference;
+use Courier\Lists\Subscriptions\RecipientPreferences\Category\Rule;
+use Courier\Lists\Subscriptions\RecipientPreferences\Notification;
 use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -75,9 +76,7 @@ final class SubscriptionsTest extends TestCase
                         (new RecipientPreferences)
                             ->withCategories(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Category::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
                                                 ChannelPreference::with(
@@ -90,17 +89,22 @@ final class SubscriptionsTest extends TestCase
                             )
                             ->withNotifications(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Notification::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
-                                                ChannelPreference::with(
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPreference::with(
                                                     channel: ChannelClassification::DIRECT_MESSAGE
                                                 ),
                                             ],
                                         )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                                        ->withRules(
+                                            [
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule::with(
+                                                    until: 'until'
+                                                )
+                                                    ->withStart('start'),
+                                            ],
+                                        ),
                                 ],
                             ),
                     ),
@@ -140,9 +144,7 @@ final class SubscriptionsTest extends TestCase
                         (new RecipientPreferences)
                             ->withCategories(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Category::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
                                                 ChannelPreference::with(
@@ -155,17 +157,22 @@ final class SubscriptionsTest extends TestCase
                             )
                             ->withNotifications(
                                 [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
+                                    'foo' => Notification::with(status: PreferenceStatus::OPTED_IN)
                                         ->withChannelPreferences(
                                             [
-                                                ChannelPreference::with(
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\ChannelPreference::with(
                                                     channel: ChannelClassification::DIRECT_MESSAGE
                                                 ),
                                             ],
                                         )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                                        ->withRules(
+                                            [
+                                                Courier\Lists\Subscriptions\RecipientPreferences\Notification\Rule::with(
+                                                    until: 'until'
+                                                )
+                                                    ->withStart('start'),
+                                            ],
+                                        ),
                                 ],
                             ),
                     ),

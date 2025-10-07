@@ -6,8 +6,8 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageResponse;
+use Courier\Send\SendSendMessageParams\Message;
+use Courier\Send\SendSendMessageResponse;
 
 interface SendContract
 {
@@ -18,10 +18,10 @@ interface SendContract
      *
      * @throws APIException
      */
-    public function message(
+    public function sendMessage(
         $message,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse;
+    ): SendSendMessageResponse;
 
     /**
      * @api
@@ -30,8 +30,8 @@ interface SendContract
      *
      * @throws APIException
      */
-    public function messageRaw(
+    public function sendMessageRaw(
         array $params,
         ?RequestOptions $requestOptions = null
-    ): SendMessageResponse;
+    ): SendSendMessageResponse;
 }
