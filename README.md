@@ -44,7 +44,7 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\UserRecipient;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
@@ -73,7 +73,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 ```php
 <?php
 
-use Courier\UserRecipient;
+use Courier\Bulk\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
 use Courier\Send\SendMessageParams\Message;
 
@@ -123,8 +123,8 @@ You can use the `maxRetries` option to configure or disable this:
 <?php
 
 use Courier\Client;
-use Courier\UserRecipient;
 use Courier\RequestOptions;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 // Configure the default for all requests:
@@ -153,8 +153,8 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 ```php
 <?php
 
-use Courier\UserRecipient;
 use Courier\RequestOptions;
+use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 $response = $client->send->message(

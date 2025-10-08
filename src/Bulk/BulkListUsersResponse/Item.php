@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkListUsersResponse;
 
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
+use Courier\Bulk\UserRecipient;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\UserRecipient;
 
 /**
  * @phpstan-type item_alias = array{
