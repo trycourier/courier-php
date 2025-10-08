@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Audiences\Paging;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\NotificationListResponse\Result;
+use Courier\Paging;
 
 /**
  * @phpstan-type notification_list_response = array{

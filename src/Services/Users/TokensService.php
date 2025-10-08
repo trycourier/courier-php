@@ -18,7 +18,7 @@ use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
-use Courier\Users\Tokens\UserToken;
+use Courier\UserToken;
 
 use const Courier\Core\OMIT as omit;
 

@@ -11,7 +11,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
-use Courier\Users\Tokens\UserToken;
+use Courier\UserToken;
 
 use const Courier\Core\OMIT as omit;
 

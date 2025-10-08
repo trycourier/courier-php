@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants\DefaultPreferences\Items;
 
+use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;

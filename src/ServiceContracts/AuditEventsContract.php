@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\AuditEvents\AuditEvent;
+use Courier\AuditEvent;
 use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;

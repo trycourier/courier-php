@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\InboundBulkMessage\InboundBulkContentMessage;
+use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
 
 /**
  * An object containing the method's parameters.

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Audiences\Paging;
+use Courier\List;
+use Courier\Paging;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Concerns\SdkModel;

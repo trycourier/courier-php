@@ -7,7 +7,7 @@ namespace Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\Utm;
+use Courier\Utm;
 
 /**
  * @phpstan-type metadata_alias = array{utm?: Utm|null}

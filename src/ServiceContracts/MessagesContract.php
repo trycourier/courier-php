@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\MessageDetails;
 use Courier\Messages\MessageContentResponse;
-use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListResponse;

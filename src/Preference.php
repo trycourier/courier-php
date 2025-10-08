@@ -8,7 +8,6 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Preference\Source;
-use Courier\Users\Preferences\PreferenceStatus;
 
 /**
  * @phpstan-type preference_alias = array{

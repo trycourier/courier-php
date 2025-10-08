@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\Brands\Brand;
+use Courier\Brand;
 use Courier\Brands\BrandListResponse;
-use Courier\Brands\BrandSettings;
-use Courier\Brands\BrandSnippets;
+use Courier\BrandSettings;
+use Courier\BrandSnippets;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 

@@ -7,8 +7,8 @@ namespace Courier\Send\SendMessageParams\Message;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
-use Courier\Tenants\Templates\ElementalContent;
 
 /**
  * Describes content that will work for email, inbox, push, chat, or any channel id.

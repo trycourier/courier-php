@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
+use Courier\RecipientPreferences;
 use Courier\RequestOptions;
+use Courier\List;
 use Courier\Core\Exceptions\APIException;
-use Courier\Lists\List;
 use Courier\Lists\ListListResponse;
-use Courier\Lists\Subscriptions\RecipientPreferences;
 
 use const Courier\Core\OMIT as omit;
 

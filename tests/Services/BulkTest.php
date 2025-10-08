@@ -2,19 +2,19 @@
 
 namespace Tests\Services;
 
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Bulk\InboundBulkMessageUser;
-use Courier\Bulk\UserRecipient;
-use Courier\Bulk\UserRecipient\Preferences;
+use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
-use Courier\Lists\Subscriptions\RecipientPreferences;
+use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
+use Courier\InboundBulkMessageUser;
+use Courier\MessageContext;
+use Courier\NotificationPreferenceDetails;
 use Courier\Preference;
+use Courier\PreferenceStatus;
+use Courier\RecipientPreferences;
 use Courier\Rule;
-use Courier\Send\MessageContext;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
-use Courier\Users\Preferences\PreferenceStatus;
+use Courier\UserRecipient;
+use Courier\UserRecipient\Preferences;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

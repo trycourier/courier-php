@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\Services\Notifications;
 
+use Courier\BaseCheck;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Notifications\Checks\BaseCheck;
 use Courier\Notifications\Checks\CheckDeleteParams;
 use Courier\Notifications\Checks\CheckListParams;
 use Courier\Notifications\Checks\CheckListResponse;

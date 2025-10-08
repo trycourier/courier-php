@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
+use Courier\BrandSettings;
+use Courier\BrandSnippets;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;

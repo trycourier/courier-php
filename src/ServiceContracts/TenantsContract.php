@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\DefaultPreferences;
 use Courier\RequestOptions;
-use Courier\Tenants\DefaultPreferences;
-use Courier\Tenants\Tenant;
+use Courier\Tenant;
 use Courier\Tenants\TenantListResponse;
 use Courier\Tenants\TenantListUsersResponse;
 

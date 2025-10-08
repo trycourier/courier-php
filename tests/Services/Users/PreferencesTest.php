@@ -2,9 +2,9 @@
 
 namespace Tests\Services\Users;
 
+use Courier\ChannelClassification;
 use Courier\Client;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
-use Courier\Users\Preferences\PreferenceStatus;
+use Courier\PreferenceStatus;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;

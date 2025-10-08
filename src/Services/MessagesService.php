@@ -6,8 +6,8 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\MessageDetails;
 use Courier\Messages\MessageContentResponse;
-use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryParams;
 use Courier\Messages\MessageHistoryResponse;

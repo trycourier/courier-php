@@ -44,7 +44,7 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\Bulk\UserRecipient;
+use Courier\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
@@ -52,7 +52,6 @@ $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 $response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
     ->withData(["foo" => "bar"]),
 );
 
@@ -61,10 +60,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ElementalChannelNode::with(channel: "channel", ...)`
+It is recommended to use the static `with` constructor `BaseCheck::with(id: "id", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ElementalChannelNode)->withChannel("channel")`.
+However, builders are also provided `(new BaseCheck)->withID("id")`.
 
 ### Handling errors
 
@@ -73,7 +72,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 ```php
 <?php
 
-use Courier\Bulk\UserRecipient;
+use Courier\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
 use Courier\Send\SendMessageParams\Message;
 
@@ -81,7 +80,6 @@ try {
   $response = $client->send->message(
     (new Message)
       ->withTo((new UserRecipient)->withUserID("your_user_id"))
-      ->withTemplate("your_template")
       ->withData(["foo" => "bar"]),
   );
 } catch (APIConnectionException $e) {
@@ -123,8 +121,8 @@ You can use the `maxRetries` option to configure or disable this:
 <?php
 
 use Courier\Client;
+use Courier\UserRecipient;
 use Courier\RequestOptions;
-use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 // Configure the default for all requests:
@@ -134,7 +132,6 @@ $client = new Client(maxRetries: 0);
 $result = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
@@ -153,14 +150,13 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 ```php
 <?php
 
+use Courier\UserRecipient;
 use Courier\RequestOptions;
-use Courier\Bulk\UserRecipient;
 use Courier\Send\SendMessageParams\Message;
 
 $response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],

@@ -2,14 +2,14 @@
 
 namespace Tests\Services\Profiles;
 
+use Courier\RecipientPreferences;
 use Courier\Client;
+use Courier\NotificationPreferenceDetails;
+use Courier\PreferenceStatus;
 use Courier\ChannelPreference;
+use Courier\ChannelClassification;
 use Courier\Rule;
-use Courier\Lists\Subscriptions\RecipientPreferences;
-use Courier\Lists\Subscriptions\NotificationPreferenceDetails;
 use Courier\Profiles\Lists\ListSubscribeParams\List;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
-use Courier\Users\Preferences\PreferenceStatus;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;

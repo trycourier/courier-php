@@ -9,8 +9,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\TenantAssociation;
 use Courier\Tenants\TenantListUsersResponse\Type;
-use Courier\Users\Tenants\TenantAssociation;
 
 /**
  * @phpstan-type tenant_list_users_response = array{

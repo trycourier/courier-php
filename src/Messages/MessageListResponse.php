@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Audiences\Paging;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\MessageDetails;
+use Courier\Paging;
 
 /**
  * @phpstan-type message_list_response = array{

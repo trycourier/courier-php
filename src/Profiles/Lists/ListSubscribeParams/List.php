@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists\ListSubscribeParams;
 
+use Courier\RecipientPreferences;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Lists\Subscriptions\RecipientPreferences;
 
 /**
   * @phpstan-type list_alias = array{
