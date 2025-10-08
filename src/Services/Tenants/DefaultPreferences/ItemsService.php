@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Services\Tenants\DefaultPreferences;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\DefaultPreferences\ItemsContract;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Tenants\DefaultPreferences\Items\ItemDeleteParams;
 use Courier\Tenants\DefaultPreferences\Items\ItemUpdateParams;
 use Courier\Tenants\DefaultPreferences\Items\ItemUpdateParams\Status;

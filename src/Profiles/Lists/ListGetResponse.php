@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Audiences\Paging;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
 
 /**

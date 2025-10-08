@@ -10,8 +10,8 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Core\Conversion\MapOf;
-use Courier\Messages\MessageDetails\Reason;
-use Courier\Messages\MessageDetails\Status;
+use Courier\MessageDetails\Reason;
+use Courier\MessageDetails\Status;
 
 /**
  * @phpstan-type message_get_response = array{

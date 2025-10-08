@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
+use Courier\RecipientPreferences;
 use Courier\RequestOptions;
+use Courier\List;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Lists\ListUpdateParams;
 use Courier\Lists\ListListParams;
-use Courier\Lists\List;
 use Courier\Lists\ListListResponse;
-use Courier\Lists\Subscriptions\RecipientPreferences;
 use Courier\ServiceContracts\ListsContract;
 use Courier\Services\Lists\SubscriptionsService;
 

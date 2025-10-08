@@ -7,7 +7,7 @@ namespace Courier\Lists\Subscriptions\SubscriptionListResponse;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Lists\Subscriptions\RecipientPreferences;
+use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type item_alias = array{

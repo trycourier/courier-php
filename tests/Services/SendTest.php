@@ -2,13 +2,14 @@
 
 namespace Tests\Services;
 
-use Courier\Bulk\UserRecipient;
+use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\ElementalContentSugar;
+use Courier\MessageContext;
 use Courier\Preference;
+use Courier\PreferenceStatus;
 use Courier\Rule;
-use Courier\Send\MessageContext;
 use Courier\Send\SendMessageParams\Message;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
@@ -19,9 +20,8 @@ use Courier\Send\SendMessageParams\Message\Preferences;
 use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
-use Courier\Send\Utm;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
-use Courier\Users\Preferences\PreferenceStatus;
+use Courier\UserRecipient;
+use Courier\Utm;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -133,7 +133,6 @@ final class SendTest extends TestCase
                     ],
                 )
                 ->withRouting(Routing::with(channels: ['string'], method: 'all'))
-                ->withTemplate('template_id')
                 ->withTimeout(
                     (new Timeout)
                         ->withChannel(['foo' => 0])

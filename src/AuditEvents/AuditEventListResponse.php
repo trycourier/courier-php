@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\AuditEvents;
 
-use Courier\Audiences\Paging;
+use Courier\AuditEvent;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\Paging;
 
 /**
  * @phpstan-type audit_event_list_response = array{

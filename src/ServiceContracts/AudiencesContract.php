@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\Audiences\Audience;
+use Courier\Audience;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter;
 use Courier\Core\Exceptions\APIException;
+use Courier\Filter;
 use Courier\RequestOptions;
 
 use const Courier\Core\OMIT as omit;

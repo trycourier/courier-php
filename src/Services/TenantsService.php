@@ -6,12 +6,12 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\DefaultPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
 use Courier\Services\Tenants\DefaultPreferencesService;
 use Courier\Services\Tenants\TemplatesService;
-use Courier\Tenants\DefaultPreferences;
-use Courier\Tenants\Tenant;
+use Courier\Tenant;
 use Courier\Tenants\TenantListParams;
 use Courier\Tenants\TenantListResponse;
 use Courier\Tenants\TenantListUsersParams;

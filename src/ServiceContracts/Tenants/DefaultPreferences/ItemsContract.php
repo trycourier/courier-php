@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts\Tenants\DefaultPreferences;
 
+use Courier\ChannelClassification;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 use Courier\Tenants\DefaultPreferences\Items\ItemUpdateParams\Status;
 
 use const Courier\Core\OMIT as omit;

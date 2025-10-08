@@ -6,14 +6,14 @@ namespace Courier\Services\Lists;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Lists\Subscriptions\PutSubscriptionsRecipient;
-use Courier\Lists\Subscriptions\RecipientPreferences;
 use Courier\Lists\Subscriptions\SubscriptionAddParams;
 use Courier\Lists\Subscriptions\SubscriptionListParams;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
 use Courier\Lists\Subscriptions\SubscriptionSubscribeParams;
 use Courier\Lists\Subscriptions\SubscriptionSubscribeUserParams;
 use Courier\Lists\Subscriptions\SubscriptionUnsubscribeUserParams;
+use Courier\PutSubscriptionsRecipient;
+use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Lists\SubscriptionsContract;
 

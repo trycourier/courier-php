@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams;
 
-use Courier\Bulk\UserRecipient;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
-use Courier\Send\MessageContext;
+use Courier\MessageContext;
+use Courier\Recipient;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
@@ -19,8 +20,7 @@ use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
 use Courier\Send\SendMessageParams\Message\To;
-use Courier\Send\SendMessageParams\Message\To\ListRecipient;
-use Courier\Tenants\Templates\ElementalContent;
+use Courier\UserRecipient;
 
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
@@ -37,9 +37,8 @@ use Courier\Tenants\Templates\ElementalContent;
  *   preferences?: Preferences|null,
  *   providers?: array<string, Provider>|null,
  *   routing?: Routing|null,
- *   template?: string|null,
  *   timeout?: Timeout|null,
- *   to?: null|UserRecipient|ListRecipient|list<UserRecipient|\Courier\Send\Recipient\ListRecipient>,
+ *   to?: null|UserRecipient|list<Recipient>,
  * }
  */
 final class Message implements BaseModel
@@ -93,22 +92,16 @@ final class Message implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?Routing $routing;
 
-    /**
-     * The id of the template you want to send.
-     */
-    #[Api(nullable: true, optional: true)]
-    public ?string $template;
-
     #[Api(nullable: true, optional: true)]
     public ?Timeout $timeout;
 
     /**
      * The recipient or a list of recipients of the message.
      *
-     * @var UserRecipient|ListRecipient|list<UserRecipient|\Courier\Send\Recipient\ListRecipient>|null $to
+     * @var UserRecipient|list<Recipient>|null $to
      */
     #[Api(union: To::class, nullable: true, optional: true)]
-    public UserRecipient|ListRecipient|array|null $to;
+    public UserRecipient|array|null $to;
 
     public function __construct()
     {
@@ -123,7 +116,7 @@ final class Message implements BaseModel
      * @param array<string, Channel>|null $channels
      * @param array<string, mixed>|null $data
      * @param array<string, Provider>|null $providers
-     * @param UserRecipient|ListRecipient|list<UserRecipient|\Courier\Send\Recipient\ListRecipient>|null $to
+     * @param UserRecipient|list<Recipient>|null $to
      */
     public static function with(
         ?string $brandID = null,
@@ -137,9 +130,8 @@ final class Message implements BaseModel
         ?Preferences $preferences = null,
         ?array $providers = null,
         ?Routing $routing = null,
-        ?string $template = null,
         ?Timeout $timeout = null,
-        UserRecipient|ListRecipient|array|null $to = null,
+        UserRecipient|array|null $to = null,
     ): self {
         $obj = new self;
 
@@ -154,7 +146,6 @@ final class Message implements BaseModel
         null !== $preferences && $obj->preferences = $preferences;
         null !== $providers && $obj->providers = $providers;
         null !== $routing && $obj->routing = $routing;
-        null !== $template && $obj->template = $template;
         null !== $timeout && $obj->timeout = $timeout;
         null !== $to && $obj->to = $to;
 
@@ -267,17 +258,6 @@ final class Message implements BaseModel
         return $obj;
     }
 
-    /**
-     * The id of the template you want to send.
-     */
-    public function withTemplate(?string $template): self
-    {
-        $obj = clone $this;
-        $obj->template = $template;
-
-        return $obj;
-    }
-
     public function withTimeout(?Timeout $timeout): self
     {
         $obj = clone $this;
@@ -289,9 +269,9 @@ final class Message implements BaseModel
     /**
      * The recipient or a list of recipients of the message.
      *
-     * @param UserRecipient|ListRecipient|list<UserRecipient|\Courier\Send\Recipient\ListRecipient>|null $to
+     * @param UserRecipient|list<Recipient>|null $to
      */
-    public function withTo(UserRecipient|ListRecipient|array|null $to): self
+    public function withTo(UserRecipient|array|null $to): self
     {
         $obj = clone $this;
         $obj->to = $to;

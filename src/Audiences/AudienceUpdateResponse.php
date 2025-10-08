@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\Audience;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;

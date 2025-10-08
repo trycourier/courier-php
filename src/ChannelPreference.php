@@ -7,7 +7,6 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
 
 /**
  * @phpstan-type channel_preference = array{

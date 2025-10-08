@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Services\Tenants;
 
+use Courier\BaseTemplateTenantAssociation;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\TemplatesContract;
-use Courier\Tenants\Templates\BaseTemplateTenantAssociation;
 use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplateRetrieveParams;

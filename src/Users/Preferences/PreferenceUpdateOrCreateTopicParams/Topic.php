@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 
+use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\DefaultPreferences\Items\ChannelClassification;
-use Courier\Users\Preferences\PreferenceStatus;
+use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type topic_alias = array{
