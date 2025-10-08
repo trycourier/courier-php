@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
+use Courier\Bulk\UserRecipient;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Core\Conversion\ListOf;
-use Courier\ListRecipient;
 use Courier\Send\Recipient;
-use Courier\UserRecipient;
+use Courier\Send\SendMessageParams\Message\To\ListRecipient;
 
 /**
  * The recipient or a list of recipients of the message.

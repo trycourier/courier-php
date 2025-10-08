@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\UserRecipient;
+namespace Courier\Bulk\UserRecipient;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
