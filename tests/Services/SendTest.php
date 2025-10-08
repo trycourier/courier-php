@@ -91,7 +91,7 @@ final class SendTest extends TestCase
                 )
                 ->withContent(ElementalContentSugar::with(body: 'body', title: 'title'))
                 ->withContext((new MessageContext)->withTenantID('tenant_id'))
-                ->withData(['name' => 'bar'])
+                ->withData(['foo' => 'bar'])
                 ->withDelay((new Delay)->withDuration(0)->withUntil('until'))
                 ->withExpiry(
                     Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')

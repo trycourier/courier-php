@@ -4,23 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Send\ElementalNode;
 
-use Courier\Alignment;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\ElementalNode\UnionMember4\Locale;
-use Courier\Send\ElementalNode\UnionMember4\Style;
 use Courier\Send\ElementalNode\UnionMember4\Type;
 
 /**
  * @phpstan-type union_member4 = array{
- *   actionID?: string|null,
- *   align?: value-of<Alignment>|null,
- *   backgroundColor?: string|null,
- *   content?: string,
- *   href?: string,
- *   locales?: array<string, Locale>|null,
- *   style?: value-of<Style>|null,
+ *   channels?: list<string>|null,
+ *   if?: string|null,
+ *   loop?: string|null,
+ *   ref?: string|null,
  *   type?: value-of<Type>,
  * }
  */
@@ -29,53 +23,18 @@ final class UnionMember4 implements BaseModel
     /** @use SdkModel<union_member4> */
     use SdkModel;
 
-    /**
-     * A unique id used to identify the action when it is executed.
-     */
-    #[Api('action_id', nullable: true, optional: true)]
-    public ?string $actionID;
+    /** @var list<string>|null $channels */
+    #[Api(list: 'string', nullable: true, optional: true)]
+    public ?array $channels;
 
-    /**
-     * The alignment of the action button. Defaults to "center".
-     *
-     * @var value-of<Alignment>|null $align
-     */
-    #[Api(enum: Alignment::class, nullable: true, optional: true)]
-    public ?string $align;
+    #[Api(nullable: true, optional: true)]
+    public ?string $if;
 
-    /**
-     * The background color of the action button.
-     */
-    #[Api('background_color', nullable: true, optional: true)]
-    public ?string $backgroundColor;
+    #[Api(nullable: true, optional: true)]
+    public ?string $loop;
 
-    /**
-     * The text content of the action shown to the user.
-     */
-    #[Api(optional: true)]
-    public ?string $content;
-
-    /**
-     * The target URL of the action.
-     */
-    #[Api(optional: true)]
-    public ?string $href;
-
-    /**
-     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
-     *
-     * @var array<string, Locale>|null $locales
-     */
-    #[Api(map: Locale::class, nullable: true, optional: true)]
-    public ?array $locales;
-
-    /**
-     * Defaults to `button`.
-     *
-     * @var value-of<Style>|null $style
-     */
-    #[Api(enum: Style::class, nullable: true, optional: true)]
-    public ?string $style;
+    #[Api(nullable: true, optional: true)]
+    public ?string $ref;
 
     /** @var value-of<Type>|null $type */
     #[Api(enum: Type::class, optional: true)]
@@ -91,114 +50,58 @@ final class UnionMember4 implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Alignment|value-of<Alignment>|null $align
-     * @param array<string, Locale>|null $locales
-     * @param Style|value-of<Style>|null $style
+     * @param list<string>|null $channels
      * @param Type|value-of<Type> $type
      */
     public static function with(
-        ?string $actionID = null,
-        Alignment|string|null $align = null,
-        ?string $backgroundColor = null,
-        ?string $content = null,
-        ?string $href = null,
-        ?array $locales = null,
-        Style|string|null $style = null,
+        ?array $channels = null,
+        ?string $if = null,
+        ?string $loop = null,
+        ?string $ref = null,
         Type|string|null $type = null,
     ): self {
         $obj = new self;
 
-        null !== $actionID && $obj->actionID = $actionID;
-        null !== $align && $obj['align'] = $align;
-        null !== $backgroundColor && $obj->backgroundColor = $backgroundColor;
-        null !== $content && $obj->content = $content;
-        null !== $href && $obj->href = $href;
-        null !== $locales && $obj->locales = $locales;
-        null !== $style && $obj['style'] = $style;
+        null !== $channels && $obj->channels = $channels;
+        null !== $if && $obj->if = $if;
+        null !== $loop && $obj->loop = $loop;
+        null !== $ref && $obj->ref = $ref;
         null !== $type && $obj['type'] = $type;
 
         return $obj;
     }
 
     /**
-     * A unique id used to identify the action when it is executed.
+     * @param list<string>|null $channels
      */
-    public function withActionID(?string $actionID): self
+    public function withChannels(?array $channels): self
     {
         $obj = clone $this;
-        $obj->actionID = $actionID;
+        $obj->channels = $channels;
 
         return $obj;
     }
 
-    /**
-     * The alignment of the action button. Defaults to "center".
-     *
-     * @param Alignment|value-of<Alignment>|null $align
-     */
-    public function withAlign(Alignment|string|null $align): self
+    public function withIf(?string $if): self
     {
         $obj = clone $this;
-        $obj['align'] = $align;
+        $obj->if = $if;
 
         return $obj;
     }
 
-    /**
-     * The background color of the action button.
-     */
-    public function withBackgroundColor(?string $backgroundColor): self
+    public function withLoop(?string $loop): self
     {
         $obj = clone $this;
-        $obj->backgroundColor = $backgroundColor;
+        $obj->loop = $loop;
 
         return $obj;
     }
 
-    /**
-     * The text content of the action shown to the user.
-     */
-    public function withContent(string $content): self
+    public function withRef(?string $ref): self
     {
         $obj = clone $this;
-        $obj->content = $content;
-
-        return $obj;
-    }
-
-    /**
-     * The target URL of the action.
-     */
-    public function withHref(string $href): self
-    {
-        $obj = clone $this;
-        $obj->href = $href;
-
-        return $obj;
-    }
-
-    /**
-     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
-     *
-     * @param array<string, Locale>|null $locales
-     */
-    public function withLocales(?array $locales): self
-    {
-        $obj = clone $this;
-        $obj->locales = $locales;
-
-        return $obj;
-    }
-
-    /**
-     * Defaults to `button`.
-     *
-     * @param Style|value-of<Style>|null $style
-     */
-    public function withStyle(Style|string|null $style): self
-    {
-        $obj = clone $this;
-        $obj['style'] = $style;
+        $obj->ref = $ref;
 
         return $obj;
     }
