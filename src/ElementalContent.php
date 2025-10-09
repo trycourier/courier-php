@@ -7,17 +7,10 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalNode\UnionMember0;
-use Courier\ElementalNode\UnionMember1;
-use Courier\ElementalNode\UnionMember2;
-use Courier\ElementalNode\UnionMember3;
-use Courier\ElementalNode\UnionMember4;
-use Courier\ElementalNode\UnionMember5;
-use Courier\ElementalNode\UnionMember6;
 
 /**
  * @phpstan-type elemental_content = array{
- *   elements: list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6>,
+ *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
  *   version: string,
  *   brand?: string|null,
  * }
@@ -28,7 +21,7 @@ final class ElementalContent implements BaseModel
     use SdkModel;
 
     /**
-     * @var list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6> $elements
+     * @var list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
     #[Api(list: ElementalNode::class)]
     public array $elements;
@@ -66,7 +59,7 @@ final class ElementalContent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6> $elements
+     * @param list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
     public static function with(
         array $elements,
@@ -84,7 +77,7 @@ final class ElementalContent implements BaseModel
     }
 
     /**
-     * @param list<UnionMember0|UnionMember1|UnionMember2|UnionMember3|UnionMember4|UnionMember5|UnionMember6> $elements
+     * @param list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
     public function withElements(array $elements): self
     {

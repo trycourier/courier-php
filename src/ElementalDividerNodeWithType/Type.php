@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\ElementalNode\UnionMember5;
+namespace Courier\ElementalDividerNodeWithType;
 
 enum Type: string
 {

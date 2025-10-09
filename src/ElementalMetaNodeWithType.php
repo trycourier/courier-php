@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Courier\ElementalNode;
+namespace Courier;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalNode\UnionMember6\Type;
+use Courier\ElementalMetaNodeWithType\Type;
 
 /**
- * @phpstan-type union_member6 = array{
+ * @phpstan-type elemental_meta_node_with_type = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -18,9 +18,9 @@ use Courier\ElementalNode\UnionMember6\Type;
  *   type?: value-of<Type>,
  * }
  */
-final class UnionMember6 implements BaseModel
+final class ElementalMetaNodeWithType implements BaseModel
 {
-    /** @use SdkModel<union_member6> */
+    /** @use SdkModel<elemental_meta_node_with_type> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
