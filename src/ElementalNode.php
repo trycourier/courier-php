@@ -7,13 +7,6 @@ namespace Courier;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\ElementalNode\UnionMember0;
-use Courier\ElementalNode\UnionMember1;
-use Courier\ElementalNode\UnionMember2;
-use Courier\ElementalNode\UnionMember3;
-use Courier\ElementalNode\UnionMember4;
-use Courier\ElementalNode\UnionMember5;
-use Courier\ElementalNode\UnionMember6;
 
 /**
  * The channel element allows a notification to be customized based on which channel it is sent through.
@@ -36,13 +29,13 @@ final class ElementalNode implements ConverterSource
     public static function variants(): array
     {
         return [
-            UnionMember0::class,
-            UnionMember1::class,
-            UnionMember2::class,
-            UnionMember3::class,
-            UnionMember4::class,
-            UnionMember5::class,
-            UnionMember6::class,
+            ElementalTextNodeWithType::class,
+            ElementalMetaNodeWithType::class,
+            ElementalChannelNodeWithType::class,
+            ElementalImageNodeWithType::class,
+            ElementalActionNodeWithType::class,
+            ElementalDividerNodeWithType::class,
+            ElementalQuoteNodeWithType::class,
         ];
     }
 }

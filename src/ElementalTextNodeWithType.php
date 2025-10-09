@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Courier\ElementalNode;
+namespace Courier;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalNode\UnionMember5\Type;
+use Courier\ElementalTextNodeWithType\Type;
 
 /**
- * @phpstan-type union_member5 = array{
+ * @phpstan-type elemental_text_node_with_type = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -18,9 +18,9 @@ use Courier\ElementalNode\UnionMember5\Type;
  *   type?: value-of<Type>,
  * }
  */
-final class UnionMember5 implements BaseModel
+final class ElementalTextNodeWithType implements BaseModel
 {
-    /** @use SdkModel<union_member5> */
+    /** @use SdkModel<elemental_text_node_with_type> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

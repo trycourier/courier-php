@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\ElementalNode\UnionMember3;
+namespace Courier\ElementalImageNodeWithType;
 
 enum Type: string
 {
