@@ -133,6 +133,7 @@ final class SendTest extends TestCase
                     ],
                 )
                 ->withRouting(Routing::with(channels: ['string'], method: 'all'))
+                ->withTemplate('template_id')
                 ->withTimeout(
                     (new Timeout)
                         ->withChannel(['foo' => 0])
