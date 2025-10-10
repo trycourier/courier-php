@@ -8,7 +8,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Lists\ListListResponse;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
-use Courier\UserList;
+use Courier\SubscriptionList;
 
 use const Courier\Core\OMIT as omit;
 
@@ -22,7 +22,7 @@ interface ListsContract
     public function retrieve(
         string $listID,
         ?RequestOptions $requestOptions = null
-    ): UserList;
+    ): SubscriptionList;
 
     /**
      * @api

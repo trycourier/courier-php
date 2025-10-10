@@ -43,6 +43,9 @@ final class UserRecipient implements BaseModel
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
+    /**
+     * The user's email address.
+     */
     #[Api(nullable: true, optional: true)]
     public ?string $email;
 
@@ -52,6 +55,9 @@ final class UserRecipient implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $locale;
 
+    /**
+     * The user's phone number.
+     */
     #[Api('phone_number', nullable: true, optional: true)]
     public ?string $phoneNumber;
 
@@ -59,11 +65,14 @@ final class UserRecipient implements BaseModel
     public ?Preferences $preferences;
 
     /**
-     * Tenant id. Will load brand, default preferences and base context data.
+     * The id of the tenant the user is associated with.
      */
     #[Api('tenant_id', nullable: true, optional: true)]
     public ?string $tenantID;
 
+    /**
+     * The user's unique identifier. Typically, this will match the user id of a user in your system.
+     */
     #[Api('user_id', nullable: true, optional: true)]
     public ?string $userID;
 
@@ -138,6 +147,9 @@ final class UserRecipient implements BaseModel
         return $obj;
     }
 
+    /**
+     * The user's email address.
+     */
     public function withEmail(?string $email): self
     {
         $obj = clone $this;
@@ -157,6 +169,9 @@ final class UserRecipient implements BaseModel
         return $obj;
     }
 
+    /**
+     * The user's phone number.
+     */
     public function withPhoneNumber(?string $phoneNumber): self
     {
         $obj = clone $this;
@@ -174,7 +189,7 @@ final class UserRecipient implements BaseModel
     }
 
     /**
-     * Tenant id. Will load brand, default preferences and base context data.
+     * The id of the tenant the user is associated with.
      */
     public function withTenantID(?string $tenantID): self
     {
@@ -184,6 +199,9 @@ final class UserRecipient implements BaseModel
         return $obj;
     }
 
+    /**
+     * The user's unique identifier. Typically, this will match the user id of a user in your system.
+     */
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
