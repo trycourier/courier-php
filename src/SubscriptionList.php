@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type user_list = array{
+ * @phpstan-type subscription_list = array{
  *   id: string, name: string, created?: string|null, updated?: string|null
  * }
  */
-final class UserList implements BaseModel
+final class SubscriptionList implements BaseModel
 {
-    /** @use SdkModel<user_list> */
+    /** @use SdkModel<subscription_list> */
     use SdkModel;
 
     #[Api]
@@ -31,17 +31,17 @@ final class UserList implements BaseModel
     public ?string $updated;
 
     /**
-     * `new UserList()` is missing required properties by the API.
+     * `new SubscriptionList()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * UserList::with(id: ..., name: ...)
+     * SubscriptionList::with(id: ..., name: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new UserList)->withID(...)->withName(...)
+     * (new SubscriptionList)->withID(...)->withName(...)
      * ```
      */
     public function __construct()

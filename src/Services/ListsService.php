@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ListsContract;
 use Courier\Services\Lists\SubscriptionsService;
-use Courier\UserList;
+use Courier\SubscriptionList;
 
 use const Courier\Core\OMIT as omit;
 
@@ -42,13 +42,13 @@ final class ListsService implements ListsContract
     public function retrieve(
         string $listID,
         ?RequestOptions $requestOptions = null
-    ): UserList {
+    ): SubscriptionList {
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'get',
             path: ['lists/%1$s', $listID],
             options: $requestOptions,
-            convert: UserList::class,
+            convert: SubscriptionList::class,
         );
     }
 

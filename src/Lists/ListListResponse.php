@@ -10,10 +10,12 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
-use Courier\UserList;
+use Courier\SubscriptionList;
 
 /**
- * @phpstan-type list_list_response = array{items: list<UserList>, paging: Paging}
+ * @phpstan-type list_list_response = array{
+ *   items: list<SubscriptionList>, paging: Paging
+ * }
  */
 final class ListListResponse implements BaseModel, ResponseConverter
 {
@@ -22,8 +24,8 @@ final class ListListResponse implements BaseModel, ResponseConverter
 
     use SdkResponse;
 
-    /** @var list<UserList> $items */
-    #[Api(list: UserList::class)]
+    /** @var list<SubscriptionList> $items */
+    #[Api(list: SubscriptionList::class)]
     public array $items;
 
     #[Api]
@@ -53,7 +55,7 @@ final class ListListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UserList> $items
+     * @param list<SubscriptionList> $items
      */
     public static function with(array $items, Paging $paging): self
     {
@@ -66,7 +68,7 @@ final class ListListResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param list<UserList> $items
+     * @param list<SubscriptionList> $items
      */
     public function withItems(array $items): self
     {
