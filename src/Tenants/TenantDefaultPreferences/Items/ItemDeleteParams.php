@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\DefaultPreferences\Items;
+namespace Courier\Tenants\TenantDefaultPreferences\Items;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
@@ -14,16 +14,16 @@ use Courier\Core\Contracts\BaseModel;
  * Example usage:
  * ```
  * $params = (new ItemDeleteParams); // set properties as needed
- * $client->tenants.defaultPreferences.items->delete(...$params->toArray());
+ * $client->tenants.tenantDefaultPreferences.items->delete(...$params->toArray());
  * ```
  * Remove Default Preferences For Topic.
  *
  * @method toArray()
  *   Returns the parameters as an associative array suitable for passing to the client method.
  *
- *   `$client->tenants.defaultPreferences.items->delete(...$params->toArray());`
+ *   `$client->tenants.tenantDefaultPreferences.items->delete(...$params->toArray());`
  *
- * @see Courier\Tenants\DefaultPreferences\Items->delete
+ * @see Courier\Tenants\TenantDefaultPreferences\Items->delete
  *
  * @phpstan-type item_delete_params = array{tenantID: string}
  */

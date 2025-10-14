@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Courier\Services\Tenants;
 
 use Courier\Client;
-use Courier\ServiceContracts\Tenants\DefaultPreferencesContract;
-use Courier\Services\Tenants\DefaultPreferences\ItemsService;
+use Courier\ServiceContracts\Tenants\TenantDefaultPreferencesContract;
+use Courier\Services\Tenants\TenantDefaultPreferences\ItemsService;
 
-final class DefaultPreferencesService implements DefaultPreferencesContract
+final class TenantDefaultPreferencesService implements TenantDefaultPreferencesContract
 {
     /**
      * @@api

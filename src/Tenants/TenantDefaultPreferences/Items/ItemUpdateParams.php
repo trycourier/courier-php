@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\DefaultPreferences\Items;
+namespace Courier\Tenants\TenantDefaultPreferences\Items;
 
 use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\DefaultPreferences\Items\ItemUpdateParams\Status;
+use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
 
 /**
  * An object containing the method's parameters.
  * Example usage:
  * ```
  * $params = (new ItemUpdateParams); // set properties as needed
- * $client->tenants.defaultPreferences.items->update(...$params->toArray());
+ * $client->tenants.tenantDefaultPreferences.items->update(...$params->toArray());
  * ```
  * Create or Replace Default Preferences For Topic.
  *
  * @method toArray()
  *   Returns the parameters as an associative array suitable for passing to the client method.
  *
- *   `$client->tenants.defaultPreferences.items->update(...$params->toArray());`
+ *   `$client->tenants.tenantDefaultPreferences.items->update(...$params->toArray());`
  *
- * @see Courier\Tenants\DefaultPreferences\Items->update
+ * @see Courier\Tenants\TenantDefaultPreferences\Items->update
  *
  * @phpstan-type item_update_params = array{
  *   tenantID: string,

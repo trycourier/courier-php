@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\DefaultPreferences\Items\ItemUpdateParams;
+namespace Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams;
 
 enum Status: string
 {
