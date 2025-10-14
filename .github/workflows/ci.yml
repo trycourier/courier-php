@@ -1,48 +1,52 @@
-name: ci
-
-on: [push]
+name: CI
+on:
+  push:
+    branches-ignore:
+      - 'generated'
+      - 'codegen/**'
+      - 'integrated/**'
+      - 'stl-preview-head/**'
+      - 'stl-preview-base/**'
+  pull_request:
+    branches-ignore:
+      - 'stl-preview-head/**'
+      - 'stl-preview-base/**'
 
 jobs:
-  compile:
-    runs-on: ubuntu-latest
+  lint:
+    timeout-minutes: 10
+    name: lint
+    runs-on: ${{ github.repository == 'stainless-sdks/courier-php' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Set up PHP
+        uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: "8.1"
+          php-version: '8.3'
 
-      - name: Install tools
-        run: |
-          composer install
+      - name: Run Bootstrap
+        run: ./scripts/bootstrap
 
-      - name: Build
-        run: |
-          composer build
-
-      - name: Analyze
-        run: |
-          composer analyze
-
-  unit-tests:
-    runs-on: ubuntu-latest
-
+      - name: Run lints
+        run: ./scripts/lint
+  test:
+    timeout-minutes: 10
+    name: test
+    runs-on: ${{ github.repository == 'stainless-sdks/courier-php' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Set up PHP
+        uses: 'shivammathur/setup-php@v2'
         with:
-          php-version: "8.1"
+          php-version: '8.3'
 
-      - name: Install tools
-        run: |
-          composer install
+      - name: Run bootstrap
+        run: ./scripts/bootstrap
 
-      - name: Run Tests
-        run: |
-          composer test
+      - name: Run tests
+        run: ./scripts/test
