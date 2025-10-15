@@ -7,9 +7,9 @@ namespace Courier\ServiceContracts\Profiles;
 use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
-use Courier\Profiles\Lists\ListSubscribeParams\List;
 use Courier\Profiles\Lists\ListSubscribeResponse;
 use Courier\RequestOptions;
+use Courier\SubscribeToListsRequestItem;
 
 use const Courier\Core\OMIT as omit;
 
@@ -54,7 +54,7 @@ interface ListsContract
     /**
      * @api
      *
-     * @param list<List> $lists
+     * @param list<SubscribeToListsRequestItem> $lists
      *
      * @throws APIException
      */
