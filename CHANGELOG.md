@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.4.0-alpha1 (2025-10-15)
+
+Full Changelog: [v2.4.0-alpha0...v2.4.0-alpha1](https://github.com/trycourier/courier-php/compare/v2.4.0-alpha0...v2.4.0-alpha1)
+
+### Features
+
+* Changes to spec, examples and scripts ([d4f9d75](https://github.com/trycourier/courier-php/commit/d4f9d75aedae092a48782028cfe5cd0562367b0a))
+* More PHP and attempted node automerge ([dc6ca25](https://github.com/trycourier/courier-php/commit/dc6ca25b7019784c6df3d20e979a34f6d1a2cd5c))
+
+
+### Chores
+
+* update SDK settings ([3a0b6ef](https://github.com/trycourier/courier-php/commit/3a0b6ef6561d1ead7d0fc329e3eb513fdfb6aa79))
+
 ## 2.4.0-alpha0 (2025-10-11)
 
 Full Changelog: [v0.0.1...v2.4.0-alpha0](https://github.com/trycourier/courier-php/compare/v0.0.1...v2.4.0-alpha0)
