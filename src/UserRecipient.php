@@ -28,7 +28,7 @@ final class UserRecipient implements BaseModel
     use SdkModel;
 
     /**
-     * Use `tenant_id` instead.
+     * Deprecated - Use `tenant_id` instead.
      */
     #[Api('account_id', nullable: true, optional: true)]
     public ?string $accountID;
@@ -115,7 +115,7 @@ final class UserRecipient implements BaseModel
     }
 
     /**
-     * Use `tenant_id` instead.
+     * Deprecated - Use `tenant_id` instead.
      */
     public function withAccountID(?string $accountID): self
     {
