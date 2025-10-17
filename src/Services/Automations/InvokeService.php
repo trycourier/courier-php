@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Services\Automations;
 
-use Courier\AutomationInvokeResponse;
+use Courier\Automations\AutomationInvokeResponse;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
 use Courier\Automations\Invoke\InvokeInvokeByTemplateParams;

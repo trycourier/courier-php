@@ -9,11 +9,11 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Lists\ListListParams;
 use Courier\Lists\ListListResponse;
 use Courier\Lists\ListUpdateParams;
+use Courier\Lists\SubscriptionList;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ListsContract;
 use Courier\Services\Lists\SubscriptionsService;
-use Courier\SubscriptionList;
 
 use const Courier\Core\OMIT as omit;
 

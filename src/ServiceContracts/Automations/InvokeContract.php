@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts\Automations;
 
-use Courier\AutomationInvokeResponse;
+use Courier\Automations\AutomationInvokeResponse;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
