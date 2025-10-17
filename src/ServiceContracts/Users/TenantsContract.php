@@ -6,7 +6,7 @@ namespace Courier\ServiceContracts\Users;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\TenantAssociation;
+use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantListResponse;
 
 use const Courier\Core\OMIT as omit;

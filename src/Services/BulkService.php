@@ -10,11 +10,11 @@ use Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkListUsersParams;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
+use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
+use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
+use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\InboundBulkMessageUser;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BulkContract;
 

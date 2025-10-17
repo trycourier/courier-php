@@ -11,9 +11,9 @@ use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListRetrieveParams;
 use Courier\Profiles\Lists\ListSubscribeParams;
 use Courier\Profiles\Lists\ListSubscribeResponse;
+use Courier\Profiles\SubscribeToListsRequestItem;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Profiles\ListsContract;
-use Courier\SubscribeToListsRequestItem;
 
 use const Courier\Core\OMIT as omit;
 

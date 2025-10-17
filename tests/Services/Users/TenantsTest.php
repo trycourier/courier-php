@@ -3,7 +3,7 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
-use Courier\TenantAssociation;
+use Courier\Tenants\TenantAssociation;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

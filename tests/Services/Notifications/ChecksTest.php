@@ -2,8 +2,8 @@
 
 namespace Tests\Services\Notifications;
 
-use Courier\BaseCheck;
 use Courier\Client;
+use Courier\Notifications\BaseCheck;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

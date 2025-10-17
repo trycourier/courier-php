@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts\Tenants;
 
-use Courier\BaseTemplateTenantAssociation;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\Tenants\BaseTemplateTenantAssociation;
 use Courier\Tenants\Templates\TemplateListResponse;
 
 use const Courier\Core\OMIT as omit;

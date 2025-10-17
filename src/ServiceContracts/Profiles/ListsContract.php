@@ -8,8 +8,8 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListSubscribeResponse;
+use Courier\Profiles\SubscribeToListsRequestItem;
 use Courier\RequestOptions;
-use Courier\SubscribeToListsRequestItem;
 
 use const Courier\Core\OMIT as omit;
 

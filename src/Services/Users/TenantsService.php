@@ -8,7 +8,7 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TenantsContract;
-use Courier\TenantAssociation;
+use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantAddMultipleParams;
 use Courier\Users\Tenants\TenantAddSingleParams;
 use Courier\Users\Tenants\TenantListParams;

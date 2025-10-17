@@ -61,10 +61,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `BaseCheck::with(id: "id", ...)`
+It is recommended to use the static `with` constructor `ChannelPreference::with(channel: "direct_message", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new BaseCheck)->withID("id")`.
+However, builders are also provided `(new ChannelPreference)->withChannel("direct_message")`.
 
 ### Handling errors
 

@@ -2,11 +2,11 @@
 
 namespace Tests\Services;
 
+use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
+use Courier\Bulk\InboundBulkMessageUser;
 use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\InboundBulkMessageUser;
 use Courier\MessageContext;
 use Courier\NotificationPreferenceDetails;
 use Courier\Preference;
