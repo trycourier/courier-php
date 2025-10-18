@@ -6,7 +6,7 @@ namespace Courier\Services\Notifications;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\NotificationGetContent;
+use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\DraftContract;
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\BaseCheck;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Notifications\BaseCheck;
 
 /**
  * An object containing the method's parameters.

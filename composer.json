@@ -28,7 +28,7 @@
     "sort-packages": true
   },
   "description": "Courier PHP SDK",
-  "name": "org-placeholder/courier",
+  "name": "trycourier/courier",
   "require": {
     "php": "^8.1",
     "php-http/discovery": "^1",

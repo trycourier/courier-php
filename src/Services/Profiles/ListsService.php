@@ -10,8 +10,8 @@ use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListRetrieveParams;
 use Courier\Profiles\Lists\ListSubscribeParams;
-use Courier\Profiles\Lists\ListSubscribeParams\List;
 use Courier\Profiles\Lists\ListSubscribeResponse;
+use Courier\Profiles\SubscribeToListsRequestItem;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Profiles\ListsContract;
 
@@ -95,7 +95,7 @@ final class ListsService implements ListsContract
      *
      * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
      *
-     * @param list<List> $lists
+     * @param list<SubscribeToListsRequestItem> $lists
      *
      * @throws APIException
      */

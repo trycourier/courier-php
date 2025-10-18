@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts\Notifications;
 
-use Courier\BaseCheck;
 use Courier\Core\Exceptions\APIException;
+use Courier\Notifications\BaseCheck;
 use Courier\Notifications\Checks\CheckListResponse;
 use Courier\Notifications\Checks\CheckUpdateResponse;
 use Courier\RequestOptions;

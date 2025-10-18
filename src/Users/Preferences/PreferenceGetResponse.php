@@ -10,7 +10,6 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
-use Courier\TopicPreference;
 
 /**
  * @phpstan-type preference_get_response = array{

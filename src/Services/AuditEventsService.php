@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
-use Courier\AuditEvent;
+use Courier\AuditEvents\AuditEvent;
 use Courier\AuditEvents\AuditEventListParams;
 use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Client;

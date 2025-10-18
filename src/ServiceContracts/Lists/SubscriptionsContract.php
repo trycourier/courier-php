@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts\Lists;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\Lists\PutSubscriptionsRecipient;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
-use Courier\PutSubscriptionsRecipient;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 

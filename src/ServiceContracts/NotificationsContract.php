@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
-use Courier\NotificationGetContent;
+use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
 

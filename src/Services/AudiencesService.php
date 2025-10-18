@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
-use Courier\Audience;
+use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersParams;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
+use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Filter;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
 

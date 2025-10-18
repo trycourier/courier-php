@@ -10,9 +10,9 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Users\Tokens\TokenGetResponse\Status;
-use Courier\UserToken\Device;
-use Courier\UserToken\ProviderKey;
-use Courier\UserToken\Tracking;
+use Courier\Users\Tokens\UserToken\Device;
+use Courier\Users\Tokens\UserToken\ProviderKey;
+use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
  * @phpstan-type token_get_response = array{

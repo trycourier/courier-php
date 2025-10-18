@@ -6,9 +6,9 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\Lists\ListListResponse;
+use Courier\Lists\SubscriptionList;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
-use Courier\SubscriptionList;
 
 use const Courier\Core\OMIT as omit;
 
