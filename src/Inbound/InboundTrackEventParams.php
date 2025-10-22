@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Inbound\InboundTrackEventParams\Type;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new InboundTrackEventParams); // set properties as needed
- * $client->inbound->trackEvent(...$params->toArray());
- * ```
  * Courier Track Event.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->inbound->trackEvent(...$params->toArray());`
  *
  * @see Courier\Inbound->trackEvent
  *

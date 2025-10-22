@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BrandUpdateParams); // set properties as needed
- * $client->brands->update(...$params->toArray());
- * ```
  * Replace an existing brand with the supplied values.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->brands->update(...$params->toArray());`
  *
  * @see Courier\Brands->update
  *

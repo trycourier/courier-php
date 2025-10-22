@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TokenUpdateParams); // set properties as needed
- * $client->users.tokens->update(...$params->toArray());
- * ```
  * Apply a JSON Patch (RFC 6902) to the specified token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tokens->update(...$params->toArray());`
  *
  * @see Courier\Users\Tokens->update
  *

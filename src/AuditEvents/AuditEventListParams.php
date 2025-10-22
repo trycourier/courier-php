@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AuditEventListParams); // set properties as needed
- * $client->auditEvents->list(...$params->toArray());
- * ```
  * Fetch the list of audit events.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->auditEvents->list(...$params->toArray());`
  *
  * @see Courier\AuditEvents->list
  *

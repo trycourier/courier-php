@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AuthIssueTokenParams); // set properties as needed
- * $client->auth->issueToken(...$params->toArray());
- * ```
  * Returns a new access token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->auth->issueToken(...$params->toArray());`
  *
  * @see Courier\Auth->issueToken
  *

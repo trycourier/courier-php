@@ -12,18 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ItemUpdateParams); // set properties as needed
- * $client->tenants.tenantDefaultPreferences.items->update(...$params->toArray());
- * ```
  * Create or Replace Default Preferences For Topic.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->tenants.tenantDefaultPreferences.items->update(...$params->toArray());`
  *
  * @see Courier\Tenants\TenantDefaultPreferences\Items->update
  *

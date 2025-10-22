@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ProfileCreateParams); // set properties as needed
- * $client->profiles->create(...$params->toArray());
- * ```
  * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles->create(...$params->toArray());`
  *
  * @see Courier\Profiles->create
  *

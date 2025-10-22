@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AudienceUpdateParams); // set properties as needed
- * $client->audiences->update(...$params->toArray());
- * ```
  * Creates or updates audience.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->audiences->update(...$params->toArray());`
  *
  * @see Courier\Audiences->update
  *

@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SubscriptionUnsubscribeUserParams); // set properties as needed
- * $client->lists.subscriptions->unsubscribeUser(...$params->toArray());
- * ```
  * Delete a subscription to a list by list ID and user ID.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists.subscriptions->unsubscribeUser(...$params->toArray());`
  *
  * @see Courier\Lists\Subscriptions->unsubscribeUser
  *

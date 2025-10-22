@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SendMessageParams); // set properties as needed
- * $client->send->message(...$params->toArray());
- * ```
  * Use the send API to send a message to one or more recipients.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->send->message(...$params->toArray());`
  *
  * @see Courier\Send->message
  *

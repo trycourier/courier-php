@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantUpdateParams); // set properties as needed
- * $client->tenants->update(...$params->toArray());
- * ```
  * Create or Replace a Tenant.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->tenants->update(...$params->toArray());`
  *
  * @see Courier\Tenants->update
  *

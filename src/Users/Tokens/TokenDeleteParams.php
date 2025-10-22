@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TokenDeleteParams); // set properties as needed
- * $client->users.tokens->delete(...$params->toArray());
- * ```
  * Delete User Token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tokens->delete(...$params->toArray());`
  *
  * @see Courier\Users\Tokens->delete
  *

@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ItemDeleteParams); // set properties as needed
- * $client->tenants.tenantDefaultPreferences.items->delete(...$params->toArray());
- * ```
  * Remove Default Preferences For Topic.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->tenants.tenantDefaultPreferences.items->delete(...$params->toArray());`
  *
  * @see Courier\Tenants\TenantDefaultPreferences\Items->delete
  *

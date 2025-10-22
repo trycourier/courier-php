@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\SubscribeToListsRequestItem;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ListSubscribeParams); // set properties as needed
- * $client->profiles.lists->subscribe(...$params->toArray());
- * ```
  * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles.lists->subscribe(...$params->toArray());`
  *
  * @see Courier\Profiles\Lists->subscribe
  *

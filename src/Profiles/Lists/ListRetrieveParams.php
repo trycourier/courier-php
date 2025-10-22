@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ListRetrieveParams); // set properties as needed
- * $client->profiles.lists->retrieve(...$params->toArray());
- * ```
  * Returns the subscribed lists for a specified user.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles.lists->retrieve(...$params->toArray());`
  *
  * @see Courier\Profiles\Lists->retrieve
  *
