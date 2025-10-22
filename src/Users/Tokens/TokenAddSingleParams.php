@@ -13,18 +13,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TokenAddSingleParams); // set properties as needed
- * $client->users.tokens->addSingle(...$params->toArray());
- * ```
  * Adds a single token to a user and overwrites a matching existing token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tokens->addSingle(...$params->toArray());`
  *
  * @see Courier\Users\Tokens->addSingle
  *

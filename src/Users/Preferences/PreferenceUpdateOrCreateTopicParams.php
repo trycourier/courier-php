@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new PreferenceUpdateOrCreateTopicParams); // set properties as needed
- * $client->users.preferences->updateOrCreateTopic(...$params->toArray());
- * ```
  * Update or Create user preferences for a specific subscription topic.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.preferences->updateOrCreateTopic(...$params->toArray());`
  *
  * @see Courier\Users\Preferences->updateOrCreateTopic
  *

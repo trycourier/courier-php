@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new InvokeInvokeByTemplateParams); // set properties as needed
- * $client->automations.invoke->invokeByTemplate(...$params->toArray());
- * ```
  * Invoke an automation run from an automation template.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->automations.invoke->invokeByTemplate(...$params->toArray());`
  *
  * @see Courier\Automations\Invoke->invokeByTemplate
  *

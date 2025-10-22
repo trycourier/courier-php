@@ -11,18 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new InvokeInvokeAdHocParams); // set properties as needed
- * $client->automations.invoke->invokeAdHoc(...$params->toArray());
- * ```
  * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->automations.invoke->invokeAdHoc(...$params->toArray());`
  *
  * @see Courier\Automations\Invoke->invokeAdHoc
  *

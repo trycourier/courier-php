@@ -10,18 +10,6 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new NotificationListParams); // set properties as needed
- * $client->notifications->list(...$params->toArray());
- * ```.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->notifications->list(...$params->toArray());`
- *
  * @see Courier\Notifications->list
  *
  * @phpstan-type notification_list_params = array{

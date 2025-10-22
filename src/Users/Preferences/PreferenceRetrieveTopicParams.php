@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new PreferenceRetrieveTopicParams); // set properties as needed
- * $client->users.preferences->retrieveTopic(...$params->toArray());
- * ```
  * Fetch user preferences for a specific subscription topic.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.preferences->retrieveTopic(...$params->toArray());`
  *
  * @see Courier\Users\Preferences->retrieveTopic
  *

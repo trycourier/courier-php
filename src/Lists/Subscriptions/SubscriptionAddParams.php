@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Lists\PutSubscriptionsRecipient;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SubscriptionAddParams); // set properties as needed
- * $client->lists.subscriptions->add(...$params->toArray());
- * ```
  * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists.subscriptions->add(...$params->toArray());`
  *
  * @see Courier\Lists\Subscriptions->add
  *

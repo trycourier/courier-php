@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TranslationRetrieveParams); // set properties as needed
- * $client->translations->retrieve(...$params->toArray());
- * ```
  * Get translations by locale.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->translations->retrieve(...$params->toArray());`
  *
  * @see Courier\Translations->retrieve
  *

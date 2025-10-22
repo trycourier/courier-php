@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\ProfileUpdateParams\Patch;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ProfileUpdateParams); // set properties as needed
- * $client->profiles->update(...$params->toArray());
- * ```
  * Update a profile.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles->update(...$params->toArray());`
  *
  * @see Courier\Profiles->update
  *

@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BulkAddUsersParams); // set properties as needed
- * $client->bulk->addUsers(...$params->toArray());
- * ```
  * Ingest user data into a Bulk Job.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->bulk->addUsers(...$params->toArray());`
  *
  * @see Courier\Bulk->addUsers
  *

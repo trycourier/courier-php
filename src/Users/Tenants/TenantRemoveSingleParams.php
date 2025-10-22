@@ -10,18 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantRemoveSingleParams); // set properties as needed
- * $client->users.tenants->removeSingle(...$params->toArray());
- * ```
  * Removes a user from the supplied tenant.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->removeSingle(...$params->toArray());`
  *
  * @see Courier\Users\Tenants->removeSingle
  *

@@ -11,18 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\ListOf;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new MessageListParams); // set properties as needed
- * $client->messages->list(...$params->toArray());
- * ```
  * Fetch the statuses of messages you've previously sent.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->messages->list(...$params->toArray());`
  *
  * @see Courier\Messages->list
  *

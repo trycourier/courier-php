@@ -10,22 +10,11 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantAddSingleParams); // set properties as needed
- * $client->users.tenants->addSingle(...$params->toArray());
- * ```
  * This endpoint is used to add a single tenant.
  *
  * A custom profile can also be supplied with the tenant.
  * This profile will be merged with the user's main profile
  * when sending to the user with that tenant.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->addSingle(...$params->toArray());`
  *
  * @see Courier\Users\Tenants->addSingle
  *
