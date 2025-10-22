@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.0.0-alpha1 (2025-10-22)
+
+Full Changelog: [v2.4.0-alpha0...v3.0.0-alpha1](https://github.com/trycourier/courier-php/compare/v2.4.0-alpha0...v3.0.0-alpha1)
+
+### ⚠ BREAKING CHANGES
+
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()`
+
+### Features
+
+* Changes to spec, examples and scripts ([d4f9d75](https://github.com/trycourier/courier-php/commit/d4f9d75aedae092a48782028cfe5cd0562367b0a))
+* More PHP and attempted node automerge ([dc6ca25](https://github.com/trycourier/courier-php/commit/dc6ca25b7019784c6df3d20e979a34f6d1a2cd5c))
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()` ([8a66bb3](https://github.com/trycourier/courier-php/commit/8a66bb37377e0b432231c93c60ef917de9e9c6f7))
+* Reordered spec ([440fd46](https://github.com/trycourier/courier-php/commit/440fd46250526d24a8969ad1b326106f65cd1370))
+
+
+### Bug Fixes
+
+* Dep Warning ([d8cb01f](https://github.com/trycourier/courier-php/commit/d8cb01fff918181b1734ba01cca0dc56ceb637a7))
+* inverted retry condition ([86a56d5](https://github.com/trycourier/courier-php/commit/86a56d5a012028292d76da25e7817e56b00bc564))
+* Updated paths for each model and go example updates ([207f0b3](https://github.com/trycourier/courier-php/commit/207f0b36cf0cc3c590a045aa491f72fcb0381fd0))
+
+
+### Chores
+
+* update SDK settings ([c6f046a](https://github.com/trycourier/courier-php/commit/c6f046a377330cc4dfa7a4a0c2dfb0997ac0d214))
+* update SDK settings ([3a0b6ef](https://github.com/trycourier/courier-php/commit/3a0b6ef6561d1ead7d0fc329e3eb513fdfb6aa79))
+
 ## 2.4.0-alpha0 (2025-10-11)
 
 Full Changelog: [v0.0.1...v2.4.0-alpha0](https://github.com/trycourier/courier-php/compare/v0.0.1...v2.4.0-alpha0)
