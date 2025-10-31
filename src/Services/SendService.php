@@ -22,7 +22,7 @@ final class SendService implements SendContract
     /**
      * @api
      *
-     * Use the send API to send a message to one or more recipients.
+     * API to send a message to one or more recipients.
      *
      * @param Message $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
