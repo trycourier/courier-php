@@ -53,8 +53,7 @@ final class ElementalChannelNode implements BaseModel
     public string $channel;
 
     /**
-     * Raw data to apply to the channel. If `elements` has not been
-     * specified, `raw` is `required`.
+     * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
      * @var array<string, mixed>|null $raw
      */
@@ -157,8 +156,7 @@ final class ElementalChannelNode implements BaseModel
     }
 
     /**
-     * Raw data to apply to the channel. If `elements` has not been
-     * specified, `raw` is `required`.
+     * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
      * @param array<string, mixed>|null $raw
      */
