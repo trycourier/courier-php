@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type auth_issue_token_response = array{token: string}
+ * @phpstan-type AuthIssueTokenResponseShape = array{token: string}
  */
 final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<auth_issue_token_response> */
+    /** @use SdkModel<AuthIssueTokenResponseShape> */
     use SdkModel;
 
     use SdkResponse;

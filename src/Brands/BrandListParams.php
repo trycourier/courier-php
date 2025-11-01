@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Brands->list
  *
- * @phpstan-type brand_list_params = array{cursor?: string|null}
+ * @phpstan-type BrandListParamsShape = array{cursor?: string|null}
  */
 final class BrandListParams implements BaseModel
 {
-    /** @use SdkModel<brand_list_params> */
+    /** @use SdkModel<BrandListParamsShape> */
     use SdkModel;
     use SdkParams;
 

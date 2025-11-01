@@ -15,13 +15,13 @@ use Courier\Lists\PutSubscriptionsRecipient;
  *
  * @see Courier\Lists\Subscriptions->subscribe
  *
- * @phpstan-type subscription_subscribe_params = array{
+ * @phpstan-type SubscriptionSubscribeParamsShape = array{
  *   recipients: list<PutSubscriptionsRecipient>
  * }
  */
 final class SubscriptionSubscribeParams implements BaseModel
 {
-    /** @use SdkModel<subscription_subscribe_params> */
+    /** @use SdkModel<SubscriptionSubscribeParamsShape> */
     use SdkModel;
     use SdkParams;
 

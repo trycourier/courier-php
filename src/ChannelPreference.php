@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type channel_preference = array{
+ * @phpstan-type ChannelPreferenceShape = array{
  *   channel: value-of<ChannelClassification>
  * }
  */
 final class ChannelPreference implements BaseModel
 {
-    /** @use SdkModel<channel_preference> */
+    /** @use SdkModel<ChannelPreferenceShape> */
     use SdkModel;
 
     /** @var value-of<ChannelClassification> $channel */

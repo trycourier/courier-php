@@ -15,13 +15,13 @@ use Courier\Profiles\SubscribeToListsRequestItem;
  *
  * @see Courier\Profiles\Lists->subscribe
  *
- * @phpstan-type list_subscribe_params = array{
+ * @phpstan-type ListSubscribeParamsShape = array{
  *   lists: list<SubscribeToListsRequestItem>
  * }
  */
 final class ListSubscribeParams implements BaseModel
 {
-    /** @use SdkModel<list_subscribe_params> */
+    /** @use SdkModel<ListSubscribeParamsShape> */
     use SdkModel;
     use SdkParams;
 

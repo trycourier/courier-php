@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Automations\Invoke->invokeAdHoc
  *
- * @phpstan-type invoke_invoke_ad_hoc_params = array{
+ * @phpstan-type InvokeInvokeAdHocParamsShape = array{
  *   automation: Automation,
  *   brand?: string|null,
  *   data?: array<string, mixed>|null,
@@ -26,7 +26,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class InvokeInvokeAdHocParams implements BaseModel
 {
-    /** @use SdkModel<invoke_invoke_ad_hoc_params> */
+    /** @use SdkModel<InvokeInvokeAdHocParamsShape> */
     use SdkModel;
     use SdkParams;
 

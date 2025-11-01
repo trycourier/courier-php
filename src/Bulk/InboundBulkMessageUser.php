@@ -11,7 +11,7 @@ use Courier\RecipientPreferences;
 use Courier\UserRecipient;
 
 /**
- * @phpstan-type inbound_bulk_message_user = array{
+ * @phpstan-type InboundBulkMessageUserShape = array{
  *   data?: mixed,
  *   preferences?: RecipientPreferences|null,
  *   profile?: mixed,
@@ -21,7 +21,7 @@ use Courier\UserRecipient;
  */
 final class InboundBulkMessageUser implements BaseModel
 {
-    /** @use SdkModel<inbound_bulk_message_user> */
+    /** @use SdkModel<InboundBulkMessageUserShape> */
     use SdkModel;
 
     #[Api(optional: true)]

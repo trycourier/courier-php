@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type paging_alias = array{more: bool, cursor?: string|null}
+ * @phpstan-type PagingShape = array{more: bool, cursor?: string|null}
  */
 final class Paging implements BaseModel
 {
-    /** @use SdkModel<paging_alias> */
+    /** @use SdkModel<PagingShape> */
     use SdkModel;
 
     #[Api]

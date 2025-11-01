@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * @phpstan-type result_alias = array{
+ * @phpstan-type ResultShape = array{
  *   id: string,
  *   created: string,
  *   name: string,
@@ -20,7 +20,7 @@ use Courier\RecipientPreferences;
  */
 final class Result implements BaseModel
 {
-    /** @use SdkModel<result_alias> */
+    /** @use SdkModel<ResultShape> */
     use SdkModel;
 
     #[Api]

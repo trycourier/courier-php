@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type delay_alias = array{duration?: int|null, until?: string|null}
+ * @phpstan-type DelayShape = array{duration?: int|null, until?: string|null}
  */
 final class Delay implements BaseModel
 {
-    /** @use SdkModel<delay_alias> */
+    /** @use SdkModel<DelayShape> */
     use SdkModel;
 
     /**

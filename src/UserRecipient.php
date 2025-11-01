@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\UserRecipient\Preferences;
 
 /**
- * @phpstan-type user_recipient = array{
+ * @phpstan-type UserRecipientShape = array{
  *   accountID?: string|null,
  *   context?: MessageContext|null,
  *   data?: array<string, mixed>|null,
@@ -24,7 +24,7 @@ use Courier\UserRecipient\Preferences;
  */
 final class UserRecipient implements BaseModel
 {
-    /** @use SdkModel<user_recipient> */
+    /** @use SdkModel<UserRecipientShape> */
     use SdkModel;
 
     /**

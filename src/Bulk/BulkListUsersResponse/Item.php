@@ -12,7 +12,7 @@ use Courier\RecipientPreferences;
 use Courier\UserRecipient;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type ItemShape = array{
  *   data?: mixed,
  *   preferences?: RecipientPreferences,
  *   profile?: mixed,
@@ -24,7 +24,7 @@ use Courier\UserRecipient;
  */
 final class Item implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<ItemShape> */
     use SdkModel;
 
     #[Api(optional: true)]

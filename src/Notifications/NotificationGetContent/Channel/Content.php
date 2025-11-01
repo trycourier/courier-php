@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type content_alias = array{subject?: string|null, title?: string|null}
+ * @phpstan-type ContentShape = array{subject?: string|null, title?: string|null}
  */
 final class Content implements BaseModel
 {
-    /** @use SdkModel<content_alias> */
+    /** @use SdkModel<ContentShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

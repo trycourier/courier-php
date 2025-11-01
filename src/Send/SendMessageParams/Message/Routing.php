@@ -14,13 +14,13 @@ use Courier\Send\SendMessageParams\Message\Routing\Method;
 /**
  * Customize which channels/providers Courier may deliver the message through.
  *
- * @phpstan-type routing_alias = array{
+ * @phpstan-type RoutingShape = array{
  *   channels: list<string|MessageRouting>, method: value-of<Method>
  * }
  */
 final class Routing implements BaseModel
 {
-    /** @use SdkModel<routing_alias> */
+    /** @use SdkModel<RoutingShape> */
     use SdkModel;
 
     /**

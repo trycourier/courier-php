@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type ItemShape = array{
  *   id: string,
  *   createdAt: string,
  *   publishedAt: string,
@@ -21,7 +21,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
  */
 final class Item implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<ItemShape> */
     use SdkModel;
 
     /**

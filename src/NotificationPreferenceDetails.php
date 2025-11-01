@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type notification_preference_details = array{
+ * @phpstan-type NotificationPreferenceDetailsShape = array{
  *   status: value-of<PreferenceStatus>,
  *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
@@ -17,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class NotificationPreferenceDetails implements BaseModel
 {
-    /** @use SdkModel<notification_preference_details> */
+    /** @use SdkModel<NotificationPreferenceDetailsShape> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */

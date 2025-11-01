@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Information about the device the token is associated with.
  *
- * @phpstan-type tracking_alias = array{
+ * @phpstan-type TrackingShape = array{
  *   ip?: string|null,
  *   lat?: string|null,
  *   long?: string|null,
@@ -20,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Tracking implements BaseModel
 {
-    /** @use SdkModel<tracking_alias> */
+    /** @use SdkModel<TrackingShape> */
     use SdkModel;
 
     /**

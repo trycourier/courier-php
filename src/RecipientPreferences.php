@@ -9,14 +9,14 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type recipient_preferences = array{
+ * @phpstan-type RecipientPreferencesShape = array{
  *   categories?: array<string, NotificationPreferenceDetails>|null,
  *   notifications?: array<string, NotificationPreferenceDetails>|null,
  * }
  */
 final class RecipientPreferences implements BaseModel
 {
-    /** @use SdkModel<recipient_preferences> */
+    /** @use SdkModel<RecipientPreferencesShape> */
     use SdkModel;
 
     /** @var array<string, NotificationPreferenceDetails>|null $categories */

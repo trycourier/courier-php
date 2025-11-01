@@ -12,11 +12,11 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Messages\MessageContentResponse\Result;
 
 /**
- * @phpstan-type message_content_response = array{results: list<Result>}
+ * @phpstan-type MessageContentResponseShape = array{results: list<Result>}
  */
 final class MessageContentResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<message_content_response> */
+    /** @use SdkModel<MessageContentResponseShape> */
     use SdkModel;
 
     use SdkResponse;

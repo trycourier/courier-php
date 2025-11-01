@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Lists\Subscriptions->list
  *
- * @phpstan-type subscription_list_params = array{cursor?: string|null}
+ * @phpstan-type SubscriptionListParamsShape = array{cursor?: string|null}
  */
 final class SubscriptionListParams implements BaseModel
 {
-    /** @use SdkModel<subscription_list_params> */
+    /** @use SdkModel<SubscriptionListParamsShape> */
     use SdkModel;
     use SdkParams;
 

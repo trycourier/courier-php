@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Translations->retrieve
  *
- * @phpstan-type translation_retrieve_params = array{domain: string}
+ * @phpstan-type TranslationRetrieveParamsShape = array{domain: string}
  */
 final class TranslationRetrieveParams implements BaseModel
 {
-    /** @use SdkModel<translation_retrieve_params> */
+    /** @use SdkModel<TranslationRetrieveParamsShape> */
     use SdkModel;
     use SdkParams;
 

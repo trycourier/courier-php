@@ -12,7 +12,7 @@ use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
 use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
 
 /**
- * @phpstan-type channel_alias = array{
+ * @phpstan-type ChannelShape = array{
  *   brandID?: string|null,
  *   if?: string|null,
  *   metadata?: Metadata|null,
@@ -24,7 +24,7 @@ use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
  */
 final class Channel implements BaseModel
 {
-    /** @use SdkModel<channel_alias> */
+    /** @use SdkModel<ChannelShape> */
     use SdkModel;
 
     /**

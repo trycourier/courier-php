@@ -14,11 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Auth->issueToken
  *
- * @phpstan-type auth_issue_token_params = array{expiresIn: string, scope: string}
+ * @phpstan-type AuthIssueTokenParamsShape = array{
+ *   expiresIn: string, scope: string
+ * }
  */
 final class AuthIssueTokenParams implements BaseModel
 {
-    /** @use SdkModel<auth_issue_token_params> */
+    /** @use SdkModel<AuthIssueTokenParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type send_message_response = array{requestID: string}
+ * @phpstan-type SendMessageResponseShape = array{requestID: string}
  */
 final class SendMessageResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<send_message_response> */
+    /** @use SdkModel<SendMessageResponseShape> */
     use SdkModel;
 
     use SdkResponse;

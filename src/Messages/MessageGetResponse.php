@@ -14,7 +14,7 @@ use Courier\Messages\MessageDetails\Reason;
 use Courier\Messages\MessageDetails\Status;
 
 /**
- * @phpstan-type message_get_response = array{
+ * @phpstan-type MessageGetResponseShape = array{
  *   id: string,
  *   clicked: int,
  *   delivered: int,
@@ -32,7 +32,7 @@ use Courier\Messages\MessageDetails\Status;
  */
 final class MessageGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<message_get_response> */
+    /** @use SdkModel<MessageGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;

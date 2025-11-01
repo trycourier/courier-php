@@ -12,7 +12,7 @@ use Courier\Notifications\NotificationGetContent\Block\Locale;
 use Courier\Notifications\NotificationGetContent\Block\Type;
 
 /**
- * @phpstan-type block_alias = array{
+ * @phpstan-type BlockShape = array{
  *   id: string,
  *   type: value-of<Type>,
  *   alias?: string|null,
@@ -25,7 +25,7 @@ use Courier\Notifications\NotificationGetContent\Block\Type;
  */
 final class Block implements BaseModel
 {
-    /** @use SdkModel<block_alias> */
+    /** @use SdkModel<BlockShape> */
     use SdkModel;
 
     #[Api]

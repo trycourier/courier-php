@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\PreferenceStatus;
 
 /**
- * @phpstan-type topic_alias = array{
+ * @phpstan-type TopicShape = array{
  *   status: value-of<PreferenceStatus>,
  *   customRouting?: list<value-of<ChannelClassification>>|null,
  *   hasCustomRouting?: bool|null,
@@ -19,7 +19,7 @@ use Courier\PreferenceStatus;
  */
 final class Topic implements BaseModel
 {
-    /** @use SdkModel<topic_alias> */
+    /** @use SdkModel<TopicShape> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */

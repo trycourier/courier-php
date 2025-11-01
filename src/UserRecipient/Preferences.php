@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Preference;
 
 /**
- * @phpstan-type preferences_alias = array{
+ * @phpstan-type PreferencesShape = array{
  *   notifications: array<string, Preference>,
  *   categories?: array<string, Preference>|null,
  *   templateID?: string|null,
@@ -18,7 +18,7 @@ use Courier\Preference;
  */
 final class Preferences implements BaseModel
 {
-    /** @use SdkModel<preferences_alias> */
+    /** @use SdkModel<PreferencesShape> */
     use SdkModel;
 
     /** @var array<string, Preference> $notifications */

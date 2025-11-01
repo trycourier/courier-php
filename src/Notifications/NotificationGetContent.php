@@ -13,7 +13,7 @@ use Courier\Notifications\NotificationGetContent\Block;
 use Courier\Notifications\NotificationGetContent\Channel;
 
 /**
- * @phpstan-type notification_get_content = array{
+ * @phpstan-type NotificationGetContentShape = array{
  *   blocks?: list<Block>|null,
  *   channels?: list<Channel>|null,
  *   checksum?: string|null,
@@ -21,7 +21,7 @@ use Courier\Notifications\NotificationGetContent\Channel;
  */
 final class NotificationGetContent implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<notification_get_content> */
+    /** @use SdkModel<NotificationGetContentShape> */
     use SdkModel;
 
     use SdkResponse;

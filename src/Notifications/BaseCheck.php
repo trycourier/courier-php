@@ -11,13 +11,13 @@ use Courier\Notifications\BaseCheck\Status;
 use Courier\Notifications\BaseCheck\Type;
 
 /**
- * @phpstan-type base_check = array{
+ * @phpstan-type BaseCheckShape = array{
  *   id: string, status: value-of<Status>, type: value-of<Type>
  * }
  */
 final class BaseCheck implements BaseModel
 {
-    /** @use SdkModel<base_check> */
+    /** @use SdkModel<BaseCheckShape> */
     use SdkModel;
 
     #[Api]

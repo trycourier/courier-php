@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type timeouts_alias = array{channel?: int|null, provider?: int|null}
+ * @phpstan-type TimeoutsShape = array{channel?: int|null, provider?: int|null}
  */
 final class Timeouts implements BaseModel
 {
-    /** @use SdkModel<timeouts_alias> */
+    /** @use SdkModel<TimeoutsShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

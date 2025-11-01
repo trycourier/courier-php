@@ -18,7 +18,7 @@ use Courier\Core\Contracts\BaseModel;
  * display an individual element on a per channel basis. See the
  * [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
  *
- * @phpstan-type elemental_channel_node = array{
+ * @phpstan-type ElementalChannelNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -29,7 +29,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class ElementalChannelNode implements BaseModel
 {
-    /** @use SdkModel<elemental_channel_node> */
+    /** @use SdkModel<ElementalChannelNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

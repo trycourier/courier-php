@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Tenants->removeSingle
  *
- * @phpstan-type tenant_remove_single_params = array{userID: string}
+ * @phpstan-type TenantRemoveSingleParamsShape = array{userID: string}
  */
 final class TenantRemoveSingleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_remove_single_params> */
+    /** @use SdkModel<TenantRemoveSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 

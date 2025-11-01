@@ -11,13 +11,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type subscription_list = array{
+ * @phpstan-type SubscriptionListShape = array{
  *   id: string, name: string, created?: string|null, updated?: string|null
  * }
  */
 final class SubscriptionList implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<subscription_list> */
+    /** @use SdkModel<SubscriptionListShape> */
     use SdkModel;
 
     use SdkResponse;

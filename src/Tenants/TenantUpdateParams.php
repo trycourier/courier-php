@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants->update
  *
- * @phpstan-type tenant_update_params = array{
+ * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
  *   brandID?: string|null,
  *   defaultPreferences?: DefaultPreferences|null,
@@ -25,7 +25,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class TenantUpdateParams implements BaseModel
 {
-    /** @use SdkModel<tenant_update_params> */
+    /** @use SdkModel<TenantUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

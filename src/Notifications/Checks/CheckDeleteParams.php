@@ -12,11 +12,11 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @see Courier\Notifications\Checks->delete
  *
- * @phpstan-type check_delete_params = array{id: string}
+ * @phpstan-type CheckDeleteParamsShape = array{id: string}
  */
 final class CheckDeleteParams implements BaseModel
 {
-    /** @use SdkModel<check_delete_params> */
+    /** @use SdkModel<CheckDeleteParamsShape> */
     use SdkModel;
     use SdkParams;
 

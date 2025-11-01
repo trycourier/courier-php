@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Profiles\Lists->retrieve
  *
- * @phpstan-type list_retrieve_params = array{cursor?: string|null}
+ * @phpstan-type ListRetrieveParamsShape = array{cursor?: string|null}
  */
 final class ListRetrieveParams implements BaseModel
 {
-    /** @use SdkModel<list_retrieve_params> */
+    /** @use SdkModel<ListRetrieveParamsShape> */
     use SdkModel;
     use SdkParams;
 

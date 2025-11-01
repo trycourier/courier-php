@@ -13,13 +13,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type audience_list_members_response = array{
+ * @phpstan-type AudienceListMembersResponseShape = array{
  *   items: list<Item>, paging: Paging
  * }
  */
 final class AudienceListMembersResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<audience_list_members_response> */
+    /** @use SdkModel<AudienceListMembersResponseShape> */
     use SdkModel;
 
     use SdkResponse;

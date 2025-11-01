@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\SubscriptionTopicNew\Status;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type ItemShape = array{
  *   status: value-of<Status>,
  *   customRouting?: list<value-of<ChannelClassification>>|null,
  *   hasCustomRouting?: bool|null,
@@ -20,7 +20,7 @@ use Courier\Tenants\SubscriptionTopicNew\Status;
  */
 final class Item implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<ItemShape> */
     use SdkModel;
 
     /** @var value-of<Status> $status */

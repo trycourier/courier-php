@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type preference_update_or_new_topic_response = array{message: string}
+ * @phpstan-type PreferenceUpdateOrNewTopicResponseShape = array{message: string}
  */
 final class PreferenceUpdateOrNewTopicResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<preference_update_or_new_topic_response> */
+    /** @use SdkModel<PreferenceUpdateOrNewTopicResponseShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -13,13 +13,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type bulk_list_users_response = array{
+ * @phpstan-type BulkListUsersResponseShape = array{
  *   items: list<Item>, paging: Paging
  * }
  */
 final class BulkListUsersResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<bulk_list_users_response> */
+    /** @use SdkModel<BulkListUsersResponseShape> */
     use SdkModel;
 
     use SdkResponse;

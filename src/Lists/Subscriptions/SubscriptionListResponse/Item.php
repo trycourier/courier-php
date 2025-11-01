@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type ItemShape = array{
  *   recipientID: string,
  *   created?: string|null,
  *   preferences?: RecipientPreferences|null,
@@ -18,7 +18,7 @@ use Courier\RecipientPreferences;
  */
 final class Item implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<ItemShape> */
     use SdkModel;
 
     #[Api('recipientId')]

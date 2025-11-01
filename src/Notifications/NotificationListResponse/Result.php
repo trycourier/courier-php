@@ -11,7 +11,7 @@ use Courier\MessageRouting;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
 
 /**
- * @phpstan-type result_alias = array{
+ * @phpstan-type ResultShape = array{
  *   id: string,
  *   createdAt: int,
  *   note: string,
@@ -24,7 +24,7 @@ use Courier\Notifications\NotificationListResponse\Result\Tags;
  */
 final class Result implements BaseModel
 {
-    /** @use SdkModel<result_alias> */
+    /** @use SdkModel<ResultShape> */
     use SdkModel;
 
     #[Api]

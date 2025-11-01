@@ -12,7 +12,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\TenantListResponse\Type;
 
 /**
- * @phpstan-type tenant_list_response = array{
+ * @phpstan-type TenantListResponseShape = array{
  *   hasMore: bool,
  *   items: list<Tenant>,
  *   type: value-of<Type>,
@@ -23,7 +23,7 @@ use Courier\Tenants\TenantListResponse\Type;
  */
 final class TenantListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<tenant_list_response> */
+    /** @use SdkModel<TenantListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

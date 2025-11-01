@@ -10,11 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\DefaultPreferences\Item;
 
 /**
- * @phpstan-type default_preferences = array{items?: list<Item>|null}
+ * @phpstan-type DefaultPreferencesShape = array{items?: list<Item>|null}
  */
 final class DefaultPreferences implements BaseModel
 {
-    /** @use SdkModel<default_preferences> */
+    /** @use SdkModel<DefaultPreferencesShape> */
     use SdkModel;
 
     /** @var list<Item>|null $items */

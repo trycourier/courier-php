@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type item_alias = array{
+ * @phpstan-type ItemShape = array{
  *   addedAt: string,
  *   audienceID: string,
  *   audienceVersion: int,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Item implements BaseModel
 {
-    /** @use SdkModel<item_alias> */
+    /** @use SdkModel<ItemShape> */
     use SdkModel;
 
     #[Api('added_at')]

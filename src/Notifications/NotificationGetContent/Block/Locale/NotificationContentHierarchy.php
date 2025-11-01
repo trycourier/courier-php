@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type notification_content_hierarchy = array{
+ * @phpstan-type NotificationContentHierarchyShape = array{
  *   children?: string|null, parent1?: string|null
  * }
  */
 final class NotificationContentHierarchy implements BaseModel
 {
-    /** @use SdkModel<notification_content_hierarchy> */
+    /** @use SdkModel<NotificationContentHierarchyShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

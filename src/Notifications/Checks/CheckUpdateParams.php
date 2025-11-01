@@ -13,11 +13,13 @@ use Courier\Notifications\BaseCheck;
 /**
  * @see Courier\Notifications\Checks->update
  *
- * @phpstan-type check_update_params = array{id: string, checks: list<BaseCheck>}
+ * @phpstan-type CheckUpdateParamsShape = array{
+ *   id: string, checks: list<BaseCheck>
+ * }
  */
 final class CheckUpdateParams implements BaseModel
 {
-    /** @use SdkModel<check_update_params> */
+    /** @use SdkModel<CheckUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

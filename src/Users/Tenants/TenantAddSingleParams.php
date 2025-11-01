@@ -18,13 +18,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Tenants->addSingle
  *
- * @phpstan-type tenant_add_single_params = array{
+ * @phpstan-type TenantAddSingleParamsShape = array{
  *   userID: string, profile?: array<string, mixed>|null
  * }
  */
 final class TenantAddSingleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_add_single_params> */
+    /** @use SdkModel<TenantAddSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 

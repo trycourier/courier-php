@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_settings = array{
+ * @phpstan-type BrandSettingsShape = array{
  *   colors?: BrandColors|null,
  *   email?: BrandSettingsEmail|null,
  *   inapp?: BrandSettingsInApp|null,
@@ -17,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandSettings implements BaseModel
 {
-    /** @use SdkModel<brand_settings> */
+    /** @use SdkModel<BrandSettingsShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

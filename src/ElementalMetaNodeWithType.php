@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalMetaNodeWithType\Type;
 
 /**
- * @phpstan-type elemental_meta_node_with_type = array{
+ * @phpstan-type ElementalMetaNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -20,7 +20,7 @@ use Courier\ElementalMetaNodeWithType\Type;
  */
 final class ElementalMetaNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_meta_node_with_type> */
+    /** @use SdkModel<ElementalMetaNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

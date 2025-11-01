@@ -10,13 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_cancel_step = array{
+ * @phpstan-type AutomationCancelStepShape = array{
  *   action: value-of<Action>, cancelationToken: string
  * }
  */
 final class AutomationCancelStep implements BaseModel
 {
-    /** @use SdkModel<automation_cancel_step> */
+    /** @use SdkModel<AutomationCancelStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

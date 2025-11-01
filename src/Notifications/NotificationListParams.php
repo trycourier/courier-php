@@ -12,13 +12,13 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @see Courier\Notifications->list
  *
- * @phpstan-type notification_list_params = array{
+ * @phpstan-type NotificationListParamsShape = array{
  *   cursor?: string|null, notes?: bool|null
  * }
  */
 final class NotificationListParams implements BaseModel
 {
-    /** @use SdkModel<notification_list_params> */
+    /** @use SdkModel<NotificationListParamsShape> */
     use SdkModel;
     use SdkParams;
 

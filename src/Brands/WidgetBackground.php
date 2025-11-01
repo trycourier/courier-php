@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type widget_background = array{
+ * @phpstan-type WidgetBackgroundShape = array{
  *   bottomColor?: string|null, topColor?: string|null
  * }
  */
 final class WidgetBackground implements BaseModel
 {
-    /** @use SdkModel<widget_background> */
+    /** @use SdkModel<WidgetBackgroundShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

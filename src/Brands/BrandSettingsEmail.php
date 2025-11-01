@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_settings_email = array{
+ * @phpstan-type BrandSettingsEmailShape = array{
  *   footer?: EmailFooter|null,
  *   head?: EmailHead|null,
  *   header?: EmailHeader|null,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandSettingsEmail implements BaseModel
 {
-    /** @use SdkModel<brand_settings_email> */
+    /** @use SdkModel<BrandSettingsEmailShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

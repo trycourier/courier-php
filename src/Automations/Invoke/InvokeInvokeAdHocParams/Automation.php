@@ -17,14 +17,14 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_alias = array{
+ * @phpstan-type AutomationShape = array{
  *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
  *   cancelationToken?: string|null,
  * }
  */
 final class Automation implements BaseModel
 {
-    /** @use SdkModel<automation_alias> */
+    /** @use SdkModel<AutomationShape> */
     use SdkModel;
 
     /**

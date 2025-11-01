@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
 
 /**
- * @phpstan-type inbound_bulk_template_message = array{
+ * @phpstan-type InboundBulkTemplateMessageShape = array{
  *   template: string,
  *   brand?: string|null,
  *   data?: array<string, mixed>|null,
@@ -21,7 +21,7 @@ use Courier\Core\Conversion\MapOf;
  */
 final class InboundBulkTemplateMessage implements BaseModel
 {
-    /** @use SdkModel<inbound_bulk_template_message> */
+    /** @use SdkModel<InboundBulkTemplateMessageShape> */
     use SdkModel;
 
     #[Api]

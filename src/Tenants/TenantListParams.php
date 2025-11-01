@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants->list
  *
- * @phpstan-type tenant_list_params = array{
+ * @phpstan-type TenantListParamsShape = array{
  *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
  * }
  */
 final class TenantListParams implements BaseModel
 {
-    /** @use SdkModel<tenant_list_params> */
+    /** @use SdkModel<TenantListParamsShape> */
     use SdkModel;
     use SdkParams;
 

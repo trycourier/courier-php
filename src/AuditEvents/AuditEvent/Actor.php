@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type actor_alias = array{id: string, email?: string|null}
+ * @phpstan-type ActorShape = array{id: string, email?: string|null}
  */
 final class Actor implements BaseModel
 {
-    /** @use SdkModel<actor_alias> */
+    /** @use SdkModel<ActorShape> */
     use SdkModel;
 
     #[Api]

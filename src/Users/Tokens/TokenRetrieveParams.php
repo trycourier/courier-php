@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Tokens->retrieve
  *
- * @phpstan-type token_retrieve_params = array{userID: string}
+ * @phpstan-type TokenRetrieveParamsShape = array{userID: string}
  */
 final class TokenRetrieveParams implements BaseModel
 {
-    /** @use SdkModel<token_retrieve_params> */
+    /** @use SdkModel<TokenRetrieveParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\PreferenceStatus;
 
 /**
- * @phpstan-type topic_preference = array{
+ * @phpstan-type TopicPreferenceShape = array{
  *   defaultStatus: value-of<PreferenceStatus>,
  *   status: value-of<PreferenceStatus>,
  *   topicID: string,
@@ -22,7 +22,7 @@ use Courier\PreferenceStatus;
  */
 final class TopicPreference implements BaseModel
 {
-    /** @use SdkModel<topic_preference> */
+    /** @use SdkModel<TopicPreferenceShape> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $defaultStatus */

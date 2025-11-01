@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\AuditEvents->list
  *
- * @phpstan-type audit_event_list_params = array{cursor?: string|null}
+ * @phpstan-type AuditEventListParamsShape = array{cursor?: string|null}
  */
 final class AuditEventListParams implements BaseModel
 {
-    /** @use SdkModel<audit_event_list_params> */
+    /** @use SdkModel<AuditEventListParamsShape> */
     use SdkModel;
     use SdkParams;
 

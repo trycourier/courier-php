@@ -12,11 +12,11 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\Lists\ListSubscribeResponse\Status;
 
 /**
- * @phpstan-type list_subscribe_response = array{status: value-of<Status>}
+ * @phpstan-type ListSubscribeResponseShape = array{status: value-of<Status>}
  */
 final class ListSubscribeResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<list_subscribe_response> */
+    /** @use SdkModel<ListSubscribeResponseShape> */
     use SdkModel;
 
     use SdkResponse;

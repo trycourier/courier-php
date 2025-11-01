@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Messages->history
  *
- * @phpstan-type message_history_params = array{type?: string|null}
+ * @phpstan-type MessageHistoryParamsShape = array{type?: string|null}
  */
 final class MessageHistoryParams implements BaseModel
 {
-    /** @use SdkModel<message_history_params> */
+    /** @use SdkModel<MessageHistoryParamsShape> */
     use SdkModel;
     use SdkParams;
 

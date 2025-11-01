@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type base_template_tenant_association = array{
+ * @phpstan-type BaseTemplateTenantAssociationShape = array{
  *   id: string,
  *   createdAt: string,
  *   publishedAt: string,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BaseTemplateTenantAssociation implements BaseModel
 {
-    /** @use SdkModel<base_template_tenant_association> */
+    /** @use SdkModel<BaseTemplateTenantAssociationShape> */
     use SdkModel;
 
     /**

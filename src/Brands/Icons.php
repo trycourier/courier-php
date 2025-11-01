@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type icons_alias = array{bell?: string|null, message?: string|null}
+ * @phpstan-type IconsShape = array{bell?: string|null, message?: string|null}
  */
 final class Icons implements BaseModel
 {
-    /** @use SdkModel<icons_alias> */
+    /** @use SdkModel<IconsShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

@@ -12,7 +12,7 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
 /**
  * Content details of the rendered message.
  *
- * @phpstan-type content_alias = array{
+ * @phpstan-type ContentShape = array{
  *   blocks: list<Block>,
  *   body: string,
  *   html: string,
@@ -23,7 +23,7 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
  */
 final class Content implements BaseModel
 {
-    /** @use SdkModel<content_alias> */
+    /** @use SdkModel<ContentShape> */
     use SdkModel;
 
     /**

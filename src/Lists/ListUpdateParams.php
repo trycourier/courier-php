@@ -15,13 +15,13 @@ use Courier\RecipientPreferences;
  *
  * @see Courier\Lists->update
  *
- * @phpstan-type list_update_params = array{
+ * @phpstan-type ListUpdateParamsShape = array{
  *   name: string, preferences?: RecipientPreferences|null
  * }
  */
 final class ListUpdateParams implements BaseModel
 {
-    /** @use SdkModel<list_update_params> */
+    /** @use SdkModel<ListUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

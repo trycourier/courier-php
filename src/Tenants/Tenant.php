@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type tenant_alias = array{
+ * @phpstan-type TenantShape = array{
  *   id: string,
  *   name: string,
  *   brandID?: string|null,
@@ -23,7 +23,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  */
 final class Tenant implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<tenant_alias> */
+    /** @use SdkModel<TenantShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Information about the device the token is associated with.
  *
- * @phpstan-type device_alias = array{
+ * @phpstan-type DeviceShape = array{
  *   adID?: string|null,
  *   appID?: string|null,
  *   deviceID?: string|null,
@@ -22,7 +22,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Device implements BaseModel
 {
-    /** @use SdkModel<device_alias> */
+    /** @use SdkModel<DeviceShape> */
     use SdkModel;
 
     /**
