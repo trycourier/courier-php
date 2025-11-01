@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type locale_alias = array{subject?: string|null, title?: string|null}
+ * @phpstan-type LocaleShape = array{subject?: string|null, title?: string|null}
  */
 final class Locale implements BaseModel
 {
-    /** @use SdkModel<locale_alias> */
+    /** @use SdkModel<LocaleShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

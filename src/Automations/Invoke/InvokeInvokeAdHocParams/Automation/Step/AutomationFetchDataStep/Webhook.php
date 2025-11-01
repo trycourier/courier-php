@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type webhook_alias = array{
+ * @phpstan-type WebhookShape = array{
  *   method: value-of<Method>,
  *   url: string,
  *   body?: string|null,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Webhook implements BaseModel
 {
-    /** @use SdkModel<webhook_alias> */
+    /** @use SdkModel<WebhookShape> */
     use SdkModel;
 
     /** @var value-of<Method> $method */

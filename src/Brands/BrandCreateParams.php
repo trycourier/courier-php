@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Brands->create
  *
- * @phpstan-type brand_create_params = array{
+ * @phpstan-type BrandCreateParamsShape = array{
  *   name: string,
  *   id?: string|null,
  *   settings?: BrandSettings|null,
@@ -23,7 +23,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandCreateParams implements BaseModel
 {
-    /** @use SdkModel<brand_create_params> */
+    /** @use SdkModel<BrandCreateParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -10,13 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type filter_alias = array{
+ * @phpstan-type FilterShape = array{
  *   operator: value-of<Operator>, path: string, value: string
  * }
  */
 final class Filter implements BaseModel
 {
-    /** @use SdkModel<filter_alias> */
+    /** @use SdkModel<FilterShape> */
     use SdkModel;
 
     /**

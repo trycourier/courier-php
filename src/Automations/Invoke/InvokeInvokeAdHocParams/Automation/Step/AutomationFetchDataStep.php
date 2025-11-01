@@ -12,7 +12,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_fetch_data_step = array{
+ * @phpstan-type AutomationFetchDataStepShape = array{
  *   action: value-of<Action>,
  *   webhook: Webhook,
  *   mergeStrategy?: value-of<MergeStrategy>|null,
@@ -20,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class AutomationFetchDataStep implements BaseModel
 {
-    /** @use SdkModel<automation_fetch_data_step> */
+    /** @use SdkModel<AutomationFetchDataStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

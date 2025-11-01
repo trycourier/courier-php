@@ -15,7 +15,7 @@ use Courier\Inbound\InboundTrackEventParams\Type;
  *
  * @see Courier\Inbound->trackEvent
  *
- * @phpstan-type inbound_track_event_params = array{
+ * @phpstan-type InboundTrackEventParamsShape = array{
  *   event: string,
  *   messageID: string,
  *   properties: array<string, mixed>,
@@ -25,7 +25,7 @@ use Courier\Inbound\InboundTrackEventParams\Type;
  */
 final class InboundTrackEventParams implements BaseModel
 {
-    /** @use SdkModel<inbound_track_event_params> */
+    /** @use SdkModel<InboundTrackEventParamsShape> */
     use SdkModel;
     use SdkParams;
 

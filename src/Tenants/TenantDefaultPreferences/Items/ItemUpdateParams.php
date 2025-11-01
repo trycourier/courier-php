@@ -16,7 +16,7 @@ use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
  *
  * @see Courier\Tenants\TenantDefaultPreferences\Items->update
  *
- * @phpstan-type item_update_params = array{
+ * @phpstan-type ItemUpdateParamsShape = array{
  *   tenantID: string,
  *   status: Status|value-of<Status>,
  *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
@@ -25,7 +25,7 @@ use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
  */
 final class ItemUpdateParams implements BaseModel
 {
-    /** @use SdkModel<item_update_params> */
+    /** @use SdkModel<ItemUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

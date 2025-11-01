@@ -12,11 +12,11 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\Lists\ListDeleteResponse\Status;
 
 /**
- * @phpstan-type list_delete_response = array{status: value-of<Status>}
+ * @phpstan-type ListDeleteResponseShape = array{status: value-of<Status>}
  */
 final class ListDeleteResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<list_delete_response> */
+    /** @use SdkModel<ListDeleteResponseShape> */
     use SdkModel;
 
     use SdkResponse;

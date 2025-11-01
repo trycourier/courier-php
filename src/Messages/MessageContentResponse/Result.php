@@ -10,13 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
 
 /**
- * @phpstan-type result_alias = array{
+ * @phpstan-type ResultShape = array{
  *   channel: string, channelID: string, content: Content
  * }
  */
 final class Result implements BaseModel
 {
-    /** @use SdkModel<result_alias> */
+    /** @use SdkModel<ResultShape> */
     use SdkModel;
 
     /**

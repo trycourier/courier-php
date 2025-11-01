@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Translations->update
  *
- * @phpstan-type translation_update_params = array{domain: string, body: string}
+ * @phpstan-type TranslationUpdateParamsShape = array{domain: string, body: string}
  */
 final class TranslationUpdateParams implements BaseModel
 {
-    /** @use SdkModel<translation_update_params> */
+    /** @use SdkModel<TranslationUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_send_list_step = array{
+ * @phpstan-type AutomationSendListStepShape = array{
  *   action: value-of<Action>,
  *   list: string,
  *   brand?: string|null,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class AutomationSendListStep implements BaseModel
 {
-    /** @use SdkModel<automation_send_list_step> */
+    /** @use SdkModel<AutomationSendListStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

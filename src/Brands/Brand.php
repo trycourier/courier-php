@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type brand_alias = array{
+ * @phpstan-type BrandShape = array{
  *   id: string,
  *   created: int,
  *   name: string,
@@ -24,7 +24,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  */
 final class Brand implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<brand_alias> */
+    /** @use SdkModel<BrandShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -15,7 +15,7 @@ use Courier\Users\Tokens\UserToken\ProviderKey;
 use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
- * @phpstan-type token_get_response = array{
+ * @phpstan-type TokenGetResponseShape = array{
  *   providerKey: value-of<ProviderKey>,
  *   token?: string|null,
  *   device?: Device|null,
@@ -28,7 +28,7 @@ use Courier\Users\Tokens\UserToken\Tracking;
  */
 final class TokenGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<token_get_response> */
+    /** @use SdkModel<TokenGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;

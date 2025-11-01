@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type logo_alias = array{href?: string|null, image?: string|null}
+ * @phpstan-type LogoShape = array{href?: string|null, image?: string|null}
  */
 final class Logo implements BaseModel
 {
-    /** @use SdkModel<logo_alias> */
+    /** @use SdkModel<LogoShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

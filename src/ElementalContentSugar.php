@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
  *
- * @phpstan-type elemental_content_sugar = array{body: string, title: string}
+ * @phpstan-type ElementalContentSugarShape = array{body: string, title: string}
  */
 final class ElementalContentSugar implements BaseModel
 {
-    /** @use SdkModel<elemental_content_sugar> */
+    /** @use SdkModel<ElementalContentSugarShape> */
     use SdkModel;
 
     /**

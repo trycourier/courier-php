@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalActionNodeWithType\Type;
 
 /**
- * @phpstan-type elemental_action_node_with_type = array{
+ * @phpstan-type ElementalActionNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -20,7 +20,7 @@ use Courier\ElementalActionNodeWithType\Type;
  */
 final class ElementalActionNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_action_node_with_type> */
+    /** @use SdkModel<ElementalActionNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

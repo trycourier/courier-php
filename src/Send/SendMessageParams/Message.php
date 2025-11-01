@@ -25,7 +25,7 @@ use Courier\UserRecipient;
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
- * @phpstan-type message_alias = array{
+ * @phpstan-type MessageShape = array{
  *   brandID?: string|null,
  *   channels?: array<string, Channel>|null,
  *   content?: ElementalContentSugar|ElementalContent,
@@ -44,7 +44,7 @@ use Courier\UserRecipient;
  */
 final class Message implements BaseModel
 {
-    /** @use SdkModel<message_alias> */
+    /** @use SdkModel<MessageShape> */
     use SdkModel;
 
     #[Api('brand_id', nullable: true, optional: true)]

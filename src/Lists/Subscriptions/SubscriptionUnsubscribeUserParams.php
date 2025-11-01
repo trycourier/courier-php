@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Lists\Subscriptions->unsubscribeUser
  *
- * @phpstan-type subscription_unsubscribe_user_params = array{listID: string}
+ * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{listID: string}
  */
 final class SubscriptionUnsubscribeUserParams implements BaseModel
 {
-    /** @use SdkModel<subscription_unsubscribe_user_params> */
+    /** @use SdkModel<SubscriptionUnsubscribeUserParamsShape> */
     use SdkModel;
     use SdkParams;
 

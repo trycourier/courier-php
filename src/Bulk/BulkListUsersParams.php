@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Bulk->listUsers
  *
- * @phpstan-type bulk_list_users_params = array{cursor?: string|null}
+ * @phpstan-type BulkListUsersParamsShape = array{cursor?: string|null}
  */
 final class BulkListUsersParams implements BaseModel
 {
-    /** @use SdkModel<bulk_list_users_params> */
+    /** @use SdkModel<BulkListUsersParamsShape> */
     use SdkModel;
     use SdkParams;
 

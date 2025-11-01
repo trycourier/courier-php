@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Lists->list
  *
- * @phpstan-type list_list_params = array{
+ * @phpstan-type ListListParamsShape = array{
  *   cursor?: string|null, pattern?: string|null
  * }
  */
 final class ListListParams implements BaseModel
 {
-    /** @use SdkModel<list_list_params> */
+    /** @use SdkModel<ListListParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Preferences->retrieve
  *
- * @phpstan-type preference_retrieve_params = array{tenantID?: string|null}
+ * @phpstan-type PreferenceRetrieveParamsShape = array{tenantID?: string|null}
  */
 final class PreferenceRetrieveParams implements BaseModel
 {
-    /** @use SdkModel<preference_retrieve_params> */
+    /** @use SdkModel<PreferenceRetrieveParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -17,11 +17,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Profiles->replace
  *
- * @phpstan-type profile_replace_params = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileReplaceParamsShape = array{profile: array<string, mixed>}
  */
 final class ProfileReplaceParams implements BaseModel
 {
-    /** @use SdkModel<profile_replace_params> */
+    /** @use SdkModel<ProfileReplaceParamsShape> */
     use SdkModel;
     use SdkParams;
 

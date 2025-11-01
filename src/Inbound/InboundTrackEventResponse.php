@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type inbound_track_event_response = array{messageID: string}
+ * @phpstan-type InboundTrackEventResponseShape = array{messageID: string}
  */
 final class InboundTrackEventResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<inbound_track_event_response> */
+    /** @use SdkModel<InboundTrackEventResponseShape> */
     use SdkModel;
 
     use SdkResponse;

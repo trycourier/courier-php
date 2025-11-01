@@ -17,7 +17,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  *
  * @see Courier\Users\Tokens->addSingle
  *
- * @phpstan-type token_add_single_params = array{
+ * @phpstan-type TokenAddSingleParamsShape = array{
  *   userID: string,
  *   providerKey: ProviderKey|value-of<ProviderKey>,
  *   token?: string|null,
@@ -29,7 +29,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  */
 final class TokenAddSingleParams implements BaseModel
 {
-    /** @use SdkModel<token_add_single_params> */
+    /** @use SdkModel<TokenAddSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 

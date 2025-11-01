@@ -12,13 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type list_list_response = array{
+ * @phpstan-type ListListResponseShape = array{
  *   items: list<SubscriptionList>, paging: Paging
  * }
  */
 final class ListListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<list_list_response> */
+    /** @use SdkModel<ListListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

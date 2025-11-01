@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
- * @phpstan-type metadata_alias = array{
+ * @phpstan-type MetadataShape = array{
  *   event?: string|null,
  *   tags?: list<string>|null,
  *   traceID?: string|null,
@@ -19,7 +19,7 @@ use Courier\Utm;
  */
 final class Metadata implements BaseModel
 {
-    /** @use SdkModel<metadata_alias> */
+    /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

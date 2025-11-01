@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Provider\Metadata;
 
 /**
- * @phpstan-type provider_alias = array{
+ * @phpstan-type ProviderShape = array{
  *   if?: string|null,
  *   metadata?: Metadata|null,
  *   override?: array<string, mixed>|null,
@@ -19,7 +19,7 @@ use Courier\Send\SendMessageParams\Message\Provider\Metadata;
  */
 final class Provider implements BaseModel
 {
-    /** @use SdkModel<provider_alias> */
+    /** @use SdkModel<ProviderShape> */
     use SdkModel;
 
     /**

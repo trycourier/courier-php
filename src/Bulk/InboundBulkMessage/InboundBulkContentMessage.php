@@ -12,7 +12,7 @@ use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
 
 /**
- * @phpstan-type inbound_bulk_content_message = array{
+ * @phpstan-type InboundBulkContentMessageShape = array{
  *   content: ElementalContentSugar|ElementalContent,
  *   brand?: string|null,
  *   data?: array<string, mixed>|null,
@@ -23,7 +23,7 @@ use Courier\ElementalContentSugar;
  */
 final class InboundBulkContentMessage implements BaseModel
 {
-    /** @use SdkModel<inbound_bulk_content_message> */
+    /** @use SdkModel<InboundBulkContentMessageShape> */
     use SdkModel;
 
     /**

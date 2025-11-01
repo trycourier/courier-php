@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation\Type;
 
 /**
- * @phpstan-type tenant_association = array{
+ * @phpstan-type TenantAssociationShape = array{
  *   tenantID: string,
  *   profile?: array<string, mixed>|null,
  *   type?: value-of<Type>|null,
@@ -19,7 +19,7 @@ use Courier\Tenants\TenantAssociation\Type;
  */
 final class TenantAssociation implements BaseModel
 {
-    /** @use SdkModel<tenant_association> */
+    /** @use SdkModel<TenantAssociationShape> */
     use SdkModel;
 
     /**

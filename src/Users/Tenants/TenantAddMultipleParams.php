@@ -19,13 +19,13 @@ use Courier\Tenants\TenantAssociation;
  *
  * @see Courier\Users\Tenants->addMultiple
  *
- * @phpstan-type tenant_add_multiple_params = array{
+ * @phpstan-type TenantAddMultipleParamsShape = array{
  *   tenants: list<TenantAssociation>
  * }
  */
 final class TenantAddMultipleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_add_multiple_params> */
+    /** @use SdkModel<TenantAddMultipleParamsShape> */
     use SdkModel;
     use SdkParams;
 

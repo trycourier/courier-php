@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type preferences_alias = array{subscriptionTopicID: string}
+ * @phpstan-type PreferencesShape = array{subscriptionTopicID: string}
  */
 final class Preferences implements BaseModel
 {
-    /** @use SdkModel<preferences_alias> */
+    /** @use SdkModel<PreferencesShape> */
     use SdkModel;
 
     /**

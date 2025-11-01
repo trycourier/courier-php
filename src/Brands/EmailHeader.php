@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type email_header = array{
+ * @phpstan-type EmailHeaderShape = array{
  *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
  * }
  */
 final class EmailHeader implements BaseModel
 {
-    /** @use SdkModel<email_header> */
+    /** @use SdkModel<EmailHeaderShape> */
     use SdkModel;
 
     #[Api]

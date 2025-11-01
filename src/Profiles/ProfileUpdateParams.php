@@ -15,11 +15,11 @@ use Courier\Profiles\ProfileUpdateParams\Patch;
  *
  * @see Courier\Profiles->update
  *
- * @phpstan-type profile_update_params = array{patch: list<Patch>}
+ * @phpstan-type ProfileUpdateParamsShape = array{patch: list<Patch>}
  */
 final class ProfileUpdateParams implements BaseModel
 {
-    /** @use SdkModel<profile_update_params> */
+    /** @use SdkModel<ProfileUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

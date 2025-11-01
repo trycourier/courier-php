@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Brands->update
  *
- * @phpstan-type brand_update_params = array{
+ * @phpstan-type BrandUpdateParamsShape = array{
  *   name: string, settings?: BrandSettings|null, snippets?: BrandSnippets|null
  * }
  */
 final class BrandUpdateParams implements BaseModel
 {
-    /** @use SdkModel<brand_update_params> */
+    /** @use SdkModel<BrandUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

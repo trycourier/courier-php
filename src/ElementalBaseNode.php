@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type elemental_base_node = array{
+ * @phpstan-type ElementalBaseNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -18,7 +18,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class ElementalBaseNode implements BaseModel
 {
-    /** @use SdkModel<elemental_base_node> */
+    /** @use SdkModel<ElementalBaseNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

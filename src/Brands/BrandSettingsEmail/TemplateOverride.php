@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type template_override = array{
+ * @phpstan-type TemplateOverrideShape = array{
  *   enabled: bool,
  *   backgroundColor?: string|null,
  *   blocksBackgroundColor?: string|null,
@@ -25,7 +25,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class TemplateOverride implements BaseModel
 {
-    /** @use SdkModel<template_override> */
+    /** @use SdkModel<TemplateOverrideShape> */
     use SdkModel;
 
     #[Api]

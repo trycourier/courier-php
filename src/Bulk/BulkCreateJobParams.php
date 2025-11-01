@@ -16,13 +16,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Bulk->createJob
  *
- * @phpstan-type bulk_create_job_params = array{
+ * @phpstan-type BulkCreateJobParamsShape = array{
  *   message: InboundBulkTemplateMessage|InboundBulkContentMessage
  * }
  */
 final class BulkCreateJobParams implements BaseModel
 {
-    /** @use SdkModel<bulk_create_job_params> */
+    /** @use SdkModel<BulkCreateJobParamsShape> */
     use SdkModel;
     use SdkParams;
 

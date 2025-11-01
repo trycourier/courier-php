@@ -12,13 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\RecipientPreferences;
 
 /**
- * @phpstan-type profile_get_response = array{
+ * @phpstan-type ProfileGetResponseShape = array{
  *   profile: array<string, mixed>, preferences?: RecipientPreferences|null
  * }
  */
 final class ProfileGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<profile_get_response> */
+    /** @use SdkModel<ProfileGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -10,13 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * @phpstan-type put_subscriptions_recipient = array{
+ * @phpstan-type PutSubscriptionsRecipientShape = array{
  *   recipientID: string, preferences?: RecipientPreferences|null
  * }
  */
 final class PutSubscriptionsRecipient implements BaseModel
 {
-    /** @use SdkModel<put_subscriptions_recipient> */
+    /** @use SdkModel<PutSubscriptionsRecipientShape> */
     use SdkModel;
 
     #[Api('recipientId')]

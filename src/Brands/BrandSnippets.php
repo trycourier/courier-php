@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_snippets = array{items?: list<BrandSnippet>|null}
+ * @phpstan-type BrandSnippetsShape = array{items?: list<BrandSnippet>|null}
  */
 final class BrandSnippets implements BaseModel
 {
-    /** @use SdkModel<brand_snippets> */
+    /** @use SdkModel<BrandSnippetsShape> */
     use SdkModel;
 
     /** @var list<BrandSnippet>|null $items */

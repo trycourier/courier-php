@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type patch_alias = array{op: string, path: string, value?: string|null}
+ * @phpstan-type PatchShape = array{op: string, path: string, value?: string|null}
  */
 final class Patch implements BaseModel
 {
-    /** @use SdkModel<patch_alias> */
+    /** @use SdkModel<PatchShape> */
     use SdkModel;
 
     /**

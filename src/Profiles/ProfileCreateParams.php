@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Profiles->create
  *
- * @phpstan-type profile_create_params = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileCreateParamsShape = array{profile: array<string, mixed>}
  */
 final class ProfileCreateParams implements BaseModel
 {
-    /** @use SdkModel<profile_create_params> */
+    /** @use SdkModel<ProfileCreateParamsShape> */
     use SdkModel;
     use SdkParams;
 

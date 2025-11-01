@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_snippet = array{name: string, value: string}
+ * @phpstan-type BrandSnippetShape = array{name: string, value: string}
  */
 final class BrandSnippet implements BaseModel
 {
-    /** @use SdkModel<brand_snippet> */
+    /** @use SdkModel<BrandSnippetShape> */
     use SdkModel;
 
     #[Api]

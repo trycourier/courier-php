@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalTextNodeWithType\Type;
 
 /**
- * @phpstan-type elemental_text_node_with_type = array{
+ * @phpstan-type ElementalTextNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -20,7 +20,7 @@ use Courier\ElementalTextNodeWithType\Type;
  */
 final class ElementalTextNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_text_node_with_type> */
+    /** @use SdkModel<ElementalTextNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

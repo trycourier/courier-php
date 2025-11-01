@@ -10,13 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * @phpstan-type subscribe_to_lists_request_item = array{
+ * @phpstan-type SubscribeToListsRequestItemShape = array{
  *   listID: string, preferences?: RecipientPreferences|null
  * }
  */
 final class SubscribeToListsRequestItem implements BaseModel
 {
-    /** @use SdkModel<subscribe_to_lists_request_item> */
+    /** @use SdkModel<SubscribeToListsRequestItemShape> */
     use SdkModel;
 
     #[Api('listId')]

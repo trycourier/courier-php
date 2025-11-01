@@ -12,13 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Core\Conversion\MapOf;
 
 /**
- * @phpstan-type message_history_response = array{
+ * @phpstan-type MessageHistoryResponseShape = array{
  *   results: list<array<string, mixed>>
  * }
  */
 final class MessageHistoryResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<message_history_response> */
+    /** @use SdkModel<MessageHistoryResponseShape> */
     use SdkModel;
 
     use SdkResponse;

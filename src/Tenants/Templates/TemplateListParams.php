@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants\Templates->list
  *
- * @phpstan-type template_list_params = array{
+ * @phpstan-type TemplateListParamsShape = array{
  *   cursor?: string|null, limit?: int|null
  * }
  */
 final class TemplateListParams implements BaseModel
 {
-    /** @use SdkModel<template_list_params> */
+    /** @use SdkModel<TemplateListParamsShape> */
     use SdkModel;
     use SdkParams;
 

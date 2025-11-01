@@ -12,11 +12,11 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @see Courier\Notifications\Checks->list
  *
- * @phpstan-type check_list_params = array{id: string}
+ * @phpstan-type CheckListParamsShape = array{id: string}
  */
 final class CheckListParams implements BaseModel
 {
-    /** @use SdkModel<check_list_params> */
+    /** @use SdkModel<CheckListParamsShape> */
     use SdkModel;
     use SdkParams;
 

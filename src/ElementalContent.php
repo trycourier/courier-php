@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type elemental_content = array{
+ * @phpstan-type ElementalContentShape = array{
  *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
  *   version: string,
  *   brand?: string|null,
@@ -17,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class ElementalContent implements BaseModel
 {
-    /** @use SdkModel<elemental_content> */
+    /** @use SdkModel<ElementalContentShape> */
     use SdkModel;
 
     /**

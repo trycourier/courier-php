@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_colors = array{primary?: string, secondary?: string}
+ * @phpstan-type BrandColorsShape = array{primary?: string, secondary?: string}
  */
 final class BrandColors implements BaseModel
 {
-    /** @use SdkModel<brand_colors> */
+    /** @use SdkModel<BrandColorsShape> */
     use SdkModel;
 
     #[Api(optional: true)]

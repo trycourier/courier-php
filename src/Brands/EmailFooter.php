@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type email_footer = array{
+ * @phpstan-type EmailFooterShape = array{
  *   content?: string|null, inheritDefault?: bool|null
  * }
  */
 final class EmailFooter implements BaseModel
 {
-    /** @use SdkModel<email_footer> */
+    /** @use SdkModel<EmailFooterShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

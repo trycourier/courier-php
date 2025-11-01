@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_send_step = array{
+ * @phpstan-type AutomationSendStepShape = array{
  *   action: value-of<Action>,
  *   brand?: string|null,
  *   data?: array<string, mixed>|null,
@@ -21,7 +21,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class AutomationSendStep implements BaseModel
 {
-    /** @use SdkModel<automation_send_step> */
+    /** @use SdkModel<AutomationSendStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

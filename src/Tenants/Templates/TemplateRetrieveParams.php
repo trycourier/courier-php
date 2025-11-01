@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants\Templates->retrieve
  *
- * @phpstan-type template_retrieve_params = array{tenantID: string}
+ * @phpstan-type TemplateRetrieveParamsShape = array{tenantID: string}
  */
 final class TemplateRetrieveParams implements BaseModel
 {
-    /** @use SdkModel<template_retrieve_params> */
+    /** @use SdkModel<TemplateRetrieveParamsShape> */
     use SdkModel;
     use SdkParams;
 

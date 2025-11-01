@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_invoke_response = array{runID: string}
+ * @phpstan-type AutomationInvokeResponseShape = array{runID: string}
  */
 final class AutomationInvokeResponse implements BaseModel
 {
-    /** @use SdkModel<automation_invoke_response> */
+    /** @use SdkModel<AutomationInvokeResponseShape> */
     use SdkModel;
 
     #[Api('runId')]

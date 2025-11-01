@@ -12,7 +12,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type job_alias = array{
+ * @phpstan-type JobShape = array{
  *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
  *   enqueued: int,
  *   failures: int,
@@ -22,7 +22,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Job implements BaseModel
 {
-    /** @use SdkModel<job_alias> */
+    /** @use SdkModel<JobShape> */
     use SdkModel;
 
     #[Api]

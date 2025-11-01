@@ -12,7 +12,7 @@ use Courier\Users\Tokens\UserToken\ProviderKey;
 use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
- * @phpstan-type user_token = array{
+ * @phpstan-type UserTokenShape = array{
  *   providerKey: value-of<ProviderKey>,
  *   token?: string|null,
  *   device?: Device|null,
@@ -23,7 +23,7 @@ use Courier\Users\Tokens\UserToken\Tracking;
  */
 final class UserToken implements BaseModel
 {
-    /** @use SdkModel<user_token> */
+    /** @use SdkModel<UserTokenShape> */
     use SdkModel;
 
     /** @var value-of<ProviderKey> $providerKey */

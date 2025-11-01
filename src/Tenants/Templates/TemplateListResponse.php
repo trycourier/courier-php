@@ -13,7 +13,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Item;
 use Courier\Tenants\Templates\TemplateListResponse\Type;
 
 /**
- * @phpstan-type template_list_response = array{
+ * @phpstan-type TemplateListResponseShape = array{
  *   hasMore: bool,
  *   type: value-of<Type>,
  *   url: string,
@@ -24,7 +24,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Type;
  */
 final class TemplateListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<template_list_response> */
+    /** @use SdkModel<TemplateListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

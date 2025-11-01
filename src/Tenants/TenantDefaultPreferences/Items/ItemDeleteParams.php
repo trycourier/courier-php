@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants\TenantDefaultPreferences\Items->delete
  *
- * @phpstan-type item_delete_params = array{tenantID: string}
+ * @phpstan-type ItemDeleteParamsShape = array{tenantID: string}
  */
 final class ItemDeleteParams implements BaseModel
 {
-    /** @use SdkModel<item_delete_params> */
+    /** @use SdkModel<ItemDeleteParamsShape> */
     use SdkModel;
     use SdkParams;
 

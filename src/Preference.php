@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Preference\Source;
 
 /**
- * @phpstan-type preference_alias = array{
+ * @phpstan-type PreferenceShape = array{
  *   status: value-of<PreferenceStatus>,
  *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
@@ -19,7 +19,7 @@ use Courier\Preference\Source;
  */
 final class Preference implements BaseModel
 {
-    /** @use SdkModel<preference_alias> */
+    /** @use SdkModel<PreferenceShape> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */

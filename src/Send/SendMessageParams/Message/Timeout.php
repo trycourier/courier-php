@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 
 /**
- * @phpstan-type timeout_alias = array{
+ * @phpstan-type TimeoutShape = array{
  *   channel?: array<string, int>|null,
  *   criteria?: value-of<Criteria>|null,
  *   escalation?: int|null,
@@ -20,7 +20,7 @@ use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
  */
 final class Timeout implements BaseModel
 {
-    /** @use SdkModel<timeout_alias> */
+    /** @use SdkModel<TimeoutShape> */
     use SdkModel;
 
     /** @var array<string, int>|null $channel */

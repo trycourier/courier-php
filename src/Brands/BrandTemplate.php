@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_template = array{
+ * @phpstan-type BrandTemplateShape = array{
  *   enabled: bool,
  *   backgroundColor?: string|null,
  *   blocksBackgroundColor?: string|null,
@@ -21,7 +21,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandTemplate implements BaseModel
 {
-    /** @use SdkModel<brand_template> */
+    /** @use SdkModel<BrandTemplateShape> */
     use SdkModel;
 
     #[Api]

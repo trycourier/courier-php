@@ -9,11 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type email_head = array{inheritDefault: bool, content?: string|null}
+ * @phpstan-type EmailHeadShape = array{
+ *   inheritDefault: bool, content?: string|null
+ * }
  */
 final class EmailHead implements BaseModel
 {
-    /** @use SdkModel<email_head> */
+    /** @use SdkModel<EmailHeadShape> */
     use SdkModel;
 
     #[Api]

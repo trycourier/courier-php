@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Audiences->list
  *
- * @phpstan-type audience_list_params = array{cursor?: string|null}
+ * @phpstan-type AudienceListParamsShape = array{cursor?: string|null}
  */
 final class AudienceListParams implements BaseModel
 {
-    /** @use SdkModel<audience_list_params> */
+    /** @use SdkModel<AudienceListParamsShape> */
     use SdkModel;
     use SdkParams;
 

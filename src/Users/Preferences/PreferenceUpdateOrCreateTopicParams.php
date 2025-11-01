@@ -15,13 +15,13 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  *
  * @see Courier\Users\Preferences->updateOrCreateTopic
  *
- * @phpstan-type preference_update_or_create_topic_params = array{
+ * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
  *   userID: string, topic: Topic, tenantID?: string|null
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
 {
-    /** @use SdkModel<preference_update_or_create_topic_params> */
+    /** @use SdkModel<PreferenceUpdateOrCreateTopicParamsShape> */
     use SdkModel;
     use SdkParams;
 

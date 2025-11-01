@@ -14,11 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Tokens->delete
  *
- * @phpstan-type token_delete_params = array{userID: string}
+ * @phpstan-type TokenDeleteParamsShape = array{userID: string}
  */
 final class TokenDeleteParams implements BaseModel
 {
-    /** @use SdkModel<token_delete_params> */
+    /** @use SdkModel<TokenDeleteParamsShape> */
     use SdkModel;
     use SdkParams;
 

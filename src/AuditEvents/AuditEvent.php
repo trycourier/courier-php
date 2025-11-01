@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type audit_event = array{
+ * @phpstan-type AuditEventShape = array{
  *   actor: Actor,
  *   auditEventID: string,
  *   source: string,
@@ -23,7 +23,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  */
 final class AuditEvent implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<audit_event> */
+    /** @use SdkModel<AuditEventShape> */
     use SdkModel;
 
     use SdkResponse;

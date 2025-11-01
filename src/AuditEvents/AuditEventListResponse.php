@@ -12,13 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type audit_event_list_response = array{
+ * @phpstan-type AuditEventListResponseShape = array{
  *   paging: Paging, results: list<AuditEvent>
  * }
  */
 final class AuditEventListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<audit_event_list_response> */
+    /** @use SdkModel<AuditEventListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

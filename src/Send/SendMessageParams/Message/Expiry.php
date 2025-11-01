@@ -9,13 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type expiry_alias = array{
+ * @phpstan-type ExpiryShape = array{
  *   expiresIn: string|int, expiresAt?: string|null
  * }
  */
 final class Expiry implements BaseModel
 {
-    /** @use SdkModel<expiry_alias> */
+    /** @use SdkModel<ExpiryShape> */
     use SdkModel;
 
     /**

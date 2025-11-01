@@ -11,7 +11,7 @@ use Courier\Notifications\NotificationGetContent\Channel\Content;
 use Courier\Notifications\NotificationGetContent\Channel\Locale;
 
 /**
- * @phpstan-type channel_alias = array{
+ * @phpstan-type ChannelShape = array{
  *   id: string,
  *   checksum?: string|null,
  *   content?: Content|null,
@@ -21,7 +21,7 @@ use Courier\Notifications\NotificationGetContent\Channel\Locale;
  */
 final class Channel implements BaseModel
 {
-    /** @use SdkModel<channel_alias> */
+    /** @use SdkModel<ChannelShape> */
     use SdkModel;
 
     #[Api]

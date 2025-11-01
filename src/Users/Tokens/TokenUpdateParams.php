@@ -15,11 +15,11 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
  *
  * @see Courier\Users\Tokens->update
  *
- * @phpstan-type token_update_params = array{userID: string, patch: list<Patch>}
+ * @phpstan-type TokenUpdateParamsShape = array{userID: string, patch: list<Patch>}
  */
 final class TokenUpdateParams implements BaseModel
 {
-    /** @use SdkModel<token_update_params> */
+    /** @use SdkModel<TokenUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

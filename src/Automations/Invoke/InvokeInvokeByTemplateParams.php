@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Automations\Invoke->invokeByTemplate
  *
- * @phpstan-type invoke_invoke_by_template_params = array{
+ * @phpstan-type InvokeInvokeByTemplateParamsShape = array{
  *   recipient: string|null,
  *   brand?: string|null,
  *   data?: array<string, mixed>|null,
@@ -24,7 +24,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class InvokeInvokeByTemplateParams implements BaseModel
 {
-    /** @use SdkModel<invoke_invoke_by_template_params> */
+    /** @use SdkModel<InvokeInvokeByTemplateParamsShape> */
     use SdkModel;
     use SdkParams;
 

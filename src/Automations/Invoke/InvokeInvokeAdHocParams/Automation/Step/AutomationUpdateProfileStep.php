@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_update_profile_step = array{
+ * @phpstan-type AutomationUpdateProfileStepShape = array{
  *   action: value-of<Action>,
  *   profile: array<string, mixed>,
  *   merge?: value-of<Merge>|null,
@@ -20,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class AutomationUpdateProfileStep implements BaseModel
 {
-    /** @use SdkModel<automation_update_profile_step> */
+    /** @use SdkModel<AutomationUpdateProfileStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

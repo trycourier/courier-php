@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Preferences->retrieveTopic
  *
- * @phpstan-type preference_retrieve_topic_params = array{
+ * @phpstan-type PreferenceRetrieveTopicParamsShape = array{
  *   userID: string, tenantID?: string|null
  * }
  */
 final class PreferenceRetrieveTopicParams implements BaseModel
 {
-    /** @use SdkModel<preference_retrieve_topic_params> */
+    /** @use SdkModel<PreferenceRetrieveTopicParamsShape> */
     use SdkModel;
     use SdkParams;
 

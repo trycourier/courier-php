@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type audience_alias = array{
+ * @phpstan-type AudienceShape = array{
  *   id: string,
  *   createdAt: string,
  *   description: string,
@@ -22,7 +22,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  */
 final class Audience implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<audience_alias> */
+    /** @use SdkModel<AudienceShape> */
     use SdkModel;
 
     use SdkResponse;

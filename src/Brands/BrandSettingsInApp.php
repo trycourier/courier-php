@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type brand_settings_in_app = array{
+ * @phpstan-type BrandSettingsInAppShape = array{
  *   colors: BrandColors,
  *   icons: Icons,
  *   widgetBackground: WidgetBackground,
@@ -22,7 +22,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandSettingsInApp implements BaseModel
 {
-    /** @use SdkModel<brand_settings_in_app> */
+    /** @use SdkModel<BrandSettingsInAppShape> */
     use SdkModel;
 
     #[Api]

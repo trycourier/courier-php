@@ -15,7 +15,7 @@ use Courier\Core\Conversion\ListOf;
  *
  * @see Courier\Messages->list
  *
- * @phpstan-type message_list_params = array{
+ * @phpstan-type MessageListParamsShape = array{
  *   archived?: bool|null,
  *   cursor?: string|null,
  *   enqueuedAfter?: string|null,
@@ -34,7 +34,7 @@ use Courier\Core\Conversion\ListOf;
  */
 final class MessageListParams implements BaseModel
 {
-    /** @use SdkModel<message_list_params> */
+    /** @use SdkModel<MessageListParamsShape> */
     use SdkModel;
     use SdkParams;
 

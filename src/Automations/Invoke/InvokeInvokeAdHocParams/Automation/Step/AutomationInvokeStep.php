@@ -10,13 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_invoke_step = array{
+ * @phpstan-type AutomationInvokeStepShape = array{
  *   action: value-of<Action>, template: string
  * }
  */
 final class AutomationInvokeStep implements BaseModel
 {
-    /** @use SdkModel<automation_invoke_step> */
+    /** @use SdkModel<AutomationInvokeStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

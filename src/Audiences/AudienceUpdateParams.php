@@ -14,13 +14,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Audiences->update
  *
- * @phpstan-type audience_update_params = array{
+ * @phpstan-type AudienceUpdateParamsShape = array{
  *   description?: string|null, filter?: Filter|null, name?: string|null
  * }
  */
 final class AudienceUpdateParams implements BaseModel
 {
-    /** @use SdkModel<audience_update_params> */
+    /** @use SdkModel<AudienceUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

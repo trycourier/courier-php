@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type utm_alias = array{
+ * @phpstan-type UtmShape = array{
  *   campaign?: string|null,
  *   content?: string|null,
  *   medium?: string|null,
@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class Utm implements BaseModel
 {
-    /** @use SdkModel<utm_alias> */
+    /** @use SdkModel<UtmShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

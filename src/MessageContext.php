@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type message_context = array{tenantID?: string|null}
+ * @phpstan-type MessageContextShape = array{tenantID?: string|null}
  */
 final class MessageContext implements BaseModel
 {
-    /** @use SdkModel<message_context> */
+    /** @use SdkModel<MessageContextShape> */
     use SdkModel;
 
     /**
