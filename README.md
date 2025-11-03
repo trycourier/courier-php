@@ -13,6 +13,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
+The REST API documentation can be found on [www.courier.com](https://www.courier.com/docs).
+
 ## Installation
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
