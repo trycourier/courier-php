@@ -54,7 +54,7 @@ $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 $response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
+    ->withTemplate("your_template_id")
     ->withData(["foo" => "bar"]),
 );
 
@@ -83,7 +83,7 @@ try {
   $response = $client->send->message(
     (new Message)
       ->withTo((new UserRecipient)->withUserID("your_user_id"))
-      ->withTemplate("your_template")
+      ->withTemplate("your_template_id")
       ->withData(["foo" => "bar"]),
   );
 } catch (APIConnectionException $e) {
@@ -136,7 +136,7 @@ $client = new Client(maxRetries: 0);
 $result = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
+    ->withTemplate("your_template_id")
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(maxRetries: 5),
 );
@@ -162,7 +162,7 @@ use Courier\Send\SendMessageParams\Message;
 $response = $client->send->message(
   (new Message)
     ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
+    ->withTemplate("your_template_id")
     ->withData(["foo" => "bar"]),
   requestOptions: RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
