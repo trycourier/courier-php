@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Courier\Services\Tenants\TenantDefaultPreferences;
+namespace Courier\Services\Tenants\Preferences;
 
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\ServiceContracts\Tenants\TenantDefaultPreferences\ItemsContract;
-use Courier\Tenants\TenantDefaultPreferences\Items\ItemDeleteParams;
-use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams;
-use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
+use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
+use Courier\Tenants\Preferences\Items\ItemDeleteParams;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 use const Courier\Core\OMIT as omit;
 

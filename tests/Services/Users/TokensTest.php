@@ -141,6 +141,7 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->addSingle(
             'token',
             userID: 'user_id',
+            token1: 'token',
             providerKey: 'firebase-fcm'
         );
 
@@ -157,6 +158,7 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->addSingle(
             'token',
             userID: 'user_id',
+            token1: 'token',
             providerKey: 'firebase-fcm'
         );
 

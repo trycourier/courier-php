@@ -19,8 +19,8 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  *
  * @phpstan-type TokenAddSingleParamsShape = array{
  *   userID: string,
+ *   token: string,
  *   providerKey: ProviderKey|value-of<ProviderKey>,
- *   token?: string|null,
  *   device?: Device|null,
  *   expiryDate?: string|bool|null,
  *   properties?: mixed,
@@ -36,15 +36,15 @@ final class TokenAddSingleParams implements BaseModel
     #[Api]
     public string $userID;
 
+    /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    #[Api]
+    public string $token;
+
     /** @var value-of<ProviderKey> $providerKey */
     #[Api('provider_key', enum: ProviderKey::class)]
     public string $providerKey;
-
-    /**
-     * Full body of the token. Must match token in URL.
-     */
-    #[Api(nullable: true, optional: true)]
-    public ?string $token;
 
     /**
      * Information about the device the token is associated with.
@@ -75,13 +75,16 @@ final class TokenAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenAddSingleParams::with(userID: ..., providerKey: ...)
+     * TokenAddSingleParams::with(userID: ..., token: ..., providerKey: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new TokenAddSingleParams)->withUserID(...)->withProviderKey(...)
+     * (new TokenAddSingleParams)
+     *   ->withUserID(...)
+     *   ->withToken(...)
+     *   ->withProviderKey(...)
      * ```
      */
     public function __construct()
@@ -98,8 +101,8 @@ final class TokenAddSingleParams implements BaseModel
      */
     public static function with(
         string $userID,
+        string $token,
         ProviderKey|string $providerKey,
-        ?string $token = null,
         ?Device $device = null,
         string|bool|null $expiryDate = null,
         mixed $properties = null,
@@ -108,9 +111,9 @@ final class TokenAddSingleParams implements BaseModel
         $obj = new self;
 
         $obj->userID = $userID;
+        $obj->token = $token;
         $obj['providerKey'] = $providerKey;
 
-        null !== $token && $obj->token = $token;
         null !== $device && $obj->device = $device;
         null !== $expiryDate && $obj->expiryDate = $expiryDate;
         null !== $properties && $obj->properties = $properties;
@@ -128,23 +131,23 @@ final class TokenAddSingleParams implements BaseModel
     }
 
     /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    public function withToken(string $token): self
+    {
+        $obj = clone $this;
+        $obj->token = $token;
+
+        return $obj;
+    }
+
+    /**
      * @param ProviderKey|value-of<ProviderKey> $providerKey
      */
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
         $obj['providerKey'] = $providerKey;
-
-        return $obj;
-    }
-
-    /**
-     * Full body of the token. Must match token in URL.
-     */
-    public function withToken(?string $token): self
-    {
-        $obj = clone $this;
-        $obj->token = $token;
 
         return $obj;
     }

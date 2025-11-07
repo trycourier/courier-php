@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\TenantDefaultPreferences\Items;
+namespace Courier\Tenants\Preferences\Items;
 
 use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 /**
  * Create or Replace Default Preferences For Topic.
  *
- * @see Courier\Tenants\TenantDefaultPreferences\Items->update
+ * @see Courier\Tenants\Preferences\Items->update
  *
  * @phpstan-type ItemUpdateParamsShape = array{
  *   tenantID: string,

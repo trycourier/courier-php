@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Services\Tenants\TenantDefaultPreferences;
+namespace Tests\Services\Tenants\Preferences;
 
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -33,7 +33,7 @@ final class ItemsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->tenantDefaultPreferences->items->update(
+        $result = $this->client->tenants->preferences->items->update(
             'topic_id',
             tenantID: 'tenant_id',
             status: 'OPTED_IN'
@@ -49,7 +49,7 @@ final class ItemsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->tenantDefaultPreferences->items->update(
+        $result = $this->client->tenants->preferences->items->update(
             'topic_id',
             tenantID: 'tenant_id',
             status: 'OPTED_IN'
@@ -65,7 +65,7 @@ final class ItemsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->tenantDefaultPreferences->items->delete(
+        $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
             'tenant_id'
         );
@@ -80,7 +80,7 @@ final class ItemsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->tenantDefaultPreferences->items->delete(
+        $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
             'tenant_id'
         );

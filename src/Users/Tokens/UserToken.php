@@ -13,8 +13,8 @@ use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
  * @phpstan-type UserTokenShape = array{
+ *   token: string,
  *   providerKey: value-of<ProviderKey>,
- *   token?: string|null,
  *   device?: Device|null,
  *   expiryDate?: string|bool|null,
  *   properties?: mixed,
@@ -26,15 +26,15 @@ final class UserToken implements BaseModel
     /** @use SdkModel<UserTokenShape> */
     use SdkModel;
 
+    /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    #[Api]
+    public string $token;
+
     /** @var value-of<ProviderKey> $providerKey */
     #[Api('provider_key', enum: ProviderKey::class)]
     public string $providerKey;
-
-    /**
-     * Full body of the token. Must match token in URL.
-     */
-    #[Api(nullable: true, optional: true)]
-    public ?string $token;
 
     /**
      * Information about the device the token is associated with.
@@ -65,13 +65,13 @@ final class UserToken implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * UserToken::with(providerKey: ...)
+     * UserToken::with(token: ..., providerKey: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new UserToken)->withProviderKey(...)
+     * (new UserToken)->withToken(...)->withProviderKey(...)
      * ```
      */
     public function __construct()
@@ -87,8 +87,8 @@ final class UserToken implements BaseModel
      * @param ProviderKey|value-of<ProviderKey> $providerKey
      */
     public static function with(
+        string $token,
         ProviderKey|string $providerKey,
-        ?string $token = null,
         ?Device $device = null,
         string|bool|null $expiryDate = null,
         mixed $properties = null,
@@ -96,13 +96,24 @@ final class UserToken implements BaseModel
     ): self {
         $obj = new self;
 
+        $obj->token = $token;
         $obj['providerKey'] = $providerKey;
 
-        null !== $token && $obj->token = $token;
         null !== $device && $obj->device = $device;
         null !== $expiryDate && $obj->expiryDate = $expiryDate;
         null !== $properties && $obj->properties = $properties;
         null !== $tracking && $obj->tracking = $tracking;
+
+        return $obj;
+    }
+
+    /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    public function withToken(string $token): self
+    {
+        $obj = clone $this;
+        $obj->token = $token;
 
         return $obj;
     }
@@ -114,17 +125,6 @@ final class UserToken implements BaseModel
     {
         $obj = clone $this;
         $obj['providerKey'] = $providerKey;
-
-        return $obj;
-    }
-
-    /**
-     * Full body of the token. Must match token in URL.
-     */
-    public function withToken(?string $token): self
-    {
-        $obj = clone $this;
-        $obj->token = $token;
 
         return $obj;
     }
