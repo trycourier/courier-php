@@ -37,7 +37,7 @@ final class UserToken implements BaseModel
     public string $providerKey;
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Device $device;
@@ -55,7 +55,7 @@ final class UserToken implements BaseModel
     public mixed $properties;
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Tracking $tracking;
@@ -130,7 +130,7 @@ final class UserToken implements BaseModel
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     public function withDevice(?Device $device): self
     {
@@ -163,7 +163,7 @@ final class UserToken implements BaseModel
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     public function withTracking(?Tracking $tracking): self
     {

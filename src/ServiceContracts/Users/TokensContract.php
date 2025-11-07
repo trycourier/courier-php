@@ -125,10 +125,10 @@ interface TokensContract
      * @param string $userID
      * @param string $token1 Full body of the token. Must match token in URL path parameter.
      * @param ProviderKey|value-of<ProviderKey> $providerKey
-     * @param Device|null $device information about the device the token is associated with
+     * @param Device|null $device information about the device the token came from
      * @param string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      * @param mixed $properties Properties sent to the provider along with the token
-     * @param Tracking|null $tracking information about the device the token is associated with
+     * @param Tracking|null $tracking tracking information about the device the token came from
      *
      * @throws APIException
      */
