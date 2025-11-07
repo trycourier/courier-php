@@ -44,7 +44,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public string $providerKey;
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Device $device;
@@ -62,7 +62,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public mixed $properties;
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Tracking $tracking;
@@ -152,7 +152,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     public function withDevice(?Device $device): self
     {
@@ -185,7 +185,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     public function withTracking(?Tracking $tracking): self
     {

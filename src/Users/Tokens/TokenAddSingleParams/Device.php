@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Information about the device the token is associated with.
+ * Information about the device the token came from.
  *
  * @phpstan-type DeviceShape = array{
  *   adID?: string|null,
