@@ -221,8 +221,8 @@ final class TokensService implements TokensContract
      * Adds a single token to a user and overwrites a matching existing token.
      *
      * @param string $userID
+     * @param string $token1 Full body of the token. Must match token in URL path parameter.
      * @param ProviderKey|value-of<ProviderKey> $providerKey
-     * @param string|null $token1 Full body of the token. Must match token in URL.
      * @param Device|null $device information about the device the token is associated with
      * @param string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      * @param mixed $properties Properties sent to the provider along with the token
@@ -233,8 +233,8 @@ final class TokensService implements TokensContract
     public function addSingle(
         string $token,
         $userID,
+        $token1,
         $providerKey,
-        $token1 = omit,
         $device = omit,
         $expiryDate = omit,
         $properties = omit,
@@ -243,8 +243,8 @@ final class TokensService implements TokensContract
     ): mixed {
         $params = [
             'userID' => $userID,
-            'providerKey' => $providerKey,
             'token' => $token1,
+            'providerKey' => $providerKey,
             'device' => $device,
             'expiryDate' => $expiryDate,
             'properties' => $properties,

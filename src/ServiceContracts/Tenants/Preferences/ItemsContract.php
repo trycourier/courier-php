@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Courier\ServiceContracts\Tenants\TenantDefaultPreferences;
+namespace Courier\ServiceContracts\Tenants\Preferences;
 
 use Courier\ChannelClassification;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\Tenants\TenantDefaultPreferences\Items\ItemUpdateParams\Status;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 use const Courier\Core\OMIT as omit;
 

@@ -8,8 +8,8 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
+use Courier\Services\Tenants\PreferencesService;
 use Courier\Services\Tenants\TemplatesService;
-use Courier\Services\Tenants\TenantDefaultPreferencesService;
 use Courier\Tenants\DefaultPreferences;
 use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListParams;
@@ -25,7 +25,7 @@ final class TenantsService implements TenantsContract
     /**
      * @@api
      */
-    public TenantDefaultPreferencesService $tenantDefaultPreferences;
+    public PreferencesService $preferences;
 
     /**
      * @@api
@@ -37,7 +37,7 @@ final class TenantsService implements TenantsContract
      */
     public function __construct(private Client $client)
     {
-        $this->tenantDefaultPreferences = new TenantDefaultPreferencesService($client);
+        $this->preferences = new PreferencesService($client);
         $this->templates = new TemplatesService($client);
     }
 

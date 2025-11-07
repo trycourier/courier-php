@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\TenantDefaultPreferences\Items;
+namespace Courier\Tenants\Preferences\Items;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Remove Default Preferences For Topic.
  *
- * @see Courier\Tenants\TenantDefaultPreferences\Items->delete
+ * @see Courier\Tenants\Preferences\Items->delete
  *
  * @phpstan-type ItemDeleteParamsShape = array{tenantID: string}
  */
