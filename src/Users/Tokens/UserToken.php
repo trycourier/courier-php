@@ -49,7 +49,7 @@ final class UserToken implements BaseModel
     public string|bool|null $expiryDate;
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     #[Api(optional: true)]
     public mixed $properties;
@@ -152,7 +152,7 @@ final class UserToken implements BaseModel
     }
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     public function withProperties(mixed $properties): self
     {
