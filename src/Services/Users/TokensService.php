@@ -225,7 +225,7 @@ final class TokensService implements TokensContract
      * @param ProviderKey|value-of<ProviderKey> $providerKey
      * @param Device|null $device information about the device the token came from
      * @param string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
-     * @param mixed $properties Properties sent to the provider along with the token
+     * @param mixed $properties properties about the token
      * @param Tracking|null $tracking tracking information about the device the token came from
      *
      * @throws APIException

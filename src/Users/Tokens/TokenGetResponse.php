@@ -56,7 +56,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public string|bool|null $expiryDate;
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     #[Api(optional: true)]
     public mixed $properties;
@@ -174,7 +174,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     public function withProperties(mixed $properties): self
     {
