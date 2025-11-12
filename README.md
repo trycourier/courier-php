@@ -17,10 +17,22 @@ The REST API documentation can be found on [www.courier.com](https://www.courier
 
 ## Installation
 
+To use this package, install via Composer by adding the following to your application's `composer.json`:
+
 <!-- x-release-please-start-version -->
 
-```
-composer require "trycourier/courier 0.0.1"
+```json
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:trycourier/courier-php.git"
+    }
+  ],
+  "require": {
+    "trycourier/courier": "dev-main"
+  }
+}
 ```
 
 <!-- x-release-please-end -->
