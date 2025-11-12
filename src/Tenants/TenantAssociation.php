@@ -11,10 +11,10 @@ use Courier\Tenants\TenantAssociation\Type;
 
 /**
  * @phpstan-type TenantAssociationShape = array{
- *   tenantID: string,
- *   profile?: array<string, mixed>|null,
+ *   tenant_id: string,
+ *   profile?: array<string,mixed>|null,
  *   type?: value-of<Type>|null,
- *   userID?: string|null,
+ *   user_id?: string|null,
  * }
  */
 final class TenantAssociation implements BaseModel
@@ -25,13 +25,13 @@ final class TenantAssociation implements BaseModel
     /**
      * Tenant ID for the association between tenant and user.
      */
-    #[Api('tenant_id')]
-    public string $tenantID;
+    #[Api]
+    public string $tenant_id;
 
     /**
      * Additional metadata to be applied to a user profile when used in a tenant context.
      *
-     * @var array<string, mixed>|null $profile
+     * @var array<string,mixed>|null $profile
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
@@ -43,15 +43,15 @@ final class TenantAssociation implements BaseModel
     /**
      * User ID for the association between tenant and user.
      */
-    #[Api('user_id', nullable: true, optional: true)]
-    public ?string $userID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $user_id;
 
     /**
      * `new TenantAssociation()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantAssociation::with(tenantID: ...)
+     * TenantAssociation::with(tenant_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -70,22 +70,22 @@ final class TenantAssociation implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      * @param Type|value-of<Type>|null $type
      */
     public static function with(
-        string $tenantID,
+        string $tenant_id,
         ?array $profile = null,
         Type|string|null $type = null,
-        ?string $userID = null,
+        ?string $user_id = null,
     ): self {
         $obj = new self;
 
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenant_id;
 
         null !== $profile && $obj->profile = $profile;
         null !== $type && $obj['type'] = $type;
-        null !== $userID && $obj->userID = $userID;
+        null !== $user_id && $obj->user_id = $user_id;
 
         return $obj;
     }
@@ -96,7 +96,7 @@ final class TenantAssociation implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }
@@ -104,7 +104,7 @@ final class TenantAssociation implements BaseModel
     /**
      * Additional metadata to be applied to a user profile when used in a tenant context.
      *
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {
@@ -131,7 +131,7 @@ final class TenantAssociation implements BaseModel
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }

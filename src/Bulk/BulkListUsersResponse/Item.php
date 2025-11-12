@@ -14,12 +14,12 @@ use Courier\UserRecipient;
 /**
  * @phpstan-type ItemShape = array{
  *   data?: mixed,
- *   preferences?: RecipientPreferences,
+ *   preferences?: RecipientPreferences|null,
  *   profile?: mixed,
  *   recipient?: string|null,
- *   to?: UserRecipient,
+ *   to?: UserRecipient|null,
  *   status: value-of<Status>,
- *   messageID?: string|null,
+ *   messageId?: string|null,
  * }
  */
 final class Item implements BaseModel
@@ -46,8 +46,8 @@ final class Item implements BaseModel
     #[Api(enum: Status::class)]
     public string $status;
 
-    #[Api('messageId', nullable: true, optional: true)]
-    public ?string $messageID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $messageId;
 
     /**
      * `new Item()` is missing required properties by the API.
@@ -82,7 +82,7 @@ final class Item implements BaseModel
         mixed $profile = null,
         ?string $recipient = null,
         ?UserRecipient $to = null,
-        ?string $messageID = null,
+        ?string $messageId = null,
     ): self {
         $obj = new self;
 
@@ -93,7 +93,7 @@ final class Item implements BaseModel
         null !== $profile && $obj->profile = $profile;
         null !== $recipient && $obj->recipient = $recipient;
         null !== $to && $obj->to = $to;
-        null !== $messageID && $obj->messageID = $messageID;
+        null !== $messageId && $obj->messageId = $messageId;
 
         return $obj;
     }
@@ -152,7 +152,7 @@ final class Item implements BaseModel
     public function withMessageID(?string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageID;
 
         return $obj;
     }

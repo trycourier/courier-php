@@ -33,14 +33,14 @@ final class InboundTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->inbound->trackEvent(
-            event: 'New Order Placed',
-            messageID: '4c62c457-b329-4bea-9bfc-17bba86c393f',
-            properties: [
+        $result = $this->client->inbound->trackEvent([
+            'event' => 'New Order Placed',
+            'messageId' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
+            'properties' => [
                 'order_id' => 'bar', 'total_orders' => 'bar', 'last_order_id' => 'bar',
             ],
-            type: 'track',
-        );
+            'type' => 'track',
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -52,14 +52,14 @@ final class InboundTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->inbound->trackEvent(
-            event: 'New Order Placed',
-            messageID: '4c62c457-b329-4bea-9bfc-17bba86c393f',
-            properties: [
+        $result = $this->client->inbound->trackEvent([
+            'event' => 'New Order Placed',
+            'messageId' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
+            'properties' => [
                 'order_id' => 'bar', 'total_orders' => 'bar', 'last_order_id' => 'bar',
             ],
-            type: 'track',
-        );
+            'type' => 'track',
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

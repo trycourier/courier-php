@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Auth->issueToken
  *
  * @phpstan-type AuthIssueTokenParamsShape = array{
- *   expiresIn: string, scope: string
+ *   expires_in: string, scope: string
  * }
  */
 final class AuthIssueTokenParams implements BaseModel
@@ -24,8 +24,8 @@ final class AuthIssueTokenParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api('expires_in')]
-    public string $expiresIn;
+    #[Api]
+    public string $expires_in;
 
     #[Api]
     public string $scope;
@@ -35,7 +35,7 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * AuthIssueTokenParams::with(expiresIn: ..., scope: ...)
+     * AuthIssueTokenParams::with(expires_in: ..., scope: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -54,11 +54,11 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $expiresIn, string $scope): self
+    public static function with(string $expires_in, string $scope): self
     {
         $obj = new self;
 
-        $obj->expiresIn = $expiresIn;
+        $obj->expires_in = $expires_in;
         $obj->scope = $scope;
 
         return $obj;
@@ -67,7 +67,7 @@ final class AuthIssueTokenParams implements BaseModel
     public function withExpiresIn(string $expiresIn): self
     {
         $obj = clone $this;
-        $obj->expiresIn = $expiresIn;
+        $obj->expires_in = $expiresIn;
 
         return $obj;
     }

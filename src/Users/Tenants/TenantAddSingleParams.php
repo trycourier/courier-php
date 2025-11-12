@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Users\Tenants->addSingle
  *
  * @phpstan-type TenantAddSingleParamsShape = array{
- *   userID: string, profile?: array<string, mixed>|null
+ *   user_id: string, profile?: array<string,mixed>|null
  * }
  */
 final class TenantAddSingleParams implements BaseModel
@@ -29,9 +29,9 @@ final class TenantAddSingleParams implements BaseModel
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -40,7 +40,7 @@ final class TenantAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TenantAddSingleParams::with(userID: ...)
+     * TenantAddSingleParams::with(user_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -59,13 +59,13 @@ final class TenantAddSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
-    public static function with(string $userID, ?array $profile = null): self
+    public static function with(string $user_id, ?array $profile = null): self
     {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
 
         null !== $profile && $obj->profile = $profile;
 
@@ -75,13 +75,13 @@ final class TenantAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

@@ -27,7 +27,7 @@ use Courier\Messages\MessageDetails\Status;
  *   status: value-of<Status>,
  *   error?: string|null,
  *   reason?: value-of<Reason>|null,
- *   providers?: list<array<string, mixed>>|null,
+ *   providers?: list<array<string,mixed>>|null,
  * }
  */
 final class MessageGetResponse implements BaseModel, ResponseConverter
@@ -113,7 +113,7 @@ final class MessageGetResponse implements BaseModel, ResponseConverter
     #[Api(enum: Reason::class, nullable: true, optional: true)]
     public ?string $reason;
 
-    /** @var list<array<string, mixed>>|null $providers */
+    /** @var list<array<string,mixed>>|null $providers */
     #[Api(list: new MapOf('mixed'), nullable: true, optional: true)]
     public ?array $providers;
 
@@ -164,7 +164,7 @@ final class MessageGetResponse implements BaseModel, ResponseConverter
      *
      * @param Status|value-of<Status> $status
      * @param Reason|value-of<Reason>|null $reason
-     * @param list<array<string, mixed>>|null $providers
+     * @param list<array<string,mixed>>|null $providers
      */
     public static function with(
         string $id,
@@ -338,7 +338,7 @@ final class MessageGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param list<array<string, mixed>>|null $providers
+     * @param list<array<string,mixed>>|null $providers
      */
     public function withProviders(?array $providers): self
     {

@@ -9,7 +9,9 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BrandColorsShape = array{primary?: string, secondary?: string}
+ * @phpstan-type BrandColorsShape = array{
+ *   primary?: string|null, secondary?: string|null
+ * }
  */
 final class BrandColors implements BaseModel
 {

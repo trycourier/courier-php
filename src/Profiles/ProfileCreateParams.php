@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Profiles->create
  *
- * @phpstan-type ProfileCreateParamsShape = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileCreateParamsShape = array{profile: array<string,mixed>}
  */
 final class ProfileCreateParams implements BaseModel
 {
@@ -22,7 +22,7 @@ final class ProfileCreateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -50,7 +50,7 @@ final class ProfileCreateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public static function with(array $profile): self
     {
@@ -62,7 +62,7 @@ final class ProfileCreateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {

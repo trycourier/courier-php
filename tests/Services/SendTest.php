@@ -2,26 +2,7 @@
 
 namespace Tests\Services;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\ElementalContentSugar;
-use Courier\MessageContext;
-use Courier\Preference;
-use Courier\PreferenceStatus;
-use Courier\Rule;
-use Courier\Send\SendMessageParams\Message;
-use Courier\Send\SendMessageParams\Message\Channel;
-use Courier\Send\SendMessageParams\Message\Channel\Metadata;
-use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
-use Courier\Send\SendMessageParams\Message\Delay;
-use Courier\Send\SendMessageParams\Message\Expiry;
-use Courier\Send\SendMessageParams\Message\Preferences;
-use Courier\Send\SendMessageParams\Message\Provider;
-use Courier\Send\SendMessageParams\Message\Routing;
-use Courier\Send\SendMessageParams\Message\Timeout;
-use Courier\UserRecipient;
-use Courier\Utm;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -52,7 +33,7 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(new Message);
+        $result = $this->client->send->message(['message' => []]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -64,127 +45,102 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(
-            (new Message)
-                ->withBrandID('brand_id')
-                ->withChannels(
-                    [
-                        'foo' => (new Channel)
-                            ->withBrandID('brand_id')
-                            ->withIf('if')
-                            ->withMetadata(
-                                (new Metadata)
-                                    ->withUtm(
-                                        (new Utm)
-                                            ->withCampaign('campaign')
-                                            ->withContent('content')
-                                            ->withMedium('medium')
-                                            ->withSource('source')
-                                            ->withTerm('term'),
-                                    ),
-                            )
-                            ->withOverride(['foo' => 'bar'])
-                            ->withProviders(['string'])
-                            ->withRoutingMethod('all')
-                            ->withTimeouts((new Timeouts)->withChannel(0)->withProvider(0)),
+        $result = $this->client->send->message([
+            'message' => [
+                'brand_id' => 'brand_id',
+                'channels' => [
+                    'foo' => [
+                        'brand_id' => 'brand_id',
+                        'if' => 'if',
+                        'metadata' => [
+                            'utm' => [
+                                'campaign' => 'campaign',
+                                'content' => 'content',
+                                'medium' => 'medium',
+                                'source' => 'source',
+                                'term' => 'term',
+                            ],
+                        ],
+                        'override' => ['foo' => 'bar'],
+                        'providers' => ['string'],
+                        'routing_method' => 'all',
+                        'timeouts' => ['channel' => 0, 'provider' => 0],
                     ],
-                )
-                ->withContent(ElementalContentSugar::with(body: 'body', title: 'title'))
-                ->withContext((new MessageContext)->withTenantID('tenant_id'))
-                ->withData(['foo' => 'bar'])
-                ->withDelay((new Delay)->withDuration(0)->withUntil('until'))
-                ->withExpiry(
-                    Expiry::with(expiresIn: 'string')->withExpiresAt('expires_at')
-                )
-                ->withMetadata(
-                    (new Message\Metadata)
-                        ->withEvent('event')
-                        ->withTags(['string'])
-                        ->withTraceID('trace_id')
-                        ->withUtm(
-                            (new Utm)
-                                ->withCampaign('campaign')
-                                ->withContent('content')
-                                ->withMedium('medium')
-                                ->withSource('source')
-                                ->withTerm('term'),
-                        ),
-                )
-                ->withPreferences(
-                    Preferences::with(subscriptionTopicID: 'subscription_topic_id')
-                )
-                ->withProviders(
-                    [
-                        'foo' => (new Provider)
-                            ->withIf('if')
-                            ->withMetadata(
-                                (new Provider\Metadata)
-                                    ->withUtm(
-                                        (new Utm)
-                                            ->withCampaign('campaign')
-                                            ->withContent('content')
-                                            ->withMedium('medium')
-                                            ->withSource('source')
-                                            ->withTerm('term'),
-                                    ),
-                            )
-                            ->withOverride(['foo' => 'bar'])
-                            ->withTimeouts(0),
+                ],
+                'content' => ['body' => 'body', 'title' => 'title'],
+                'context' => ['tenant_id' => 'tenant_id'],
+                'data' => ['foo' => 'bar'],
+                'delay' => ['duration' => 0, 'until' => 'until'],
+                'expiry' => ['expires_in' => 'string', 'expires_at' => 'expires_at'],
+                'metadata' => [
+                    'event' => 'event',
+                    'tags' => ['string'],
+                    'trace_id' => 'trace_id',
+                    'utm' => [
+                        'campaign' => 'campaign',
+                        'content' => 'content',
+                        'medium' => 'medium',
+                        'source' => 'source',
+                        'term' => 'term',
                     ],
-                )
-                ->withRouting(Routing::with(channels: ['string'], method: 'all'))
-                ->withTemplate('template_id')
-                ->withTimeout(
-                    (new Timeout)
-                        ->withChannel(['foo' => 0])
-                        ->withCriteria('no-escalation')
-                        ->withEscalation(0)
-                        ->withMessage(0)
-                        ->withProvider(['foo' => 0]),
-                )
-                ->withTo(
-                    (new UserRecipient)
-                        ->withAccountID('account_id')
-                        ->withContext((new MessageContext)->withTenantID('tenant_id'))
-                        ->withData(['foo' => 'bar'])
-                        ->withEmail('email')
-                        ->withLocale('locale')
-                        ->withPhoneNumber('phone_number')
-                        ->withPreferences(
-                            UserRecipient\Preferences::with(
-                                notifications: [
-                                    'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')])
-                                        ->withSource('subscription'),
-                                ],
-                            )
-                                ->withCategories(
-                                    [
-                                        'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
-                                            ->withChannelPreferences(
-                                                [
-                                                    ChannelPreference::with(
-                                                        channel: ChannelClassification::DIRECT_MESSAGE
-                                                    ),
-                                                ],
-                                            )
-                                            ->withRules([Rule::with(until: 'until')->withStart('start')])
-                                            ->withSource('subscription'),
-                                    ],
-                                )
-                                ->withTemplateID('templateId'),
-                        )
-                        ->withTenantID('tenant_id')
-                        ->withUserID('example_user'),
-                ),
-        );
+                ],
+                'preferences' => ['subscription_topic_id' => 'subscription_topic_id'],
+                'providers' => [
+                    'foo' => [
+                        'if' => 'if',
+                        'metadata' => [
+                            'utm' => [
+                                'campaign' => 'campaign',
+                                'content' => 'content',
+                                'medium' => 'medium',
+                                'source' => 'source',
+                                'term' => 'term',
+                            ],
+                        ],
+                        'override' => ['foo' => 'bar'],
+                        'timeouts' => 0,
+                    ],
+                ],
+                'routing' => ['channels' => ['string'], 'method' => 'all'],
+                'template' => 'template_id',
+                'timeout' => [
+                    'channel' => ['foo' => 0],
+                    'criteria' => 'no-escalation',
+                    'escalation' => 0,
+                    'message' => 0,
+                    'provider' => ['foo' => 0],
+                ],
+                'to' => [
+                    'account_id' => 'account_id',
+                    'context' => ['tenant_id' => 'tenant_id'],
+                    'data' => ['foo' => 'bar'],
+                    'email' => 'email',
+                    'locale' => 'locale',
+                    'phone_number' => 'phone_number',
+                    'preferences' => [
+                        'notifications' => [
+                            'foo' => [
+                                'status' => 'OPTED_IN',
+                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                                'source' => 'subscription',
+                            ],
+                        ],
+                        'categories' => [
+                            'foo' => [
+                                'status' => 'OPTED_IN',
+                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                                'source' => 'subscription',
+                            ],
+                        ],
+                        'templateId' => 'templateId',
+                    ],
+                    'tenant_id' => 'tenant_id',
+                    'user_id' => 'example_user',
+                ],
+            ],
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

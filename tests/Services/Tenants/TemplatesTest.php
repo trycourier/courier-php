@@ -35,7 +35,7 @@ final class TemplatesTest extends TestCase
 
         $result = $this->client->tenants->templates->retrieve(
             'template_id',
-            'tenant_id'
+            ['tenant_id' => 'tenant_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -50,7 +50,7 @@ final class TemplatesTest extends TestCase
 
         $result = $this->client->tenants->templates->retrieve(
             'template_id',
-            'tenant_id'
+            ['tenant_id' => 'tenant_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -63,7 +63,7 @@ final class TemplatesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->templates->list('tenant_id');
+        $result = $this->client->tenants->templates->list('tenant_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

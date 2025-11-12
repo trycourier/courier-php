@@ -15,8 +15,6 @@ use Courier\Users\Tenants\TenantListParams;
 use Courier\Users\Tenants\TenantListResponse;
 use Courier\Users\Tenants\TenantRemoveSingleParams;
 
-use const Courier\Core\OMIT as omit;
-
 final class TenantsService implements TenantsContract
 {
     /**
@@ -29,38 +27,18 @@ final class TenantsService implements TenantsContract
      *
      * Returns a paginated list of user tenant associations.
      *
-     * @param string|null $cursor Continue the pagination with the next cursor
-     * @param int|null $limit The number of accounts to return
-     * (defaults to 20, maximum value of 100)
+     * @param array{cursor?: string|null, limit?: int|null}|TenantListParams $params
      *
      * @throws APIException
      */
     public function list(
         string $userID,
-        $cursor = omit,
-        $limit = omit,
+        array|TenantListParams $params,
         ?RequestOptions $requestOptions = null,
-    ): TenantListResponse {
-        $params = ['cursor' => $cursor, 'limit' => $limit];
-
-        return $this->listRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): TenantListResponse {
         [$parsed, $options] = TenantListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -82,35 +60,25 @@ final class TenantsService implements TenantsContract
      * This profile will be merged with the user's main
      * profile when sending to the user with that tenant.
      *
-     * @param list<TenantAssociation> $tenants
+     * @param array{
+     *   tenants: list<array{
+     *     tenant_id: string,
+     *     profile?: array<string,mixed>|null,
+     *     type?: "user"|null,
+     *     user_id?: string|null,
+     *   }|TenantAssociation>,
+     * }|TenantAddMultipleParams $params
      *
      * @throws APIException
      */
     public function addMultiple(
         string $userID,
-        $tenants,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['tenants' => $tenants];
-
-        return $this->addMultipleRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addMultipleRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TenantAddMultipleParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = TenantAddMultipleParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -132,46 +100,29 @@ final class TenantsService implements TenantsContract
      * This profile will be merged with the user's main profile
      * when sending to the user with that tenant.
      *
-     * @param string $userID
-     * @param array<string, mixed>|null $profile
+     * @param array{
+     *   user_id: string, profile?: array<string,mixed>|null
+     * }|TenantAddSingleParams $params
      *
      * @throws APIException
      */
     public function addSingle(
         string $tenantID,
-        $userID,
-        $profile = omit,
+        array|TenantAddSingleParams $params,
         ?RequestOptions $requestOptions = null,
-    ): mixed {
-        $params = ['userID' => $userID, 'profile' => $profile];
-
-        return $this->addSingleRaw($tenantID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addSingleRaw(
-        string $tenantID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = TenantAddSingleParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tenants/%2$s', $userID, $tenantID],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, ['user_id']),
             options: $options,
             convert: null,
         );
@@ -202,38 +153,21 @@ final class TenantsService implements TenantsContract
      *
      * Removes a user from the supplied tenant.
      *
-     * @param string $userID
+     * @param array{user_id: string}|TenantRemoveSingleParams $params
      *
      * @throws APIException
      */
     public function removeSingle(
         string $tenantID,
-        $userID,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['userID' => $userID];
-
-        return $this->removeSingleRaw($tenantID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function removeSingleRaw(
-        string $tenantID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TenantRemoveSingleParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = TenantRemoveSingleParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(

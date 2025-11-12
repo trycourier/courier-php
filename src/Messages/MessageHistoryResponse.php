@@ -13,7 +13,7 @@ use Courier\Core\Conversion\MapOf;
 
 /**
  * @phpstan-type MessageHistoryResponseShape = array{
- *   results: list<array<string, mixed>>
+ *   results: list<array<string,mixed>>
  * }
  */
 final class MessageHistoryResponse implements BaseModel, ResponseConverter
@@ -23,7 +23,7 @@ final class MessageHistoryResponse implements BaseModel, ResponseConverter
 
     use SdkResponse;
 
-    /** @var list<array<string, mixed>> $results */
+    /** @var list<array<string,mixed>> $results */
     #[Api(list: new MapOf('mixed'))]
     public array $results;
 
@@ -51,7 +51,7 @@ final class MessageHistoryResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<array<string, mixed>> $results
+     * @param list<array<string,mixed>> $results
      */
     public static function with(array $results): self
     {
@@ -63,7 +63,7 @@ final class MessageHistoryResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param list<array<string, mixed>> $results
+     * @param list<array<string,mixed>> $results
      */
     public function withResults(array $results): self
     {

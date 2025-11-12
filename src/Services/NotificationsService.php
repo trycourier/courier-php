@@ -14,17 +14,15 @@ use Courier\ServiceContracts\NotificationsContract;
 use Courier\Services\Notifications\ChecksService;
 use Courier\Services\Notifications\DraftService;
 
-use const Courier\Core\OMIT as omit;
-
 final class NotificationsService implements NotificationsContract
 {
     /**
-     * @@api
+     * @api
      */
     public DraftService $draft;
 
     /**
-     * @@api
+     * @api
      */
     public ChecksService $checks;
 
@@ -40,35 +38,19 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * @param string|null $cursor
-     * @param bool|null $notes retrieve the notes from the Notification template settings
+     * @param array{
+     *   cursor?: string|null, notes?: bool|null
+     * }|NotificationListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        $notes = omit,
-        ?RequestOptions $requestOptions = null
-    ): NotificationListResponse {
-        $params = ['cursor' => $cursor, 'notes' => $notes];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|NotificationListParams $params,
         ?RequestOptions $requestOptions = null
     ): NotificationListResponse {
         [$parsed, $options] = NotificationListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

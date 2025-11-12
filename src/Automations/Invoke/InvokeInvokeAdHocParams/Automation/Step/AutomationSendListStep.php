@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *   action: value-of<Action>,
  *   list: string,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
  * }
  */
 final class AutomationSendListStep implements BaseModel
@@ -32,7 +32,7 @@ final class AutomationSendListStep implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
@@ -61,7 +61,7 @@ final class AutomationSendListStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public static function with(
         Action|string $action,
@@ -108,7 +108,7 @@ final class AutomationSendListStep implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {

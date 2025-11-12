@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type ExpiryShape = array{
- *   expiresIn: string|int, expiresAt?: string|null
+ *   expires_in: string|int, expires_at?: string|null
  * }
  */
 final class Expiry implements BaseModel
@@ -21,21 +21,21 @@ final class Expiry implements BaseModel
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
      */
-    #[Api('expires_in')]
-    public string|int $expiresIn;
+    #[Api]
+    public string|int $expires_in;
 
     /**
      * Epoch or ISO8601 timestamp with timezone.
      */
-    #[Api('expires_at', nullable: true, optional: true)]
-    public ?string $expiresAt;
+    #[Api(nullable: true, optional: true)]
+    public ?string $expires_at;
 
     /**
      * `new Expiry()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Expiry::with(expiresIn: ...)
+     * Expiry::with(expires_in: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -55,14 +55,14 @@ final class Expiry implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string|int $expiresIn,
-        ?string $expiresAt = null
+        string|int $expires_in,
+        ?string $expires_at = null
     ): self {
         $obj = new self;
 
-        $obj->expiresIn = $expiresIn;
+        $obj->expires_in = $expires_in;
 
-        null !== $expiresAt && $obj->expiresAt = $expiresAt;
+        null !== $expires_at && $obj->expires_at = $expires_at;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class Expiry implements BaseModel
     public function withExpiresIn(string|int $expiresIn): self
     {
         $obj = clone $this;
-        $obj->expiresIn = $expiresIn;
+        $obj->expires_in = $expiresIn;
 
         return $obj;
     }
@@ -84,7 +84,7 @@ final class Expiry implements BaseModel
     public function withExpiresAt(?string $expiresAt): self
     {
         $obj = clone $this;
-        $obj->expiresAt = $expiresAt;
+        $obj->expires_at = $expiresAt;
 
         return $obj;
     }

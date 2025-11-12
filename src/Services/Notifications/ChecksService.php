@@ -25,37 +25,23 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * @param string $id
-     * @param list<BaseCheck> $checks
+     * @param array{
+     *   id: string,
+     *   checks: list<array{
+     *     id: string, status: "RESOLVED"|"FAILED"|"PENDING", type: "custom"
+     *   }|BaseCheck>,
+     * }|CheckUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $submissionID,
-        $id,
-        $checks,
-        ?RequestOptions $requestOptions = null
-    ): CheckUpdateResponse {
-        $params = ['id' => $id, 'checks' => $checks];
-
-        return $this->updateRaw($submissionID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $submissionID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|CheckUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): CheckUpdateResponse {
         [$parsed, $options] = CheckUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
         $id = $parsed['id'];
         unset($parsed['id']);
@@ -73,35 +59,18 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * @param string $id
+     * @param array{id: string}|CheckListParams $params
      *
      * @throws APIException
      */
     public function list(
         string $submissionID,
-        $id,
-        ?RequestOptions $requestOptions = null
-    ): CheckListResponse {
-        $params = ['id' => $id];
-
-        return $this->listRaw($submissionID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        string $submissionID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|CheckListParams $params,
+        ?RequestOptions $requestOptions = null,
     ): CheckListResponse {
         [$parsed, $options] = CheckListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
         $id = $parsed['id'];
         unset($parsed['id']);
@@ -118,35 +87,18 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * @param string $id
+     * @param array{id: string}|CheckDeleteParams $params
      *
      * @throws APIException
      */
     public function delete(
         string $submissionID,
-        $id,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['id' => $id];
-
-        return $this->deleteRaw($submissionID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function deleteRaw(
-        string $submissionID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|CheckDeleteParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = CheckDeleteParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
         $id = $parsed['id'];
         unset($parsed['id']);

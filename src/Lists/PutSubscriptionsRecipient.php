@@ -11,7 +11,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type PutSubscriptionsRecipientShape = array{
- *   recipientID: string, preferences?: RecipientPreferences|null
+ *   recipientId: string, preferences?: RecipientPreferences|null
  * }
  */
 final class PutSubscriptionsRecipient implements BaseModel
@@ -19,8 +19,8 @@ final class PutSubscriptionsRecipient implements BaseModel
     /** @use SdkModel<PutSubscriptionsRecipientShape> */
     use SdkModel;
 
-    #[Api('recipientId')]
-    public string $recipientID;
+    #[Api]
+    public string $recipientId;
 
     #[Api(nullable: true, optional: true)]
     public ?RecipientPreferences $preferences;
@@ -30,7 +30,7 @@ final class PutSubscriptionsRecipient implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * PutSubscriptionsRecipient::with(recipientID: ...)
+     * PutSubscriptionsRecipient::with(recipientId: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -50,12 +50,12 @@ final class PutSubscriptionsRecipient implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $recipientID,
+        string $recipientId,
         ?RecipientPreferences $preferences = null
     ): self {
         $obj = new self;
 
-        $obj->recipientID = $recipientID;
+        $obj->recipientId = $recipientId;
 
         null !== $preferences && $obj->preferences = $preferences;
 
@@ -65,7 +65,7 @@ final class PutSubscriptionsRecipient implements BaseModel
     public function withRecipientID(string $recipientID): self
     {
         $obj = clone $this;
-        $obj->recipientID = $recipientID;
+        $obj->recipientId = $recipientID;
 
         return $obj;
     }

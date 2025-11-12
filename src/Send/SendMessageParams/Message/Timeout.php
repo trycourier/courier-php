@@ -11,11 +11,11 @@ use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 
 /**
  * @phpstan-type TimeoutShape = array{
- *   channel?: array<string, int>|null,
+ *   channel?: array<string,int>|null,
  *   criteria?: value-of<Criteria>|null,
  *   escalation?: int|null,
  *   message?: int|null,
- *   provider?: array<string, int>|null,
+ *   provider?: array<string,int>|null,
  * }
  */
 final class Timeout implements BaseModel
@@ -23,7 +23,7 @@ final class Timeout implements BaseModel
     /** @use SdkModel<TimeoutShape> */
     use SdkModel;
 
-    /** @var array<string, int>|null $channel */
+    /** @var array<string,int>|null $channel */
     #[Api(map: 'int', nullable: true, optional: true)]
     public ?array $channel;
 
@@ -37,7 +37,7 @@ final class Timeout implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?int $message;
 
-    /** @var array<string, int>|null $provider */
+    /** @var array<string,int>|null $provider */
     #[Api(map: 'int', nullable: true, optional: true)]
     public ?array $provider;
 
@@ -51,9 +51,9 @@ final class Timeout implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, int>|null $channel
+     * @param array<string,int>|null $channel
      * @param Criteria|value-of<Criteria>|null $criteria
-     * @param array<string, int>|null $provider
+     * @param array<string,int>|null $provider
      */
     public static function with(
         ?array $channel = null,
@@ -74,7 +74,7 @@ final class Timeout implements BaseModel
     }
 
     /**
-     * @param array<string, int>|null $channel
+     * @param array<string,int>|null $channel
      */
     public function withChannel(?array $channel): self
     {
@@ -112,7 +112,7 @@ final class Timeout implements BaseModel
     }
 
     /**
-     * @param array<string, int>|null $provider
+     * @param array<string,int>|null $provider
      */
     public function withProvider(?array $provider): self
     {

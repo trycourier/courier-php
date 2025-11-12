@@ -11,11 +11,9 @@ use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListRetrieveParams;
 use Courier\Profiles\Lists\ListSubscribeParams;
 use Courier\Profiles\Lists\ListSubscribeResponse;
-use Courier\Profiles\SubscribeToListsRequestItem;
+use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Profiles\ListsContract;
-
-use const Courier\Core\OMIT as omit;
 
 final class ListsService implements ListsContract
 {
@@ -29,35 +27,18 @@ final class ListsService implements ListsContract
      *
      * Returns the subscribed lists for a specified user.
      *
-     * @param string|null $cursor a unique identifier that allows for fetching the next set of message statuses
+     * @param array{cursor?: string|null}|ListRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): ListGetResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->retrieveRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ListRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ListGetResponse {
         [$parsed, $options] = ListRetrieveParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -95,35 +76,22 @@ final class ListsService implements ListsContract
      *
      * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
      *
-     * @param list<SubscribeToListsRequestItem> $lists
+     * @param array{
+     *   lists: list<array{
+     *     listId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *   }>,
+     * }|ListSubscribeParams $params
      *
      * @throws APIException
      */
     public function subscribe(
         string $userID,
-        $lists,
-        ?RequestOptions $requestOptions = null
-    ): ListSubscribeResponse {
-        $params = ['lists' => $lists];
-
-        return $this->subscribeRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function subscribeRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ListSubscribeParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ListSubscribeResponse {
         [$parsed, $options] = ListSubscribeParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

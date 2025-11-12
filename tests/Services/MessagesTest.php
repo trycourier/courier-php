@@ -45,7 +45,7 @@ final class MessagesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->messages->list();
+        $result = $this->client->messages->list([]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -81,7 +81,7 @@ final class MessagesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->messages->history('message_id');
+        $result = $this->client->messages->history('message_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

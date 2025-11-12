@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type AutomationFetchDataStepShape = array{
  *   action: value-of<Action>,
  *   webhook: Webhook,
- *   mergeStrategy?: value-of<MergeStrategy>|null,
+ *   merge_strategy?: value-of<MergeStrategy>|null,
  * }
  */
 final class AutomationFetchDataStep implements BaseModel
@@ -30,14 +30,9 @@ final class AutomationFetchDataStep implements BaseModel
     #[Api]
     public Webhook $webhook;
 
-    /** @var value-of<MergeStrategy>|null $mergeStrategy */
-    #[Api(
-        'merge_strategy',
-        enum: MergeStrategy::class,
-        nullable: true,
-        optional: true
-    )]
-    public ?string $mergeStrategy;
+    /** @var value-of<MergeStrategy>|null $merge_strategy */
+    #[Api(enum: MergeStrategy::class, nullable: true, optional: true)]
+    public ?string $merge_strategy;
 
     /**
      * `new AutomationFetchDataStep()` is missing required properties by the API.
@@ -64,19 +59,19 @@ final class AutomationFetchDataStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param MergeStrategy|value-of<MergeStrategy>|null $mergeStrategy
+     * @param MergeStrategy|value-of<MergeStrategy>|null $merge_strategy
      */
     public static function with(
         Action|string $action,
         Webhook $webhook,
-        MergeStrategy|string|null $mergeStrategy = null,
+        MergeStrategy|string|null $merge_strategy = null,
     ): self {
         $obj = new self;
 
         $obj['action'] = $action;
         $obj->webhook = $webhook;
 
-        null !== $mergeStrategy && $obj['mergeStrategy'] = $mergeStrategy;
+        null !== $merge_strategy && $obj['merge_strategy'] = $merge_strategy;
 
         return $obj;
     }
@@ -107,7 +102,7 @@ final class AutomationFetchDataStep implements BaseModel
         MergeStrategy|string|null $mergeStrategy
     ): self {
         $obj = clone $this;
-        $obj['mergeStrategy'] = $mergeStrategy;
+        $obj['merge_strategy'] = $mergeStrategy;
 
         return $obj;
     }

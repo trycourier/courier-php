@@ -16,7 +16,7 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  * @see Courier\Users\Preferences->updateOrCreateTopic
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   userID: string, topic: Topic, tenantID?: string|null
+ *   user_id: string, topic: Topic, tenant_id?: string|null
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -26,7 +26,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
     #[Api]
     public Topic $topic;
@@ -35,14 +35,14 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      * Update the preferences of a user for this specific tenant context.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $tenantID;
+    public ?string $tenant_id;
 
     /**
      * `new PreferenceUpdateOrCreateTopicParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PreferenceUpdateOrCreateTopicParams::with(userID: ..., topic: ...)
+     * PreferenceUpdateOrCreateTopicParams::with(user_id: ..., topic: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -62,16 +62,16 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $userID,
+        string $user_id,
         Topic $topic,
-        ?string $tenantID = null
+        ?string $tenant_id = null
     ): self {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
         $obj->topic = $topic;
 
-        null !== $tenantID && $obj->tenantID = $tenantID;
+        null !== $tenant_id && $obj->tenant_id = $tenant_id;
 
         return $obj;
     }
@@ -79,7 +79,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }
@@ -98,7 +98,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }

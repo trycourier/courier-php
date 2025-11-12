@@ -10,17 +10,16 @@ use Courier\Lists\ListListParams;
 use Courier\Lists\ListListResponse;
 use Courier\Lists\ListUpdateParams;
 use Courier\Lists\SubscriptionList;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ListsContract;
 use Courier\Services\Lists\SubscriptionsService;
 
-use const Courier\Core\OMIT as omit;
-
 final class ListsService implements ListsContract
 {
     /**
-     * @@api
+     * @api
      */
     public SubscriptionsService $subscriptions;
 
@@ -57,37 +56,24 @@ final class ListsService implements ListsContract
      *
      * Create or replace an existing list with the supplied values.
      *
-     * @param string $name
-     * @param RecipientPreferences|null $preferences
+     * @param array{
+     *   name: string,
+     *   preferences?: array{
+     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *   }|RecipientPreferences|null,
+     * }|ListUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $listID,
-        $name,
-        $preferences = omit,
+        array|ListUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): mixed {
-        $params = ['name' => $name, 'preferences' => $preferences];
-
-        return $this->updateRaw($listID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $listID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = ListUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -105,35 +91,17 @@ final class ListsService implements ListsContract
      *
      * Returns all of the lists, with the ability to filter based on a pattern.
      *
-     * @param string|null $cursor a unique identifier that allows for fetching the next page of lists
-     * @param string|null $pattern "A pattern used to filter the list items returned. Pattern types supported: exact match on `list_id` or a pattern of one or more pattern parts. you may replace a part with either: `*` to match all parts in that position, or `**` to signify a wildcard `endsWith` pattern match."
+     * @param array{cursor?: string|null, pattern?: string|null}|ListListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        $pattern = omit,
-        ?RequestOptions $requestOptions = null
-    ): ListListResponse {
-        $params = ['cursor' => $cursor, 'pattern' => $pattern];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|ListListParams $params,
         ?RequestOptions $requestOptions = null
     ): ListListResponse {
         [$parsed, $options] = ListListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

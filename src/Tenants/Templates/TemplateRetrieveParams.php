@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Tenants\Templates->retrieve
  *
- * @phpstan-type TemplateRetrieveParamsShape = array{tenantID: string}
+ * @phpstan-type TemplateRetrieveParamsShape = array{tenant_id: string}
  */
 final class TemplateRetrieveParams implements BaseModel
 {
@@ -23,14 +23,14 @@ final class TemplateRetrieveParams implements BaseModel
     use SdkParams;
 
     #[Api]
-    public string $tenantID;
+    public string $tenant_id;
 
     /**
      * `new TemplateRetrieveParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TemplateRetrieveParams::with(tenantID: ...)
+     * TemplateRetrieveParams::with(tenant_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,11 +49,11 @@ final class TemplateRetrieveParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $tenantID): self
+    public static function with(string $tenant_id): self
     {
         $obj = new self;
 
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenant_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class TemplateRetrieveParams implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }

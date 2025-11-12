@@ -11,7 +11,7 @@ use Courier\Services\Tenants\Preferences\ItemsService;
 final class PreferencesService implements PreferencesContract
 {
     /**
-     * @@api
+     * @api
      */
     public ItemsService $items;
 

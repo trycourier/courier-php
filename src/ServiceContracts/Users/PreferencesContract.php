@@ -8,94 +8,49 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
-use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
+use Courier\Users\Preferences\PreferenceRetrieveParams;
+use Courier\Users\Preferences\PreferenceRetrieveTopicParams;
+use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
-
-use const Courier\Core\OMIT as omit;
 
 interface PreferencesContract
 {
     /**
      * @api
      *
-     * @param string|null $tenantID query the preferences of a user for this specific tenant context
+     * @param array<mixed>|PreferenceRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        $tenantID = omit,
-        ?RequestOptions $requestOptions = null
+        array|PreferenceRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): PreferenceGetResponse;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): PreferenceGetResponse;
-
-    /**
-     * @api
-     *
-     * @param string $userID
-     * @param string|null $tenantID query the preferences of a user for this specific tenant context
+     * @param array<mixed>|PreferenceRetrieveTopicParams $params
      *
      * @throws APIException
      */
     public function retrieveTopic(
         string $topicID,
-        $userID,
-        $tenantID = omit,
+        array|PreferenceRetrieveTopicParams $params,
         ?RequestOptions $requestOptions = null,
     ): PreferenceGetTopicResponse;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveTopicRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): PreferenceGetTopicResponse;
-
-    /**
-     * @api
-     *
-     * @param string $userID
-     * @param Topic $topic
-     * @param string|null $tenantID update the preferences of a user for this specific tenant context
+     * @param array<mixed>|PreferenceUpdateOrCreateTopicParams $params
      *
      * @throws APIException
      */
     public function updateOrCreateTopic(
         string $topicID,
-        $userID,
-        $topic,
-        $tenantID = omit,
+        array|PreferenceUpdateOrCreateTopicParams $params,
         ?RequestOptions $requestOptions = null,
-    ): PreferenceUpdateOrNewTopicResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateOrCreateTopicRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): PreferenceUpdateOrNewTopicResponse;
 }

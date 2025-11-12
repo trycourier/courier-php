@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type InboundTrackEventResponseShape = array{messageID: string}
+ * @phpstan-type InboundTrackEventResponseShape = array{messageId: string}
  */
 final class InboundTrackEventResponse implements BaseModel, ResponseConverter
 {
@@ -23,15 +23,15 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
     /**
      * A successful call returns a `202` status code along with a `requestId` in the response body.
      */
-    #[Api('messageId')]
-    public string $messageID;
+    #[Api]
+    public string $messageId;
 
     /**
      * `new InboundTrackEventResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * InboundTrackEventResponse::with(messageID: ...)
+     * InboundTrackEventResponse::with(messageId: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -50,11 +50,11 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $messageID): self
+    public static function with(string $messageId): self
     {
         $obj = new self;
 
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageId;
 
         return $obj;
     }
@@ -65,7 +65,7 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
     public function withMessageID(string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageID;
 
         return $obj;
     }

@@ -12,7 +12,6 @@ use Courier\Profiles\ProfileNewResponse;
 use Courier\Profiles\ProfileReplaceParams;
 use Courier\Profiles\ProfileReplaceResponse;
 use Courier\Profiles\ProfileUpdateParams;
-use Courier\Profiles\ProfileUpdateParams\Patch;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProfilesContract;
 use Courier\Services\Profiles\ListsService;
@@ -20,7 +19,7 @@ use Courier\Services\Profiles\ListsService;
 final class ProfilesService implements ProfilesContract
 {
     /**
-     * @@api
+     * @api
      */
     public ListsService $lists;
 
@@ -37,35 +36,18 @@ final class ProfilesService implements ProfilesContract
      *
      * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
      *
-     * @param array<string, mixed> $profile
+     * @param array{profile: array<string,mixed>}|ProfileCreateParams $params
      *
      * @throws APIException
      */
     public function create(
         string $userID,
-        $profile,
-        ?RequestOptions $requestOptions = null
-    ): ProfileNewResponse {
-        $params = ['profile' => $profile];
-
-        return $this->createRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function createRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileCreateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ProfileNewResponse {
         [$parsed, $options] = ProfileCreateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -103,35 +85,20 @@ final class ProfilesService implements ProfilesContract
      *
      * Update a profile
      *
-     * @param list<Patch> $patch list of patch operations to apply to the profile
+     * @param array{
+     *   patch: list<array{op: string, path: string, value: string}>
+     * }|ProfileUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $userID,
-        $patch,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['patch' => $patch];
-
-        return $this->updateRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = ProfileUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -172,35 +139,18 @@ final class ProfilesService implements ProfilesContract
      * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
      * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
      *
-     * @param array<string, mixed> $profile
+     * @param array{profile: array<string,mixed>}|ProfileReplaceParams $params
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
-        $profile,
-        ?RequestOptions $requestOptions = null
-    ): ProfileReplaceResponse {
-        $params = ['profile' => $profile];
-
-        return $this->replaceRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function replaceRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileReplaceParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ProfileReplaceResponse {
         [$parsed, $options] = ProfileReplaceParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

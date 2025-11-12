@@ -13,7 +13,7 @@ use Courier\Send\SendMessageParams\Message\Provider\Metadata;
  * @phpstan-type ProviderShape = array{
  *   if?: string|null,
  *   metadata?: Metadata|null,
- *   override?: array<string, mixed>|null,
+ *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
  */
@@ -34,7 +34,7 @@ final class Provider implements BaseModel
     /**
      * Provider-specific overrides.
      *
-     * @var array<string, mixed>|null $override
+     * @var array<string,mixed>|null $override
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $override;
@@ -52,7 +52,7 @@ final class Provider implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $override
      */
     public static function with(
         ?string $if = null,
@@ -92,7 +92,7 @@ final class Provider implements BaseModel
     /**
      * Provider-specific overrides.
      *
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $override
      */
     public function withOverride(?array $override): self
     {
