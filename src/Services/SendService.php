@@ -25,7 +25,7 @@ final class SendService implements SendContract
     /**
      * @api
      *
-     * API to send a message to one or more recipients.
+     * Send a message to one or more recipients.
      *
      * @param array{
      *   message: array{
