@@ -10,46 +10,35 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new PreferenceRetrieveTopicParams); // set properties as needed
- * $client->users.preferences->retrieveTopic(...$params->toArray());
- * ```
  * Fetch user preferences for a specific subscription topic.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.preferences->retrieveTopic(...$params->toArray());`
  *
  * @see Courier\Users\Preferences->retrieveTopic
  *
- * @phpstan-type preference_retrieve_topic_params = array{
- *   userID: string, tenantID?: string|null
+ * @phpstan-type PreferenceRetrieveTopicParamsShape = array{
+ *   user_id: string, tenant_id?: string|null
  * }
  */
 final class PreferenceRetrieveTopicParams implements BaseModel
 {
-    /** @use SdkModel<preference_retrieve_topic_params> */
+    /** @use SdkModel<PreferenceRetrieveTopicParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
     /**
      * Query the preferences of a user for this specific tenant context.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $tenantID;
+    public ?string $tenant_id;
 
     /**
      * `new PreferenceRetrieveTopicParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PreferenceRetrieveTopicParams::with(userID: ...)
+     * PreferenceRetrieveTopicParams::with(user_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -68,13 +57,15 @@ final class PreferenceRetrieveTopicParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $userID, ?string $tenantID = null): self
-    {
+    public static function with(
+        string $user_id,
+        ?string $tenant_id = null
+    ): self {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
 
-        null !== $tenantID && $obj->tenantID = $tenantID;
+        null !== $tenant_id && $obj->tenant_id = $tenant_id;
 
         return $obj;
     }
@@ -82,7 +73,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }
@@ -93,7 +84,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }

@@ -3,7 +3,6 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
-use Courier\Users\Tokens\TokenUpdateParams\Patch;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +33,10 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->retrieve('token', 'user_id');
+        $result = $this->client->users->tokens->retrieve(
+            'token',
+            ['user_id' => 'user_id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -46,7 +48,10 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->retrieve('token', 'user_id');
+        $result = $this->client->users->tokens->retrieve(
+            'token',
+            ['user_id' => 'user_id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -60,8 +65,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->update(
             'token',
-            userID: 'user_id',
-            patch: [Patch::with(op: 'op', path: 'path')]
+            ['user_id' => 'user_id', 'patch' => [['op' => 'op', 'path' => 'path']]],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -76,8 +80,10 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->update(
             'token',
-            userID: 'user_id',
-            patch: [Patch::with(op: 'op', path: 'path')->withValue('value')],
+            [
+                'user_id' => 'user_id',
+                'patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']],
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -102,7 +108,10 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->delete('token', 'user_id');
+        $result = $this->client->users->tokens->delete(
+            'token',
+            ['user_id' => 'user_id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -114,7 +123,10 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->delete('token', 'user_id');
+        $result = $this->client->users->tokens->delete(
+            'token',
+            ['user_id' => 'user_id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -140,8 +152,11 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->addSingle(
             'token',
-            userID: 'user_id',
-            providerKey: 'firebase-fcm'
+            [
+                'user_id' => 'user_id',
+                'token' => 'token',
+                'provider_key' => 'firebase-fcm',
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -156,8 +171,11 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->addSingle(
             'token',
-            userID: 'user_id',
-            providerKey: 'firebase-fcm'
+            [
+                'user_id' => 'user_id',
+                'token' => 'token',
+                'provider_key' => 'firebase-fcm',
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

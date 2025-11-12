@@ -10,30 +10,19 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ProfileCreateParams); // set properties as needed
- * $client->profiles->create(...$params->toArray());
- * ```
  * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles->create(...$params->toArray());`
  *
  * @see Courier\Profiles->create
  *
- * @phpstan-type profile_create_params = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileCreateParamsShape = array{profile: array<string,mixed>}
  */
 final class ProfileCreateParams implements BaseModel
 {
-    /** @use SdkModel<profile_create_params> */
+    /** @use SdkModel<ProfileCreateParamsShape> */
     use SdkModel;
     use SdkParams;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -61,7 +50,7 @@ final class ProfileCreateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public static function with(array $profile): self
     {
@@ -73,7 +62,7 @@ final class ProfileCreateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {

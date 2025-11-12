@@ -2,19 +2,7 @@
 
 namespace Tests\Services;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\InboundBulkMessageUser;
-use Courier\MessageContext;
-use Courier\NotificationPreferenceDetails;
-use Courier\Preference;
-use Courier\PreferenceStatus;
-use Courier\RecipientPreferences;
-use Courier\Rule;
-use Courier\UserRecipient;
-use Courier\UserRecipient\Preferences;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -45,10 +33,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->addUsers(
-            'job_id',
-            [new InboundBulkMessageUser]
-        );
+        $result = $this->client->bulk->addUsers('job_id', ['users' => [[]]]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -63,85 +48,59 @@ final class BulkTest extends TestCase
         $result = $this->client->bulk->addUsers(
             'job_id',
             [
-                (new InboundBulkMessageUser)
-                    ->withData((object) [])
-                    ->withPreferences(
-                        (new RecipientPreferences)
-                            ->withCategories(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                'users' => [
+                    [
+                        'data' => [],
+                        'preferences' => [
+                            'categories' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            )
-                            ->withNotifications(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                            ],
+                            'notifications' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            ),
-                    )
-                    ->withProfile((object) [])
-                    ->withRecipient('recipient')
-                    ->withTo(
-                        (new UserRecipient)
-                            ->withAccountID('account_id')
-                            ->withContext((new MessageContext)->withTenantID('tenant_id'))
-                            ->withData(['foo' => 'bar'])
-                            ->withEmail('email')
-                            ->withLocale('locale')
-                            ->withPhoneNumber('phone_number')
-                            ->withPreferences(
-                                Preferences::with(
-                                    notifications: [
-                                        'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
-                                            ->withChannelPreferences(
-                                                [
-                                                    ChannelPreference::with(
-                                                        channel: ChannelClassification::DIRECT_MESSAGE
-                                                    ),
-                                                ],
-                                            )
-                                            ->withRules([Rule::with(until: 'until')->withStart('start')])
-                                            ->withSource('subscription'),
+                            ],
+                        ],
+                        'profile' => [],
+                        'recipient' => 'recipient',
+                        'to' => [
+                            'account_id' => 'account_id',
+                            'context' => ['tenant_id' => 'tenant_id'],
+                            'data' => ['foo' => 'bar'],
+                            'email' => 'email',
+                            'list_id' => 'list_id',
+                            'locale' => 'locale',
+                            'phone_number' => 'phone_number',
+                            'preferences' => [
+                                'notifications' => [
+                                    'foo' => [
+                                        'status' => 'OPTED_IN',
+                                        'channel_preferences' => [['channel' => 'direct_message']],
+                                        'rules' => [['until' => 'until', 'start' => 'start']],
+                                        'source' => 'subscription',
                                     ],
-                                )
-                                    ->withCategories(
-                                        [
-                                            'foo' => Preference::with(status: PreferenceStatus::OPTED_IN)
-                                                ->withChannelPreferences(
-                                                    [
-                                                        ChannelPreference::with(
-                                                            channel: ChannelClassification::DIRECT_MESSAGE
-                                                        ),
-                                                    ],
-                                                )
-                                                ->withRules([Rule::with(until: 'until')->withStart('start')])
-                                                ->withSource('subscription'),
-                                        ],
-                                    )
-                                    ->withTemplateID('templateId'),
-                            )
-                            ->withTenantID('tenant_id')
-                            ->withUserID('user_id'),
-                    ),
+                                ],
+                                'categories' => [
+                                    'foo' => [
+                                        'status' => 'OPTED_IN',
+                                        'channel_preferences' => [['channel' => 'direct_message']],
+                                        'rules' => [['until' => 'until', 'start' => 'start']],
+                                        'source' => 'subscription',
+                                    ],
+                                ],
+                                'templateId' => 'templateId',
+                            ],
+                            'tenant_id' => 'tenant_id',
+                            'user_id' => 'user_id',
+                        ],
+                    ],
+                ],
             ],
         );
 
@@ -155,9 +114,9 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob(
-            InboundBulkTemplateMessage::with(template: 'template')
-        );
+        $result = $this->client->bulk->createJob([
+            'message' => ['template' => 'template'],
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -169,14 +128,16 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob(
-            InboundBulkTemplateMessage::with(template: 'template')
-                ->withBrand('brand')
-                ->withData(['foo' => 'bar'])
-                ->withEvent('event')
-                ->withLocale(['foo' => ['foo' => 'bar']])
-                ->withOverride(['foo' => 'bar']),
-        );
+        $result = $this->client->bulk->createJob([
+            'message' => [
+                'template' => 'template',
+                'brand' => 'brand',
+                'data' => ['foo' => 'bar'],
+                'event' => 'event',
+                'locale' => ['foo' => ['foo' => 'bar']],
+                'override' => ['foo' => 'bar'],
+            ],
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -188,7 +149,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->listUsers('job_id');
+        $result = $this->client->bulk->listUsers('job_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

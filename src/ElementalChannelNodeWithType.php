@@ -19,19 +19,19 @@ use Courier\ElementalChannelNodeWithType\Type;
  * display an individual element on a per channel basis. See the
  * [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
  *
- * @phpstan-type elemental_channel_node_with_type = array{
+ * @phpstan-type ElementalChannelNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
  *   channel: string,
- *   raw?: array<string, mixed>|null,
- *   type?: value-of<Type>,
+ *   raw?: array<string,mixed>|null,
+ *   type?: value-of<Type>|null,
  * }
  */
 final class ElementalChannelNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_channel_node_with_type> */
+    /** @use SdkModel<ElementalChannelNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -55,10 +55,9 @@ final class ElementalChannelNodeWithType implements BaseModel
     public string $channel;
 
     /**
-     * Raw data to apply to the channel. If `elements` has not been
-     * specified, `raw` is `required`.
+     * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
-     * @var array<string, mixed>|null $raw
+     * @var array<string,mixed>|null $raw
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $raw;
@@ -92,7 +91,7 @@ final class ElementalChannelNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param array<string, mixed>|null $raw
+     * @param array<string,mixed>|null $raw
      * @param Type|value-of<Type> $type
      */
     public static function with(
@@ -166,10 +165,9 @@ final class ElementalChannelNodeWithType implements BaseModel
     }
 
     /**
-     * Raw data to apply to the channel. If `elements` has not been
-     * specified, `raw` is `required`.
+     * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
-     * @param array<string, mixed>|null $raw
+     * @param array<string,mixed>|null $raw
      */
     public function withRaw(?array $raw): self
     {

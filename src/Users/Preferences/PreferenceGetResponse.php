@@ -10,16 +10,15 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
-use Courier\TopicPreference;
 
 /**
- * @phpstan-type preference_get_response = array{
+ * @phpstan-type PreferenceGetResponseShape = array{
  *   items: list<TopicPreference>, paging: Paging
  * }
  */
 final class PreferenceGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<preference_get_response> */
+    /** @use SdkModel<PreferenceGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -33,7 +33,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->create(name: 'name');
+        $result = $this->client->brands->create(['name' => 'name']);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -45,7 +45,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->create(name: 'name');
+        $result = $this->client->brands->create(['name' => 'name']);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -69,7 +69,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->update('brand_id', name: 'name');
+        $result = $this->client->brands->update('brand_id', ['name' => 'name']);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -81,7 +81,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->update('brand_id', name: 'name');
+        $result = $this->client->brands->update('brand_id', ['name' => 'name']);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -93,7 +93,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->list();
+        $result = $this->client->brands->list([]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

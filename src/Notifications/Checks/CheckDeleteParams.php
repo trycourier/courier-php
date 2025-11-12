@@ -10,25 +10,13 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new CheckDeleteParams); // set properties as needed
- * $client->notifications.checks->delete(...$params->toArray());
- * ```.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->notifications.checks->delete(...$params->toArray());`
- *
  * @see Courier\Notifications\Checks->delete
  *
- * @phpstan-type check_delete_params = array{id: string}
+ * @phpstan-type CheckDeleteParamsShape = array{id: string}
  */
 final class CheckDeleteParams implements BaseModel
 {
-    /** @use SdkModel<check_delete_params> */
+    /** @use SdkModel<CheckDeleteParamsShape> */
     use SdkModel;
     use SdkParams;
 

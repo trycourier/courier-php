@@ -10,13 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting\Method;
 
 /**
- * @phpstan-type message_routing = array{
+ * @phpstan-type MessageRoutingShape = array{
  *   channels: list<string|MessageRouting>, method: value-of<Method>
  * }
  */
 final class MessageRouting implements BaseModel
 {
-    /** @use SdkModel<message_routing> */
+    /** @use SdkModel<MessageRoutingShape> */
     use SdkModel;
 
     /** @var list<string|MessageRouting> $channels */

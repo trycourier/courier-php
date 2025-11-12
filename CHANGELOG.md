@@ -1,5 +1,52 @@
 # Changelog
 
+## 3.0.0 (2025-11-12)
+
+Full Changelog: [v2.4.0-alpha0...v3.0.0](https://github.com/trycourier/courier-php/compare/v2.4.0-alpha0...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** redesign methods
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()`
+
+### Features
+
+* Attempt kick off again ([c5d8240](https://github.com/trycourier/courier-php/commit/c5d8240282cf805c9ac271f551838d5a2600d2e0))
+* Changes to spec, examples and scripts ([d4f9d75](https://github.com/trycourier/courier-php/commit/d4f9d75aedae092a48782028cfe5cd0562367b0a))
+* **client:** redesign methods ([ff4799d](https://github.com/trycourier/courier-php/commit/ff4799d3586fe2702f88446ae5fe43fdf8f4834c))
+* Comment adjustment to kick of build ([c210eb1](https://github.com/trycourier/courier-php/commit/c210eb1aba2ad3917b702b9dd7cd40245b723edb))
+* Disabled for now ([e65ace8](https://github.com/trycourier/courier-php/commit/e65ace83ec0fff7950de047c05e0c4b498a45f93))
+* More PHP and attempted node automerge ([dc6ca25](https://github.com/trycourier/courier-php/commit/dc6ca25b7019784c6df3d20e979a34f6d1a2cd5c))
+* Move UUID to top ([689d90c](https://github.com/trycourier/courier-php/commit/689d90cb6722cfea4a1696e0a825bd166796bd1b))
+* NPM enabled ([799abeb](https://github.com/trycourier/courier-php/commit/799abeb4ede18e3082429bef261ce329cc2c2181))
+* Organization update ([61b7239](https://github.com/trycourier/courier-php/commit/61b7239e69df1fa2d2826fb58769a17d53f5e8db))
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()` ([8a66bb3](https://github.com/trycourier/courier-php/commit/8a66bb37377e0b432231c93c60ef917de9e9c6f7))
+* Reordered spec ([440fd46](https://github.com/trycourier/courier-php/commit/440fd46250526d24a8969ad1b326106f65cd1370))
+* Run update ([bdb7840](https://github.com/trycourier/courier-php/commit/bdb7840e5fbe167b702688035489b6566ab37975))
+* Spec Comment Change ([d840af9](https://github.com/trycourier/courier-php/commit/d840af995b0564b944b3c1cdf9adf135ec594617))
+* Token Prop Description Change ([4e2f079](https://github.com/trycourier/courier-php/commit/4e2f079e5b023c8c9463f9c4a1486852d860b821))
+
+
+### Bug Fixes
+
+* Better Python Samples + Updates to naming ([acd75d9](https://github.com/trycourier/courier-php/commit/acd75d955dfc5a3904c2fb408ade087d351c6a8b))
+* Comment to kick off build ([a4c0e9d](https://github.com/trycourier/courier-php/commit/a4c0e9dd2cfc40078152c0662a4e8ba34c3d97db))
+* Dep Warning ([d8cb01f](https://github.com/trycourier/courier-php/commit/d8cb01fff918181b1734ba01cca0dc56ceb637a7))
+* ensure auth methods return non-nullable arrays ([872e675](https://github.com/trycourier/courier-php/commit/872e67502a552308d10dd6f6e999c74f263878d6))
+* inverted retry condition ([86a56d5](https://github.com/trycourier/courier-php/commit/86a56d5a012028292d76da25e7817e56b00bc564))
+* Proper PHP repo ([36896b4](https://github.com/trycourier/courier-php/commit/36896b492760aa83033fc1c741ac73c8a66c6eef))
+* Updated paths for each model and go example updates ([207f0b3](https://github.com/trycourier/courier-php/commit/207f0b36cf0cc3c590a045aa491f72fcb0381fd0))
+
+
+### Chores
+
+* **client:** send metadata headers ([2510e04](https://github.com/trycourier/courier-php/commit/2510e04cd6d5dfe9d4ba85805fc28a41713de62f))
+* update SDK settings ([571cba6](https://github.com/trycourier/courier-php/commit/571cba6108caa1270afbffd7efb03ba075f8e385))
+* update SDK settings ([7638887](https://github.com/trycourier/courier-php/commit/76388872fd6b9cfdd1b3ef5940b2b3d021cfca30))
+* update SDK settings ([c6f046a](https://github.com/trycourier/courier-php/commit/c6f046a377330cc4dfa7a4a0c2dfb0997ac0d214))
+* update SDK settings ([3a0b6ef](https://github.com/trycourier/courier-php/commit/3a0b6ef6561d1ead7d0fc329e3eb513fdfb6aa79))
+* use pascal case for phpstan typedefs ([80f8f5e](https://github.com/trycourier/courier-php/commit/80f8f5ee360bb57dd4298a646826d5967ab2c2ca))
+
 ## 2.4.0-alpha0 (2025-10-11)
 
 Full Changelog: [v0.0.1...v2.4.0-alpha0](https://github.com/trycourier/courier-php/compare/v0.0.1...v2.4.0-alpha0)

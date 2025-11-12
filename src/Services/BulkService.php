@@ -10,15 +10,14 @@ use Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkListUsersParams;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
+use Courier\Bulk\InboundBulkMessage;
+use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\InboundBulkMessageUser;
+use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BulkContract;
-
-use const Courier\Core\OMIT as omit;
+use Courier\UserRecipient;
 
 final class BulkService implements BulkContract
 {
@@ -32,35 +31,26 @@ final class BulkService implements BulkContract
      *
      * Ingest user data into a Bulk Job
      *
-     * @param list<InboundBulkMessageUser> $users
+     * @param array{
+     *   users: list<array{
+     *     data?: mixed,
+     *     preferences?: array<mixed>|RecipientPreferences|null,
+     *     profile?: mixed,
+     *     recipient?: string|null,
+     *     to?: array<mixed>|UserRecipient|null,
+     *   }|InboundBulkMessageUser>,
+     * }|BulkAddUsersParams $params
      *
      * @throws APIException
      */
     public function addUsers(
         string $jobID,
-        $users,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['users' => $users];
-
-        return $this->addUsersRaw($jobID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addUsersRaw(
-        string $jobID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|BulkAddUsersParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = BulkAddUsersParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -78,33 +68,19 @@ final class BulkService implements BulkContract
      *
      * Create a bulk job
      *
-     * @param InboundBulkTemplateMessage|InboundBulkContentMessage $message
+     * @param array{
+     *   message: InboundBulkMessage|array<string,mixed>
+     * }|BulkCreateJobParams $params
      *
      * @throws APIException
      */
     public function createJob(
-        $message,
-        ?RequestOptions $requestOptions = null
-    ): BulkNewJobResponse {
-        $params = ['message' => $message];
-
-        return $this->createJobRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function createJobRaw(
-        array $params,
+        array|BulkCreateJobParams $params,
         ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse {
         [$parsed, $options] = BulkCreateJobParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -122,35 +98,18 @@ final class BulkService implements BulkContract
      *
      * Get Bulk Job Users
      *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of users added to the bulk job
+     * @param array{cursor?: string|null}|BulkListUsersParams $params
      *
      * @throws APIException
      */
     public function listUsers(
         string $jobID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): BulkListUsersResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->listUsersRaw($jobID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listUsersRaw(
-        string $jobID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|BulkListUsersParams $params,
+        ?RequestOptions $requestOptions = null,
     ): BulkListUsersResponse {
         [$parsed, $options] = BulkListUsersParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type rule_alias = array{until: string, start?: string|null}
+ * @phpstan-type RuleShape = array{until: string, start?: string|null}
  */
 final class Rule implements BaseModel
 {
-    /** @use SdkModel<rule_alias> */
+    /** @use SdkModel<RuleShape> */
     use SdkModel;
 
     #[Api]

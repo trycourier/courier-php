@@ -8,31 +8,20 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\PutSubscriptionsRecipient;
+use Courier\Lists\PutSubscriptionsRecipient;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SubscriptionSubscribeParams); // set properties as needed
- * $client->lists.subscriptions->subscribe(...$params->toArray());
- * ```
  * Subscribes the users to the list, overwriting existing subscriptions. If the list does not exist, it will be automatically created.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists.subscriptions->subscribe(...$params->toArray());`
  *
  * @see Courier\Lists\Subscriptions->subscribe
  *
- * @phpstan-type subscription_subscribe_params = array{
+ * @phpstan-type SubscriptionSubscribeParamsShape = array{
  *   recipients: list<PutSubscriptionsRecipient>
  * }
  */
 final class SubscriptionSubscribeParams implements BaseModel
 {
-    /** @use SdkModel<subscription_subscribe_params> */
+    /** @use SdkModel<SubscriptionSubscribeParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -21,8 +21,8 @@ use const Courier\Core\OMIT as omit;
  *   maxRetries?: int|null,
  *   initialRetryDelay?: float|null,
  *   maxRetryDelay?: float|null,
- *   extraHeaders?: array<string, string|int|null|list<string|int>>|null,
- *   extraQueryParams?: array<string, mixed>|null,
+ *   extraHeaders?: array<string,string|int|null|list<string|int>>|null,
+ *   extraQueryParams?: array<string,mixed>|null,
  *   extraBodyParams?: mixed,
  *   transporter?: ClientInterface|null,
  *   uriFactory?: UriFactoryInterface|null,
@@ -48,11 +48,11 @@ final class RequestOptions implements BaseModel
     #[Property]
     public float $maxRetryDelay = 8.0;
 
-    /** @var array<string, string|int|list<string|int>|null>|null $extraHeaders */
+    /** @var array<string,string|int|list<string|int>|null>|null $extraHeaders */
     #[Property(optional: true)]
     public ?array $extraHeaders;
 
-    /** @var array<string, mixed>|null $extraQueryParams */
+    /** @var array<string,mixed>|null $extraQueryParams */
     #[Property(optional: true)]
     public ?array $extraQueryParams;
 
@@ -81,14 +81,14 @@ final class RequestOptions implements BaseModel
      */
     public static function parse(RequestOptions|array|null ...$options): self
     {
-        $parsed = array_map(static fn ($o) => $o instanceof self ? $o->toArray() : $o ?? [], array: $options);
+        $parsed = array_map(static fn ($o) => $o instanceof self ? $o->toProperties() : $o ?? [], array: $options);
 
         return self::with(...array_merge(...$parsed)); // @phpstan-ignore-line
     }
 
     /**
-     * @param array<string, string|int|list<string|int>|null>|null $extraHeaders
-     * @param array<string, mixed>|null $extraQueryParams
+     * @param array<string,string|int|list<string|int>|null>|null $extraHeaders
+     * @param array<string,mixed>|null $extraQueryParams
      * @param mixed|Omit $extraBodyParams
      */
     public static function with(
@@ -154,7 +154,7 @@ final class RequestOptions implements BaseModel
     }
 
     /**
-     * @param array<string, string|int|list<string|int>|null> $extraHeaders
+     * @param array<string,string|int|list<string|int>|null> $extraHeaders
      */
     public function withExtraHeaders(array $extraHeaders): self
     {
@@ -165,7 +165,7 @@ final class RequestOptions implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $extraQueryParams
+     * @param array<string,mixed> $extraQueryParams
      */
     public function withExtraQueryParams(array $extraQueryParams): self
     {

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\Audience;
+use Courier\Audiences\Audience;
+use Courier\Audiences\AudienceListMembersParams;
 use Courier\Audiences\AudienceListMembersResponse;
+use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
+use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Core\Exceptions\APIException;
-use Courier\Filter;
 use Courier\RequestOptions;
-
-use const Courier\Core\OMIT as omit;
 
 interface AudiencesContract
 {
@@ -29,54 +29,25 @@ interface AudiencesContract
     /**
      * @api
      *
-     * @param string|null $description A description of the audience
-     * @param Filter|null $filter A single filter to use for filtering
-     * @param string|null $name The name of the audience
+     * @param array<mixed>|AudienceUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $audienceID,
-        $description = omit,
-        $filter = omit,
-        $name = omit,
+        array|AudienceUpdateParams $params,
         ?RequestOptions $requestOptions = null,
     ): AudienceUpdateResponse;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $audienceID,
-        array $params,
-        ?RequestOptions $requestOptions = null,
-    ): AudienceUpdateResponse;
-
-    /**
-     * @api
-     *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of audiences
+     * @param array<mixed>|AudienceListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): AudienceListResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|AudienceListParams $params,
         ?RequestOptions $requestOptions = null
     ): AudienceListResponse;
 
@@ -93,26 +64,13 @@ interface AudiencesContract
     /**
      * @api
      *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of members
+     * @param array<mixed>|AudienceListMembersParams $params
      *
      * @throws APIException
      */
     public function listMembers(
         string $audienceID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null,
-    ): AudienceListMembersResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listMembersRaw(
-        string $audienceID,
-        array $params,
+        array|AudienceListMembersParams $params,
         ?RequestOptions $requestOptions = null,
     ): AudienceListMembersResponse;
 }

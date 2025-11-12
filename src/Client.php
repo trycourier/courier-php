@@ -122,9 +122,19 @@ class Client extends BaseClient
         );
 
         parent::__construct(
+            // x-release-please-start-version
             headers: [
-                'Content-Type' => 'application/json', 'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'User-Agent' => sprintf('Courier/PHP %s', '3.0.0'),
+                'X-Stainless-Lang' => 'php',
+                'X-Stainless-Package-Version' => '3.0.0',
+                'X-Stainless-OS' => $this->getNormalizedOS(),
+                'X-Stainless-Arch' => $this->getNormalizedArchitecture(),
+                'X-Stainless-Runtime' => 'php',
+                'X-Stainless-Runtime-Version' => phpversion(),
             ],
+            // x-release-please-end
             baseUrl: $baseUrl,
             options: $options,
         );
@@ -147,13 +157,9 @@ class Client extends BaseClient
         $this->users = new UsersService($this);
     }
 
-    /** @return array<string, string> */
+    /** @return array<string,string> */
     protected function authHeaders(): array
     {
-        if (!$this->apiKey) {
-            return [];
-        }
-
-        return ['Authorization' => "Bearer {$this->apiKey}"];
+        return $this->apiKey ? ['Authorization' => "Bearer {$this->apiKey}"] : [];
     }
 }

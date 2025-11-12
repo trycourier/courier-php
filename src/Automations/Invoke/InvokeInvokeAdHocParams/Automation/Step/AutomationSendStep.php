@@ -10,18 +10,18 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_send_step = array{
+ * @phpstan-type AutomationSendStepShape = array{
  *   action: value-of<Action>,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
- *   profile?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
+ *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
  *   template?: string|null,
  * }
  */
 final class AutomationSendStep implements BaseModel
 {
-    /** @use SdkModel<automation_send_step> */
+    /** @use SdkModel<AutomationSendStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */
@@ -31,11 +31,11 @@ final class AutomationSendStep implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -70,8 +70,8 @@ final class AutomationSendStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param array<string, mixed>|null $data
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      */
     public static function with(
         Action|string $action,
@@ -114,7 +114,7 @@ final class AutomationSendStep implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -125,7 +125,7 @@ final class AutomationSendStep implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

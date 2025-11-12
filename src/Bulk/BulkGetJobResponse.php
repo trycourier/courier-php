@@ -12,11 +12,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type bulk_get_job_response = array{job: Job}
+ * @phpstan-type BulkGetJobResponseShape = array{job: Job}
  */
 final class BulkGetJobResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<bulk_get_job_response> */
+    /** @use SdkModel<BulkGetJobResponseShape> */
     use SdkModel;
 
     use SdkResponse;

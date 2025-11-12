@@ -10,38 +10,27 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TokenDeleteParams); // set properties as needed
- * $client->users.tokens->delete(...$params->toArray());
- * ```
  * Delete User Token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tokens->delete(...$params->toArray());`
  *
  * @see Courier\Users\Tokens->delete
  *
- * @phpstan-type token_delete_params = array{userID: string}
+ * @phpstan-type TokenDeleteParamsShape = array{user_id: string}
  */
 final class TokenDeleteParams implements BaseModel
 {
-    /** @use SdkModel<token_delete_params> */
+    /** @use SdkModel<TokenDeleteParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
     /**
      * `new TokenDeleteParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TokenDeleteParams::with(userID: ...)
+     * TokenDeleteParams::with(user_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -60,11 +49,11 @@ final class TokenDeleteParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $userID): self
+    public static function with(string $user_id): self
     {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
 
         return $obj;
     }
@@ -72,7 +61,7 @@ final class TokenDeleteParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }

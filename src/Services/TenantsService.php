@@ -6,29 +6,27 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\DefaultPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
-use Courier\Services\Tenants\DefaultPreferencesService;
+use Courier\Services\Tenants\PreferencesService;
 use Courier\Services\Tenants\TemplatesService;
-use Courier\Tenant;
+use Courier\Tenants\DefaultPreferences;
+use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListParams;
 use Courier\Tenants\TenantListResponse;
 use Courier\Tenants\TenantListUsersParams;
 use Courier\Tenants\TenantListUsersResponse;
 use Courier\Tenants\TenantUpdateParams;
 
-use const Courier\Core\OMIT as omit;
-
 final class TenantsService implements TenantsContract
 {
     /**
-     * @@api
+     * @api
      */
-    public DefaultPreferencesService $defaultPreferences;
+    public PreferencesService $preferences;
 
     /**
-     * @@api
+     * @api
      */
     public TemplatesService $templates;
 
@@ -37,7 +35,7 @@ final class TenantsService implements TenantsContract
      */
     public function __construct(private Client $client)
     {
-        $this->defaultPreferences = new DefaultPreferencesService($client);
+        $this->preferences = new PreferencesService($client);
         $this->templates = new TemplatesService($client);
     }
 
@@ -66,54 +64,27 @@ final class TenantsService implements TenantsContract
      *
      * Create or Replace a Tenant
      *
-     * @param string $name name of the tenant
-     * @param string|null $brandID brand to be used for the account when one is not specified by the send call
-     * @param DefaultPreferences|null $defaultPreferences defines the preferences used for the tenant when the user hasn't specified their own
-     * @param string|null $parentTenantID tenant's parent id (if any)
-     * @param array<string,
-     * mixed,>|null $properties Arbitrary properties accessible to a template
-     * @param array<string,
-     * mixed,>|null $userProfile A user profile object merged with user profile on send
+     * @param array{
+     *   name: string,
+     *   brand_id?: string|null,
+     *   default_preferences?: array{
+     *     items?: list<array<mixed>>|null
+     *   }|DefaultPreferences|null,
+     *   parent_tenant_id?: string|null,
+     *   properties?: array<string,mixed>|null,
+     *   user_profile?: array<string,mixed>|null,
+     * }|TenantUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $tenantID,
-        $name,
-        $brandID = omit,
-        $defaultPreferences = omit,
-        $parentTenantID = omit,
-        $properties = omit,
-        $userProfile = omit,
+        array|TenantUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): Tenant {
-        $params = [
-            'name' => $name,
-            'brandID' => $brandID,
-            'defaultPreferences' => $defaultPreferences,
-            'parentTenantID' => $parentTenantID,
-            'properties' => $properties,
-            'userProfile' => $userProfile,
-        ];
-
-        return $this->updateRaw($tenantID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $tenantID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): Tenant {
         [$parsed, $options] = TenantUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -131,42 +102,19 @@ final class TenantsService implements TenantsContract
      *
      * Get a List of Tenants
      *
-     * @param string|null $cursor Continue the pagination with the next cursor
-     * @param int|null $limit The number of tenants to return
-     * (defaults to 20, maximum value of 100)
-     * @param string|null $parentTenantID Filter the list of tenants by parent_id
+     * @param array{
+     *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null
+     * }|TenantListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        $limit = omit,
-        $parentTenantID = omit,
-        ?RequestOptions $requestOptions = null,
-    ): TenantListResponse {
-        $params = [
-            'cursor' => $cursor,
-            'limit' => $limit,
-            'parentTenantID' => $parentTenantID,
-        ];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|TenantListParams $params,
         ?RequestOptions $requestOptions = null
     ): TenantListResponse {
         [$parsed, $options] = TenantListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -204,38 +152,20 @@ final class TenantsService implements TenantsContract
      *
      * Get Users in Tenant
      *
-     * @param string|null $cursor Continue the pagination with the next cursor
-     * @param int|null $limit The number of accounts to return
-     * (defaults to 20, maximum value of 100)
+     * @param array{
+     *   cursor?: string|null, limit?: int|null
+     * }|TenantListUsersParams $params
      *
      * @throws APIException
      */
     public function listUsers(
         string $tenantID,
-        $cursor = omit,
-        $limit = omit,
+        array|TenantListUsersParams $params,
         ?RequestOptions $requestOptions = null,
-    ): TenantListUsersResponse {
-        $params = ['cursor' => $cursor, 'limit' => $limit];
-
-        return $this->listUsersRaw($tenantID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listUsersRaw(
-        string $tenantID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): TenantListUsersResponse {
         [$parsed, $options] = TenantListUsersParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

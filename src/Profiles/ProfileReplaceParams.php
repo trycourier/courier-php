@@ -10,33 +10,22 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ProfileReplaceParams); // set properties as needed
- * $client->profiles->replace(...$params->toArray());
- * ```
  * When using `PUT`, be sure to include all the key-value pairs required by the recipient's profile.
  * Any key-value pairs that exist in the profile but fail to be included in the `PUT` request will be
  * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
  * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
  *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles->replace(...$params->toArray());`
- *
  * @see Courier\Profiles->replace
  *
- * @phpstan-type profile_replace_params = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileReplaceParamsShape = array{profile: array<string,mixed>}
  */
 final class ProfileReplaceParams implements BaseModel
 {
-    /** @use SdkModel<profile_replace_params> */
+    /** @use SdkModel<ProfileReplaceParamsShape> */
     use SdkModel;
     use SdkParams;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -64,7 +53,7 @@ final class ProfileReplaceParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public static function with(array $profile): self
     {
@@ -76,7 +65,7 @@ final class ProfileReplaceParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {

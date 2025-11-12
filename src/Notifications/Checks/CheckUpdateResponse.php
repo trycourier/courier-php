@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Check;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\Notifications\Check;
 
 /**
- * @phpstan-type check_update_response = array{checks: list<Check>}
+ * @phpstan-type CheckUpdateResponseShape = array{checks: list<Check>}
  */
 final class CheckUpdateResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<check_update_response> */
+    /** @use SdkModel<CheckUpdateResponseShape> */
     use SdkModel;
 
     use SdkResponse;

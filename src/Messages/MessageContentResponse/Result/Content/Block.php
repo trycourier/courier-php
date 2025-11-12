@@ -9,11 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type block_alias = array{text: string, type: string}
+ * @phpstan-type BlockShape = array{text: string, type: string}
  */
 final class Block implements BaseModel
 {
-    /** @use SdkModel<block_alias> */
+    /** @use SdkModel<BlockShape> */
     use SdkModel;
 
     /**

@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
-use Courier\Audience;
+use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersParams;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
+use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Filter;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
-
-use const Courier\Core\OMIT as omit;
 
 final class AudiencesService implements AudiencesContract
 {
@@ -51,41 +49,26 @@ final class AudiencesService implements AudiencesContract
      *
      * Creates or updates audience.
      *
-     * @param string|null $description A description of the audience
-     * @param Filter|null $filter A single filter to use for filtering
-     * @param string|null $name The name of the audience
+     * @param array{
+     *   description?: string|null,
+     *   filter?: array{
+     *     operator: "ENDS_WITH"|"EQ"|"EXISTS"|"GT"|"GTE"|"INCLUDES"|"IS_AFTER"|"IS_BEFORE"|"LT"|"LTE"|"NEQ"|"OMIT"|"STARTS_WITH"|"AND"|"OR",
+     *     path: string,
+     *     value: string,
+     *   }|Filter|null,
+     *   name?: string|null,
+     * }|AudienceUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $audienceID,
-        $description = omit,
-        $filter = omit,
-        $name = omit,
+        array|AudienceUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): AudienceUpdateResponse {
-        $params = [
-            'description' => $description, 'filter' => $filter, 'name' => $name,
-        ];
-
-        return $this->updateRaw($audienceID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $audienceID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): AudienceUpdateResponse {
         [$parsed, $options] = AudienceUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -103,33 +86,17 @@ final class AudiencesService implements AudiencesContract
      *
      * Get the audiences associated with the authorization token.
      *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of audiences
+     * @param array{cursor?: string|null}|AudienceListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): AudienceListResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|AudienceListParams $params,
         ?RequestOptions $requestOptions = null
     ): AudienceListResponse {
         [$parsed, $options] = AudienceListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -167,35 +134,18 @@ final class AudiencesService implements AudiencesContract
      *
      * Get list of members of an audience.
      *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of members
+     * @param array{cursor?: string|null}|AudienceListMembersParams $params
      *
      * @throws APIException
      */
     public function listMembers(
         string $audienceID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): AudienceListMembersResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->listMembersRaw($audienceID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listMembersRaw(
-        string $audienceID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|AudienceListMembersParams $params,
+        ?RequestOptions $requestOptions = null,
     ): AudienceListMembersResponse {
         [$parsed, $options] = AudienceListMembersParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

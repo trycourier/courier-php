@@ -10,17 +10,17 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalImageNodeWithType\Type;
 
 /**
- * @phpstan-type elemental_image_node_with_type = array{
+ * @phpstan-type ElementalImageNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
+ *   type?: value-of<Type>|null,
  * }
  */
 final class ElementalImageNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_image_node_with_type> */
+    /** @use SdkModel<ElementalImageNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

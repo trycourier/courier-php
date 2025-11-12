@@ -10,16 +10,16 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
- * @phpstan-type metadata_alias = array{
+ * @phpstan-type MetadataShape = array{
  *   event?: string|null,
  *   tags?: list<string>|null,
- *   traceID?: string|null,
+ *   trace_id?: string|null,
  *   utm?: Utm|null,
  * }
  */
 final class Metadata implements BaseModel
 {
-    /** @use SdkModel<metadata_alias> */
+    /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]
@@ -29,8 +29,8 @@ final class Metadata implements BaseModel
     #[Api(list: 'string', nullable: true, optional: true)]
     public ?array $tags;
 
-    #[Api('trace_id', nullable: true, optional: true)]
-    public ?string $traceID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $trace_id;
 
     #[Api(nullable: true, optional: true)]
     public ?Utm $utm;
@@ -50,14 +50,14 @@ final class Metadata implements BaseModel
     public static function with(
         ?string $event = null,
         ?array $tags = null,
-        ?string $traceID = null,
+        ?string $trace_id = null,
         ?Utm $utm = null,
     ): self {
         $obj = new self;
 
         null !== $event && $obj->event = $event;
         null !== $tags && $obj->tags = $tags;
-        null !== $traceID && $obj->traceID = $traceID;
+        null !== $trace_id && $obj->trace_id = $trace_id;
         null !== $utm && $obj->utm = $utm;
 
         return $obj;
@@ -85,7 +85,7 @@ final class Metadata implements BaseModel
     public function withTraceID(?string $traceID): self
     {
         $obj = clone $this;
-        $obj->traceID = $traceID;
+        $obj->trace_id = $traceID;
 
         return $obj;
     }

@@ -4,32 +4,22 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\BaseCheck;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Notifications\BaseCheck;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new CheckUpdateParams); // set properties as needed
- * $client->notifications.checks->update(...$params->toArray());
- * ```.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->notifications.checks->update(...$params->toArray());`
- *
  * @see Courier\Notifications\Checks->update
  *
- * @phpstan-type check_update_params = array{id: string, checks: list<BaseCheck>}
+ * @phpstan-type CheckUpdateParamsShape = array{
+ *   id: string, checks: list<BaseCheck>
+ * }
  */
 final class CheckUpdateParams implements BaseModel
 {
-    /** @use SdkModel<check_update_params> */
+    /** @use SdkModel<CheckUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

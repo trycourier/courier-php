@@ -12,11 +12,11 @@ use Courier\MessageRouting;
 /**
  * The template's data containing it's routing configs.
  *
- * @phpstan-type data_alias = array{routing: MessageRouting}
+ * @phpstan-type DataShape = array{routing: MessageRouting}
  */
 final class Data implements BaseModel
 {
-    /** @use SdkModel<data_alias> */
+    /** @use SdkModel<DataShape> */
     use SdkModel;
 
     #[Api]

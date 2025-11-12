@@ -11,27 +11,27 @@ use Courier\MessageRouting;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
 
 /**
- * @phpstan-type result_alias = array{
+ * @phpstan-type ResultShape = array{
  *   id: string,
- *   createdAt: int,
+ *   created_at: int,
  *   note: string,
  *   routing: MessageRouting,
- *   topicID: string,
- *   updatedAt: int,
+ *   topic_id: string,
+ *   updated_at: int,
  *   tags?: Tags|null,
  *   title?: string|null,
  * }
  */
 final class Result implements BaseModel
 {
-    /** @use SdkModel<result_alias> */
+    /** @use SdkModel<ResultShape> */
     use SdkModel;
 
     #[Api]
     public string $id;
 
-    #[Api('created_at')]
-    public int $createdAt;
+    #[Api]
+    public int $created_at;
 
     #[Api]
     public string $note;
@@ -39,11 +39,11 @@ final class Result implements BaseModel
     #[Api]
     public MessageRouting $routing;
 
-    #[Api('topic_id')]
-    public string $topicID;
+    #[Api]
+    public string $topic_id;
 
-    #[Api('updated_at')]
-    public int $updatedAt;
+    #[Api]
+    public int $updated_at;
 
     #[Api(nullable: true, optional: true)]
     public ?Tags $tags;
@@ -57,7 +57,12 @@ final class Result implements BaseModel
      * To enforce required parameters use
      * ```
      * Result::with(
-     *   id: ..., createdAt: ..., note: ..., routing: ..., topicID: ..., updatedAt: ...
+     *   id: ...,
+     *   created_at: ...,
+     *   note: ...,
+     *   routing: ...,
+     *   topic_id: ...,
+     *   updated_at: ...,
      * )
      * ```
      *
@@ -85,22 +90,22 @@ final class Result implements BaseModel
      */
     public static function with(
         string $id,
-        int $createdAt,
+        int $created_at,
         string $note,
         MessageRouting $routing,
-        string $topicID,
-        int $updatedAt,
+        string $topic_id,
+        int $updated_at,
         ?Tags $tags = null,
         ?string $title = null,
     ): self {
         $obj = new self;
 
         $obj->id = $id;
-        $obj->createdAt = $createdAt;
+        $obj->created_at = $created_at;
         $obj->note = $note;
         $obj->routing = $routing;
-        $obj->topicID = $topicID;
-        $obj->updatedAt = $updatedAt;
+        $obj->topic_id = $topic_id;
+        $obj->updated_at = $updated_at;
 
         null !== $tags && $obj->tags = $tags;
         null !== $title && $obj->title = $title;
@@ -119,7 +124,7 @@ final class Result implements BaseModel
     public function withCreatedAt(int $createdAt): self
     {
         $obj = clone $this;
-        $obj->createdAt = $createdAt;
+        $obj->created_at = $createdAt;
 
         return $obj;
     }
@@ -143,7 +148,7 @@ final class Result implements BaseModel
     public function withTopicID(string $topicID): self
     {
         $obj = clone $this;
-        $obj->topicID = $topicID;
+        $obj->topic_id = $topicID;
 
         return $obj;
     }
@@ -151,7 +156,7 @@ final class Result implements BaseModel
     public function withUpdatedAt(int $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updatedAt = $updatedAt;
+        $obj->updated_at = $updatedAt;
 
         return $obj;
     }

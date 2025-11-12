@@ -10,28 +10,17 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantListParams); // set properties as needed
- * $client->tenants->list(...$params->toArray());
- * ```
  * Get a List of Tenants.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->tenants->list(...$params->toArray());`
  *
  * @see Courier\Tenants->list
  *
- * @phpstan-type tenant_list_params = array{
- *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
+ * @phpstan-type TenantListParamsShape = array{
+ *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null
  * }
  */
 final class TenantListParams implements BaseModel
 {
-    /** @use SdkModel<tenant_list_params> */
+    /** @use SdkModel<TenantListParamsShape> */
     use SdkModel;
     use SdkParams;
 
@@ -52,7 +41,7 @@ final class TenantListParams implements BaseModel
      * Filter the list of tenants by parent_id.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $parentTenantID;
+    public ?string $parent_tenant_id;
 
     public function __construct()
     {
@@ -67,13 +56,13 @@ final class TenantListParams implements BaseModel
     public static function with(
         ?string $cursor = null,
         ?int $limit = null,
-        ?string $parentTenantID = null
+        ?string $parent_tenant_id = null
     ): self {
         $obj = new self;
 
         null !== $cursor && $obj->cursor = $cursor;
         null !== $limit && $obj->limit = $limit;
-        null !== $parentTenantID && $obj->parentTenantID = $parentTenantID;
+        null !== $parent_tenant_id && $obj->parent_tenant_id = $parent_tenant_id;
 
         return $obj;
     }
@@ -107,7 +96,7 @@ final class TenantListParams implements BaseModel
     public function withParentTenantID(?string $parentTenantID): self
     {
         $obj = clone $this;
-        $obj->parentTenantID = $parentTenantID;
+        $obj->parent_tenant_id = $parentTenantID;
 
         return $obj;
     }

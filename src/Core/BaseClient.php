@@ -24,8 +24,8 @@ use Psr\Http\Message\UriInterface;
  * @phpstan-type normalized_request = array{
  *   method: string,
  *   path: string,
- *   query: array<string, mixed>,
- *   headers: array<string, string|null|list<string>>,
+ *   query: array<string,mixed>,
+ *   headers: array<string,string|null|list<string>>,
  *   body: mixed,
  * }
  */
@@ -36,7 +36,7 @@ abstract class BaseClient
     /**
      * @internal
      *
-     * @param array<string, string|int|list<string|int>|null> $headers
+     * @param array<string,string|int|list<string|int>|null> $headers
      */
     public function __construct(
         protected array $headers,
@@ -49,11 +49,11 @@ abstract class BaseClient
 
     /**
      * @param string|list<mixed> $path
-     * @param array<string, mixed> $query
-     * @param array<string, mixed> $headers
+     * @param array<string,mixed> $query
+     * @param array<string,mixed> $headers
      * @param class-string<BasePage<mixed>> $page
      * @param class-string<BaseStream<mixed>> $stream
-     * @param RequestOptions|array<string, mixed>|null $options
+     * @param RequestOptions|array<string,mixed>|null $options
      */
     public function request(
         string $method,
@@ -102,22 +102,72 @@ abstract class BaseClient
         return Util::decodeContent($rsp);
     }
 
-    /** @return array<string, string> */
+    /** @return array<string,string> */
     abstract protected function authHeaders(): array;
+
+    protected function getNormalizedOS(): string
+    {
+        $os = strtolower(PHP_OS_FAMILY);
+
+        switch ($os) {
+            case 'windows':
+                return 'Windows';
+
+            case 'darwin':
+                return 'MacOS';
+
+            case 'linux':
+                return 'Linux';
+
+            case 'bsd':
+            case 'freebsd':
+            case 'openbsd':
+                return 'BSD';
+
+            case 'solaris':
+                return 'Solaris';
+
+            case 'unix':
+            case 'unknown':
+                return 'Unknown';
+
+            default:
+                return 'Other:'.$os;
+        }
+    }
+
+    protected function getNormalizedArchitecture(): string
+    {
+        $arch = php_uname('m');
+        if (false !== strpos($arch, 'x86_64') || false !== strpos($arch, 'amd64')) {
+            return 'x64';
+        }
+        if (false !== strpos($arch, 'i386') || false !== strpos($arch, 'i686')) {
+            return 'x32';
+        }
+        if (false !== strpos($arch, 'aarch64') || false !== strpos($arch, 'arm64')) {
+            return 'arm64';
+        }
+        if (false !== strpos($arch, 'arm')) {
+            return 'arm';
+        }
+
+        return 'unknown';
+    }
 
     /**
      * @internal
      *
      * @param string|list<string> $path
-     * @param array<string, mixed> $query
-     * @param array<string, string|int|list<string|int>|null> $headers
+     * @param array<string,mixed> $query
+     * @param array<string,string|int|list<string|int>|null> $headers
      * @param array{
      *   timeout?: float|null,
      *   maxRetries?: int|null,
      *   initialRetryDelay?: float|null,
      *   maxRetryDelay?: float|null,
-     *   extraHeaders?: array<string, string|int|list<string|int>|null>|null,
-     *   extraQueryParams?: array<string, mixed>|null,
+     *   extraHeaders?: array<string,string|int|list<string|int>|null>|null,
+     *   extraQueryParams?: array<string,mixed>|null,
      *   extraBodyParams?: mixed,
      *   transporter?: ClientInterface|null,
      *   uriFactory?: UriFactoryInterface|null,
@@ -139,14 +189,14 @@ abstract class BaseClient
 
         $parsedPath = Util::parsePath($path);
 
-        /** @var array<string, mixed> $mergedQuery */
+        /** @var array<string,mixed> $mergedQuery */
         $mergedQuery = array_merge_recursive(
             $query,
             $options->extraQueryParams ?? [],
         );
         $uri = Util::joinUri($this->baseUrl, path: $parsedPath, query: $mergedQuery)->__toString();
 
-        /** @var array<string, string|list<string>|null> $mergedHeaders */
+        /** @var array<string,string|list<string>|null> $mergedHeaders */
         $mergedHeaders = [...$this->headers,
             ...$this->authHeaders(),
             ...$headers,
@@ -226,8 +276,7 @@ abstract class BaseClient
     /**
      * @internal
      *
-     * @param bool|int|float|string|resource|\Traversable<mixed>|array<string,
-     * mixed,>|null $data
+     * @param bool|int|float|string|resource|\Traversable<mixed,>|array<string,mixed>|null $data
      */
     protected function sendRequest(
         RequestOptions $opts,
@@ -237,6 +286,8 @@ abstract class BaseClient
         int $redirectCount,
     ): ResponseInterface {
         assert(null !== $opts->streamFactory && null !== $opts->transporter);
+
+        $req = $req->withHeader('X-Stainless-Retry-Count', strval($retryCount));
 
         $req = Util::withSetBody($opts->streamFactory, req: $req, body: $data);
 
@@ -264,7 +315,7 @@ abstract class BaseClient
         }
 
         if ($code >= 400 || is_null($rsp)) {
-            if ($this->shouldRetry($opts, retryCount: $retryCount, rsp: $rsp)) {
+            if (!$this->shouldRetry($opts, retryCount: $retryCount, rsp: $rsp)) {
                 $exn = is_null($rsp) ? new APIConnectionException($req, previous: $err) : APIStatusException::from(request: $req, response: $rsp);
 
                 throw $exn;

@@ -8,35 +8,24 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\TenantAssociation;
+use Courier\Tenants\TenantAssociation;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantAddMultipleParams); // set properties as needed
- * $client->users.tenants->addMultiple(...$params->toArray());
- * ```
  * This endpoint is used to add a user to
  * multiple tenants in one call.
  * A custom profile can also be supplied for each tenant.
  * This profile will be merged with the user's main
  * profile when sending to the user with that tenant.
  *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->addMultiple(...$params->toArray());`
- *
  * @see Courier\Users\Tenants->addMultiple
  *
- * @phpstan-type tenant_add_multiple_params = array{
+ * @phpstan-type TenantAddMultipleParamsShape = array{
  *   tenants: list<TenantAssociation>
  * }
  */
 final class TenantAddMultipleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_add_multiple_params> */
+    /** @use SdkModel<TenantAddMultipleParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -12,11 +12,11 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\ProfileReplaceResponse\Status;
 
 /**
- * @phpstan-type profile_replace_response = array{status: value-of<Status>}
+ * @phpstan-type ProfileReplaceResponseShape = array{status: value-of<Status>}
  */
 final class ProfileReplaceResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<profile_replace_response> */
+    /** @use SdkModel<ProfileReplaceResponseShape> */
     use SdkModel;
 
     use SdkResponse;

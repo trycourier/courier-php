@@ -11,26 +11,15 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SendMessageParams); // set properties as needed
- * $client->send->message(...$params->toArray());
- * ```
- * Use the send API to send a message to one or more recipients.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->send->message(...$params->toArray());`
+ * Send a message to one or more recipients.
  *
  * @see Courier\Send->message
  *
- * @phpstan-type send_message_params = array{message: Message}
+ * @phpstan-type SendMessageParamsShape = array{message: Message}
  */
 final class SendMessageParams implements BaseModel
 {
-    /** @use SdkModel<send_message_params> */
+    /** @use SdkModel<SendMessageParamsShape> */
     use SdkModel;
     use SdkParams;
 

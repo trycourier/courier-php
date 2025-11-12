@@ -10,26 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new MessageHistoryParams); // set properties as needed
- * $client->messages->history(...$params->toArray());
- * ```
  * Fetch the array of events of a message you've previously sent.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->messages->history(...$params->toArray());`
  *
  * @see Courier\Messages->history
  *
- * @phpstan-type message_history_params = array{type?: string|null}
+ * @phpstan-type MessageHistoryParamsShape = array{type?: string|null}
  */
 final class MessageHistoryParams implements BaseModel
 {
-    /** @use SdkModel<message_history_params> */
+    /** @use SdkModel<MessageHistoryParamsShape> */
     use SdkModel;
     use SdkParams;
 

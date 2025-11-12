@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
+use Courier\Auth\AuthIssueTokenParams;
 use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
@@ -13,26 +14,12 @@ interface AuthContract
     /**
      * @api
      *
-     * @param string $expiresIn
-     * @param string $scope
+     * @param array<mixed>|AuthIssueTokenParams $params
      *
      * @throws APIException
      */
     public function issueToken(
-        $expiresIn,
-        $scope,
-        ?RequestOptions $requestOptions = null
-    ): AuthIssueTokenResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function issueTokenRaw(
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|AuthIssueTokenParams $params,
+        ?RequestOptions $requestOptions = null,
     ): AuthIssueTokenResponse;
 }

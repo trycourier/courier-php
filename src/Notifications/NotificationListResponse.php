@@ -13,13 +13,13 @@ use Courier\Notifications\NotificationListResponse\Result;
 use Courier\Paging;
 
 /**
- * @phpstan-type notification_list_response = array{
+ * @phpstan-type NotificationListResponseShape = array{
  *   paging: Paging, results: list<Result>
  * }
  */
 final class NotificationListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<notification_list_response> */
+    /** @use SdkModel<NotificationListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

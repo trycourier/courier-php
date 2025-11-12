@@ -10,32 +10,21 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new InvokeInvokeByTemplateParams); // set properties as needed
- * $client->automations.invoke->invokeByTemplate(...$params->toArray());
- * ```
  * Invoke an automation run from an automation template.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->automations.invoke->invokeByTemplate(...$params->toArray());`
  *
  * @see Courier\Automations\Invoke->invokeByTemplate
  *
- * @phpstan-type invoke_invoke_by_template_params = array{
+ * @phpstan-type InvokeInvokeByTemplateParamsShape = array{
  *   recipient: string|null,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
- *   profile?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
+ *   profile?: array<string,mixed>|null,
  *   template?: string|null,
  * }
  */
 final class InvokeInvokeByTemplateParams implements BaseModel
 {
-    /** @use SdkModel<invoke_invoke_by_template_params> */
+    /** @use SdkModel<InvokeInvokeByTemplateParamsShape> */
     use SdkModel;
     use SdkParams;
 
@@ -45,11 +34,11 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -80,8 +69,8 @@ final class InvokeInvokeByTemplateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $data
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      */
     public static function with(
         ?string $recipient,
@@ -119,7 +108,7 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -130,7 +119,7 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

@@ -9,14 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
-use Courier\TopicPreference;
 
 /**
- * @phpstan-type preference_get_topic_response = array{topic: TopicPreference}
+ * @phpstan-type PreferenceGetTopicResponseShape = array{topic: TopicPreference}
  */
 final class PreferenceGetTopicResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<preference_get_topic_response> */
+    /** @use SdkModel<PreferenceGetTopicResponseShape> */
     use SdkModel;
 
     use SdkResponse;

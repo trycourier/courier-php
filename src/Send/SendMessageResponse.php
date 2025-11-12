@@ -11,11 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type send_message_response = array{requestID: string}
+ * @phpstan-type SendMessageResponseShape = array{requestId: string}
  */
 final class SendMessageResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<send_message_response> */
+    /** @use SdkModel<SendMessageResponseShape> */
     use SdkModel;
 
     use SdkResponse;
@@ -24,15 +24,15 @@ final class SendMessageResponse implements BaseModel, ResponseConverter
      * A successful call to `POST /send` returns a `202` status code along with a `requestId` in the response body.
      * For single-recipient requests, the `requestId` is the derived message_id. For multiple recipients, Courier assigns a unique message_id to each derived message.
      */
-    #[Api('requestId')]
-    public string $requestID;
+    #[Api]
+    public string $requestId;
 
     /**
      * `new SendMessageResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendMessageResponse::with(requestID: ...)
+     * SendMessageResponse::with(requestId: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -51,11 +51,11 @@ final class SendMessageResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $requestID): self
+    public static function with(string $requestId): self
     {
         $obj = new self;
 
-        $obj->requestID = $requestID;
+        $obj->requestId = $requestId;
 
         return $obj;
     }
@@ -67,7 +67,7 @@ final class SendMessageResponse implements BaseModel, ResponseConverter
     public function withRequestID(string $requestID): self
     {
         $obj = clone $this;
-        $obj->requestID = $requestID;
+        $obj->requestId = $requestID;
 
         return $obj;
     }

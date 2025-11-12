@@ -9,25 +9,25 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type preferences_alias = array{subscriptionTopicID: string}
+ * @phpstan-type PreferencesShape = array{subscription_topic_id: string}
  */
 final class Preferences implements BaseModel
 {
-    /** @use SdkModel<preferences_alias> */
+    /** @use SdkModel<PreferencesShape> */
     use SdkModel;
 
     /**
      * The subscription topic to apply to the message.
      */
-    #[Api('subscription_topic_id')]
-    public string $subscriptionTopicID;
+    #[Api]
+    public string $subscription_topic_id;
 
     /**
      * `new Preferences()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Preferences::with(subscriptionTopicID: ...)
+     * Preferences::with(subscription_topic_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -46,11 +46,11 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $subscriptionTopicID): self
+    public static function with(string $subscription_topic_id): self
     {
         $obj = new self;
 
-        $obj->subscriptionTopicID = $subscriptionTopicID;
+        $obj->subscription_topic_id = $subscription_topic_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class Preferences implements BaseModel
     public function withSubscriptionTopicID(string $subscriptionTopicID): self
     {
         $obj = clone $this;
-        $obj->subscriptionTopicID = $subscriptionTopicID;
+        $obj->subscription_topic_id = $subscriptionTopicID;
 
         return $obj;
     }

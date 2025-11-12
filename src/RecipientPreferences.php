@@ -9,17 +9,17 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type recipient_preferences = array{
- *   categories?: array<string, NotificationPreferenceDetails>|null,
- *   notifications?: array<string, NotificationPreferenceDetails>|null,
+ * @phpstan-type RecipientPreferencesShape = array{
+ *   categories?: array<string,NotificationPreferenceDetails>|null,
+ *   notifications?: array<string,NotificationPreferenceDetails>|null,
  * }
  */
 final class RecipientPreferences implements BaseModel
 {
-    /** @use SdkModel<recipient_preferences> */
+    /** @use SdkModel<RecipientPreferencesShape> */
     use SdkModel;
 
-    /** @var array<string, NotificationPreferenceDetails>|null $categories */
+    /** @var array<string,NotificationPreferenceDetails>|null $categories */
     #[Api(
         map: NotificationPreferenceDetails::class,
         nullable: true,
@@ -27,7 +27,7 @@ final class RecipientPreferences implements BaseModel
     )]
     public ?array $categories;
 
-    /** @var array<string, NotificationPreferenceDetails>|null $notifications */
+    /** @var array<string,NotificationPreferenceDetails>|null $notifications */
     #[Api(
         map: NotificationPreferenceDetails::class,
         nullable: true,
@@ -45,8 +45,8 @@ final class RecipientPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, NotificationPreferenceDetails>|null $categories
-     * @param array<string, NotificationPreferenceDetails>|null $notifications
+     * @param array<string,NotificationPreferenceDetails>|null $categories
+     * @param array<string,NotificationPreferenceDetails>|null $notifications
      */
     public static function with(
         ?array $categories = null,
@@ -61,7 +61,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string, NotificationPreferenceDetails>|null $categories
+     * @param array<string,NotificationPreferenceDetails>|null $categories
      */
     public function withCategories(?array $categories): self
     {
@@ -72,7 +72,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string, NotificationPreferenceDetails>|null $notifications
+     * @param array<string,NotificationPreferenceDetails>|null $notifications
      */
     public function withNotifications(?array $notifications): self
     {

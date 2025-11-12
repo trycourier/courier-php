@@ -10,26 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AudienceListParams); // set properties as needed
- * $client->audiences->list(...$params->toArray());
- * ```
  * Get the audiences associated with the authorization token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->audiences->list(...$params->toArray());`
  *
  * @see Courier\Audiences->list
  *
- * @phpstan-type audience_list_params = array{cursor?: string|null}
+ * @phpstan-type AudienceListParamsShape = array{cursor?: string|null}
  */
 final class AudienceListParams implements BaseModel
 {
-    /** @use SdkModel<audience_list_params> */
+    /** @use SdkModel<AudienceListParamsShape> */
     use SdkModel;
     use SdkParams;
 

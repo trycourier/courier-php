@@ -13,11 +13,13 @@ use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
 
 /**
- * @phpstan-type list_get_response = array{paging: Paging, results: list<Result>}
+ * @phpstan-type ListGetResponseShape = array{
+ *   paging: Paging, results: list<Result>
+ * }
  */
 final class ListGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<list_get_response> */
+    /** @use SdkModel<ListGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;

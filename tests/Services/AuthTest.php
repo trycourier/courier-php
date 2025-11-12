@@ -33,10 +33,9 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken(
-            expiresIn: 'expires_in',
-            scope: 'scope'
-        );
+        $result = $this->client->auth->issueToken([
+            'expires_in' => 'expires_in', 'scope' => 'scope',
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -48,10 +47,9 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken(
-            expiresIn: 'expires_in',
-            scope: 'scope'
-        );
+        $result = $this->client->auth->issueToken([
+            'expires_in' => 'expires_in', 'scope' => 'scope',
+        ]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

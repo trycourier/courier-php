@@ -10,27 +10,27 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Preference;
 
 /**
- * @phpstan-type preferences_alias = array{
- *   notifications: array<string, Preference>,
- *   categories?: array<string, Preference>|null,
- *   templateID?: string|null,
+ * @phpstan-type PreferencesShape = array{
+ *   notifications: array<string,Preference>,
+ *   categories?: array<string,Preference>|null,
+ *   templateId?: string|null,
  * }
  */
 final class Preferences implements BaseModel
 {
-    /** @use SdkModel<preferences_alias> */
+    /** @use SdkModel<PreferencesShape> */
     use SdkModel;
 
-    /** @var array<string, Preference> $notifications */
+    /** @var array<string,Preference> $notifications */
     #[Api(map: Preference::class)]
     public array $notifications;
 
-    /** @var array<string, Preference>|null $categories */
+    /** @var array<string,Preference>|null $categories */
     #[Api(map: Preference::class, nullable: true, optional: true)]
     public ?array $categories;
 
-    #[Api('templateId', nullable: true, optional: true)]
-    public ?string $templateID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $templateId;
 
     /**
      * `new Preferences()` is missing required properties by the API.
@@ -56,26 +56,26 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, Preference> $notifications
-     * @param array<string, Preference>|null $categories
+     * @param array<string,Preference> $notifications
+     * @param array<string,Preference>|null $categories
      */
     public static function with(
         array $notifications,
         ?array $categories = null,
-        ?string $templateID = null
+        ?string $templateId = null
     ): self {
         $obj = new self;
 
         $obj->notifications = $notifications;
 
         null !== $categories && $obj->categories = $categories;
-        null !== $templateID && $obj->templateID = $templateID;
+        null !== $templateId && $obj->templateId = $templateId;
 
         return $obj;
     }
 
     /**
-     * @param array<string, Preference> $notifications
+     * @param array<string,Preference> $notifications
      */
     public function withNotifications(array $notifications): self
     {
@@ -86,7 +86,7 @@ final class Preferences implements BaseModel
     }
 
     /**
-     * @param array<string, Preference>|null $categories
+     * @param array<string,Preference>|null $categories
      */
     public function withCategories(?array $categories): self
     {
@@ -99,7 +99,7 @@ final class Preferences implements BaseModel
     public function withTemplateID(?string $templateID): self
     {
         $obj = clone $this;
-        $obj->templateID = $templateID;
+        $obj->templateId = $templateID;
 
         return $obj;
     }

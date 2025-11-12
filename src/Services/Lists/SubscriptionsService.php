@@ -12,12 +12,10 @@ use Courier\Lists\Subscriptions\SubscriptionListResponse;
 use Courier\Lists\Subscriptions\SubscriptionSubscribeParams;
 use Courier\Lists\Subscriptions\SubscriptionSubscribeUserParams;
 use Courier\Lists\Subscriptions\SubscriptionUnsubscribeUserParams;
-use Courier\PutSubscriptionsRecipient;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Lists\SubscriptionsContract;
-
-use const Courier\Core\OMIT as omit;
 
 final class SubscriptionsService implements SubscriptionsContract
 {
@@ -31,35 +29,18 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Get the list's subscriptions.
      *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of list subscriptions
+     * @param array{cursor?: string|null}|SubscriptionListParams $params
      *
      * @throws APIException
      */
     public function list(
         string $listID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): SubscriptionListResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->listRaw($listID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        string $listID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|SubscriptionListParams $params,
+        ?RequestOptions $requestOptions = null,
     ): SubscriptionListResponse {
         [$parsed, $options] = SubscriptionListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -77,35 +58,22 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param list<PutSubscriptionsRecipient> $recipients
+     * @param array{
+     *   recipients: list<array{
+     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *   }>,
+     * }|SubscriptionAddParams $params
      *
      * @throws APIException
      */
     public function add(
         string $listID,
-        $recipients,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['recipients' => $recipients];
-
-        return $this->addRaw($listID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addRaw(
-        string $listID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|SubscriptionAddParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = SubscriptionAddParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -123,35 +91,22 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribes the users to the list, overwriting existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param list<PutSubscriptionsRecipient> $recipients
+     * @param array{
+     *   recipients: list<array{
+     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *   }>,
+     * }|SubscriptionSubscribeParams $params
      *
      * @throws APIException
      */
     public function subscribe(
         string $listID,
-        $recipients,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['recipients' => $recipients];
-
-        return $this->subscribeRaw($listID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function subscribeRaw(
-        string $listID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|SubscriptionSubscribeParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = SubscriptionSubscribeParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -169,46 +124,33 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
      *
-     * @param string $listID
-     * @param RecipientPreferences|null $preferences
+     * @param array{
+     *   list_id: string,
+     *   preferences?: array{
+     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *   }|RecipientPreferences|null,
+     * }|SubscriptionSubscribeUserParams $params
      *
      * @throws APIException
      */
     public function subscribeUser(
         string $userID,
-        $listID,
-        $preferences = omit,
+        array|SubscriptionSubscribeUserParams $params,
         ?RequestOptions $requestOptions = null,
-    ): mixed {
-        $params = ['listID' => $listID, 'preferences' => $preferences];
-
-        return $this->subscribeUserRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function subscribeUserRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = SubscriptionSubscribeUserParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $listID = $parsed['listID'];
-        unset($parsed['listID']);
+        $listID = $parsed['list_id'];
+        unset($parsed['list_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
-            body: (object) array_diff_key($parsed, ['listID']),
+            body: (object) array_diff_key($parsed, ['list_id']),
             options: $options,
             convert: null,
         );
@@ -219,38 +161,21 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Delete a subscription to a list by list ID and user ID.
      *
-     * @param string $listID
+     * @param array{list_id: string}|SubscriptionUnsubscribeUserParams $params
      *
      * @throws APIException
      */
     public function unsubscribeUser(
         string $userID,
-        $listID,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['listID' => $listID];
-
-        return $this->unsubscribeUserRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function unsubscribeUserRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|SubscriptionUnsubscribeUserParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = SubscriptionUnsubscribeUserParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $listID = $parsed['listID'];
-        unset($parsed['listID']);
+        $listID = $parsed['list_id'];
+        unset($parsed['list_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(

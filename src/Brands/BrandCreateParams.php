@@ -4,30 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\BrandSettings;
-use Courier\BrandSnippets;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BrandCreateParams); // set properties as needed
- * $client->brands->create(...$params->toArray());
- * ```
  * Create a new brand.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->brands->create(...$params->toArray());`
  *
  * @see Courier\Brands->create
  *
- * @phpstan-type brand_create_params = array{
+ * @phpstan-type BrandCreateParamsShape = array{
  *   name: string,
  *   id?: string|null,
  *   settings?: BrandSettings|null,
@@ -36,7 +23,7 @@ use Courier\Core\Contracts\BaseModel;
  */
 final class BrandCreateParams implements BaseModel
 {
-    /** @use SdkModel<brand_create_params> */
+    /** @use SdkModel<BrandCreateParamsShape> */
     use SdkModel;
     use SdkParams;
 

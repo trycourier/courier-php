@@ -7,38 +7,24 @@ namespace Courier\ServiceContracts\Profiles;
 use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
-use Courier\Profiles\Lists\ListSubscribeParams\List;
+use Courier\Profiles\Lists\ListRetrieveParams;
+use Courier\Profiles\Lists\ListSubscribeParams;
 use Courier\Profiles\Lists\ListSubscribeResponse;
 use Courier\RequestOptions;
-
-use const Courier\Core\OMIT as omit;
 
 interface ListsContract
 {
     /**
      * @api
      *
-     * @param string|null $cursor a unique identifier that allows for fetching the next set of message statuses
+     * @param array<mixed>|ListRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): ListGetResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ListRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ListGetResponse;
 
     /**
@@ -54,26 +40,13 @@ interface ListsContract
     /**
      * @api
      *
-     * @param list<List> $lists
+     * @param array<mixed>|ListSubscribeParams $params
      *
      * @throws APIException
      */
     public function subscribe(
         string $userID,
-        $lists,
-        ?RequestOptions $requestOptions = null
-    ): ListSubscribeResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function subscribeRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ListSubscribeParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ListSubscribeResponse;
 }

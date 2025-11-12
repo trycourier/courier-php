@@ -10,38 +10,27 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SubscriptionUnsubscribeUserParams); // set properties as needed
- * $client->lists.subscriptions->unsubscribeUser(...$params->toArray());
- * ```
  * Delete a subscription to a list by list ID and user ID.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists.subscriptions->unsubscribeUser(...$params->toArray());`
  *
  * @see Courier\Lists\Subscriptions->unsubscribeUser
  *
- * @phpstan-type subscription_unsubscribe_user_params = array{listID: string}
+ * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{list_id: string}
  */
 final class SubscriptionUnsubscribeUserParams implements BaseModel
 {
-    /** @use SdkModel<subscription_unsubscribe_user_params> */
+    /** @use SdkModel<SubscriptionUnsubscribeUserParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $listID;
+    public string $list_id;
 
     /**
      * `new SubscriptionUnsubscribeUserParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SubscriptionUnsubscribeUserParams::with(listID: ...)
+     * SubscriptionUnsubscribeUserParams::with(list_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -60,11 +49,11 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $listID): self
+    public static function with(string $list_id): self
     {
         $obj = new self;
 
-        $obj->listID = $listID;
+        $obj->list_id = $list_id;
 
         return $obj;
     }
@@ -72,7 +61,7 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj->listID = $listID;
+        $obj->list_id = $listID;
 
         return $obj;
     }

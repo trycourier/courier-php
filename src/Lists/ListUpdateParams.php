@@ -11,28 +11,17 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ListUpdateParams); // set properties as needed
- * $client->lists->update(...$params->toArray());
- * ```
  * Create or replace an existing list with the supplied values.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists->update(...$params->toArray());`
  *
  * @see Courier\Lists->update
  *
- * @phpstan-type list_update_params = array{
+ * @phpstan-type ListUpdateParamsShape = array{
  *   name: string, preferences?: RecipientPreferences|null
  * }
  */
 final class ListUpdateParams implements BaseModel
 {
-    /** @use SdkModel<list_update_params> */
+    /** @use SdkModel<ListUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

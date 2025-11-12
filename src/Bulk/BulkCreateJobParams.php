@@ -4,36 +4,25 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
+use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
+use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BulkCreateJobParams); // set properties as needed
- * $client->bulk->createJob(...$params->toArray());
- * ```
  * Create a bulk job.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->bulk->createJob(...$params->toArray());`
  *
  * @see Courier\Bulk->createJob
  *
- * @phpstan-type bulk_create_job_params = array{
+ * @phpstan-type BulkCreateJobParamsShape = array{
  *   message: InboundBulkTemplateMessage|InboundBulkContentMessage
  * }
  */
 final class BulkCreateJobParams implements BaseModel
 {
-    /** @use SdkModel<bulk_create_job_params> */
+    /** @use SdkModel<BulkCreateJobParamsShape> */
     use SdkModel;
     use SdkParams;
 

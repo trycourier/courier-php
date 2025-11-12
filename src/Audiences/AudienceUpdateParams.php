@@ -8,31 +8,19 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Filter;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AudienceUpdateParams); // set properties as needed
- * $client->audiences->update(...$params->toArray());
- * ```
  * Creates or updates audience.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->audiences->update(...$params->toArray());`
  *
  * @see Courier\Audiences->update
  *
- * @phpstan-type audience_update_params = array{
+ * @phpstan-type AudienceUpdateParamsShape = array{
  *   description?: string|null, filter?: Filter|null, name?: string|null
  * }
  */
 final class AudienceUpdateParams implements BaseModel
 {
-    /** @use SdkModel<audience_update_params> */
+    /** @use SdkModel<AudienceUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -9,18 +9,18 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type message_context = array{tenantID?: string|null}
+ * @phpstan-type MessageContextShape = array{tenant_id?: string|null}
  */
 final class MessageContext implements BaseModel
 {
-    /** @use SdkModel<message_context> */
+    /** @use SdkModel<MessageContextShape> */
     use SdkModel;
 
     /**
      * Tenant id used to load brand/default preferences/context.
      */
-    #[Api('tenant_id', nullable: true, optional: true)]
-    public ?string $tenantID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $tenant_id;
 
     public function __construct()
     {
@@ -32,11 +32,11 @@ final class MessageContext implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?string $tenantID = null): self
+    public static function with(?string $tenant_id = null): self
     {
         $obj = new self;
 
-        null !== $tenantID && $obj->tenantID = $tenantID;
+        null !== $tenant_id && $obj->tenant_id = $tenant_id;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class MessageContext implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }

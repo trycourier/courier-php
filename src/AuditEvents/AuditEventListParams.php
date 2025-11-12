@@ -10,26 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new AuditEventListParams); // set properties as needed
- * $client->auditEvents->list(...$params->toArray());
- * ```
  * Fetch the list of audit events.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->auditEvents->list(...$params->toArray());`
  *
  * @see Courier\AuditEvents->list
  *
- * @phpstan-type audit_event_list_params = array{cursor?: string|null}
+ * @phpstan-type AuditEventListParamsShape = array{cursor?: string|null}
  */
 final class AuditEventListParams implements BaseModel
 {
-    /** @use SdkModel<audit_event_list_params> */
+    /** @use SdkModel<AuditEventListParamsShape> */
     use SdkModel;
     use SdkParams;
 

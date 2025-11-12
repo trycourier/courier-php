@@ -10,38 +10,27 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantRemoveSingleParams); // set properties as needed
- * $client->users.tenants->removeSingle(...$params->toArray());
- * ```
  * Removes a user from the supplied tenant.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->removeSingle(...$params->toArray());`
  *
  * @see Courier\Users\Tenants->removeSingle
  *
- * @phpstan-type tenant_remove_single_params = array{userID: string}
+ * @phpstan-type TenantRemoveSingleParamsShape = array{user_id: string}
  */
 final class TenantRemoveSingleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_remove_single_params> */
+    /** @use SdkModel<TenantRemoveSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
     /**
      * `new TenantRemoveSingleParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantRemoveSingleParams::with(userID: ...)
+     * TenantRemoveSingleParams::with(user_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -60,11 +49,11 @@ final class TenantRemoveSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $userID): self
+    public static function with(string $user_id): self
     {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
 
         return $obj;
     }
@@ -72,7 +61,7 @@ final class TenantRemoveSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }

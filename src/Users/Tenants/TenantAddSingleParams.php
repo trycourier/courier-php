@@ -10,39 +10,28 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantAddSingleParams); // set properties as needed
- * $client->users.tenants->addSingle(...$params->toArray());
- * ```
  * This endpoint is used to add a single tenant.
  *
  * A custom profile can also be supplied with the tenant.
  * This profile will be merged with the user's main profile
  * when sending to the user with that tenant.
  *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->addSingle(...$params->toArray());`
- *
  * @see Courier\Users\Tenants->addSingle
  *
- * @phpstan-type tenant_add_single_params = array{
- *   userID: string, profile?: array<string, mixed>|null
+ * @phpstan-type TenantAddSingleParamsShape = array{
+ *   user_id: string, profile?: array<string,mixed>|null
  * }
  */
 final class TenantAddSingleParams implements BaseModel
 {
-    /** @use SdkModel<tenant_add_single_params> */
+    /** @use SdkModel<TenantAddSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -51,7 +40,7 @@ final class TenantAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TenantAddSingleParams::with(userID: ...)
+     * TenantAddSingleParams::with(user_id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -70,13 +59,13 @@ final class TenantAddSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
-    public static function with(string $userID, ?array $profile = null): self
+    public static function with(string $user_id, ?array $profile = null): self
     {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
 
         null !== $profile && $obj->profile = $profile;
 
@@ -86,13 +75,13 @@ final class TenantAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

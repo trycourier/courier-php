@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkGetJobResponse;
 
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
+use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
+use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
 
 /**
- * @phpstan-type job_alias = array{
+ * @phpstan-type JobShape = array{
  *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
  *   enqueued: int,
  *   failures: int,
@@ -22,7 +22,7 @@ use Courier\InboundBulkMessage\InboundBulkTemplateMessage;
  */
 final class Job implements BaseModel
 {
-    /** @use SdkModel<job_alias> */
+    /** @use SdkModel<JobShape> */
     use SdkModel;
 
     #[Api]

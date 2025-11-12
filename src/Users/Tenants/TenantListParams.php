@@ -10,26 +10,17 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantListParams); // set properties as needed
- * $client->users.tenants->list(...$params->toArray());
- * ```
  * Returns a paginated list of user tenant associations.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tenants->list(...$params->toArray());`
  *
  * @see Courier\Users\Tenants->list
  *
- * @phpstan-type tenant_list_params = array{cursor?: string|null, limit?: int|null}
+ * @phpstan-type TenantListParamsShape = array{
+ *   cursor?: string|null, limit?: int|null
+ * }
  */
 final class TenantListParams implements BaseModel
 {
-    /** @use SdkModel<tenant_list_params> */
+    /** @use SdkModel<TenantListParamsShape> */
     use SdkModel;
     use SdkParams;
 

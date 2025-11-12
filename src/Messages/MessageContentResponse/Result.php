@@ -10,13 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
 
 /**
- * @phpstan-type result_alias = array{
- *   channel: string, channelID: string, content: Content
+ * @phpstan-type ResultShape = array{
+ *   channel: string, channel_id: string, content: Content
  * }
  */
 final class Result implements BaseModel
 {
-    /** @use SdkModel<result_alias> */
+    /** @use SdkModel<ResultShape> */
     use SdkModel;
 
     /**
@@ -28,8 +28,8 @@ final class Result implements BaseModel
     /**
      * The ID of channel used for rendering the message.
      */
-    #[Api('channel_id')]
-    public string $channelID;
+    #[Api]
+    public string $channel_id;
 
     /**
      * Content details of the rendered message.
@@ -42,7 +42,7 @@ final class Result implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * Result::with(channel: ..., channelID: ..., content: ...)
+     * Result::with(channel: ..., channel_id: ..., content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -63,13 +63,13 @@ final class Result implements BaseModel
      */
     public static function with(
         string $channel,
-        string $channelID,
+        string $channel_id,
         Content $content
     ): self {
         $obj = new self;
 
         $obj->channel = $channel;
-        $obj->channelID = $channelID;
+        $obj->channel_id = $channel_id;
         $obj->content = $content;
 
         return $obj;
@@ -92,7 +92,7 @@ final class Result implements BaseModel
     public function withChannelID(string $channelID): self
     {
         $obj = clone $this;
-        $obj->channelID = $channelID;
+        $obj->channel_id = $channelID;
 
         return $obj;
     }

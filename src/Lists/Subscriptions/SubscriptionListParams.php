@@ -10,26 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new SubscriptionListParams); // set properties as needed
- * $client->lists.subscriptions->list(...$params->toArray());
- * ```
  * Get the list's subscriptions.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->lists.subscriptions->list(...$params->toArray());`
  *
  * @see Courier\Lists\Subscriptions->list
  *
- * @phpstan-type subscription_list_params = array{cursor?: string|null}
+ * @phpstan-type SubscriptionListParamsShape = array{cursor?: string|null}
  */
 final class SubscriptionListParams implements BaseModel
 {
-    /** @use SdkModel<subscription_list_params> */
+    /** @use SdkModel<SubscriptionListParamsShape> */
     use SdkModel;
     use SdkParams;
 

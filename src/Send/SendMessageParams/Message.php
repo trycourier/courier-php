@@ -25,17 +25,17 @@ use Courier\UserRecipient;
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
- * @phpstan-type message_alias = array{
- *   brandID?: string|null,
- *   channels?: array<string, Channel>|null,
- *   content?: ElementalContentSugar|ElementalContent,
+ * @phpstan-type MessageShape = array{
+ *   brand_id?: string|null,
+ *   channels?: array<string,Channel>|null,
+ *   content?: null|ElementalContentSugar|ElementalContent,
  *   context?: MessageContext|null,
- *   data?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
  *   delay?: Delay|null,
  *   expiry?: Expiry|null,
  *   metadata?: Metadata|null,
  *   preferences?: Preferences|null,
- *   providers?: array<string, Provider>|null,
+ *   providers?: array<string,Provider>|null,
  *   routing?: Routing|null,
  *   template?: string|null,
  *   timeout?: Timeout|null,
@@ -44,16 +44,16 @@ use Courier\UserRecipient;
  */
 final class Message implements BaseModel
 {
-    /** @use SdkModel<message_alias> */
+    /** @use SdkModel<MessageShape> */
     use SdkModel;
 
-    #[Api('brand_id', nullable: true, optional: true)]
-    public ?string $brandID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $brand_id;
 
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
-     * @var array<string, Channel>|null $channels
+     * @var array<string,Channel>|null $channels
      */
     #[Api(map: Channel::class, nullable: true, optional: true)]
     public ?array $channels;
@@ -67,7 +67,7 @@ final class Message implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?MessageContext $context;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
@@ -83,7 +83,7 @@ final class Message implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?Preferences $preferences;
 
-    /** @var array<string, Provider>|null $providers */
+    /** @var array<string,Provider>|null $providers */
     #[Api(map: Provider::class, nullable: true, optional: true)]
     public ?array $providers;
 
@@ -117,13 +117,13 @@ final class Message implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, Channel>|null $channels
-     * @param array<string, mixed>|null $data
-     * @param array<string, Provider>|null $providers
+     * @param array<string,Channel>|null $channels
+     * @param array<string,mixed>|null $data
+     * @param array<string,Provider>|null $providers
      * @param UserRecipient|list<Recipient>|null $to
      */
     public static function with(
-        ?string $brandID = null,
+        ?string $brand_id = null,
         ?array $channels = null,
         ElementalContentSugar|ElementalContent|null $content = null,
         ?MessageContext $context = null,
@@ -140,7 +140,7 @@ final class Message implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $brandID && $obj->brandID = $brandID;
+        null !== $brand_id && $obj->brand_id = $brand_id;
         null !== $channels && $obj->channels = $channels;
         null !== $content && $obj->content = $content;
         null !== $context && $obj->context = $context;
@@ -161,7 +161,7 @@ final class Message implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj->brandID = $brandID;
+        $obj->brand_id = $brandID;
 
         return $obj;
     }
@@ -169,7 +169,7 @@ final class Message implements BaseModel
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
-     * @param array<string, Channel>|null $channels
+     * @param array<string,Channel>|null $channels
      */
     public function withChannels(?array $channels): self
     {
@@ -200,7 +200,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -243,7 +243,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param array<string, Provider>|null $providers
+     * @param array<string,Provider>|null $providers
      */
     public function withProviders(?array $providers): self
     {

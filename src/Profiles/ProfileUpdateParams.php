@@ -11,26 +11,15 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\ProfileUpdateParams\Patch;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new ProfileUpdateParams); // set properties as needed
- * $client->profiles->update(...$params->toArray());
- * ```
  * Update a profile.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->profiles->update(...$params->toArray());`
  *
  * @see Courier\Profiles->update
  *
- * @phpstan-type profile_update_params = array{patch: list<Patch>}
+ * @phpstan-type ProfileUpdateParamsShape = array{patch: list<Patch>}
  */
 final class ProfileUpdateParams implements BaseModel
 {
-    /** @use SdkModel<profile_update_params> */
+    /** @use SdkModel<ProfileUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

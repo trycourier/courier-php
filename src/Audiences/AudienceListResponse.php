@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audience;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
@@ -13,13 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type audience_list_response = array{
+ * @phpstan-type AudienceListResponseShape = array{
  *   items: list<Audience>, paging: Paging
  * }
  */
 final class AudienceListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<audience_list_response> */
+    /** @use SdkModel<AudienceListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

@@ -10,26 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BulkListUsersParams); // set properties as needed
- * $client->bulk->listUsers(...$params->toArray());
- * ```
  * Get Bulk Job Users.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->bulk->listUsers(...$params->toArray());`
  *
  * @see Courier\Bulk->listUsers
  *
- * @phpstan-type bulk_list_users_params = array{cursor?: string|null}
+ * @phpstan-type BulkListUsersParamsShape = array{cursor?: string|null}
  */
 final class BulkListUsersParams implements BaseModel
 {
-    /** @use SdkModel<bulk_list_users_params> */
+    /** @use SdkModel<BulkListUsersParamsShape> */
     use SdkModel;
     use SdkParams;
 

@@ -11,23 +11,23 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_update_profile_step = array{
+ * @phpstan-type AutomationUpdateProfileStepShape = array{
  *   action: value-of<Action>,
- *   profile: array<string, mixed>,
+ *   profile: array<string,mixed>,
  *   merge?: value-of<Merge>|null,
- *   recipientID?: string|null,
+ *   recipient_id?: string|null,
  * }
  */
 final class AutomationUpdateProfileStep implements BaseModel
 {
-    /** @use SdkModel<automation_update_profile_step> */
+    /** @use SdkModel<AutomationUpdateProfileStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */
     #[Api(enum: Action::class)]
     public string $action;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -35,8 +35,8 @@ final class AutomationUpdateProfileStep implements BaseModel
     #[Api(enum: Merge::class, nullable: true, optional: true)]
     public ?string $merge;
 
-    #[Api('recipient_id', nullable: true, optional: true)]
-    public ?string $recipientID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $recipient_id;
 
     /**
      * `new AutomationUpdateProfileStep()` is missing required properties by the API.
@@ -63,14 +63,14 @@ final class AutomationUpdateProfileStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      * @param Merge|value-of<Merge>|null $merge
      */
     public static function with(
         Action|string $action,
         array $profile,
         Merge|string|null $merge = null,
-        ?string $recipientID = null,
+        ?string $recipient_id = null,
     ): self {
         $obj = new self;
 
@@ -78,7 +78,7 @@ final class AutomationUpdateProfileStep implements BaseModel
         $obj->profile = $profile;
 
         null !== $merge && $obj['merge'] = $merge;
-        null !== $recipientID && $obj->recipientID = $recipientID;
+        null !== $recipient_id && $obj->recipient_id = $recipient_id;
 
         return $obj;
     }
@@ -95,7 +95,7 @@ final class AutomationUpdateProfileStep implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {
@@ -119,7 +119,7 @@ final class AutomationUpdateProfileStep implements BaseModel
     public function withRecipientID(?string $recipientID): self
     {
         $obj = clone $this;
-        $obj->recipientID = $recipientID;
+        $obj->recipient_id = $recipientID;
 
         return $obj;
     }

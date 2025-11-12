@@ -4,36 +4,23 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\BrandSettings;
-use Courier\BrandSnippets;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new BrandUpdateParams); // set properties as needed
- * $client->brands->update(...$params->toArray());
- * ```
  * Replace an existing brand with the supplied values.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->brands->update(...$params->toArray());`
  *
  * @see Courier\Brands->update
  *
- * @phpstan-type brand_update_params = array{
+ * @phpstan-type BrandUpdateParamsShape = array{
  *   name: string, settings?: BrandSettings|null, snippets?: BrandSnippets|null
  * }
  */
 final class BrandUpdateParams implements BaseModel
 {
-    /** @use SdkModel<brand_update_params> */
+    /** @use SdkModel<BrandUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 

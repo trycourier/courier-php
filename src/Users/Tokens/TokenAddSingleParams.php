@@ -13,52 +13,41 @@ use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TokenAddSingleParams); // set properties as needed
- * $client->users.tokens->addSingle(...$params->toArray());
- * ```
  * Adds a single token to a user and overwrites a matching existing token.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->users.tokens->addSingle(...$params->toArray());`
  *
  * @see Courier\Users\Tokens->addSingle
  *
- * @phpstan-type token_add_single_params = array{
- *   userID: string,
- *   providerKey: ProviderKey|value-of<ProviderKey>,
- *   token?: string|null,
+ * @phpstan-type TokenAddSingleParamsShape = array{
+ *   user_id: string,
+ *   token: string,
+ *   provider_key: ProviderKey|value-of<ProviderKey>,
  *   device?: Device|null,
- *   expiryDate?: string|bool|null,
+ *   expiry_date?: string|bool|null,
  *   properties?: mixed,
  *   tracking?: Tracking|null,
  * }
  */
 final class TokenAddSingleParams implements BaseModel
 {
-    /** @use SdkModel<token_add_single_params> */
+    /** @use SdkModel<TokenAddSingleParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Api]
-    public string $userID;
-
-    /** @var value-of<ProviderKey> $providerKey */
-    #[Api('provider_key', enum: ProviderKey::class)]
-    public string $providerKey;
+    public string $user_id;
 
     /**
-     * Full body of the token. Must match token in URL.
+     * Full body of the token. Must match token in URL path parameter.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $token;
+    #[Api]
+    public string $token;
+
+    /** @var value-of<ProviderKey> $provider_key */
+    #[Api(enum: ProviderKey::class)]
+    public string $provider_key;
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Device $device;
@@ -66,17 +55,17 @@ final class TokenAddSingleParams implements BaseModel
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Api('expiry_date', nullable: true, optional: true)]
-    public string|bool|null $expiryDate;
+    #[Api(nullable: true, optional: true)]
+    public string|bool|null $expiry_date;
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     #[Api(optional: true)]
     public mixed $properties;
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Tracking $tracking;
@@ -86,13 +75,16 @@ final class TokenAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenAddSingleParams::with(userID: ..., providerKey: ...)
+     * TokenAddSingleParams::with(user_id: ..., token: ..., provider_key: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new TokenAddSingleParams)->withUserID(...)->withProviderKey(...)
+     * (new TokenAddSingleParams)
+     *   ->withUserID(...)
+     *   ->withToken(...)
+     *   ->withProviderKey(...)
      * ```
      */
     public function __construct()
@@ -105,25 +97,25 @@ final class TokenAddSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ProviderKey|value-of<ProviderKey> $providerKey
+     * @param ProviderKey|value-of<ProviderKey> $provider_key
      */
     public static function with(
-        string $userID,
-        ProviderKey|string $providerKey,
-        ?string $token = null,
+        string $user_id,
+        string $token,
+        ProviderKey|string $provider_key,
         ?Device $device = null,
-        string|bool|null $expiryDate = null,
+        string|bool|null $expiry_date = null,
         mixed $properties = null,
         ?Tracking $tracking = null,
     ): self {
         $obj = new self;
 
-        $obj->userID = $userID;
-        $obj['providerKey'] = $providerKey;
+        $obj->user_id = $user_id;
+        $obj->token = $token;
+        $obj['provider_key'] = $provider_key;
 
-        null !== $token && $obj->token = $token;
         null !== $device && $obj->device = $device;
-        null !== $expiryDate && $obj->expiryDate = $expiryDate;
+        null !== $expiry_date && $obj->expiry_date = $expiry_date;
         null !== $properties && $obj->properties = $properties;
         null !== $tracking && $obj->tracking = $tracking;
 
@@ -133,7 +125,18 @@ final class TokenAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
+
+        return $obj;
+    }
+
+    /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    public function withToken(string $token): self
+    {
+        $obj = clone $this;
+        $obj->token = $token;
 
         return $obj;
     }
@@ -144,24 +147,13 @@ final class TokenAddSingleParams implements BaseModel
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $providerKey;
 
         return $obj;
     }
 
     /**
-     * Full body of the token. Must match token in URL.
-     */
-    public function withToken(?string $token): self
-    {
-        $obj = clone $this;
-        $obj->token = $token;
-
-        return $obj;
-    }
-
-    /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     public function withDevice(?Device $device): self
     {
@@ -177,13 +169,13 @@ final class TokenAddSingleParams implements BaseModel
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
         $obj = clone $this;
-        $obj->expiryDate = $expiryDate;
+        $obj->expiry_date = $expiryDate;
 
         return $obj;
     }
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     public function withProperties(mixed $properties): self
     {
@@ -194,7 +186,7 @@ final class TokenAddSingleParams implements BaseModel
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     public function withTracking(?Tracking $tracking): self
     {

@@ -23,35 +23,17 @@ final class AuthService implements AuthContract
      *
      * Returns a new access token.
      *
-     * @param string $expiresIn
-     * @param string $scope
+     * @param array{expires_in: string, scope: string}|AuthIssueTokenParams $params
      *
      * @throws APIException
      */
     public function issueToken(
-        $expiresIn,
-        $scope,
-        ?RequestOptions $requestOptions = null
-    ): AuthIssueTokenResponse {
-        $params = ['expiresIn' => $expiresIn, 'scope' => $scope];
-
-        return $this->issueTokenRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function issueTokenRaw(
-        array $params,
+        array|AuthIssueTokenParams $params,
         ?RequestOptions $requestOptions = null
     ): AuthIssueTokenResponse {
         [$parsed, $options] = AuthIssueTokenParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

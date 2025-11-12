@@ -4,44 +4,25 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
-use Courier\Brand;
+use Courier\Brands\Brand;
+use Courier\Brands\BrandCreateParams;
+use Courier\Brands\BrandListParams;
 use Courier\Brands\BrandListResponse;
-use Courier\BrandSettings;
-use Courier\BrandSnippets;
+use Courier\Brands\BrandUpdateParams;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-
-use const Courier\Core\OMIT as omit;
 
 interface BrandsContract
 {
     /**
      * @api
      *
-     * @param string $name
-     * @param string|null $id
-     * @param BrandSettings|null $settings
-     * @param BrandSnippets|null $snippets
+     * @param array<mixed>|BrandCreateParams $params
      *
      * @throws APIException
      */
     public function create(
-        $name,
-        $id = omit,
-        $settings = omit,
-        $snippets = omit,
-        ?RequestOptions $requestOptions = null,
-    ): Brand;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function createRaw(
-        array $params,
+        array|BrandCreateParams $params,
         ?RequestOptions $requestOptions = null
     ): Brand;
 
@@ -58,54 +39,25 @@ interface BrandsContract
     /**
      * @api
      *
-     * @param string $name the name of the brand
-     * @param BrandSettings|null $settings
-     * @param BrandSnippets|null $snippets
+     * @param array<mixed>|BrandUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $brandID,
-        $name,
-        $settings = omit,
-        $snippets = omit,
+        array|BrandUpdateParams $params,
         ?RequestOptions $requestOptions = null,
     ): Brand;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $brandID,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): Brand;
-
-    /**
-     * @api
-     *
-     * @param string|null $cursor a unique identifier that allows for fetching the next set of brands
+     * @param array<mixed>|BrandListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): BrandListResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|BrandListParams $params,
         ?RequestOptions $requestOptions = null
     ): BrandListResponse;
 

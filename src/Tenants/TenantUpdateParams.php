@@ -8,36 +8,24 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\DefaultPreferences;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new TenantUpdateParams); // set properties as needed
- * $client->tenants->update(...$params->toArray());
- * ```
  * Create or Replace a Tenant.
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->tenants->update(...$params->toArray());`
  *
  * @see Courier\Tenants->update
  *
- * @phpstan-type tenant_update_params = array{
+ * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
- *   brandID?: string|null,
- *   defaultPreferences?: DefaultPreferences|null,
- *   parentTenantID?: string|null,
- *   properties?: array<string, mixed>|null,
- *   userProfile?: array<string, mixed>|null,
+ *   brand_id?: string|null,
+ *   default_preferences?: DefaultPreferences|null,
+ *   parent_tenant_id?: string|null,
+ *   properties?: array<string,mixed>|null,
+ *   user_profile?: array<string,mixed>|null,
  * }
  */
 final class TenantUpdateParams implements BaseModel
 {
-    /** @use SdkModel<tenant_update_params> */
+    /** @use SdkModel<TenantUpdateParamsShape> */
     use SdkModel;
     use SdkParams;
 
@@ -50,25 +38,25 @@ final class TenantUpdateParams implements BaseModel
     /**
      * Brand to be used for the account when one is not specified by the send call.
      */
-    #[Api('brand_id', nullable: true, optional: true)]
-    public ?string $brandID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $brand_id;
 
     /**
      * Defines the preferences used for the tenant when the user hasn't specified their own.
      */
-    #[Api('default_preferences', nullable: true, optional: true)]
-    public ?DefaultPreferences $defaultPreferences;
+    #[Api(nullable: true, optional: true)]
+    public ?DefaultPreferences $default_preferences;
 
     /**
      * Tenant's parent id (if any).
      */
-    #[Api('parent_tenant_id', nullable: true, optional: true)]
-    public ?string $parentTenantID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $parent_tenant_id;
 
     /**
      * Arbitrary properties accessible to a template.
      *
-     * @var array<string, mixed>|null $properties
+     * @var array<string,mixed>|null $properties
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $properties;
@@ -76,10 +64,10 @@ final class TenantUpdateParams implements BaseModel
     /**
      * A user profile object merged with user profile on send.
      *
-     * @var array<string, mixed>|null $userProfile
+     * @var array<string,mixed>|null $user_profile
      */
-    #[Api('user_profile', map: 'mixed', nullable: true, optional: true)]
-    public ?array $userProfile;
+    #[Api(map: 'mixed', nullable: true, optional: true)]
+    public ?array $user_profile;
 
     /**
      * `new TenantUpdateParams()` is missing required properties by the API.
@@ -105,26 +93,26 @@ final class TenantUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $properties
-     * @param array<string, mixed>|null $userProfile
+     * @param array<string,mixed>|null $properties
+     * @param array<string,mixed>|null $user_profile
      */
     public static function with(
         string $name,
-        ?string $brandID = null,
-        ?DefaultPreferences $defaultPreferences = null,
-        ?string $parentTenantID = null,
+        ?string $brand_id = null,
+        ?DefaultPreferences $default_preferences = null,
+        ?string $parent_tenant_id = null,
         ?array $properties = null,
-        ?array $userProfile = null,
+        ?array $user_profile = null,
     ): self {
         $obj = new self;
 
         $obj->name = $name;
 
-        null !== $brandID && $obj->brandID = $brandID;
-        null !== $defaultPreferences && $obj->defaultPreferences = $defaultPreferences;
-        null !== $parentTenantID && $obj->parentTenantID = $parentTenantID;
+        null !== $brand_id && $obj->brand_id = $brand_id;
+        null !== $default_preferences && $obj->default_preferences = $default_preferences;
+        null !== $parent_tenant_id && $obj->parent_tenant_id = $parent_tenant_id;
         null !== $properties && $obj->properties = $properties;
-        null !== $userProfile && $obj->userProfile = $userProfile;
+        null !== $user_profile && $obj->user_profile = $user_profile;
 
         return $obj;
     }
@@ -146,7 +134,7 @@ final class TenantUpdateParams implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj->brandID = $brandID;
+        $obj->brand_id = $brandID;
 
         return $obj;
     }
@@ -158,7 +146,7 @@ final class TenantUpdateParams implements BaseModel
         ?DefaultPreferences $defaultPreferences
     ): self {
         $obj = clone $this;
-        $obj->defaultPreferences = $defaultPreferences;
+        $obj->default_preferences = $defaultPreferences;
 
         return $obj;
     }
@@ -169,7 +157,7 @@ final class TenantUpdateParams implements BaseModel
     public function withParentTenantID(?string $parentTenantID): self
     {
         $obj = clone $this;
-        $obj->parentTenantID = $parentTenantID;
+        $obj->parent_tenant_id = $parentTenantID;
 
         return $obj;
     }
@@ -177,7 +165,7 @@ final class TenantUpdateParams implements BaseModel
     /**
      * Arbitrary properties accessible to a template.
      *
-     * @param array<string, mixed>|null $properties
+     * @param array<string,mixed>|null $properties
      */
     public function withProperties(?array $properties): self
     {
@@ -190,12 +178,12 @@ final class TenantUpdateParams implements BaseModel
     /**
      * A user profile object merged with user profile on send.
      *
-     * @param array<string, mixed>|null $userProfile
+     * @param array<string,mixed>|null $userProfile
      */
     public function withUserProfile(?array $userProfile): self
     {
         $obj = clone $this;
-        $obj->userProfile = $userProfile;
+        $obj->user_profile = $userProfile;
 
         return $obj;
     }

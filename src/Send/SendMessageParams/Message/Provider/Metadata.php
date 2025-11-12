@@ -10,11 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
- * @phpstan-type metadata_alias = array{utm?: Utm|null}
+ * @phpstan-type MetadataShape = array{utm?: Utm|null}
  */
 final class Metadata implements BaseModel
 {
-    /** @use SdkModel<metadata_alias> */
+    /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
     #[Api(nullable: true, optional: true)]

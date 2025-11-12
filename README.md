@@ -13,6 +13,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
+The REST API documentation can be found on [www.courier.com](https://www.courier.com/docs).
+
 ## Installation
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
@@ -28,7 +30,7 @@ To use this package, install via Composer by adding the following to your applic
     }
   ],
   "require": {
-    "org-placeholder/courier": "dev-main"
+    "trycourier/courier": "dev-main"
   }
 }
 ```
@@ -44,27 +46,26 @@ Parameters with a default value must be set by name.
 <?php
 
 use Courier\Client;
-use Courier\UserRecipient;
-use Courier\Send\SendMessageParams\Message;
 
 $client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
 
-$response = $client->send->message(
-  (new Message)
-    ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
-    ->withData(["foo" => "bar"]),
-);
+$response = $client->send->message([
+  "message" => [
+    "to" => ["user_id" => "your_user_id"],
+    "template" => "your_template_id",
+    "data" => ["foo" => "bar"],
+  ],
+]);
 
 var_dump($response->requestId);
 ```
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `BaseCheck::with(id: "id", ...)`
+It is recommended to use the static `with` constructor `ChannelPreference::with(channel: "direct_message", ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new BaseCheck)->withID("id")`.
+However, builders are also provided `(new ChannelPreference)->withChannel("direct_message")`.
 
 ### Handling errors
 
@@ -73,17 +74,16 @@ When the library is unable to connect to the API, or if the API returns a non-su
 ```php
 <?php
 
-use Courier\UserRecipient;
 use Courier\Core\Exceptions\APIConnectionException;
-use Courier\Send\SendMessageParams\Message;
 
 try {
-  $response = $client->send->message(
-    (new Message)
-      ->withTo((new UserRecipient)->withUserID("your_user_id"))
-      ->withTemplate("your_template")
-      ->withData(["foo" => "bar"]),
-  );
+  $response = $client->send->message([
+    "message" => [
+      "to" => ["user_id" => "your_user_id"],
+      "template" => "your_template_id",
+      "data" => ["foo" => "bar"],
+    ],
+  ]);
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
   var_dump($e->getPrevious());
@@ -123,20 +123,21 @@ You can use the `maxRetries` option to configure or disable this:
 <?php
 
 use Courier\Client;
-use Courier\UserRecipient;
 use Courier\RequestOptions;
-use Courier\Send\SendMessageParams\Message;
 
 // Configure the default for all requests:
 $client = new Client(maxRetries: 0);
 
 // Or, configure per-request:
 $result = $client->send->message(
-  (new Message)
-    ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
-    ->withData(["foo" => "bar"]),
-  requestOptions: RequestOptions::with(maxRetries: 5),
+  [
+    "message" => [
+      "to" => ["user_id" => "your_user_id"],
+      "template" => "your_template_id",
+      "data" => ["foo" => "bar"],
+    ],
+  ],
+  RequestOptions::with(maxRetries: 5),
 );
 ```
 
@@ -153,23 +154,22 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 ```php
 <?php
 
-use Courier\UserRecipient;
 use Courier\RequestOptions;
-use Courier\Send\SendMessageParams\Message;
 
 $response = $client->send->message(
-  (new Message)
-    ->withTo((new UserRecipient)->withUserID("your_user_id"))
-    ->withTemplate("your_template")
-    ->withData(["foo" => "bar"]),
-  requestOptions: RequestOptions::with(
+  [
+    "message" => [
+      "to" => ["user_id" => "your_user_id"],
+      "template" => "your_template_id",
+      "data" => ["foo" => "bar"],
+    ],
+  ],
+  RequestOptions::with(
     extraQueryParams: ["my_query_parameter" => "value"],
     extraBodyParams: ["my_body_parameter" => "value"],
     extraHeaders: ["my-header" => "value"],
   ),
 );
-
-var_dump($response["my_undocumented_property"]);
 ```
 
 #### Undocumented request params

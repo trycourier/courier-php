@@ -9,22 +9,22 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
-use Courier\TenantAssociation;
+use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantListResponse\Type;
 
 /**
- * @phpstan-type tenant_list_response = array{
- *   hasMore: bool,
+ * @phpstan-type TenantListResponseShape = array{
+ *   has_more: bool,
  *   type: value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
  *   items?: list<TenantAssociation>|null,
- *   nextURL?: string|null,
+ *   next_url?: string|null,
  * }
  */
 final class TenantListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<tenant_list_response> */
+    /** @use SdkModel<TenantListResponseShape> */
     use SdkModel;
 
     use SdkResponse;
@@ -32,8 +32,8 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     /**
      * Set to true when there are more pages that can be retrieved.
      */
-    #[Api('has_more')]
-    public bool $hasMore;
+    #[Api]
+    public bool $has_more;
 
     /**
      * Always set to `list`. Represents the type of this object.
@@ -64,15 +64,15 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      * A url that may be used to generate fetch the next set of results.
      * Defined only when `has_more` is set to true.
      */
-    #[Api('next_url', nullable: true, optional: true)]
-    public ?string $nextURL;
+    #[Api(nullable: true, optional: true)]
+    public ?string $next_url;
 
     /**
      * `new TenantListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantListResponse::with(hasMore: ..., type: ..., url: ...)
+     * TenantListResponse::with(has_more: ..., type: ..., url: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -95,22 +95,22 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      * @param list<TenantAssociation>|null $items
      */
     public static function with(
-        bool $hasMore,
+        bool $has_more,
         Type|string $type,
         string $url,
         ?string $cursor = null,
         ?array $items = null,
-        ?string $nextURL = null,
+        ?string $next_url = null,
     ): self {
         $obj = new self;
 
-        $obj->hasMore = $hasMore;
+        $obj->has_more = $has_more;
         $obj['type'] = $type;
         $obj->url = $url;
 
         null !== $cursor && $obj->cursor = $cursor;
         null !== $items && $obj->items = $items;
-        null !== $nextURL && $obj->nextURL = $nextURL;
+        null !== $next_url && $obj->next_url = $next_url;
 
         return $obj;
     }
@@ -121,7 +121,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj->hasMore = $hasMore;
+        $obj->has_more = $hasMore;
 
         return $obj;
     }
@@ -180,7 +180,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj->nextURL = $nextURL;
+        $obj->next_url = $nextURL;
 
         return $obj;
     }

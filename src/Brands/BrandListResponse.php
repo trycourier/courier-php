@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Brand;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
@@ -13,11 +12,13 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
- * @phpstan-type brand_list_response = array{paging: Paging, results: list<Brand>}
+ * @phpstan-type BrandListResponseShape = array{
+ *   paging: Paging, results: list<Brand>
+ * }
  */
 final class BrandListResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<brand_list_response> */
+    /** @use SdkModel<BrandListResponseShape> */
     use SdkModel;
 
     use SdkResponse;

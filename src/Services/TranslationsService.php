@@ -23,35 +23,18 @@ final class TranslationsService implements TranslationsContract
      *
      * Get translations by locale
      *
-     * @param string $domain
+     * @param array{domain: string}|TranslationRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $locale,
-        $domain,
-        ?RequestOptions $requestOptions = null
-    ): string {
-        $params = ['domain' => $domain];
-
-        return $this->retrieveRaw($locale, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $locale,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TranslationRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): string {
         [$parsed, $options] = TranslationRetrieveParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
         $domain = $parsed['domain'];
         unset($parsed['domain']);
@@ -70,37 +53,16 @@ final class TranslationsService implements TranslationsContract
      *
      * Update a translation
      *
-     * @param string $domain
-     * @param string $body
-     *
      * @throws APIException
      */
     public function update(
         string $locale,
-        $domain,
-        $body,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['domain' => $domain, 'body' => $body];
-
-        return $this->updateRaw($locale, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $locale,
-        array $params,
+        string $params,
         ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = TranslationUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
         $domain = $parsed['domain'];
         unset($parsed['domain']);

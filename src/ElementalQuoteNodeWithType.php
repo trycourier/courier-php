@@ -10,17 +10,17 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalQuoteNodeWithType\Type;
 
 /**
- * @phpstan-type elemental_quote_node_with_type = array{
+ * @phpstan-type ElementalQuoteNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
+ *   type?: value-of<Type>|null,
  * }
  */
 final class ElementalQuoteNodeWithType implements BaseModel
 {
-    /** @use SdkModel<elemental_quote_node_with_type> */
+    /** @use SdkModel<ElementalQuoteNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */

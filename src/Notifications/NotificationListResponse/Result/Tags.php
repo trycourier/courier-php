@@ -10,11 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 
 /**
- * @phpstan-type tags_alias = array{data: list<Data>}
+ * @phpstan-type TagsShape = array{data: list<Data>}
  */
 final class Tags implements BaseModel
 {
-    /** @use SdkModel<tags_alias> */
+    /** @use SdkModel<TagsShape> */
     use SdkModel;
 
     /** @var list<Data> $data */

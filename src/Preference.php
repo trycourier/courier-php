@@ -10,30 +10,25 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Preference\Source;
 
 /**
- * @phpstan-type preference_alias = array{
+ * @phpstan-type PreferenceShape = array{
  *   status: value-of<PreferenceStatus>,
- *   channelPreferences?: list<ChannelPreference>|null,
+ *   channel_preferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  *   source?: value-of<Source>|null,
  * }
  */
 final class Preference implements BaseModel
 {
-    /** @use SdkModel<preference_alias> */
+    /** @use SdkModel<PreferenceShape> */
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
     #[Api(enum: PreferenceStatus::class)]
     public string $status;
 
-    /** @var list<ChannelPreference>|null $channelPreferences */
-    #[Api(
-        'channel_preferences',
-        list: ChannelPreference::class,
-        nullable: true,
-        optional: true,
-    )]
-    public ?array $channelPreferences;
+    /** @var list<ChannelPreference>|null $channel_preferences */
+    #[Api(list: ChannelPreference::class, nullable: true, optional: true)]
+    public ?array $channel_preferences;
 
     /** @var list<Rule>|null $rules */
     #[Api(list: Rule::class, nullable: true, optional: true)]
@@ -68,13 +63,13 @@ final class Preference implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelPreference>|null $channelPreferences
+     * @param list<ChannelPreference>|null $channel_preferences
      * @param list<Rule>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $channelPreferences = null,
+        ?array $channel_preferences = null,
         ?array $rules = null,
         Source|string|null $source = null,
     ): self {
@@ -82,7 +77,7 @@ final class Preference implements BaseModel
 
         $obj['status'] = $status;
 
-        null !== $channelPreferences && $obj->channelPreferences = $channelPreferences;
+        null !== $channel_preferences && $obj->channel_preferences = $channel_preferences;
         null !== $rules && $obj->rules = $rules;
         null !== $source && $obj['source'] = $source;
 
@@ -106,7 +101,7 @@ final class Preference implements BaseModel
     public function withChannelPreferences(?array $channelPreferences): self
     {
         $obj = clone $this;
-        $obj->channelPreferences = $channelPreferences;
+        $obj->channel_preferences = $channelPreferences;
 
         return $obj;
     }

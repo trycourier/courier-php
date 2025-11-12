@@ -11,33 +11,22 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * An object containing the method's parameters.
- * Example usage:
- * ```
- * $params = (new InvokeInvokeAdHocParams); // set properties as needed
- * $client->automations.invoke->invokeAdHoc(...$params->toArray());
- * ```
  * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
- *
- * @method toArray()
- *   Returns the parameters as an associative array suitable for passing to the client method.
- *
- *   `$client->automations.invoke->invokeAdHoc(...$params->toArray());`
  *
  * @see Courier\Automations\Invoke->invokeAdHoc
  *
- * @phpstan-type invoke_invoke_ad_hoc_params = array{
+ * @phpstan-type InvokeInvokeAdHocParamsShape = array{
  *   automation: Automation,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
- *   profile?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
+ *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
  *   template?: string|null,
  * }
  */
 final class InvokeInvokeAdHocParams implements BaseModel
 {
-    /** @use SdkModel<invoke_invoke_ad_hoc_params> */
+    /** @use SdkModel<InvokeInvokeAdHocParamsShape> */
     use SdkModel;
     use SdkParams;
 
@@ -47,11 +36,11 @@ final class InvokeInvokeAdHocParams implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -85,8 +74,8 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $data
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      */
     public static function with(
         Automation $automation,
@@ -126,7 +115,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -137,7 +126,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

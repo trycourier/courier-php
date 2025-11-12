@@ -3,7 +3,6 @@
 namespace Tests\Services;
 
 use Courier\Client;
-use Courier\Profiles\ProfileUpdateParams\Patch;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +33,10 @@ final class ProfilesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->create('user_id', ['foo' => 'bar']);
+        $result = $this->client->profiles->create(
+            'user_id',
+            ['profile' => ['foo' => 'bar']]
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -46,7 +48,10 @@ final class ProfilesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->create('user_id', ['foo' => 'bar']);
+        $result = $this->client->profiles->create(
+            'user_id',
+            ['profile' => ['foo' => 'bar']]
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -72,7 +77,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            [Patch::with(op: 'op', path: 'path', value: 'value')]
+            ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -87,7 +92,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            [Patch::with(op: 'op', path: 'path', value: 'value')]
+            ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -112,7 +117,10 @@ final class ProfilesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->replace('user_id', ['foo' => 'bar']);
+        $result = $this->client->profiles->replace(
+            'user_id',
+            ['profile' => ['foo' => 'bar']]
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -124,7 +132,10 @@ final class ProfilesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->replace('user_id', ['foo' => 'bar']);
+        $result = $this->client->profiles->replace(
+            'user_id',
+            ['profile' => ['foo' => 'bar']]
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

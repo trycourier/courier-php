@@ -10,13 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type automation_delay_step = array{
+ * @phpstan-type AutomationDelayStepShape = array{
  *   action: value-of<Action>, duration?: string|null, until?: string|null
  * }
  */
 final class AutomationDelayStep implements BaseModel
 {
-    /** @use SdkModel<automation_delay_step> */
+    /** @use SdkModel<AutomationDelayStepShape> */
     use SdkModel;
 
     /** @var value-of<Action> $action */

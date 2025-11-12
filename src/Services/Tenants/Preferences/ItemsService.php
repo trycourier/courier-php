@@ -1,0 +1,91 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Courier\Services\Tenants\Preferences;
+
+use Courier\ChannelClassification;
+use Courier\Client;
+use Courier\Core\Exceptions\APIException;
+use Courier\RequestOptions;
+use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
+use Courier\Tenants\Preferences\Items\ItemDeleteParams;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams;
+
+final class ItemsService implements ItemsContract
+{
+    /**
+     * @internal
+     */
+    public function __construct(private Client $client) {}
+
+    /**
+     * @api
+     *
+     * Create or Replace Default Preferences For Topic
+     *
+     * @param array{
+     *   tenant_id: string,
+     *   status: "OPTED_OUT"|"OPTED_IN"|"REQUIRED",
+     *   custom_routing?: list<"direct_message"|"email"|"push"|"sms"|"webhook"|"inbox"|ChannelClassification>|null,
+     *   has_custom_routing?: bool|null,
+     * }|ItemUpdateParams $params
+     *
+     * @throws APIException
+     */
+    public function update(
+        string $topicID,
+        array|ItemUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
+    ): mixed {
+        [$parsed, $options] = ItemUpdateParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $tenantID = $parsed['tenant_id'];
+        unset($parsed['tenant_id']);
+
+        // @phpstan-ignore-next-line;
+        return $this->client->request(
+            method: 'put',
+            path: [
+                'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
+            ],
+            body: (object) array_diff_key($parsed, ['tenant_id']),
+            options: $options,
+            convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Remove Default Preferences For Topic
+     *
+     * @param array{tenant_id: string}|ItemDeleteParams $params
+     *
+     * @throws APIException
+     */
+    public function delete(
+        string $topicID,
+        array|ItemDeleteParams $params,
+        ?RequestOptions $requestOptions = null,
+    ): mixed {
+        [$parsed, $options] = ItemDeleteParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $tenantID = $parsed['tenant_id'];
+        unset($parsed['tenant_id']);
+
+        // @phpstan-ignore-next-line;
+        return $this->client->request(
+            method: 'delete',
+            path: [
+                'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
+            ],
+            options: $options,
+            convert: null,
+        );
+    }
+}

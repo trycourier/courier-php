@@ -10,17 +10,11 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
 use Courier\Users\Tokens\TokenAddSingleParams;
-use Courier\Users\Tokens\TokenAddSingleParams\Device;
-use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
-use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
-use Courier\Users\Tokens\TokenUpdateParams\Patch;
-use Courier\UserToken;
-
-use const Courier\Core\OMIT as omit;
+use Courier\Users\Tokens\UserToken;
 
 final class TokensService implements TokensContract
 {
@@ -34,38 +28,21 @@ final class TokensService implements TokensContract
      *
      * Get single token available for a `:token`
      *
-     * @param string $userID
+     * @param array{user_id: string}|TokenRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $token,
-        $userID,
-        ?RequestOptions $requestOptions = null
-    ): TokenGetResponse {
-        $params = ['userID' => $userID];
-
-        return $this->retrieveRaw($token, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TokenRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): TokenGetResponse {
         [$parsed, $options] = TokenRetrieveParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
@@ -81,46 +58,30 @@ final class TokensService implements TokensContract
      *
      * Apply a JSON Patch (RFC 6902) to the specified token.
      *
-     * @param string $userID
-     * @param list<Patch> $patch
+     * @param array{
+     *   user_id: string,
+     *   patch: list<array{op: string, path: string, value?: string|null}>,
+     * }|TokenUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $token,
-        $userID,
-        $patch,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['userID' => $userID, 'patch' => $patch];
-
-        return $this->updateRaw($token, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TokenUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = TokenUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'patch',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, ['user_id']),
             options: $options,
             convert: null,
         );
@@ -153,38 +114,21 @@ final class TokensService implements TokensContract
      *
      * Delete User Token
      *
-     * @param string $userID
+     * @param array{user_id: string}|TokenDeleteParams $params
      *
      * @throws APIException
      */
     public function delete(
         string $token,
-        $userID,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['userID' => $userID];
-
-        return $this->deleteRaw($token, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function deleteRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|TokenDeleteParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = TokenDeleteParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
@@ -220,64 +164,47 @@ final class TokensService implements TokensContract
      *
      * Adds a single token to a user and overwrites a matching existing token.
      *
-     * @param string $userID
-     * @param ProviderKey|value-of<ProviderKey> $providerKey
-     * @param string|null $token1 Full body of the token. Must match token in URL.
-     * @param Device|null $device information about the device the token is associated with
-     * @param string|bool|null $expiryDate ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
-     * @param mixed $properties Properties sent to the provider along with the token
-     * @param Tracking|null $tracking information about the device the token is associated with
+     * @param array{
+     *   user_id: string,
+     *   token: string,
+     *   provider_key: "firebase-fcm"|"apn"|"expo"|"onesignal",
+     *   device?: array{
+     *     ad_id?: string|null,
+     *     app_id?: string|null,
+     *     device_id?: string|null,
+     *     manufacturer?: string|null,
+     *     model?: string|null,
+     *     platform?: string|null,
+     *   }|null,
+     *   expiry_date?: string|bool|null,
+     *   properties?: mixed,
+     *   tracking?: array{
+     *     ip?: string|null,
+     *     lat?: string|null,
+     *     long?: string|null,
+     *     os_version?: string|null,
+     *   }|null,
+     * }|TokenAddSingleParams $params
      *
      * @throws APIException
      */
     public function addSingle(
         string $token,
-        $userID,
-        $providerKey,
-        $token1 = omit,
-        $device = omit,
-        $expiryDate = omit,
-        $properties = omit,
-        $tracking = omit,
+        array|TokenAddSingleParams $params,
         ?RequestOptions $requestOptions = null,
-    ): mixed {
-        $params = [
-            'userID' => $userID,
-            'providerKey' => $providerKey,
-            'token' => $token1,
-            'device' => $device,
-            'expiryDate' => $expiryDate,
-            'properties' => $properties,
-            'tracking' => $tracking,
-        ];
-
-        return $this->addSingleRaw($token, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addSingleRaw(
-        string $token,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = TokenAddSingleParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, ['user_id']),
             options: $options,
             convert: null,
         );

@@ -10,41 +10,41 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Users\Tokens\TokenGetResponse\Status;
-use Courier\UserToken\Device;
-use Courier\UserToken\ProviderKey;
-use Courier\UserToken\Tracking;
+use Courier\Users\Tokens\UserToken\Device;
+use Courier\Users\Tokens\UserToken\ProviderKey;
+use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
- * @phpstan-type token_get_response = array{
- *   providerKey: value-of<ProviderKey>,
- *   token?: string|null,
+ * @phpstan-type TokenGetResponseShape = array{
+ *   token: string,
+ *   provider_key: value-of<ProviderKey>,
  *   device?: Device|null,
- *   expiryDate?: string|bool|null,
+ *   expiry_date?: string|bool|null,
  *   properties?: mixed,
  *   tracking?: Tracking|null,
  *   status?: value-of<Status>|null,
- *   statusReason?: string|null,
+ *   status_reason?: string|null,
  * }
  */
 final class TokenGetResponse implements BaseModel, ResponseConverter
 {
-    /** @use SdkModel<token_get_response> */
+    /** @use SdkModel<TokenGetResponseShape> */
     use SdkModel;
 
     use SdkResponse;
 
-    /** @var value-of<ProviderKey> $providerKey */
-    #[Api('provider_key', enum: ProviderKey::class)]
-    public string $providerKey;
-
     /**
-     * Full body of the token. Must match token in URL.
+     * Full body of the token. Must match token in URL path parameter.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $token;
+    #[Api]
+    public string $token;
+
+    /** @var value-of<ProviderKey> $provider_key */
+    #[Api(enum: ProviderKey::class)]
+    public string $provider_key;
 
     /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Device $device;
@@ -52,17 +52,17 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Api('expiry_date', nullable: true, optional: true)]
-    public string|bool|null $expiryDate;
+    #[Api(nullable: true, optional: true)]
+    public string|bool|null $expiry_date;
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     #[Api(optional: true)]
     public mixed $properties;
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     #[Api(nullable: true, optional: true)]
     public ?Tracking $tracking;
@@ -74,21 +74,21 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     /**
      * The reason for the token status.
      */
-    #[Api('status_reason', nullable: true, optional: true)]
-    public ?string $statusReason;
+    #[Api(nullable: true, optional: true)]
+    public ?string $status_reason;
 
     /**
      * `new TokenGetResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TokenGetResponse::with(providerKey: ...)
+     * TokenGetResponse::with(token: ..., provider_key: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new TokenGetResponse)->withProviderKey(...)
+     * (new TokenGetResponse)->withToken(...)->withProviderKey(...)
      * ```
      */
     public function __construct()
@@ -101,30 +101,41 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ProviderKey|value-of<ProviderKey> $providerKey
+     * @param ProviderKey|value-of<ProviderKey> $provider_key
      * @param Status|value-of<Status>|null $status
      */
     public static function with(
-        ProviderKey|string $providerKey,
-        ?string $token = null,
+        string $token,
+        ProviderKey|string $provider_key,
         ?Device $device = null,
-        string|bool|null $expiryDate = null,
+        string|bool|null $expiry_date = null,
         mixed $properties = null,
         ?Tracking $tracking = null,
         Status|string|null $status = null,
-        ?string $statusReason = null,
+        ?string $status_reason = null,
     ): self {
         $obj = new self;
 
-        $obj['providerKey'] = $providerKey;
+        $obj->token = $token;
+        $obj['provider_key'] = $provider_key;
 
-        null !== $token && $obj->token = $token;
         null !== $device && $obj->device = $device;
-        null !== $expiryDate && $obj->expiryDate = $expiryDate;
+        null !== $expiry_date && $obj->expiry_date = $expiry_date;
         null !== $properties && $obj->properties = $properties;
         null !== $tracking && $obj->tracking = $tracking;
         null !== $status && $obj['status'] = $status;
-        null !== $statusReason && $obj->statusReason = $statusReason;
+        null !== $status_reason && $obj->status_reason = $status_reason;
+
+        return $obj;
+    }
+
+    /**
+     * Full body of the token. Must match token in URL path parameter.
+     */
+    public function withToken(string $token): self
+    {
+        $obj = clone $this;
+        $obj->token = $token;
 
         return $obj;
     }
@@ -135,24 +146,13 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $providerKey;
 
         return $obj;
     }
 
     /**
-     * Full body of the token. Must match token in URL.
-     */
-    public function withToken(?string $token): self
-    {
-        $obj = clone $this;
-        $obj->token = $token;
-
-        return $obj;
-    }
-
-    /**
-     * Information about the device the token is associated with.
+     * Information about the device the token came from.
      */
     public function withDevice(?Device $device): self
     {
@@ -168,13 +168,13 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
         $obj = clone $this;
-        $obj->expiryDate = $expiryDate;
+        $obj->expiry_date = $expiryDate;
 
         return $obj;
     }
 
     /**
-     * Properties sent to the provider along with the token.
+     * Properties about the token.
      */
     public function withProperties(mixed $properties): self
     {
@@ -185,7 +185,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * Information about the device the token is associated with.
+     * Tracking information about the device the token came from.
      */
     public function withTracking(?Tracking $tracking): self
     {
@@ -212,7 +212,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withStatusReason(?string $statusReason): self
     {
         $obj = clone $this;
-        $obj->statusReason = $statusReason;
+        $obj->status_reason = $statusReason;
 
         return $obj;
     }

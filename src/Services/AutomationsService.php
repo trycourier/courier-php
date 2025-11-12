@@ -11,7 +11,7 @@ use Courier\Services\Automations\InvokeService;
 final class AutomationsService implements AutomationsContract
 {
     /**
-     * @@api
+     * @api
      */
     public InvokeService $invoke;
 
