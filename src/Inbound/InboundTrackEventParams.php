@@ -17,10 +17,10 @@ use Courier\Inbound\InboundTrackEventParams\Type;
  *
  * @phpstan-type InboundTrackEventParamsShape = array{
  *   event: string,
- *   messageID: string,
- *   properties: array<string, mixed>,
+ *   messageId: string,
+ *   properties: array<string,mixed>,
  *   type: Type|value-of<Type>,
- *   userID?: string|null,
+ *   userId?: string|null,
  * }
  */
 final class InboundTrackEventParams implements BaseModel
@@ -38,10 +38,10 @@ final class InboundTrackEventParams implements BaseModel
     /**
      * A required unique identifier that will be used to de-duplicate requests. If not unique, will respond with 409 Conflict status.
      */
-    #[Api('messageId')]
-    public string $messageID;
+    #[Api]
+    public string $messageId;
 
-    /** @var array<string, mixed> $properties */
+    /** @var array<string,mixed> $properties */
     #[Api(map: 'mixed')]
     public array $properties;
 
@@ -52,8 +52,8 @@ final class InboundTrackEventParams implements BaseModel
     /**
      * The user id associatiated with the track.
      */
-    #[Api('userId', nullable: true, optional: true)]
-    public ?string $userID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $userId;
 
     /**
      * `new InboundTrackEventParams()` is missing required properties by the API.
@@ -61,7 +61,7 @@ final class InboundTrackEventParams implements BaseModel
      * To enforce required parameters use
      * ```
      * InboundTrackEventParams::with(
-     *   event: ..., messageID: ..., properties: ..., type: ...
+     *   event: ..., messageId: ..., properties: ..., type: ...
      * )
      * ```
      *
@@ -85,24 +85,24 @@ final class InboundTrackEventParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $properties
+     * @param array<string,mixed> $properties
      * @param Type|value-of<Type> $type
      */
     public static function with(
         string $event,
-        string $messageID,
+        string $messageId,
         array $properties,
         Type|string $type,
-        ?string $userID = null,
+        ?string $userId = null,
     ): self {
         $obj = new self;
 
         $obj->event = $event;
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageId;
         $obj->properties = $properties;
         $obj['type'] = $type;
 
-        null !== $userID && $obj->userID = $userID;
+        null !== $userId && $obj->userId = $userId;
 
         return $obj;
     }
@@ -124,13 +124,13 @@ final class InboundTrackEventParams implements BaseModel
     public function withMessageID(string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageID;
 
         return $obj;
     }
 
     /**
-     * @param array<string, mixed> $properties
+     * @param array<string,mixed> $properties
      */
     public function withProperties(array $properties): self
     {
@@ -157,7 +157,7 @@ final class InboundTrackEventParams implements BaseModel
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->userId = $userID;
 
         return $obj;
     }

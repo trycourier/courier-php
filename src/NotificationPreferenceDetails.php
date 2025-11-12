@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-type NotificationPreferenceDetailsShape = array{
  *   status: value-of<PreferenceStatus>,
- *   channelPreferences?: list<ChannelPreference>|null,
+ *   channel_preferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  * }
  */
@@ -24,14 +24,9 @@ final class NotificationPreferenceDetails implements BaseModel
     #[Api(enum: PreferenceStatus::class)]
     public string $status;
 
-    /** @var list<ChannelPreference>|null $channelPreferences */
-    #[Api(
-        'channel_preferences',
-        list: ChannelPreference::class,
-        nullable: true,
-        optional: true,
-    )]
-    public ?array $channelPreferences;
+    /** @var list<ChannelPreference>|null $channel_preferences */
+    #[Api(list: ChannelPreference::class, nullable: true, optional: true)]
+    public ?array $channel_preferences;
 
     /** @var list<Rule>|null $rules */
     #[Api(list: Rule::class, nullable: true, optional: true)]
@@ -62,19 +57,19 @@ final class NotificationPreferenceDetails implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelPreference>|null $channelPreferences
+     * @param list<ChannelPreference>|null $channel_preferences
      * @param list<Rule>|null $rules
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $channelPreferences = null,
+        ?array $channel_preferences = null,
         ?array $rules = null,
     ): self {
         $obj = new self;
 
         $obj['status'] = $status;
 
-        null !== $channelPreferences && $obj->channelPreferences = $channelPreferences;
+        null !== $channel_preferences && $obj->channel_preferences = $channel_preferences;
         null !== $rules && $obj->rules = $rules;
 
         return $obj;
@@ -97,7 +92,7 @@ final class NotificationPreferenceDetails implements BaseModel
     public function withChannelPreferences(?array $channelPreferences): self
     {
         $obj = clone $this;
-        $obj->channelPreferences = $channelPreferences;
+        $obj->channel_preferences = $channelPreferences;
 
         return $obj;
     }

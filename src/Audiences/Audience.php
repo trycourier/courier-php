@@ -13,11 +13,11 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 /**
  * @phpstan-type AudienceShape = array{
  *   id: string,
- *   createdAt: string,
+ *   created_at: string,
  *   description: string,
  *   filter: Filter,
  *   name: string,
- *   updatedAt: string,
+ *   updated_at: string,
  * }
  */
 final class Audience implements BaseModel, ResponseConverter
@@ -33,8 +33,8 @@ final class Audience implements BaseModel, ResponseConverter
     #[Api]
     public string $id;
 
-    #[Api('created_at')]
-    public string $createdAt;
+    #[Api]
+    public string $created_at;
 
     /**
      * A description of the audience.
@@ -54,8 +54,8 @@ final class Audience implements BaseModel, ResponseConverter
     #[Api]
     public string $name;
 
-    #[Api('updated_at')]
-    public string $updatedAt;
+    #[Api]
+    public string $updated_at;
 
     /**
      * `new Audience()` is missing required properties by the API.
@@ -64,11 +64,11 @@ final class Audience implements BaseModel, ResponseConverter
      * ```
      * Audience::with(
      *   id: ...,
-     *   createdAt: ...,
+     *   created_at: ...,
      *   description: ...,
      *   filter: ...,
      *   name: ...,
-     *   updatedAt: ...,
+     *   updated_at: ...,
      * )
      * ```
      *
@@ -96,20 +96,20 @@ final class Audience implements BaseModel, ResponseConverter
      */
     public static function with(
         string $id,
-        string $createdAt,
+        string $created_at,
         string $description,
         Filter $filter,
         string $name,
-        string $updatedAt,
+        string $updated_at,
     ): self {
         $obj = new self;
 
         $obj->id = $id;
-        $obj->createdAt = $createdAt;
+        $obj->created_at = $created_at;
         $obj->description = $description;
         $obj->filter = $filter;
         $obj->name = $name;
-        $obj->updatedAt = $updatedAt;
+        $obj->updated_at = $updated_at;
 
         return $obj;
     }
@@ -128,7 +128,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withCreatedAt(string $createdAt): self
     {
         $obj = clone $this;
-        $obj->createdAt = $createdAt;
+        $obj->created_at = $createdAt;
 
         return $obj;
     }
@@ -169,7 +169,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withUpdatedAt(string $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updatedAt = $updatedAt;
+        $obj->updated_at = $updatedAt;
 
         return $obj;
     }

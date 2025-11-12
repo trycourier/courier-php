@@ -17,13 +17,13 @@ use Courier\Users\Tokens\UserToken\Tracking;
 /**
  * @phpstan-type TokenGetResponseShape = array{
  *   token: string,
- *   providerKey: value-of<ProviderKey>,
+ *   provider_key: value-of<ProviderKey>,
  *   device?: Device|null,
- *   expiryDate?: string|bool|null,
+ *   expiry_date?: string|bool|null,
  *   properties?: mixed,
  *   tracking?: Tracking|null,
  *   status?: value-of<Status>|null,
- *   statusReason?: string|null,
+ *   status_reason?: string|null,
  * }
  */
 final class TokenGetResponse implements BaseModel, ResponseConverter
@@ -39,9 +39,9 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     #[Api]
     public string $token;
 
-    /** @var value-of<ProviderKey> $providerKey */
-    #[Api('provider_key', enum: ProviderKey::class)]
-    public string $providerKey;
+    /** @var value-of<ProviderKey> $provider_key */
+    #[Api(enum: ProviderKey::class)]
+    public string $provider_key;
 
     /**
      * Information about the device the token came from.
@@ -52,8 +52,8 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Api('expiry_date', nullable: true, optional: true)]
-    public string|bool|null $expiryDate;
+    #[Api(nullable: true, optional: true)]
+    public string|bool|null $expiry_date;
 
     /**
      * Properties about the token.
@@ -74,15 +74,15 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     /**
      * The reason for the token status.
      */
-    #[Api('status_reason', nullable: true, optional: true)]
-    public ?string $statusReason;
+    #[Api(nullable: true, optional: true)]
+    public ?string $status_reason;
 
     /**
      * `new TokenGetResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TokenGetResponse::with(token: ..., providerKey: ...)
+     * TokenGetResponse::with(token: ..., provider_key: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -101,30 +101,30 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ProviderKey|value-of<ProviderKey> $providerKey
+     * @param ProviderKey|value-of<ProviderKey> $provider_key
      * @param Status|value-of<Status>|null $status
      */
     public static function with(
         string $token,
-        ProviderKey|string $providerKey,
+        ProviderKey|string $provider_key,
         ?Device $device = null,
-        string|bool|null $expiryDate = null,
+        string|bool|null $expiry_date = null,
         mixed $properties = null,
         ?Tracking $tracking = null,
         Status|string|null $status = null,
-        ?string $statusReason = null,
+        ?string $status_reason = null,
     ): self {
         $obj = new self;
 
         $obj->token = $token;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $provider_key;
 
         null !== $device && $obj->device = $device;
-        null !== $expiryDate && $obj->expiryDate = $expiryDate;
+        null !== $expiry_date && $obj->expiry_date = $expiry_date;
         null !== $properties && $obj->properties = $properties;
         null !== $tracking && $obj->tracking = $tracking;
         null !== $status && $obj['status'] = $status;
-        null !== $statusReason && $obj->statusReason = $statusReason;
+        null !== $status_reason && $obj->status_reason = $status_reason;
 
         return $obj;
     }
@@ -146,7 +146,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $providerKey;
 
         return $obj;
     }
@@ -168,7 +168,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
         $obj = clone $this;
-        $obj->expiryDate = $expiryDate;
+        $obj->expiry_date = $expiryDate;
 
         return $obj;
     }
@@ -212,7 +212,7 @@ final class TokenGetResponse implements BaseModel, ResponseConverter
     public function withStatusReason(?string $statusReason): self
     {
         $obj = clone $this;
-        $obj->statusReason = $statusReason;
+        $obj->status_reason = $statusReason;
 
         return $obj;
     }

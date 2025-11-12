@@ -18,11 +18,11 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  * @see Courier\Users\Tokens->addSingle
  *
  * @phpstan-type TokenAddSingleParamsShape = array{
- *   userID: string,
+ *   user_id: string,
  *   token: string,
- *   providerKey: ProviderKey|value-of<ProviderKey>,
+ *   provider_key: ProviderKey|value-of<ProviderKey>,
  *   device?: Device|null,
- *   expiryDate?: string|bool|null,
+ *   expiry_date?: string|bool|null,
  *   properties?: mixed,
  *   tracking?: Tracking|null,
  * }
@@ -34,7 +34,7 @@ final class TokenAddSingleParams implements BaseModel
     use SdkParams;
 
     #[Api]
-    public string $userID;
+    public string $user_id;
 
     /**
      * Full body of the token. Must match token in URL path parameter.
@@ -42,9 +42,9 @@ final class TokenAddSingleParams implements BaseModel
     #[Api]
     public string $token;
 
-    /** @var value-of<ProviderKey> $providerKey */
-    #[Api('provider_key', enum: ProviderKey::class)]
-    public string $providerKey;
+    /** @var value-of<ProviderKey> $provider_key */
+    #[Api(enum: ProviderKey::class)]
+    public string $provider_key;
 
     /**
      * Information about the device the token came from.
@@ -55,8 +55,8 @@ final class TokenAddSingleParams implements BaseModel
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Api('expiry_date', nullable: true, optional: true)]
-    public string|bool|null $expiryDate;
+    #[Api(nullable: true, optional: true)]
+    public string|bool|null $expiry_date;
 
     /**
      * Properties about the token.
@@ -75,7 +75,7 @@ final class TokenAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenAddSingleParams::with(userID: ..., token: ..., providerKey: ...)
+     * TokenAddSingleParams::with(user_id: ..., token: ..., provider_key: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -97,25 +97,25 @@ final class TokenAddSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ProviderKey|value-of<ProviderKey> $providerKey
+     * @param ProviderKey|value-of<ProviderKey> $provider_key
      */
     public static function with(
-        string $userID,
+        string $user_id,
         string $token,
-        ProviderKey|string $providerKey,
+        ProviderKey|string $provider_key,
         ?Device $device = null,
-        string|bool|null $expiryDate = null,
+        string|bool|null $expiry_date = null,
         mixed $properties = null,
         ?Tracking $tracking = null,
     ): self {
         $obj = new self;
 
-        $obj->userID = $userID;
+        $obj->user_id = $user_id;
         $obj->token = $token;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $provider_key;
 
         null !== $device && $obj->device = $device;
-        null !== $expiryDate && $obj->expiryDate = $expiryDate;
+        null !== $expiry_date && $obj->expiry_date = $expiry_date;
         null !== $properties && $obj->properties = $properties;
         null !== $tracking && $obj->tracking = $tracking;
 
@@ -125,7 +125,7 @@ final class TokenAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->userID = $userID;
+        $obj->user_id = $userID;
 
         return $obj;
     }
@@ -147,7 +147,7 @@ final class TokenAddSingleParams implements BaseModel
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
-        $obj['providerKey'] = $providerKey;
+        $obj['provider_key'] = $providerKey;
 
         return $obj;
     }
@@ -169,7 +169,7 @@ final class TokenAddSingleParams implements BaseModel
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
         $obj = clone $this;
-        $obj->expiryDate = $expiryDate;
+        $obj->expiry_date = $expiryDate;
 
         return $obj;
     }

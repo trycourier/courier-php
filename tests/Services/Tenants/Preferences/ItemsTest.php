@@ -35,8 +35,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->update(
             'topic_id',
-            tenantID: 'tenant_id',
-            status: 'OPTED_IN'
+            ['tenant_id' => 'tenant_id', 'status' => 'OPTED_IN']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -51,8 +50,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->update(
             'topic_id',
-            tenantID: 'tenant_id',
-            status: 'OPTED_IN'
+            ['tenant_id' => 'tenant_id', 'status' => 'OPTED_IN']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -67,7 +65,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
-            'tenant_id'
+            ['tenant_id' => 'tenant_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -82,7 +80,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
-            'tenant_id'
+            ['tenant_id' => 'tenant_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type ProfileGetResponseShape = array{
- *   profile: array<string, mixed>, preferences?: RecipientPreferences|null
+ *   profile: array<string,mixed>, preferences?: RecipientPreferences|null
  * }
  */
 final class ProfileGetResponse implements BaseModel, ResponseConverter
@@ -23,7 +23,7 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
 
     use SdkResponse;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -54,7 +54,7 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public static function with(
         array $profile,
@@ -70,7 +70,7 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {

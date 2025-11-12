@@ -17,10 +17,10 @@ use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
  * @see Courier\Tenants\Preferences\Items->update
  *
  * @phpstan-type ItemUpdateParamsShape = array{
- *   tenantID: string,
+ *   tenant_id: string,
  *   status: Status|value-of<Status>,
- *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
- *   hasCustomRouting?: bool|null,
+ *   custom_routing?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   has_custom_routing?: bool|null,
  * }
  */
 final class ItemUpdateParams implements BaseModel
@@ -30,7 +30,7 @@ final class ItemUpdateParams implements BaseModel
     use SdkParams;
 
     #[Api]
-    public string $tenantID;
+    public string $tenant_id;
 
     /** @var value-of<Status> $status */
     #[Api(enum: Status::class)]
@@ -39,28 +39,23 @@ final class ItemUpdateParams implements BaseModel
     /**
      * The default channels to send to this tenant when has_custom_routing is enabled.
      *
-     * @var list<value-of<ChannelClassification>>|null $customRouting
+     * @var list<value-of<ChannelClassification>>|null $custom_routing
      */
-    #[Api(
-        'custom_routing',
-        list: ChannelClassification::class,
-        nullable: true,
-        optional: true,
-    )]
-    public ?array $customRouting;
+    #[Api(list: ChannelClassification::class, nullable: true, optional: true)]
+    public ?array $custom_routing;
 
     /**
      * Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences.
      */
-    #[Api('has_custom_routing', nullable: true, optional: true)]
-    public ?bool $hasCustomRouting;
+    #[Api(nullable: true, optional: true)]
+    public ?bool $has_custom_routing;
 
     /**
      * `new ItemUpdateParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ItemUpdateParams::with(tenantID: ..., status: ...)
+     * ItemUpdateParams::with(tenant_id: ..., status: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -80,21 +75,21 @@ final class ItemUpdateParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Status|value-of<Status> $status
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $custom_routing
      */
     public static function with(
-        string $tenantID,
+        string $tenant_id,
         Status|string $status,
-        ?array $customRouting = null,
-        ?bool $hasCustomRouting = null,
+        ?array $custom_routing = null,
+        ?bool $has_custom_routing = null,
     ): self {
         $obj = new self;
 
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenant_id;
         $obj['status'] = $status;
 
-        null !== $customRouting && $obj['customRouting'] = $customRouting;
-        null !== $hasCustomRouting && $obj->hasCustomRouting = $hasCustomRouting;
+        null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
+        null !== $has_custom_routing && $obj->has_custom_routing = $has_custom_routing;
 
         return $obj;
     }
@@ -102,7 +97,7 @@ final class ItemUpdateParams implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }
@@ -126,7 +121,7 @@ final class ItemUpdateParams implements BaseModel
     public function withCustomRouting(?array $customRouting): self
     {
         $obj = clone $this;
-        $obj['customRouting'] = $customRouting;
+        $obj['custom_routing'] = $customRouting;
 
         return $obj;
     }
@@ -137,7 +132,7 @@ final class ItemUpdateParams implements BaseModel
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $obj = clone $this;
-        $obj->hasCustomRouting = $hasCustomRouting;
+        $obj->has_custom_routing = $hasCustomRouting;
 
         return $obj;
     }

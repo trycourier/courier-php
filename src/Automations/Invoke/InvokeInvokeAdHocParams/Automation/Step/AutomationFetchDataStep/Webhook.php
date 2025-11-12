@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *   method: value-of<Method>,
  *   url: string,
  *   body?: string|null,
- *   headers?: array<string, string>|null,
+ *   headers?: array<string,string>|null,
  * }
  */
 final class Webhook implements BaseModel
@@ -32,7 +32,7 @@ final class Webhook implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $body;
 
-    /** @var array<string, string>|null $headers */
+    /** @var array<string,string>|null $headers */
     #[Api(map: 'string', nullable: true, optional: true)]
     public ?array $headers;
 
@@ -61,7 +61,7 @@ final class Webhook implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Method|value-of<Method> $method
-     * @param array<string, string>|null $headers
+     * @param array<string,string>|null $headers
      */
     public static function with(
         Method|string $method,
@@ -108,7 +108,7 @@ final class Webhook implements BaseModel
     }
 
     /**
-     * @param array<string, string>|null $headers
+     * @param array<string,string>|null $headers
      */
     public function withHeaders(?array $headers): self
     {

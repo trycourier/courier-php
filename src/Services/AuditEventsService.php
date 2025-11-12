@@ -12,8 +12,6 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
 
-use const Courier\Core\OMIT as omit;
-
 final class AuditEventsService implements AuditEventsContract
 {
     /**
@@ -46,33 +44,17 @@ final class AuditEventsService implements AuditEventsContract
      *
      * Fetch the list of audit events
      *
-     * @param string|null $cursor a unique identifier that allows for fetching the next set of audit events
+     * @param array{cursor?: string|null}|AuditEventListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): AuditEventListResponse {
-        $params = ['cursor' => $cursor];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|AuditEventListParams $params,
         ?RequestOptions $requestOptions = null
     ): AuditEventListResponse {
         [$parsed, $options] = AuditEventListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

@@ -3,7 +3,6 @@
 namespace Tests\Services\Notifications;
 
 use Courier\Client;
-use Courier\Notifications\BaseCheck;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -36,8 +35,12 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->update(
             'submissionId',
-            id: 'id',
-            checks: [BaseCheck::with(id: 'id', status: 'RESOLVED', type: 'custom')],
+            [
+                'id' => 'id',
+                'checks' => [
+                    ['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom'],
+                ],
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -52,8 +55,12 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->update(
             'submissionId',
-            id: 'id',
-            checks: [BaseCheck::with(id: 'id', status: 'RESOLVED', type: 'custom')],
+            [
+                'id' => 'id',
+                'checks' => [
+                    ['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom'],
+                ],
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -66,7 +73,10 @@ final class ChecksTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->notifications->checks->list('submissionId', 'id');
+        $result = $this->client->notifications->checks->list(
+            'submissionId',
+            ['id' => 'id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -78,7 +88,10 @@ final class ChecksTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->notifications->checks->list('submissionId', 'id');
+        $result = $this->client->notifications->checks->list(
+            'submissionId',
+            ['id' => 'id']
+        );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -92,7 +105,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->delete(
             'submissionId',
-            'id'
+            ['id' => 'id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -107,7 +120,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->delete(
             'submissionId',
-            'id'
+            ['id' => 'id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

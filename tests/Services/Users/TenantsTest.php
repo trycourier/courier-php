@@ -3,7 +3,6 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
-use Courier\Tenants\TenantAssociation;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +33,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tenants->list('user_id');
+        $result = $this->client->users->tenants->list('user_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -48,7 +47,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
-            [TenantAssociation::with(tenantID: 'tenant_id')]
+            ['tenants' => [['tenant_id' => 'tenant_id']]]
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -64,10 +63,14 @@ final class TenantsTest extends TestCase
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
             [
-                TenantAssociation::with(tenantID: 'tenant_id')
-                    ->withProfile(['foo' => 'bar'])
-                    ->withType('user')
-                    ->withUserID('user_id'),
+                'tenants' => [
+                    [
+                        'tenant_id' => 'tenant_id',
+                        'profile' => ['foo' => 'bar'],
+                        'type' => 'user',
+                        'user_id' => 'user_id',
+                    ],
+                ],
             ],
         );
 
@@ -83,7 +86,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            userID: 'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -98,7 +101,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            userID: 'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -125,7 +128,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -140,7 +143,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

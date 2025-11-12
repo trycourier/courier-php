@@ -24,7 +24,7 @@ use Courier\Core\Contracts\BaseModel;
  *   loop?: string|null,
  *   ref?: string|null,
  *   channel: string,
- *   raw?: array<string, mixed>|null,
+ *   raw?: array<string,mixed>|null,
  * }
  */
 final class ElementalChannelNode implements BaseModel
@@ -55,7 +55,7 @@ final class ElementalChannelNode implements BaseModel
     /**
      * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
-     * @var array<string, mixed>|null $raw
+     * @var array<string,mixed>|null $raw
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $raw;
@@ -85,7 +85,7 @@ final class ElementalChannelNode implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param array<string, mixed>|null $raw
+     * @param array<string,mixed>|null $raw
      */
     public static function with(
         string $channel,
@@ -158,7 +158,7 @@ final class ElementalChannelNode implements BaseModel
     /**
      * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
      *
-     * @param array<string, mixed>|null $raw
+     * @param array<string,mixed>|null $raw
      */
     public function withRaw(?array $raw): self
     {

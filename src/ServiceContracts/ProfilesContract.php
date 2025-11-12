@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\Profiles\ProfileCreateParams;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
+use Courier\Profiles\ProfileReplaceParams;
 use Courier\Profiles\ProfileReplaceResponse;
-use Courier\Profiles\ProfileUpdateParams\Patch;
+use Courier\Profiles\ProfileUpdateParams;
 use Courier\RequestOptions;
 
 interface ProfilesContract
@@ -16,27 +18,14 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param array<string, mixed> $profile
+     * @param array<mixed>|ProfileCreateParams $params
      *
      * @throws APIException
      */
     public function create(
         string $userID,
-        $profile,
-        ?RequestOptions $requestOptions = null
-    ): ProfileNewResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function createRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileCreateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ProfileNewResponse;
 
     /**
@@ -52,27 +41,14 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param list<Patch> $patch list of patch operations to apply to the profile
+     * @param array<mixed>|ProfileUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $userID,
-        $patch,
-        ?RequestOptions $requestOptions = null
-    ): mixed;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed;
 
     /**
@@ -88,26 +64,13 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param array<string, mixed> $profile
+     * @param array<mixed>|ProfileReplaceParams $params
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
-        $profile,
-        ?RequestOptions $requestOptions = null
-    ): ProfileReplaceResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function replaceRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ProfileReplaceParams $params,
+        ?RequestOptions $requestOptions = null,
     ): ProfileReplaceResponse;
 }

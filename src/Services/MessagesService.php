@@ -16,8 +16,6 @@ use Courier\Messages\MessageListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\MessagesContract;
 
-use const Courier\Core\OMIT as omit;
-
 final class MessagesService implements MessagesContract
 {
     /**
@@ -50,74 +48,32 @@ final class MessagesService implements MessagesContract
      *
      * Fetch the statuses of messages you've previously sent.
      *
-     * @param bool|null $archived a boolean value that indicates whether archived messages should be included in the response
-     * @param string|null $cursor a unique identifier that allows for fetching the next set of messages
-     * @param string|null $enqueuedAfter the enqueued datetime of a message to filter out messages received before
-     * @param string|null $event a unique identifier representing the event that was used to send the event
-     * @param string|null $list a unique identifier representing the list the message was sent to
-     * @param string|null $messageID a unique identifier representing the message_id returned from either /send or /send/list
-     * @param string|null $notification a unique identifier representing the notification that was used to send the event
-     * @param list<string> $provider The key assocated to the provider you want to filter on. E.g., sendgrid, inbox, twilio, slack, msteams, etc. Allows multiple values to be set in query parameters.
-     * @param string|null $recipient a unique identifier representing the recipient associated with the requested profile
-     * @param list<string> $status An indicator of the current status of the message. Allows multiple values to be set in query parameters.
-     * @param list<string> $tag A tag placed in the metadata.tags during a notification send. Allows multiple values to be set in query parameters.
-     * @param string|null $tags A comma delimited list of 'tags'. Messages will be returned if they match any of the tags passed in.
-     * @param string|null $tenantID Messages sent with the context of a Tenant
-     * @param string|null $traceID The unique identifier used to trace the requests
+     * @param array{
+     *   archived?: bool|null,
+     *   cursor?: string|null,
+     *   enqueued_after?: string|null,
+     *   event?: string|null,
+     *   list?: string|null,
+     *   messageId?: string|null,
+     *   notification?: string|null,
+     *   provider?: list<string|null>,
+     *   recipient?: string|null,
+     *   status?: list<string|null>,
+     *   tag?: list<string|null>,
+     *   tags?: string|null,
+     *   tenant_id?: string|null,
+     *   traceId?: string|null,
+     * }|MessageListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $archived = omit,
-        $cursor = omit,
-        $enqueuedAfter = omit,
-        $event = omit,
-        $list = omit,
-        $messageID = omit,
-        $notification = omit,
-        $provider = omit,
-        $recipient = omit,
-        $status = omit,
-        $tag = omit,
-        $tags = omit,
-        $tenantID = omit,
-        $traceID = omit,
-        ?RequestOptions $requestOptions = null,
-    ): MessageListResponse {
-        $params = [
-            'archived' => $archived,
-            'cursor' => $cursor,
-            'enqueuedAfter' => $enqueuedAfter,
-            'event' => $event,
-            'list' => $list,
-            'messageID' => $messageID,
-            'notification' => $notification,
-            'provider' => $provider,
-            'recipient' => $recipient,
-            'status' => $status,
-            'tag' => $tag,
-            'tags' => $tags,
-            'tenantID' => $tenantID,
-            'traceID' => $traceID,
-        ];
-
-        return $this->listRaw($params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|MessageListParams $params,
         ?RequestOptions $requestOptions = null
     ): MessageListResponse {
         [$parsed, $options] = MessageListParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -175,35 +131,18 @@ final class MessagesService implements MessagesContract
      *
      * Fetch the array of events of a message you've previously sent.
      *
-     * @param string|null $type a supported Message History type that will filter the events returned
+     * @param array{type?: string|null}|MessageHistoryParams $params
      *
      * @throws APIException
      */
     public function history(
         string $messageID,
-        $type = omit,
-        ?RequestOptions $requestOptions = null
-    ): MessageHistoryResponse {
-        $params = ['type' => $type];
-
-        return $this->historyRaw($messageID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function historyRaw(
-        string $messageID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|MessageHistoryParams $params,
+        ?RequestOptions $requestOptions = null,
     ): MessageHistoryResponse {
         [$parsed, $options] = MessageHistoryParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;

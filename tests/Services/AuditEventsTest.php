@@ -45,7 +45,7 @@ final class AuditEventsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auditEvents->list();
+        $result = $this->client->auditEvents->list([]);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }

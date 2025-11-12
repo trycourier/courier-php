@@ -2,14 +2,7 @@
 
 namespace Tests\Services\Profiles;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\NotificationPreferenceDetails;
-use Courier\PreferenceStatus;
-use Courier\Profiles\SubscribeToListsRequestItem;
-use Courier\RecipientPreferences;
-use Courier\Rule;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +33,7 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->lists->retrieve('user_id');
+        $result = $this->client->profiles->lists->retrieve('user_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -66,7 +59,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
-            [SubscribeToListsRequestItem::with(listID: 'listId')]
+            ['lists' => [['listId' => 'listId']]]
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -82,40 +75,27 @@ final class ListsTest extends TestCase
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
             [
-                SubscribeToListsRequestItem::with(listID: 'listId')
-                    ->withPreferences(
-                        (new RecipientPreferences)
-                            ->withCategories(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                'lists' => [
+                    [
+                        'listId' => 'listId',
+                        'preferences' => [
+                            'categories' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            )
-                            ->withNotifications(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                            ],
+                            'notifications' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            ),
-                    ),
+                            ],
+                        ],
+                    ],
+                ],
             ],
         );
 

@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Users\Preferences->retrieve
  *
- * @phpstan-type PreferenceRetrieveParamsShape = array{tenantID?: string|null}
+ * @phpstan-type PreferenceRetrieveParamsShape = array{tenant_id?: string|null}
  */
 final class PreferenceRetrieveParams implements BaseModel
 {
@@ -26,7 +26,7 @@ final class PreferenceRetrieveParams implements BaseModel
      * Query the preferences of a user for this specific tenant context.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $tenantID;
+    public ?string $tenant_id;
 
     public function __construct()
     {
@@ -38,11 +38,11 @@ final class PreferenceRetrieveParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?string $tenantID = null): self
+    public static function with(?string $tenant_id = null): self
     {
         $obj = new self;
 
-        null !== $tenantID && $obj->tenantID = $tenantID;
+        null !== $tenant_id && $obj->tenant_id = $tenant_id;
 
         return $obj;
     }
@@ -53,7 +53,7 @@ final class PreferenceRetrieveParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }

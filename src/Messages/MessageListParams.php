@@ -18,18 +18,18 @@ use Courier\Core\Conversion\ListOf;
  * @phpstan-type MessageListParamsShape = array{
  *   archived?: bool|null,
  *   cursor?: string|null,
- *   enqueuedAfter?: string|null,
+ *   enqueued_after?: string|null,
  *   event?: string|null,
  *   list?: string|null,
- *   messageID?: string|null,
+ *   messageId?: string|null,
  *   notification?: string|null,
  *   provider?: list<string>,
  *   recipient?: string|null,
  *   status?: list<string>,
  *   tag?: list<string>,
  *   tags?: string|null,
- *   tenantID?: string|null,
- *   traceID?: string|null,
+ *   tenant_id?: string|null,
+ *   traceId?: string|null,
  * }
  */
 final class MessageListParams implements BaseModel
@@ -54,7 +54,7 @@ final class MessageListParams implements BaseModel
      * The enqueued datetime of a message to filter out messages received before.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $enqueuedAfter;
+    public ?string $enqueued_after;
 
     /**
      * A unique identifier representing the event that was used to send the event.
@@ -72,7 +72,7 @@ final class MessageListParams implements BaseModel
      * A unique identifier representing the message_id returned from either /send or /send/list.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $messageID;
+    public ?string $messageId;
 
     /**
      * A unique identifier representing the notification that was used to send the event.
@@ -120,13 +120,13 @@ final class MessageListParams implements BaseModel
      * Messages sent with the context of a Tenant.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $tenantID;
+    public ?string $tenant_id;
 
     /**
      * The unique identifier used to trace the requests.
      */
     #[Api(nullable: true, optional: true)]
-    public ?string $traceID;
+    public ?string $traceId;
 
     public function __construct()
     {
@@ -145,35 +145,35 @@ final class MessageListParams implements BaseModel
     public static function with(
         ?bool $archived = null,
         ?string $cursor = null,
-        ?string $enqueuedAfter = null,
+        ?string $enqueued_after = null,
         ?string $event = null,
         ?string $list = null,
-        ?string $messageID = null,
+        ?string $messageId = null,
         ?string $notification = null,
         ?array $provider = null,
         ?string $recipient = null,
         ?array $status = null,
         ?array $tag = null,
         ?string $tags = null,
-        ?string $tenantID = null,
-        ?string $traceID = null,
+        ?string $tenant_id = null,
+        ?string $traceId = null,
     ): self {
         $obj = new self;
 
         null !== $archived && $obj->archived = $archived;
         null !== $cursor && $obj->cursor = $cursor;
-        null !== $enqueuedAfter && $obj->enqueuedAfter = $enqueuedAfter;
+        null !== $enqueued_after && $obj->enqueued_after = $enqueued_after;
         null !== $event && $obj->event = $event;
         null !== $list && $obj->list = $list;
-        null !== $messageID && $obj->messageID = $messageID;
+        null !== $messageId && $obj->messageId = $messageId;
         null !== $notification && $obj->notification = $notification;
         null !== $provider && $obj->provider = $provider;
         null !== $recipient && $obj->recipient = $recipient;
         null !== $status && $obj->status = $status;
         null !== $tag && $obj->tag = $tag;
         null !== $tags && $obj->tags = $tags;
-        null !== $tenantID && $obj->tenantID = $tenantID;
-        null !== $traceID && $obj->traceID = $traceID;
+        null !== $tenant_id && $obj->tenant_id = $tenant_id;
+        null !== $traceId && $obj->traceId = $traceId;
 
         return $obj;
     }
@@ -206,7 +206,7 @@ final class MessageListParams implements BaseModel
     public function withEnqueuedAfter(?string $enqueuedAfter): self
     {
         $obj = clone $this;
-        $obj->enqueuedAfter = $enqueuedAfter;
+        $obj->enqueued_after = $enqueuedAfter;
 
         return $obj;
     }
@@ -239,7 +239,7 @@ final class MessageListParams implements BaseModel
     public function withMessageID(?string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageID = $messageID;
+        $obj->messageId = $messageID;
 
         return $obj;
     }
@@ -322,7 +322,7 @@ final class MessageListParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenantID = $tenantID;
+        $obj->tenant_id = $tenantID;
 
         return $obj;
     }
@@ -333,7 +333,7 @@ final class MessageListParams implements BaseModel
     public function withTraceID(?string $traceID): self
     {
         $obj = clone $this;
-        $obj->traceID = $traceID;
+        $obj->traceId = $traceID;
 
         return $obj;
     }

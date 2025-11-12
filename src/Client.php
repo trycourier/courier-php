@@ -157,7 +157,7 @@ class Client extends BaseClient
         $this->users = new UsersService($this);
     }
 
-    /** @return array<string, string> */
+    /** @return array<string,string> */
     protected function authHeaders(): array
     {
         return $this->apiKey ? ['Authorization' => "Bearer {$this->apiKey}"] : [];

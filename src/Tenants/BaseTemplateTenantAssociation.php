@@ -11,9 +11,9 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-type BaseTemplateTenantAssociationShape = array{
  *   id: string,
- *   createdAt: string,
- *   publishedAt: string,
- *   updatedAt: string,
+ *   created_at: string,
+ *   published_at: string,
+ *   updated_at: string,
  *   version: string,
  * }
  */
@@ -31,20 +31,20 @@ final class BaseTemplateTenantAssociation implements BaseModel
     /**
      * The timestamp at which the template was created.
      */
-    #[Api('created_at')]
-    public string $createdAt;
+    #[Api]
+    public string $created_at;
 
     /**
      * The timestamp at which the template was published.
      */
-    #[Api('published_at')]
-    public string $publishedAt;
+    #[Api]
+    public string $published_at;
 
     /**
      * The timestamp at which the template was last updated.
      */
-    #[Api('updated_at')]
-    public string $updatedAt;
+    #[Api]
+    public string $updated_at;
 
     /**
      * The version of the template.
@@ -58,7 +58,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
      * To enforce required parameters use
      * ```
      * BaseTemplateTenantAssociation::with(
-     *   id: ..., createdAt: ..., publishedAt: ..., updatedAt: ..., version: ...
+     *   id: ..., created_at: ..., published_at: ..., updated_at: ..., version: ...
      * )
      * ```
      *
@@ -85,17 +85,17 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public static function with(
         string $id,
-        string $createdAt,
-        string $publishedAt,
-        string $updatedAt,
+        string $created_at,
+        string $published_at,
+        string $updated_at,
         string $version,
     ): self {
         $obj = new self;
 
         $obj->id = $id;
-        $obj->createdAt = $createdAt;
-        $obj->publishedAt = $publishedAt;
-        $obj->updatedAt = $updatedAt;
+        $obj->created_at = $created_at;
+        $obj->published_at = $published_at;
+        $obj->updated_at = $updated_at;
         $obj->version = $version;
 
         return $obj;
@@ -118,7 +118,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
     public function withCreatedAt(string $createdAt): self
     {
         $obj = clone $this;
-        $obj->createdAt = $createdAt;
+        $obj->created_at = $createdAt;
 
         return $obj;
     }
@@ -129,7 +129,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
     public function withPublishedAt(string $publishedAt): self
     {
         $obj = clone $this;
-        $obj->publishedAt = $publishedAt;
+        $obj->published_at = $publishedAt;
 
         return $obj;
     }
@@ -140,7 +140,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
     public function withUpdatedAt(string $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updatedAt = $updatedAt;
+        $obj->updated_at = $updatedAt;
 
         return $obj;
     }

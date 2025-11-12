@@ -13,12 +13,12 @@ use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
 
 /**
  * @phpstan-type ChannelShape = array{
- *   brandID?: string|null,
+ *   brand_id?: string|null,
  *   if?: string|null,
  *   metadata?: Metadata|null,
- *   override?: array<string, mixed>|null,
+ *   override?: array<string,mixed>|null,
  *   providers?: list<string>|null,
- *   routingMethod?: value-of<RoutingMethod>|null,
+ *   routing_method?: value-of<RoutingMethod>|null,
  *   timeouts?: Timeouts|null,
  * }
  */
@@ -30,8 +30,8 @@ final class Channel implements BaseModel
     /**
      * Brand id used for rendering.
      */
-    #[Api('brand_id', nullable: true, optional: true)]
-    public ?string $brandID;
+    #[Api(nullable: true, optional: true)]
+    public ?string $brand_id;
 
     /**
      * JS conditional with access to data/profile.
@@ -45,7 +45,7 @@ final class Channel implements BaseModel
     /**
      * Channel specific overrides.
      *
-     * @var array<string, mixed>|null $override
+     * @var array<string,mixed>|null $override
      */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $override;
@@ -61,15 +61,10 @@ final class Channel implements BaseModel
     /**
      * Defaults to `single`.
      *
-     * @var value-of<RoutingMethod>|null $routingMethod
+     * @var value-of<RoutingMethod>|null $routing_method
      */
-    #[Api(
-        'routing_method',
-        enum: RoutingMethod::class,
-        nullable: true,
-        optional: true
-    )]
-    public ?string $routingMethod;
+    #[Api(enum: RoutingMethod::class, nullable: true, optional: true)]
+    public ?string $routing_method;
 
     #[Api(nullable: true, optional: true)]
     public ?Timeouts $timeouts;
@@ -84,27 +79,27 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
-     * @param RoutingMethod|value-of<RoutingMethod>|null $routingMethod
+     * @param RoutingMethod|value-of<RoutingMethod>|null $routing_method
      */
     public static function with(
-        ?string $brandID = null,
+        ?string $brand_id = null,
         ?string $if = null,
         ?Metadata $metadata = null,
         ?array $override = null,
         ?array $providers = null,
-        RoutingMethod|string|null $routingMethod = null,
+        RoutingMethod|string|null $routing_method = null,
         ?Timeouts $timeouts = null,
     ): self {
         $obj = new self;
 
-        null !== $brandID && $obj->brandID = $brandID;
+        null !== $brand_id && $obj->brand_id = $brand_id;
         null !== $if && $obj->if = $if;
         null !== $metadata && $obj->metadata = $metadata;
         null !== $override && $obj->override = $override;
         null !== $providers && $obj->providers = $providers;
-        null !== $routingMethod && $obj['routingMethod'] = $routingMethod;
+        null !== $routing_method && $obj['routing_method'] = $routing_method;
         null !== $timeouts && $obj->timeouts = $timeouts;
 
         return $obj;
@@ -116,7 +111,7 @@ final class Channel implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj->brandID = $brandID;
+        $obj->brand_id = $brandID;
 
         return $obj;
     }
@@ -143,7 +138,7 @@ final class Channel implements BaseModel
     /**
      * Channel specific overrides.
      *
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $override
      */
     public function withOverride(?array $override): self
     {
@@ -175,7 +170,7 @@ final class Channel implements BaseModel
         RoutingMethod|string|null $routingMethod
     ): self {
         $obj = clone $this;
-        $obj['routingMethod'] = $routingMethod;
+        $obj['routing_method'] = $routingMethod;
 
         return $obj;
     }

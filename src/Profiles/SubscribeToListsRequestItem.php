@@ -11,7 +11,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type SubscribeToListsRequestItemShape = array{
- *   listID: string, preferences?: RecipientPreferences|null
+ *   listId: string, preferences?: RecipientPreferences|null
  * }
  */
 final class SubscribeToListsRequestItem implements BaseModel
@@ -19,8 +19,8 @@ final class SubscribeToListsRequestItem implements BaseModel
     /** @use SdkModel<SubscribeToListsRequestItemShape> */
     use SdkModel;
 
-    #[Api('listId')]
-    public string $listID;
+    #[Api]
+    public string $listId;
 
     #[Api(nullable: true, optional: true)]
     public ?RecipientPreferences $preferences;
@@ -30,7 +30,7 @@ final class SubscribeToListsRequestItem implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * SubscribeToListsRequestItem::with(listID: ...)
+     * SubscribeToListsRequestItem::with(listId: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -50,12 +50,12 @@ final class SubscribeToListsRequestItem implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $listID,
+        string $listId,
         ?RecipientPreferences $preferences = null
     ): self {
         $obj = new self;
 
-        $obj->listID = $listID;
+        $obj->listId = $listId;
 
         null !== $preferences && $obj->preferences = $preferences;
 
@@ -65,7 +65,7 @@ final class SubscribeToListsRequestItem implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj->listID = $listID;
+        $obj->listId = $listID;
 
         return $obj;
     }

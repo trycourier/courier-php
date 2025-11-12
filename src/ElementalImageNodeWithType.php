@@ -15,7 +15,7 @@ use Courier\ElementalImageNodeWithType\Type;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
+ *   type?: value-of<Type>|null,
  * }
  */
 final class ElementalImageNodeWithType implements BaseModel

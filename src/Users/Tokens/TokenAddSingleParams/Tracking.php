@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  *   ip?: string|null,
  *   lat?: string|null,
  *   long?: string|null,
- *   osVersion?: string|null,
+ *   os_version?: string|null,
  * }
  */
 final class Tracking implements BaseModel
@@ -44,8 +44,8 @@ final class Tracking implements BaseModel
     /**
      * The operating system version.
      */
-    #[Api('os_version', nullable: true, optional: true)]
-    public ?string $osVersion;
+    #[Api(nullable: true, optional: true)]
+    public ?string $os_version;
 
     public function __construct()
     {
@@ -61,14 +61,14 @@ final class Tracking implements BaseModel
         ?string $ip = null,
         ?string $lat = null,
         ?string $long = null,
-        ?string $osVersion = null,
+        ?string $os_version = null,
     ): self {
         $obj = new self;
 
         null !== $ip && $obj->ip = $ip;
         null !== $lat && $obj->lat = $lat;
         null !== $long && $obj->long = $long;
-        null !== $osVersion && $obj->osVersion = $osVersion;
+        null !== $os_version && $obj->os_version = $os_version;
 
         return $obj;
     }
@@ -112,7 +112,7 @@ final class Tracking implements BaseModel
     public function withOsVersion(?string $osVersion): self
     {
         $obj = clone $this;
-        $obj->osVersion = $osVersion;
+        $obj->os_version = $osVersion;
 
         return $obj;
     }

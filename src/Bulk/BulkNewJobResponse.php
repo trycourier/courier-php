@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type BulkNewJobResponseShape = array{jobID: string}
+ * @phpstan-type BulkNewJobResponseShape = array{jobId: string}
  */
 final class BulkNewJobResponse implements BaseModel, ResponseConverter
 {
@@ -20,15 +20,15 @@ final class BulkNewJobResponse implements BaseModel, ResponseConverter
 
     use SdkResponse;
 
-    #[Api('jobId')]
-    public string $jobID;
+    #[Api]
+    public string $jobId;
 
     /**
      * `new BulkNewJobResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BulkNewJobResponse::with(jobID: ...)
+     * BulkNewJobResponse::with(jobId: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -47,11 +47,11 @@ final class BulkNewJobResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $jobID): self
+    public static function with(string $jobId): self
     {
         $obj = new self;
 
-        $obj->jobID = $jobID;
+        $obj->jobId = $jobId;
 
         return $obj;
     }
@@ -59,7 +59,7 @@ final class BulkNewJobResponse implements BaseModel, ResponseConverter
     public function withJobID(string $jobID): self
     {
         $obj = clone $this;
-        $obj->jobID = $jobID;
+        $obj->jobId = $jobID;
 
         return $obj;
     }

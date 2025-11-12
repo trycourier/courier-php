@@ -19,8 +19,7 @@ use Courier\Notifications\NotificationGetContent\Block\Type;
  *   checksum?: string|null,
  *   content?: string|null|NotificationContentHierarchy,
  *   context?: string|null,
- *   locales?: array<string,
- *   string|\Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy,>|null,
+ *   locales?: array<string,string|\Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy>|null,
  * }
  */
 final class Block implements BaseModel
@@ -48,8 +47,7 @@ final class Block implements BaseModel
     public ?string $context;
 
     /**
-     * @var array<string,
-     * string|Locale\NotificationContentHierarchy,>|null $locales
+     * @var array<string,string|Locale\NotificationContentHierarchy>|null $locales
      */
     #[Api(map: Locale::class, nullable: true, optional: true)]
     public ?array $locales;
@@ -79,8 +77,7 @@ final class Block implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param array<string,
-     * string|Locale\NotificationContentHierarchy,>|null $locales
+     * @param array<string,string|Locale\NotificationContentHierarchy>|null $locales
      */
     public static function with(
         string $id,
@@ -158,8 +155,7 @@ final class Block implements BaseModel
     }
 
     /**
-     * @param array<string,
-     * string|Locale\NotificationContentHierarchy,>|null $locales
+     * @param array<string,string|Locale\NotificationContentHierarchy>|null $locales
      */
     public function withLocales(?array $locales): self
     {

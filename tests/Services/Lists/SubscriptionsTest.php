@@ -2,14 +2,7 @@
 
 namespace Tests\Services\Lists;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\Lists\PutSubscriptionsRecipient;
-use Courier\NotificationPreferenceDetails;
-use Courier\PreferenceStatus;
-use Courier\RecipientPreferences;
-use Courier\Rule;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +33,7 @@ final class SubscriptionsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->lists->subscriptions->list('list_id');
+        $result = $this->client->lists->subscriptions->list('list_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -54,7 +47,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->add(
             'list_id',
-            [PutSubscriptionsRecipient::with(recipientID: 'recipientId')]
+            ['recipients' => [['recipientId' => 'recipientId']]]
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -70,40 +63,27 @@ final class SubscriptionsTest extends TestCase
         $result = $this->client->lists->subscriptions->add(
             'list_id',
             [
-                PutSubscriptionsRecipient::with(recipientID: 'recipientId')
-                    ->withPreferences(
-                        (new RecipientPreferences)
-                            ->withCategories(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                'recipients' => [
+                    [
+                        'recipientId' => 'recipientId',
+                        'preferences' => [
+                            'categories' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            )
-                            ->withNotifications(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                            ],
+                            'notifications' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            ),
-                    ),
+                            ],
+                        ],
+                    ],
+                ],
             ],
         );
 
@@ -119,7 +99,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribe(
             'list_id',
-            [PutSubscriptionsRecipient::with(recipientID: 'recipientId')]
+            ['recipients' => [['recipientId' => 'recipientId']]]
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -135,40 +115,27 @@ final class SubscriptionsTest extends TestCase
         $result = $this->client->lists->subscriptions->subscribe(
             'list_id',
             [
-                PutSubscriptionsRecipient::with(recipientID: 'recipientId')
-                    ->withPreferences(
-                        (new RecipientPreferences)
-                            ->withCategories(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                'recipients' => [
+                    [
+                        'recipientId' => 'recipientId',
+                        'preferences' => [
+                            'categories' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            )
-                            ->withNotifications(
-                                [
-                                    'foo' => NotificationPreferenceDetails::with(
-                                        status: PreferenceStatus::OPTED_IN
-                                    )
-                                        ->withChannelPreferences(
-                                            [
-                                                ChannelPreference::with(
-                                                    channel: ChannelClassification::DIRECT_MESSAGE
-                                                ),
-                                            ],
-                                        )
-                                        ->withRules([Rule::with(until: 'until')->withStart('start')]),
+                            ],
+                            'notifications' => [
+                                'foo' => [
+                                    'status' => 'OPTED_IN',
+                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
-                            ),
-                    ),
+                            ],
+                        ],
+                    ],
+                ],
             ],
         );
 
@@ -184,7 +151,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribeUser(
             'user_id',
-            listID: 'list_id'
+            ['list_id' => 'list_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -199,7 +166,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribeUser(
             'user_id',
-            listID: 'list_id'
+            ['list_id' => 'list_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -214,7 +181,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(
             'user_id',
-            'list_id'
+            ['list_id' => 'list_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -229,7 +196,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(
             'user_id',
-            'list_id'
+            ['list_id' => 'list_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

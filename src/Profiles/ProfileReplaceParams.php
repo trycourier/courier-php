@@ -17,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Profiles->replace
  *
- * @phpstan-type ProfileReplaceParamsShape = array{profile: array<string, mixed>}
+ * @phpstan-type ProfileReplaceParamsShape = array{profile: array<string,mixed>}
  */
 final class ProfileReplaceParams implements BaseModel
 {
@@ -25,7 +25,7 @@ final class ProfileReplaceParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    /** @var array<string, mixed> $profile */
+    /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]
     public array $profile;
 
@@ -53,7 +53,7 @@ final class ProfileReplaceParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public static function with(array $profile): self
     {
@@ -65,7 +65,7 @@ final class ProfileReplaceParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed> $profile
+     * @param array<string,mixed> $profile
      */
     public function withProfile(array $profile): self
     {

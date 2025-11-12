@@ -11,9 +11,6 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
 use Courier\Tenants\Preferences\Items\ItemDeleteParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams;
-use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
-
-use const Courier\Core\OMIT as omit;
 
 final class ItemsService implements ItemsContract
 {
@@ -27,49 +24,26 @@ final class ItemsService implements ItemsContract
      *
      * Create or Replace Default Preferences For Topic
      *
-     * @param string $tenantID
-     * @param Status|value-of<Status> $status
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting The default channels to send to this tenant when has_custom_routing is enabled
-     * @param bool|null $hasCustomRouting Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences
+     * @param array{
+     *   tenant_id: string,
+     *   status: "OPTED_OUT"|"OPTED_IN"|"REQUIRED",
+     *   custom_routing?: list<"direct_message"|"email"|"push"|"sms"|"webhook"|"inbox"|ChannelClassification>|null,
+     *   has_custom_routing?: bool|null,
+     * }|ItemUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $topicID,
-        $tenantID,
-        $status,
-        $customRouting = omit,
-        $hasCustomRouting = omit,
+        array|ItemUpdateParams $params,
         ?RequestOptions $requestOptions = null,
-    ): mixed {
-        $params = [
-            'tenantID' => $tenantID,
-            'status' => $status,
-            'customRouting' => $customRouting,
-            'hasCustomRouting' => $hasCustomRouting,
-        ];
-
-        return $this->updateRaw($topicID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): mixed {
         [$parsed, $options] = ItemUpdateParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $tenantID = $parsed['tenantID'];
-        unset($parsed['tenantID']);
+        $tenantID = $parsed['tenant_id'];
+        unset($parsed['tenant_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
@@ -77,7 +51,7 @@ final class ItemsService implements ItemsContract
             path: [
                 'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
             ],
-            body: (object) array_diff_key($parsed, ['tenantID']),
+            body: (object) array_diff_key($parsed, ['tenant_id']),
             options: $options,
             convert: null,
         );
@@ -88,38 +62,21 @@ final class ItemsService implements ItemsContract
      *
      * Remove Default Preferences For Topic
      *
-     * @param string $tenantID
+     * @param array{tenant_id: string}|ItemDeleteParams $params
      *
      * @throws APIException
      */
     public function delete(
         string $topicID,
-        $tenantID,
-        ?RequestOptions $requestOptions = null
-    ): mixed {
-        $params = ['tenantID' => $tenantID];
-
-        return $this->deleteRaw($topicID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function deleteRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|ItemDeleteParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = ItemDeleteParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $tenantID = $parsed['tenantID'];
-        unset($parsed['tenantID']);
+        $tenantID = $parsed['tenant_id'];
+        unset($parsed['tenant_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(

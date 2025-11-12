@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Services\Users;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesContract;
 use Courier\Users\Preferences\PreferenceGetResponse;
@@ -13,10 +15,7 @@ use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceRetrieveParams;
 use Courier\Users\Preferences\PreferenceRetrieveTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
-use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
-
-use const Courier\Core\OMIT as omit;
 
 final class PreferencesService implements PreferencesContract
 {
@@ -30,35 +29,18 @@ final class PreferencesService implements PreferencesContract
      *
      * Fetch all user preferences.
      *
-     * @param string|null $tenantID query the preferences of a user for this specific tenant context
+     * @param array{tenant_id?: string|null}|PreferenceRetrieveParams $params
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        $tenantID = omit,
-        ?RequestOptions $requestOptions = null
-    ): PreferenceGetResponse {
-        $params = ['tenantID' => $tenantID];
-
-        return $this->retrieveRaw($userID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveRaw(
-        string $userID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|PreferenceRetrieveParams $params,
+        ?RequestOptions $requestOptions = null,
     ): PreferenceGetResponse {
         [$parsed, $options] = PreferenceRetrieveParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
 
         // @phpstan-ignore-next-line;
@@ -76,40 +58,23 @@ final class PreferencesService implements PreferencesContract
      *
      * Fetch user preferences for a specific subscription topic.
      *
-     * @param string $userID
-     * @param string|null $tenantID query the preferences of a user for this specific tenant context
+     * @param array{
+     *   user_id: string, tenant_id?: string|null
+     * }|PreferenceRetrieveTopicParams $params
      *
      * @throws APIException
      */
     public function retrieveTopic(
         string $topicID,
-        $userID,
-        $tenantID = omit,
+        array|PreferenceRetrieveTopicParams $params,
         ?RequestOptions $requestOptions = null,
-    ): PreferenceGetTopicResponse {
-        $params = ['userID' => $userID, 'tenantID' => $tenantID];
-
-        return $this->retrieveTopicRaw($topicID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function retrieveTopicRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): PreferenceGetTopicResponse {
         [$parsed, $options] = PreferenceRetrieveTopicParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
 
         // @phpstan-ignore-next-line;
         return $this->client->request(
@@ -126,42 +91,29 @@ final class PreferencesService implements PreferencesContract
      *
      * Update or Create user preferences for a specific subscription topic.
      *
-     * @param string $userID
-     * @param Topic $topic
-     * @param string|null $tenantID update the preferences of a user for this specific tenant context
+     * @param array{
+     *   user_id: string,
+     *   topic: array{
+     *     status: "OPTED_IN"|"OPTED_OUT"|"REQUIRED"|PreferenceStatus,
+     *     custom_routing?: list<"direct_message"|"email"|"push"|"sms"|"webhook"|"inbox"|ChannelClassification>|null,
+     *     has_custom_routing?: bool|null,
+     *   },
+     *   tenant_id?: string|null,
+     * }|PreferenceUpdateOrCreateTopicParams $params
      *
      * @throws APIException
      */
     public function updateOrCreateTopic(
         string $topicID,
-        $userID,
-        $topic,
-        $tenantID = omit,
+        array|PreferenceUpdateOrCreateTopicParams $params,
         ?RequestOptions $requestOptions = null,
-    ): PreferenceUpdateOrNewTopicResponse {
-        $params = ['userID' => $userID, 'topic' => $topic, 'tenantID' => $tenantID];
-
-        return $this->updateOrCreateTopicRaw($topicID, $params, $requestOptions);
-    }
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateOrCreateTopicRaw(
-        string $topicID,
-        array $params,
-        ?RequestOptions $requestOptions = null
     ): PreferenceUpdateOrNewTopicResponse {
         [$parsed, $options] = PreferenceUpdateOrCreateTopicParams::parseRequest(
             $params,
-            $requestOptions
+            $requestOptions,
         );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $userID = $parsed['user_id'];
+        unset($parsed['user_id']);
         $query_params = ['tenant_id'];
 
         // @phpstan-ignore-next-line;
@@ -171,7 +123,7 @@ final class PreferencesService implements PreferencesContract
             query: array_diff_key($parsed, $query_params),
             body: (object) array_diff_key(
                 array_diff_key($parsed, $query_params),
-                ['userID']
+                ['user_id']
             ),
             options: $options,
             convert: PreferenceUpdateOrNewTopicResponse::class,

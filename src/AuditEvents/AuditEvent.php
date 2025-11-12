@@ -14,7 +14,7 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
 /**
  * @phpstan-type AuditEventShape = array{
  *   actor: Actor,
- *   auditEventID: string,
+ *   auditEventId: string,
  *   source: string,
  *   target: string,
  *   timestamp: string,
@@ -31,8 +31,8 @@ final class AuditEvent implements BaseModel, ResponseConverter
     #[Api]
     public Actor $actor;
 
-    #[Api('auditEventId')]
-    public string $auditEventID;
+    #[Api]
+    public string $auditEventId;
 
     #[Api]
     public string $source;
@@ -53,7 +53,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
      * ```
      * AuditEvent::with(
      *   actor: ...,
-     *   auditEventID: ...,
+     *   auditEventId: ...,
      *   source: ...,
      *   target: ...,
      *   timestamp: ...,
@@ -85,7 +85,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
      */
     public static function with(
         Actor $actor,
-        string $auditEventID,
+        string $auditEventId,
         string $source,
         string $target,
         string $timestamp,
@@ -94,7 +94,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
         $obj = new self;
 
         $obj->actor = $actor;
-        $obj->auditEventID = $auditEventID;
+        $obj->auditEventId = $auditEventId;
         $obj->source = $source;
         $obj->target = $target;
         $obj->timestamp = $timestamp;
@@ -114,7 +114,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withAuditEventID(string $auditEventID): self
     {
         $obj = clone $this;
-        $obj->auditEventID = $auditEventID;
+        $obj->auditEventId = $auditEventID;
 
         return $obj;
     }

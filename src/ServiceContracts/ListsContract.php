@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\Lists\ListListParams;
 use Courier\Lists\ListListResponse;
+use Courier\Lists\ListUpdateParams;
 use Courier\Lists\SubscriptionList;
-use Courier\RecipientPreferences;
 use Courier\RequestOptions;
-
-use const Courier\Core\OMIT as omit;
 
 interface ListsContract
 {
@@ -27,54 +26,25 @@ interface ListsContract
     /**
      * @api
      *
-     * @param string $name
-     * @param RecipientPreferences|null $preferences
+     * @param array<mixed>|ListUpdateParams $params
      *
      * @throws APIException
      */
     public function update(
         string $listID,
-        $name,
-        $preferences = omit,
+        array|ListUpdateParams $params,
         ?RequestOptions $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function updateRaw(
-        string $listID,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): mixed;
-
-    /**
-     * @api
-     *
-     * @param string|null $cursor a unique identifier that allows for fetching the next page of lists
-     * @param string|null $pattern "A pattern used to filter the list items returned. Pattern types supported: exact match on `list_id` or a pattern of one or more pattern parts. you may replace a part with either: `*` to match all parts in that position, or `**` to signify a wildcard `endsWith` pattern match."
+     * @param array<mixed>|ListListParams $params
      *
      * @throws APIException
      */
     public function list(
-        $cursor = omit,
-        $pattern = omit,
-        ?RequestOptions $requestOptions = null
-    ): ListListResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listRaw(
-        array $params,
+        array|ListListParams $params,
         ?RequestOptions $requestOptions = null
     ): ListListResponse;
 

@@ -15,7 +15,7 @@ use Courier\ElementalActionNodeWithType\Type;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>,
+ *   type?: value-of<Type>|null,
  * }
  */
 final class ElementalActionNodeWithType implements BaseModel

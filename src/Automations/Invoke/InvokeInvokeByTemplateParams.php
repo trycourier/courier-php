@@ -17,8 +17,8 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type InvokeInvokeByTemplateParamsShape = array{
  *   recipient: string|null,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
- *   profile?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
+ *   profile?: array<string,mixed>|null,
  *   template?: string|null,
  * }
  */
@@ -34,11 +34,11 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
-    /** @var array<string, mixed>|null $profile */
+    /** @var array<string,mixed>|null $profile */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $profile;
 
@@ -69,8 +69,8 @@ final class InvokeInvokeByTemplateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $data
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      */
     public static function with(
         ?string $recipient,
@@ -108,7 +108,7 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -119,7 +119,7 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $profile
+     * @param array<string,mixed>|null $profile
      */
     public function withProfile(?array $profile): self
     {

@@ -4,93 +4,53 @@ declare(strict_types=1);
 
 namespace Courier\ServiceContracts;
 
+use Courier\Bulk\BulkAddUsersParams;
+use Courier\Bulk\BulkCreateJobParams;
 use Courier\Bulk\BulkGetJobResponse;
+use Courier\Bulk\BulkListUsersParams;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-
-use const Courier\Core\OMIT as omit;
 
 interface BulkContract
 {
     /**
      * @api
      *
-     * @param list<InboundBulkMessageUser> $users
+     * @param array<mixed>|BulkAddUsersParams $params
      *
      * @throws APIException
      */
     public function addUsers(
         string $jobID,
-        $users,
-        ?RequestOptions $requestOptions = null
+        array|BulkAddUsersParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function addUsersRaw(
-        string $jobID,
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): mixed;
-
-    /**
-     * @api
-     *
-     * @param InboundBulkTemplateMessage|InboundBulkContentMessage $message
+     * @param array<mixed>|BulkCreateJobParams $params
      *
      * @throws APIException
      */
     public function createJob(
-        $message,
-        ?RequestOptions $requestOptions = null
+        array|BulkCreateJobParams $params,
+        ?RequestOptions $requestOptions = null,
     ): BulkNewJobResponse;
 
     /**
      * @api
      *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function createJobRaw(
-        array $params,
-        ?RequestOptions $requestOptions = null
-    ): BulkNewJobResponse;
-
-    /**
-     * @api
-     *
-     * @param string|null $cursor A unique identifier that allows for fetching the next set of users added to the bulk job
+     * @param array<mixed>|BulkListUsersParams $params
      *
      * @throws APIException
      */
     public function listUsers(
         string $jobID,
-        $cursor = omit,
-        ?RequestOptions $requestOptions = null
-    ): BulkListUsersResponse;
-
-    /**
-     * @api
-     *
-     * @param array<string, mixed> $params
-     *
-     * @throws APIException
-     */
-    public function listUsersRaw(
-        string $jobID,
-        array $params,
-        ?RequestOptions $requestOptions = null
+        array|BulkListUsersParams $params,
+        ?RequestOptions $requestOptions = null,
     ): BulkListUsersResponse;
 
     /**

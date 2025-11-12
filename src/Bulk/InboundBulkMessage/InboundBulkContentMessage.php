@@ -15,10 +15,10 @@ use Courier\ElementalContentSugar;
  * @phpstan-type InboundBulkContentMessageShape = array{
  *   content: ElementalContentSugar|ElementalContent,
  *   brand?: string|null,
- *   data?: array<string, mixed>|null,
+ *   data?: array<string,mixed>|null,
  *   event?: string|null,
- *   locale?: array<string, array<string, mixed>>|null,
- *   override?: array<string, mixed>|null,
+ *   locale?: array<string,array<string,mixed>>|null,
+ *   override?: array<string,mixed>|null,
  * }
  */
 final class InboundBulkContentMessage implements BaseModel
@@ -35,18 +35,18 @@ final class InboundBulkContentMessage implements BaseModel
     #[Api(nullable: true, optional: true)]
     public ?string $brand;
 
-    /** @var array<string, mixed>|null $data */
+    /** @var array<string,mixed>|null $data */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $data;
 
     #[Api(nullable: true, optional: true)]
     public ?string $event;
 
-    /** @var array<string, array<string, mixed>>|null $locale */
+    /** @var array<string,array<string,mixed>>|null $locale */
     #[Api(map: new MapOf('mixed'), nullable: true, optional: true)]
     public ?array $locale;
 
-    /** @var array<string, mixed>|null $override */
+    /** @var array<string,mixed>|null $override */
     #[Api(map: 'mixed', nullable: true, optional: true)]
     public ?array $override;
 
@@ -74,9 +74,9 @@ final class InboundBulkContentMessage implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string, mixed>|null $data
-     * @param array<string, array<string, mixed>>|null $locale
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $data
+     * @param array<string,array<string,mixed>>|null $locale
+     * @param array<string,mixed>|null $override
      */
     public static function with(
         ElementalContentSugar|ElementalContent $content,
@@ -120,7 +120,7 @@ final class InboundBulkContentMessage implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $data
+     * @param array<string,mixed>|null $data
      */
     public function withData(?array $data): self
     {
@@ -139,7 +139,7 @@ final class InboundBulkContentMessage implements BaseModel
     }
 
     /**
-     * @param array<string, array<string, mixed>>|null $locale
+     * @param array<string,array<string,mixed>>|null $locale
      */
     public function withLocale(?array $locale): self
     {
@@ -150,7 +150,7 @@ final class InboundBulkContentMessage implements BaseModel
     }
 
     /**
-     * @param array<string, mixed>|null $override
+     * @param array<string,mixed>|null $override
      */
     public function withOverride(?array $override): self
     {

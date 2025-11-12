@@ -2,10 +2,7 @@
 
 namespace Tests\Services\Users;
 
-use Courier\ChannelClassification;
 use Courier\Client;
-use Courier\PreferenceStatus;
-use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +33,7 @@ final class PreferencesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->preferences->retrieve('user_id');
+        $result = $this->client->users->preferences->retrieve('user_id', []);
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
     }
@@ -50,7 +47,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            userID: 'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -65,7 +62,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            userID: 'user_id'
+            ['user_id' => 'user_id']
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -80,8 +77,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
-            userID: 'user_id',
-            topic: Topic::with(status: PreferenceStatus::OPTED_IN),
+            ['user_id' => 'user_id', 'topic' => ['status' => 'OPTED_IN']]
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
@@ -96,12 +92,14 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
-            userID: 'user_id',
-            topic: Topic::with(status: PreferenceStatus::OPTED_IN)
-                ->withCustomRouting(
-                    [ChannelClassification::INBOX, ChannelClassification::EMAIL]
-                )
-                ->withHasCustomRouting(true),
+            [
+                'user_id' => 'user_id',
+                'topic' => [
+                    'status' => 'OPTED_IN',
+                    'custom_routing' => ['inbox', 'email'],
+                    'has_custom_routing' => true,
+                ],
+            ],
         );
 
         $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType

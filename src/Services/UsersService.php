@@ -13,17 +13,17 @@ use Courier\Services\Users\TokensService;
 final class UsersService implements UsersContract
 {
     /**
-     * @@api
+     * @api
      */
     public PreferencesService $preferences;
 
     /**
-     * @@api
+     * @api
      */
     public TenantsService $tenants;
 
     /**
-     * @@api
+     * @api
      */
     public TokensService $tokens;
 
