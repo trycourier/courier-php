@@ -74,6 +74,7 @@ final class BulkTest extends TestCase
                             'context' => ['tenant_id' => 'tenant_id'],
                             'data' => ['foo' => 'bar'],
                             'email' => 'email',
+                            'list_id' => 'list_id',
                             'locale' => 'locale',
                             'phone_number' => 'phone_number',
                             'preferences' => [
