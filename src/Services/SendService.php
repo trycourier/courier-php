@@ -80,6 +80,7 @@ final class SendService implements SendContract
      *       context?: array<mixed>|MessageContext|null,
      *       data?: array<string,mixed>|null,
      *       email?: string|null,
+     *       list_id?: string|null,
      *       locale?: string|null,
      *       phone_number?: string|null,
      *       preferences?: array<mixed>|null,

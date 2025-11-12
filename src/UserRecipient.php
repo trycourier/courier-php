@@ -15,6 +15,7 @@ use Courier\UserRecipient\Preferences;
  *   context?: MessageContext|null,
  *   data?: array<string,mixed>|null,
  *   email?: string|null,
+ *   list_id?: string|null,
  *   locale?: string|null,
  *   phone_number?: string|null,
  *   preferences?: Preferences|null,
@@ -48,6 +49,12 @@ final class UserRecipient implements BaseModel
      */
     #[Api(nullable: true, optional: true)]
     public ?string $email;
+
+    /**
+     * The id of the list to send the message to.
+     */
+    #[Api(nullable: true, optional: true)]
+    public ?string $list_id;
 
     /**
      * The user's preferred ISO 639-1 language code.
@@ -93,6 +100,7 @@ final class UserRecipient implements BaseModel
         ?MessageContext $context = null,
         ?array $data = null,
         ?string $email = null,
+        ?string $list_id = null,
         ?string $locale = null,
         ?string $phone_number = null,
         ?Preferences $preferences = null,
@@ -105,6 +113,7 @@ final class UserRecipient implements BaseModel
         null !== $context && $obj->context = $context;
         null !== $data && $obj->data = $data;
         null !== $email && $obj->email = $email;
+        null !== $list_id && $obj->list_id = $list_id;
         null !== $locale && $obj->locale = $locale;
         null !== $phone_number && $obj->phone_number = $phone_number;
         null !== $preferences && $obj->preferences = $preferences;
@@ -154,6 +163,17 @@ final class UserRecipient implements BaseModel
     {
         $obj = clone $this;
         $obj->email = $email;
+
+        return $obj;
+    }
+
+    /**
+     * The id of the list to send the message to.
+     */
+    public function withListID(?string $listID): self
+    {
+        $obj = clone $this;
+        $obj->list_id = $listID;
 
         return $obj;
     }
