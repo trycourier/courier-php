@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message;
 
 /**
- * API to send a message to one or more recipients.
+ * Send a message to one or more recipients.
  *
  * @see Courier\Send->message
  *
