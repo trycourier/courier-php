@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type NotificationContentHierarchyShape = array{
- *   children?: string|null, parent1?: string|null
+ *   children?: string|null, parent?: string|null
  * }
  */
 final class NotificationContentHierarchy implements BaseModel
@@ -22,7 +22,7 @@ final class NotificationContentHierarchy implements BaseModel
     public ?string $children;
 
     #[Api(nullable: true, optional: true)]
-    public ?string $parent1;
+    public ?string $parent;
 
     public function __construct()
     {
@@ -36,12 +36,12 @@ final class NotificationContentHierarchy implements BaseModel
      */
     public static function with(
         ?string $children = null,
-        ?string $parent1 = null
+        ?string $parent = null
     ): self {
         $obj = new self;
 
         null !== $children && $obj->children = $children;
-        null !== $parent1 && $obj->parent1 = $parent1;
+        null !== $parent && $obj->parent = $parent;
 
         return $obj;
     }
@@ -54,10 +54,10 @@ final class NotificationContentHierarchy implements BaseModel
         return $obj;
     }
 
-    public function withParent(?string $parent1): self
+    public function withParent(?string $parent): self
     {
         $obj = clone $this;
-        $obj->parent1 = $parent1;
+        $obj->parent = $parent;
 
         return $obj;
     }
