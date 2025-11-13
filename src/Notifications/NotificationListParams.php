@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @see Courier\Notifications->list
+ * @see Courier\Services\NotificationsService::list()
  *
  * @phpstan-type NotificationListParamsShape = array{
  *   cursor?: string|null, notes?: bool|null

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get single token available for a `:token`.
  *
- * @see Courier\Users\Tokens->retrieve
+ * @see Courier\Services\Users\TokensService::retrieve()
  *
  * @phpstan-type TokenRetrieveParamsShape = array{user_id: string}
  */

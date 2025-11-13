@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Create a new brand.
  *
- * @see Courier\Brands->create
+ * @see Courier\Services\BrandsService::create()
  *
  * @phpstan-type BrandCreateParamsShape = array{
  *   name: string,

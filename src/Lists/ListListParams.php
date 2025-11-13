@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Returns all of the lists, with the ability to filter based on a pattern.
  *
- * @see Courier\Lists->list
+ * @see Courier\Services\ListsService::list()
  *
  * @phpstan-type ListListParamsShape = array{
  *   cursor?: string|null, pattern?: string|null

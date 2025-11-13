@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Fetch all user preferences.
  *
- * @see Courier\Users\Preferences->retrieve
+ * @see Courier\Services\Users\PreferencesService::retrieve()
  *
  * @phpstan-type PreferenceRetrieveParamsShape = array{tenant_id?: string|null}
  */

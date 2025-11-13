@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
  * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
  *
- * @see Courier\Profiles->replace
+ * @see Courier\Services\ProfilesService::replace()
  *
  * @phpstan-type ProfileReplaceParamsShape = array{profile: array<string,mixed>}
  */

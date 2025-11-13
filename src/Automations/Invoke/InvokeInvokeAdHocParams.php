@@ -13,7 +13,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
  *
- * @see Courier\Automations\Invoke->invokeAdHoc
+ * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
  *   automation: Automation,

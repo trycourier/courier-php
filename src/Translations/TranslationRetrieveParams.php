@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get translations by locale.
  *
- * @see Courier\Translations->retrieve
+ * @see Courier\Services\TranslationsService::retrieve()
  *
  * @phpstan-type TranslationRetrieveParamsShape = array{domain: string}
  */

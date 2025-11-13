@@ -13,7 +13,7 @@ use Courier\Send\SendMessageParams\Message;
 /**
  * Send a message to one or more recipients.
  *
- * @see Courier\Send->message
+ * @see Courier\Services\SendService::message()
  *
  * @phpstan-type SendMessageParamsShape = array{message: Message}
  */

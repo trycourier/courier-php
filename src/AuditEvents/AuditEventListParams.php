@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Fetch the list of audit events.
  *
- * @see Courier\AuditEvents->list
+ * @see Courier\Services\AuditEventsService::list()
  *
  * @phpstan-type AuditEventListParamsShape = array{cursor?: string|null}
  */

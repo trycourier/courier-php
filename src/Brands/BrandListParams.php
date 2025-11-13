@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get the list of brands.
  *
- * @see Courier\Brands->list
+ * @see Courier\Services\BrandsService::list()
  *
  * @phpstan-type BrandListParamsShape = array{cursor?: string|null}
  */

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get Bulk Job Users.
  *
- * @see Courier\Bulk->listUsers
+ * @see Courier\Services\BulkService::listUsers()
  *
  * @phpstan-type BulkListUsersParamsShape = array{cursor?: string|null}
  */

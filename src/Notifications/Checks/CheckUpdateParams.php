@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck;
 
 /**
- * @see Courier\Notifications\Checks->update
+ * @see Courier\Services\Notifications\ChecksService::update()
  *
  * @phpstan-type CheckUpdateParamsShape = array{
  *   id: string, checks: list<BaseCheck>

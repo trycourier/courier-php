@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get Users in Tenant.
  *
- * @see Courier\Tenants->listUsers
+ * @see Courier\Services\TenantsService::listUsers()
  *
  * @phpstan-type TenantListUsersParamsShape = array{
  *   cursor?: string|null, limit?: int|null
