@@ -13,7 +13,7 @@ use Courier\Lists\PutSubscriptionsRecipient;
 /**
  * Subscribes the users to the list, overwriting existing subscriptions. If the list does not exist, it will be automatically created.
  *
- * @see Courier\Lists\Subscriptions->subscribe
+ * @see Courier\Services\Lists\SubscriptionsService::subscribe()
  *
  * @phpstan-type SubscriptionSubscribeParamsShape = array{
  *   recipients: list<PutSubscriptionsRecipient>

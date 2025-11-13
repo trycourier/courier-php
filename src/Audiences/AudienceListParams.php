@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get the audiences associated with the authorization token.
  *
- * @see Courier\Audiences->list
+ * @see Courier\Services\AudiencesService::list()
  *
  * @phpstan-type AudienceListParamsShape = array{cursor?: string|null}
  */

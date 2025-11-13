@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Fetch the array of events of a message you've previously sent.
  *
- * @see Courier\Messages->history
+ * @see Courier\Services\MessagesService::history()
  *
  * @phpstan-type MessageHistoryParamsShape = array{type?: string|null}
  */

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * List Templates in Tenant.
  *
- * @see Courier\Tenants\Templates->list
+ * @see Courier\Services\Tenants\TemplatesService::list()
  *
  * @phpstan-type TemplateListParamsShape = array{
  *   cursor?: string|null, limit?: int|null

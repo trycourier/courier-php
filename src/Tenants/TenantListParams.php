@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get a List of Tenants.
  *
- * @see Courier\Tenants->list
+ * @see Courier\Services\TenantsService::list()
  *
  * @phpstan-type TenantListParamsShape = array{
  *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null

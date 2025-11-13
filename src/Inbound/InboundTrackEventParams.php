@@ -13,7 +13,7 @@ use Courier\Inbound\InboundTrackEventParams\Type;
 /**
  * Courier Track Event.
  *
- * @see Courier\Inbound->trackEvent
+ * @see Courier\Services\InboundService::trackEvent()
  *
  * @phpstan-type InboundTrackEventParamsShape = array{
  *   event: string,

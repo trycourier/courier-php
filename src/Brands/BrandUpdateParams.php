@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Replace an existing brand with the supplied values.
  *
- * @see Courier\Brands->update
+ * @see Courier\Services\BrandsService::update()
  *
  * @phpstan-type BrandUpdateParamsShape = array{
  *   name: string, settings?: BrandSettings|null, snippets?: BrandSnippets|null

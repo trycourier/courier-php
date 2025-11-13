@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Returns the subscribed lists for a specified user.
  *
- * @see Courier\Profiles\Lists->retrieve
+ * @see Courier\Services\Profiles\ListsService::retrieve()
  *
  * @phpstan-type ListRetrieveParamsShape = array{cursor?: string|null}
  */

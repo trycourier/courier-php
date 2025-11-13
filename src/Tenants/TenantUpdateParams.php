@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Create or Replace a Tenant.
  *
- * @see Courier\Tenants->update
+ * @see Courier\Services\TenantsService::update()
  *
  * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,

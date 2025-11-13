@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 /**
  * Create or replace an existing list with the supplied values.
  *
- * @see Courier\Lists->update
+ * @see Courier\Services\ListsService::update()
  *
  * @phpstan-type ListUpdateParamsShape = array{
  *   name: string, preferences?: RecipientPreferences|null

@@ -14,7 +14,7 @@ use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 /**
  * Create or Replace Default Preferences For Topic.
  *
- * @see Courier\Tenants\Preferences\Items->update
+ * @see Courier\Services\Tenants\Preferences\ItemsService::update()
  *
  * @phpstan-type ItemUpdateParamsShape = array{
  *   tenant_id: string,

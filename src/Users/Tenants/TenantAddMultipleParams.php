@@ -17,7 +17,7 @@ use Courier\Tenants\TenantAssociation;
  * This profile will be merged with the user's main
  * profile when sending to the user with that tenant.
  *
- * @see Courier\Users\Tenants->addMultiple
+ * @see Courier\Services\Users\TenantsService::addMultiple()
  *
  * @phpstan-type TenantAddMultipleParamsShape = array{
  *   tenants: list<TenantAssociation>

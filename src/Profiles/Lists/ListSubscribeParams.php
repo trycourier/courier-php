@@ -13,7 +13,7 @@ use Courier\Profiles\SubscribeToListsRequestItem;
 /**
  * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
  *
- * @see Courier\Profiles\Lists->subscribe
+ * @see Courier\Services\Profiles\ListsService::subscribe()
  *
  * @phpstan-type ListSubscribeParamsShape = array{
  *   lists: list<SubscribeToListsRequestItem>

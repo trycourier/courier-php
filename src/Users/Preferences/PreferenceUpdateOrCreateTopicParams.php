@@ -13,7 +13,7 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 /**
  * Update or Create user preferences for a specific subscription topic.
  *
- * @see Courier\Users\Preferences->updateOrCreateTopic
+ * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
  *   user_id: string, topic: Topic, tenant_id?: string|null

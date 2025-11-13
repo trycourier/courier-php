@@ -13,7 +13,7 @@ use Courier\Core\Conversion\ListOf;
 /**
  * Fetch the statuses of messages you've previously sent.
  *
- * @see Courier\Messages->list
+ * @see Courier\Services\MessagesService::list()
  *
  * @phpstan-type MessageListParamsShape = array{
  *   archived?: bool|null,

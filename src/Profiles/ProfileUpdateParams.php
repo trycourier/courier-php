@@ -13,7 +13,7 @@ use Courier\Profiles\ProfileUpdateParams\Patch;
 /**
  * Update a profile.
  *
- * @see Courier\Profiles->update
+ * @see Courier\Services\ProfilesService::update()
  *
  * @phpstan-type ProfileUpdateParamsShape = array{patch: list<Patch>}
  */

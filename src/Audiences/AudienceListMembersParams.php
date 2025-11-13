@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get list of members of an audience.
  *
- * @see Courier\Audiences->listMembers
+ * @see Courier\Services\AudiencesService::listMembers()
  *
  * @phpstan-type AudienceListMembersParamsShape = array{cursor?: string|null}
  */

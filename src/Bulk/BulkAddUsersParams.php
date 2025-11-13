@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Ingest user data into a Bulk Job.
  *
- * @see Courier\Bulk->addUsers
+ * @see Courier\Services\BulkService::addUsers()
  *
  * @phpstan-type BulkAddUsersParamsShape = array{
  *   users: list<InboundBulkMessageUser>

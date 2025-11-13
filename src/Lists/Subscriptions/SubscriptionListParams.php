@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get the list's subscriptions.
  *
- * @see Courier\Lists\Subscriptions->list
+ * @see Courier\Services\Lists\SubscriptionsService::list()
  *
  * @phpstan-type SubscriptionListParamsShape = array{cursor?: string|null}
  */

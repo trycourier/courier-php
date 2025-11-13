@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Returns a paginated list of user tenant associations.
  *
- * @see Courier\Users\Tenants->list
+ * @see Courier\Services\Users\TenantsService::list()
  *
  * @phpstan-type TenantListParamsShape = array{
  *   cursor?: string|null, limit?: int|null

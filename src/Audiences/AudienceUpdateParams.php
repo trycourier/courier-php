@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Creates or updates audience.
  *
- * @see Courier\Audiences->update
+ * @see Courier\Services\AudiencesService::update()
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
  *   description?: string|null, filter?: Filter|null, name?: string|null

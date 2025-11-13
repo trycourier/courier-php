@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 /**
  * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
  *
- * @see Courier\Lists\Subscriptions->subscribeUser
+ * @see Courier\Services\Lists\SubscriptionsService::subscribeUser()
  *
  * @phpstan-type SubscriptionSubscribeUserParamsShape = array{
  *   list_id: string, preferences?: RecipientPreferences|null

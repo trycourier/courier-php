@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Returns a new access token.
  *
- * @see Courier\Auth->issueToken
+ * @see Courier\Services\AuthService::issueToken()
  *
  * @phpstan-type AuthIssueTokenParamsShape = array{
  *   expires_in: string, scope: string

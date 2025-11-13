@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Invoke an automation run from an automation template.
  *
- * @see Courier\Automations\Invoke->invokeByTemplate
+ * @see Courier\Services\Automations\InvokeService::invokeByTemplate()
  *
  * @phpstan-type InvokeInvokeByTemplateParamsShape = array{
  *   recipient: string|null,
