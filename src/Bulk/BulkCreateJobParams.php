@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Create a bulk job.
  *
- * @see Courier\Bulk->createJob
+ * @see Courier\Services\BulkService::createJob()
  *
  * @phpstan-type BulkCreateJobParamsShape = array{
  *   message: InboundBulkTemplateMessage|InboundBulkContentMessage

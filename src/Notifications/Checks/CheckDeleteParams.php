@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @see Courier\Notifications\Checks->delete
+ * @see Courier\Services\Notifications\ChecksService::delete()
  *
  * @phpstan-type CheckDeleteParamsShape = array{id: string}
  */

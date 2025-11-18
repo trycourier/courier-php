@@ -15,7 +15,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 /**
  * Adds a single token to a user and overwrites a matching existing token.
  *
- * @see Courier\Users\Tokens->addSingle
+ * @see Courier\Services\Users\TokensService::addSingle()
  *
  * @phpstan-type TokenAddSingleParamsShape = array{
  *   user_id: string,

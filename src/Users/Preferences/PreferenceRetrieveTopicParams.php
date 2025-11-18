@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Fetch user preferences for a specific subscription topic.
  *
- * @see Courier\Users\Preferences->retrieveTopic
+ * @see Courier\Services\Users\PreferencesService::retrieveTopic()
  *
  * @phpstan-type PreferenceRetrieveTopicParamsShape = array{
  *   user_id: string, tenant_id?: string|null

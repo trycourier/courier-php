@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @see Courier\Notifications\Checks->list
+ * @see Courier\Services\Notifications\ChecksService::list()
  *
  * @phpstan-type CheckListParamsShape = array{id: string}
  */

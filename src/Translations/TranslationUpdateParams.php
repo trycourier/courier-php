@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Update a translation.
  *
- * @see Courier\Translations->update
+ * @see Courier\Services\TranslationsService::update()
  *
  * @phpstan-type TranslationUpdateParamsShape = array{domain: string, body: string}
  */

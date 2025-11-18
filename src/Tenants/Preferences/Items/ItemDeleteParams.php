@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Remove Default Preferences For Topic.
  *
- * @see Courier\Tenants\Preferences\Items->delete
+ * @see Courier\Services\Tenants\Preferences\ItemsService::delete()
  *
  * @phpstan-type ItemDeleteParamsShape = array{tenant_id: string}
  */

@@ -16,7 +16,7 @@ use Courier\Core\Contracts\BaseModel;
  * This profile will be merged with the user's main profile
  * when sending to the user with that tenant.
  *
- * @see Courier\Users\Tenants->addSingle
+ * @see Courier\Services\Users\TenantsService::addSingle()
  *
  * @phpstan-type TenantAddSingleParamsShape = array{
  *   user_id: string, profile?: array<string,mixed>|null

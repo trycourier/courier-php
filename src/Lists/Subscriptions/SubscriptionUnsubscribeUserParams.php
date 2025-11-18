@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Delete a subscription to a list by list ID and user ID.
  *
- * @see Courier\Lists\Subscriptions->unsubscribeUser
+ * @see Courier\Services\Lists\SubscriptionsService::unsubscribeUser()
  *
  * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{list_id: string}
  */

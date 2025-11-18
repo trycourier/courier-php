@@ -13,7 +13,7 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
 /**
  * Apply a JSON Patch (RFC 6902) to the specified token.
  *
- * @see Courier\Users\Tokens->update
+ * @see Courier\Services\Users\TokensService::update()
  *
  * @phpstan-type TokenUpdateParamsShape = array{
  *   user_id: string, patch: list<Patch>

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Get a Template in Tenant.
  *
- * @see Courier\Tenants\Templates->retrieve
+ * @see Courier\Services\Tenants\TemplatesService::retrieve()
  *
  * @phpstan-type TemplateRetrieveParamsShape = array{tenant_id: string}
  */

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Delete User Token.
  *
- * @see Courier\Users\Tokens->delete
+ * @see Courier\Services\Users\TokensService::delete()
  *
  * @phpstan-type TokenDeleteParamsShape = array{user_id: string}
  */

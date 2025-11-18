@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Removes a user from the supplied tenant.
  *
- * @see Courier\Users\Tenants->removeSingle
+ * @see Courier\Services\Users\TenantsService::removeSingle()
  *
  * @phpstan-type TenantRemoveSingleParamsShape = array{user_id: string}
  */

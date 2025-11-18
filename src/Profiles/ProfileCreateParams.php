@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
  *
- * @see Courier\Profiles->create
+ * @see Courier\Services\ProfilesService::create()
  *
  * @phpstan-type ProfileCreateParamsShape = array{profile: array<string,mixed>}
  */
