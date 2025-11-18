@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.1.0 (2025-11-18)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/trycourier/courier-php/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* JWT scope updates ([a8404b8](https://github.com/trycourier/courier-php/commit/a8404b8f69aea56a7ed08c6eb5b3cbb1ea3fe9ad))
+* Test ([c12a38f](https://github.com/trycourier/courier-php/commit/c12a38fcdc323e9d1bd84cfd236acf34951603f3))
+
+
+### Bug Fixes
+
+* rename invalid types ([bc37024](https://github.com/trycourier/courier-php/commit/bc37024e621bcf82f65e7f0a556dede0d22961be))
+
+
+### Chores
+
+* **internal:** codegen related update ([6fc30cf](https://github.com/trycourier/courier-php/commit/6fc30cf3644dc6daff6d15e9a57ff7a034268c94))
+
 ## 3.0.0 (2025-11-12)
 
 Full Changelog: [v2.4.0-alpha0...v3.0.0](https://github.com/trycourier/courier-php/compare/v2.4.0-alpha0...v3.0.0)
