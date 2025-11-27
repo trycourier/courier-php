@@ -36,7 +36,7 @@ final class SendService implements SendContract
      *       metadata?: array<mixed>|null,
      *       override?: array<string,mixed>|null,
      *       providers?: list<string>|null,
-     *       routing_method?: "all"|"single"|null,
+     *       routing_method?: 'all'|'single'|null,
      *       timeouts?: array<mixed>|null,
      *     }>|null,
      *     content?: array<string,mixed>,
@@ -65,12 +65,12 @@ final class SendService implements SendContract
      *     }>|null,
      *     routing?: array{
      *       channels: list<string|array<mixed>|MessageRouting|MessageRoutingChannel>,
-     *       method: "all"|"single",
+     *       method: 'all'|'single',
      *     }|null,
      *     template?: string|null,
      *     timeout?: array{
      *       channel?: array<string,int>|null,
-     *       criteria?: "no-escalation"|"delivered"|"viewed"|"engaged"|null,
+     *       criteria?: 'no-escalation'|'delivered'|'viewed'|'engaged'|null,
      *       escalation?: int|null,
      *       message?: int|null,
      *       provider?: array<string,int>|null,

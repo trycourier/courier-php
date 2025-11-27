@@ -94,8 +94,8 @@ final class PreferencesService implements PreferencesContract
      * @param array{
      *   user_id: string,
      *   topic: array{
-     *     status: "OPTED_IN"|"OPTED_OUT"|"REQUIRED"|PreferenceStatus,
-     *     custom_routing?: list<"direct_message"|"email"|"push"|"sms"|"webhook"|"inbox"|ChannelClassification>|null,
+     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *     custom_routing?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
      *     has_custom_routing?: bool|null,
      *   },
      *   tenant_id?: string|null,

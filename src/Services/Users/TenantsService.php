@@ -64,7 +64,7 @@ final class TenantsService implements TenantsContract
      *   tenants: list<array{
      *     tenant_id: string,
      *     profile?: array<string,mixed>|null,
-     *     type?: "user"|null,
+     *     type?: 'user'|null,
      *     user_id?: string|null,
      *   }|TenantAssociation>,
      * }|TenantAddMultipleParams $params

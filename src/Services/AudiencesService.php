@@ -52,7 +52,7 @@ final class AudiencesService implements AudiencesContract
      * @param array{
      *   description?: string|null,
      *   filter?: array{
-     *     operator: "ENDS_WITH"|"EQ"|"EXISTS"|"GT"|"GTE"|"INCLUDES"|"IS_AFTER"|"IS_BEFORE"|"LT"|"LTE"|"NEQ"|"OMIT"|"STARTS_WITH"|"AND"|"OR",
+     *     operator: 'ENDS_WITH'|'EQ'|'EXISTS'|'GT'|'GTE'|'INCLUDES'|'IS_AFTER'|'IS_BEFORE'|'LT'|'LTE'|'NEQ'|'OMIT'|'STARTS_WITH'|'AND'|'OR',
      *     path: string,
      *     value: string,
      *   }|Filter|null,
