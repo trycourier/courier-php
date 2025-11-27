@@ -7,7 +7,6 @@ namespace Courier\Send\SendMessageParams\Message;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
 use Courier\Send\SendMessageParams\Message\Routing\Method;
 
@@ -15,7 +14,7 @@ use Courier\Send\SendMessageParams\Message\Routing\Method;
  * Customize which channels/providers Courier may deliver the message through.
  *
  * @phpstan-type RoutingShape = array{
- *   channels: list<string|MessageRouting>, method: value-of<Method>
+ *   channels: list<mixed>, method: value-of<Method>
  * }
  */
 final class Routing implements BaseModel
@@ -26,7 +25,7 @@ final class Routing implements BaseModel
     /**
      * A list of channels or providers (or nested routing rules).
      *
-     * @var list<string|MessageRouting> $channels
+     * @var list<mixed> $channels
      */
     #[Api(list: MessageRoutingChannel::class)]
     public array $channels;
@@ -59,7 +58,7 @@ final class Routing implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string|MessageRouting> $channels
+     * @param list<mixed> $channels
      * @param Method|value-of<Method> $method
      */
     public static function with(array $channels, Method|string $method): self
@@ -75,7 +74,7 @@ final class Routing implements BaseModel
     /**
      * A list of channels or providers (or nested routing rules).
      *
-     * @param list<string|MessageRouting> $channels
+     * @param list<mixed> $channels
      */
     public function withChannels(array $channels): self
     {
