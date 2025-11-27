@@ -3,6 +3,8 @@
 namespace Tests\Services\Notifications;
 
 use Courier\Client;
+use Courier\Notifications\Checks\CheckListResponse;
+use Courier\Notifications\Checks\CheckUpdateResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +45,8 @@ final class ChecksTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CheckUpdateResponse::class, $result);
     }
 
     #[Test]
@@ -63,7 +66,8 @@ final class ChecksTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CheckUpdateResponse::class, $result);
     }
 
     #[Test]
@@ -78,7 +82,8 @@ final class ChecksTest extends TestCase
             ['id' => 'id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CheckListResponse::class, $result);
     }
 
     #[Test]
@@ -93,7 +98,8 @@ final class ChecksTest extends TestCase
             ['id' => 'id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CheckListResponse::class, $result);
     }
 
     #[Test]
@@ -108,7 +114,8 @@ final class ChecksTest extends TestCase
             ['id' => 'id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -123,6 +130,7 @@ final class ChecksTest extends TestCase
             ['id' => 'id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Services\Automations;
 
+use Courier\Automations\AutomationInvokeResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -37,7 +38,8 @@ final class InvokeTest extends TestCase
             'automation' => ['steps' => [['action' => 'delay'], ['action' => 'send']]],
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
     }
 
     #[Test]
@@ -66,9 +68,15 @@ final class InvokeTest extends TestCase
                 ],
                 'cancelation_token' => 'delay-send--user-yes--abc-123',
             ],
+            'brand' => 'brand',
+            'data' => ['name' => 'bar'],
+            'profile' => ['tenant_id' => 'bar'],
+            'recipient' => 'user-yes',
+            'template' => 'template',
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
     }
 
     #[Test]
@@ -83,7 +91,8 @@ final class InvokeTest extends TestCase
             ['recipient' => 'recipient']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
     }
 
     #[Test]
@@ -95,9 +104,16 @@ final class InvokeTest extends TestCase
 
         $result = $this->client->automations->invoke->invokeByTemplate(
             'templateId',
-            ['recipient' => 'recipient']
+            [
+                'recipient' => 'recipient',
+                'brand' => 'brand',
+                'data' => ['foo' => 'bar'],
+                'profile' => ['foo' => 'bar'],
+                'template' => 'template',
+            ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
     }
 }

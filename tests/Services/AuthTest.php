@@ -2,6 +2,7 @@
 
 namespace Tests\Services;
 
+use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -38,7 +39,8 @@ final class AuthTest extends TestCase
             'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);
     }
 
     #[Test]
@@ -53,6 +55,7 @@ final class AuthTest extends TestCase
             'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);
     }
 }

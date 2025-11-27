@@ -38,7 +38,8 @@ final class TranslationsTest extends TestCase
             ['domain' => 'domain']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertIsString($result);
     }
 
     #[Test]
@@ -53,7 +54,8 @@ final class TranslationsTest extends TestCase
             ['domain' => 'domain']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertIsString($result);
     }
 
     #[Test]
@@ -63,12 +65,10 @@ final class TranslationsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->translations->update(
-            'locale',
-            ['domain' => 'domain', 'body' => 'body']
-        );
+        $result = $this->client->translations->update('locale', 'body');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -78,11 +78,9 @@ final class TranslationsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->translations->update(
-            'locale',
-            ['domain' => 'domain', 'body' => 'body']
-        );
+        $result = $this->client->translations->update('locale', 'body');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

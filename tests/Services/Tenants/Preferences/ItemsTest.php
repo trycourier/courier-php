@@ -38,7 +38,8 @@ final class ItemsTest extends TestCase
             ['tenant_id' => 'tenant_id', 'status' => 'OPTED_IN']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -50,10 +51,16 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->update(
             'topic_id',
-            ['tenant_id' => 'tenant_id', 'status' => 'OPTED_IN']
+            [
+                'tenant_id' => 'tenant_id',
+                'status' => 'OPTED_IN',
+                'custom_routing' => ['inbox'],
+                'has_custom_routing' => true,
+            ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -68,7 +75,8 @@ final class ItemsTest extends TestCase
             ['tenant_id' => 'tenant_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -83,6 +91,7 @@ final class ItemsTest extends TestCase
             ['tenant_id' => 'tenant_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Send\SendMessageResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +36,8 @@ final class SendTest extends TestCase
 
         $result = $this->client->send->message(['message' => []]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(SendMessageResponse::class, $result);
     }
 
     #[Test]
@@ -143,6 +145,7 @@ final class SendTest extends TestCase
             ],
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(SendMessageResponse::class, $result);
     }
 }
