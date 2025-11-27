@@ -3,6 +3,8 @@
 namespace Tests\Services\Tenants;
 
 use Courier\Client;
+use Courier\Tenants\BaseTemplateTenantAssociation;
+use Courier\Tenants\Templates\TemplateListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +40,8 @@ final class TemplatesTest extends TestCase
             ['tenant_id' => 'tenant_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BaseTemplateTenantAssociation::class, $result);
     }
 
     #[Test]
@@ -53,7 +56,8 @@ final class TemplatesTest extends TestCase
             ['tenant_id' => 'tenant_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BaseTemplateTenantAssociation::class, $result);
     }
 
     #[Test]
@@ -65,6 +69,7 @@ final class TemplatesTest extends TestCase
 
         $result = $this->client->tenants->templates->list('tenant_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TemplateListResponse::class, $result);
     }
 }

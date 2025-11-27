@@ -3,6 +3,9 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
+use Courier\Users\Preferences\PreferenceGetResponse;
+use Courier\Users\Preferences\PreferenceGetTopicResponse;
+use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +38,8 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieve('user_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceGetResponse::class, $result);
     }
 
     #[Test]
@@ -50,7 +54,8 @@ final class PreferencesTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceGetTopicResponse::class, $result);
     }
 
     #[Test]
@@ -62,10 +67,11 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            ['user_id' => 'user_id']
+            ['user_id' => 'user_id', 'tenant_id' => 'tenant_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceGetTopicResponse::class, $result);
     }
 
     #[Test]
@@ -80,7 +86,8 @@ final class PreferencesTest extends TestCase
             ['user_id' => 'user_id', 'topic' => ['status' => 'OPTED_IN']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceUpdateOrNewTopicResponse::class, $result);
     }
 
     #[Test]
@@ -99,9 +106,11 @@ final class PreferencesTest extends TestCase
                     'custom_routing' => ['inbox', 'email'],
                     'has_custom_routing' => true,
                 ],
+                'tenant_id' => 'tenant_id',
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceUpdateOrNewTopicResponse::class, $result);
     }
 }

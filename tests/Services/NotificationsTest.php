@@ -3,6 +3,8 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Notifications\NotificationGetContent;
+use Courier\Notifications\NotificationListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +37,8 @@ final class NotificationsTest extends TestCase
 
         $result = $this->client->notifications->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationListResponse::class, $result);
     }
 
     #[Test]
@@ -47,6 +50,7 @@ final class NotificationsTest extends TestCase
 
         $result = $this->client->notifications->retrieveContent('id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationGetContent::class, $result);
     }
 }

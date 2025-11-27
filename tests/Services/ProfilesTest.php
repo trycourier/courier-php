@@ -3,6 +3,9 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Profiles\ProfileGetResponse;
+use Courier\Profiles\ProfileNewResponse;
+use Courier\Profiles\ProfileReplaceResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +41,8 @@ final class ProfilesTest extends TestCase
             ['profile' => ['foo' => 'bar']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ProfileNewResponse::class, $result);
     }
 
     #[Test]
@@ -53,7 +57,8 @@ final class ProfilesTest extends TestCase
             ['profile' => ['foo' => 'bar']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ProfileNewResponse::class, $result);
     }
 
     #[Test]
@@ -65,7 +70,8 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->retrieve('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ProfileGetResponse::class, $result);
     }
 
     #[Test]
@@ -80,7 +86,8 @@ final class ProfilesTest extends TestCase
             ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -95,7 +102,8 @@ final class ProfilesTest extends TestCase
             ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -107,7 +115,8 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->delete('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -122,7 +131,8 @@ final class ProfilesTest extends TestCase
             ['profile' => ['foo' => 'bar']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ProfileReplaceResponse::class, $result);
     }
 
     #[Test]
@@ -137,6 +147,7 @@ final class ProfilesTest extends TestCase
             ['profile' => ['foo' => 'bar']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ProfileReplaceResponse::class, $result);
     }
 }

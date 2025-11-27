@@ -3,6 +3,7 @@
 namespace Tests\Services\Notifications;
 
 use Courier\Client;
+use Courier\Notifications\NotificationGetContent;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,7 @@ final class DraftTest extends TestCase
 
         $result = $this->client->notifications->draft->retrieveContent('id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationGetContent::class, $result);
     }
 }

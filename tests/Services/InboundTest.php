@@ -3,6 +3,7 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Inbound\InboundTrackEventResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -42,7 +43,8 @@ final class InboundTest extends TestCase
             'type' => 'track',
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(InboundTrackEventResponse::class, $result);
     }
 
     #[Test]
@@ -59,8 +61,10 @@ final class InboundTest extends TestCase
                 'order_id' => 'bar', 'total_orders' => 'bar', 'last_order_id' => 'bar',
             ],
             'type' => 'track',
+            'userId' => '1234',
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(InboundTrackEventResponse::class, $result);
     }
 }

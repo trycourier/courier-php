@@ -3,6 +3,7 @@
 namespace Tests\Services\Lists;
 
 use Courier\Client;
+use Courier\Lists\Subscriptions\SubscriptionListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +36,8 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->list('list_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(SubscriptionListResponse::class, $result);
     }
 
     #[Test]
@@ -50,7 +52,8 @@ final class SubscriptionsTest extends TestCase
             ['recipients' => [['recipientId' => 'recipientId']]]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -87,7 +90,8 @@ final class SubscriptionsTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -102,7 +106,8 @@ final class SubscriptionsTest extends TestCase
             ['recipients' => [['recipientId' => 'recipientId']]]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -139,7 +144,8 @@ final class SubscriptionsTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -154,7 +160,8 @@ final class SubscriptionsTest extends TestCase
             ['list_id' => 'list_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -166,10 +173,29 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribeUser(
             'user_id',
-            ['list_id' => 'list_id']
+            [
+                'list_id' => 'list_id',
+                'preferences' => [
+                    'categories' => [
+                        'foo' => [
+                            'status' => 'OPTED_IN',
+                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                    ],
+                    'notifications' => [
+                        'foo' => [
+                            'status' => 'OPTED_IN',
+                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                    ],
+                ],
+            ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -184,7 +210,8 @@ final class SubscriptionsTest extends TestCase
             ['list_id' => 'list_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -199,6 +226,7 @@ final class SubscriptionsTest extends TestCase
             ['list_id' => 'list_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }
