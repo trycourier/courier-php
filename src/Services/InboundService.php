@@ -27,7 +27,7 @@ final class InboundService implements InboundContract
      *   event: string,
      *   messageId: string,
      *   properties: array<string,mixed>,
-     *   type: "track",
+     *   type: 'track',
      *   userId?: string|null,
      * }|InboundTrackEventParams $params
      *

@@ -47,13 +47,13 @@ Parameters with a default value must be set by name.
 
 use Courier\Client;
 
-$client = new Client(apiKey: getenv("COURIER_API_KEY") ?: "My API Key");
+$client = new Client(apiKey: getenv('COURIER_API_KEY') ?: 'My API Key');
 
 $response = $client->send->message([
-  "message" => [
-    "to" => ["user_id" => "your_user_id"],
-    "template" => "your_template_id",
-    "data" => ["foo" => "bar"],
+  'message' => [
+    'to' => ['user_id' => 'your_user_id'],
+    'template' => 'your_template_id',
+    'data' => ['foo' => 'bar'],
   ],
 ]);
 
@@ -62,10 +62,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ChannelPreference::with(channel: "direct_message", ...)`
+It is recommended to use the static `with` constructor `ChannelPreference::with(channel: 'direct_message', ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ChannelPreference)->withChannel("direct_message")`.
+However, builders are also provided `(new ChannelPreference)->withChannel('direct_message')`.
 
 ### Handling errors
 
@@ -78,10 +78,10 @@ use Courier\Core\Exceptions\APIConnectionException;
 
 try {
   $response = $client->send->message([
-    "message" => [
-      "to" => ["user_id" => "your_user_id"],
-      "template" => "your_template_id",
-      "data" => ["foo" => "bar"],
+    'message' => [
+      'to' => ['user_id' => 'your_user_id'],
+      'template' => 'your_template_id',
+      'data' => ['foo' => 'bar'],
     ],
   ]);
 } catch (APIConnectionException $e) {
@@ -131,10 +131,10 @@ $client = new Client(maxRetries: 0);
 // Or, configure per-request:
 $result = $client->send->message(
   [
-    "message" => [
-      "to" => ["user_id" => "your_user_id"],
-      "template" => "your_template_id",
-      "data" => ["foo" => "bar"],
+    'message' => [
+      'to' => ['user_id' => 'your_user_id'],
+      'template' => 'your_template_id',
+      'data' => ['foo' => 'bar'],
     ],
   ],
   RequestOptions::with(maxRetries: 5),
@@ -158,16 +158,16 @@ use Courier\RequestOptions;
 
 $response = $client->send->message(
   [
-    "message" => [
-      "to" => ["user_id" => "your_user_id"],
-      "template" => "your_template_id",
-      "data" => ["foo" => "bar"],
+    'message' => [
+      'to' => ['user_id' => 'your_user_id'],
+      'template' => 'your_template_id',
+      'data' => ['foo' => 'bar'],
     ],
   ],
   RequestOptions::with(
-    extraQueryParams: ["my_query_parameter" => "value"],
-    extraBodyParams: ["my_body_parameter" => "value"],
-    extraHeaders: ["my-header" => "value"],
+    extraQueryParams: ['my_query_parameter' => 'value'],
+    extraBodyParams: ['my_body_parameter' => 'value'],
+    extraHeaders: ['my-header' => 'value'],
   ),
 );
 ```

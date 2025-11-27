@@ -28,7 +28,7 @@ final class ChecksService implements ChecksContract
      * @param array{
      *   id: string,
      *   checks: list<array{
-     *     id: string, status: "RESOLVED"|"FAILED"|"PENDING", type: "custom"
+     *     id: string, status: 'RESOLVED'|'FAILED'|'PENDING', type: 'custom'
      *   }|BaseCheck>,
      * }|CheckUpdateParams $params
      *
