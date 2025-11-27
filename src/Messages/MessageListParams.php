@@ -23,10 +23,10 @@ use Courier\Core\Conversion\ListOf;
  *   list?: string|null,
  *   messageId?: string|null,
  *   notification?: string|null,
- *   provider?: list<string>,
+ *   provider?: list<string|null>,
  *   recipient?: string|null,
- *   status?: list<string>,
- *   tag?: list<string>,
+ *   status?: list<string|null>,
+ *   tag?: list<string|null>,
  *   tags?: string|null,
  *   tenant_id?: string|null,
  *   traceId?: string|null,
@@ -83,7 +83,7 @@ final class MessageListParams implements BaseModel
     /**
      * The key assocated to the provider you want to filter on. E.g., sendgrid, inbox, twilio, slack, msteams, etc. Allows multiple values to be set in query parameters.
      *
-     * @var list<string>|null $provider
+     * @var list<string|null>|null $provider
      */
     #[Api(type: new ListOf('string', nullable: true), optional: true)]
     public ?array $provider;
@@ -97,7 +97,7 @@ final class MessageListParams implements BaseModel
     /**
      * An indicator of the current status of the message. Allows multiple values to be set in query parameters.
      *
-     * @var list<string>|null $status
+     * @var list<string|null>|null $status
      */
     #[Api(type: new ListOf('string', nullable: true), optional: true)]
     public ?array $status;
@@ -105,7 +105,7 @@ final class MessageListParams implements BaseModel
     /**
      * A tag placed in the metadata.tags during a notification send. Allows multiple values to be set in query parameters.
      *
-     * @var list<string>|null $tag
+     * @var list<string|null>|null $tag
      */
     #[Api(type: new ListOf('string', nullable: true), optional: true)]
     public ?array $tag;
@@ -138,9 +138,9 @@ final class MessageListParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string> $provider
-     * @param list<string> $status
-     * @param list<string> $tag
+     * @param list<string|null> $provider
+     * @param list<string|null> $status
+     * @param list<string|null> $tag
      */
     public static function with(
         ?bool $archived = null,
@@ -258,7 +258,7 @@ final class MessageListParams implements BaseModel
     /**
      * The key assocated to the provider you want to filter on. E.g., sendgrid, inbox, twilio, slack, msteams, etc. Allows multiple values to be set in query parameters.
      *
-     * @param list<string> $provider
+     * @param list<string|null> $provider
      */
     public function withProvider(array $provider): self
     {
@@ -282,7 +282,7 @@ final class MessageListParams implements BaseModel
     /**
      * An indicator of the current status of the message. Allows multiple values to be set in query parameters.
      *
-     * @param list<string> $status
+     * @param list<string|null> $status
      */
     public function withStatus(array $status): self
     {
@@ -295,7 +295,7 @@ final class MessageListParams implements BaseModel
     /**
      * A tag placed in the metadata.tags during a notification send. Allows multiple values to be set in query parameters.
      *
-     * @param list<string> $tag
+     * @param list<string|null> $tag
      */
     public function withTag(array $tag): self
     {

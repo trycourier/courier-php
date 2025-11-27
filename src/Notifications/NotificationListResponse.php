@@ -14,7 +14,7 @@ use Courier\Paging;
 
 /**
  * @phpstan-type NotificationListResponseShape = array{
- *   paging: Paging, results: list<Result>
+ *   paging: Paging, results: list<mixed>
  * }
  */
 final class NotificationListResponse implements BaseModel, ResponseConverter
@@ -27,7 +27,7 @@ final class NotificationListResponse implements BaseModel, ResponseConverter
     #[Api]
     public Paging $paging;
 
-    /** @var list<Result> $results */
+    /** @var list<mixed> $results */
     #[Api(list: Result::class)]
     public array $results;
 
@@ -55,7 +55,7 @@ final class NotificationListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Result> $results
+     * @param list<mixed> $results
      */
     public static function with(Paging $paging, array $results): self
     {
@@ -76,7 +76,7 @@ final class NotificationListResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param list<Result> $results
+     * @param list<mixed> $results
      */
     public function withResults(array $results): self
     {
