@@ -3,6 +3,7 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
+use Courier\Users\Tenants\TenantListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +36,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->list('user_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TenantListResponse::class, $result);
     }
 
     #[Test]
@@ -50,7 +52,8 @@ final class TenantsTest extends TestCase
             ['tenants' => [['tenant_id' => 'tenant_id']]]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -74,7 +77,8 @@ final class TenantsTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -89,7 +93,8 @@ final class TenantsTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -101,10 +106,11 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            ['user_id' => 'user_id']
+            ['user_id' => 'user_id', 'profile' => ['foo' => 'bar']]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -116,7 +122,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeAll('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -131,7 +138,8 @@ final class TenantsTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -146,6 +154,7 @@ final class TenantsTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

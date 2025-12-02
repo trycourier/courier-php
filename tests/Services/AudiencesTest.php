@@ -2,6 +2,10 @@
 
 namespace Tests\Services;
 
+use Courier\Audiences\Audience;
+use Courier\Audiences\AudienceListMembersResponse;
+use Courier\Audiences\AudienceListResponse;
+use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,7 +39,8 @@ final class AudiencesTest extends TestCase
 
         $result = $this->client->audiences->retrieve('audience_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Audience::class, $result);
     }
 
     #[Test]
@@ -47,7 +52,8 @@ final class AudiencesTest extends TestCase
 
         $result = $this->client->audiences->update('audience_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AudienceUpdateResponse::class, $result);
     }
 
     #[Test]
@@ -59,7 +65,8 @@ final class AudiencesTest extends TestCase
 
         $result = $this->client->audiences->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AudienceListResponse::class, $result);
     }
 
     #[Test]
@@ -71,7 +78,8 @@ final class AudiencesTest extends TestCase
 
         $result = $this->client->audiences->delete('audience_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -83,6 +91,7 @@ final class AudiencesTest extends TestCase
 
         $result = $this->client->audiences->listMembers('audience_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AudienceListMembersResponse::class, $result);
     }
 }

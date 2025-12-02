@@ -35,6 +35,7 @@ final class RequestsTest extends TestCase
 
         $result = $this->client->requests->archive('request_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

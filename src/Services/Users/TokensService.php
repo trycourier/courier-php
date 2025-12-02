@@ -167,7 +167,7 @@ final class TokensService implements TokensContract
      * @param array{
      *   user_id: string,
      *   token: string,
-     *   provider_key: "firebase-fcm"|"apn"|"expo"|"onesignal",
+     *   provider_key: 'firebase-fcm'|'apn'|'expo'|'onesignal',
      *   device?: array{
      *     ad_id?: string|null,
      *     app_id?: string|null,

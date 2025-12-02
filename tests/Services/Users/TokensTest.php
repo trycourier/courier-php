@@ -3,6 +3,7 @@
 namespace Tests\Services\Users;
 
 use Courier\Client;
+use Courier\Users\Tokens\TokenGetResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +39,8 @@ final class TokensTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TokenGetResponse::class, $result);
     }
 
     #[Test]
@@ -53,7 +55,8 @@ final class TokensTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TokenGetResponse::class, $result);
     }
 
     #[Test]
@@ -68,7 +71,8 @@ final class TokensTest extends TestCase
             ['user_id' => 'user_id', 'patch' => [['op' => 'op', 'path' => 'path']]],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -86,7 +90,8 @@ final class TokensTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -98,7 +103,8 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->list('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertIsList($result);
     }
 
     #[Test]
@@ -113,7 +119,8 @@ final class TokensTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -128,7 +135,8 @@ final class TokensTest extends TestCase
             ['user_id' => 'user_id']
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -140,7 +148,8 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->addMultiple('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -159,7 +168,8 @@ final class TokensTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -175,9 +185,26 @@ final class TokensTest extends TestCase
                 'user_id' => 'user_id',
                 'token' => 'token',
                 'provider_key' => 'firebase-fcm',
+                'device' => [
+                    'ad_id' => 'ad_id',
+                    'app_id' => 'app_id',
+                    'device_id' => 'device_id',
+                    'manufacturer' => 'manufacturer',
+                    'model' => 'model',
+                    'platform' => 'platform',
+                ],
+                'expiry_date' => 'string',
+                'properties' => [],
+                'tracking' => [
+                    'ip' => 'ip',
+                    'lat' => 'lat',
+                    'long' => 'long',
+                    'os_version' => 'os_version',
+                ],
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

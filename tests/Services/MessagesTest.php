@@ -3,6 +3,11 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Messages\MessageContentResponse;
+use Courier\Messages\MessageDetails;
+use Courier\Messages\MessageGetResponse;
+use Courier\Messages\MessageHistoryResponse;
+use Courier\Messages\MessageListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +40,8 @@ final class MessagesTest extends TestCase
 
         $result = $this->client->messages->retrieve('message_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageGetResponse::class, $result);
     }
 
     #[Test]
@@ -47,7 +53,8 @@ final class MessagesTest extends TestCase
 
         $result = $this->client->messages->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageListResponse::class, $result);
     }
 
     #[Test]
@@ -59,7 +66,8 @@ final class MessagesTest extends TestCase
 
         $result = $this->client->messages->cancel('message_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageDetails::class, $result);
     }
 
     #[Test]
@@ -71,7 +79,8 @@ final class MessagesTest extends TestCase
 
         $result = $this->client->messages->content('message_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageContentResponse::class, $result);
     }
 
     #[Test]
@@ -83,6 +92,7 @@ final class MessagesTest extends TestCase
 
         $result = $this->client->messages->history('message_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageHistoryResponse::class, $result);
     }
 }

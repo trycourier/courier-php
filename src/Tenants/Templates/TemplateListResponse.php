@@ -18,7 +18,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Type;
  *   type: value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   items?: list<Item>|null,
+ *   items?: list<mixed>|null,
  *   next_url?: string|null,
  * }
  */
@@ -56,7 +56,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     #[Api(nullable: true, optional: true)]
     public ?string $cursor;
 
-    /** @var list<Item>|null $items */
+    /** @var list<mixed>|null $items */
     #[Api(list: Item::class, nullable: true, optional: true)]
     public ?array $items;
 
@@ -92,7 +92,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param list<Item>|null $items
+     * @param list<mixed>|null $items
      */
     public static function with(
         bool $has_more,
@@ -163,7 +163,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     }
 
     /**
-     * @param list<Item>|null $items
+     * @param list<mixed>|null $items
      */
     public function withItems(?array $items): self
     {

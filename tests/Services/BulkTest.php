@@ -2,6 +2,9 @@
 
 namespace Tests\Services;
 
+use Courier\Bulk\BulkGetJobResponse;
+use Courier\Bulk\BulkListUsersResponse;
+use Courier\Bulk\BulkNewJobResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,7 +38,8 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->addUsers('job_id', ['users' => [[]]]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -104,7 +108,8 @@ final class BulkTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -118,7 +123,8 @@ final class BulkTest extends TestCase
             'message' => ['template' => 'template'],
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BulkNewJobResponse::class, $result);
     }
 
     #[Test]
@@ -139,7 +145,8 @@ final class BulkTest extends TestCase
             ],
         ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BulkNewJobResponse::class, $result);
     }
 
     #[Test]
@@ -151,7 +158,8 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->listUsers('job_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BulkListUsersResponse::class, $result);
     }
 
     #[Test]
@@ -163,7 +171,8 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->retrieveJob('job_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BulkGetJobResponse::class, $result);
     }
 
     #[Test]
@@ -175,6 +184,7 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->runJob('job_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

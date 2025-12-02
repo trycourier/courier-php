@@ -11,7 +11,7 @@ use Courier\MessageRouting\Method;
 
 /**
  * @phpstan-type MessageRoutingShape = array{
- *   channels: list<string|MessageRouting>, method: value-of<Method>
+ *   channels: list<mixed>, method: value-of<Method>
  * }
  */
 final class MessageRouting implements BaseModel
@@ -19,7 +19,7 @@ final class MessageRouting implements BaseModel
     /** @use SdkModel<MessageRoutingShape> */
     use SdkModel;
 
-    /** @var list<string|MessageRouting> $channels */
+    /** @var list<mixed> $channels */
     #[Api(list: MessageRoutingChannel::class)]
     public array $channels;
 
@@ -51,7 +51,7 @@ final class MessageRouting implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string|MessageRouting> $channels
+     * @param list<mixed> $channels
      * @param Method|value-of<Method> $method
      */
     public static function with(array $channels, Method|string $method): self
@@ -65,7 +65,7 @@ final class MessageRouting implements BaseModel
     }
 
     /**
-     * @param list<string|MessageRouting> $channels
+     * @param list<mixed> $channels
      */
     public function withChannels(array $channels): self
     {

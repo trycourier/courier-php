@@ -2,6 +2,8 @@
 
 namespace Tests\Services;
 
+use Courier\Brands\Brand;
+use Courier\Brands\BrandListResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,7 +37,8 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->create(['name' => 'name']);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Brand::class, $result);
     }
 
     #[Test]
@@ -45,9 +48,57 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->create(['name' => 'name']);
+        $result = $this->client->brands->create([
+            'name' => 'name',
+            'id' => 'id',
+            'settings' => [
+                'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                'email' => [
+                    'footer' => ['content' => 'content', 'inheritDefault' => true],
+                    'head' => ['inheritDefault' => true, 'content' => 'content'],
+                    'header' => [
+                        'logo' => ['href' => 'href', 'image' => 'image'],
+                        'barColor' => 'barColor',
+                        'inheritDefault' => true,
+                    ],
+                    'templateOverride' => [
+                        'enabled' => true,
+                        'backgroundColor' => 'backgroundColor',
+                        'blocksBackgroundColor' => 'blocksBackgroundColor',
+                        'footer' => 'footer',
+                        'head' => 'head',
+                        'header' => 'header',
+                        'width' => 'width',
+                        'mjml' => [
+                            'enabled' => true,
+                            'backgroundColor' => 'backgroundColor',
+                            'blocksBackgroundColor' => 'blocksBackgroundColor',
+                            'footer' => 'footer',
+                            'head' => 'head',
+                            'header' => 'header',
+                            'width' => 'width',
+                        ],
+                        'footerBackgroundColor' => 'footerBackgroundColor',
+                        'footerFullWidth' => true,
+                    ],
+                ],
+                'inapp' => [
+                    'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                    'icons' => ['bell' => 'bell', 'message' => 'message'],
+                    'widgetBackground' => [
+                        'bottomColor' => 'bottomColor', 'topColor' => 'topColor',
+                    ],
+                    'borderRadius' => 'borderRadius',
+                    'disableMessageIcon' => true,
+                    'fontFamily' => 'fontFamily',
+                    'placement' => 'top',
+                ],
+            ],
+            'snippets' => ['items' => [['name' => 'name', 'value' => 'value']]],
+        ]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Brand::class, $result);
     }
 
     #[Test]
@@ -59,7 +110,8 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->retrieve('brand_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Brand::class, $result);
     }
 
     #[Test]
@@ -71,7 +123,8 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->update('brand_id', ['name' => 'name']);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Brand::class, $result);
     }
 
     #[Test]
@@ -81,9 +134,59 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->update('brand_id', ['name' => 'name']);
+        $result = $this->client->brands->update(
+            'brand_id',
+            [
+                'name' => 'name',
+                'settings' => [
+                    'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                    'email' => [
+                        'footer' => ['content' => 'content', 'inheritDefault' => true],
+                        'head' => ['inheritDefault' => true, 'content' => 'content'],
+                        'header' => [
+                            'logo' => ['href' => 'href', 'image' => 'image'],
+                            'barColor' => 'barColor',
+                            'inheritDefault' => true,
+                        ],
+                        'templateOverride' => [
+                            'enabled' => true,
+                            'backgroundColor' => 'backgroundColor',
+                            'blocksBackgroundColor' => 'blocksBackgroundColor',
+                            'footer' => 'footer',
+                            'head' => 'head',
+                            'header' => 'header',
+                            'width' => 'width',
+                            'mjml' => [
+                                'enabled' => true,
+                                'backgroundColor' => 'backgroundColor',
+                                'blocksBackgroundColor' => 'blocksBackgroundColor',
+                                'footer' => 'footer',
+                                'head' => 'head',
+                                'header' => 'header',
+                                'width' => 'width',
+                            ],
+                            'footerBackgroundColor' => 'footerBackgroundColor',
+                            'footerFullWidth' => true,
+                        ],
+                    ],
+                    'inapp' => [
+                        'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                        'icons' => ['bell' => 'bell', 'message' => 'message'],
+                        'widgetBackground' => [
+                            'bottomColor' => 'bottomColor', 'topColor' => 'topColor',
+                        ],
+                        'borderRadius' => 'borderRadius',
+                        'disableMessageIcon' => true,
+                        'fontFamily' => 'fontFamily',
+                        'placement' => 'top',
+                    ],
+                ],
+                'snippets' => ['items' => [['name' => 'name', 'value' => 'value']]],
+            ],
+        );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Brand::class, $result);
     }
 
     #[Test]
@@ -95,7 +198,8 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(BrandListResponse::class, $result);
     }
 
     #[Test]
@@ -107,6 +211,7 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->delete('brand_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

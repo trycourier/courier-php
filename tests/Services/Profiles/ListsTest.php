@@ -3,6 +3,9 @@
 namespace Tests\Services\Profiles;
 
 use Courier\Client;
+use Courier\Profiles\Lists\ListDeleteResponse;
+use Courier\Profiles\Lists\ListGetResponse;
+use Courier\Profiles\Lists\ListSubscribeResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +38,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->retrieve('user_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ListGetResponse::class, $result);
     }
 
     #[Test]
@@ -47,7 +51,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->delete('user_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ListDeleteResponse::class, $result);
     }
 
     #[Test]
@@ -62,7 +67,8 @@ final class ListsTest extends TestCase
             ['lists' => [['listId' => 'listId']]]
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ListSubscribeResponse::class, $result);
     }
 
     #[Test]
@@ -99,6 +105,7 @@ final class ListsTest extends TestCase
             ],
         );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ListSubscribeResponse::class, $result);
     }
 }

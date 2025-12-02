@@ -26,8 +26,8 @@ final class ItemsService implements ItemsContract
      *
      * @param array{
      *   tenant_id: string,
-     *   status: "OPTED_OUT"|"OPTED_IN"|"REQUIRED",
-     *   custom_routing?: list<"direct_message"|"email"|"push"|"sms"|"webhook"|"inbox"|ChannelClassification>|null,
+     *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED',
+     *   custom_routing?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
      *   has_custom_routing?: bool|null,
      * }|ItemUpdateParams $params
      *

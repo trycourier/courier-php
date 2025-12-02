@@ -2,6 +2,8 @@
 
 namespace Tests\Services;
 
+use Courier\AuditEvents\AuditEvent;
+use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -35,7 +37,8 @@ final class AuditEventsTest extends TestCase
 
         $result = $this->client->auditEvents->retrieve('audit-event-id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AuditEvent::class, $result);
     }
 
     #[Test]
@@ -47,6 +50,7 @@ final class AuditEventsTest extends TestCase
 
         $result = $this->client->auditEvents->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AuditEventListResponse::class, $result);
     }
 }

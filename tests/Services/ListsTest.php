@@ -3,6 +3,8 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Lists\ListListResponse;
+use Courier\Lists\SubscriptionList;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +37,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->retrieve('list_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(SubscriptionList::class, $result);
     }
 
     #[Test]
@@ -47,7 +50,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->update('list_id', ['name' => 'name']);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -57,9 +61,31 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->lists->update('list_id', ['name' => 'name']);
+        $result = $this->client->lists->update(
+            'list_id',
+            [
+                'name' => 'name',
+                'preferences' => [
+                    'categories' => [
+                        'foo' => [
+                            'status' => 'OPTED_IN',
+                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                    ],
+                    'notifications' => [
+                        'foo' => [
+                            'status' => 'OPTED_IN',
+                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                    ],
+                ],
+            ],
+        );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -71,7 +97,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(ListListResponse::class, $result);
     }
 
     #[Test]
@@ -83,7 +110,8 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->delete('list_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -95,6 +123,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->restore('list_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 }

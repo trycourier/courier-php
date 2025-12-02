@@ -3,6 +3,9 @@
 namespace Tests\Services;
 
 use Courier\Client;
+use Courier\Tenants\Tenant;
+use Courier\Tenants\TenantListResponse;
+use Courier\Tenants\TenantListUsersResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +38,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->retrieve('tenant_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Tenant::class, $result);
     }
 
     #[Test]
@@ -47,7 +51,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->update('tenant_id', ['name' => 'name']);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Tenant::class, $result);
     }
 
     #[Test]
@@ -57,9 +62,29 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->update('tenant_id', ['name' => 'name']);
+        $result = $this->client->tenants->update(
+            'tenant_id',
+            [
+                'name' => 'name',
+                'brand_id' => 'brand_id',
+                'default_preferences' => [
+                    'items' => [
+                        [
+                            'status' => 'OPTED_OUT',
+                            'custom_routing' => ['direct_message'],
+                            'has_custom_routing' => true,
+                            'id' => 'id',
+                        ],
+                    ],
+                ],
+                'parent_tenant_id' => 'parent_tenant_id',
+                'properties' => ['foo' => 'bar'],
+                'user_profile' => ['foo' => 'bar'],
+            ],
+        );
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Tenant::class, $result);
     }
 
     #[Test]
@@ -71,7 +96,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->list([]);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TenantListResponse::class, $result);
     }
 
     #[Test]
@@ -83,7 +109,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->delete('tenant_id');
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
     }
 
     #[Test]
@@ -95,6 +122,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->listUsers('tenant_id', []);
 
-        $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(TenantListUsersResponse::class, $result);
     }
 }

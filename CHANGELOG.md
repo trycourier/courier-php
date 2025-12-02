@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.1.1 (2025-12-02)
+
+Full Changelog: [v3.1.0...v3.1.1](https://github.com/trycourier/courier-php/compare/v3.1.0...v3.1.1)
+
+### Bug Fixes
+
+* phpStan linter errors ([53e37d8](https://github.com/trycourier/courier-php/commit/53e37d8fc665a840d66afdb6be9feb2117fe76dc))
+
+
+### Chores
+
+* **client:** refactor error type constructors ([2a806da](https://github.com/trycourier/courier-php/commit/2a806dae8753f9a655b2a43830f703ec58577db5))
+* typing updates ([4769949](https://github.com/trycourier/courier-php/commit/47699492ba30db928f52dc28428982f8fb6b61bd))
+* use non-trivial test assertions ([fe59040](https://github.com/trycourier/courier-php/commit/fe590404b8672c79f2ae2522c1d28cdc39aa2df6))
+* use single quote strings ([2787d6f](https://github.com/trycourier/courier-php/commit/2787d6f5cfdb3b83b1fbb01f0fce8311093c14f1))
+
 ## 3.1.0 (2025-11-18)
 
 Full Changelog: [v3.0.0...v3.1.0](https://github.com/trycourier/courier-php/compare/v3.0.0...v3.1.0)
