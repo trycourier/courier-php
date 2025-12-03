@@ -20,6 +20,6 @@ interface AuthContract
      */
     public function issueToken(
         array|AuthIssueTokenParams $params,
-        ?RequestOptions $requestOptions = null,
+        ?RequestOptions $requestOptions = null
     ): AuthIssueTokenResponse;
 }
