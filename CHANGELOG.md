@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1.2 (2025-12-03)
+
+Full Changelog: [v3.1.1...v3.1.2](https://github.com/trycourier/courier-php/compare/v3.1.1...v3.1.2)
+
+### Bug Fixes
+
+* **client:** fix duplicate Go struct resulting from name derivations schema ([0dc084e](https://github.com/trycourier/courier-php/commit/0dc084e587c35b2047d2e9bb9cfd8d496573bd91))
+
+
+### Chores
+
+* formatting ([6e77ab0](https://github.com/trycourier/courier-php/commit/6e77ab02f8f97a4ea9bd4cb2d457deea3ae52ad8))
+
 ## 3.1.1 (2025-12-02)
 
 Full Changelog: [v3.1.0...v3.1.1](https://github.com/trycourier/courier-php/compare/v3.1.0...v3.1.1)
