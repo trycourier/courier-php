@@ -37,7 +37,7 @@ interface BulkContract
      */
     public function createJob(
         array|BulkCreateJobParams $params,
-        ?RequestOptions $requestOptions = null,
+        ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse;
 
     /**
