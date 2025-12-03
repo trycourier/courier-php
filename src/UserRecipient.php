@@ -7,7 +7,6 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\UserRecipient\Preferences;
 
 /**
  * @phpstan-type UserRecipientShape = array{
@@ -18,7 +17,7 @@ use Courier\UserRecipient\Preferences;
  *   list_id?: string|null,
  *   locale?: string|null,
  *   phone_number?: string|null,
- *   preferences?: Preferences|null,
+ *   preferences?: ProfilePreferences|null,
  *   tenant_id?: string|null,
  *   user_id?: string|null,
  * }
@@ -69,7 +68,7 @@ final class UserRecipient implements BaseModel
     public ?string $phone_number;
 
     #[Api(nullable: true, optional: true)]
-    public ?Preferences $preferences;
+    public ?ProfilePreferences $preferences;
 
     /**
      * The id of the tenant the user is associated with.
@@ -103,7 +102,7 @@ final class UserRecipient implements BaseModel
         ?string $list_id = null,
         ?string $locale = null,
         ?string $phone_number = null,
-        ?Preferences $preferences = null,
+        ?ProfilePreferences $preferences = null,
         ?string $tenant_id = null,
         ?string $user_id = null,
     ): self {
@@ -200,7 +199,7 @@ final class UserRecipient implements BaseModel
         return $obj;
     }
 
-    public function withPreferences(?Preferences $preferences): self
+    public function withPreferences(?ProfilePreferences $preferences): self
     {
         $obj = clone $this;
         $obj->preferences = $preferences;
