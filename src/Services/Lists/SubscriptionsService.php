@@ -43,7 +43,7 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['lists/%1$s/subscriptions', $listID],
@@ -76,7 +76,7 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['lists/%1$s/subscriptions', $listID],
@@ -109,7 +109,7 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions', $listID],
@@ -146,7 +146,7 @@ final class SubscriptionsService implements SubscriptionsContract
         $listID = $parsed['list_id'];
         unset($parsed['list_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
@@ -177,7 +177,7 @@ final class SubscriptionsService implements SubscriptionsContract
         $listID = $parsed['list_id'];
         unset($parsed['list_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],

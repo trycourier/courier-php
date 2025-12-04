@@ -39,7 +39,7 @@ final class TranslationsService implements TranslationsContract
         $domain = $parsed['domain'];
         unset($parsed['domain']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['translations/%1$s/%2$s', $domain, $locale],
@@ -67,7 +67,7 @@ final class TranslationsService implements TranslationsContract
         $domain = $parsed['domain'];
         unset($parsed['domain']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['translations/%1$s/%2$s', $domain, $locale],

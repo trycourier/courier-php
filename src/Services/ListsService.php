@@ -42,7 +42,7 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): SubscriptionList {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['lists/%1$s', $listID],
@@ -76,7 +76,7 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s', $listID],
@@ -104,7 +104,7 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'lists',
@@ -125,7 +125,7 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['lists/%1$s', $listID],
@@ -145,7 +145,7 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s/restore', $listID],
