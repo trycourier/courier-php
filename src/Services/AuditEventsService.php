@@ -30,7 +30,7 @@ final class AuditEventsService implements AuditEventsContract
         string $auditEventID,
         ?RequestOptions $requestOptions = null
     ): AuditEvent {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['audit-events/%1$s', $auditEventID],
@@ -57,7 +57,7 @@ final class AuditEventsService implements AuditEventsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'audit-events',

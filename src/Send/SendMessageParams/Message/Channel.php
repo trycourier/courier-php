@@ -15,7 +15,7 @@ use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
  * @phpstan-type ChannelShape = array{
  *   brand_id?: string|null,
  *   if?: string|null,
- *   metadata?: Metadata|null,
+ *   metadata?: \Courier\Send\SendMessageParams\Message\Channel\Metadata|null,
  *   override?: array<string,mixed>|null,
  *   providers?: list<string>|null,
  *   routing_method?: value-of<RoutingMethod>|null,
@@ -127,8 +127,9 @@ final class Channel implements BaseModel
         return $obj;
     }
 
-    public function withMetadata(?Metadata $metadata): self
-    {
+    public function withMetadata(
+        ?Metadata $metadata
+    ): self {
         $obj = clone $this;
         $obj->metadata = $metadata;
 

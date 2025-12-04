@@ -53,7 +53,7 @@ final class NotificationsService implements NotificationsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'notifications',
@@ -72,7 +72,7 @@ final class NotificationsService implements NotificationsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/content', $id],

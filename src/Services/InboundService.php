@@ -42,7 +42,7 @@ final class InboundService implements InboundContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'inbound/courier',

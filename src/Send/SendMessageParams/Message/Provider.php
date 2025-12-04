@@ -12,7 +12,7 @@ use Courier\Send\SendMessageParams\Message\Provider\Metadata;
 /**
  * @phpstan-type ProviderShape = array{
  *   if?: string|null,
- *   metadata?: Metadata|null,
+ *   metadata?: \Courier\Send\SendMessageParams\Message\Provider\Metadata|null,
  *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
@@ -81,8 +81,9 @@ final class Provider implements BaseModel
         return $obj;
     }
 
-    public function withMetadata(?Metadata $metadata): self
-    {
+    public function withMetadata(
+        ?Metadata $metadata
+    ): self {
         $obj = clone $this;
         $obj->metadata = $metadata;
 

@@ -35,7 +35,7 @@ final class AudiencesService implements AudiencesContract
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): Audience {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['audiences/%1$s', $audienceID],
@@ -71,7 +71,7 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['audiences/%1$s', $audienceID],
@@ -99,7 +99,7 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'audiences',
@@ -120,7 +120,7 @@ final class AudiencesService implements AudiencesContract
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['audiences/%1$s', $audienceID],
@@ -148,7 +148,7 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['audiences/%1$s/members', $audienceID],
