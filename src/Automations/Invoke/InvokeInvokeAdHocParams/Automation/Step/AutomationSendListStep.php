@@ -72,10 +72,10 @@ final class AutomationSendListStep implements BaseModel
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj->list = $list;
+        $obj['list'] = $list;
 
-        null !== $brand && $obj->brand = $brand;
-        null !== $data && $obj->data = $data;
+        null !== $brand && $obj['brand'] = $brand;
+        null !== $data && $obj['data'] = $data;
 
         return $obj;
     }
@@ -94,7 +94,7 @@ final class AutomationSendListStep implements BaseModel
     public function withList(string $list): self
     {
         $obj = clone $this;
-        $obj->list = $list;
+        $obj['list'] = $list;
 
         return $obj;
     }
@@ -102,7 +102,7 @@ final class AutomationSendListStep implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }
@@ -113,7 +113,7 @@ final class AutomationSendListStep implements BaseModel
     public function withData(?array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }

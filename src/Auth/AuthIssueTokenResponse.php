@@ -51,7 +51,7 @@ final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
     {
         $obj = new self;
 
-        $obj->token = $token;
+        $obj['token'] = $token;
 
         return $obj;
     }
@@ -59,7 +59,7 @@ final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
     public function withToken(string $token): self
     {
         $obj = clone $this;
-        $obj->token = $token;
+        $obj['token'] = $token;
 
         return $obj;
     }

@@ -46,7 +46,7 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
@@ -75,7 +75,7 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
@@ -103,7 +103,7 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],

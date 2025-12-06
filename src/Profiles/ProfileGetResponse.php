@@ -9,6 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
@@ -55,16 +56,20 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,mixed> $profile
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
      */
     public static function with(
         array $profile,
-        ?RecipientPreferences $preferences = null
+        RecipientPreferences|array|null $preferences = null
     ): self {
         $obj = new self;
 
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
-        null !== $preferences && $obj->preferences = $preferences;
+        null !== $preferences && $obj['preferences'] = $preferences;
 
         return $obj;
     }
@@ -75,15 +80,22 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
     public function withProfile(array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
 
-    public function withPreferences(?RecipientPreferences $preferences): self
-    {
+    /**
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
+     */
+    public function withPreferences(
+        RecipientPreferences|array|null $preferences
+    ): self {
         $obj = clone $this;
-        $obj->preferences = $preferences;
+        $obj['preferences'] = $preferences;
 
         return $obj;
     }

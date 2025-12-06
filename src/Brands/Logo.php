@@ -38,8 +38,8 @@ final class Logo implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $href && $obj->href = $href;
-        null !== $image && $obj->image = $image;
+        null !== $href && $obj['href'] = $href;
+        null !== $image && $obj['image'] = $image;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class Logo implements BaseModel
     public function withHref(?string $href): self
     {
         $obj = clone $this;
-        $obj->href = $href;
+        $obj['href'] = $href;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class Logo implements BaseModel
     public function withImage(?string $image): self
     {
         $obj = clone $this;
-        $obj->image = $image;
+        $obj['image'] = $image;
 
         return $obj;
     }

@@ -58,7 +58,7 @@ final class MessageRouting implements BaseModel
     {
         $obj = new self;
 
-        $obj->channels = $channels;
+        $obj['channels'] = $channels;
         $obj['method'] = $method;
 
         return $obj;
@@ -70,7 +70,7 @@ final class MessageRouting implements BaseModel
     public function withChannels(array $channels): self
     {
         $obj = clone $this;
-        $obj->channels = $channels;
+        $obj['channels'] = $channels;
 
         return $obj;
     }

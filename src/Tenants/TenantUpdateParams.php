@@ -8,6 +8,7 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Tenants\DefaultPreferences\Item;
 
 /**
  * Create or Replace a Tenant.
@@ -17,7 +18,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
  *   brand_id?: string|null,
- *   default_preferences?: DefaultPreferences|null,
+ *   default_preferences?: null|DefaultPreferences|array{items?: list<Item>|null},
  *   parent_tenant_id?: string|null,
  *   properties?: array<string,mixed>|null,
  *   user_profile?: array<string,mixed>|null,
@@ -93,26 +94,29 @@ final class TenantUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param DefaultPreferences|array{
+     *   items?: list<Item>|null
+     * }|null $default_preferences
      * @param array<string,mixed>|null $properties
      * @param array<string,mixed>|null $user_profile
      */
     public static function with(
         string $name,
         ?string $brand_id = null,
-        ?DefaultPreferences $default_preferences = null,
+        DefaultPreferences|array|null $default_preferences = null,
         ?string $parent_tenant_id = null,
         ?array $properties = null,
         ?array $user_profile = null,
     ): self {
         $obj = new self;
 
-        $obj->name = $name;
+        $obj['name'] = $name;
 
-        null !== $brand_id && $obj->brand_id = $brand_id;
-        null !== $default_preferences && $obj->default_preferences = $default_preferences;
-        null !== $parent_tenant_id && $obj->parent_tenant_id = $parent_tenant_id;
-        null !== $properties && $obj->properties = $properties;
-        null !== $user_profile && $obj->user_profile = $user_profile;
+        null !== $brand_id && $obj['brand_id'] = $brand_id;
+        null !== $default_preferences && $obj['default_preferences'] = $default_preferences;
+        null !== $parent_tenant_id && $obj['parent_tenant_id'] = $parent_tenant_id;
+        null !== $properties && $obj['properties'] = $properties;
+        null !== $user_profile && $obj['user_profile'] = $user_profile;
 
         return $obj;
     }
@@ -123,7 +127,7 @@ final class TenantUpdateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -134,19 +138,23 @@ final class TenantUpdateParams implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj->brand_id = $brandID;
+        $obj['brand_id'] = $brandID;
 
         return $obj;
     }
 
     /**
      * Defines the preferences used for the tenant when the user hasn't specified their own.
+     *
+     * @param DefaultPreferences|array{
+     *   items?: list<Item>|null
+     * }|null $defaultPreferences
      */
     public function withDefaultPreferences(
-        ?DefaultPreferences $defaultPreferences
+        DefaultPreferences|array|null $defaultPreferences
     ): self {
         $obj = clone $this;
-        $obj->default_preferences = $defaultPreferences;
+        $obj['default_preferences'] = $defaultPreferences;
 
         return $obj;
     }
@@ -157,7 +165,7 @@ final class TenantUpdateParams implements BaseModel
     public function withParentTenantID(?string $parentTenantID): self
     {
         $obj = clone $this;
-        $obj->parent_tenant_id = $parentTenantID;
+        $obj['parent_tenant_id'] = $parentTenantID;
 
         return $obj;
     }
@@ -170,7 +178,7 @@ final class TenantUpdateParams implements BaseModel
     public function withProperties(?array $properties): self
     {
         $obj = clone $this;
-        $obj->properties = $properties;
+        $obj['properties'] = $properties;
 
         return $obj;
     }
@@ -183,7 +191,7 @@ final class TenantUpdateParams implements BaseModel
     public function withUserProfile(?array $userProfile): self
     {
         $obj = clone $this;
-        $obj->user_profile = $userProfile;
+        $obj['user_profile'] = $userProfile;
 
         return $obj;
     }

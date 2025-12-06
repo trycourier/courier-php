@@ -54,33 +54,41 @@ final class ListListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscriptionList> $items
+     * @param list<SubscriptionList|array{
+     *   id: string, name: string, created?: string|null, updated?: string|null
+     * }> $items
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
-    public static function with(array $items, Paging $paging): self
+    public static function with(array $items, Paging|array $paging): self
     {
         $obj = new self;
 
-        $obj->items = $items;
-        $obj->paging = $paging;
+        $obj['items'] = $items;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
 
     /**
-     * @param list<SubscriptionList> $items
+     * @param list<SubscriptionList|array{
+     *   id: string, name: string, created?: string|null, updated?: string|null
+     * }> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
 
-    public function withPaging(Paging $paging): self
+    /**
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }

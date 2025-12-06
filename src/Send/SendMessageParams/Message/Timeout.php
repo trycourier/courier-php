@@ -64,11 +64,11 @@ final class Timeout implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $channel && $obj->channel = $channel;
+        null !== $channel && $obj['channel'] = $channel;
         null !== $criteria && $obj['criteria'] = $criteria;
-        null !== $escalation && $obj->escalation = $escalation;
-        null !== $message && $obj->message = $message;
-        null !== $provider && $obj->provider = $provider;
+        null !== $escalation && $obj['escalation'] = $escalation;
+        null !== $message && $obj['message'] = $message;
+        null !== $provider && $obj['provider'] = $provider;
 
         return $obj;
     }
@@ -79,7 +79,7 @@ final class Timeout implements BaseModel
     public function withChannel(?array $channel): self
     {
         $obj = clone $this;
-        $obj->channel = $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }
@@ -98,7 +98,7 @@ final class Timeout implements BaseModel
     public function withEscalation(?int $escalation): self
     {
         $obj = clone $this;
-        $obj->escalation = $escalation;
+        $obj['escalation'] = $escalation;
 
         return $obj;
     }
@@ -106,7 +106,7 @@ final class Timeout implements BaseModel
     public function withMessage(?int $message): self
     {
         $obj = clone $this;
-        $obj->message = $message;
+        $obj['message'] = $message;
 
         return $obj;
     }
@@ -117,7 +117,7 @@ final class Timeout implements BaseModel
     public function withProvider(?array $provider): self
     {
         $obj = clone $this;
-        $obj->provider = $provider;
+        $obj['provider'] = $provider;
 
         return $obj;
     }

@@ -50,9 +50,9 @@ final class Paging implements BaseModel
     {
         $obj = new self;
 
-        $obj->more = $more;
+        $obj['more'] = $more;
 
-        null !== $cursor && $obj->cursor = $cursor;
+        null !== $cursor && $obj['cursor'] = $cursor;
 
         return $obj;
     }
@@ -60,7 +60,7 @@ final class Paging implements BaseModel
     public function withMore(bool $more): self
     {
         $obj = clone $this;
-        $obj->more = $more;
+        $obj['more'] = $more;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class Paging implements BaseModel
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }

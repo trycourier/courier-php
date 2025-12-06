@@ -52,8 +52,8 @@ final class TemplateListParams implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $cursor && $obj->cursor = $cursor;
-        null !== $limit && $obj->limit = $limit;
+        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $limit && $obj['limit'] = $limit;
 
         return $obj;
     }
@@ -64,7 +64,7 @@ final class TemplateListParams implements BaseModel
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }
@@ -75,7 +75,7 @@ final class TemplateListParams implements BaseModel
     public function withLimit(?int $limit): self
     {
         $obj = clone $this;
-        $obj->limit = $limit;
+        $obj['limit'] = $limit;
 
         return $obj;
     }

@@ -38,8 +38,8 @@ final class Locale implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $subject && $obj->subject = $subject;
-        null !== $title && $obj->title = $title;
+        null !== $subject && $obj['subject'] = $subject;
+        null !== $title && $obj['title'] = $title;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class Locale implements BaseModel
     public function withSubject(?string $subject): self
     {
         $obj = clone $this;
-        $obj->subject = $subject;
+        $obj['subject'] = $subject;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class Locale implements BaseModel
     public function withTitle(?string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }

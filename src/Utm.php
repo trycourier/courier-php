@@ -56,11 +56,11 @@ final class Utm implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $campaign && $obj->campaign = $campaign;
-        null !== $content && $obj->content = $content;
-        null !== $medium && $obj->medium = $medium;
-        null !== $source && $obj->source = $source;
-        null !== $term && $obj->term = $term;
+        null !== $campaign && $obj['campaign'] = $campaign;
+        null !== $content && $obj['content'] = $content;
+        null !== $medium && $obj['medium'] = $medium;
+        null !== $source && $obj['source'] = $source;
+        null !== $term && $obj['term'] = $term;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class Utm implements BaseModel
     public function withCampaign(?string $campaign): self
     {
         $obj = clone $this;
-        $obj->campaign = $campaign;
+        $obj['campaign'] = $campaign;
 
         return $obj;
     }
@@ -76,7 +76,7 @@ final class Utm implements BaseModel
     public function withContent(?string $content): self
     {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -84,7 +84,7 @@ final class Utm implements BaseModel
     public function withMedium(?string $medium): self
     {
         $obj = clone $this;
-        $obj->medium = $medium;
+        $obj['medium'] = $medium;
 
         return $obj;
     }
@@ -92,7 +92,7 @@ final class Utm implements BaseModel
     public function withSource(?string $source): self
     {
         $obj = clone $this;
-        $obj->source = $source;
+        $obj['source'] = $source;
 
         return $obj;
     }
@@ -100,7 +100,7 @@ final class Utm implements BaseModel
     public function withTerm(?string $term): self
     {
         $obj = clone $this;
-        $obj->term = $term;
+        $obj['term'] = $term;
 
         return $obj;
     }

@@ -10,6 +10,8 @@ use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\ElementalContent;
+use Courier\ElementalContentSugar;
 
 /**
  * @phpstan-type JobShape = array{
@@ -72,10 +74,25 @@ final class Job implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param InboundBulkTemplateMessage|array{
+     *   template: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * }|InboundBulkContentMessage|array{
+     *   content: ElementalContentSugar|ElementalContent,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * } $definition
      * @param Status|value-of<Status> $status
      */
     public static function with(
-        InboundBulkTemplateMessage|InboundBulkContentMessage $definition,
+        InboundBulkTemplateMessage|array|InboundBulkContentMessage $definition,
         int $enqueued,
         int $failures,
         int $received,
@@ -83,20 +100,37 @@ final class Job implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->definition = $definition;
-        $obj->enqueued = $enqueued;
-        $obj->failures = $failures;
-        $obj->received = $received;
+        $obj['definition'] = $definition;
+        $obj['enqueued'] = $enqueued;
+        $obj['failures'] = $failures;
+        $obj['received'] = $received;
         $obj['status'] = $status;
 
         return $obj;
     }
 
+    /**
+     * @param InboundBulkTemplateMessage|array{
+     *   template: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * }|InboundBulkContentMessage|array{
+     *   content: ElementalContentSugar|ElementalContent,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * } $definition
+     */
     public function withDefinition(
-        InboundBulkTemplateMessage|InboundBulkContentMessage $definition
+        InboundBulkTemplateMessage|array|InboundBulkContentMessage $definition
     ): self {
         $obj = clone $this;
-        $obj->definition = $definition;
+        $obj['definition'] = $definition;
 
         return $obj;
     }
@@ -104,7 +138,7 @@ final class Job implements BaseModel
     public function withEnqueued(int $enqueued): self
     {
         $obj = clone $this;
-        $obj->enqueued = $enqueued;
+        $obj['enqueued'] = $enqueued;
 
         return $obj;
     }
@@ -112,7 +146,7 @@ final class Job implements BaseModel
     public function withFailures(int $failures): self
     {
         $obj = clone $this;
-        $obj->failures = $failures;
+        $obj['failures'] = $failures;
 
         return $obj;
     }
@@ -120,7 +154,7 @@ final class Job implements BaseModel
     public function withReceived(int $received): self
     {
         $obj = clone $this;
-        $obj->received = $received;
+        $obj['received'] = $received;
 
         return $obj;
     }

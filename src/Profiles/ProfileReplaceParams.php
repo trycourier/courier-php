@@ -59,7 +59,7 @@ final class ProfileReplaceParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -70,7 +70,7 @@ final class ProfileReplaceParams implements BaseModel
     public function withProfile(array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }

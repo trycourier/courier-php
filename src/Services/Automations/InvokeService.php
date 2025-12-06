@@ -46,7 +46,7 @@ final class InvokeService implements InvokeContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'automations/invoke',
@@ -81,7 +81,7 @@ final class InvokeService implements InvokeContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['automations/%1$s/invoke', $templateID],

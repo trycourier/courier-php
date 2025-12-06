@@ -59,7 +59,7 @@ final class AutomationCancelStep implements BaseModel
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj->cancelation_token = $cancelation_token;
+        $obj['cancelation_token'] = $cancelation_token;
 
         return $obj;
     }
@@ -78,7 +78,7 @@ final class AutomationCancelStep implements BaseModel
     public function withCancelationToken(string $cancelationToken): self
     {
         $obj = clone $this;
-        $obj->cancelation_token = $cancelationToken;
+        $obj['cancelation_token'] = $cancelationToken;
 
         return $obj;
     }

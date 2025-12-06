@@ -72,10 +72,10 @@ final class Webhook implements BaseModel
         $obj = new self;
 
         $obj['method'] = $method;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
-        null !== $body && $obj->body = $body;
-        null !== $headers && $obj->headers = $headers;
+        null !== $body && $obj['body'] = $body;
+        null !== $headers && $obj['headers'] = $headers;
 
         return $obj;
     }
@@ -94,7 +94,7 @@ final class Webhook implements BaseModel
     public function withURL(string $url): self
     {
         $obj = clone $this;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
         return $obj;
     }
@@ -102,7 +102,7 @@ final class Webhook implements BaseModel
     public function withBody(?string $body): self
     {
         $obj = clone $this;
-        $obj->body = $body;
+        $obj['body'] = $body;
 
         return $obj;
     }
@@ -113,7 +113,7 @@ final class Webhook implements BaseModel
     public function withHeaders(?array $headers): self
     {
         $obj = clone $this;
-        $obj->headers = $headers;
+        $obj['headers'] = $headers;
 
         return $obj;
     }

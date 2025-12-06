@@ -77,27 +77,32 @@ final class Block implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param array<string,string|Locale\NotificationContentHierarchy>|null $locales
+     * @param string|NotificationContentHierarchy|array{
+     *   children?: string|null, parent?: string|null
+     * }|null $content
+     * @param array<string,string|Locale\NotificationContentHierarchy|array{
+     *   children?: string|null, parent?: string|null
+     * }>|null $locales
      */
     public static function with(
         string $id,
         Type|string $type,
         ?string $alias = null,
         ?string $checksum = null,
-        string|NotificationContentHierarchy|null $content = null,
+        string|NotificationContentHierarchy|array|null $content = null,
         ?string $context = null,
         ?array $locales = null,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
+        $obj['id'] = $id;
         $obj['type'] = $type;
 
-        null !== $alias && $obj->alias = $alias;
-        null !== $checksum && $obj->checksum = $checksum;
-        null !== $content && $obj->content = $content;
-        null !== $context && $obj->context = $context;
-        null !== $locales && $obj->locales = $locales;
+        null !== $alias && $obj['alias'] = $alias;
+        null !== $checksum && $obj['checksum'] = $checksum;
+        null !== $content && $obj['content'] = $content;
+        null !== $context && $obj['context'] = $context;
+        null !== $locales && $obj['locales'] = $locales;
 
         return $obj;
     }
@@ -105,7 +110,7 @@ final class Block implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -124,7 +129,7 @@ final class Block implements BaseModel
     public function withAlias(?string $alias): self
     {
         $obj = clone $this;
-        $obj->alias = $alias;
+        $obj['alias'] = $alias;
 
         return $obj;
     }
@@ -132,16 +137,21 @@ final class Block implements BaseModel
     public function withChecksum(?string $checksum): self
     {
         $obj = clone $this;
-        $obj->checksum = $checksum;
+        $obj['checksum'] = $checksum;
 
         return $obj;
     }
 
+    /**
+     * @param string|NotificationContentHierarchy|array{
+     *   children?: string|null, parent?: string|null
+     * }|null $content
+     */
     public function withContent(
-        string|NotificationContentHierarchy|null $content
+        string|NotificationContentHierarchy|array|null $content
     ): self {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -149,18 +159,20 @@ final class Block implements BaseModel
     public function withContext(?string $context): self
     {
         $obj = clone $this;
-        $obj->context = $context;
+        $obj['context'] = $context;
 
         return $obj;
     }
 
     /**
-     * @param array<string,string|Locale\NotificationContentHierarchy>|null $locales
+     * @param array<string,string|Locale\NotificationContentHierarchy|array{
+     *   children?: string|null, parent?: string|null
+     * }>|null $locales
      */
     public function withLocales(?array $locales): self
     {
         $obj = clone $this;
-        $obj->locales = $locales;
+        $obj['locales'] = $locales;
 
         return $obj;
     }

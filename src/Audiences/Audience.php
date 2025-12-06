@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\Audiences\Filter\Operator;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
@@ -93,23 +94,27 @@ final class Audience implements BaseModel, ResponseConverter
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Filter|array{
+     *   operator: value-of<Operator>, path: string, value: string
+     * } $filter
      */
     public static function with(
         string $id,
         string $created_at,
         string $description,
-        Filter $filter,
+        Filter|array $filter,
         string $name,
         string $updated_at,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created_at = $created_at;
-        $obj->description = $description;
-        $obj->filter = $filter;
-        $obj->name = $name;
-        $obj->updated_at = $updated_at;
+        $obj['id'] = $id;
+        $obj['created_at'] = $created_at;
+        $obj['description'] = $description;
+        $obj['filter'] = $filter;
+        $obj['name'] = $name;
+        $obj['updated_at'] = $updated_at;
 
         return $obj;
     }
@@ -120,7 +125,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -128,7 +133,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withCreatedAt(string $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
@@ -139,18 +144,22 @@ final class Audience implements BaseModel, ResponseConverter
     public function withDescription(string $description): self
     {
         $obj = clone $this;
-        $obj->description = $description;
+        $obj['description'] = $description;
 
         return $obj;
     }
 
     /**
      * A single filter to use for filtering.
+     *
+     * @param Filter|array{
+     *   operator: value-of<Operator>, path: string, value: string
+     * } $filter
      */
-    public function withFilter(Filter $filter): self
+    public function withFilter(Filter|array $filter): self
     {
         $obj = clone $this;
-        $obj->filter = $filter;
+        $obj['filter'] = $filter;
 
         return $obj;
     }
@@ -161,7 +170,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -169,7 +178,7 @@ final class Audience implements BaseModel, ResponseConverter
     public function withUpdatedAt(string $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $obj['updated_at'] = $updatedAt;
 
         return $obj;
     }

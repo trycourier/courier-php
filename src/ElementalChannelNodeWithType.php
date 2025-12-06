@@ -105,13 +105,13 @@ final class ElementalChannelNodeWithType implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->channel = $channel;
+        $obj['channel'] = $channel;
 
-        null !== $channels && $obj->channels = $channels;
-        null !== $if && $obj->if = $if;
-        null !== $loop && $obj->loop = $loop;
-        null !== $ref && $obj->ref = $ref;
-        null !== $raw && $obj->raw = $raw;
+        null !== $channels && $obj['channels'] = $channels;
+        null !== $if && $obj['if'] = $if;
+        null !== $loop && $obj['loop'] = $loop;
+        null !== $ref && $obj['ref'] = $ref;
+        null !== $raw && $obj['raw'] = $raw;
         null !== $type && $obj['type'] = $type;
 
         return $obj;
@@ -123,7 +123,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withChannels(?array $channels): self
     {
         $obj = clone $this;
-        $obj->channels = $channels;
+        $obj['channels'] = $channels;
 
         return $obj;
     }
@@ -131,7 +131,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withIf(?string $if): self
     {
         $obj = clone $this;
-        $obj->if = $if;
+        $obj['if'] = $if;
 
         return $obj;
     }
@@ -139,7 +139,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withLoop(?string $loop): self
     {
         $obj = clone $this;
-        $obj->loop = $loop;
+        $obj['loop'] = $loop;
 
         return $obj;
     }
@@ -147,7 +147,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withRef(?string $ref): self
     {
         $obj = clone $this;
-        $obj->ref = $ref;
+        $obj['ref'] = $ref;
 
         return $obj;
     }
@@ -159,7 +159,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withChannel(string $channel): self
     {
         $obj = clone $this;
-        $obj->channel = $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }
@@ -172,7 +172,7 @@ final class ElementalChannelNodeWithType implements BaseModel
     public function withRaw(?array $raw): self
     {
         $obj = clone $this;
-        $obj->raw = $raw;
+        $obj['raw'] = $raw;
 
         return $obj;
     }

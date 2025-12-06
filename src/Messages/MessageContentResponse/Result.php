@@ -8,6 +8,7 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
+use Courier\Messages\MessageContentResponse\Result\Content\Block;
 
 /**
  * @phpstan-type ResultShape = array{
@@ -60,17 +61,26 @@ final class Result implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Content|array{
+     *   blocks: list<Block>,
+     *   body: string,
+     *   html: string,
+     *   subject: string,
+     *   text: string,
+     *   title: string,
+     * } $content
      */
     public static function with(
         string $channel,
         string $channel_id,
-        Content $content
+        Content|array $content
     ): self {
         $obj = new self;
 
-        $obj->channel = $channel;
-        $obj->channel_id = $channel_id;
-        $obj->content = $content;
+        $obj['channel'] = $channel;
+        $obj['channel_id'] = $channel_id;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -81,7 +91,7 @@ final class Result implements BaseModel
     public function withChannel(string $channel): self
     {
         $obj = clone $this;
-        $obj->channel = $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }
@@ -92,18 +102,27 @@ final class Result implements BaseModel
     public function withChannelID(string $channelID): self
     {
         $obj = clone $this;
-        $obj->channel_id = $channelID;
+        $obj['channel_id'] = $channelID;
 
         return $obj;
     }
 
     /**
      * Content details of the rendered message.
+     *
+     * @param Content|array{
+     *   blocks: list<Block>,
+     *   body: string,
+     *   html: string,
+     *   subject: string,
+     *   text: string,
+     *   title: string,
+     * } $content
      */
-    public function withContent(Content $content): self
+    public function withContent(Content|array $content): self
     {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }

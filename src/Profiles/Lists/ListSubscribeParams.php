@@ -9,6 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\SubscribeToListsRequestItem;
+use Courier\RecipientPreferences;
 
 /**
  * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
@@ -16,7 +17,9 @@ use Courier\Profiles\SubscribeToListsRequestItem;
  * @see Courier\Services\Profiles\ListsService::subscribe()
  *
  * @phpstan-type ListSubscribeParamsShape = array{
- *   lists: list<SubscribeToListsRequestItem>
+ *   lists: list<SubscribeToListsRequestItem|array{
+ *     listId: string, preferences?: RecipientPreferences|null
+ *   }>,
  * }
  */
 final class ListSubscribeParams implements BaseModel
@@ -53,24 +56,28 @@ final class ListSubscribeParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscribeToListsRequestItem> $lists
+     * @param list<SubscribeToListsRequestItem|array{
+     *   listId: string, preferences?: RecipientPreferences|null
+     * }> $lists
      */
     public static function with(array $lists): self
     {
         $obj = new self;
 
-        $obj->lists = $lists;
+        $obj['lists'] = $lists;
 
         return $obj;
     }
 
     /**
-     * @param list<SubscribeToListsRequestItem> $lists
+     * @param list<SubscribeToListsRequestItem|array{
+     *   listId: string, preferences?: RecipientPreferences|null
+     * }> $lists
      */
     public function withLists(array $lists): self
     {
         $obj = clone $this;
-        $obj->lists = $lists;
+        $obj['lists'] = $lists;
 
         return $obj;
     }

@@ -36,7 +36,7 @@ final class MessageContext implements BaseModel
     {
         $obj = new self;
 
-        null !== $tenant_id && $obj->tenant_id = $tenant_id;
+        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class MessageContext implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }

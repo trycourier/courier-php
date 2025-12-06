@@ -65,7 +65,7 @@ final class BaseCheck implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
+        $obj['id'] = $id;
         $obj['status'] = $status;
         $obj['type'] = $type;
 
@@ -75,7 +75,7 @@ final class BaseCheck implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }

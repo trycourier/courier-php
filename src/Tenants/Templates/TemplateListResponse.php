@@ -104,13 +104,13 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->has_more = $has_more;
+        $obj['has_more'] = $has_more;
         $obj['type'] = $type;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
-        null !== $cursor && $obj->cursor = $cursor;
-        null !== $items && $obj->items = $items;
-        null !== $next_url && $obj->next_url = $next_url;
+        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $items && $obj['items'] = $items;
+        null !== $next_url && $obj['next_url'] = $next_url;
 
         return $obj;
     }
@@ -121,7 +121,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj->has_more = $hasMore;
+        $obj['has_more'] = $hasMore;
 
         return $obj;
     }
@@ -145,7 +145,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     public function withURL(string $url): self
     {
         $obj = clone $this;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
         return $obj;
     }
@@ -157,7 +157,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }
@@ -168,7 +168,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     public function withItems(?array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
@@ -180,7 +180,7 @@ final class TemplateListResponse implements BaseModel, ResponseConverter
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj->next_url = $nextURL;
+        $obj['next_url'] = $nextURL;
 
         return $obj;
     }

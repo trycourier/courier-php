@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
+use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
+use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type PreferenceGetResponseShape = array{
@@ -61,14 +63,22 @@ final class PreferenceGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TopicPreference> $items
+     * @param list<TopicPreference|array{
+     *   default_status: value-of<PreferenceStatus>,
+     *   status: value-of<PreferenceStatus>,
+     *   topic_id: string,
+     *   topic_name: string,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * }> $items
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
-    public static function with(array $items, Paging $paging): self
+    public static function with(array $items, Paging|array $paging): self
     {
         $obj = new self;
 
-        $obj->items = $items;
-        $obj->paging = $paging;
+        $obj['items'] = $items;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
@@ -76,23 +86,32 @@ final class PreferenceGetResponse implements BaseModel, ResponseConverter
     /**
      * The Preferences associated with the user_id.
      *
-     * @param list<TopicPreference> $items
+     * @param list<TopicPreference|array{
+     *   default_status: value-of<PreferenceStatus>,
+     *   status: value-of<PreferenceStatus>,
+     *   topic_id: string,
+     *   topic_name: string,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * }> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
 
     /**
      * Deprecated - Paging not implemented on this endpoint.
+     *
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
-    public function withPaging(Paging $paging): self
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }

@@ -43,7 +43,7 @@ final class PreferencesService implements PreferencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences', $userID],
@@ -76,7 +76,7 @@ final class PreferencesService implements PreferencesContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
@@ -116,7 +116,7 @@ final class PreferencesService implements PreferencesContract
         unset($parsed['user_id']);
         $query_params = ['tenant_id'];
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],

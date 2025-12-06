@@ -7,6 +7,7 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Preference\Source;
 
 /**
  * @phpstan-type ProfilePreferencesShape = array{
@@ -55,8 +56,18 @@ final class ProfilePreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,Preference> $notifications
-     * @param array<string,Preference>|null $categories
+     * @param array<string,Preference|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     *   source?: value-of<Source>|null,
+     * }> $notifications
+     * @param array<string,Preference|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     *   source?: value-of<Source>|null,
+     * }>|null $categories
      */
     public static function with(
         array $notifications,
@@ -65,32 +76,42 @@ final class ProfilePreferences implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->notifications = $notifications;
+        $obj['notifications'] = $notifications;
 
-        null !== $categories && $obj->categories = $categories;
-        null !== $templateId && $obj->templateId = $templateId;
+        null !== $categories && $obj['categories'] = $categories;
+        null !== $templateId && $obj['templateId'] = $templateId;
 
         return $obj;
     }
 
     /**
-     * @param array<string,Preference> $notifications
+     * @param array<string,Preference|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     *   source?: value-of<Source>|null,
+     * }> $notifications
      */
     public function withNotifications(array $notifications): self
     {
         $obj = clone $this;
-        $obj->notifications = $notifications;
+        $obj['notifications'] = $notifications;
 
         return $obj;
     }
 
     /**
-     * @param array<string,Preference>|null $categories
+     * @param array<string,Preference|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     *   source?: value-of<Source>|null,
+     * }>|null $categories
      */
     public function withCategories(?array $categories): self
     {
         $obj = clone $this;
-        $obj->categories = $categories;
+        $obj['categories'] = $categories;
 
         return $obj;
     }
@@ -98,7 +119,7 @@ final class ProfilePreferences implements BaseModel
     public function withTemplateID(?string $templateID): self
     {
         $obj = clone $this;
-        $obj->templateId = $templateID;
+        $obj['templateId'] = $templateID;
 
         return $obj;
     }

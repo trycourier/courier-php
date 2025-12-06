@@ -54,33 +54,55 @@ final class BrandListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Brand> $results
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<Brand|array{
+     *   id: string,
+     *   created: int,
+     *   name: string,
+     *   updated: int,
+     *   published?: int|null,
+     *   settings?: BrandSettings|null,
+     *   snippets?: BrandSnippets|null,
+     *   version?: string|null,
+     * }> $results
      */
-    public static function with(Paging $paging, array $results): self
+    public static function with(Paging|array $paging, array $results): self
     {
         $obj = new self;
 
-        $obj->paging = $paging;
-        $obj->results = $results;
-
-        return $obj;
-    }
-
-    public function withPaging(Paging $paging): self
-    {
-        $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
+        $obj['results'] = $results;
 
         return $obj;
     }
 
     /**
-     * @param list<Brand> $results
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
+    {
+        $obj = clone $this;
+        $obj['paging'] = $paging;
+
+        return $obj;
+    }
+
+    /**
+     * @param list<Brand|array{
+     *   id: string,
+     *   created: int,
+     *   name: string,
+     *   updated: int,
+     *   published?: int|null,
+     *   settings?: BrandSettings|null,
+     *   snippets?: BrandSnippets|null,
+     *   version?: string|null,
+     * }> $results
      */
     public function withResults(array $results): self
     {
         $obj = clone $this;
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }

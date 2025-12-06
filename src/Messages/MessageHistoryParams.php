@@ -42,7 +42,7 @@ final class MessageHistoryParams implements BaseModel
     {
         $obj = new self;
 
-        null !== $type && $obj->type = $type;
+        null !== $type && $obj['type'] = $type;
 
         return $obj;
     }
@@ -53,7 +53,7 @@ final class MessageHistoryParams implements BaseModel
     public function withType(?string $type): self
     {
         $obj = clone $this;
-        $obj->type = $type;
+        $obj['type'] = $type;
 
         return $obj;
     }

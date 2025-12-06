@@ -56,8 +56,8 @@ final class Block implements BaseModel
     {
         $obj = new self;
 
-        $obj->text = $text;
-        $obj->type = $type;
+        $obj['text'] = $text;
+        $obj['type'] = $type;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class Block implements BaseModel
     public function withText(string $text): self
     {
         $obj = clone $this;
-        $obj->text = $text;
+        $obj['text'] = $text;
 
         return $obj;
     }
@@ -79,7 +79,7 @@ final class Block implements BaseModel
     public function withType(string $type): self
     {
         $obj = clone $this;
-        $obj->type = $type;
+        $obj['type'] = $type;
 
         return $obj;
     }

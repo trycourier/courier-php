@@ -55,22 +55,26 @@ final class NotificationListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      * @param list<mixed> $results
      */
-    public static function with(Paging $paging, array $results): self
+    public static function with(Paging|array $paging, array $results): self
     {
         $obj = new self;
 
-        $obj->paging = $paging;
-        $obj->results = $results;
+        $obj['paging'] = $paging;
+        $obj['results'] = $results;
 
         return $obj;
     }
 
-    public function withPaging(Paging $paging): self
+    /**
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
@@ -81,7 +85,7 @@ final class NotificationListResponse implements BaseModel, ResponseConverter
     public function withResults(array $results): self
     {
         $obj = clone $this;
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }

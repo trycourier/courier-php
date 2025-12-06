@@ -34,7 +34,7 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageGetResponse {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['messages/%1$s', $messageID],
@@ -76,7 +76,7 @@ final class MessagesService implements MessagesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'messages',
@@ -97,7 +97,7 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageDetails {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['messages/%1$s/cancel', $messageID],
@@ -117,7 +117,7 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageContentResponse {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['messages/%1$s/output', $messageID],
@@ -145,7 +145,7 @@ final class MessagesService implements MessagesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['messages/%1$s/history', $messageID],

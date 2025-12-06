@@ -74,12 +74,17 @@ final class BrandSettingsInApp implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
+     * @param Icons|array{bell?: string|null, message?: string|null} $icons
+     * @param WidgetBackground|array{
+     *   bottomColor?: string|null, topColor?: string|null
+     * } $widgetBackground
      * @param Placement|value-of<Placement>|null $placement
      */
     public static function with(
-        BrandColors $colors,
-        Icons $icons,
-        WidgetBackground $widgetBackground,
+        BrandColors|array $colors,
+        Icons|array $icons,
+        WidgetBackground|array $widgetBackground,
         ?string $borderRadius = null,
         ?bool $disableMessageIcon = null,
         ?string $fontFamily = null,
@@ -87,39 +92,50 @@ final class BrandSettingsInApp implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->colors = $colors;
-        $obj->icons = $icons;
-        $obj->widgetBackground = $widgetBackground;
+        $obj['colors'] = $colors;
+        $obj['icons'] = $icons;
+        $obj['widgetBackground'] = $widgetBackground;
 
-        null !== $borderRadius && $obj->borderRadius = $borderRadius;
-        null !== $disableMessageIcon && $obj->disableMessageIcon = $disableMessageIcon;
-        null !== $fontFamily && $obj->fontFamily = $fontFamily;
+        null !== $borderRadius && $obj['borderRadius'] = $borderRadius;
+        null !== $disableMessageIcon && $obj['disableMessageIcon'] = $disableMessageIcon;
+        null !== $fontFamily && $obj['fontFamily'] = $fontFamily;
         null !== $placement && $obj['placement'] = $placement;
 
         return $obj;
     }
 
-    public function withColors(BrandColors $colors): self
+    /**
+     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
+     */
+    public function withColors(BrandColors|array $colors): self
     {
         $obj = clone $this;
-        $obj->colors = $colors;
+        $obj['colors'] = $colors;
 
         return $obj;
     }
 
-    public function withIcons(Icons $icons): self
+    /**
+     * @param Icons|array{bell?: string|null, message?: string|null} $icons
+     */
+    public function withIcons(Icons|array $icons): self
     {
         $obj = clone $this;
-        $obj->icons = $icons;
+        $obj['icons'] = $icons;
 
         return $obj;
     }
 
+    /**
+     * @param WidgetBackground|array{
+     *   bottomColor?: string|null, topColor?: string|null
+     * } $widgetBackground
+     */
     public function withWidgetBackground(
-        WidgetBackground $widgetBackground
+        WidgetBackground|array $widgetBackground
     ): self {
         $obj = clone $this;
-        $obj->widgetBackground = $widgetBackground;
+        $obj['widgetBackground'] = $widgetBackground;
 
         return $obj;
     }
@@ -127,7 +143,7 @@ final class BrandSettingsInApp implements BaseModel
     public function withBorderRadius(?string $borderRadius): self
     {
         $obj = clone $this;
-        $obj->borderRadius = $borderRadius;
+        $obj['borderRadius'] = $borderRadius;
 
         return $obj;
     }
@@ -135,7 +151,7 @@ final class BrandSettingsInApp implements BaseModel
     public function withDisableMessageIcon(?bool $disableMessageIcon): self
     {
         $obj = clone $this;
-        $obj->disableMessageIcon = $disableMessageIcon;
+        $obj['disableMessageIcon'] = $disableMessageIcon;
 
         return $obj;
     }
@@ -143,7 +159,7 @@ final class BrandSettingsInApp implements BaseModel
     public function withFontFamily(?string $fontFamily): self
     {
         $obj = clone $this;
-        $obj->fontFamily = $fontFamily;
+        $obj['fontFamily'] = $fontFamily;
 
         return $obj;
     }

@@ -58,8 +58,8 @@ final class ElementalContentSugar implements BaseModel
     {
         $obj = new self;
 
-        $obj->body = $body;
-        $obj->title = $title;
+        $obj['body'] = $body;
+        $obj['title'] = $title;
 
         return $obj;
     }
@@ -70,7 +70,7 @@ final class ElementalContentSugar implements BaseModel
     public function withBody(string $body): self
     {
         $obj = clone $this;
-        $obj->body = $body;
+        $obj['body'] = $body;
 
         return $obj;
     }
@@ -81,7 +81,7 @@ final class ElementalContentSugar implements BaseModel
     public function withTitle(string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }

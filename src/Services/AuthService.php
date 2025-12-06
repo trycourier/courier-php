@@ -36,7 +36,7 @@ final class AuthService implements AuthContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'auth/issue-token',

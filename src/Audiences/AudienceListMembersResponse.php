@@ -55,33 +55,49 @@ final class AudienceListMembersResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item> $items
+     * @param list<Item|array{
+     *   added_at: string,
+     *   audience_id: string,
+     *   audience_version: int,
+     *   member_id: string,
+     *   reason: string,
+     * }> $items
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
-    public static function with(array $items, Paging $paging): self
+    public static function with(array $items, Paging|array $paging): self
     {
         $obj = new self;
 
-        $obj->items = $items;
-        $obj->paging = $paging;
+        $obj['items'] = $items;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
 
     /**
-     * @param list<Item> $items
+     * @param list<Item|array{
+     *   added_at: string,
+     *   audience_id: string,
+     *   audience_version: int,
+     *   member_id: string,
+     *   reason: string,
+     * }> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
 
-    public function withPaging(Paging $paging): self
+    /**
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }

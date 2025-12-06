@@ -41,7 +41,7 @@ final class TemplatesService implements TemplatesContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['tenants/%1$s/templates/%2$s', $tenantID, $templateID],
@@ -69,7 +69,7 @@ final class TemplatesService implements TemplatesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['tenants/%1$s/templates', $tenantID],

@@ -30,24 +30,24 @@ final class BrandSnippets implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BrandSnippet>|null $items
+     * @param list<BrandSnippet|array{name: string, value: string}>|null $items
      */
     public static function with(?array $items = null): self
     {
         $obj = new self;
 
-        null !== $items && $obj->items = $items;
+        null !== $items && $obj['items'] = $items;
 
         return $obj;
     }
 
     /**
-     * @param list<BrandSnippet>|null $items
+     * @param list<BrandSnippet|array{name: string, value: string}>|null $items
      */
     public function withItems(?array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }

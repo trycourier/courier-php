@@ -63,9 +63,9 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->user_id = $user_id;
+        $obj['user_id'] = $user_id;
 
-        null !== $tenant_id && $obj->tenant_id = $tenant_id;
+        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }
@@ -84,7 +84,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }

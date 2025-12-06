@@ -41,7 +41,7 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['profiles/%1$s/lists', $userID],
@@ -62,7 +62,7 @@ final class ListsService implements ListsContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): ListDeleteResponse {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['profiles/%1$s/lists', $userID],
@@ -94,7 +94,7 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['profiles/%1$s/lists', $userID],

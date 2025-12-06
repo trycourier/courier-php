@@ -40,8 +40,8 @@ final class WidgetBackground implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $bottomColor && $obj->bottomColor = $bottomColor;
-        null !== $topColor && $obj->topColor = $topColor;
+        null !== $bottomColor && $obj['bottomColor'] = $bottomColor;
+        null !== $topColor && $obj['topColor'] = $topColor;
 
         return $obj;
     }
@@ -49,7 +49,7 @@ final class WidgetBackground implements BaseModel
     public function withBottomColor(?string $bottomColor): self
     {
         $obj = clone $this;
-        $obj->bottomColor = $bottomColor;
+        $obj['bottomColor'] = $bottomColor;
 
         return $obj;
     }
@@ -57,7 +57,7 @@ final class WidgetBackground implements BaseModel
     public function withTopColor(?string $topColor): self
     {
         $obj = clone $this;
-        $obj->topColor = $topColor;
+        $obj['topColor'] = $topColor;
 
         return $obj;
     }

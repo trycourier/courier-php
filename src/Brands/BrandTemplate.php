@@ -80,14 +80,14 @@ final class BrandTemplate implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->enabled = $enabled;
+        $obj['enabled'] = $enabled;
 
-        null !== $backgroundColor && $obj->backgroundColor = $backgroundColor;
-        null !== $blocksBackgroundColor && $obj->blocksBackgroundColor = $blocksBackgroundColor;
-        null !== $footer && $obj->footer = $footer;
-        null !== $head && $obj->head = $head;
-        null !== $header && $obj->header = $header;
-        null !== $width && $obj->width = $width;
+        null !== $backgroundColor && $obj['backgroundColor'] = $backgroundColor;
+        null !== $blocksBackgroundColor && $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
+        null !== $footer && $obj['footer'] = $footer;
+        null !== $head && $obj['head'] = $head;
+        null !== $header && $obj['header'] = $header;
+        null !== $width && $obj['width'] = $width;
 
         return $obj;
     }
@@ -95,7 +95,7 @@ final class BrandTemplate implements BaseModel
     public function withEnabled(bool $enabled): self
     {
         $obj = clone $this;
-        $obj->enabled = $enabled;
+        $obj['enabled'] = $enabled;
 
         return $obj;
     }
@@ -103,7 +103,7 @@ final class BrandTemplate implements BaseModel
     public function withBackgroundColor(?string $backgroundColor): self
     {
         $obj = clone $this;
-        $obj->backgroundColor = $backgroundColor;
+        $obj['backgroundColor'] = $backgroundColor;
 
         return $obj;
     }
@@ -112,7 +112,7 @@ final class BrandTemplate implements BaseModel
         ?string $blocksBackgroundColor
     ): self {
         $obj = clone $this;
-        $obj->blocksBackgroundColor = $blocksBackgroundColor;
+        $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
 
         return $obj;
     }
@@ -120,7 +120,7 @@ final class BrandTemplate implements BaseModel
     public function withFooter(?string $footer): self
     {
         $obj = clone $this;
-        $obj->footer = $footer;
+        $obj['footer'] = $footer;
 
         return $obj;
     }
@@ -128,7 +128,7 @@ final class BrandTemplate implements BaseModel
     public function withHead(?string $head): self
     {
         $obj = clone $this;
-        $obj->head = $head;
+        $obj['head'] = $head;
 
         return $obj;
     }
@@ -136,7 +136,7 @@ final class BrandTemplate implements BaseModel
     public function withHeader(?string $header): self
     {
         $obj = clone $this;
-        $obj->header = $header;
+        $obj['header'] = $header;
 
         return $obj;
     }
@@ -144,7 +144,7 @@ final class BrandTemplate implements BaseModel
     public function withWidth(?string $width): self
     {
         $obj = clone $this;
-        $obj->width = $width;
+        $obj['width'] = $width;
 
         return $obj;
     }

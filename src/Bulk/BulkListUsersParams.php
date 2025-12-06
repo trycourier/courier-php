@@ -42,7 +42,7 @@ final class BulkListUsersParams implements BaseModel
     {
         $obj = new self;
 
-        null !== $cursor && $obj->cursor = $cursor;
+        null !== $cursor && $obj['cursor'] = $cursor;
 
         return $obj;
     }
@@ -53,7 +53,7 @@ final class BulkListUsersParams implements BaseModel
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }

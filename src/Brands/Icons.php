@@ -38,8 +38,8 @@ final class Icons implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $bell && $obj->bell = $bell;
-        null !== $message && $obj->message = $message;
+        null !== $bell && $obj['bell'] = $bell;
+        null !== $message && $obj['message'] = $message;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class Icons implements BaseModel
     public function withBell(?string $bell): self
     {
         $obj = clone $this;
-        $obj->bell = $bell;
+        $obj['bell'] = $bell;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class Icons implements BaseModel
     public function withMessage(?string $message): self
     {
         $obj = clone $this;
-        $obj->message = $message;
+        $obj['message'] = $message;
 
         return $obj;
     }

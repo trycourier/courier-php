@@ -7,6 +7,7 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\ElementalTextNodeWithType\Type;
 
 /**
  * @phpstan-type ElementalContentShape = array{
@@ -59,7 +60,51 @@ final class ElementalContent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
+     * @param list<ElementalTextNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<Type>|null,
+     * }|ElementalMetaNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalMetaNodeWithType\Type>|null,
+     * }|ElementalChannelNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   channel: string,
+     *   raw?: array<string,mixed>|null,
+     *   type?: value-of<ElementalChannelNodeWithType\Type>|null,
+     * }|ElementalImageNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalImageNodeWithType\Type>|null,
+     * }|ElementalActionNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalActionNodeWithType\Type>|null,
+     * }|ElementalDividerNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalDividerNodeWithType\Type>|null,
+     * }|ElementalQuoteNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalQuoteNodeWithType\Type>|null,
+     * }> $elements
      */
     public static function with(
         array $elements,
@@ -68,21 +113,65 @@ final class ElementalContent implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->elements = $elements;
-        $obj->version = $version;
+        $obj['elements'] = $elements;
+        $obj['version'] = $version;
 
-        null !== $brand && $obj->brand = $brand;
+        null !== $brand && $obj['brand'] = $brand;
 
         return $obj;
     }
 
     /**
-     * @param list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
+     * @param list<ElementalTextNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<Type>|null,
+     * }|ElementalMetaNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalMetaNodeWithType\Type>|null,
+     * }|ElementalChannelNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   channel: string,
+     *   raw?: array<string,mixed>|null,
+     *   type?: value-of<ElementalChannelNodeWithType\Type>|null,
+     * }|ElementalImageNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalImageNodeWithType\Type>|null,
+     * }|ElementalActionNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalActionNodeWithType\Type>|null,
+     * }|ElementalDividerNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalDividerNodeWithType\Type>|null,
+     * }|ElementalQuoteNodeWithType|array{
+     *   channels?: list<string>|null,
+     *   if?: string|null,
+     *   loop?: string|null,
+     *   ref?: string|null,
+     *   type?: value-of<ElementalQuoteNodeWithType\Type>|null,
+     * }> $elements
      */
     public function withElements(array $elements): self
     {
         $obj = clone $this;
-        $obj->elements = $elements;
+        $obj['elements'] = $elements;
 
         return $obj;
     }
@@ -93,7 +182,7 @@ final class ElementalContent implements BaseModel
     public function withVersion(string $version): self
     {
         $obj = clone $this;
-        $obj->version = $version;
+        $obj['version'] = $version;
 
         return $obj;
     }
@@ -101,7 +190,7 @@ final class ElementalContent implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }

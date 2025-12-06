@@ -7,6 +7,7 @@ namespace Courier\Profiles\Lists\ListGetResponse;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
@@ -70,22 +71,27 @@ final class Result implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
      */
     public static function with(
         string $id,
         string $created,
         string $name,
         string $updated,
-        ?RecipientPreferences $preferences = null,
+        RecipientPreferences|array|null $preferences = null,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created = $created;
-        $obj->name = $name;
-        $obj->updated = $updated;
+        $obj['id'] = $id;
+        $obj['created'] = $created;
+        $obj['name'] = $name;
+        $obj['updated'] = $updated;
 
-        null !== $preferences && $obj->preferences = $preferences;
+        null !== $preferences && $obj['preferences'] = $preferences;
 
         return $obj;
     }
@@ -93,7 +99,7 @@ final class Result implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -104,7 +110,7 @@ final class Result implements BaseModel
     public function withCreated(string $created): self
     {
         $obj = clone $this;
-        $obj->created = $created;
+        $obj['created'] = $created;
 
         return $obj;
     }
@@ -115,7 +121,7 @@ final class Result implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -126,15 +132,22 @@ final class Result implements BaseModel
     public function withUpdated(string $updated): self
     {
         $obj = clone $this;
-        $obj->updated = $updated;
+        $obj['updated'] = $updated;
 
         return $obj;
     }
 
-    public function withPreferences(?RecipientPreferences $preferences): self
-    {
+    /**
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
+     */
+    public function withPreferences(
+        RecipientPreferences|array|null $preferences
+    ): self {
         $obj = clone $this;
-        $obj->preferences = $preferences;
+        $obj['preferences'] = $preferences;
 
         return $obj;
     }

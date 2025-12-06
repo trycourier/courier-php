@@ -53,7 +53,7 @@ final class TemplateRetrieveParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->tenant_id = $tenant_id;
+        $obj['tenant_id'] = $tenant_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class TemplateRetrieveParams implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }

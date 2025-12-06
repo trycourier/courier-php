@@ -8,7 +8,9 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
+use Courier\MessageRouting\Method;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
+use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 
 /**
  * @phpstan-type ResultShape = array{
@@ -87,28 +89,33 @@ final class Result implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param MessageRouting|array{
+     *   channels: list<mixed>, method: value-of<Method>
+     * } $routing
+     * @param Tags|array{data: list<Data>}|null $tags
      */
     public static function with(
         string $id,
         int $created_at,
         string $note,
-        MessageRouting $routing,
+        MessageRouting|array $routing,
         string $topic_id,
         int $updated_at,
-        ?Tags $tags = null,
+        Tags|array|null $tags = null,
         ?string $title = null,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created_at = $created_at;
-        $obj->note = $note;
-        $obj->routing = $routing;
-        $obj->topic_id = $topic_id;
-        $obj->updated_at = $updated_at;
+        $obj['id'] = $id;
+        $obj['created_at'] = $created_at;
+        $obj['note'] = $note;
+        $obj['routing'] = $routing;
+        $obj['topic_id'] = $topic_id;
+        $obj['updated_at'] = $updated_at;
 
-        null !== $tags && $obj->tags = $tags;
-        null !== $title && $obj->title = $title;
+        null !== $tags && $obj['tags'] = $tags;
+        null !== $title && $obj['title'] = $title;
 
         return $obj;
     }
@@ -116,7 +123,7 @@ final class Result implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -124,7 +131,7 @@ final class Result implements BaseModel
     public function withCreatedAt(int $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
@@ -132,15 +139,20 @@ final class Result implements BaseModel
     public function withNote(string $note): self
     {
         $obj = clone $this;
-        $obj->note = $note;
+        $obj['note'] = $note;
 
         return $obj;
     }
 
-    public function withRouting(MessageRouting $routing): self
+    /**
+     * @param MessageRouting|array{
+     *   channels: list<mixed>, method: value-of<Method>
+     * } $routing
+     */
+    public function withRouting(MessageRouting|array $routing): self
     {
         $obj = clone $this;
-        $obj->routing = $routing;
+        $obj['routing'] = $routing;
 
         return $obj;
     }
@@ -148,7 +160,7 @@ final class Result implements BaseModel
     public function withTopicID(string $topicID): self
     {
         $obj = clone $this;
-        $obj->topic_id = $topicID;
+        $obj['topic_id'] = $topicID;
 
         return $obj;
     }
@@ -156,15 +168,18 @@ final class Result implements BaseModel
     public function withUpdatedAt(int $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $obj['updated_at'] = $updatedAt;
 
         return $obj;
     }
 
-    public function withTags(?Tags $tags): self
+    /**
+     * @param Tags|array{data: list<Data>}|null $tags
+     */
+    public function withTags(Tags|array|null $tags): self
     {
         $obj = clone $this;
-        $obj->tags = $tags;
+        $obj['tags'] = $tags;
 
         return $obj;
     }
@@ -172,7 +187,7 @@ final class Result implements BaseModel
     public function withTitle(?string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }

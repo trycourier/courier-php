@@ -29,20 +29,37 @@ final class Metadata implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Utm|array{
+     *   campaign?: string|null,
+     *   content?: string|null,
+     *   medium?: string|null,
+     *   source?: string|null,
+     *   term?: string|null,
+     * }|null $utm
      */
-    public static function with(?Utm $utm = null): self
+    public static function with(Utm|array|null $utm = null): self
     {
         $obj = new self;
 
-        null !== $utm && $obj->utm = $utm;
+        null !== $utm && $obj['utm'] = $utm;
 
         return $obj;
     }
 
-    public function withUtm(?Utm $utm): self
+    /**
+     * @param Utm|array{
+     *   campaign?: string|null,
+     *   content?: string|null,
+     *   medium?: string|null,
+     *   source?: string|null,
+     *   term?: string|null,
+     * }|null $utm
+     */
+    public function withUtm(Utm|array|null $utm): self
     {
         $obj = clone $this;
-        $obj->utm = $utm;
+        $obj['utm'] = $utm;
 
         return $obj;
     }

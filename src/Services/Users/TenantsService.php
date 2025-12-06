@@ -41,7 +41,7 @@ final class TenantsService implements TenantsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/tenants', $userID],
@@ -81,7 +81,7 @@ final class TenantsService implements TenantsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tenants', $userID],
@@ -118,7 +118,7 @@ final class TenantsService implements TenantsContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tenants/%2$s', $userID, $tenantID],
@@ -139,7 +139,7 @@ final class TenantsService implements TenantsContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['users/%1$s/tenants', $userID],
@@ -169,7 +169,7 @@ final class TenantsService implements TenantsContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['users/%1$s/tenants/%2$s', $userID, $tenantID],

@@ -10,6 +10,8 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\ElementalContent;
+use Courier\ElementalContentSugar;
 
 /**
  * Create a bulk job.
@@ -17,7 +19,21 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\BulkService::createJob()
  *
  * @phpstan-type BulkCreateJobParamsShape = array{
- *   message: InboundBulkTemplateMessage|InboundBulkContentMessage
+ *   message: InboundBulkTemplateMessage|array{
+ *     template: string,
+ *     brand?: string|null,
+ *     data?: array<string,mixed>|null,
+ *     event?: string|null,
+ *     locale?: array<string,array<string,mixed>>|null,
+ *     override?: array<string,mixed>|null,
+ *   }|InboundBulkContentMessage|array{
+ *     content: ElementalContentSugar|ElementalContent,
+ *     brand?: string|null,
+ *     data?: array<string,mixed>|null,
+ *     event?: string|null,
+ *     locale?: array<string,array<string,mixed>>|null,
+ *     override?: array<string,mixed>|null,
+ *   },
  * }
  */
 final class BulkCreateJobParams implements BaseModel
@@ -52,22 +68,55 @@ final class BulkCreateJobParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param InboundBulkTemplateMessage|array{
+     *   template: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * }|InboundBulkContentMessage|array{
+     *   content: ElementalContentSugar|ElementalContent,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * } $message
      */
     public static function with(
-        InboundBulkTemplateMessage|InboundBulkContentMessage $message
+        InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
         $obj = new self;
 
-        $obj->message = $message;
+        $obj['message'] = $message;
 
         return $obj;
     }
 
+    /**
+     * @param InboundBulkTemplateMessage|array{
+     *   template: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * }|InboundBulkContentMessage|array{
+     *   content: ElementalContentSugar|ElementalContent,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   event?: string|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     * } $message
+     */
     public function withMessage(
-        InboundBulkTemplateMessage|InboundBulkContentMessage $message
+        InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
         $obj = clone $this;
-        $obj->message = $message;
+        $obj['message'] = $message;
 
         return $obj;
     }

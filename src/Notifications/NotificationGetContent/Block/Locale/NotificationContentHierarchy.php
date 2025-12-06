@@ -40,8 +40,8 @@ final class NotificationContentHierarchy implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $children && $obj->children = $children;
-        null !== $parent && $obj->parent = $parent;
+        null !== $children && $obj['children'] = $children;
+        null !== $parent && $obj['parent'] = $parent;
 
         return $obj;
     }
@@ -49,7 +49,7 @@ final class NotificationContentHierarchy implements BaseModel
     public function withChildren(?string $children): self
     {
         $obj = clone $this;
-        $obj->children = $children;
+        $obj['children'] = $children;
 
         return $obj;
     }
@@ -57,7 +57,7 @@ final class NotificationContentHierarchy implements BaseModel
     public function withParent(?string $parent): self
     {
         $obj = clone $this;
-        $obj->parent = $parent;
+        $obj['parent'] = $parent;
 
         return $obj;
     }

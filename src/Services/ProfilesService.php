@@ -50,7 +50,7 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['profiles/%1$s', $userID],
@@ -71,7 +71,7 @@ final class ProfilesService implements ProfilesContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): ProfileGetResponse {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['profiles/%1$s', $userID],
@@ -101,7 +101,7 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'patch',
             path: ['profiles/%1$s', $userID],
@@ -122,7 +122,7 @@ final class ProfilesService implements ProfilesContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['profiles/%1$s', $userID],
@@ -153,7 +153,7 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['profiles/%1$s', $userID],

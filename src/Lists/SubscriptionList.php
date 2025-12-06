@@ -66,11 +66,11 @@ final class SubscriptionList implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->name = $name;
+        $obj['id'] = $id;
+        $obj['name'] = $name;
 
-        null !== $created && $obj->created = $created;
-        null !== $updated && $obj->updated = $updated;
+        null !== $created && $obj['created'] = $created;
+        null !== $updated && $obj['updated'] = $updated;
 
         return $obj;
     }
@@ -78,7 +78,7 @@ final class SubscriptionList implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -86,7 +86,7 @@ final class SubscriptionList implements BaseModel, ResponseConverter
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -94,7 +94,7 @@ final class SubscriptionList implements BaseModel, ResponseConverter
     public function withCreated(?string $created): self
     {
         $obj = clone $this;
-        $obj->created = $created;
+        $obj['created'] = $created;
 
         return $obj;
     }
@@ -102,7 +102,7 @@ final class SubscriptionList implements BaseModel, ResponseConverter
     public function withUpdated(?string $updated): self
     {
         $obj = clone $this;
-        $obj->updated = $updated;
+        $obj['updated'] = $updated;
 
         return $obj;
     }

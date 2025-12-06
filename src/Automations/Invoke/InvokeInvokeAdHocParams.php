@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -16,7 +23,10 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
- *   automation: Automation,
+ *   automation: Automation|array{
+ *     steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
+ *     cancelation_token?: string|null,
+ *   },
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
@@ -74,11 +84,15 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param Automation|array{
+     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
+     *   cancelation_token?: string|null,
+     * } $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
      */
     public static function with(
-        Automation $automation,
+        Automation|array $automation,
         ?string $brand = null,
         ?array $data = null,
         ?array $profile = null,
@@ -87,21 +101,27 @@ final class InvokeInvokeAdHocParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->automation = $automation;
+        $obj['automation'] = $automation;
 
-        null !== $brand && $obj->brand = $brand;
-        null !== $data && $obj->data = $data;
-        null !== $profile && $obj->profile = $profile;
-        null !== $recipient && $obj->recipient = $recipient;
-        null !== $template && $obj->template = $template;
+        null !== $brand && $obj['brand'] = $brand;
+        null !== $data && $obj['data'] = $data;
+        null !== $profile && $obj['profile'] = $profile;
+        null !== $recipient && $obj['recipient'] = $recipient;
+        null !== $template && $obj['template'] = $template;
 
         return $obj;
     }
 
-    public function withAutomation(Automation $automation): self
+    /**
+     * @param Automation|array{
+     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
+     *   cancelation_token?: string|null,
+     * } $automation
+     */
+    public function withAutomation(Automation|array $automation): self
     {
         $obj = clone $this;
-        $obj->automation = $automation;
+        $obj['automation'] = $automation;
 
         return $obj;
     }
@@ -109,7 +129,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }
@@ -120,7 +140,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     public function withData(?array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }
@@ -131,7 +151,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     public function withProfile(?array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -139,7 +159,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     public function withRecipient(?string $recipient): self
     {
         $obj = clone $this;
-        $obj->recipient = $recipient;
+        $obj['recipient'] = $recipient;
 
         return $obj;
     }
@@ -147,7 +167,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     public function withTemplate(?string $template): self
     {
         $obj = clone $this;
-        $obj->template = $template;
+        $obj['template'] = $template;
 
         return $obj;
     }

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Courier\Bulk;
 
 use Courier\Bulk\BulkListUsersResponse\Item;
+use Courier\Bulk\BulkListUsersResponse\Item\Status;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
+use Courier\RecipientPreferences;
+use Courier\UserRecipient;
 
 /**
  * @phpstan-type BulkListUsersResponseShape = array{
@@ -55,33 +58,53 @@ final class BulkListUsersResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item> $items
+     * @param list<Item|array{
+     *   data?: mixed,
+     *   preferences?: RecipientPreferences|null,
+     *   profile?: mixed,
+     *   recipient?: string|null,
+     *   to?: UserRecipient|null,
+     *   status: value-of<Status>,
+     *   messageId?: string|null,
+     * }> $items
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
-    public static function with(array $items, Paging $paging): self
+    public static function with(array $items, Paging|array $paging): self
     {
         $obj = new self;
 
-        $obj->items = $items;
-        $obj->paging = $paging;
+        $obj['items'] = $items;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
 
     /**
-     * @param list<Item> $items
+     * @param list<Item|array{
+     *   data?: mixed,
+     *   preferences?: RecipientPreferences|null,
+     *   profile?: mixed,
+     *   recipient?: string|null,
+     *   to?: UserRecipient|null,
+     *   status: value-of<Status>,
+     *   messageId?: string|null,
+     * }> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
 
-    public function withPaging(Paging $paging): self
+    /**
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }

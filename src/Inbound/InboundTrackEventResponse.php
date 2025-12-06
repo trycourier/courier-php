@@ -54,7 +54,7 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
     {
         $obj = new self;
 
-        $obj->messageId = $messageId;
+        $obj['messageId'] = $messageId;
 
         return $obj;
     }
@@ -65,7 +65,7 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
     public function withMessageID(string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageId = $messageID;
+        $obj['messageId'] = $messageID;
 
         return $obj;
     }

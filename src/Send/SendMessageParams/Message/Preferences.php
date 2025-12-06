@@ -50,7 +50,7 @@ final class Preferences implements BaseModel
     {
         $obj = new self;
 
-        $obj->subscription_topic_id = $subscription_topic_id;
+        $obj['subscription_topic_id'] = $subscription_topic_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class Preferences implements BaseModel
     public function withSubscriptionTopicID(string $subscriptionTopicID): self
     {
         $obj = clone $this;
-        $obj->subscription_topic_id = $subscriptionTopicID;
+        $obj['subscription_topic_id'] = $subscriptionTopicID;
 
         return $obj;
     }

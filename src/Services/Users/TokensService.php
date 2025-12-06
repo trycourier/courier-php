@@ -44,7 +44,7 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
@@ -77,7 +77,7 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'patch',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
@@ -100,7 +100,7 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): array {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/tokens', $userID],
@@ -130,7 +130,7 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
@@ -150,7 +150,7 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens', $userID],
@@ -200,7 +200,7 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],

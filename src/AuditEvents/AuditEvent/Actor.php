@@ -50,9 +50,9 @@ final class Actor implements BaseModel
     {
         $obj = new self;
 
-        $obj->id = $id;
+        $obj['id'] = $id;
 
-        null !== $email && $obj->email = $email;
+        null !== $email && $obj['email'] = $email;
 
         return $obj;
     }
@@ -60,7 +60,7 @@ final class Actor implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class Actor implements BaseModel
     public function withEmail(?string $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }

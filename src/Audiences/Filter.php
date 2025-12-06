@@ -73,8 +73,8 @@ final class Filter implements BaseModel
         $obj = new self;
 
         $obj['operator'] = $operator;
-        $obj->path = $path;
-        $obj->value = $value;
+        $obj['path'] = $path;
+        $obj['value'] = $value;
 
         return $obj;
     }
@@ -98,7 +98,7 @@ final class Filter implements BaseModel
     public function withPath(string $path): self
     {
         $obj = clone $this;
-        $obj->path = $path;
+        $obj['path'] = $path;
 
         return $obj;
     }
@@ -109,7 +109,7 @@ final class Filter implements BaseModel
     public function withValue(string $value): self
     {
         $obj = clone $this;
-        $obj->value = $value;
+        $obj['value'] = $value;
 
         return $obj;
     }

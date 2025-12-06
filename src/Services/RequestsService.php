@@ -27,7 +27,7 @@ final class RequestsService implements RequestsContract
         string $requestID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['requests/%1$s/archive', $requestID],

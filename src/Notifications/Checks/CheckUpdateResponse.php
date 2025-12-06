@@ -9,6 +9,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\Notifications\BaseCheck\Status;
+use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Check;
 
 /**
@@ -49,24 +51,28 @@ final class CheckUpdateResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Check> $checks
+     * @param list<Check|array{
+     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
+     * }> $checks
      */
     public static function with(array $checks): self
     {
         $obj = new self;
 
-        $obj->checks = $checks;
+        $obj['checks'] = $checks;
 
         return $obj;
     }
 
     /**
-     * @param list<Check> $checks
+     * @param list<Check|array{
+     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
+     * }> $checks
      */
     public function withChecks(array $checks): self
     {
         $obj = clone $this;
-        $obj->checks = $checks;
+        $obj['checks'] = $checks;
 
         return $obj;
     }
