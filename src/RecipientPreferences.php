@@ -45,8 +45,16 @@ final class RecipientPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,NotificationPreferenceDetails>|null $categories
-     * @param array<string,NotificationPreferenceDetails>|null $notifications
+     * @param array<string,NotificationPreferenceDetails|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     * }>|null $categories
+     * @param array<string,NotificationPreferenceDetails|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     * }>|null $notifications
      */
     public static function with(
         ?array $categories = null,
@@ -54,30 +62,38 @@ final class RecipientPreferences implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $categories && $obj->categories = $categories;
-        null !== $notifications && $obj->notifications = $notifications;
+        null !== $categories && $obj['categories'] = $categories;
+        null !== $notifications && $obj['notifications'] = $notifications;
 
         return $obj;
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails>|null $categories
+     * @param array<string,NotificationPreferenceDetails|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     * }>|null $categories
      */
     public function withCategories(?array $categories): self
     {
         $obj = clone $this;
-        $obj->categories = $categories;
+        $obj['categories'] = $categories;
 
         return $obj;
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails>|null $notifications
+     * @param array<string,NotificationPreferenceDetails|array{
+     *   status: value-of<PreferenceStatus>,
+     *   channel_preferences?: list<ChannelPreference>|null,
+     *   rules?: list<Rule>|null,
+     * }>|null $notifications
      */
     public function withNotifications(?array $notifications): self
     {
         $obj = clone $this;
-        $obj->notifications = $notifications;
+        $obj['notifications'] = $notifications;
 
         return $obj;
     }

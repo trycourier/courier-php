@@ -97,7 +97,15 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Tenant> $items
+     * @param list<Tenant|array{
+     *   id: string,
+     *   name: string,
+     *   brand_id?: string|null,
+     *   default_preferences?: DefaultPreferences|null,
+     *   parent_tenant_id?: string|null,
+     *   properties?: array<string,mixed>|null,
+     *   user_profile?: array<string,mixed>|null,
+     * }> $items
      * @param Type|value-of<Type> $type
      */
     public static function with(
@@ -110,13 +118,13 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->has_more = $has_more;
-        $obj->items = $items;
+        $obj['has_more'] = $has_more;
+        $obj['items'] = $items;
         $obj['type'] = $type;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
-        null !== $cursor && $obj->cursor = $cursor;
-        null !== $next_url && $obj->next_url = $next_url;
+        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $next_url && $obj['next_url'] = $next_url;
 
         return $obj;
     }
@@ -127,7 +135,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj->has_more = $hasMore;
+        $obj['has_more'] = $hasMore;
 
         return $obj;
     }
@@ -135,12 +143,20 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     /**
      * An array of Tenants.
      *
-     * @param list<Tenant> $items
+     * @param list<Tenant|array{
+     *   id: string,
+     *   name: string,
+     *   brand_id?: string|null,
+     *   default_preferences?: DefaultPreferences|null,
+     *   parent_tenant_id?: string|null,
+     *   properties?: array<string,mixed>|null,
+     *   user_profile?: array<string,mixed>|null,
+     * }> $items
      */
     public function withItems(array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
@@ -164,7 +180,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withURL(string $url): self
     {
         $obj = clone $this;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
         return $obj;
     }
@@ -175,7 +191,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }
@@ -187,7 +203,7 @@ final class TenantListResponse implements BaseModel, ResponseConverter
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj->next_url = $nextURL;
+        $obj['next_url'] = $nextURL;
 
         return $obj;
     }

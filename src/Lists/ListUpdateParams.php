@@ -8,6 +8,7 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
@@ -16,7 +17,11 @@ use Courier\RecipientPreferences;
  * @see Courier\Services\ListsService::update()
  *
  * @phpstan-type ListUpdateParamsShape = array{
- *   name: string, preferences?: RecipientPreferences|null
+ *   name: string,
+ *   preferences?: null|RecipientPreferences|array{
+ *     categories?: array<string,NotificationPreferenceDetails>|null,
+ *     notifications?: array<string,NotificationPreferenceDetails>|null,
+ *   },
  * }
  */
 final class ListUpdateParams implements BaseModel
@@ -54,16 +59,21 @@ final class ListUpdateParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
      */
     public static function with(
         string $name,
-        ?RecipientPreferences $preferences = null
+        RecipientPreferences|array|null $preferences = null
     ): self {
         $obj = new self;
 
-        $obj->name = $name;
+        $obj['name'] = $name;
 
-        null !== $preferences && $obj->preferences = $preferences;
+        null !== $preferences && $obj['preferences'] = $preferences;
 
         return $obj;
     }
@@ -71,15 +81,22 @@ final class ListUpdateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
 
-    public function withPreferences(?RecipientPreferences $preferences): self
-    {
+    /**
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
+     */
+    public function withPreferences(
+        RecipientPreferences|array|null $preferences
+    ): self {
         $obj = clone $this;
-        $obj->preferences = $preferences;
+        $obj['preferences'] = $preferences;
 
         return $obj;
     }

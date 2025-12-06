@@ -65,9 +65,9 @@ final class TenantAddSingleParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->user_id = $user_id;
+        $obj['user_id'] = $user_id;
 
-        null !== $profile && $obj->profile = $profile;
+        null !== $profile && $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -75,7 +75,7 @@ final class TenantAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }
@@ -86,7 +86,7 @@ final class TenantAddSingleParams implements BaseModel
     public function withProfile(?array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }

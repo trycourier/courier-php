@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
+use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
+use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type PreferenceGetTopicResponseShape = array{topic: TopicPreference}
@@ -46,20 +48,39 @@ final class PreferenceGetTopicResponse implements BaseModel, ResponseConverter
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param TopicPreference|array{
+     *   default_status: value-of<PreferenceStatus>,
+     *   status: value-of<PreferenceStatus>,
+     *   topic_id: string,
+     *   topic_name: string,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * } $topic
      */
-    public static function with(TopicPreference $topic): self
+    public static function with(TopicPreference|array $topic): self
     {
         $obj = new self;
 
-        $obj->topic = $topic;
+        $obj['topic'] = $topic;
 
         return $obj;
     }
 
-    public function withTopic(TopicPreference $topic): self
+    /**
+     * @param TopicPreference|array{
+     *   default_status: value-of<PreferenceStatus>,
+     *   status: value-of<PreferenceStatus>,
+     *   topic_id: string,
+     *   topic_name: string,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * } $topic
+     */
+    public function withTopic(TopicPreference|array $topic): self
     {
         $obj = clone $this;
-        $obj->topic = $topic;
+        $obj['topic'] = $topic;
 
         return $obj;
     }

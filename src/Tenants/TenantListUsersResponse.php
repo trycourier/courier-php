@@ -91,7 +91,12 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param list<TenantAssociation>|null $items
+     * @param list<TenantAssociation|array{
+     *   tenant_id: string,
+     *   profile?: array<string,mixed>|null,
+     *   type?: value-of<TenantAssociation\Type>|null,
+     *   user_id?: string|null,
+     * }>|null $items
      */
     public static function with(
         bool $has_more,
@@ -103,13 +108,13 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->has_more = $has_more;
+        $obj['has_more'] = $has_more;
         $obj['type'] = $type;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
-        null !== $cursor && $obj->cursor = $cursor;
-        null !== $items && $obj->items = $items;
-        null !== $next_url && $obj->next_url = $next_url;
+        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $items && $obj['items'] = $items;
+        null !== $next_url && $obj['next_url'] = $next_url;
 
         return $obj;
     }
@@ -120,7 +125,7 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj->has_more = $hasMore;
+        $obj['has_more'] = $hasMore;
 
         return $obj;
     }
@@ -144,7 +149,7 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
     public function withURL(string $url): self
     {
         $obj = clone $this;
-        $obj->url = $url;
+        $obj['url'] = $url;
 
         return $obj;
     }
@@ -156,18 +161,23 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
     public function withCursor(?string $cursor): self
     {
         $obj = clone $this;
-        $obj->cursor = $cursor;
+        $obj['cursor'] = $cursor;
 
         return $obj;
     }
 
     /**
-     * @param list<TenantAssociation>|null $items
+     * @param list<TenantAssociation|array{
+     *   tenant_id: string,
+     *   profile?: array<string,mixed>|null,
+     *   type?: value-of<TenantAssociation\Type>|null,
+     *   user_id?: string|null,
+     * }>|null $items
      */
     public function withItems(?array $items): self
     {
         $obj = clone $this;
-        $obj->items = $items;
+        $obj['items'] = $items;
 
         return $obj;
     }
@@ -179,7 +189,7 @@ final class TenantListUsersResponse implements BaseModel, ResponseConverter
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj->next_url = $nextURL;
+        $obj['next_url'] = $nextURL;
 
         return $obj;
     }

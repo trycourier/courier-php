@@ -10,6 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
 use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
 use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
+use Courier\Utm;
 
 /**
  * @phpstan-type ChannelShape = array{
@@ -79,28 +80,32 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param Metadata|array{
+     *   utm?: Utm|null
+     * }|null $metadata
      * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
      * @param RoutingMethod|value-of<RoutingMethod>|null $routing_method
+     * @param Timeouts|array{channel?: int|null, provider?: int|null}|null $timeouts
      */
     public static function with(
         ?string $brand_id = null,
         ?string $if = null,
-        ?Metadata $metadata = null,
+        Metadata|array|null $metadata = null,
         ?array $override = null,
         ?array $providers = null,
         RoutingMethod|string|null $routing_method = null,
-        ?Timeouts $timeouts = null,
+        Timeouts|array|null $timeouts = null,
     ): self {
         $obj = new self;
 
-        null !== $brand_id && $obj->brand_id = $brand_id;
-        null !== $if && $obj->if = $if;
-        null !== $metadata && $obj->metadata = $metadata;
-        null !== $override && $obj->override = $override;
-        null !== $providers && $obj->providers = $providers;
+        null !== $brand_id && $obj['brand_id'] = $brand_id;
+        null !== $if && $obj['if'] = $if;
+        null !== $metadata && $obj['metadata'] = $metadata;
+        null !== $override && $obj['override'] = $override;
+        null !== $providers && $obj['providers'] = $providers;
         null !== $routing_method && $obj['routing_method'] = $routing_method;
-        null !== $timeouts && $obj->timeouts = $timeouts;
+        null !== $timeouts && $obj['timeouts'] = $timeouts;
 
         return $obj;
     }
@@ -111,7 +116,7 @@ final class Channel implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj->brand_id = $brandID;
+        $obj['brand_id'] = $brandID;
 
         return $obj;
     }
@@ -122,16 +127,21 @@ final class Channel implements BaseModel
     public function withIf(?string $if): self
     {
         $obj = clone $this;
-        $obj->if = $if;
+        $obj['if'] = $if;
 
         return $obj;
     }
 
+    /**
+     * @param Metadata|array{
+     *   utm?: Utm|null
+     * }|null $metadata
+     */
     public function withMetadata(
-        ?Metadata $metadata
+        Metadata|array|null $metadata,
     ): self {
         $obj = clone $this;
-        $obj->metadata = $metadata;
+        $obj['metadata'] = $metadata;
 
         return $obj;
     }
@@ -144,7 +154,7 @@ final class Channel implements BaseModel
     public function withOverride(?array $override): self
     {
         $obj = clone $this;
-        $obj->override = $override;
+        $obj['override'] = $override;
 
         return $obj;
     }
@@ -157,7 +167,7 @@ final class Channel implements BaseModel
     public function withProviders(?array $providers): self
     {
         $obj = clone $this;
-        $obj->providers = $providers;
+        $obj['providers'] = $providers;
 
         return $obj;
     }
@@ -176,10 +186,13 @@ final class Channel implements BaseModel
         return $obj;
     }
 
-    public function withTimeouts(?Timeouts $timeouts): self
+    /**
+     * @param Timeouts|array{channel?: int|null, provider?: int|null}|null $timeouts
+     */
+    public function withTimeouts(Timeouts|array|null $timeouts): self
     {
         $obj = clone $this;
-        $obj->timeouts = $timeouts;
+        $obj['timeouts'] = $timeouts;
 
         return $obj;
     }

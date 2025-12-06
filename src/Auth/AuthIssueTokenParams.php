@@ -83,8 +83,8 @@ final class AuthIssueTokenParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->expires_in = $expires_in;
-        $obj->scope = $scope;
+        $obj['expires_in'] = $expires_in;
+        $obj['scope'] = $scope;
 
         return $obj;
     }
@@ -103,7 +103,7 @@ final class AuthIssueTokenParams implements BaseModel
     public function withExpiresIn(string $expiresIn): self
     {
         $obj = clone $this;
-        $obj->expires_in = $expiresIn;
+        $obj['expires_in'] = $expiresIn;
 
         return $obj;
     }
@@ -125,7 +125,7 @@ final class AuthIssueTokenParams implements BaseModel
     public function withScope(string $scope): self
     {
         $obj = clone $this;
-        $obj->scope = $scope;
+        $obj['scope'] = $scope;
 
         return $obj;
     }

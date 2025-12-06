@@ -83,13 +83,13 @@ final class InboundBulkTemplateMessage implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->template = $template;
+        $obj['template'] = $template;
 
-        null !== $brand && $obj->brand = $brand;
-        null !== $data && $obj->data = $data;
-        null !== $event && $obj->event = $event;
-        null !== $locale && $obj->locale = $locale;
-        null !== $override && $obj->override = $override;
+        null !== $brand && $obj['brand'] = $brand;
+        null !== $data && $obj['data'] = $data;
+        null !== $event && $obj['event'] = $event;
+        null !== $locale && $obj['locale'] = $locale;
+        null !== $override && $obj['override'] = $override;
 
         return $obj;
     }
@@ -97,7 +97,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withTemplate(string $template): self
     {
         $obj = clone $this;
-        $obj->template = $template;
+        $obj['template'] = $template;
 
         return $obj;
     }
@@ -105,7 +105,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }
@@ -116,7 +116,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withData(?array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }
@@ -124,7 +124,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withEvent(?string $event): self
     {
         $obj = clone $this;
-        $obj->event = $event;
+        $obj['event'] = $event;
 
         return $obj;
     }
@@ -135,7 +135,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withLocale(?array $locale): self
     {
         $obj = clone $this;
-        $obj->locale = $locale;
+        $obj['locale'] = $locale;
 
         return $obj;
     }
@@ -146,7 +146,7 @@ final class InboundBulkTemplateMessage implements BaseModel
     public function withOverride(?array $override): self
     {
         $obj = clone $this;
-        $obj->override = $override;
+        $obj['override'] = $override;
 
         return $obj;
     }

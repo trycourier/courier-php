@@ -53,7 +53,7 @@ final class TranslationRetrieveParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->domain = $domain;
+        $obj['domain'] = $domain;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class TranslationRetrieveParams implements BaseModel
     public function withDomain(string $domain): self
     {
         $obj = clone $this;
-        $obj->domain = $domain;
+        $obj['domain'] = $domain;
 
         return $obj;
     }

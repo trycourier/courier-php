@@ -10,6 +10,7 @@ use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Messages\MessageContentResponse\Result;
+use Courier\Messages\MessageContentResponse\Result\Content;
 
 /**
  * @phpstan-type MessageContentResponseShape = array{results: list<Result>}
@@ -53,13 +54,15 @@ final class MessageContentResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Result> $results
+     * @param list<Result|array{
+     *   channel: string, channel_id: string, content: Content
+     * }> $results
      */
     public static function with(array $results): self
     {
         $obj = new self;
 
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }
@@ -67,12 +70,14 @@ final class MessageContentResponse implements BaseModel, ResponseConverter
     /**
      * An array of render output of a previously sent message.
      *
-     * @param list<Result> $results
+     * @param list<Result|array{
+     *   channel: string, channel_id: string, content: Content
+     * }> $results
      */
     public function withResults(array $results): self
     {
         $obj = clone $this;
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }

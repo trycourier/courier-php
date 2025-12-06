@@ -60,9 +60,9 @@ final class Expiry implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->expires_in = $expires_in;
+        $obj['expires_in'] = $expires_in;
 
-        null !== $expires_at && $obj->expires_at = $expires_at;
+        null !== $expires_at && $obj['expires_at'] = $expires_at;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class Expiry implements BaseModel
     public function withExpiresIn(string|int $expiresIn): self
     {
         $obj = clone $this;
-        $obj->expires_in = $expiresIn;
+        $obj['expires_in'] = $expiresIn;
 
         return $obj;
     }
@@ -84,7 +84,7 @@ final class Expiry implements BaseModel
     public function withExpiresAt(?string $expiresAt): self
     {
         $obj = clone $this;
-        $obj->expires_at = $expiresAt;
+        $obj['expires_at'] = $expiresAt;
 
         return $obj;
     }

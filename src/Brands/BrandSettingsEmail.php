@@ -43,52 +43,99 @@ final class BrandSettingsEmail implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param EmailFooter|array{
+     *   content?: string|null, inheritDefault?: bool|null
+     * }|null $footer
+     * @param EmailHead|array{inheritDefault: bool, content?: string|null}|null $head
+     * @param EmailHeader|array{
+     *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
+     * }|null $header
+     * @param TemplateOverride|array{
+     *   enabled: bool,
+     *   backgroundColor?: string|null,
+     *   blocksBackgroundColor?: string|null,
+     *   footer?: string|null,
+     *   head?: string|null,
+     *   header?: string|null,
+     *   width?: string|null,
+     *   mjml: BrandTemplate,
+     *   footerBackgroundColor?: string|null,
+     *   footerFullWidth?: bool|null,
+     * }|null $templateOverride
      */
     public static function with(
-        ?EmailFooter $footer = null,
-        ?EmailHead $head = null,
-        ?EmailHeader $header = null,
-        ?TemplateOverride $templateOverride = null,
+        EmailFooter|array|null $footer = null,
+        EmailHead|array|null $head = null,
+        EmailHeader|array|null $header = null,
+        TemplateOverride|array|null $templateOverride = null,
     ): self {
         $obj = new self;
 
-        null !== $footer && $obj->footer = $footer;
-        null !== $head && $obj->head = $head;
-        null !== $header && $obj->header = $header;
-        null !== $templateOverride && $obj->templateOverride = $templateOverride;
+        null !== $footer && $obj['footer'] = $footer;
+        null !== $head && $obj['head'] = $head;
+        null !== $header && $obj['header'] = $header;
+        null !== $templateOverride && $obj['templateOverride'] = $templateOverride;
 
         return $obj;
     }
 
-    public function withFooter(?EmailFooter $footer): self
+    /**
+     * @param EmailFooter|array{
+     *   content?: string|null, inheritDefault?: bool|null
+     * }|null $footer
+     */
+    public function withFooter(EmailFooter|array|null $footer): self
     {
         $obj = clone $this;
-        $obj->footer = $footer;
+        $obj['footer'] = $footer;
 
         return $obj;
     }
 
-    public function withHead(?EmailHead $head): self
+    /**
+     * @param EmailHead|array{inheritDefault: bool, content?: string|null}|null $head
+     */
+    public function withHead(EmailHead|array|null $head): self
     {
         $obj = clone $this;
-        $obj->head = $head;
+        $obj['head'] = $head;
 
         return $obj;
     }
 
-    public function withHeader(?EmailHeader $header): self
+    /**
+     * @param EmailHeader|array{
+     *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
+     * }|null $header
+     */
+    public function withHeader(EmailHeader|array|null $header): self
     {
         $obj = clone $this;
-        $obj->header = $header;
+        $obj['header'] = $header;
 
         return $obj;
     }
 
+    /**
+     * @param TemplateOverride|array{
+     *   enabled: bool,
+     *   backgroundColor?: string|null,
+     *   blocksBackgroundColor?: string|null,
+     *   footer?: string|null,
+     *   head?: string|null,
+     *   header?: string|null,
+     *   width?: string|null,
+     *   mjml: BrandTemplate,
+     *   footerBackgroundColor?: string|null,
+     *   footerFullWidth?: bool|null,
+     * }|null $templateOverride
+     */
     public function withTemplateOverride(
-        ?TemplateOverride $templateOverride
+        TemplateOverride|array|null $templateOverride
     ): self {
         $obj = clone $this;
-        $obj->templateOverride = $templateOverride;
+        $obj['templateOverride'] = $templateOverride;
 
         return $obj;
     }

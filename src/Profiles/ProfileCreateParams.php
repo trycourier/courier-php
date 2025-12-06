@@ -56,7 +56,7 @@ final class ProfileCreateParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -67,7 +67,7 @@ final class ProfileCreateParams implements BaseModel
     public function withProfile(array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }

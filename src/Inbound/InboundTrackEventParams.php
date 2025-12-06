@@ -97,12 +97,12 @@ final class InboundTrackEventParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->event = $event;
-        $obj->messageId = $messageId;
-        $obj->properties = $properties;
+        $obj['event'] = $event;
+        $obj['messageId'] = $messageId;
+        $obj['properties'] = $properties;
         $obj['type'] = $type;
 
-        null !== $userId && $obj->userId = $userId;
+        null !== $userId && $obj['userId'] = $userId;
 
         return $obj;
     }
@@ -113,7 +113,7 @@ final class InboundTrackEventParams implements BaseModel
     public function withEvent(string $event): self
     {
         $obj = clone $this;
-        $obj->event = $event;
+        $obj['event'] = $event;
 
         return $obj;
     }
@@ -124,7 +124,7 @@ final class InboundTrackEventParams implements BaseModel
     public function withMessageID(string $messageID): self
     {
         $obj = clone $this;
-        $obj->messageId = $messageID;
+        $obj['messageId'] = $messageID;
 
         return $obj;
     }
@@ -135,7 +135,7 @@ final class InboundTrackEventParams implements BaseModel
     public function withProperties(array $properties): self
     {
         $obj = clone $this;
-        $obj->properties = $properties;
+        $obj['properties'] = $properties;
 
         return $obj;
     }
@@ -157,7 +157,7 @@ final class InboundTrackEventParams implements BaseModel
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
-        $obj->userId = $userID;
+        $obj['userId'] = $userID;
 
         return $obj;
     }

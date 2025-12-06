@@ -11,6 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
+use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type ListGetResponseShape = array{
@@ -59,22 +60,32 @@ final class ListGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Result> $results
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<Result|array{
+     *   id: string,
+     *   created: string,
+     *   name: string,
+     *   updated: string,
+     *   preferences?: RecipientPreferences|null,
+     * }> $results
      */
-    public static function with(Paging $paging, array $results): self
+    public static function with(Paging|array $paging, array $results): self
     {
         $obj = new self;
 
-        $obj->paging = $paging;
-        $obj->results = $results;
+        $obj['paging'] = $paging;
+        $obj['results'] = $results;
 
         return $obj;
     }
 
-    public function withPaging(Paging $paging): self
+    /**
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
     {
         $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
 
         return $obj;
     }
@@ -82,12 +93,18 @@ final class ListGetResponse implements BaseModel, ResponseConverter
     /**
      * An array of lists.
      *
-     * @param list<Result> $results
+     * @param list<Result|array{
+     *   id: string,
+     *   created: string,
+     *   name: string,
+     *   updated: string,
+     *   preferences?: RecipientPreferences|null,
+     * }> $results
      */
     public function withResults(array $results): self
     {
         $obj = clone $this;
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }

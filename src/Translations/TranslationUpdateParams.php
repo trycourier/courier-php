@@ -56,8 +56,8 @@ final class TranslationUpdateParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->domain = $domain;
-        $obj->body = $body;
+        $obj['domain'] = $domain;
+        $obj['body'] = $body;
 
         return $obj;
     }
@@ -65,7 +65,7 @@ final class TranslationUpdateParams implements BaseModel
     public function withDomain(string $domain): self
     {
         $obj = clone $this;
-        $obj->domain = $domain;
+        $obj['domain'] = $domain;
 
         return $obj;
     }
@@ -73,7 +73,7 @@ final class TranslationUpdateParams implements BaseModel
     public function withBody(string $body): self
     {
         $obj = clone $this;
-        $obj->body = $body;
+        $obj['body'] = $body;
 
         return $obj;
     }
