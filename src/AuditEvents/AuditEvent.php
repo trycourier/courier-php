@@ -82,9 +82,11 @@ final class AuditEvent implements BaseModel, ResponseConverter
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Actor|array{id: string, email?: string|null} $actor
      */
     public static function with(
-        Actor $actor,
+        Actor|array $actor,
         string $auditEventId,
         string $source,
         string $target,
@@ -93,20 +95,23 @@ final class AuditEvent implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->actor = $actor;
-        $obj->auditEventId = $auditEventId;
-        $obj->source = $source;
-        $obj->target = $target;
-        $obj->timestamp = $timestamp;
-        $obj->type = $type;
+        $obj['actor'] = $actor;
+        $obj['auditEventId'] = $auditEventId;
+        $obj['source'] = $source;
+        $obj['target'] = $target;
+        $obj['timestamp'] = $timestamp;
+        $obj['type'] = $type;
 
         return $obj;
     }
 
-    public function withActor(Actor $actor): self
+    /**
+     * @param Actor|array{id: string, email?: string|null} $actor
+     */
+    public function withActor(Actor|array $actor): self
     {
         $obj = clone $this;
-        $obj->actor = $actor;
+        $obj['actor'] = $actor;
 
         return $obj;
     }
@@ -114,7 +119,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withAuditEventID(string $auditEventID): self
     {
         $obj = clone $this;
-        $obj->auditEventId = $auditEventID;
+        $obj['auditEventId'] = $auditEventID;
 
         return $obj;
     }
@@ -122,7 +127,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withSource(string $source): self
     {
         $obj = clone $this;
-        $obj->source = $source;
+        $obj['source'] = $source;
 
         return $obj;
     }
@@ -130,7 +135,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withTarget(string $target): self
     {
         $obj = clone $this;
-        $obj->target = $target;
+        $obj['target'] = $target;
 
         return $obj;
     }
@@ -138,7 +143,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withTimestamp(string $timestamp): self
     {
         $obj = clone $this;
-        $obj->timestamp = $timestamp;
+        $obj['timestamp'] = $timestamp;
 
         return $obj;
     }
@@ -146,7 +151,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
     public function withType(string $type): self
     {
         $obj = clone $this;
-        $obj->type = $type;
+        $obj['type'] = $type;
 
         return $obj;
     }

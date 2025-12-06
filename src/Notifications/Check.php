@@ -69,10 +69,10 @@ final class Check implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
+        $obj['id'] = $id;
         $obj['status'] = $status;
         $obj['type'] = $type;
-        $obj->updated = $updated;
+        $obj['updated'] = $updated;
 
         return $obj;
     }
@@ -80,7 +80,7 @@ final class Check implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -110,7 +110,7 @@ final class Check implements BaseModel
     public function withUpdated(int $updated): self
     {
         $obj = clone $this;
-        $obj->updated = $updated;
+        $obj['updated'] = $updated;
 
         return $obj;
     }

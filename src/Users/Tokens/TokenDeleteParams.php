@@ -53,7 +53,7 @@ final class TokenDeleteParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->user_id = $user_id;
+        $obj['user_id'] = $user_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class TokenDeleteParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }

@@ -16,7 +16,8 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
  * @see Courier\Services\Users\TokensService::update()
  *
  * @phpstan-type TokenUpdateParamsShape = array{
- *   user_id: string, patch: list<Patch>
+ *   user_id: string,
+ *   patch: list<Patch|array{op: string, path: string, value?: string|null}>,
  * }
  */
 final class TokenUpdateParams implements BaseModel
@@ -56,14 +57,14 @@ final class TokenUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Patch> $patch
+     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
      */
     public static function with(string $user_id, array $patch): self
     {
         $obj = new self;
 
-        $obj->user_id = $user_id;
-        $obj->patch = $patch;
+        $obj['user_id'] = $user_id;
+        $obj['patch'] = $patch;
 
         return $obj;
     }
@@ -71,18 +72,18 @@ final class TokenUpdateParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }
 
     /**
-     * @param list<Patch> $patch
+     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
      */
     public function withPatch(array $patch): self
     {
         $obj = clone $this;
-        $obj->patch = $patch;
+        $obj['patch'] = $patch;
 
         return $obj;
     }

@@ -57,7 +57,7 @@ final class AutomationInvokeStep implements BaseModel
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj->template = $template;
+        $obj['template'] = $template;
 
         return $obj;
     }
@@ -76,7 +76,7 @@ final class AutomationInvokeStep implements BaseModel
     public function withTemplate(string $template): self
     {
         $obj = clone $this;
-        $obj->template = $template;
+        $obj['template'] = $template;
 
         return $obj;
     }

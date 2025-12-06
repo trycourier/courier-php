@@ -40,8 +40,8 @@ final class BrandColors implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $primary && $obj->primary = $primary;
-        null !== $secondary && $obj->secondary = $secondary;
+        null !== $primary && $obj['primary'] = $primary;
+        null !== $secondary && $obj['secondary'] = $secondary;
 
         return $obj;
     }
@@ -49,7 +49,7 @@ final class BrandColors implements BaseModel
     public function withPrimary(string $primary): self
     {
         $obj = clone $this;
-        $obj->primary = $primary;
+        $obj['primary'] = $primary;
 
         return $obj;
     }
@@ -57,7 +57,7 @@ final class BrandColors implements BaseModel
     public function withSecondary(string $secondary): self
     {
         $obj = clone $this;
-        $obj->secondary = $secondary;
+        $obj['secondary'] = $secondary;
 
         return $obj;
     }

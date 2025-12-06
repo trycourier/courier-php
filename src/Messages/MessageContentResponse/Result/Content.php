@@ -96,7 +96,7 @@ final class Content implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Block> $blocks
+     * @param list<Block|array{text: string, type: string}> $blocks
      */
     public static function with(
         array $blocks,
@@ -108,12 +108,12 @@ final class Content implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->blocks = $blocks;
-        $obj->body = $body;
-        $obj->html = $html;
-        $obj->subject = $subject;
-        $obj->text = $text;
-        $obj->title = $title;
+        $obj['blocks'] = $blocks;
+        $obj['body'] = $body;
+        $obj['html'] = $html;
+        $obj['subject'] = $subject;
+        $obj['text'] = $text;
+        $obj['title'] = $title;
 
         return $obj;
     }
@@ -121,12 +121,12 @@ final class Content implements BaseModel
     /**
      * The blocks of the rendered message.
      *
-     * @param list<Block> $blocks
+     * @param list<Block|array{text: string, type: string}> $blocks
      */
     public function withBlocks(array $blocks): self
     {
         $obj = clone $this;
-        $obj->blocks = $blocks;
+        $obj['blocks'] = $blocks;
 
         return $obj;
     }
@@ -137,7 +137,7 @@ final class Content implements BaseModel
     public function withBody(string $body): self
     {
         $obj = clone $this;
-        $obj->body = $body;
+        $obj['body'] = $body;
 
         return $obj;
     }
@@ -148,7 +148,7 @@ final class Content implements BaseModel
     public function withHTML(string $html): self
     {
         $obj = clone $this;
-        $obj->html = $html;
+        $obj['html'] = $html;
 
         return $obj;
     }
@@ -159,7 +159,7 @@ final class Content implements BaseModel
     public function withSubject(string $subject): self
     {
         $obj = clone $this;
-        $obj->subject = $subject;
+        $obj['subject'] = $subject;
 
         return $obj;
     }
@@ -170,7 +170,7 @@ final class Content implements BaseModel
     public function withText(string $text): self
     {
         $obj = clone $this;
-        $obj->text = $text;
+        $obj['text'] = $text;
 
         return $obj;
     }
@@ -181,7 +181,7 @@ final class Content implements BaseModel
     public function withTitle(string $title): self
     {
         $obj = clone $this;
-        $obj->title = $title;
+        $obj['title'] = $title;
 
         return $obj;
     }

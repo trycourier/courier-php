@@ -46,19 +46,26 @@ final class Metadata implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $tags
+     * @param Utm|array{
+     *   campaign?: string|null,
+     *   content?: string|null,
+     *   medium?: string|null,
+     *   source?: string|null,
+     *   term?: string|null,
+     * }|null $utm
      */
     public static function with(
         ?string $event = null,
         ?array $tags = null,
         ?string $trace_id = null,
-        ?Utm $utm = null,
+        Utm|array|null $utm = null,
     ): self {
         $obj = new self;
 
-        null !== $event && $obj->event = $event;
-        null !== $tags && $obj->tags = $tags;
-        null !== $trace_id && $obj->trace_id = $trace_id;
-        null !== $utm && $obj->utm = $utm;
+        null !== $event && $obj['event'] = $event;
+        null !== $tags && $obj['tags'] = $tags;
+        null !== $trace_id && $obj['trace_id'] = $trace_id;
+        null !== $utm && $obj['utm'] = $utm;
 
         return $obj;
     }
@@ -66,7 +73,7 @@ final class Metadata implements BaseModel
     public function withEvent(?string $event): self
     {
         $obj = clone $this;
-        $obj->event = $event;
+        $obj['event'] = $event;
 
         return $obj;
     }
@@ -77,7 +84,7 @@ final class Metadata implements BaseModel
     public function withTags(?array $tags): self
     {
         $obj = clone $this;
-        $obj->tags = $tags;
+        $obj['tags'] = $tags;
 
         return $obj;
     }
@@ -85,15 +92,24 @@ final class Metadata implements BaseModel
     public function withTraceID(?string $traceID): self
     {
         $obj = clone $this;
-        $obj->trace_id = $traceID;
+        $obj['trace_id'] = $traceID;
 
         return $obj;
     }
 
-    public function withUtm(?Utm $utm): self
+    /**
+     * @param Utm|array{
+     *   campaign?: string|null,
+     *   content?: string|null,
+     *   medium?: string|null,
+     *   source?: string|null,
+     *   term?: string|null,
+     * }|null $utm
+     */
+    public function withUtm(Utm|array|null $utm): self
     {
         $obj = clone $this;
-        $obj->utm = $utm;
+        $obj['utm'] = $utm;
 
         return $obj;
     }

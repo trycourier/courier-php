@@ -53,7 +53,7 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     {
         $obj = new self;
 
-        $obj->list_id = $list_id;
+        $obj['list_id'] = $list_id;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj->list_id = $listID;
+        $obj['list_id'] = $listID;
 
         return $obj;
     }

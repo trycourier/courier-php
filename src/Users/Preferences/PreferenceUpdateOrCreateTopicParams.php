@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
+use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\PreferenceStatus;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 
 /**
@@ -16,7 +18,13 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   user_id: string, topic: Topic, tenant_id?: string|null
+ *   user_id: string,
+ *   topic: Topic|array{
+ *     status: value-of<PreferenceStatus>,
+ *     custom_routing?: list<value-of<ChannelClassification>>|null,
+ *     has_custom_routing?: bool|null,
+ *   },
+ *   tenant_id?: string|null,
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -60,18 +68,24 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Topic|array{
+     *   status: value-of<PreferenceStatus>,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * } $topic
      */
     public static function with(
         string $user_id,
-        Topic $topic,
+        Topic|array $topic,
         ?string $tenant_id = null
     ): self {
         $obj = new self;
 
-        $obj->user_id = $user_id;
-        $obj->topic = $topic;
+        $obj['user_id'] = $user_id;
+        $obj['topic'] = $topic;
 
-        null !== $tenant_id && $obj->tenant_id = $tenant_id;
+        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
 
         return $obj;
     }
@@ -79,15 +93,22 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }
 
-    public function withTopic(Topic $topic): self
+    /**
+     * @param Topic|array{
+     *   status: value-of<PreferenceStatus>,
+     *   custom_routing?: list<value-of<ChannelClassification>>|null,
+     *   has_custom_routing?: bool|null,
+     * } $topic
+     */
+    public function withTopic(Topic|array $topic): self
     {
         $obj = clone $this;
-        $obj->topic = $topic;
+        $obj['topic'] = $topic;
 
         return $obj;
     }
@@ -98,7 +119,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }

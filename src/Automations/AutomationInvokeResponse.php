@@ -47,7 +47,7 @@ final class AutomationInvokeResponse implements BaseModel
     {
         $obj = new self;
 
-        $obj->runId = $runId;
+        $obj['runId'] = $runId;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class AutomationInvokeResponse implements BaseModel
     public function withRunID(string $runID): self
     {
         $obj = clone $this;
-        $obj->runId = $runID;
+        $obj['runId'] = $runID;
 
         return $obj;
     }

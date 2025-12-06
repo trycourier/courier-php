@@ -55,7 +55,7 @@ final class SendMessageResponse implements BaseModel, ResponseConverter
     {
         $obj = new self;
 
-        $obj->requestId = $requestId;
+        $obj['requestId'] = $requestId;
 
         return $obj;
     }
@@ -67,7 +67,7 @@ final class SendMessageResponse implements BaseModel, ResponseConverter
     public function withRequestID(string $requestID): self
     {
         $obj = clone $this;
-        $obj->requestId = $requestID;
+        $obj['requestId'] = $requestID;
 
         return $obj;
     }

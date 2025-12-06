@@ -7,6 +7,7 @@ namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Action;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\MergeStrategy;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -59,17 +60,23 @@ final class AutomationFetchDataStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
+     * @param Webhook|array{
+     *   method: value-of<Method>,
+     *   url: string,
+     *   body?: string|null,
+     *   headers?: array<string,string>|null,
+     * } $webhook
      * @param MergeStrategy|value-of<MergeStrategy>|null $merge_strategy
      */
     public static function with(
         Action|string $action,
-        Webhook $webhook,
+        Webhook|array $webhook,
         MergeStrategy|string|null $merge_strategy = null,
     ): self {
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj->webhook = $webhook;
+        $obj['webhook'] = $webhook;
 
         null !== $merge_strategy && $obj['merge_strategy'] = $merge_strategy;
 
@@ -87,10 +94,18 @@ final class AutomationFetchDataStep implements BaseModel
         return $obj;
     }
 
-    public function withWebhook(Webhook $webhook): self
+    /**
+     * @param Webhook|array{
+     *   method: value-of<Method>,
+     *   url: string,
+     *   body?: string|null,
+     *   headers?: array<string,string>|null,
+     * } $webhook
+     */
+    public function withWebhook(Webhook|array $webhook): self
     {
         $obj = clone $this;
-        $obj->webhook = $webhook;
+        $obj['webhook'] = $webhook;
 
         return $obj;
     }

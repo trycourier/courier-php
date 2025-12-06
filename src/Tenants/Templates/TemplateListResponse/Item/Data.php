@@ -8,6 +8,7 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
+use Courier\MessageRouting\Method;
 
 /**
  * The template's data containing it's routing configs.
@@ -45,20 +46,29 @@ final class Data implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param MessageRouting|array{
+     *   channels: list<mixed>, method: value-of<Method>
+     * } $routing
      */
-    public static function with(MessageRouting $routing): self
+    public static function with(MessageRouting|array $routing): self
     {
         $obj = new self;
 
-        $obj->routing = $routing;
+        $obj['routing'] = $routing;
 
         return $obj;
     }
 
-    public function withRouting(MessageRouting $routing): self
+    /**
+     * @param MessageRouting|array{
+     *   channels: list<mixed>, method: value-of<Method>
+     * } $routing
+     */
+    public function withRouting(MessageRouting|array $routing): self
     {
         $obj = clone $this;
-        $obj->routing = $routing;
+        $obj['routing'] = $routing;
 
         return $obj;
     }
