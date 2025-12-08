@@ -10,9 +10,9 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
 use Courier\NotificationPreferenceDetails;
-use Courier\ProfilePreferences;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
+use Courier\UserRecipient\Preferences;
 
 /**
  * @phpstan-type ItemShape = array{
@@ -89,7 +89,7 @@ final class Item implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * } $to
@@ -165,7 +165,7 @@ final class Item implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * } $to
