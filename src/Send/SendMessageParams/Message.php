@@ -17,7 +17,6 @@ use Courier\ElementalMetaNodeWithType;
 use Courier\ElementalQuoteNodeWithType;
 use Courier\ElementalTextNodeWithType;
 use Courier\MessageContext;
-use Courier\ProfilePreferences;
 use Courier\Recipient;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
@@ -183,7 +182,7 @@ final class Message implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: UserRecipient\Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }|list<Recipient|array{
@@ -194,7 +193,7 @@ final class Message implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Recipient\Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }>|null $to
@@ -424,7 +423,7 @@ final class Message implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: UserRecipient\Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }|list<Recipient|array{
@@ -435,7 +434,7 @@ final class Message implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Recipient\Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }>|null $to

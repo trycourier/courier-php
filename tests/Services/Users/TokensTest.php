@@ -4,6 +4,7 @@ namespace Tests\Services\Users;
 
 use Courier\Client;
 use Courier\Users\Tokens\TokenGetResponse;
+use Courier\Users\Tokens\TokenListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -104,7 +105,7 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->list('user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertIsList($result);
+        $this->assertInstanceOf(TokenListResponse::class, $result);
     }
 
     #[Test]

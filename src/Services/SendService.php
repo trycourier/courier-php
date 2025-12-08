@@ -8,7 +8,6 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\MessageContext;
 use Courier\MessageRoutingChannel;
-use Courier\ProfilePreferences;
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams;
 use Courier\Send\SendMessageResponse;
@@ -82,7 +81,7 @@ final class SendService implements SendContract
      *       list_id?: string|null,
      *       locale?: string|null,
      *       phone_number?: string|null,
-     *       preferences?: array<mixed>|ProfilePreferences|null,
+     *       preferences?: array<mixed>|null,
      *       tenant_id?: string|null,
      *       user_id?: string|null,
      *     }|UserRecipient|list<array<mixed>>|null,

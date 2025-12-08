@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Courier\Services\Users;
 
 use Courier\Client;
-use Courier\Core\Conversion\ListOf;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
 use Courier\Users\Tokens\TokenAddSingleParams;
 use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
+use Courier\Users\Tokens\TokenListResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
-use Courier\Users\Tokens\UserToken;
 
 final class TokensService implements TokensContract
 {
@@ -92,20 +91,18 @@ final class TokensService implements TokensContract
      *
      * Gets all tokens available for a :user_id
      *
-     * @return list<UserToken>
-     *
      * @throws APIException
      */
     public function list(
         string $userID,
         ?RequestOptions $requestOptions = null
-    ): array {
+    ): TokenListResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['users/%1$s/tokens', $userID],
             options: $requestOptions,
-            convert: new ListOf(UserToken::class),
+            convert: TokenListResponse::class,
         );
     }
 

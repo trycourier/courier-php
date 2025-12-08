@@ -9,9 +9,9 @@ use Courier\RequestOptions;
 use Courier\Users\Tokens\TokenAddSingleParams;
 use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
+use Courier\Users\Tokens\TokenListResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
-use Courier\Users\Tokens\UserToken;
 
 interface TokensContract
 {
@@ -44,14 +44,12 @@ interface TokensContract
     /**
      * @api
      *
-     * @return list<UserToken>
-     *
      * @throws APIException
      */
     public function list(
         string $userID,
         ?RequestOptions $requestOptions = null
-    ): array;
+    ): TokenListResponse;
 
     /**
      * @api
