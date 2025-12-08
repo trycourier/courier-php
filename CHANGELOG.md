@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.0 (2025-12-08)
+
+Full Changelog: [v3.1.2...v3.2.0](https://github.com/trycourier/courier-php/compare/v3.1.2...v3.2.0)
+
+### Features
+
+* Add event_ids field to Notification schema ([63710cf](https://github.com/trycourier/courier-php/commit/63710cfac8cd466951e01be129e8cc8e35c300cf))
+* allow both model class instances and arrays in setters ([8aed1a0](https://github.com/trycourier/courier-php/commit/8aed1a045166df0f7960910b3ae3aa2b40c2373a))
+
+
+### Chores
+
+* be more targeted in suppressing superfluous linter warnings ([d46bb77](https://github.com/trycourier/courier-php/commit/d46bb77502c5eb0e5759d338ce664b92ec166a47))
+
 ## 3.1.2 (2025-12-03)
 
 Full Changelog: [v3.1.1...v3.1.2](https://github.com/trycourier/courier-php/compare/v3.1.1...v3.1.2)
