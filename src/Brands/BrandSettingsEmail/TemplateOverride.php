@@ -81,10 +81,20 @@ final class TemplateOverride implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BrandTemplate|array{
+     *   enabled: bool,
+     *   backgroundColor?: string|null,
+     *   blocksBackgroundColor?: string|null,
+     *   footer?: string|null,
+     *   head?: string|null,
+     *   header?: string|null,
+     *   width?: string|null,
+     * } $mjml
      */
     public static function with(
         bool $enabled,
-        BrandTemplate $mjml,
+        BrandTemplate|array $mjml,
         ?string $backgroundColor = null,
         ?string $blocksBackgroundColor = null,
         ?string $footer = null,
@@ -96,17 +106,17 @@ final class TemplateOverride implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->enabled = $enabled;
-        $obj->mjml = $mjml;
+        $obj['enabled'] = $enabled;
+        $obj['mjml'] = $mjml;
 
-        null !== $backgroundColor && $obj->backgroundColor = $backgroundColor;
-        null !== $blocksBackgroundColor && $obj->blocksBackgroundColor = $blocksBackgroundColor;
-        null !== $footer && $obj->footer = $footer;
-        null !== $head && $obj->head = $head;
-        null !== $header && $obj->header = $header;
-        null !== $width && $obj->width = $width;
-        null !== $footerBackgroundColor && $obj->footerBackgroundColor = $footerBackgroundColor;
-        null !== $footerFullWidth && $obj->footerFullWidth = $footerFullWidth;
+        null !== $backgroundColor && $obj['backgroundColor'] = $backgroundColor;
+        null !== $blocksBackgroundColor && $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
+        null !== $footer && $obj['footer'] = $footer;
+        null !== $head && $obj['head'] = $head;
+        null !== $header && $obj['header'] = $header;
+        null !== $width && $obj['width'] = $width;
+        null !== $footerBackgroundColor && $obj['footerBackgroundColor'] = $footerBackgroundColor;
+        null !== $footerFullWidth && $obj['footerFullWidth'] = $footerFullWidth;
 
         return $obj;
     }
@@ -114,7 +124,7 @@ final class TemplateOverride implements BaseModel
     public function withEnabled(bool $enabled): self
     {
         $obj = clone $this;
-        $obj->enabled = $enabled;
+        $obj['enabled'] = $enabled;
 
         return $obj;
     }
@@ -122,7 +132,7 @@ final class TemplateOverride implements BaseModel
     public function withBackgroundColor(?string $backgroundColor): self
     {
         $obj = clone $this;
-        $obj->backgroundColor = $backgroundColor;
+        $obj['backgroundColor'] = $backgroundColor;
 
         return $obj;
     }
@@ -131,7 +141,7 @@ final class TemplateOverride implements BaseModel
         ?string $blocksBackgroundColor
     ): self {
         $obj = clone $this;
-        $obj->blocksBackgroundColor = $blocksBackgroundColor;
+        $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
 
         return $obj;
     }
@@ -139,7 +149,7 @@ final class TemplateOverride implements BaseModel
     public function withFooter(?string $footer): self
     {
         $obj = clone $this;
-        $obj->footer = $footer;
+        $obj['footer'] = $footer;
 
         return $obj;
     }
@@ -147,7 +157,7 @@ final class TemplateOverride implements BaseModel
     public function withHead(?string $head): self
     {
         $obj = clone $this;
-        $obj->head = $head;
+        $obj['head'] = $head;
 
         return $obj;
     }
@@ -155,7 +165,7 @@ final class TemplateOverride implements BaseModel
     public function withHeader(?string $header): self
     {
         $obj = clone $this;
-        $obj->header = $header;
+        $obj['header'] = $header;
 
         return $obj;
     }
@@ -163,15 +173,26 @@ final class TemplateOverride implements BaseModel
     public function withWidth(?string $width): self
     {
         $obj = clone $this;
-        $obj->width = $width;
+        $obj['width'] = $width;
 
         return $obj;
     }
 
-    public function withMjml(BrandTemplate $mjml): self
+    /**
+     * @param BrandTemplate|array{
+     *   enabled: bool,
+     *   backgroundColor?: string|null,
+     *   blocksBackgroundColor?: string|null,
+     *   footer?: string|null,
+     *   head?: string|null,
+     *   header?: string|null,
+     *   width?: string|null,
+     * } $mjml
+     */
+    public function withMjml(BrandTemplate|array $mjml): self
     {
         $obj = clone $this;
-        $obj->mjml = $mjml;
+        $obj['mjml'] = $mjml;
 
         return $obj;
     }
@@ -180,7 +201,7 @@ final class TemplateOverride implements BaseModel
         ?string $footerBackgroundColor
     ): self {
         $obj = clone $this;
-        $obj->footerBackgroundColor = $footerBackgroundColor;
+        $obj['footerBackgroundColor'] = $footerBackgroundColor;
 
         return $obj;
     }
@@ -188,7 +209,7 @@ final class TemplateOverride implements BaseModel
     public function withFooterFullWidth(?bool $footerFullWidth): self
     {
         $obj = clone $this;
-        $obj->footerFullWidth = $footerFullWidth;
+        $obj['footerFullWidth'] = $footerFullWidth;
 
         return $obj;
     }

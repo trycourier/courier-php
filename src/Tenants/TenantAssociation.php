@@ -81,11 +81,11 @@ final class TenantAssociation implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->tenant_id = $tenant_id;
+        $obj['tenant_id'] = $tenant_id;
 
-        null !== $profile && $obj->profile = $profile;
+        null !== $profile && $obj['profile'] = $profile;
         null !== $type && $obj['type'] = $type;
-        null !== $user_id && $obj->user_id = $user_id;
+        null !== $user_id && $obj['user_id'] = $user_id;
 
         return $obj;
     }
@@ -96,7 +96,7 @@ final class TenantAssociation implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }
@@ -109,7 +109,7 @@ final class TenantAssociation implements BaseModel
     public function withProfile(?array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -131,7 +131,7 @@ final class TenantAssociation implements BaseModel
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
-        $obj->user_id = $userID;
+        $obj['user_id'] = $userID;
 
         return $obj;
     }

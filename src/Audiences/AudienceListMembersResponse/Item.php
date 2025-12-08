@@ -81,11 +81,11 @@ final class Item implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->added_at = $added_at;
-        $obj->audience_id = $audience_id;
-        $obj->audience_version = $audience_version;
-        $obj->member_id = $member_id;
-        $obj->reason = $reason;
+        $obj['added_at'] = $added_at;
+        $obj['audience_id'] = $audience_id;
+        $obj['audience_version'] = $audience_version;
+        $obj['member_id'] = $member_id;
+        $obj['reason'] = $reason;
 
         return $obj;
     }
@@ -93,7 +93,7 @@ final class Item implements BaseModel
     public function withAddedAt(string $addedAt): self
     {
         $obj = clone $this;
-        $obj->added_at = $addedAt;
+        $obj['added_at'] = $addedAt;
 
         return $obj;
     }
@@ -101,7 +101,7 @@ final class Item implements BaseModel
     public function withAudienceID(string $audienceID): self
     {
         $obj = clone $this;
-        $obj->audience_id = $audienceID;
+        $obj['audience_id'] = $audienceID;
 
         return $obj;
     }
@@ -109,7 +109,7 @@ final class Item implements BaseModel
     public function withAudienceVersion(int $audienceVersion): self
     {
         $obj = clone $this;
-        $obj->audience_version = $audienceVersion;
+        $obj['audience_version'] = $audienceVersion;
 
         return $obj;
     }
@@ -117,7 +117,7 @@ final class Item implements BaseModel
     public function withMemberID(string $memberID): self
     {
         $obj = clone $this;
-        $obj->member_id = $memberID;
+        $obj['member_id'] = $memberID;
 
         return $obj;
     }
@@ -125,7 +125,7 @@ final class Item implements BaseModel
     public function withReason(string $reason): self
     {
         $obj = clone $this;
-        $obj->reason = $reason;
+        $obj['reason'] = $reason;
 
         return $obj;
     }

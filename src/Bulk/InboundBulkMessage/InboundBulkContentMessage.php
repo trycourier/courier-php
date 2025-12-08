@@ -8,8 +8,15 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
+use Courier\ElementalActionNodeWithType;
+use Courier\ElementalChannelNodeWithType;
 use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
+use Courier\ElementalDividerNodeWithType;
+use Courier\ElementalImageNodeWithType;
+use Courier\ElementalMetaNodeWithType;
+use Courier\ElementalQuoteNodeWithType;
+use Courier\ElementalTextNodeWithType;
 
 /**
  * @phpstan-type InboundBulkContentMessageShape = array{
@@ -74,12 +81,19 @@ final class InboundBulkContentMessage implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param ElementalContentSugar|array{
+     *   body: string, title: string
+     * }|ElementalContent|array{
+     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
+     *   version: string,
+     *   brand?: string|null,
+     * } $content
      * @param array<string,mixed>|null $data
      * @param array<string,array<string,mixed>>|null $locale
      * @param array<string,mixed>|null $override
      */
     public static function with(
-        ElementalContentSugar|ElementalContent $content,
+        ElementalContentSugar|array|ElementalContent $content,
         ?string $brand = null,
         ?array $data = null,
         ?string $event = null,
@@ -88,25 +102,33 @@ final class InboundBulkContentMessage implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->content = $content;
+        $obj['content'] = $content;
 
-        null !== $brand && $obj->brand = $brand;
-        null !== $data && $obj->data = $data;
-        null !== $event && $obj->event = $event;
-        null !== $locale && $obj->locale = $locale;
-        null !== $override && $obj->override = $override;
+        null !== $brand && $obj['brand'] = $brand;
+        null !== $data && $obj['data'] = $data;
+        null !== $event && $obj['event'] = $event;
+        null !== $locale && $obj['locale'] = $locale;
+        null !== $override && $obj['override'] = $override;
 
         return $obj;
     }
 
     /**
      * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
+     *
+     * @param ElementalContentSugar|array{
+     *   body: string, title: string
+     * }|ElementalContent|array{
+     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
+     *   version: string,
+     *   brand?: string|null,
+     * } $content
      */
     public function withContent(
-        ElementalContentSugar|ElementalContent $content
+        ElementalContentSugar|array|ElementalContent $content
     ): self {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }
@@ -114,7 +136,7 @@ final class InboundBulkContentMessage implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }
@@ -125,7 +147,7 @@ final class InboundBulkContentMessage implements BaseModel
     public function withData(?array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }
@@ -133,7 +155,7 @@ final class InboundBulkContentMessage implements BaseModel
     public function withEvent(?string $event): self
     {
         $obj = clone $this;
-        $obj->event = $event;
+        $obj['event'] = $event;
 
         return $obj;
     }
@@ -144,7 +166,7 @@ final class InboundBulkContentMessage implements BaseModel
     public function withLocale(?array $locale): self
     {
         $obj = clone $this;
-        $obj->locale = $locale;
+        $obj['locale'] = $locale;
 
         return $obj;
     }
@@ -155,7 +177,7 @@ final class InboundBulkContentMessage implements BaseModel
     public function withOverride(?array $override): self
     {
         $obj = clone $this;
-        $obj->override = $override;
+        $obj['override'] = $override;
 
         return $obj;
     }

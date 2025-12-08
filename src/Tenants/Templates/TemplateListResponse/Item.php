@@ -7,6 +7,7 @@ namespace Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\MessageRouting;
 use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
 
 /**
@@ -96,6 +97,8 @@ final class Item implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Data|array{routing: MessageRouting} $data
      */
     public static function with(
         string $id,
@@ -103,16 +106,16 @@ final class Item implements BaseModel
         string $published_at,
         string $updated_at,
         string $version,
-        Data $data,
+        Data|array $data,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created_at = $created_at;
-        $obj->published_at = $published_at;
-        $obj->updated_at = $updated_at;
-        $obj->version = $version;
-        $obj->data = $data;
+        $obj['id'] = $id;
+        $obj['created_at'] = $created_at;
+        $obj['published_at'] = $published_at;
+        $obj['updated_at'] = $updated_at;
+        $obj['version'] = $version;
+        $obj['data'] = $data;
 
         return $obj;
     }
@@ -123,7 +126,7 @@ final class Item implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -134,7 +137,7 @@ final class Item implements BaseModel
     public function withCreatedAt(string $createdAt): self
     {
         $obj = clone $this;
-        $obj->created_at = $createdAt;
+        $obj['created_at'] = $createdAt;
 
         return $obj;
     }
@@ -145,7 +148,7 @@ final class Item implements BaseModel
     public function withPublishedAt(string $publishedAt): self
     {
         $obj = clone $this;
-        $obj->published_at = $publishedAt;
+        $obj['published_at'] = $publishedAt;
 
         return $obj;
     }
@@ -156,7 +159,7 @@ final class Item implements BaseModel
     public function withUpdatedAt(string $updatedAt): self
     {
         $obj = clone $this;
-        $obj->updated_at = $updatedAt;
+        $obj['updated_at'] = $updatedAt;
 
         return $obj;
     }
@@ -167,18 +170,20 @@ final class Item implements BaseModel
     public function withVersion(string $version): self
     {
         $obj = clone $this;
-        $obj->version = $version;
+        $obj['version'] = $version;
 
         return $obj;
     }
 
     /**
      * The template's data containing it's routing configs.
+     *
+     * @param Data|array{routing: MessageRouting} $data
      */
-    public function withData(Data $data): self
+    public function withData(Data|array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }

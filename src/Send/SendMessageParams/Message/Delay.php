@@ -44,8 +44,8 @@ final class Delay implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $duration && $obj->duration = $duration;
-        null !== $until && $obj->until = $until;
+        null !== $duration && $obj['duration'] = $duration;
+        null !== $until && $obj['until'] = $until;
 
         return $obj;
     }
@@ -56,7 +56,7 @@ final class Delay implements BaseModel
     public function withDuration(?int $duration): self
     {
         $obj = clone $this;
-        $obj->duration = $duration;
+        $obj['duration'] = $duration;
 
         return $obj;
     }
@@ -67,7 +67,7 @@ final class Delay implements BaseModel
     public function withUntil(?string $until): self
     {
         $obj = clone $this;
-        $obj->until = $until;
+        $obj['until'] = $until;
 
         return $obj;
     }

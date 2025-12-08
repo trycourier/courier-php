@@ -81,12 +81,12 @@ final class Device implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $ad_id && $obj->ad_id = $ad_id;
-        null !== $app_id && $obj->app_id = $app_id;
-        null !== $device_id && $obj->device_id = $device_id;
-        null !== $manufacturer && $obj->manufacturer = $manufacturer;
-        null !== $model && $obj->model = $model;
-        null !== $platform && $obj->platform = $platform;
+        null !== $ad_id && $obj['ad_id'] = $ad_id;
+        null !== $app_id && $obj['app_id'] = $app_id;
+        null !== $device_id && $obj['device_id'] = $device_id;
+        null !== $manufacturer && $obj['manufacturer'] = $manufacturer;
+        null !== $model && $obj['model'] = $model;
+        null !== $platform && $obj['platform'] = $platform;
 
         return $obj;
     }
@@ -97,7 +97,7 @@ final class Device implements BaseModel
     public function withAdID(?string $adID): self
     {
         $obj = clone $this;
-        $obj->ad_id = $adID;
+        $obj['ad_id'] = $adID;
 
         return $obj;
     }
@@ -108,7 +108,7 @@ final class Device implements BaseModel
     public function withAppID(?string $appID): self
     {
         $obj = clone $this;
-        $obj->app_id = $appID;
+        $obj['app_id'] = $appID;
 
         return $obj;
     }
@@ -119,7 +119,7 @@ final class Device implements BaseModel
     public function withDeviceID(?string $deviceID): self
     {
         $obj = clone $this;
-        $obj->device_id = $deviceID;
+        $obj['device_id'] = $deviceID;
 
         return $obj;
     }
@@ -130,7 +130,7 @@ final class Device implements BaseModel
     public function withManufacturer(?string $manufacturer): self
     {
         $obj = clone $this;
-        $obj->manufacturer = $manufacturer;
+        $obj['manufacturer'] = $manufacturer;
 
         return $obj;
     }
@@ -141,7 +141,7 @@ final class Device implements BaseModel
     public function withModel(?string $model): self
     {
         $obj = clone $this;
-        $obj->model = $model;
+        $obj['model'] = $model;
 
         return $obj;
     }
@@ -152,7 +152,7 @@ final class Device implements BaseModel
     public function withPlatform(?string $platform): self
     {
         $obj = clone $this;
-        $obj->platform = $platform;
+        $obj['platform'] = $platform;
 
         return $obj;
     }

@@ -7,6 +7,7 @@ namespace Courier\Profiles;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
@@ -48,16 +49,21 @@ final class SubscribeToListsRequestItem implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
      */
     public static function with(
         string $listId,
-        ?RecipientPreferences $preferences = null
+        RecipientPreferences|array|null $preferences = null
     ): self {
         $obj = new self;
 
-        $obj->listId = $listId;
+        $obj['listId'] = $listId;
 
-        null !== $preferences && $obj->preferences = $preferences;
+        null !== $preferences && $obj['preferences'] = $preferences;
 
         return $obj;
     }
@@ -65,15 +71,22 @@ final class SubscribeToListsRequestItem implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj->listId = $listID;
+        $obj['listId'] = $listID;
 
         return $obj;
     }
 
-    public function withPreferences(?RecipientPreferences $preferences): self
-    {
+    /**
+     * @param RecipientPreferences|array{
+     *   categories?: array<string,NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,NotificationPreferenceDetails>|null,
+     * }|null $preferences
+     */
+    public function withPreferences(
+        RecipientPreferences|array|null $preferences
+    ): self {
         $obj = clone $this;
-        $obj->preferences = $preferences;
+        $obj['preferences'] = $preferences;
 
         return $obj;
     }

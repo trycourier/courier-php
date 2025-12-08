@@ -85,11 +85,11 @@ final class ItemUpdateParams implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->tenant_id = $tenant_id;
+        $obj['tenant_id'] = $tenant_id;
         $obj['status'] = $status;
 
         null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj->has_custom_routing = $has_custom_routing;
+        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
 
         return $obj;
     }
@@ -97,7 +97,7 @@ final class ItemUpdateParams implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj->tenant_id = $tenantID;
+        $obj['tenant_id'] = $tenantID;
 
         return $obj;
     }
@@ -132,7 +132,7 @@ final class ItemUpdateParams implements BaseModel
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $obj = clone $this;
-        $obj->has_custom_routing = $hasCustomRouting;
+        $obj['has_custom_routing'] = $hasCustomRouting;
 
         return $obj;
     }

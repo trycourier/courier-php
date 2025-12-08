@@ -7,11 +7,15 @@ namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep\Action;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\MergeStrategy;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep\Merge;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -60,7 +64,36 @@ final class Automation implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep> $steps
+     * @param list<AutomationDelayStep|array{
+     *   action: value-of<Action>, duration?: string|null, until?: string|null
+     * }|AutomationSendStep|array{
+     *   action: value-of<AutomationSendStep\Action>,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   profile?: array<string,mixed>|null,
+     *   recipient?: string|null,
+     *   template?: string|null,
+     * }|AutomationSendListStep|array{
+     *   action: value-of<AutomationSendListStep\Action>,
+     *   list: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     * }|AutomationUpdateProfileStep|array{
+     *   action: value-of<AutomationUpdateProfileStep\Action>,
+     *   profile: array<string,mixed>,
+     *   merge?: value-of<Merge>|null,
+     *   recipient_id?: string|null,
+     * }|AutomationCancelStep|array{
+     *   action: value-of<AutomationCancelStep\Action>,
+     *   cancelation_token: string,
+     * }|AutomationFetchDataStep|array{
+     *   action: value-of<AutomationFetchDataStep\Action>,
+     *   webhook: Webhook,
+     *   merge_strategy?: value-of<MergeStrategy>|null,
+     * }|AutomationInvokeStep|array{
+     *   action: value-of<AutomationInvokeStep\Action>,
+     *   template: string,
+     * }> $steps
      */
     public static function with(
         array $steps,
@@ -68,20 +101,49 @@ final class Automation implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->steps = $steps;
+        $obj['steps'] = $steps;
 
-        null !== $cancelation_token && $obj->cancelation_token = $cancelation_token;
+        null !== $cancelation_token && $obj['cancelation_token'] = $cancelation_token;
 
         return $obj;
     }
 
     /**
-     * @param list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep> $steps
+     * @param list<AutomationDelayStep|array{
+     *   action: value-of<Action>, duration?: string|null, until?: string|null
+     * }|AutomationSendStep|array{
+     *   action: value-of<AutomationSendStep\Action>,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     *   profile?: array<string,mixed>|null,
+     *   recipient?: string|null,
+     *   template?: string|null,
+     * }|AutomationSendListStep|array{
+     *   action: value-of<AutomationSendListStep\Action>,
+     *   list: string,
+     *   brand?: string|null,
+     *   data?: array<string,mixed>|null,
+     * }|AutomationUpdateProfileStep|array{
+     *   action: value-of<AutomationUpdateProfileStep\Action>,
+     *   profile: array<string,mixed>,
+     *   merge?: value-of<Merge>|null,
+     *   recipient_id?: string|null,
+     * }|AutomationCancelStep|array{
+     *   action: value-of<AutomationCancelStep\Action>,
+     *   cancelation_token: string,
+     * }|AutomationFetchDataStep|array{
+     *   action: value-of<AutomationFetchDataStep\Action>,
+     *   webhook: Webhook,
+     *   merge_strategy?: value-of<MergeStrategy>|null,
+     * }|AutomationInvokeStep|array{
+     *   action: value-of<AutomationInvokeStep\Action>,
+     *   template: string,
+     * }> $steps
      */
     public function withSteps(array $steps): self
     {
         $obj = clone $this;
-        $obj->steps = $steps;
+        $obj['steps'] = $steps;
 
         return $obj;
     }
@@ -89,7 +151,7 @@ final class Automation implements BaseModel
     public function withCancelationToken(?string $cancelationToken): self
     {
         $obj = clone $this;
-        $obj->cancelation_token = $cancelationToken;
+        $obj['cancelation_token'] = $cancelationToken;
 
         return $obj;
     }

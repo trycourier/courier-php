@@ -64,23 +64,26 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,Locale>|null $locales
+     * @param Content|array{subject?: string|null, title?: string|null}|null $content
+     * @param array<string,Locale|array{
+     *   subject?: string|null, title?: string|null
+     * }>|null $locales
      */
     public static function with(
         string $id,
         ?string $checksum = null,
-        ?Content $content = null,
+        Content|array|null $content = null,
         ?array $locales = null,
         ?string $type = null,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
+        $obj['id'] = $id;
 
-        null !== $checksum && $obj->checksum = $checksum;
-        null !== $content && $obj->content = $content;
-        null !== $locales && $obj->locales = $locales;
-        null !== $type && $obj->type = $type;
+        null !== $checksum && $obj['checksum'] = $checksum;
+        null !== $content && $obj['content'] = $content;
+        null !== $locales && $obj['locales'] = $locales;
+        null !== $type && $obj['type'] = $type;
 
         return $obj;
     }
@@ -88,7 +91,7 @@ final class Channel implements BaseModel
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -96,26 +99,31 @@ final class Channel implements BaseModel
     public function withChecksum(?string $checksum): self
     {
         $obj = clone $this;
-        $obj->checksum = $checksum;
-
-        return $obj;
-    }
-
-    public function withContent(?Content $content): self
-    {
-        $obj = clone $this;
-        $obj->content = $content;
+        $obj['checksum'] = $checksum;
 
         return $obj;
     }
 
     /**
-     * @param array<string,Locale>|null $locales
+     * @param Content|array{subject?: string|null, title?: string|null}|null $content
+     */
+    public function withContent(Content|array|null $content): self
+    {
+        $obj = clone $this;
+        $obj['content'] = $content;
+
+        return $obj;
+    }
+
+    /**
+     * @param array<string,Locale|array{
+     *   subject?: string|null, title?: string|null
+     * }>|null $locales
      */
     public function withLocales(?array $locales): self
     {
         $obj = clone $this;
-        $obj->locales = $locales;
+        $obj['locales'] = $locales;
 
         return $obj;
     }
@@ -123,7 +131,7 @@ final class Channel implements BaseModel
     public function withType(?string $type): self
     {
         $obj = clone $this;
-        $obj->type = $type;
+        $obj['type'] = $type;
 
         return $obj;
     }

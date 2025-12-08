@@ -46,20 +46,39 @@ final class AudienceUpdateResponse implements BaseModel, ResponseConverter
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Audience|array{
+     *   id: string,
+     *   created_at: string,
+     *   description: string,
+     *   filter: Filter,
+     *   name: string,
+     *   updated_at: string,
+     * } $audience
      */
-    public static function with(Audience $audience): self
+    public static function with(Audience|array $audience): self
     {
         $obj = new self;
 
-        $obj->audience = $audience;
+        $obj['audience'] = $audience;
 
         return $obj;
     }
 
-    public function withAudience(Audience $audience): self
+    /**
+     * @param Audience|array{
+     *   id: string,
+     *   created_at: string,
+     *   description: string,
+     *   filter: Filter,
+     *   name: string,
+     *   updated_at: string,
+     * } $audience
+     */
+    public function withAudience(Audience|array $audience): self
     {
         $obj = clone $this;
-        $obj->audience = $audience;
+        $obj['audience'] = $audience;
 
         return $obj;
     }

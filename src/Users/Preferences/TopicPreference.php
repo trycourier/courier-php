@@ -96,11 +96,11 @@ final class TopicPreference implements BaseModel
 
         $obj['default_status'] = $default_status;
         $obj['status'] = $status;
-        $obj->topic_id = $topic_id;
-        $obj->topic_name = $topic_name;
+        $obj['topic_id'] = $topic_id;
+        $obj['topic_name'] = $topic_name;
 
         null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj->has_custom_routing = $has_custom_routing;
+        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
 
         return $obj;
     }
@@ -131,7 +131,7 @@ final class TopicPreference implements BaseModel
     public function withTopicID(string $topicID): self
     {
         $obj = clone $this;
-        $obj->topic_id = $topicID;
+        $obj['topic_id'] = $topicID;
 
         return $obj;
     }
@@ -139,7 +139,7 @@ final class TopicPreference implements BaseModel
     public function withTopicName(string $topicName): self
     {
         $obj = clone $this;
-        $obj->topic_name = $topicName;
+        $obj['topic_name'] = $topicName;
 
         return $obj;
     }
@@ -160,7 +160,7 @@ final class TopicPreference implements BaseModel
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $obj = clone $this;
-        $obj->has_custom_routing = $hasCustomRouting;
+        $obj['has_custom_routing'] = $hasCustomRouting;
 
         return $obj;
     }

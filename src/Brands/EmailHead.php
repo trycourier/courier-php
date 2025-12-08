@@ -54,9 +54,9 @@ final class EmailHead implements BaseModel
     ): self {
         $obj = new self;
 
-        $obj->inheritDefault = $inheritDefault;
+        $obj['inheritDefault'] = $inheritDefault;
 
-        null !== $content && $obj->content = $content;
+        null !== $content && $obj['content'] = $content;
 
         return $obj;
     }
@@ -64,7 +64,7 @@ final class EmailHead implements BaseModel
     public function withInheritDefault(bool $inheritDefault): self
     {
         $obj = clone $this;
-        $obj->inheritDefault = $inheritDefault;
+        $obj['inheritDefault'] = $inheritDefault;
 
         return $obj;
     }
@@ -72,7 +72,7 @@ final class EmailHead implements BaseModel
     public function withContent(?string $content): self
     {
         $obj = clone $this;
-        $obj->content = $content;
+        $obj['content'] = $content;
 
         return $obj;
     }

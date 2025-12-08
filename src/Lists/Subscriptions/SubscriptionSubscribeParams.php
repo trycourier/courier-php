@@ -9,6 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Lists\PutSubscriptionsRecipient;
+use Courier\RecipientPreferences;
 
 /**
  * Subscribes the users to the list, overwriting existing subscriptions. If the list does not exist, it will be automatically created.
@@ -16,7 +17,9 @@ use Courier\Lists\PutSubscriptionsRecipient;
  * @see Courier\Services\Lists\SubscriptionsService::subscribe()
  *
  * @phpstan-type SubscriptionSubscribeParamsShape = array{
- *   recipients: list<PutSubscriptionsRecipient>
+ *   recipients: list<PutSubscriptionsRecipient|array{
+ *     recipientId: string, preferences?: RecipientPreferences|null
+ *   }>,
  * }
  */
 final class SubscriptionSubscribeParams implements BaseModel
@@ -53,24 +56,28 @@ final class SubscriptionSubscribeParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<PutSubscriptionsRecipient> $recipients
+     * @param list<PutSubscriptionsRecipient|array{
+     *   recipientId: string, preferences?: RecipientPreferences|null
+     * }> $recipients
      */
     public static function with(array $recipients): self
     {
         $obj = new self;
 
-        $obj->recipients = $recipients;
+        $obj['recipients'] = $recipients;
 
         return $obj;
     }
 
     /**
-     * @param list<PutSubscriptionsRecipient> $recipients
+     * @param list<PutSubscriptionsRecipient|array{
+     *   recipientId: string, preferences?: RecipientPreferences|null
+     * }> $recipients
      */
     public function withRecipients(array $recipients): self
     {
         $obj = clone $this;
-        $obj->recipients = $recipients;
+        $obj['recipients'] = $recipients;
 
         return $obj;
     }

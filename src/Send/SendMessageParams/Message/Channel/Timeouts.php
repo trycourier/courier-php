@@ -38,8 +38,8 @@ final class Timeouts implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $channel && $obj->channel = $channel;
-        null !== $provider && $obj->provider = $provider;
+        null !== $channel && $obj['channel'] = $channel;
+        null !== $provider && $obj['provider'] = $provider;
 
         return $obj;
     }
@@ -47,7 +47,7 @@ final class Timeouts implements BaseModel
     public function withChannel(?int $channel): self
     {
         $obj = clone $this;
-        $obj->channel = $channel;
+        $obj['channel'] = $channel;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class Timeouts implements BaseModel
     public function withProvider(?int $provider): self
     {
         $obj = clone $this;
-        $obj->provider = $provider;
+        $obj['provider'] = $provider;
 
         return $obj;
     }

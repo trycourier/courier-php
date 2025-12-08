@@ -76,6 +76,13 @@ final class Brand implements BaseModel, ResponseConverter
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
      */
     public static function with(
         string $id,
@@ -83,21 +90,21 @@ final class Brand implements BaseModel, ResponseConverter
         string $name,
         int $updated,
         ?int $published = null,
-        ?BrandSettings $settings = null,
-        ?BrandSnippets $snippets = null,
+        BrandSettings|array|null $settings = null,
+        BrandSnippets|array|null $snippets = null,
         ?string $version = null,
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->created = $created;
-        $obj->name = $name;
-        $obj->updated = $updated;
+        $obj['id'] = $id;
+        $obj['created'] = $created;
+        $obj['name'] = $name;
+        $obj['updated'] = $updated;
 
-        null !== $published && $obj->published = $published;
-        null !== $settings && $obj->settings = $settings;
-        null !== $snippets && $obj->snippets = $snippets;
-        null !== $version && $obj->version = $version;
+        null !== $published && $obj['published'] = $published;
+        null !== $settings && $obj['settings'] = $settings;
+        null !== $snippets && $obj['snippets'] = $snippets;
+        null !== $version && $obj['version'] = $version;
 
         return $obj;
     }
@@ -105,7 +112,7 @@ final class Brand implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -113,7 +120,7 @@ final class Brand implements BaseModel, ResponseConverter
     public function withCreated(int $created): self
     {
         $obj = clone $this;
-        $obj->created = $created;
+        $obj['created'] = $created;
 
         return $obj;
     }
@@ -121,7 +128,7 @@ final class Brand implements BaseModel, ResponseConverter
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -129,7 +136,7 @@ final class Brand implements BaseModel, ResponseConverter
     public function withUpdated(int $updated): self
     {
         $obj = clone $this;
-        $obj->updated = $updated;
+        $obj['updated'] = $updated;
 
         return $obj;
     }
@@ -137,23 +144,33 @@ final class Brand implements BaseModel, ResponseConverter
     public function withPublished(?int $published): self
     {
         $obj = clone $this;
-        $obj->published = $published;
+        $obj['published'] = $published;
 
         return $obj;
     }
 
-    public function withSettings(?BrandSettings $settings): self
+    /**
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     */
+    public function withSettings(BrandSettings|array|null $settings): self
     {
         $obj = clone $this;
-        $obj->settings = $settings;
+        $obj['settings'] = $settings;
 
         return $obj;
     }
 
-    public function withSnippets(?BrandSnippets $snippets): self
+    /**
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     */
+    public function withSnippets(BrandSnippets|array|null $snippets): self
     {
         $obj = clone $this;
-        $obj->snippets = $snippets;
+        $obj['snippets'] = $snippets;
 
         return $obj;
     }
@@ -161,7 +178,7 @@ final class Brand implements BaseModel, ResponseConverter
     public function withVersion(?string $version): self
     {
         $obj = clone $this;
-        $obj->version = $version;
+        $obj['version'] = $version;
 
         return $obj;
     }

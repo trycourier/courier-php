@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
+use Courier\Brands\BrandSettingsEmail\TemplateOverride;
+use Courier\Brands\BrandSettingsInApp\Placement;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -38,41 +40,84 @@ final class BrandSettings implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BrandColors|array{
+     *   primary?: string|null, secondary?: string|null
+     * }|null $colors
+     * @param BrandSettingsEmail|array{
+     *   footer?: EmailFooter|null,
+     *   head?: EmailHead|null,
+     *   header?: EmailHeader|null,
+     *   templateOverride?: TemplateOverride|null,
+     * }|null $email
+     * @param BrandSettingsInApp|array{
+     *   colors: BrandColors,
+     *   icons: Icons,
+     *   widgetBackground: WidgetBackground,
+     *   borderRadius?: string|null,
+     *   disableMessageIcon?: bool|null,
+     *   fontFamily?: string|null,
+     *   placement?: value-of<Placement>|null,
+     * }|null $inapp
      */
     public static function with(
-        ?BrandColors $colors = null,
-        ?BrandSettingsEmail $email = null,
-        ?BrandSettingsInApp $inapp = null,
+        BrandColors|array|null $colors = null,
+        BrandSettingsEmail|array|null $email = null,
+        BrandSettingsInApp|array|null $inapp = null,
     ): self {
         $obj = new self;
 
-        null !== $colors && $obj->colors = $colors;
-        null !== $email && $obj->email = $email;
-        null !== $inapp && $obj->inapp = $inapp;
+        null !== $colors && $obj['colors'] = $colors;
+        null !== $email && $obj['email'] = $email;
+        null !== $inapp && $obj['inapp'] = $inapp;
 
         return $obj;
     }
 
-    public function withColors(?BrandColors $colors): self
+    /**
+     * @param BrandColors|array{
+     *   primary?: string|null, secondary?: string|null
+     * }|null $colors
+     */
+    public function withColors(BrandColors|array|null $colors): self
     {
         $obj = clone $this;
-        $obj->colors = $colors;
+        $obj['colors'] = $colors;
 
         return $obj;
     }
 
-    public function withEmail(?BrandSettingsEmail $email): self
+    /**
+     * @param BrandSettingsEmail|array{
+     *   footer?: EmailFooter|null,
+     *   head?: EmailHead|null,
+     *   header?: EmailHeader|null,
+     *   templateOverride?: TemplateOverride|null,
+     * }|null $email
+     */
+    public function withEmail(BrandSettingsEmail|array|null $email): self
     {
         $obj = clone $this;
-        $obj->email = $email;
+        $obj['email'] = $email;
 
         return $obj;
     }
 
-    public function withInapp(?BrandSettingsInApp $inapp): self
+    /**
+     * @param BrandSettingsInApp|array{
+     *   colors: BrandColors,
+     *   icons: Icons,
+     *   widgetBackground: WidgetBackground,
+     *   borderRadius?: string|null,
+     *   disableMessageIcon?: bool|null,
+     *   fontFamily?: string|null,
+     *   placement?: value-of<Placement>|null,
+     * }|null $inapp
+     */
+    public function withInapp(BrandSettingsInApp|array|null $inapp): self
     {
         $obj = clone $this;
-        $obj->inapp = $inapp;
+        $obj['inapp'] = $inapp;
 
         return $obj;
     }

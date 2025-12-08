@@ -53,7 +53,7 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['bulk/%1$s', $jobID],
@@ -83,7 +83,7 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'bulk',
@@ -112,7 +112,7 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['bulk/%1$s/users', $jobID],
@@ -133,7 +133,7 @@ final class BulkService implements BulkContract
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): BulkGetJobResponse {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['bulk/%1$s', $jobID],
@@ -153,7 +153,7 @@ final class BulkService implements BulkContract
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['bulk/%1$s/run', $jobID],

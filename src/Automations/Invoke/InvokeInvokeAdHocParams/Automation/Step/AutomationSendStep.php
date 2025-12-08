@@ -85,11 +85,11 @@ final class AutomationSendStep implements BaseModel
 
         $obj['action'] = $action;
 
-        null !== $brand && $obj->brand = $brand;
-        null !== $data && $obj->data = $data;
-        null !== $profile && $obj->profile = $profile;
-        null !== $recipient && $obj->recipient = $recipient;
-        null !== $template && $obj->template = $template;
+        null !== $brand && $obj['brand'] = $brand;
+        null !== $data && $obj['data'] = $data;
+        null !== $profile && $obj['profile'] = $profile;
+        null !== $recipient && $obj['recipient'] = $recipient;
+        null !== $template && $obj['template'] = $template;
 
         return $obj;
     }
@@ -108,7 +108,7 @@ final class AutomationSendStep implements BaseModel
     public function withBrand(?string $brand): self
     {
         $obj = clone $this;
-        $obj->brand = $brand;
+        $obj['brand'] = $brand;
 
         return $obj;
     }
@@ -119,7 +119,7 @@ final class AutomationSendStep implements BaseModel
     public function withData(?array $data): self
     {
         $obj = clone $this;
-        $obj->data = $data;
+        $obj['data'] = $data;
 
         return $obj;
     }
@@ -130,7 +130,7 @@ final class AutomationSendStep implements BaseModel
     public function withProfile(?array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -138,7 +138,7 @@ final class AutomationSendStep implements BaseModel
     public function withRecipient(?string $recipient): self
     {
         $obj = clone $this;
-        $obj->recipient = $recipient;
+        $obj['recipient'] = $recipient;
 
         return $obj;
     }
@@ -146,7 +146,7 @@ final class AutomationSendStep implements BaseModel
     public function withTemplate(?string $template): self
     {
         $obj = clone $this;
-        $obj->template = $template;
+        $obj['template'] = $template;
 
         return $obj;
     }

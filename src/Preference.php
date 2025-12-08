@@ -63,8 +63,10 @@ final class Preference implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelPreference>|null $channel_preferences
-     * @param list<Rule>|null $rules
+     * @param list<ChannelPreference|array{
+     *   channel: value-of<ChannelClassification>
+     * }>|null $channel_preferences
+     * @param list<Rule|array{until: string, start?: string|null}>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
@@ -77,8 +79,8 @@ final class Preference implements BaseModel
 
         $obj['status'] = $status;
 
-        null !== $channel_preferences && $obj->channel_preferences = $channel_preferences;
-        null !== $rules && $obj->rules = $rules;
+        null !== $channel_preferences && $obj['channel_preferences'] = $channel_preferences;
+        null !== $rules && $obj['rules'] = $rules;
         null !== $source && $obj['source'] = $source;
 
         return $obj;
@@ -96,23 +98,25 @@ final class Preference implements BaseModel
     }
 
     /**
-     * @param list<ChannelPreference>|null $channelPreferences
+     * @param list<ChannelPreference|array{
+     *   channel: value-of<ChannelClassification>
+     * }>|null $channelPreferences
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
         $obj = clone $this;
-        $obj->channel_preferences = $channelPreferences;
+        $obj['channel_preferences'] = $channelPreferences;
 
         return $obj;
     }
 
     /**
-     * @param list<Rule>|null $rules
+     * @param list<Rule|array{until: string, start?: string|null}>|null $rules
      */
     public function withRules(?array $rules): self
     {
         $obj = clone $this;
-        $obj->rules = $rules;
+        $obj['rules'] = $rules;
 
         return $obj;
     }

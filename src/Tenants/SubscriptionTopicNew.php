@@ -77,7 +77,7 @@ final class SubscriptionTopicNew implements BaseModel
         $obj['status'] = $status;
 
         null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj->has_custom_routing = $has_custom_routing;
+        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
 
         return $obj;
     }
@@ -112,7 +112,7 @@ final class SubscriptionTopicNew implements BaseModel
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $obj = clone $this;
-        $obj->has_custom_routing = $hasCustomRouting;
+        $obj['has_custom_routing'] = $hasCustomRouting;
 
         return $obj;
     }

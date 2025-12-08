@@ -56,7 +56,7 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'brands',
@@ -77,7 +77,7 @@ final class BrandsService implements BrandsContract
         string $brandID,
         ?RequestOptions $requestOptions = null
     ): Brand {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['brands/%1$s', $brandID],
@@ -115,7 +115,7 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['brands/%1$s', $brandID],
@@ -143,7 +143,7 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: 'brands',
@@ -164,7 +164,7 @@ final class BrandsService implements BrandsContract
         string $brandID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: ['brands/%1$s', $brandID],

@@ -15,7 +15,13 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\BrandsService::update()
  *
  * @phpstan-type BrandUpdateParamsShape = array{
- *   name: string, settings?: BrandSettings|null, snippets?: BrandSnippets|null
+ *   name: string,
+ *   settings?: null|BrandSettings|array{
+ *     colors?: BrandColors|null,
+ *     email?: BrandSettingsEmail|null,
+ *     inapp?: BrandSettingsInApp|null,
+ *   },
+ *   snippets?: null|BrandSnippets|array{items?: list<BrandSnippet>|null},
  * }
  */
 final class BrandUpdateParams implements BaseModel
@@ -59,18 +65,25 @@ final class BrandUpdateParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
      */
     public static function with(
         string $name,
-        ?BrandSettings $settings = null,
-        ?BrandSnippets $snippets = null,
+        BrandSettings|array|null $settings = null,
+        BrandSnippets|array|null $snippets = null,
     ): self {
         $obj = new self;
 
-        $obj->name = $name;
+        $obj['name'] = $name;
 
-        null !== $settings && $obj->settings = $settings;
-        null !== $snippets && $obj->snippets = $snippets;
+        null !== $settings && $obj['settings'] = $settings;
+        null !== $snippets && $obj['snippets'] = $snippets;
 
         return $obj;
     }
@@ -81,23 +94,33 @@ final class BrandUpdateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
 
-    public function withSettings(?BrandSettings $settings): self
+    /**
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     */
+    public function withSettings(BrandSettings|array|null $settings): self
     {
         $obj = clone $this;
-        $obj->settings = $settings;
+        $obj['settings'] = $settings;
 
         return $obj;
     }
 
-    public function withSnippets(?BrandSnippets $snippets): self
+    /**
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     */
+    public function withSnippets(BrandSnippets|array|null $snippets): self
     {
         $obj = clone $this;
-        $obj->snippets = $snippets;
+        $obj['snippets'] = $snippets;
 
         return $obj;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\AuditEvents;
 
+use Courier\AuditEvents\AuditEvent\Actor;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkResponse;
@@ -54,33 +55,51 @@ final class AuditEventListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<AuditEvent> $results
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<AuditEvent|array{
+     *   actor: Actor,
+     *   auditEventId: string,
+     *   source: string,
+     *   target: string,
+     *   timestamp: string,
+     *   type: string,
+     * }> $results
      */
-    public static function with(Paging $paging, array $results): self
+    public static function with(Paging|array $paging, array $results): self
     {
         $obj = new self;
 
-        $obj->paging = $paging;
-        $obj->results = $results;
-
-        return $obj;
-    }
-
-    public function withPaging(Paging $paging): self
-    {
-        $obj = clone $this;
-        $obj->paging = $paging;
+        $obj['paging'] = $paging;
+        $obj['results'] = $results;
 
         return $obj;
     }
 
     /**
-     * @param list<AuditEvent> $results
+     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     */
+    public function withPaging(Paging|array $paging): self
+    {
+        $obj = clone $this;
+        $obj['paging'] = $paging;
+
+        return $obj;
+    }
+
+    /**
+     * @param list<AuditEvent|array{
+     *   actor: Actor,
+     *   auditEventId: string,
+     *   source: string,
+     *   target: string,
+     *   timestamp: string,
+     *   type: string,
+     * }> $results
      */
     public function withResults(array $results): self
     {
         $obj = clone $this;
-        $obj->results = $results;
+        $obj['results'] = $results;
 
         return $obj;
     }

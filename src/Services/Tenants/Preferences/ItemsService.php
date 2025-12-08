@@ -45,7 +45,7 @@ final class ItemsService implements ItemsContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: [
@@ -78,7 +78,7 @@ final class ItemsService implements ItemsContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'delete',
             path: [

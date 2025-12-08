@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\Audiences\Filter\Operator;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -15,7 +16,11 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\AudiencesService::update()
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
- *   description?: string|null, filter?: Filter|null, name?: string|null
+ *   description?: string|null,
+ *   filter?: null|Filter|array{
+ *     operator: value-of<Operator>, path: string, value: string
+ *   },
+ *   name?: string|null,
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -51,17 +56,21 @@ final class AudienceUpdateParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Filter|array{
+     *   operator: value-of<Operator>, path: string, value: string
+     * }|null $filter
      */
     public static function with(
         ?string $description = null,
-        ?Filter $filter = null,
-        ?string $name = null
+        Filter|array|null $filter = null,
+        ?string $name = null,
     ): self {
         $obj = new self;
 
-        null !== $description && $obj->description = $description;
-        null !== $filter && $obj->filter = $filter;
-        null !== $name && $obj->name = $name;
+        null !== $description && $obj['description'] = $description;
+        null !== $filter && $obj['filter'] = $filter;
+        null !== $name && $obj['name'] = $name;
 
         return $obj;
     }
@@ -72,18 +81,22 @@ final class AudienceUpdateParams implements BaseModel
     public function withDescription(?string $description): self
     {
         $obj = clone $this;
-        $obj->description = $description;
+        $obj['description'] = $description;
 
         return $obj;
     }
 
     /**
      * A single filter to use for filtering.
+     *
+     * @param Filter|array{
+     *   operator: value-of<Operator>, path: string, value: string
+     * }|null $filter
      */
-    public function withFilter(?Filter $filter): self
+    public function withFilter(Filter|array|null $filter): self
     {
         $obj = clone $this;
-        $obj->filter = $filter;
+        $obj['filter'] = $filter;
 
         return $obj;
     }
@@ -94,7 +107,7 @@ final class AudienceUpdateParams implements BaseModel
     public function withName(?string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }

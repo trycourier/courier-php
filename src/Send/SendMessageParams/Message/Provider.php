@@ -8,11 +8,12 @@ use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Provider\Metadata;
+use Courier\Utm;
 
 /**
  * @phpstan-type ProviderShape = array{
  *   if?: string|null,
- *   metadata?: Metadata|null,
+ *   metadata?: \Courier\Send\SendMessageParams\Message\Provider\Metadata|null,
  *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
@@ -52,20 +53,23 @@ final class Provider implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param Metadata|array{
+     *   utm?: Utm|null
+     * }|null $metadata
      * @param array<string,mixed>|null $override
      */
     public static function with(
         ?string $if = null,
-        ?Metadata $metadata = null,
+        Metadata|array|null $metadata = null,
         ?array $override = null,
         ?int $timeouts = null,
     ): self {
         $obj = new self;
 
-        null !== $if && $obj->if = $if;
-        null !== $metadata && $obj->metadata = $metadata;
-        null !== $override && $obj->override = $override;
-        null !== $timeouts && $obj->timeouts = $timeouts;
+        null !== $if && $obj['if'] = $if;
+        null !== $metadata && $obj['metadata'] = $metadata;
+        null !== $override && $obj['override'] = $override;
+        null !== $timeouts && $obj['timeouts'] = $timeouts;
 
         return $obj;
     }
@@ -76,15 +80,21 @@ final class Provider implements BaseModel
     public function withIf(?string $if): self
     {
         $obj = clone $this;
-        $obj->if = $if;
+        $obj['if'] = $if;
 
         return $obj;
     }
 
-    public function withMetadata(?Metadata $metadata): self
-    {
+    /**
+     * @param Metadata|array{
+     *   utm?: Utm|null
+     * }|null $metadata
+     */
+    public function withMetadata(
+        Metadata|array|null $metadata,
+    ): self {
         $obj = clone $this;
-        $obj->metadata = $metadata;
+        $obj['metadata'] = $metadata;
 
         return $obj;
     }
@@ -97,7 +107,7 @@ final class Provider implements BaseModel
     public function withOverride(?array $override): self
     {
         $obj = clone $this;
-        $obj->override = $override;
+        $obj['override'] = $override;
 
         return $obj;
     }
@@ -105,7 +115,7 @@ final class Provider implements BaseModel
     public function withTimeouts(?int $timeouts): self
     {
         $obj = clone $this;
-        $obj->timeouts = $timeouts;
+        $obj['timeouts'] = $timeouts;
 
         return $obj;
     }

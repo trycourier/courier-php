@@ -50,9 +50,9 @@ final class Rule implements BaseModel
     {
         $obj = new self;
 
-        $obj->until = $until;
+        $obj['until'] = $until;
 
-        null !== $start && $obj->start = $start;
+        null !== $start && $obj['start'] = $start;
 
         return $obj;
     }
@@ -60,7 +60,7 @@ final class Rule implements BaseModel
     public function withUntil(string $until): self
     {
         $obj = clone $this;
-        $obj->until = $until;
+        $obj['until'] = $until;
 
         return $obj;
     }
@@ -68,7 +68,7 @@ final class Rule implements BaseModel
     public function withStart(?string $start): self
     {
         $obj = clone $this;
-        $obj->start = $start;
+        $obj['start'] = $start;
 
         return $obj;
     }

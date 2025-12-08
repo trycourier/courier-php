@@ -15,7 +15,9 @@ use Courier\Profiles\ProfileUpdateParams\Patch;
  *
  * @see Courier\Services\ProfilesService::update()
  *
- * @phpstan-type ProfileUpdateParamsShape = array{patch: list<Patch>}
+ * @phpstan-type ProfileUpdateParamsShape = array{
+ *   patch: list<Patch|array{op: string, path: string, value: string}>
+ * }
  */
 final class ProfileUpdateParams implements BaseModel
 {
@@ -55,13 +57,13 @@ final class ProfileUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Patch> $patch
+     * @param list<Patch|array{op: string, path: string, value: string}> $patch
      */
     public static function with(array $patch): self
     {
         $obj = new self;
 
-        $obj->patch = $patch;
+        $obj['patch'] = $patch;
 
         return $obj;
     }
@@ -69,12 +71,12 @@ final class ProfileUpdateParams implements BaseModel
     /**
      * List of patch operations to apply to the profile.
      *
-     * @param list<Patch> $patch
+     * @param list<Patch|array{op: string, path: string, value: string}> $patch
      */
     public function withPatch(array $patch): self
     {
         $obj = clone $this;
-        $obj->patch = $patch;
+        $obj['patch'] = $patch;
 
         return $obj;
     }

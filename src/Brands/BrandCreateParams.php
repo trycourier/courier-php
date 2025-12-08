@@ -17,8 +17,12 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type BrandCreateParamsShape = array{
  *   name: string,
  *   id?: string|null,
- *   settings?: BrandSettings|null,
- *   snippets?: BrandSnippets|null,
+ *   settings?: null|BrandSettings|array{
+ *     colors?: BrandColors|null,
+ *     email?: BrandSettingsEmail|null,
+ *     inapp?: BrandSettingsInApp|null,
+ *   },
+ *   snippets?: null|BrandSnippets|array{items?: list<BrandSnippet>|null},
  * }
  */
 final class BrandCreateParams implements BaseModel
@@ -62,20 +66,27 @@ final class BrandCreateParams implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
      */
     public static function with(
         string $name,
         ?string $id = null,
-        ?BrandSettings $settings = null,
-        ?BrandSnippets $snippets = null,
+        BrandSettings|array|null $settings = null,
+        BrandSnippets|array|null $snippets = null,
     ): self {
         $obj = new self;
 
-        $obj->name = $name;
+        $obj['name'] = $name;
 
-        null !== $id && $obj->id = $id;
-        null !== $settings && $obj->settings = $settings;
-        null !== $snippets && $obj->snippets = $snippets;
+        null !== $id && $obj['id'] = $id;
+        null !== $settings && $obj['settings'] = $settings;
+        null !== $snippets && $obj['snippets'] = $snippets;
 
         return $obj;
     }
@@ -83,7 +94,7 @@ final class BrandCreateParams implements BaseModel
     public function withName(string $name): self
     {
         $obj = clone $this;
-        $obj->name = $name;
+        $obj['name'] = $name;
 
         return $obj;
     }
@@ -91,23 +102,33 @@ final class BrandCreateParams implements BaseModel
     public function withID(?string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
 
-    public function withSettings(?BrandSettings $settings): self
+    /**
+     * @param BrandSettings|array{
+     *   colors?: BrandColors|null,
+     *   email?: BrandSettingsEmail|null,
+     *   inapp?: BrandSettingsInApp|null,
+     * }|null $settings
+     */
+    public function withSettings(BrandSettings|array|null $settings): self
     {
         $obj = clone $this;
-        $obj->settings = $settings;
+        $obj['settings'] = $settings;
 
         return $obj;
     }
 
-    public function withSnippets(?BrandSnippets $snippets): self
+    /**
+     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     */
+    public function withSnippets(BrandSnippets|array|null $snippets): self
     {
         $obj = clone $this;
-        $obj->snippets = $snippets;
+        $obj['snippets'] = $snippets;
 
         return $obj;
     }

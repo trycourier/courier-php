@@ -175,18 +175,18 @@ final class MessageDetails implements BaseModel, ResponseConverter
     ): self {
         $obj = new self;
 
-        $obj->id = $id;
-        $obj->clicked = $clicked;
-        $obj->delivered = $delivered;
-        $obj->enqueued = $enqueued;
-        $obj->event = $event;
-        $obj->notification = $notification;
-        $obj->opened = $opened;
-        $obj->recipient = $recipient;
-        $obj->sent = $sent;
+        $obj['id'] = $id;
+        $obj['clicked'] = $clicked;
+        $obj['delivered'] = $delivered;
+        $obj['enqueued'] = $enqueued;
+        $obj['event'] = $event;
+        $obj['notification'] = $notification;
+        $obj['opened'] = $opened;
+        $obj['recipient'] = $recipient;
+        $obj['sent'] = $sent;
         $obj['status'] = $status;
 
-        null !== $error && $obj->error = $error;
+        null !== $error && $obj['error'] = $error;
         null !== $reason && $obj['reason'] = $reason;
 
         return $obj;
@@ -198,7 +198,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withID(string $id): self
     {
         $obj = clone $this;
-        $obj->id = $id;
+        $obj['id'] = $id;
 
         return $obj;
     }
@@ -209,7 +209,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withClicked(int $clicked): self
     {
         $obj = clone $this;
-        $obj->clicked = $clicked;
+        $obj['clicked'] = $clicked;
 
         return $obj;
     }
@@ -220,7 +220,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withDelivered(int $delivered): self
     {
         $obj = clone $this;
-        $obj->delivered = $delivered;
+        $obj['delivered'] = $delivered;
 
         return $obj;
     }
@@ -231,7 +231,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withEnqueued(int $enqueued): self
     {
         $obj = clone $this;
-        $obj->enqueued = $enqueued;
+        $obj['enqueued'] = $enqueued;
 
         return $obj;
     }
@@ -242,7 +242,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withEvent(string $event): self
     {
         $obj = clone $this;
-        $obj->event = $event;
+        $obj['event'] = $event;
 
         return $obj;
     }
@@ -253,7 +253,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withNotification(string $notification): self
     {
         $obj = clone $this;
-        $obj->notification = $notification;
+        $obj['notification'] = $notification;
 
         return $obj;
     }
@@ -264,7 +264,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withOpened(int $opened): self
     {
         $obj = clone $this;
-        $obj->opened = $opened;
+        $obj['opened'] = $opened;
 
         return $obj;
     }
@@ -275,7 +275,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withRecipient(string $recipient): self
     {
         $obj = clone $this;
-        $obj->recipient = $recipient;
+        $obj['recipient'] = $recipient;
 
         return $obj;
     }
@@ -286,7 +286,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withSent(int $sent): self
     {
         $obj = clone $this;
-        $obj->sent = $sent;
+        $obj['sent'] = $sent;
 
         return $obj;
     }
@@ -310,7 +310,7 @@ final class MessageDetails implements BaseModel, ResponseConverter
     public function withError(?string $error): self
     {
         $obj = clone $this;
-        $obj->error = $error;
+        $obj['error'] = $error;
 
         return $obj;
     }

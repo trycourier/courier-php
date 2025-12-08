@@ -50,26 +50,31 @@ final class EmailHeader implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Logo|array{href?: string|null, image?: string|null} $logo
      */
     public static function with(
-        Logo $logo,
+        Logo|array $logo,
         ?string $barColor = null,
         ?bool $inheritDefault = null
     ): self {
         $obj = new self;
 
-        $obj->logo = $logo;
+        $obj['logo'] = $logo;
 
-        null !== $barColor && $obj->barColor = $barColor;
-        null !== $inheritDefault && $obj->inheritDefault = $inheritDefault;
+        null !== $barColor && $obj['barColor'] = $barColor;
+        null !== $inheritDefault && $obj['inheritDefault'] = $inheritDefault;
 
         return $obj;
     }
 
-    public function withLogo(Logo $logo): self
+    /**
+     * @param Logo|array{href?: string|null, image?: string|null} $logo
+     */
+    public function withLogo(Logo|array $logo): self
     {
         $obj = clone $this;
-        $obj->logo = $logo;
+        $obj['logo'] = $logo;
 
         return $obj;
     }
@@ -77,7 +82,7 @@ final class EmailHeader implements BaseModel
     public function withBarColor(?string $barColor): self
     {
         $obj = clone $this;
-        $obj->barColor = $barColor;
+        $obj['barColor'] = $barColor;
 
         return $obj;
     }
@@ -85,7 +90,7 @@ final class EmailHeader implements BaseModel
     public function withInheritDefault(?bool $inheritDefault): self
     {
         $obj = clone $this;
-        $obj->inheritDefault = $inheritDefault;
+        $obj['inheritDefault'] = $inheritDefault;
 
         return $obj;
     }

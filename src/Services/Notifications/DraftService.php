@@ -26,7 +26,7 @@ final class DraftService implements DraftContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        // @phpstan-ignore-next-line;
+        // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/draft/content', $id],

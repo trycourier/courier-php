@@ -75,10 +75,10 @@ final class AutomationUpdateProfileStep implements BaseModel
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         null !== $merge && $obj['merge'] = $merge;
-        null !== $recipient_id && $obj->recipient_id = $recipient_id;
+        null !== $recipient_id && $obj['recipient_id'] = $recipient_id;
 
         return $obj;
     }
@@ -100,7 +100,7 @@ final class AutomationUpdateProfileStep implements BaseModel
     public function withProfile(array $profile): self
     {
         $obj = clone $this;
-        $obj->profile = $profile;
+        $obj['profile'] = $profile;
 
         return $obj;
     }
@@ -119,7 +119,7 @@ final class AutomationUpdateProfileStep implements BaseModel
     public function withRecipientID(?string $recipientID): self
     {
         $obj = clone $this;
-        $obj->recipient_id = $recipientID;
+        $obj['recipient_id'] = $recipientID;
 
         return $obj;
     }
