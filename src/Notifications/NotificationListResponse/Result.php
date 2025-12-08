@@ -16,6 +16,7 @@ use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
  * @phpstan-type ResultShape = array{
  *   id: string,
  *   created_at: int,
+ *   event_ids: list<string>,
  *   note: string,
  *   routing: MessageRouting,
  *   topic_id: string,
@@ -34,6 +35,14 @@ final class Result implements BaseModel
 
     #[Api]
     public int $created_at;
+
+    /**
+     * Array of event IDs associated with this notification.
+     *
+     * @var list<string> $event_ids
+     */
+    #[Api(list: 'string')]
+    public array $event_ids;
 
     #[Api]
     public string $note;
@@ -61,6 +70,7 @@ final class Result implements BaseModel
      * Result::with(
      *   id: ...,
      *   created_at: ...,
+     *   event_ids: ...,
      *   note: ...,
      *   routing: ...,
      *   topic_id: ...,
@@ -74,6 +84,7 @@ final class Result implements BaseModel
      * (new Result)
      *   ->withID(...)
      *   ->withCreatedAt(...)
+     *   ->withEventIDs(...)
      *   ->withNote(...)
      *   ->withRouting(...)
      *   ->withTopicID(...)
@@ -90,6 +101,7 @@ final class Result implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param list<string> $event_ids
      * @param MessageRouting|array{
      *   channels: list<mixed>, method: value-of<Method>
      * } $routing
@@ -98,6 +110,7 @@ final class Result implements BaseModel
     public static function with(
         string $id,
         int $created_at,
+        array $event_ids,
         string $note,
         MessageRouting|array $routing,
         string $topic_id,
@@ -109,6 +122,7 @@ final class Result implements BaseModel
 
         $obj['id'] = $id;
         $obj['created_at'] = $created_at;
+        $obj['event_ids'] = $event_ids;
         $obj['note'] = $note;
         $obj['routing'] = $routing;
         $obj['topic_id'] = $topic_id;
@@ -132,6 +146,19 @@ final class Result implements BaseModel
     {
         $obj = clone $this;
         $obj['created_at'] = $createdAt;
+
+        return $obj;
+    }
+
+    /**
+     * Array of event IDs associated with this notification.
+     *
+     * @param list<string> $eventIDs
+     */
+    public function withEventIDs(array $eventIDs): self
+    {
+        $obj = clone $this;
+        $obj['event_ids'] = $eventIDs;
 
         return $obj;
     }
