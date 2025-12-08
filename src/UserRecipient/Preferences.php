@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Courier;
+namespace Courier\UserRecipient;
 
+use Courier\ChannelPreference;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Preference;
 use Courier\Preference\Source;
+use Courier\PreferenceStatus;
+use Courier\Rule;
 
 /**
- * @phpstan-type ProfilePreferencesShape = array{
+ * @phpstan-type PreferencesShape = array{
  *   notifications: array<string,Preference>,
  *   categories?: array<string,Preference>|null,
  *   templateId?: string|null,
  * }
  */
-final class ProfilePreferences implements BaseModel
+final class Preferences implements BaseModel
 {
-    /** @use SdkModel<ProfilePreferencesShape> */
+    /** @use SdkModel<PreferencesShape> */
     use SdkModel;
 
     /** @var array<string,Preference> $notifications */
@@ -33,17 +37,17 @@ final class ProfilePreferences implements BaseModel
     public ?string $templateId;
 
     /**
-     * `new ProfilePreferences()` is missing required properties by the API.
+     * `new Preferences()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ProfilePreferences::with(notifications: ...)
+     * Preferences::with(notifications: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new ProfilePreferences)->withNotifications(...)
+     * (new Preferences)->withNotifications(...)
      * ```
      */
     public function __construct()

@@ -9,9 +9,9 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
 use Courier\NotificationPreferenceDetails;
-use Courier\ProfilePreferences;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
+use Courier\UserRecipient\Preferences;
 
 /**
  * @phpstan-type InboundBulkMessageUserShape = array{
@@ -64,7 +64,7 @@ final class InboundBulkMessageUser implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }|null $to
@@ -135,7 +135,7 @@ final class InboundBulkMessageUser implements BaseModel
      *   list_id?: string|null,
      *   locale?: string|null,
      *   phone_number?: string|null,
-     *   preferences?: ProfilePreferences|null,
+     *   preferences?: Preferences|null,
      *   tenant_id?: string|null,
      *   user_id?: string|null,
      * }|null $to

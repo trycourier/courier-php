@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.0 (2025-12-08)
+
+Full Changelog: [v3.2.0...v3.3.0](https://github.com/trycourier/courier-php/compare/v3.2.0...v3.3.0)
+
+### Features
+
+* Fix UsersGetAllTokensResponse to return object with tokens property i… ([337c6d7](https://github.com/trycourier/courier-php/commit/337c6d74b53564a3f2b25e6425fde2a1d9b26fc5))
+
 ## 3.2.0 (2025-12-08)
 
 Full Changelog: [v3.1.2...v3.2.0](https://github.com/trycourier/courier-php/compare/v3.1.2...v3.2.0)

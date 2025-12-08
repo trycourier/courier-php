@@ -7,6 +7,7 @@ namespace Courier;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\UserRecipient\Preferences;
 
 /**
  * @phpstan-type UserRecipientShape = array{
@@ -17,7 +18,7 @@ use Courier\Core\Contracts\BaseModel;
  *   list_id?: string|null,
  *   locale?: string|null,
  *   phone_number?: string|null,
- *   preferences?: ProfilePreferences|null,
+ *   preferences?: Preferences|null,
  *   tenant_id?: string|null,
  *   user_id?: string|null,
  * }
@@ -68,7 +69,7 @@ final class UserRecipient implements BaseModel
     public ?string $phone_number;
 
     #[Api(nullable: true, optional: true)]
-    public ?ProfilePreferences $preferences;
+    public ?Preferences $preferences;
 
     /**
      * The id of the tenant the user is associated with.
@@ -94,7 +95,7 @@ final class UserRecipient implements BaseModel
      *
      * @param MessageContext|array{tenant_id?: string|null}|null $context
      * @param array<string,mixed>|null $data
-     * @param ProfilePreferences|array{
+     * @param Preferences|array{
      *   notifications: array<string,Preference>,
      *   categories?: array<string,Preference>|null,
      *   templateId?: string|null,
@@ -108,7 +109,7 @@ final class UserRecipient implements BaseModel
         ?string $list_id = null,
         ?string $locale = null,
         ?string $phone_number = null,
-        ProfilePreferences|array|null $preferences = null,
+        Preferences|array|null $preferences = null,
         ?string $tenant_id = null,
         ?string $user_id = null,
     ): self {
@@ -208,15 +209,14 @@ final class UserRecipient implements BaseModel
     }
 
     /**
-     * @param ProfilePreferences|array{
+     * @param Preferences|array{
      *   notifications: array<string,Preference>,
      *   categories?: array<string,Preference>|null,
      *   templateId?: string|null,
      * }|null $preferences
      */
-    public function withPreferences(
-        ProfilePreferences|array|null $preferences
-    ): self {
+    public function withPreferences(Preferences|array|null $preferences): self
+    {
         $obj = clone $this;
         $obj['preferences'] = $preferences;
 
