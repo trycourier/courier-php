@@ -10,10 +10,10 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type ItemShape = array{
- *   added_at: string,
- *   audience_id: string,
- *   audience_version: int,
- *   member_id: string,
+ *   addedAt: string,
+ *   audienceID: string,
+ *   audienceVersion: int,
+ *   memberID: string,
  *   reason: string,
  * }
  */
@@ -22,17 +22,17 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Required]
-    public string $added_at;
+    #[Required('added_at')]
+    public string $addedAt;
 
-    #[Required]
-    public string $audience_id;
+    #[Required('audience_id')]
+    public string $audienceID;
 
-    #[Required]
-    public int $audience_version;
+    #[Required('audience_version')]
+    public int $audienceVersion;
 
-    #[Required]
-    public string $member_id;
+    #[Required('member_id')]
+    public string $memberID;
 
     #[Required]
     public string $reason;
@@ -43,10 +43,10 @@ final class Item implements BaseModel
      * To enforce required parameters use
      * ```
      * Item::with(
-     *   added_at: ...,
-     *   audience_id: ...,
-     *   audience_version: ...,
-     *   member_id: ...,
+     *   addedAt: ...,
+     *   audienceID: ...,
+     *   audienceVersion: ...,
+     *   memberID: ...,
      *   reason: ...,
      * )
      * ```
@@ -73,18 +73,18 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $added_at,
-        string $audience_id,
-        int $audience_version,
-        string $member_id,
+        string $addedAt,
+        string $audienceID,
+        int $audienceVersion,
+        string $memberID,
         string $reason,
     ): self {
         $obj = new self;
 
-        $obj['added_at'] = $added_at;
-        $obj['audience_id'] = $audience_id;
-        $obj['audience_version'] = $audience_version;
-        $obj['member_id'] = $member_id;
+        $obj['addedAt'] = $addedAt;
+        $obj['audienceID'] = $audienceID;
+        $obj['audienceVersion'] = $audienceVersion;
+        $obj['memberID'] = $memberID;
         $obj['reason'] = $reason;
 
         return $obj;
@@ -93,7 +93,7 @@ final class Item implements BaseModel
     public function withAddedAt(string $addedAt): self
     {
         $obj = clone $this;
-        $obj['added_at'] = $addedAt;
+        $obj['addedAt'] = $addedAt;
 
         return $obj;
     }
@@ -101,7 +101,7 @@ final class Item implements BaseModel
     public function withAudienceID(string $audienceID): self
     {
         $obj = clone $this;
-        $obj['audience_id'] = $audienceID;
+        $obj['audienceID'] = $audienceID;
 
         return $obj;
     }
@@ -109,7 +109,7 @@ final class Item implements BaseModel
     public function withAudienceVersion(int $audienceVersion): self
     {
         $obj = clone $this;
-        $obj['audience_version'] = $audienceVersion;
+        $obj['audienceVersion'] = $audienceVersion;
 
         return $obj;
     }
@@ -117,7 +117,7 @@ final class Item implements BaseModel
     public function withMemberID(string $memberID): self
     {
         $obj = clone $this;
-        $obj['member_id'] = $memberID;
+        $obj['memberID'] = $memberID;
 
         return $obj;
     }

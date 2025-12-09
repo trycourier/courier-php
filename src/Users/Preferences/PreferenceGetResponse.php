@@ -60,12 +60,12 @@ final class PreferenceGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
@@ -83,12 +83,12 @@ final class PreferenceGetResponse implements BaseModel
      * The Preferences associated with the user_id.
      *
      * @param list<TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * }> $items
      */
     public function withItems(array $items): self

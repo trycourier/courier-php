@@ -61,7 +61,7 @@ final class BulkListUsersResponse implements BaseModel
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,
-     *   messageId?: string|null,
+     *   messageID?: string|null,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
@@ -83,7 +83,7 @@ final class BulkListUsersResponse implements BaseModel
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,
-     *   messageId?: string|null,
+     *   messageID?: string|null,
      * }> $items
      */
     public function withItems(array $items): self

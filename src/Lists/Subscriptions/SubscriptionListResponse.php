@@ -53,7 +53,7 @@ final class SubscriptionListResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<Item|array{
-     *   recipientId: string,
+     *   recipientID: string,
      *   created?: string|null,
      *   preferences?: RecipientPreferences|null,
      * }> $items
@@ -71,7 +71,7 @@ final class SubscriptionListResponse implements BaseModel
 
     /**
      * @param list<Item|array{
-     *   recipientId: string,
+     *   recipientID: string,
      *   created?: string|null,
      *   preferences?: RecipientPreferences|null,
      * }> $items

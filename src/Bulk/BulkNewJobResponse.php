@@ -9,22 +9,22 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BulkNewJobResponseShape = array{jobId: string}
+ * @phpstan-type BulkNewJobResponseShape = array{jobID: string}
  */
 final class BulkNewJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkNewJobResponseShape> */
     use SdkModel;
 
-    #[Required]
-    public string $jobId;
+    #[Required('jobId')]
+    public string $jobID;
 
     /**
      * `new BulkNewJobResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BulkNewJobResponse::with(jobId: ...)
+     * BulkNewJobResponse::with(jobID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -43,11 +43,11 @@ final class BulkNewJobResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $jobId): self
+    public static function with(string $jobID): self
     {
         $obj = new self;
 
-        $obj['jobId'] = $jobId;
+        $obj['jobID'] = $jobID;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class BulkNewJobResponse implements BaseModel
     public function withJobID(string $jobID): self
     {
         $obj = clone $this;
-        $obj['jobId'] = $jobID;
+        $obj['jobID'] = $jobID;
 
         return $obj;
     }

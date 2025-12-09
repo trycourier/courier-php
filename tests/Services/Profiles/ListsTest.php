@@ -66,7 +66,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
-            ['lists' => [['listId' => 'listId']]]
+            ['lists' => [['listID' => 'listId']]]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -85,12 +85,12 @@ final class ListsTest extends TestCase
             [
                 'lists' => [
                     [
-                        'listId' => 'listId',
+                        'listID' => 'listId',
                         'preferences' => [
                             'categories' => [
                                 'foo' => [
                                     'status' => PreferenceStatus::OPTED_IN,
-                                    'channel_preferences' => [
+                                    'channelPreferences' => [
                                         ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                     ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
@@ -99,7 +99,7 @@ final class ListsTest extends TestCase
                             'notifications' => [
                                 'foo' => [
                                     'status' => PreferenceStatus::OPTED_IN,
-                                    'channel_preferences' => [
+                                    'channelPreferences' => [
                                         ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                     ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],

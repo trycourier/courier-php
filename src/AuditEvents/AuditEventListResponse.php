@@ -54,7 +54,7 @@ final class AuditEventListResponse implements BaseModel
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      * @param list<AuditEvent|array{
      *   actor: Actor,
-     *   auditEventId: string,
+     *   auditEventID: string,
      *   source: string,
      *   target: string,
      *   timestamp: string,
@@ -85,7 +85,7 @@ final class AuditEventListResponse implements BaseModel
     /**
      * @param list<AuditEvent|array{
      *   actor: Actor,
-     *   auditEventId: string,
+     *   auditEventID: string,
      *   source: string,
      *   target: string,
      *   timestamp: string,

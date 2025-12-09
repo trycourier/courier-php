@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Users\TenantsService::removeSingle()
  *
- * @phpstan-type TenantRemoveSingleParamsShape = array{user_id: string}
+ * @phpstan-type TenantRemoveSingleParamsShape = array{userID: string}
  */
 final class TenantRemoveSingleParams implements BaseModel
 {
@@ -23,14 +23,14 @@ final class TenantRemoveSingleParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $user_id;
+    public string $userID;
 
     /**
      * `new TenantRemoveSingleParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantRemoveSingleParams::with(user_id: ...)
+     * TenantRemoveSingleParams::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,11 +49,11 @@ final class TenantRemoveSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $user_id): self
+    public static function with(string $userID): self
     {
         $obj = new self;
 
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class TenantRemoveSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }

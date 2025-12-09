@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\AuthService::issueToken()
  *
  * @phpstan-type AuthIssueTokenParamsShape = array{
- *   expires_in: string, scope: string
+ *   expiresIn: string, scope: string
  * }
  */
 final class AuthIssueTokenParams implements BaseModel
@@ -35,8 +35,8 @@ final class AuthIssueTokenParams implements BaseModel
      * - "5s" - 5 seconds
      * - "1y" - 1 year
      */
-    #[Required]
-    public string $expires_in;
+    #[Required('expires_in')]
+    public string $expiresIn;
 
     /**
      * Available scopes:
@@ -60,7 +60,7 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * AuthIssueTokenParams::with(expires_in: ..., scope: ...)
+     * AuthIssueTokenParams::with(expiresIn: ..., scope: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -79,11 +79,11 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $expires_in, string $scope): self
+    public static function with(string $expiresIn, string $scope): self
     {
         $obj = new self;
 
-        $obj['expires_in'] = $expires_in;
+        $obj['expiresIn'] = $expiresIn;
         $obj['scope'] = $scope;
 
         return $obj;
@@ -103,7 +103,7 @@ final class AuthIssueTokenParams implements BaseModel
     public function withExpiresIn(string $expiresIn): self
     {
         $obj = clone $this;
-        $obj['expires_in'] = $expiresIn;
+        $obj['expiresIn'] = $expiresIn;
 
         return $obj;
     }

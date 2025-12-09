@@ -35,7 +35,7 @@ final class AuthTest extends TestCase
         }
 
         $result = $this->client->auth->issueToken([
-            'expires_in' => '$YOUR_NUMBER days',
+            'expiresIn' => '$YOUR_NUMBER days',
             'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
         ]);
 
@@ -51,7 +51,7 @@ final class AuthTest extends TestCase
         }
 
         $result = $this->client->auth->issueToken([
-            'expires_in' => '$YOUR_NUMBER days',
+            'expiresIn' => '$YOUR_NUMBER days',
             'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
         ]);
 

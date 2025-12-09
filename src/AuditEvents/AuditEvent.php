@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-type AuditEventShape = array{
  *   actor: Actor,
- *   auditEventId: string,
+ *   auditEventID: string,
  *   source: string,
  *   target: string,
  *   timestamp: string,
@@ -27,8 +27,8 @@ final class AuditEvent implements BaseModel
     #[Required]
     public Actor $actor;
 
-    #[Required]
-    public string $auditEventId;
+    #[Required('auditEventId')]
+    public string $auditEventID;
 
     #[Required]
     public string $source;
@@ -49,7 +49,7 @@ final class AuditEvent implements BaseModel
      * ```
      * AuditEvent::with(
      *   actor: ...,
-     *   auditEventId: ...,
+     *   auditEventID: ...,
      *   source: ...,
      *   target: ...,
      *   timestamp: ...,
@@ -83,7 +83,7 @@ final class AuditEvent implements BaseModel
      */
     public static function with(
         Actor|array $actor,
-        string $auditEventId,
+        string $auditEventID,
         string $source,
         string $target,
         string $timestamp,
@@ -92,7 +92,7 @@ final class AuditEvent implements BaseModel
         $obj = new self;
 
         $obj['actor'] = $actor;
-        $obj['auditEventId'] = $auditEventId;
+        $obj['auditEventID'] = $auditEventID;
         $obj['source'] = $source;
         $obj['target'] = $target;
         $obj['timestamp'] = $timestamp;
@@ -115,7 +115,7 @@ final class AuditEvent implements BaseModel
     public function withAuditEventID(string $auditEventID): self
     {
         $obj = clone $this;
-        $obj['auditEventId'] = $auditEventID;
+        $obj['auditEventID'] = $auditEventID;
 
         return $obj;
     }

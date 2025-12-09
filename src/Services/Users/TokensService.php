@@ -29,7 +29,7 @@ final class TokensService implements TokensContract
      *
      * Get single token available for a `:token`
      *
-     * @param array{user_id: string}|TokenRetrieveParams $params
+     * @param array{userID: string}|TokenRetrieveParams $params
      *
      * @throws APIException
      */
@@ -42,8 +42,8 @@ final class TokensService implements TokensContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<TokenGetResponse> */
         $response = $this->client->request(
@@ -62,7 +62,7 @@ final class TokensService implements TokensContract
      * Apply a JSON Patch (RFC 6902) to the specified token.
      *
      * @param array{
-     *   user_id: string,
+     *   userID: string,
      *   patch: list<array{op: string, path: string, value?: string|null}>,
      * }|TokenUpdateParams $params
      *
@@ -77,14 +77,14 @@ final class TokensService implements TokensContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
             method: 'patch',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['user_id']),
+            body: (object) array_diff_key($parsed, ['userID']),
             options: $options,
             convert: null,
         );
@@ -119,7 +119,7 @@ final class TokensService implements TokensContract
      *
      * Delete User Token
      *
-     * @param array{user_id: string}|TokenDeleteParams $params
+     * @param array{userID: string}|TokenDeleteParams $params
      *
      * @throws APIException
      */
@@ -132,8 +132,8 @@ final class TokensService implements TokensContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
@@ -174,24 +174,24 @@ final class TokensService implements TokensContract
      * Adds a single token to a user and overwrites a matching existing token.
      *
      * @param array{
-     *   user_id: string,
+     *   userID: string,
      *   token: string,
-     *   provider_key: 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey,
+     *   providerKey: 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey,
      *   device?: array{
-     *     ad_id?: string|null,
-     *     app_id?: string|null,
-     *     device_id?: string|null,
+     *     adID?: string|null,
+     *     appID?: string|null,
+     *     deviceID?: string|null,
      *     manufacturer?: string|null,
      *     model?: string|null,
      *     platform?: string|null,
      *   }|null,
-     *   expiry_date?: string|bool|null,
+     *   expiryDate?: string|bool|null,
      *   properties?: mixed,
      *   tracking?: array{
      *     ip?: string|null,
      *     lat?: string|null,
      *     long?: string|null,
-     *     os_version?: string|null,
+     *     osVersion?: string|null,
      *   }|null,
      * }|TokenAddSingleParams $params
      *
@@ -206,14 +206,14 @@ final class TokensService implements TokensContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['user_id']),
+            body: (object) array_diff_key($parsed, ['userID']),
             options: $options,
             convert: null,
         );

@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationCancelStepShape = array{
- *   action: value-of<Action>, cancelation_token: string
+ *   action: value-of<Action>, cancelationToken: string
  * }
  */
 final class AutomationCancelStep implements BaseModel
@@ -23,15 +23,15 @@ final class AutomationCancelStep implements BaseModel
     #[Required(enum: Action::class)]
     public string $action;
 
-    #[Required]
-    public string $cancelation_token;
+    #[Required('cancelation_token')]
+    public string $cancelationToken;
 
     /**
      * `new AutomationCancelStep()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * AutomationCancelStep::with(action: ..., cancelation_token: ...)
+     * AutomationCancelStep::with(action: ..., cancelationToken: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -54,12 +54,12 @@ final class AutomationCancelStep implements BaseModel
      */
     public static function with(
         Action|string $action,
-        string $cancelation_token
+        string $cancelationToken
     ): self {
         $obj = new self;
 
         $obj['action'] = $action;
-        $obj['cancelation_token'] = $cancelation_token;
+        $obj['cancelationToken'] = $cancelationToken;
 
         return $obj;
     }
@@ -78,7 +78,7 @@ final class AutomationCancelStep implements BaseModel
     public function withCancelationToken(string $cancelationToken): self
     {
         $obj = clone $this;
-        $obj['cancelation_token'] = $cancelationToken;
+        $obj['cancelationToken'] = $cancelationToken;
 
         return $obj;
     }

@@ -24,7 +24,7 @@ final class AuthService implements AuthContract
      *
      * Returns a new access token.
      *
-     * @param array{expires_in: string, scope: string}|AuthIssueTokenParams $params
+     * @param array{expiresIn: string, scope: string}|AuthIssueTokenParams $params
      *
      * @throws APIException
      */

@@ -51,7 +51,7 @@ final class MessageContentResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<Result|array{
-     *   channel: string, channel_id: string, content: Content
+     *   channel: string, channelID: string, content: Content
      * }> $results
      */
     public static function with(array $results): self
@@ -67,7 +67,7 @@ final class MessageContentResponse implements BaseModel
      * An array of render output of a previously sent message.
      *
      * @param list<Result|array{
-     *   channel: string, channel_id: string, content: Content
+     *   channel: string, channelID: string, content: Content
      * }> $results
      */
     public function withResults(array $results): self

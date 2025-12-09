@@ -9,22 +9,22 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type AutomationInvokeResponseShape = array{runId: string}
+ * @phpstan-type AutomationInvokeResponseShape = array{runID: string}
  */
 final class AutomationInvokeResponse implements BaseModel
 {
     /** @use SdkModel<AutomationInvokeResponseShape> */
     use SdkModel;
 
-    #[Required]
-    public string $runId;
+    #[Required('runId')]
+    public string $runID;
 
     /**
      * `new AutomationInvokeResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * AutomationInvokeResponse::with(runId: ...)
+     * AutomationInvokeResponse::with(runID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -43,11 +43,11 @@ final class AutomationInvokeResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $runId): self
+    public static function with(string $runID): self
     {
         $obj = new self;
 
-        $obj['runId'] = $runId;
+        $obj['runID'] = $runID;
 
         return $obj;
     }
@@ -55,7 +55,7 @@ final class AutomationInvokeResponse implements BaseModel
     public function withRunID(string $runID): self
     {
         $obj = clone $this;
-        $obj['runId'] = $runID;
+        $obj['runID'] = $runID;
 
         return $obj;
     }

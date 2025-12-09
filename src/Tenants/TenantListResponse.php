@@ -12,12 +12,12 @@ use Courier\Tenants\TenantListResponse\Type;
 
 /**
  * @phpstan-type TenantListResponseShape = array{
- *   has_more: bool,
+ *   hasMore: bool,
  *   items: list<Tenant>,
  *   type: value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   next_url?: string|null,
+ *   nextURL?: string|null,
  * }
  */
 final class TenantListResponse implements BaseModel
@@ -28,8 +28,8 @@ final class TenantListResponse implements BaseModel
     /**
      * Set to true when there are more pages that can be retrieved.
      */
-    #[Required]
-    public bool $has_more;
+    #[Required('has_more')]
+    public bool $hasMore;
 
     /**
      * An array of Tenants.
@@ -63,15 +63,15 @@ final class TenantListResponse implements BaseModel
      * A url that may be used to generate fetch the next set of results.
      * Defined only when has_more is set to true.
      */
-    #[Optional(nullable: true)]
-    public ?string $next_url;
+    #[Optional('next_url', nullable: true)]
+    public ?string $nextURL;
 
     /**
      * `new TenantListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantListResponse::with(has_more: ..., items: ..., type: ..., url: ...)
+     * TenantListResponse::with(hasMore: ..., items: ..., type: ..., url: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -97,31 +97,31 @@ final class TenantListResponse implements BaseModel
      * @param list<Tenant|array{
      *   id: string,
      *   name: string,
-     *   brand_id?: string|null,
-     *   default_preferences?: DefaultPreferences|null,
-     *   parent_tenant_id?: string|null,
+     *   brandID?: string|null,
+     *   defaultPreferences?: DefaultPreferences|null,
+     *   parentTenantID?: string|null,
      *   properties?: array<string,mixed>|null,
-     *   user_profile?: array<string,mixed>|null,
+     *   userProfile?: array<string,mixed>|null,
      * }> $items
      * @param Type|value-of<Type> $type
      */
     public static function with(
-        bool $has_more,
+        bool $hasMore,
         array $items,
         Type|string $type,
         string $url,
         ?string $cursor = null,
-        ?string $next_url = null,
+        ?string $nextURL = null,
     ): self {
         $obj = new self;
 
-        $obj['has_more'] = $has_more;
+        $obj['hasMore'] = $hasMore;
         $obj['items'] = $items;
         $obj['type'] = $type;
         $obj['url'] = $url;
 
         null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $next_url && $obj['next_url'] = $next_url;
+        null !== $nextURL && $obj['nextURL'] = $nextURL;
 
         return $obj;
     }
@@ -132,7 +132,7 @@ final class TenantListResponse implements BaseModel
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj['has_more'] = $hasMore;
+        $obj['hasMore'] = $hasMore;
 
         return $obj;
     }
@@ -143,11 +143,11 @@ final class TenantListResponse implements BaseModel
      * @param list<Tenant|array{
      *   id: string,
      *   name: string,
-     *   brand_id?: string|null,
-     *   default_preferences?: DefaultPreferences|null,
-     *   parent_tenant_id?: string|null,
+     *   brandID?: string|null,
+     *   defaultPreferences?: DefaultPreferences|null,
+     *   parentTenantID?: string|null,
      *   properties?: array<string,mixed>|null,
-     *   user_profile?: array<string,mixed>|null,
+     *   userProfile?: array<string,mixed>|null,
      * }> $items
      */
     public function withItems(array $items): self
@@ -200,7 +200,7 @@ final class TenantListResponse implements BaseModel
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj['next_url'] = $nextURL;
+        $obj['nextURL'] = $nextURL;
 
         return $obj;
     }

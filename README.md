@@ -51,7 +51,7 @@ $client = new Client(apiKey: getenv('COURIER_API_KEY') ?: 'My API Key');
 
 $response = $client->send->message([
   'message' => [
-    'to' => ['user_id' => 'your_user_id'],
+    'to' => ['userID' => 'your_user_id'],
     'template' => 'your_template_id',
     'data' => ['foo' => 'bar'],
   ],
@@ -79,7 +79,7 @@ use Courier\Core\Exceptions\APIConnectionException;
 try {
   $response = $client->send->message([
     'message' => [
-      'to' => ['user_id' => 'your_user_id'],
+      'to' => ['userID' => 'your_user_id'],
       'template' => 'your_template_id',
       'data' => ['foo' => 'bar'],
     ],
@@ -132,7 +132,7 @@ $client = new Client(maxRetries: 0);
 $result = $client->send->message(
   [
     'message' => [
-      'to' => ['user_id' => 'your_user_id'],
+      'to' => ['userID' => 'your_user_id'],
       'template' => 'your_template_id',
       'data' => ['foo' => 'bar'],
     ],
@@ -159,7 +159,7 @@ use Courier\RequestOptions;
 $response = $client->send->message(
   [
     'message' => [
-      'to' => ['user_id' => 'your_user_id'],
+      'to' => ['userID' => 'your_user_id'],
       'template' => 'your_template_id',
       'data' => ['foo' => 'bar'],
     ],

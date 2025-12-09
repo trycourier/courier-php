@@ -13,12 +13,12 @@ use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type TopicPreferenceShape = array{
- *   default_status: value-of<PreferenceStatus>,
+ *   defaultStatus: value-of<PreferenceStatus>,
  *   status: value-of<PreferenceStatus>,
- *   topic_id: string,
- *   topic_name: string,
- *   custom_routing?: list<value-of<ChannelClassification>>|null,
- *   has_custom_routing?: bool|null,
+ *   topicID: string,
+ *   topicName: string,
+ *   customRouting?: list<value-of<ChannelClassification>>|null,
+ *   hasCustomRouting?: bool|null,
  * }
  */
 final class TopicPreference implements BaseModel
@@ -26,30 +26,34 @@ final class TopicPreference implements BaseModel
     /** @use SdkModel<TopicPreferenceShape> */
     use SdkModel;
 
-    /** @var value-of<PreferenceStatus> $default_status */
-    #[Required(enum: PreferenceStatus::class)]
-    public string $default_status;
+    /** @var value-of<PreferenceStatus> $defaultStatus */
+    #[Required('default_status', enum: PreferenceStatus::class)]
+    public string $defaultStatus;
 
     /** @var value-of<PreferenceStatus> $status */
     #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
-    #[Required]
-    public string $topic_id;
+    #[Required('topic_id')]
+    public string $topicID;
 
-    #[Required]
-    public string $topic_name;
+    #[Required('topic_name')]
+    public string $topicName;
 
     /**
      * The Channels a user has chosen to receive notifications through for this topic.
      *
-     * @var list<value-of<ChannelClassification>>|null $custom_routing
+     * @var list<value-of<ChannelClassification>>|null $customRouting
      */
-    #[Optional(list: ChannelClassification::class, nullable: true)]
-    public ?array $custom_routing;
+    #[Optional(
+        'custom_routing',
+        list: ChannelClassification::class,
+        nullable: true
+    )]
+    public ?array $customRouting;
 
-    #[Optional(nullable: true)]
-    public ?bool $has_custom_routing;
+    #[Optional('has_custom_routing', nullable: true)]
+    public ?bool $hasCustomRouting;
 
     /**
      * `new TopicPreference()` is missing required properties by the API.
@@ -57,7 +61,7 @@ final class TopicPreference implements BaseModel
      * To enforce required parameters use
      * ```
      * TopicPreference::with(
-     *   default_status: ..., status: ..., topic_id: ..., topic_name: ...
+     *   defaultStatus: ..., status: ..., topicID: ..., topicName: ...
      * )
      * ```
      *
@@ -81,27 +85,27 @@ final class TopicPreference implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param PreferenceStatus|value-of<PreferenceStatus> $default_status
+     * @param PreferenceStatus|value-of<PreferenceStatus> $defaultStatus
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $custom_routing
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
      */
     public static function with(
-        PreferenceStatus|string $default_status,
+        PreferenceStatus|string $defaultStatus,
         PreferenceStatus|string $status,
-        string $topic_id,
-        string $topic_name,
-        ?array $custom_routing = null,
-        ?bool $has_custom_routing = null,
+        string $topicID,
+        string $topicName,
+        ?array $customRouting = null,
+        ?bool $hasCustomRouting = null,
     ): self {
         $obj = new self;
 
-        $obj['default_status'] = $default_status;
+        $obj['defaultStatus'] = $defaultStatus;
         $obj['status'] = $status;
-        $obj['topic_id'] = $topic_id;
-        $obj['topic_name'] = $topic_name;
+        $obj['topicID'] = $topicID;
+        $obj['topicName'] = $topicName;
 
-        null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
+        null !== $customRouting && $obj['customRouting'] = $customRouting;
+        null !== $hasCustomRouting && $obj['hasCustomRouting'] = $hasCustomRouting;
 
         return $obj;
     }
@@ -113,7 +117,7 @@ final class TopicPreference implements BaseModel
         PreferenceStatus|string $defaultStatus
     ): self {
         $obj = clone $this;
-        $obj['default_status'] = $defaultStatus;
+        $obj['defaultStatus'] = $defaultStatus;
 
         return $obj;
     }
@@ -132,7 +136,7 @@ final class TopicPreference implements BaseModel
     public function withTopicID(string $topicID): self
     {
         $obj = clone $this;
-        $obj['topic_id'] = $topicID;
+        $obj['topicID'] = $topicID;
 
         return $obj;
     }
@@ -140,7 +144,7 @@ final class TopicPreference implements BaseModel
     public function withTopicName(string $topicName): self
     {
         $obj = clone $this;
-        $obj['topic_name'] = $topicName;
+        $obj['topicName'] = $topicName;
 
         return $obj;
     }
@@ -153,7 +157,7 @@ final class TopicPreference implements BaseModel
     public function withCustomRouting(?array $customRouting): self
     {
         $obj = clone $this;
-        $obj['custom_routing'] = $customRouting;
+        $obj['customRouting'] = $customRouting;
 
         return $obj;
     }
@@ -161,7 +165,7 @@ final class TopicPreference implements BaseModel
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $obj = clone $this;
-        $obj['has_custom_routing'] = $hasCustomRouting;
+        $obj['hasCustomRouting'] = $hasCustomRouting;
 
         return $obj;
     }

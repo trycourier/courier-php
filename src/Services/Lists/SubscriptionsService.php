@@ -63,7 +63,7 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * @param array{
      *   recipients: list<array{
-     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     recipientID: string, preferences?: array<mixed>|RecipientPreferences|null
      *   }>,
      * }|SubscriptionAddParams $params
      *
@@ -98,7 +98,7 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * @param array{
      *   recipients: list<array{
-     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     recipientID: string, preferences?: array<mixed>|RecipientPreferences|null
      *   }>,
      * }|SubscriptionSubscribeParams $params
      *
@@ -132,7 +132,7 @@ final class SubscriptionsService implements SubscriptionsContract
      * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
      *
      * @param array{
-     *   list_id: string,
+     *   listID: string,
      *   preferences?: array{
      *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
      *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
@@ -150,14 +150,14 @@ final class SubscriptionsService implements SubscriptionsContract
             $params,
             $requestOptions,
         );
-        $listID = $parsed['list_id'];
-        unset($parsed['list_id']);
+        $listID = $parsed['listID'];
+        unset($parsed['listID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
-            body: (object) array_diff_key($parsed, ['list_id']),
+            body: (object) array_diff_key($parsed, ['listID']),
             options: $options,
             convert: null,
         );
@@ -170,7 +170,7 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Delete a subscription to a list by list ID and user ID.
      *
-     * @param array{list_id: string}|SubscriptionUnsubscribeUserParams $params
+     * @param array{listID: string}|SubscriptionUnsubscribeUserParams $params
      *
      * @throws APIException
      */
@@ -183,8 +183,8 @@ final class SubscriptionsService implements SubscriptionsContract
             $params,
             $requestOptions,
         );
-        $listID = $parsed['list_id'];
-        unset($parsed['list_id']);
+        $listID = $parsed['listID'];
+        unset($parsed['listID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(

@@ -14,12 +14,12 @@ use Courier\Utm;
 
 /**
  * @phpstan-type ChannelShape = array{
- *   brand_id?: string|null,
+ *   brandID?: string|null,
  *   if?: string|null,
  *   metadata?: \Courier\Send\SendMessageParams\Message\Channel\Metadata|null,
  *   override?: array<string,mixed>|null,
  *   providers?: list<string>|null,
- *   routing_method?: value-of<RoutingMethod>|null,
+ *   routingMethod?: value-of<RoutingMethod>|null,
  *   timeouts?: Timeouts|null,
  * }
  */
@@ -31,8 +31,8 @@ final class Channel implements BaseModel
     /**
      * Brand id used for rendering.
      */
-    #[Optional(nullable: true)]
-    public ?string $brand_id;
+    #[Optional('brand_id', nullable: true)]
+    public ?string $brandID;
 
     /**
      * JS conditional with access to data/profile.
@@ -62,10 +62,10 @@ final class Channel implements BaseModel
     /**
      * Defaults to `single`.
      *
-     * @var value-of<RoutingMethod>|null $routing_method
+     * @var value-of<RoutingMethod>|null $routingMethod
      */
-    #[Optional(enum: RoutingMethod::class, nullable: true)]
-    public ?string $routing_method;
+    #[Optional('routing_method', enum: RoutingMethod::class, nullable: true)]
+    public ?string $routingMethod;
 
     #[Optional(nullable: true)]
     public ?Timeouts $timeouts;
@@ -85,26 +85,26 @@ final class Channel implements BaseModel
      * }|null $metadata
      * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
-     * @param RoutingMethod|value-of<RoutingMethod>|null $routing_method
+     * @param RoutingMethod|value-of<RoutingMethod>|null $routingMethod
      * @param Timeouts|array{channel?: int|null, provider?: int|null}|null $timeouts
      */
     public static function with(
-        ?string $brand_id = null,
+        ?string $brandID = null,
         ?string $if = null,
         Metadata|array|null $metadata = null,
         ?array $override = null,
         ?array $providers = null,
-        RoutingMethod|string|null $routing_method = null,
+        RoutingMethod|string|null $routingMethod = null,
         Timeouts|array|null $timeouts = null,
     ): self {
         $obj = new self;
 
-        null !== $brand_id && $obj['brand_id'] = $brand_id;
+        null !== $brandID && $obj['brandID'] = $brandID;
         null !== $if && $obj['if'] = $if;
         null !== $metadata && $obj['metadata'] = $metadata;
         null !== $override && $obj['override'] = $override;
         null !== $providers && $obj['providers'] = $providers;
-        null !== $routing_method && $obj['routing_method'] = $routing_method;
+        null !== $routingMethod && $obj['routingMethod'] = $routingMethod;
         null !== $timeouts && $obj['timeouts'] = $timeouts;
 
         return $obj;
@@ -116,7 +116,7 @@ final class Channel implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj['brand_id'] = $brandID;
+        $obj['brandID'] = $brandID;
 
         return $obj;
     }
@@ -181,7 +181,7 @@ final class Channel implements BaseModel
         RoutingMethod|string|null $routingMethod
     ): self {
         $obj = clone $this;
-        $obj['routing_method'] = $routingMethod;
+        $obj['routingMethod'] = $routingMethod;
 
         return $obj;
     }

@@ -23,7 +23,7 @@ use Courier\UserRecipient\Preferences;
  *   recipient?: string|null,
  *   to?: UserRecipient|null,
  *   status: value-of<Status>,
- *   messageId?: string|null,
+ *   messageID?: string|null,
  * }
  */
 final class Item implements BaseModel
@@ -50,8 +50,8 @@ final class Item implements BaseModel
     #[Required(enum: Status::class)]
     public string $status;
 
-    #[Optional(nullable: true)]
-    public ?string $messageId;
+    #[Optional('messageId', nullable: true)]
+    public ?string $messageID;
 
     /**
      * `new Item()` is missing required properties by the API.
@@ -83,16 +83,16 @@ final class Item implements BaseModel
      *   notifications?: array<string,NotificationPreferenceDetails>|null,
      * } $preferences
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * } $to
      */
     public static function with(
@@ -102,7 +102,7 @@ final class Item implements BaseModel
         mixed $profile = null,
         ?string $recipient = null,
         UserRecipient|array|null $to = null,
-        ?string $messageId = null,
+        ?string $messageID = null,
     ): self {
         $obj = new self;
 
@@ -113,7 +113,7 @@ final class Item implements BaseModel
         null !== $profile && $obj['profile'] = $profile;
         null !== $recipient && $obj['recipient'] = $recipient;
         null !== $to && $obj['to'] = $to;
-        null !== $messageId && $obj['messageId'] = $messageId;
+        null !== $messageID && $obj['messageID'] = $messageID;
 
         return $obj;
     }
@@ -159,16 +159,16 @@ final class Item implements BaseModel
 
     /**
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * } $to
      */
     public function withTo(UserRecipient|array $to): self
@@ -193,7 +193,7 @@ final class Item implements BaseModel
     public function withMessageID(?string $messageID): self
     {
         $obj = clone $this;
-        $obj['messageId'] = $messageID;
+        $obj['messageID'] = $messageID;
 
         return $obj;
     }

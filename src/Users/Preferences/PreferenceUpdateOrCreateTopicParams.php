@@ -19,13 +19,13 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   user_id: string,
+ *   userID: string,
  *   topic: Topic|array{
  *     status: value-of<PreferenceStatus>,
- *     custom_routing?: list<value-of<ChannelClassification>>|null,
- *     has_custom_routing?: bool|null,
+ *     customRouting?: list<value-of<ChannelClassification>>|null,
+ *     hasCustomRouting?: bool|null,
  *   },
- *   tenant_id?: string|null,
+ *   tenantID?: string|null,
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -35,7 +35,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $user_id;
+    public string $userID;
 
     #[Required]
     public Topic $topic;
@@ -44,14 +44,14 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      * Update the preferences of a user for this specific tenant context.
      */
     #[Optional(nullable: true)]
-    public ?string $tenant_id;
+    public ?string $tenantID;
 
     /**
      * `new PreferenceUpdateOrCreateTopicParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PreferenceUpdateOrCreateTopicParams::with(user_id: ..., topic: ...)
+     * PreferenceUpdateOrCreateTopicParams::with(userID: ..., topic: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -72,21 +72,21 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      *
      * @param Topic|array{
      *   status: value-of<PreferenceStatus>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public static function with(
-        string $user_id,
+        string $userID,
         Topic|array $topic,
-        ?string $tenant_id = null
+        ?string $tenantID = null
     ): self {
         $obj = new self;
 
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
         $obj['topic'] = $topic;
 
-        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
+        null !== $tenantID && $obj['tenantID'] = $tenantID;
 
         return $obj;
     }
@@ -94,7 +94,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -102,8 +102,8 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     /**
      * @param Topic|array{
      *   status: value-of<PreferenceStatus>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public function withTopic(Topic|array $topic): self
@@ -120,7 +120,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $obj['tenantID'] = $tenantID;
 
         return $obj;
     }

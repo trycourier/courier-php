@@ -56,12 +56,14 @@ final class TranslationsService implements TranslationsContract
      *
      * Update a translation
      *
+     * @param array{domain: string, body: string}|TranslationUpdateParams $params
+     *
      * @throws APIException
      */
     public function update(
         string $locale,
-        string $params,
-        ?RequestOptions $requestOptions = null
+        array|TranslationUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed {
         [$parsed, $options] = TranslationUpdateParams::parseRequest(
             $params,

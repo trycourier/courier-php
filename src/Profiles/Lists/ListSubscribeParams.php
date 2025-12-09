@@ -18,7 +18,7 @@ use Courier\RecipientPreferences;
  *
  * @phpstan-type ListSubscribeParamsShape = array{
  *   lists: list<SubscribeToListsRequestItem|array{
- *     listId: string, preferences?: RecipientPreferences|null
+ *     listID: string, preferences?: RecipientPreferences|null
  *   }>,
  * }
  */
@@ -57,7 +57,7 @@ final class ListSubscribeParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
+     *   listID: string, preferences?: RecipientPreferences|null
      * }> $lists
      */
     public static function with(array $lists): self
@@ -71,7 +71,7 @@ final class ListSubscribeParams implements BaseModel
 
     /**
      * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
+     *   listID: string, preferences?: RecipientPreferences|null
      * }> $lists
      */
     public function withLists(array $lists): self

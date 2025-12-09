@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Lists\SubscriptionsService::unsubscribeUser()
  *
- * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{list_id: string}
+ * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{listID: string}
  */
 final class SubscriptionUnsubscribeUserParams implements BaseModel
 {
@@ -23,14 +23,14 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $list_id;
+    public string $listID;
 
     /**
      * `new SubscriptionUnsubscribeUserParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SubscriptionUnsubscribeUserParams::with(list_id: ...)
+     * SubscriptionUnsubscribeUserParams::with(listID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,11 +49,11 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $list_id): self
+    public static function with(string $listID): self
     {
         $obj = new self;
 
-        $obj['list_id'] = $list_id;
+        $obj['listID'] = $listID;
 
         return $obj;
     }
@@ -61,7 +61,7 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj['list_id'] = $listID;
+        $obj['listID'] = $listID;
 
         return $obj;
     }

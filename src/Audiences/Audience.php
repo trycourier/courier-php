@@ -12,11 +12,11 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-type AudienceShape = array{
  *   id: string,
- *   created_at: string,
+ *   createdAt: string,
  *   description: string,
  *   filter: Filter,
  *   name: string,
- *   updated_at: string,
+ *   updatedAt: string,
  * }
  */
 final class Audience implements BaseModel
@@ -30,8 +30,8 @@ final class Audience implements BaseModel
     #[Required]
     public string $id;
 
-    #[Required]
-    public string $created_at;
+    #[Required('created_at')]
+    public string $createdAt;
 
     /**
      * A description of the audience.
@@ -51,8 +51,8 @@ final class Audience implements BaseModel
     #[Required]
     public string $name;
 
-    #[Required]
-    public string $updated_at;
+    #[Required('updated_at')]
+    public string $updatedAt;
 
     /**
      * `new Audience()` is missing required properties by the API.
@@ -61,11 +61,11 @@ final class Audience implements BaseModel
      * ```
      * Audience::with(
      *   id: ...,
-     *   created_at: ...,
+     *   createdAt: ...,
      *   description: ...,
      *   filter: ...,
      *   name: ...,
-     *   updated_at: ...,
+     *   updatedAt: ...,
      * )
      * ```
      *
@@ -97,20 +97,20 @@ final class Audience implements BaseModel
      */
     public static function with(
         string $id,
-        string $created_at,
+        string $createdAt,
         string $description,
         Filter|array $filter,
         string $name,
-        string $updated_at,
+        string $updatedAt,
     ): self {
         $obj = new self;
 
         $obj['id'] = $id;
-        $obj['created_at'] = $created_at;
+        $obj['createdAt'] = $createdAt;
         $obj['description'] = $description;
         $obj['filter'] = $filter;
         $obj['name'] = $name;
-        $obj['updated_at'] = $updated_at;
+        $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }
@@ -129,7 +129,7 @@ final class Audience implements BaseModel
     public function withCreatedAt(string $createdAt): self
     {
         $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $obj['createdAt'] = $createdAt;
 
         return $obj;
     }
@@ -174,7 +174,7 @@ final class Audience implements BaseModel
     public function withUpdatedAt(string $updatedAt): self
     {
         $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $obj['updatedAt'] = $updatedAt;
 
         return $obj;
     }

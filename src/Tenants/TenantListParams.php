@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\TenantsService::list()
  *
  * @phpstan-type TenantListParamsShape = array{
- *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null
+ *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
  * }
  */
 final class TenantListParams implements BaseModel
@@ -41,7 +41,7 @@ final class TenantListParams implements BaseModel
      * Filter the list of tenants by parent_id.
      */
     #[Optional(nullable: true)]
-    public ?string $parent_tenant_id;
+    public ?string $parentTenantID;
 
     public function __construct()
     {
@@ -56,13 +56,13 @@ final class TenantListParams implements BaseModel
     public static function with(
         ?string $cursor = null,
         ?int $limit = null,
-        ?string $parent_tenant_id = null
+        ?string $parentTenantID = null
     ): self {
         $obj = new self;
 
         null !== $cursor && $obj['cursor'] = $cursor;
         null !== $limit && $obj['limit'] = $limit;
-        null !== $parent_tenant_id && $obj['parent_tenant_id'] = $parent_tenant_id;
+        null !== $parentTenantID && $obj['parentTenantID'] = $parentTenantID;
 
         return $obj;
     }
@@ -96,7 +96,7 @@ final class TenantListParams implements BaseModel
     public function withParentTenantID(?string $parentTenantID): self
     {
         $obj = clone $this;
-        $obj['parent_tenant_id'] = $parentTenantID;
+        $obj['parentTenantID'] = $parentTenantID;
 
         return $obj;
     }

@@ -35,8 +35,8 @@ final class DefaultPreferences implements BaseModel
      *
      * @param list<Item|array{
      *   status: value-of<Status>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      *   id: string,
      * }>|null $items
      */
@@ -52,8 +52,8 @@ final class DefaultPreferences implements BaseModel
     /**
      * @param list<Item|array{
      *   status: value-of<Status>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      *   id: string,
      * }>|null $items
      */

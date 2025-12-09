@@ -46,12 +46,12 @@ final class PreferenceGetTopicResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public static function with(TopicPreference|array $topic): self
@@ -65,12 +65,12 @@ final class PreferenceGetTopicResponse implements BaseModel
 
     /**
      * @param TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public function withTopic(TopicPreference|array $topic): self

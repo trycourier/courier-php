@@ -18,11 +18,11 @@ use Courier\Tenants\DefaultPreferences\Item;
  *
  * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
- *   brand_id?: string|null,
- *   default_preferences?: null|DefaultPreferences|array{items?: list<Item>|null},
- *   parent_tenant_id?: string|null,
+ *   brandID?: string|null,
+ *   defaultPreferences?: null|DefaultPreferences|array{items?: list<Item>|null},
+ *   parentTenantID?: string|null,
  *   properties?: array<string,mixed>|null,
- *   user_profile?: array<string,mixed>|null,
+ *   userProfile?: array<string,mixed>|null,
  * }
  */
 final class TenantUpdateParams implements BaseModel
@@ -40,20 +40,20 @@ final class TenantUpdateParams implements BaseModel
     /**
      * Brand to be used for the account when one is not specified by the send call.
      */
-    #[Optional(nullable: true)]
-    public ?string $brand_id;
+    #[Optional('brand_id', nullable: true)]
+    public ?string $brandID;
 
     /**
      * Defines the preferences used for the tenant when the user hasn't specified their own.
      */
-    #[Optional(nullable: true)]
-    public ?DefaultPreferences $default_preferences;
+    #[Optional('default_preferences', nullable: true)]
+    public ?DefaultPreferences $defaultPreferences;
 
     /**
      * Tenant's parent id (if any).
      */
-    #[Optional(nullable: true)]
-    public ?string $parent_tenant_id;
+    #[Optional('parent_tenant_id', nullable: true)]
+    public ?string $parentTenantID;
 
     /**
      * Arbitrary properties accessible to a template.
@@ -66,10 +66,10 @@ final class TenantUpdateParams implements BaseModel
     /**
      * A user profile object merged with user profile on send.
      *
-     * @var array<string,mixed>|null $user_profile
+     * @var array<string,mixed>|null $userProfile
      */
-    #[Optional(map: 'mixed', nullable: true)]
-    public ?array $user_profile;
+    #[Optional('user_profile', map: 'mixed', nullable: true)]
+    public ?array $userProfile;
 
     /**
      * `new TenantUpdateParams()` is missing required properties by the API.
@@ -97,27 +97,27 @@ final class TenantUpdateParams implements BaseModel
      *
      * @param DefaultPreferences|array{
      *   items?: list<Item>|null
-     * }|null $default_preferences
+     * }|null $defaultPreferences
      * @param array<string,mixed>|null $properties
-     * @param array<string,mixed>|null $user_profile
+     * @param array<string,mixed>|null $userProfile
      */
     public static function with(
         string $name,
-        ?string $brand_id = null,
-        DefaultPreferences|array|null $default_preferences = null,
-        ?string $parent_tenant_id = null,
+        ?string $brandID = null,
+        DefaultPreferences|array|null $defaultPreferences = null,
+        ?string $parentTenantID = null,
         ?array $properties = null,
-        ?array $user_profile = null,
+        ?array $userProfile = null,
     ): self {
         $obj = new self;
 
         $obj['name'] = $name;
 
-        null !== $brand_id && $obj['brand_id'] = $brand_id;
-        null !== $default_preferences && $obj['default_preferences'] = $default_preferences;
-        null !== $parent_tenant_id && $obj['parent_tenant_id'] = $parent_tenant_id;
+        null !== $brandID && $obj['brandID'] = $brandID;
+        null !== $defaultPreferences && $obj['defaultPreferences'] = $defaultPreferences;
+        null !== $parentTenantID && $obj['parentTenantID'] = $parentTenantID;
         null !== $properties && $obj['properties'] = $properties;
-        null !== $user_profile && $obj['user_profile'] = $user_profile;
+        null !== $userProfile && $obj['userProfile'] = $userProfile;
 
         return $obj;
     }
@@ -139,7 +139,7 @@ final class TenantUpdateParams implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj['brand_id'] = $brandID;
+        $obj['brandID'] = $brandID;
 
         return $obj;
     }
@@ -155,7 +155,7 @@ final class TenantUpdateParams implements BaseModel
         DefaultPreferences|array|null $defaultPreferences
     ): self {
         $obj = clone $this;
-        $obj['default_preferences'] = $defaultPreferences;
+        $obj['defaultPreferences'] = $defaultPreferences;
 
         return $obj;
     }
@@ -166,7 +166,7 @@ final class TenantUpdateParams implements BaseModel
     public function withParentTenantID(?string $parentTenantID): self
     {
         $obj = clone $this;
-        $obj['parent_tenant_id'] = $parentTenantID;
+        $obj['parentTenantID'] = $parentTenantID;
 
         return $obj;
     }
@@ -192,7 +192,7 @@ final class TenantUpdateParams implements BaseModel
     public function withUserProfile(?array $userProfile): self
     {
         $obj = clone $this;
-        $obj['user_profile'] = $userProfile;
+        $obj['userProfile'] = $userProfile;
 
         return $obj;
     }

@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesContract;
@@ -30,7 +31,7 @@ final class PreferencesService implements PreferencesContract
      *
      * Fetch all user preferences.
      *
-     * @param array{tenant_id?: string|null}|PreferenceRetrieveParams $params
+     * @param array{tenantID?: string|null}|PreferenceRetrieveParams $params
      *
      * @throws APIException
      */
@@ -48,7 +49,7 @@ final class PreferencesService implements PreferencesContract
         $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences', $userID],
-            query: $parsed,
+            query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
             options: $options,
             convert: PreferenceGetResponse::class,
         );
@@ -62,7 +63,7 @@ final class PreferencesService implements PreferencesContract
      * Fetch user preferences for a specific subscription topic.
      *
      * @param array{
-     *   user_id: string, tenant_id?: string|null
+     *   userID: string, tenantID?: string|null
      * }|PreferenceRetrieveTopicParams $params
      *
      * @throws APIException
@@ -76,14 +77,14 @@ final class PreferencesService implements PreferencesContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<PreferenceGetTopicResponse> */
         $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
-            query: $parsed,
+            query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
             options: $options,
             convert: PreferenceGetTopicResponse::class,
         );
@@ -97,13 +98,13 @@ final class PreferencesService implements PreferencesContract
      * Update or Create user preferences for a specific subscription topic.
      *
      * @param array{
-     *   user_id: string,
+     *   userID: string,
      *   topic: array{
      *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *     custom_routing?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *     has_custom_routing?: bool|null,
+     *     customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
+     *     hasCustomRouting?: bool|null,
      *   },
-     *   tenant_id?: string|null,
+     *   tenantID?: string|null,
      * }|PreferenceUpdateOrCreateTopicParams $params
      *
      * @throws APIException
@@ -117,18 +118,21 @@ final class PreferencesService implements PreferencesContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
         $query_params = ['tenant_id'];
 
         /** @var BaseResponse<PreferenceUpdateOrNewTopicResponse> */
         $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
-            query: array_diff_key($parsed, $query_params),
+            query: Util::array_transform_keys(
+                array_diff_key($parsed, $query_params),
+                ['tenantID' => 'tenant_id']
+            ),
             body: (object) array_diff_key(
                 array_diff_key($parsed, $query_params),
-                ['user_id']
+                ['userID']
             ),
             options: $options,
             convert: PreferenceUpdateOrNewTopicResponse::class,

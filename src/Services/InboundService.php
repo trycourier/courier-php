@@ -27,10 +27,10 @@ final class InboundService implements InboundContract
      *
      * @param array{
      *   event: string,
-     *   messageId: string,
+     *   messageID: string,
      *   properties: array<string,mixed>,
      *   type: 'track'|Type,
-     *   userId?: string|null,
+     *   userID?: string|null,
      * }|InboundTrackEventParams $params
      *
      * @throws APIException

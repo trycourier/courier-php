@@ -15,9 +15,9 @@ use Courier\Users\Tokens\UserToken\Tracking;
 /**
  * @phpstan-type UserTokenShape = array{
  *   token: string,
- *   provider_key: value-of<ProviderKey>,
+ *   providerKey: value-of<ProviderKey>,
  *   device?: Device|null,
- *   expiry_date?: string|bool|null,
+ *   expiryDate?: string|bool|null,
  *   properties?: mixed,
  *   tracking?: Tracking|null,
  * }
@@ -33,9 +33,9 @@ final class UserToken implements BaseModel
     #[Required]
     public string $token;
 
-    /** @var value-of<ProviderKey> $provider_key */
-    #[Required(enum: ProviderKey::class)]
-    public string $provider_key;
+    /** @var value-of<ProviderKey> $providerKey */
+    #[Required('provider_key', enum: ProviderKey::class)]
+    public string $providerKey;
 
     /**
      * Information about the device the token came from.
@@ -46,8 +46,8 @@ final class UserToken implements BaseModel
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Optional(nullable: true)]
-    public string|bool|null $expiry_date;
+    #[Optional('expiry_date', nullable: true)]
+    public string|bool|null $expiryDate;
 
     /**
      * Properties about the token.
@@ -66,7 +66,7 @@ final class UserToken implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * UserToken::with(token: ..., provider_key: ...)
+     * UserToken::with(token: ..., providerKey: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -85,11 +85,11 @@ final class UserToken implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ProviderKey|value-of<ProviderKey> $provider_key
+     * @param ProviderKey|value-of<ProviderKey> $providerKey
      * @param Device|array{
-     *   ad_id?: string|null,
-     *   app_id?: string|null,
-     *   device_id?: string|null,
+     *   adID?: string|null,
+     *   appID?: string|null,
+     *   deviceID?: string|null,
      *   manufacturer?: string|null,
      *   model?: string|null,
      *   platform?: string|null,
@@ -98,24 +98,24 @@ final class UserToken implements BaseModel
      *   ip?: string|null,
      *   lat?: string|null,
      *   long?: string|null,
-     *   os_version?: string|null,
+     *   osVersion?: string|null,
      * }|null $tracking
      */
     public static function with(
         string $token,
-        ProviderKey|string $provider_key,
+        ProviderKey|string $providerKey,
         Device|array|null $device = null,
-        string|bool|null $expiry_date = null,
+        string|bool|null $expiryDate = null,
         mixed $properties = null,
         Tracking|array|null $tracking = null,
     ): self {
         $obj = new self;
 
         $obj['token'] = $token;
-        $obj['provider_key'] = $provider_key;
+        $obj['providerKey'] = $providerKey;
 
         null !== $device && $obj['device'] = $device;
-        null !== $expiry_date && $obj['expiry_date'] = $expiry_date;
+        null !== $expiryDate && $obj['expiryDate'] = $expiryDate;
         null !== $properties && $obj['properties'] = $properties;
         null !== $tracking && $obj['tracking'] = $tracking;
 
@@ -139,7 +139,7 @@ final class UserToken implements BaseModel
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
         $obj = clone $this;
-        $obj['provider_key'] = $providerKey;
+        $obj['providerKey'] = $providerKey;
 
         return $obj;
     }
@@ -148,9 +148,9 @@ final class UserToken implements BaseModel
      * Information about the device the token came from.
      *
      * @param Device|array{
-     *   ad_id?: string|null,
-     *   app_id?: string|null,
-     *   device_id?: string|null,
+     *   adID?: string|null,
+     *   appID?: string|null,
+     *   deviceID?: string|null,
      *   manufacturer?: string|null,
      *   model?: string|null,
      *   platform?: string|null,
@@ -170,7 +170,7 @@ final class UserToken implements BaseModel
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
         $obj = clone $this;
-        $obj['expiry_date'] = $expiryDate;
+        $obj['expiryDate'] = $expiryDate;
 
         return $obj;
     }
@@ -193,7 +193,7 @@ final class UserToken implements BaseModel
      *   ip?: string|null,
      *   lat?: string|null,
      *   long?: string|null,
-     *   os_version?: string|null,
+     *   osVersion?: string|null,
      * }|null $tracking
      */
     public function withTracking(Tracking|array|null $tracking): self

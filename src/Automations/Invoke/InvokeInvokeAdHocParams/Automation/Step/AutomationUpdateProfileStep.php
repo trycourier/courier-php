@@ -16,7 +16,7 @@ use Courier\Core\Contracts\BaseModel;
  *   action: value-of<Action>,
  *   profile: array<string,mixed>,
  *   merge?: value-of<Merge>|null,
- *   recipient_id?: string|null,
+ *   recipientID?: string|null,
  * }
  */
 final class AutomationUpdateProfileStep implements BaseModel
@@ -36,8 +36,8 @@ final class AutomationUpdateProfileStep implements BaseModel
     #[Optional(enum: Merge::class, nullable: true)]
     public ?string $merge;
 
-    #[Optional(nullable: true)]
-    public ?string $recipient_id;
+    #[Optional('recipient_id', nullable: true)]
+    public ?string $recipientID;
 
     /**
      * `new AutomationUpdateProfileStep()` is missing required properties by the API.
@@ -71,7 +71,7 @@ final class AutomationUpdateProfileStep implements BaseModel
         Action|string $action,
         array $profile,
         Merge|string|null $merge = null,
-        ?string $recipient_id = null,
+        ?string $recipientID = null,
     ): self {
         $obj = new self;
 
@@ -79,7 +79,7 @@ final class AutomationUpdateProfileStep implements BaseModel
         $obj['profile'] = $profile;
 
         null !== $merge && $obj['merge'] = $merge;
-        null !== $recipient_id && $obj['recipient_id'] = $recipient_id;
+        null !== $recipientID && $obj['recipientID'] = $recipientID;
 
         return $obj;
     }
@@ -120,7 +120,7 @@ final class AutomationUpdateProfileStep implements BaseModel
     public function withRecipientID(?string $recipientID): self
     {
         $obj = clone $this;
-        $obj['recipient_id'] = $recipientID;
+        $obj['recipientID'] = $recipientID;
 
         return $obj;
     }

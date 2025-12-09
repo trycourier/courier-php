@@ -51,9 +51,9 @@ final class TokenListResponse implements BaseModel
      *
      * @param list<UserToken|array{
      *   token: string,
-     *   provider_key: value-of<ProviderKey>,
+     *   providerKey: value-of<ProviderKey>,
      *   device?: Device|null,
-     *   expiry_date?: string|bool|null,
+     *   expiryDate?: string|bool|null,
      *   properties?: mixed,
      *   tracking?: Tracking|null,
      * }> $tokens
@@ -70,9 +70,9 @@ final class TokenListResponse implements BaseModel
     /**
      * @param list<UserToken|array{
      *   token: string,
-     *   provider_key: value-of<ProviderKey>,
+     *   providerKey: value-of<ProviderKey>,
      *   device?: Device|null,
-     *   expiry_date?: string|bool|null,
+     *   expiryDate?: string|bool|null,
      *   properties?: mixed,
      *   tracking?: Tracking|null,
      * }> $tokens

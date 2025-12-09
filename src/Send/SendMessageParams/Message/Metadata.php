@@ -13,7 +13,7 @@ use Courier\Utm;
  * @phpstan-type MetadataShape = array{
  *   event?: string|null,
  *   tags?: list<string>|null,
- *   trace_id?: string|null,
+ *   traceID?: string|null,
  *   utm?: Utm|null,
  * }
  */
@@ -29,8 +29,8 @@ final class Metadata implements BaseModel
     #[Optional(list: 'string', nullable: true)]
     public ?array $tags;
 
-    #[Optional(nullable: true)]
-    public ?string $trace_id;
+    #[Optional('trace_id', nullable: true)]
+    public ?string $traceID;
 
     #[Optional(nullable: true)]
     public ?Utm $utm;
@@ -57,14 +57,14 @@ final class Metadata implements BaseModel
     public static function with(
         ?string $event = null,
         ?array $tags = null,
-        ?string $trace_id = null,
+        ?string $traceID = null,
         Utm|array|null $utm = null,
     ): self {
         $obj = new self;
 
         null !== $event && $obj['event'] = $event;
         null !== $tags && $obj['tags'] = $tags;
-        null !== $trace_id && $obj['trace_id'] = $trace_id;
+        null !== $traceID && $obj['traceID'] = $traceID;
         null !== $utm && $obj['utm'] = $utm;
 
         return $obj;
@@ -92,7 +92,7 @@ final class Metadata implements BaseModel
     public function withTraceID(?string $traceID): self
     {
         $obj = clone $this;
-        $obj['trace_id'] = $traceID;
+        $obj['traceID'] = $traceID;
 
         return $obj;
     }

@@ -12,10 +12,10 @@ use Courier\Tenants\TenantAssociation\Type;
 
 /**
  * @phpstan-type TenantAssociationShape = array{
- *   tenant_id: string,
+ *   tenantID: string,
  *   profile?: array<string,mixed>|null,
  *   type?: value-of<Type>|null,
- *   user_id?: string|null,
+ *   userID?: string|null,
  * }
  */
 final class TenantAssociation implements BaseModel
@@ -26,8 +26,8 @@ final class TenantAssociation implements BaseModel
     /**
      * Tenant ID for the association between tenant and user.
      */
-    #[Required]
-    public string $tenant_id;
+    #[Required('tenant_id')]
+    public string $tenantID;
 
     /**
      * Additional metadata to be applied to a user profile when used in a tenant context.
@@ -44,15 +44,15 @@ final class TenantAssociation implements BaseModel
     /**
      * User ID for the association between tenant and user.
      */
-    #[Optional(nullable: true)]
-    public ?string $user_id;
+    #[Optional('user_id', nullable: true)]
+    public ?string $userID;
 
     /**
      * `new TenantAssociation()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantAssociation::with(tenant_id: ...)
+     * TenantAssociation::with(tenantID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -75,18 +75,18 @@ final class TenantAssociation implements BaseModel
      * @param Type|value-of<Type>|null $type
      */
     public static function with(
-        string $tenant_id,
+        string $tenantID,
         ?array $profile = null,
         Type|string|null $type = null,
-        ?string $user_id = null,
+        ?string $userID = null,
     ): self {
         $obj = new self;
 
-        $obj['tenant_id'] = $tenant_id;
+        $obj['tenantID'] = $tenantID;
 
         null !== $profile && $obj['profile'] = $profile;
         null !== $type && $obj['type'] = $type;
-        null !== $user_id && $obj['user_id'] = $user_id;
+        null !== $userID && $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -97,7 +97,7 @@ final class TenantAssociation implements BaseModel
     public function withTenantID(string $tenantID): self
     {
         $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $obj['tenantID'] = $tenantID;
 
         return $obj;
     }
@@ -132,7 +132,7 @@ final class TenantAssociation implements BaseModel
     public function withUserID(?string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }

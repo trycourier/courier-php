@@ -52,11 +52,11 @@ final class AudienceListResponse implements BaseModel
      *
      * @param list<Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
@@ -73,11 +73,11 @@ final class AudienceListResponse implements BaseModel
     /**
      * @param list<Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * }> $items
      */
     public function withItems(array $items): self

@@ -20,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\Users\TenantsService::addSingle()
  *
  * @phpstan-type TenantAddSingleParamsShape = array{
- *   user_id: string, profile?: array<string,mixed>|null
+ *   userID: string, profile?: array<string,mixed>|null
  * }
  */
 final class TenantAddSingleParams implements BaseModel
@@ -30,7 +30,7 @@ final class TenantAddSingleParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $user_id;
+    public string $userID;
 
     /** @var array<string,mixed>|null $profile */
     #[Optional(map: 'mixed', nullable: true)]
@@ -41,7 +41,7 @@ final class TenantAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TenantAddSingleParams::with(user_id: ...)
+     * TenantAddSingleParams::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -62,11 +62,11 @@ final class TenantAddSingleParams implements BaseModel
      *
      * @param array<string,mixed>|null $profile
      */
-    public static function with(string $user_id, ?array $profile = null): self
+    public static function with(string $userID, ?array $profile = null): self
     {
         $obj = new self;
 
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
 
         null !== $profile && $obj['profile'] = $profile;
 
@@ -76,7 +76,7 @@ final class TenantAddSingleParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }

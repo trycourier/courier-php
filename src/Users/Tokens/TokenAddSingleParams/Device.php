@@ -12,9 +12,9 @@ use Courier\Core\Contracts\BaseModel;
  * Information about the device the token came from.
  *
  * @phpstan-type DeviceShape = array{
- *   ad_id?: string|null,
- *   app_id?: string|null,
- *   device_id?: string|null,
+ *   adID?: string|null,
+ *   appID?: string|null,
+ *   deviceID?: string|null,
  *   manufacturer?: string|null,
  *   model?: string|null,
  *   platform?: string|null,
@@ -28,20 +28,20 @@ final class Device implements BaseModel
     /**
      * Id of the advertising identifier.
      */
-    #[Optional(nullable: true)]
-    public ?string $ad_id;
+    #[Optional('ad_id', nullable: true)]
+    public ?string $adID;
 
     /**
      * Id of the application the token is used for.
      */
-    #[Optional(nullable: true)]
-    public ?string $app_id;
+    #[Optional('app_id', nullable: true)]
+    public ?string $appID;
 
     /**
      * Id of the device the token is associated with.
      */
-    #[Optional(nullable: true)]
-    public ?string $device_id;
+    #[Optional('device_id', nullable: true)]
+    public ?string $deviceID;
 
     /**
      * The device manufacturer.
@@ -72,18 +72,18 @@ final class Device implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        ?string $ad_id = null,
-        ?string $app_id = null,
-        ?string $device_id = null,
+        ?string $adID = null,
+        ?string $appID = null,
+        ?string $deviceID = null,
         ?string $manufacturer = null,
         ?string $model = null,
         ?string $platform = null,
     ): self {
         $obj = new self;
 
-        null !== $ad_id && $obj['ad_id'] = $ad_id;
-        null !== $app_id && $obj['app_id'] = $app_id;
-        null !== $device_id && $obj['device_id'] = $device_id;
+        null !== $adID && $obj['adID'] = $adID;
+        null !== $appID && $obj['appID'] = $appID;
+        null !== $deviceID && $obj['deviceID'] = $deviceID;
         null !== $manufacturer && $obj['manufacturer'] = $manufacturer;
         null !== $model && $obj['model'] = $model;
         null !== $platform && $obj['platform'] = $platform;
@@ -97,7 +97,7 @@ final class Device implements BaseModel
     public function withAdID(?string $adID): self
     {
         $obj = clone $this;
-        $obj['ad_id'] = $adID;
+        $obj['adID'] = $adID;
 
         return $obj;
     }
@@ -108,7 +108,7 @@ final class Device implements BaseModel
     public function withAppID(?string $appID): self
     {
         $obj = clone $this;
-        $obj['app_id'] = $appID;
+        $obj['appID'] = $appID;
 
         return $obj;
     }
@@ -119,7 +119,7 @@ final class Device implements BaseModel
     public function withDeviceID(?string $deviceID): self
     {
         $obj = clone $this;
-        $obj['device_id'] = $deviceID;
+        $obj['deviceID'] = $deviceID;
 
         return $obj;
     }
