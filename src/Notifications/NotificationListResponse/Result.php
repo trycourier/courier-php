@@ -119,36 +119,36 @@ final class Result implements BaseModel
         Tags|array|null $tags = null,
         ?string $title = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['createdAt'] = $createdAt;
-        $obj['eventIDs'] = $eventIDs;
-        $obj['note'] = $note;
-        $obj['routing'] = $routing;
-        $obj['topicID'] = $topicID;
-        $obj['updatedAt'] = $updatedAt;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['eventIDs'] = $eventIDs;
+        $self['note'] = $note;
+        $self['routing'] = $routing;
+        $self['topicID'] = $topicID;
+        $self['updatedAt'] = $updatedAt;
 
-        null !== $tags && $obj['tags'] = $tags;
-        null !== $title && $obj['title'] = $title;
+        null !== $tags && $self['tags'] = $tags;
+        null !== $title && $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(int $createdAt): self
     {
-        $obj = clone $this;
-        $obj['createdAt'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,18 +158,18 @@ final class Result implements BaseModel
      */
     public function withEventIDs(array $eventIDs): self
     {
-        $obj = clone $this;
-        $obj['eventIDs'] = $eventIDs;
+        $self = clone $this;
+        $self['eventIDs'] = $eventIDs;
 
-        return $obj;
+        return $self;
     }
 
     public function withNote(string $note): self
     {
-        $obj = clone $this;
-        $obj['note'] = $note;
+        $self = clone $this;
+        $self['note'] = $note;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -179,26 +179,26 @@ final class Result implements BaseModel
      */
     public function withRouting(MessageRouting|array $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     public function withTopicID(string $topicID): self
     {
-        $obj = clone $this;
-        $obj['topicID'] = $topicID;
+        $self = clone $this;
+        $self['topicID'] = $topicID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(int $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updatedAt'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -206,17 +206,17 @@ final class Result implements BaseModel
      */
     public function withTags(Tags|array|null $tags): self
     {
-        $obj = clone $this;
-        $obj['tags'] = $tags;
+        $self = clone $this;
+        $self['tags'] = $tags;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(?string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

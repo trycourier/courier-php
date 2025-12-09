@@ -52,12 +52,12 @@ final class RecipientPreferences implements BaseModel
         ?array $categories = null,
         ?array $notifications = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $categories && $obj['categories'] = $categories;
-        null !== $notifications && $obj['notifications'] = $notifications;
+        null !== $categories && $self['categories'] = $categories;
+        null !== $notifications && $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,10 +69,10 @@ final class RecipientPreferences implements BaseModel
      */
     public function withCategories(?array $categories): self
     {
-        $obj = clone $this;
-        $obj['categories'] = $categories;
+        $self = clone $this;
+        $self['categories'] = $categories;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -84,9 +84,9 @@ final class RecipientPreferences implements BaseModel
      */
     public function withNotifications(?array $notifications): self
     {
-        $obj = clone $this;
-        $obj['notifications'] = $notifications;
+        $self = clone $this;
+        $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 }

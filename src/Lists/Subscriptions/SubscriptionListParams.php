@@ -40,11 +40,11 @@ final class SubscriptionListParams implements BaseModel
      */
     public static function with(?string $cursor = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $cursor && $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -52,9 +52,9 @@ final class SubscriptionListParams implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 }

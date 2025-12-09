@@ -111,18 +111,18 @@ final class Tenant implements BaseModel
         ?array $properties = null,
         ?array $userProfile = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['name'] = $name;
+        $self['id'] = $id;
+        $self['name'] = $name;
 
-        null !== $brandID && $obj['brandID'] = $brandID;
-        null !== $defaultPreferences && $obj['defaultPreferences'] = $defaultPreferences;
-        null !== $parentTenantID && $obj['parentTenantID'] = $parentTenantID;
-        null !== $properties && $obj['properties'] = $properties;
-        null !== $userProfile && $obj['userProfile'] = $userProfile;
+        null !== $brandID && $self['brandID'] = $brandID;
+        null !== $defaultPreferences && $self['defaultPreferences'] = $defaultPreferences;
+        null !== $parentTenantID && $self['parentTenantID'] = $parentTenantID;
+        null !== $properties && $self['properties'] = $properties;
+        null !== $userProfile && $self['userProfile'] = $userProfile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -130,10 +130,10 @@ final class Tenant implements BaseModel
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -141,10 +141,10 @@ final class Tenant implements BaseModel
      */
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -152,10 +152,10 @@ final class Tenant implements BaseModel
      */
     public function withBrandID(?string $brandID): self
     {
-        $obj = clone $this;
-        $obj['brandID'] = $brandID;
+        $self = clone $this;
+        $self['brandID'] = $brandID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -168,10 +168,10 @@ final class Tenant implements BaseModel
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences
     ): self {
-        $obj = clone $this;
-        $obj['defaultPreferences'] = $defaultPreferences;
+        $self = clone $this;
+        $self['defaultPreferences'] = $defaultPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -179,10 +179,10 @@ final class Tenant implements BaseModel
      */
     public function withParentTenantID(?string $parentTenantID): self
     {
-        $obj = clone $this;
-        $obj['parentTenantID'] = $parentTenantID;
+        $self = clone $this;
+        $self['parentTenantID'] = $parentTenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -192,10 +192,10 @@ final class Tenant implements BaseModel
      */
     public function withProperties(?array $properties): self
     {
-        $obj = clone $this;
-        $obj['properties'] = $properties;
+        $self = clone $this;
+        $self['properties'] = $properties;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -205,9 +205,9 @@ final class Tenant implements BaseModel
      */
     public function withUserProfile(?array $userProfile): self
     {
-        $obj = clone $this;
-        $obj['userProfile'] = $userProfile;
+        $self = clone $this;
+        $self['userProfile'] = $userProfile;
 
-        return $obj;
+        return $self;
     }
 }

@@ -61,46 +61,46 @@ final class SubscriptionList implements BaseModel
         ?string $created = null,
         ?string $updated = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['name'] = $name;
+        $self['id'] = $id;
+        $self['name'] = $name;
 
-        null !== $created && $obj['created'] = $created;
-        null !== $updated && $obj['updated'] = $updated;
+        null !== $created && $self['created'] = $created;
+        null !== $updated && $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(?string $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdated(?string $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 }

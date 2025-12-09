@@ -100,13 +100,13 @@ final class Automation implements BaseModel
         array $steps,
         ?string $cancelationToken = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['steps'] = $steps;
+        $self['steps'] = $steps;
 
-        null !== $cancelationToken && $obj['cancelationToken'] = $cancelationToken;
+        null !== $cancelationToken && $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -143,17 +143,17 @@ final class Automation implements BaseModel
      */
     public function withSteps(array $steps): self
     {
-        $obj = clone $this;
-        $obj['steps'] = $steps;
+        $self = clone $this;
+        $self['steps'] = $steps;
 
-        return $obj;
+        return $self;
     }
 
     public function withCancelationToken(?string $cancelationToken): self
     {
-        $obj = clone $this;
-        $obj['cancelationToken'] = $cancelationToken;
+        $self = clone $this;
+        $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 }

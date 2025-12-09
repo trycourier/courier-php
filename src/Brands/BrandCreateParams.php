@@ -81,31 +81,31 @@ final class BrandCreateParams implements BaseModel
         BrandSettings|array|null $settings = null,
         BrandSnippets|array|null $snippets = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['name'] = $name;
+        $self['name'] = $name;
 
-        null !== $id && $obj['id'] = $id;
-        null !== $settings && $obj['settings'] = $settings;
-        null !== $snippets && $obj['snippets'] = $snippets;
+        null !== $id && $self['id'] = $id;
+        null !== $settings && $self['settings'] = $settings;
+        null !== $snippets && $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(?string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -117,10 +117,10 @@ final class BrandCreateParams implements BaseModel
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
-        $obj = clone $this;
-        $obj['settings'] = $settings;
+        $self = clone $this;
+        $self['settings'] = $settings;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -128,9 +128,9 @@ final class BrandCreateParams implements BaseModel
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {
-        $obj = clone $this;
-        $obj['snippets'] = $snippets;
+        $self = clone $this;
+        $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 }

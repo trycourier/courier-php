@@ -49,28 +49,28 @@ final class Paging implements BaseModel
      */
     public static function with(bool $more, ?string $cursor = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['more'] = $more;
+        $self['more'] = $more;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $cursor && $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     public function withMore(bool $more): self
     {
-        $obj = clone $this;
-        $obj['more'] = $more;
+        $self = clone $this;
+        $self['more'] = $more;
 
-        return $obj;
+        return $self;
     }
 
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 }

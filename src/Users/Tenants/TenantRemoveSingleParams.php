@@ -51,18 +51,18 @@ final class TenantRemoveSingleParams implements BaseModel
      */
     public static function with(string $userID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['userID'] = $userID;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

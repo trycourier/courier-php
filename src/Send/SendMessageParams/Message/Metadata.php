@@ -60,22 +60,22 @@ final class Metadata implements BaseModel
         ?string $traceID = null,
         Utm|array|null $utm = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $event && $obj['event'] = $event;
-        null !== $tags && $obj['tags'] = $tags;
-        null !== $traceID && $obj['traceID'] = $traceID;
-        null !== $utm && $obj['utm'] = $utm;
+        null !== $event && $self['event'] = $event;
+        null !== $tags && $self['tags'] = $tags;
+        null !== $traceID && $self['traceID'] = $traceID;
+        null !== $utm && $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 
     public function withEvent(?string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -83,18 +83,18 @@ final class Metadata implements BaseModel
      */
     public function withTags(?array $tags): self
     {
-        $obj = clone $this;
-        $obj['tags'] = $tags;
+        $self = clone $this;
+        $self['tags'] = $tags;
 
-        return $obj;
+        return $self;
     }
 
     public function withTraceID(?string $traceID): self
     {
-        $obj = clone $this;
-        $obj['traceID'] = $traceID;
+        $self = clone $this;
+        $self['traceID'] = $traceID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -108,9 +108,9 @@ final class Metadata implements BaseModel
      */
     public function withUtm(Utm|array|null $utm): self
     {
-        $obj = clone $this;
-        $obj['utm'] = $utm;
+        $self = clone $this;
+        $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 }

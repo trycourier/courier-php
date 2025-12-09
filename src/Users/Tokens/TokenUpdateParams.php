@@ -61,20 +61,20 @@ final class TokenUpdateParams implements BaseModel
      */
     public static function with(string $userID, array $patch): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['userID'] = $userID;
-        $obj['patch'] = $patch;
+        $self['userID'] = $userID;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -82,9 +82,9 @@ final class TokenUpdateParams implements BaseModel
      */
     public function withPatch(array $patch): self
     {
-        $obj = clone $this;
-        $obj['patch'] = $patch;
+        $self = clone $this;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 }

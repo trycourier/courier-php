@@ -61,14 +61,14 @@ final class AutomationDelayStep implements BaseModel
         ?string $duration = null,
         ?string $until = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
+        $self['action'] = $action;
 
-        null !== $duration && $obj['duration'] = $duration;
-        null !== $until && $obj['until'] = $until;
+        null !== $duration && $self['duration'] = $duration;
+        null !== $until && $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -76,25 +76,25 @@ final class AutomationDelayStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withDuration(?string $duration): self
     {
-        $obj = clone $this;
-        $obj['duration'] = $duration;
+        $self = clone $this;
+        $self['duration'] = $duration;
 
-        return $obj;
+        return $self;
     }
 
     public function withUntil(?string $until): self
     {
-        $obj = clone $this;
-        $obj['until'] = $until;
+        $self = clone $this;
+        $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 }

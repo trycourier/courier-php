@@ -106,16 +106,16 @@ final class Content implements BaseModel
         string $text,
         string $title,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['blocks'] = $blocks;
-        $obj['body'] = $body;
-        $obj['html'] = $html;
-        $obj['subject'] = $subject;
-        $obj['text'] = $text;
-        $obj['title'] = $title;
+        $self['blocks'] = $blocks;
+        $self['body'] = $body;
+        $self['html'] = $html;
+        $self['subject'] = $subject;
+        $self['text'] = $text;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -125,10 +125,10 @@ final class Content implements BaseModel
      */
     public function withBlocks(array $blocks): self
     {
-        $obj = clone $this;
-        $obj['blocks'] = $blocks;
+        $self = clone $this;
+        $self['blocks'] = $blocks;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -136,10 +136,10 @@ final class Content implements BaseModel
      */
     public function withBody(string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,10 +147,10 @@ final class Content implements BaseModel
      */
     public function withHTML(string $html): self
     {
-        $obj = clone $this;
-        $obj['html'] = $html;
+        $self = clone $this;
+        $self['html'] = $html;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +158,10 @@ final class Content implements BaseModel
      */
     public function withSubject(string $subject): self
     {
-        $obj = clone $this;
-        $obj['subject'] = $subject;
+        $self = clone $this;
+        $self['subject'] = $subject;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,10 +169,10 @@ final class Content implements BaseModel
      */
     public function withText(string $text): self
     {
-        $obj = clone $this;
-        $obj['text'] = $text;
+        $self = clone $this;
+        $self['text'] = $text;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -180,9 +180,9 @@ final class Content implements BaseModel
      */
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

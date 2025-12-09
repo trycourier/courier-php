@@ -61,11 +61,11 @@ final class ProfileUpdateParams implements BaseModel
      */
     public static function with(array $patch): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['patch'] = $patch;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -75,9 +75,9 @@ final class ProfileUpdateParams implements BaseModel
      */
     public function withPatch(array $patch): self
     {
-        $obj = clone $this;
-        $obj['patch'] = $patch;
+        $self = clone $this;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 }

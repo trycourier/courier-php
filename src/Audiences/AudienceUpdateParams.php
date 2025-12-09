@@ -66,13 +66,13 @@ final class AudienceUpdateParams implements BaseModel
         Filter|array|null $filter = null,
         ?string $name = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $description && $obj['description'] = $description;
-        null !== $filter && $obj['filter'] = $filter;
-        null !== $name && $obj['name'] = $name;
+        null !== $description && $self['description'] = $description;
+        null !== $filter && $self['filter'] = $filter;
+        null !== $name && $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -80,10 +80,10 @@ final class AudienceUpdateParams implements BaseModel
      */
     public function withDescription(?string $description): self
     {
-        $obj = clone $this;
-        $obj['description'] = $description;
+        $self = clone $this;
+        $self['description'] = $description;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -95,10 +95,10 @@ final class AudienceUpdateParams implements BaseModel
      */
     public function withFilter(Filter|array|null $filter): self
     {
-        $obj = clone $this;
-        $obj['filter'] = $filter;
+        $self = clone $this;
+        $self['filter'] = $filter;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,9 +106,9 @@ final class AudienceUpdateParams implements BaseModel
      */
     public function withName(?string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 }

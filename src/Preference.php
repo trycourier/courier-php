@@ -80,15 +80,15 @@ final class Preference implements BaseModel
         ?array $rules = null,
         Source|string|null $source = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $channelPreferences && $obj['channelPreferences'] = $channelPreferences;
-        null !== $rules && $obj['rules'] = $rules;
-        null !== $source && $obj['source'] = $source;
+        null !== $channelPreferences && $self['channelPreferences'] = $channelPreferences;
+        null !== $rules && $self['rules'] = $rules;
+        null !== $source && $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,10 +96,10 @@ final class Preference implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -109,10 +109,10 @@ final class Preference implements BaseModel
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
-        $obj = clone $this;
-        $obj['channelPreferences'] = $channelPreferences;
+        $self = clone $this;
+        $self['channelPreferences'] = $channelPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -120,10 +120,10 @@ final class Preference implements BaseModel
      */
     public function withRules(?array $rules): self
     {
-        $obj = clone $this;
-        $obj['rules'] = $rules;
+        $self = clone $this;
+        $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -131,9 +131,9 @@ final class Preference implements BaseModel
      */
     public function withSource(Source|string|null $source): self
     {
-        $obj = clone $this;
-        $obj['source'] = $source;
+        $self = clone $this;
+        $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 }

@@ -79,16 +79,16 @@ final class Device implements BaseModel
         ?string $model = null,
         ?string $platform = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $adID && $obj['adID'] = $adID;
-        null !== $appID && $obj['appID'] = $appID;
-        null !== $deviceID && $obj['deviceID'] = $deviceID;
-        null !== $manufacturer && $obj['manufacturer'] = $manufacturer;
-        null !== $model && $obj['model'] = $model;
-        null !== $platform && $obj['platform'] = $platform;
+        null !== $adID && $self['adID'] = $adID;
+        null !== $appID && $self['appID'] = $appID;
+        null !== $deviceID && $self['deviceID'] = $deviceID;
+        null !== $manufacturer && $self['manufacturer'] = $manufacturer;
+        null !== $model && $self['model'] = $model;
+        null !== $platform && $self['platform'] = $platform;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,10 +96,10 @@ final class Device implements BaseModel
      */
     public function withAdID(?string $adID): self
     {
-        $obj = clone $this;
-        $obj['adID'] = $adID;
+        $self = clone $this;
+        $self['adID'] = $adID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -107,10 +107,10 @@ final class Device implements BaseModel
      */
     public function withAppID(?string $appID): self
     {
-        $obj = clone $this;
-        $obj['appID'] = $appID;
+        $self = clone $this;
+        $self['appID'] = $appID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -118,10 +118,10 @@ final class Device implements BaseModel
      */
     public function withDeviceID(?string $deviceID): self
     {
-        $obj = clone $this;
-        $obj['deviceID'] = $deviceID;
+        $self = clone $this;
+        $self['deviceID'] = $deviceID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -129,10 +129,10 @@ final class Device implements BaseModel
      */
     public function withManufacturer(?string $manufacturer): self
     {
-        $obj = clone $this;
-        $obj['manufacturer'] = $manufacturer;
+        $self = clone $this;
+        $self['manufacturer'] = $manufacturer;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -140,10 +140,10 @@ final class Device implements BaseModel
      */
     public function withModel(?string $model): self
     {
-        $obj = clone $this;
-        $obj['model'] = $model;
+        $self = clone $this;
+        $self['model'] = $model;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -151,9 +151,9 @@ final class Device implements BaseModel
      */
     public function withPlatform(?string $platform): self
     {
-        $obj = clone $this;
-        $obj['platform'] = $platform;
+        $self = clone $this;
+        $self['platform'] = $platform;
 
-        return $obj;
+        return $self;
     }
 }

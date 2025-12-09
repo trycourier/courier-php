@@ -135,26 +135,26 @@ final class TokenAddSingleParams implements BaseModel
         mixed $properties = null,
         Tracking|array|null $tracking = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['userID'] = $userID;
-        $obj['token'] = $token;
-        $obj['providerKey'] = $providerKey;
+        $self['userID'] = $userID;
+        $self['token'] = $token;
+        $self['providerKey'] = $providerKey;
 
-        null !== $device && $obj['device'] = $device;
-        null !== $expiryDate && $obj['expiryDate'] = $expiryDate;
-        null !== $properties && $obj['properties'] = $properties;
-        null !== $tracking && $obj['tracking'] = $tracking;
+        null !== $device && $self['device'] = $device;
+        null !== $expiryDate && $self['expiryDate'] = $expiryDate;
+        null !== $properties && $self['properties'] = $properties;
+        null !== $tracking && $self['tracking'] = $tracking;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -162,10 +162,10 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withToken(string $token): self
     {
-        $obj = clone $this;
-        $obj['token'] = $token;
+        $self = clone $this;
+        $self['token'] = $token;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -173,10 +173,10 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withProviderKey(ProviderKey|string $providerKey): self
     {
-        $obj = clone $this;
-        $obj['providerKey'] = $providerKey;
+        $self = clone $this;
+        $self['providerKey'] = $providerKey;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -193,10 +193,10 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withDevice(Device|array|null $device): self
     {
-        $obj = clone $this;
-        $obj['device'] = $device;
+        $self = clone $this;
+        $self['device'] = $device;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -204,10 +204,10 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withExpiryDate(string|bool|null $expiryDate): self
     {
-        $obj = clone $this;
-        $obj['expiryDate'] = $expiryDate;
+        $self = clone $this;
+        $self['expiryDate'] = $expiryDate;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -215,10 +215,10 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withProperties(mixed $properties): self
     {
-        $obj = clone $this;
-        $obj['properties'] = $properties;
+        $self = clone $this;
+        $self['properties'] = $properties;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -233,9 +233,9 @@ final class TokenAddSingleParams implements BaseModel
      */
     public function withTracking(Tracking|array|null $tracking): self
     {
-        $obj = clone $this;
-        $obj['tracking'] = $tracking;
+        $self = clone $this;
+        $self['tracking'] = $tracking;
 
-        return $obj;
+        return $self;
     }
 }

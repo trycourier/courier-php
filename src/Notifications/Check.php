@@ -67,22 +67,22 @@ final class Check implements BaseModel
         Type|string $type,
         int $updated
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['status'] = $status;
-        $obj['type'] = $type;
-        $obj['updated'] = $updated;
+        $self['id'] = $id;
+        $self['status'] = $status;
+        $self['type'] = $type;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -90,10 +90,10 @@ final class Check implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -101,17 +101,17 @@ final class Check implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdated(int $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 }

@@ -54,54 +54,54 @@ final class Utm implements BaseModel
         ?string $source = null,
         ?string $term = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $campaign && $obj['campaign'] = $campaign;
-        null !== $content && $obj['content'] = $content;
-        null !== $medium && $obj['medium'] = $medium;
-        null !== $source && $obj['source'] = $source;
-        null !== $term && $obj['term'] = $term;
+        null !== $campaign && $self['campaign'] = $campaign;
+        null !== $content && $self['content'] = $content;
+        null !== $medium && $self['medium'] = $medium;
+        null !== $source && $self['source'] = $source;
+        null !== $term && $self['term'] = $term;
 
-        return $obj;
+        return $self;
     }
 
     public function withCampaign(?string $campaign): self
     {
-        $obj = clone $this;
-        $obj['campaign'] = $campaign;
+        $self = clone $this;
+        $self['campaign'] = $campaign;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(?string $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withMedium(?string $medium): self
     {
-        $obj = clone $this;
-        $obj['medium'] = $medium;
+        $self = clone $this;
+        $self['medium'] = $medium;
 
-        return $obj;
+        return $self;
     }
 
     public function withSource(?string $source): self
     {
-        $obj = clone $this;
-        $obj['source'] = $source;
+        $self = clone $this;
+        $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 
     public function withTerm(?string $term): self
     {
-        $obj = clone $this;
-        $obj['term'] = $term;
+        $self = clone $this;
+        $self['term'] = $term;
 
-        return $obj;
+        return $self;
     }
 }

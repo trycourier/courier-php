@@ -57,11 +57,11 @@ final class BulkGetJobResponse implements BaseModel
      */
     public static function with(Job|array $job): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['job'] = $job;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -75,9 +75,9 @@ final class BulkGetJobResponse implements BaseModel
      */
     public function withJob(Job|array $job): self
     {
-        $obj = clone $this;
-        $obj['job'] = $job;
+        $self = clone $this;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 }

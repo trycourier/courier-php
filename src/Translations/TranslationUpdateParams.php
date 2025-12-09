@@ -54,27 +54,27 @@ final class TranslationUpdateParams implements BaseModel
      */
     public static function with(string $domain, string $body): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['domain'] = $domain;
-        $obj['body'] = $body;
+        $self['domain'] = $domain;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     public function withDomain(string $domain): self
     {
-        $obj = clone $this;
-        $obj['domain'] = $domain;
+        $self = clone $this;
+        $self['domain'] = $domain;
 
-        return $obj;
+        return $self;
     }
 
     public function withBody(string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 }

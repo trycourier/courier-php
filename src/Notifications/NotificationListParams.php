@@ -45,20 +45,20 @@ final class NotificationListParams implements BaseModel
         ?string $cursor = null,
         ?bool $notes = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $notes && $obj['notes'] = $notes;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $notes && $self['notes'] = $notes;
 
-        return $obj;
+        return $self;
     }
 
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -66,9 +66,9 @@ final class NotificationListParams implements BaseModel
      */
     public function withNotes(?bool $notes): self
     {
-        $obj = clone $this;
-        $obj['notes'] = $notes;
+        $self = clone $this;
+        $self['notes'] = $notes;
 
-        return $obj;
+        return $self;
     }
 }

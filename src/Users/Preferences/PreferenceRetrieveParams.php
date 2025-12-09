@@ -40,11 +40,11 @@ final class PreferenceRetrieveParams implements BaseModel
      */
     public static function with(?string $tenantID = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $tenantID && $obj['tenantID'] = $tenantID;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -52,9 +52,9 @@ final class PreferenceRetrieveParams implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenantID'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 }

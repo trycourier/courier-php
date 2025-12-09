@@ -54,11 +54,11 @@ final class AudienceUpdateResponse implements BaseModel
      */
     public static function with(Audience|array $audience): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['audience'] = $audience;
+        $self['audience'] = $audience;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -73,9 +73,9 @@ final class AudienceUpdateResponse implements BaseModel
      */
     public function withAudience(Audience|array $audience): self
     {
-        $obj = clone $this;
-        $obj['audience'] = $audience;
+        $self = clone $this;
+        $self['audience'] = $audience;
 
-        return $obj;
+        return $self;
     }
 }

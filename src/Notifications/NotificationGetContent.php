@@ -69,13 +69,13 @@ final class NotificationGetContent implements BaseModel
         ?array $channels = null,
         ?string $checksum = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $blocks && $obj['blocks'] = $blocks;
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $checksum && $obj['checksum'] = $checksum;
+        null !== $blocks && $self['blocks'] = $blocks;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $checksum && $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -91,10 +91,10 @@ final class NotificationGetContent implements BaseModel
      */
     public function withBlocks(?array $blocks): self
     {
-        $obj = clone $this;
-        $obj['blocks'] = $blocks;
+        $self = clone $this;
+        $self['blocks'] = $blocks;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -108,17 +108,17 @@ final class NotificationGetContent implements BaseModel
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withChecksum(?string $checksum): self
     {
-        $obj = clone $this;
-        $obj['checksum'] = $checksum;
+        $self = clone $this;
+        $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 }

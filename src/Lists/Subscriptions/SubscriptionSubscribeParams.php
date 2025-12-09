@@ -62,11 +62,11 @@ final class SubscriptionSubscribeParams implements BaseModel
      */
     public static function with(array $recipients): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipients'] = $recipients;
+        $self['recipients'] = $recipients;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -76,9 +76,9 @@ final class SubscriptionSubscribeParams implements BaseModel
      */
     public function withRecipients(array $recipients): self
     {
-        $obj = clone $this;
-        $obj['recipients'] = $recipients;
+        $self = clone $this;
+        $self['recipients'] = $recipients;
 
-        return $obj;
+        return $self;
     }
 }

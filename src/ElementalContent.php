@@ -112,14 +112,14 @@ final class ElementalContent implements BaseModel
         string $version,
         ?string $brand = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['elements'] = $elements;
-        $obj['version'] = $version;
+        $self['elements'] = $elements;
+        $self['version'] = $version;
 
-        null !== $brand && $obj['brand'] = $brand;
+        null !== $brand && $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -171,10 +171,10 @@ final class ElementalContent implements BaseModel
      */
     public function withElements(array $elements): self
     {
-        $obj = clone $this;
-        $obj['elements'] = $elements;
+        $self = clone $this;
+        $self['elements'] = $elements;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -182,17 +182,17 @@ final class ElementalContent implements BaseModel
      */
     public function withVersion(string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 }

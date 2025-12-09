@@ -70,14 +70,14 @@ final class BrandSettingsEmail implements BaseModel
         EmailHeader|array|null $header = null,
         TemplateOverride|array|null $templateOverride = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $footer && $obj['footer'] = $footer;
-        null !== $head && $obj['head'] = $head;
-        null !== $header && $obj['header'] = $header;
-        null !== $templateOverride && $obj['templateOverride'] = $templateOverride;
+        null !== $footer && $self['footer'] = $footer;
+        null !== $head && $self['head'] = $head;
+        null !== $header && $self['header'] = $header;
+        null !== $templateOverride && $self['templateOverride'] = $templateOverride;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -87,10 +87,10 @@ final class BrandSettingsEmail implements BaseModel
      */
     public function withFooter(EmailFooter|array|null $footer): self
     {
-        $obj = clone $this;
-        $obj['footer'] = $footer;
+        $self = clone $this;
+        $self['footer'] = $footer;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -98,10 +98,10 @@ final class BrandSettingsEmail implements BaseModel
      */
     public function withHead(EmailHead|array|null $head): self
     {
-        $obj = clone $this;
-        $obj['head'] = $head;
+        $self = clone $this;
+        $self['head'] = $head;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,10 +111,10 @@ final class BrandSettingsEmail implements BaseModel
      */
     public function withHeader(EmailHeader|array|null $header): self
     {
-        $obj = clone $this;
-        $obj['header'] = $header;
+        $self = clone $this;
+        $self['header'] = $header;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -134,9 +134,9 @@ final class BrandSettingsEmail implements BaseModel
     public function withTemplateOverride(
         TemplateOverride|array|null $templateOverride
     ): self {
-        $obj = clone $this;
-        $obj['templateOverride'] = $templateOverride;
+        $self = clone $this;
+        $self['templateOverride'] = $templateOverride;
 
-        return $obj;
+        return $self;
     }
 }

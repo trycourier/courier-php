@@ -65,20 +65,20 @@ final class CheckUpdateParams implements BaseModel
      */
     public static function with(string $id, array $checks): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['checks'] = $checks;
+        $self['id'] = $id;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -88,9 +88,9 @@ final class CheckUpdateParams implements BaseModel
      */
     public function withChecks(array $checks): self
     {
-        $obj = clone $this;
-        $obj['checks'] = $checks;
+        $self = clone $this;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 }

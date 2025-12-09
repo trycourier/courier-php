@@ -66,30 +66,30 @@ final class Item implements BaseModel
         ?string $created = null,
         RecipientPreferences|array|null $preferences = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipientID'] = $recipientID;
+        $self['recipientID'] = $recipientID;
 
-        null !== $created && $obj['created'] = $created;
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $created && $self['created'] = $created;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipientID'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(?string $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -101,9 +101,9 @@ final class Item implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

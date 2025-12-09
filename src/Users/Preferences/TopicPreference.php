@@ -97,17 +97,17 @@ final class TopicPreference implements BaseModel
         ?array $customRouting = null,
         ?bool $hasCustomRouting = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['defaultStatus'] = $defaultStatus;
-        $obj['status'] = $status;
-        $obj['topicID'] = $topicID;
-        $obj['topicName'] = $topicName;
+        $self['defaultStatus'] = $defaultStatus;
+        $self['status'] = $status;
+        $self['topicID'] = $topicID;
+        $self['topicName'] = $topicName;
 
-        null !== $customRouting && $obj['customRouting'] = $customRouting;
-        null !== $hasCustomRouting && $obj['hasCustomRouting'] = $hasCustomRouting;
+        null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,10 +116,10 @@ final class TopicPreference implements BaseModel
     public function withDefaultStatus(
         PreferenceStatus|string $defaultStatus
     ): self {
-        $obj = clone $this;
-        $obj['defaultStatus'] = $defaultStatus;
+        $self = clone $this;
+        $self['defaultStatus'] = $defaultStatus;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -127,26 +127,26 @@ final class TopicPreference implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     public function withTopicID(string $topicID): self
     {
-        $obj = clone $this;
-        $obj['topicID'] = $topicID;
+        $self = clone $this;
+        $self['topicID'] = $topicID;
 
-        return $obj;
+        return $self;
     }
 
     public function withTopicName(string $topicName): self
     {
-        $obj = clone $this;
-        $obj['topicName'] = $topicName;
+        $self = clone $this;
+        $self['topicName'] = $topicName;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -156,17 +156,17 @@ final class TopicPreference implements BaseModel
      */
     public function withCustomRouting(?array $customRouting): self
     {
-        $obj = clone $this;
-        $obj['customRouting'] = $customRouting;
+        $self = clone $this;
+        $self['customRouting'] = $customRouting;
 
-        return $obj;
+        return $self;
     }
 
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
-        $obj = clone $this;
-        $obj['hasCustomRouting'] = $hasCustomRouting;
+        $self = clone $this;
+        $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 }

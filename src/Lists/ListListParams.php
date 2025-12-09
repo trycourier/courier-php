@@ -50,12 +50,12 @@ final class ListListParams implements BaseModel
         ?string $cursor = null,
         ?string $pattern = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $pattern && $obj['pattern'] = $pattern;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $pattern && $self['pattern'] = $pattern;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -63,10 +63,10 @@ final class ListListParams implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -74,9 +74,9 @@ final class ListListParams implements BaseModel
      */
     public function withPattern(?string $pattern): self
     {
-        $obj = clone $this;
-        $obj['pattern'] = $pattern;
+        $self = clone $this;
+        $self['pattern'] = $pattern;
 
-        return $obj;
+        return $self;
     }
 }

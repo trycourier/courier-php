@@ -89,16 +89,16 @@ final class AuditEvent implements BaseModel
         string $timestamp,
         string $type,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['actor'] = $actor;
-        $obj['auditEventID'] = $auditEventID;
-        $obj['source'] = $source;
-        $obj['target'] = $target;
-        $obj['timestamp'] = $timestamp;
-        $obj['type'] = $type;
+        $self['actor'] = $actor;
+        $self['auditEventID'] = $auditEventID;
+        $self['source'] = $source;
+        $self['target'] = $target;
+        $self['timestamp'] = $timestamp;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,49 +106,49 @@ final class AuditEvent implements BaseModel
      */
     public function withActor(Actor|array $actor): self
     {
-        $obj = clone $this;
-        $obj['actor'] = $actor;
+        $self = clone $this;
+        $self['actor'] = $actor;
 
-        return $obj;
+        return $self;
     }
 
     public function withAuditEventID(string $auditEventID): self
     {
-        $obj = clone $this;
-        $obj['auditEventID'] = $auditEventID;
+        $self = clone $this;
+        $self['auditEventID'] = $auditEventID;
 
-        return $obj;
+        return $self;
     }
 
     public function withSource(string $source): self
     {
-        $obj = clone $this;
-        $obj['source'] = $source;
+        $self = clone $this;
+        $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 
     public function withTarget(string $target): self
     {
-        $obj = clone $this;
-        $obj['target'] = $target;
+        $self = clone $this;
+        $self['target'] = $target;
 
-        return $obj;
+        return $self;
     }
 
     public function withTimestamp(string $timestamp): self
     {
-        $obj = clone $this;
-        $obj['timestamp'] = $timestamp;
+        $self = clone $this;
+        $self['timestamp'] = $timestamp;
 
-        return $obj;
+        return $self;
     }
 
     public function withType(string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

@@ -67,12 +67,12 @@ final class ListGetResponse implements BaseModel
      */
     public static function with(Paging|array $paging, array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['paging'] = $paging;
-        $obj['results'] = $results;
+        $self['paging'] = $paging;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -80,10 +80,10 @@ final class ListGetResponse implements BaseModel
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -99,9 +99,9 @@ final class ListGetResponse implements BaseModel
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

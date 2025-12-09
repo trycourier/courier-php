@@ -62,15 +62,15 @@ final class Timeout implements BaseModel
         ?int $message = null,
         ?array $provider = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $channel && $obj['channel'] = $channel;
-        null !== $criteria && $obj['criteria'] = $criteria;
-        null !== $escalation && $obj['escalation'] = $escalation;
-        null !== $message && $obj['message'] = $message;
-        null !== $provider && $obj['provider'] = $provider;
+        null !== $channel && $self['channel'] = $channel;
+        null !== $criteria && $self['criteria'] = $criteria;
+        null !== $escalation && $self['escalation'] = $escalation;
+        null !== $message && $self['message'] = $message;
+        null !== $provider && $self['provider'] = $provider;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +78,10 @@ final class Timeout implements BaseModel
      */
     public function withChannel(?array $channel): self
     {
-        $obj = clone $this;
-        $obj['channel'] = $channel;
+        $self = clone $this;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,26 +89,26 @@ final class Timeout implements BaseModel
      */
     public function withCriteria(Criteria|string|null $criteria): self
     {
-        $obj = clone $this;
-        $obj['criteria'] = $criteria;
+        $self = clone $this;
+        $self['criteria'] = $criteria;
 
-        return $obj;
+        return $self;
     }
 
     public function withEscalation(?int $escalation): self
     {
-        $obj = clone $this;
-        $obj['escalation'] = $escalation;
+        $self = clone $this;
+        $self['escalation'] = $escalation;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessage(?int $message): self
     {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,9 +116,9 @@ final class Timeout implements BaseModel
      */
     public function withProvider(?array $provider): self
     {
-        $obj = clone $this;
-        $obj['provider'] = $provider;
+        $self = clone $this;
+        $self['provider'] = $provider;
 
-        return $obj;
+        return $self;
     }
 }

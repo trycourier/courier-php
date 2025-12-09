@@ -71,12 +71,12 @@ final class PreferenceGetResponse implements BaseModel
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -93,10 +93,10 @@ final class PreferenceGetResponse implements BaseModel
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,9 +106,9 @@ final class PreferenceGetResponse implements BaseModel
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

@@ -50,11 +50,11 @@ final class ChannelPreference implements BaseModel
      */
     public static function with(ChannelClassification|string $channel): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channel'] = $channel;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -62,9 +62,9 @@ final class ChannelPreference implements BaseModel
      */
     public function withChannel(ChannelClassification|string $channel): self
     {
-        $obj = clone $this;
-        $obj['channel'] = $channel;
+        $self = clone $this;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 }

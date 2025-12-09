@@ -74,14 +74,14 @@ final class AutomationFetchDataStep implements BaseModel
         Webhook|array $webhook,
         MergeStrategy|string|null $mergeStrategy = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['webhook'] = $webhook;
+        $self['action'] = $action;
+        $self['webhook'] = $webhook;
 
-        null !== $mergeStrategy && $obj['mergeStrategy'] = $mergeStrategy;
+        null !== $mergeStrategy && $self['mergeStrategy'] = $mergeStrategy;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,10 +89,10 @@ final class AutomationFetchDataStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -105,10 +105,10 @@ final class AutomationFetchDataStep implements BaseModel
      */
     public function withWebhook(Webhook|array $webhook): self
     {
-        $obj = clone $this;
-        $obj['webhook'] = $webhook;
+        $self = clone $this;
+        $self['webhook'] = $webhook;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -117,9 +117,9 @@ final class AutomationFetchDataStep implements BaseModel
     public function withMergeStrategy(
         MergeStrategy|string|null $mergeStrategy
     ): self {
-        $obj = clone $this;
-        $obj['mergeStrategy'] = $mergeStrategy;
+        $self = clone $this;
+        $self['mergeStrategy'] = $mergeStrategy;
 
-        return $obj;
+        return $self;
     }
 }

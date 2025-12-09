@@ -72,14 +72,14 @@ final class NotificationPreferenceDetails implements BaseModel
         ?array $channelPreferences = null,
         ?array $rules = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $channelPreferences && $obj['channelPreferences'] = $channelPreferences;
-        null !== $rules && $obj['rules'] = $rules;
+        null !== $channelPreferences && $self['channelPreferences'] = $channelPreferences;
+        null !== $rules && $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -87,10 +87,10 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,10 +100,10 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
-        $obj = clone $this;
-        $obj['channelPreferences'] = $channelPreferences;
+        $self = clone $this;
+        $self['channelPreferences'] = $channelPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,9 +111,9 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withRules(?array $rules): self
     {
-        $obj = clone $this;
-        $obj['rules'] = $rules;
+        $self = clone $this;
+        $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 }

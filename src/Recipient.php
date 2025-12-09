@@ -113,20 +113,20 @@ final class Recipient implements BaseModel
         ?string $tenantID = null,
         ?string $userID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $accountID && $obj['accountID'] = $accountID;
-        null !== $context && $obj['context'] = $context;
-        null !== $data && $obj['data'] = $data;
-        null !== $email && $obj['email'] = $email;
-        null !== $listID && $obj['listID'] = $listID;
-        null !== $locale && $obj['locale'] = $locale;
-        null !== $phoneNumber && $obj['phoneNumber'] = $phoneNumber;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $tenantID && $obj['tenantID'] = $tenantID;
-        null !== $userID && $obj['userID'] = $userID;
+        null !== $accountID && $self['accountID'] = $accountID;
+        null !== $context && $self['context'] = $context;
+        null !== $data && $self['data'] = $data;
+        null !== $email && $self['email'] = $email;
+        null !== $listID && $self['listID'] = $listID;
+        null !== $locale && $self['locale'] = $locale;
+        null !== $phoneNumber && $self['phoneNumber'] = $phoneNumber;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
+        null !== $userID && $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -134,10 +134,10 @@ final class Recipient implements BaseModel
      */
     public function withAccountID(?string $accountID): self
     {
-        $obj = clone $this;
-        $obj['accountID'] = $accountID;
+        $self = clone $this;
+        $self['accountID'] = $accountID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,10 +147,10 @@ final class Recipient implements BaseModel
      */
     public function withContext(MessageContext|array|null $context): self
     {
-        $obj = clone $this;
-        $obj['context'] = $context;
+        $self = clone $this;
+        $self['context'] = $context;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +158,10 @@ final class Recipient implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,10 +169,10 @@ final class Recipient implements BaseModel
      */
     public function withEmail(?string $email): self
     {
-        $obj = clone $this;
-        $obj['email'] = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -180,10 +180,10 @@ final class Recipient implements BaseModel
      */
     public function withListID(?string $listID): self
     {
-        $obj = clone $this;
-        $obj['listID'] = $listID;
+        $self = clone $this;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -191,10 +191,10 @@ final class Recipient implements BaseModel
      */
     public function withLocale(?string $locale): self
     {
-        $obj = clone $this;
-        $obj['locale'] = $locale;
+        $self = clone $this;
+        $self['locale'] = $locale;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -202,10 +202,10 @@ final class Recipient implements BaseModel
      */
     public function withPhoneNumber(?string $phoneNumber): self
     {
-        $obj = clone $this;
-        $obj['phoneNumber'] = $phoneNumber;
+        $self = clone $this;
+        $self['phoneNumber'] = $phoneNumber;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -217,10 +217,10 @@ final class Recipient implements BaseModel
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -228,10 +228,10 @@ final class Recipient implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenantID'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -239,9 +239,9 @@ final class Recipient implements BaseModel
      */
     public function withUserID(?string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

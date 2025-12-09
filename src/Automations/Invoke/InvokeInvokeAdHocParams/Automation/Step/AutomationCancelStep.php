@@ -56,12 +56,12 @@ final class AutomationCancelStep implements BaseModel
         Action|string $action,
         string $cancelationToken
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['cancelationToken'] = $cancelationToken;
+        $self['action'] = $action;
+        $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,17 +69,17 @@ final class AutomationCancelStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withCancelationToken(string $cancelationToken): self
     {
-        $obj = clone $this;
-        $obj['cancelationToken'] = $cancelationToken;
+        $self = clone $this;
+        $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 }

@@ -85,24 +85,24 @@ final class Result implements BaseModel
         string $updated,
         RecipientPreferences|array|null $preferences = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created'] = $created;
-        $obj['name'] = $name;
-        $obj['updated'] = $updated;
+        $self['id'] = $id;
+        $self['created'] = $created;
+        $self['name'] = $name;
+        $self['updated'] = $updated;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -110,10 +110,10 @@ final class Result implements BaseModel
      */
     public function withCreated(string $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -121,10 +121,10 @@ final class Result implements BaseModel
      */
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -132,10 +132,10 @@ final class Result implements BaseModel
      */
     public function withUpdated(string $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,9 +147,9 @@ final class Result implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

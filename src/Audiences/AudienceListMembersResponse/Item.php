@@ -79,54 +79,54 @@ final class Item implements BaseModel
         string $memberID,
         string $reason,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['addedAt'] = $addedAt;
-        $obj['audienceID'] = $audienceID;
-        $obj['audienceVersion'] = $audienceVersion;
-        $obj['memberID'] = $memberID;
-        $obj['reason'] = $reason;
+        $self['addedAt'] = $addedAt;
+        $self['audienceID'] = $audienceID;
+        $self['audienceVersion'] = $audienceVersion;
+        $self['memberID'] = $memberID;
+        $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 
     public function withAddedAt(string $addedAt): self
     {
-        $obj = clone $this;
-        $obj['addedAt'] = $addedAt;
+        $self = clone $this;
+        $self['addedAt'] = $addedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withAudienceID(string $audienceID): self
     {
-        $obj = clone $this;
-        $obj['audienceID'] = $audienceID;
+        $self = clone $this;
+        $self['audienceID'] = $audienceID;
 
-        return $obj;
+        return $self;
     }
 
     public function withAudienceVersion(int $audienceVersion): self
     {
-        $obj = clone $this;
-        $obj['audienceVersion'] = $audienceVersion;
+        $self = clone $this;
+        $self['audienceVersion'] = $audienceVersion;
 
-        return $obj;
+        return $self;
     }
 
     public function withMemberID(string $memberID): self
     {
-        $obj = clone $this;
-        $obj['memberID'] = $memberID;
+        $self = clone $this;
+        $self['memberID'] = $memberID;
 
-        return $obj;
+        return $self;
     }
 
     public function withReason(string $reason): self
     {
-        $obj = clone $this;
-        $obj['reason'] = $reason;
+        $self = clone $this;
+        $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 }

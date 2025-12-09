@@ -60,21 +60,21 @@ final class PutSubscriptionsRecipient implements BaseModel
         string $recipientID,
         RecipientPreferences|array|null $preferences = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipientID'] = $recipientID;
+        $self['recipientID'] = $recipientID;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipientID'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -86,9 +86,9 @@ final class PutSubscriptionsRecipient implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

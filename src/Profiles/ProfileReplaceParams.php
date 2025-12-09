@@ -57,11 +57,11 @@ final class ProfileReplaceParams implements BaseModel
      */
     public static function with(array $profile): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['profile'] = $profile;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,9 +69,9 @@ final class ProfileReplaceParams implements BaseModel
      */
     public function withProfile(array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 }
