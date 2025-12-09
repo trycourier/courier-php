@@ -42,11 +42,11 @@ final class DefaultPreferences implements BaseModel
      */
     public static function with(?array $items = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $items && $obj['items'] = $items;
+        null !== $items && $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -59,9 +59,9 @@ final class DefaultPreferences implements BaseModel
      */
     public function withItems(?array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 }

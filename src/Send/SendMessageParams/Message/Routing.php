@@ -63,12 +63,12 @@ final class Routing implements BaseModel
      */
     public static function with(array $channels, Method|string $method): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channels'] = $channels;
-        $obj['method'] = $method;
+        $self['channels'] = $channels;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +78,10 @@ final class Routing implements BaseModel
      */
     public function withChannels(array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,9 +89,9 @@ final class Routing implements BaseModel
      */
     public function withMethod(Method|string $method): self
     {
-        $obj = clone $this;
-        $obj['method'] = $method;
+        $self = clone $this;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 }

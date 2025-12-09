@@ -88,11 +88,11 @@ final class BulkCreateJobParams implements BaseModel
     public static function with(
         InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['message'] = $message;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,9 +115,9 @@ final class BulkCreateJobParams implements BaseModel
     public function withMessage(
         InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }

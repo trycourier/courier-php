@@ -49,11 +49,11 @@ final class SendMessageResponse implements BaseModel
      */
     public static function with(string $requestID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['requestID'] = $requestID;
+        $self['requestID'] = $requestID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -62,9 +62,9 @@ final class SendMessageResponse implements BaseModel
      */
     public function withRequestID(string $requestID): self
     {
-        $obj = clone $this;
-        $obj['requestID'] = $requestID;
+        $self = clone $this;
+        $self['requestID'] = $requestID;
 
-        return $obj;
+        return $self;
     }
 }

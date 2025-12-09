@@ -81,22 +81,22 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
         Topic|array $topic,
         ?string $tenantID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['userID'] = $userID;
-        $obj['topic'] = $topic;
+        $self['userID'] = $userID;
+        $self['topic'] = $topic;
 
-        null !== $tenantID && $obj['tenantID'] = $tenantID;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -108,10 +108,10 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      */
     public function withTopic(Topic|array $topic): self
     {
-        $obj = clone $this;
-        $obj['topic'] = $topic;
+        $self = clone $this;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -119,9 +119,9 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenantID'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 }

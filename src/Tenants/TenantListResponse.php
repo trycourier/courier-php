@@ -113,17 +113,17 @@ final class TenantListResponse implements BaseModel
         ?string $cursor = null,
         ?string $nextURL = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['hasMore'] = $hasMore;
-        $obj['items'] = $items;
-        $obj['type'] = $type;
-        $obj['url'] = $url;
+        $self['hasMore'] = $hasMore;
+        $self['items'] = $items;
+        $self['type'] = $type;
+        $self['url'] = $url;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $nextURL && $obj['nextURL'] = $nextURL;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $nextURL && $self['nextURL'] = $nextURL;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -131,10 +131,10 @@ final class TenantListResponse implements BaseModel
      */
     public function withHasMore(bool $hasMore): self
     {
-        $obj = clone $this;
-        $obj['hasMore'] = $hasMore;
+        $self = clone $this;
+        $self['hasMore'] = $hasMore;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -152,10 +152,10 @@ final class TenantListResponse implements BaseModel
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -165,10 +165,10 @@ final class TenantListResponse implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -176,10 +176,10 @@ final class TenantListResponse implements BaseModel
      */
     public function withURL(string $url): self
     {
-        $obj = clone $this;
-        $obj['url'] = $url;
+        $self = clone $this;
+        $self['url'] = $url;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -187,10 +187,10 @@ final class TenantListResponse implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -199,9 +199,9 @@ final class TenantListResponse implements BaseModel
      */
     public function withNextURL(?string $nextURL): self
     {
-        $obj = clone $this;
-        $obj['nextURL'] = $nextURL;
+        $self = clone $this;
+        $self['nextURL'] = $nextURL;
 
-        return $obj;
+        return $self;
     }
 }

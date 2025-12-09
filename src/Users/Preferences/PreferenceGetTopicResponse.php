@@ -56,11 +56,11 @@ final class PreferenceGetTopicResponse implements BaseModel
      */
     public static function with(TopicPreference|array $topic): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['topic'] = $topic;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -75,9 +75,9 @@ final class PreferenceGetTopicResponse implements BaseModel
      */
     public function withTopic(TopicPreference|array $topic): self
     {
-        $obj = clone $this;
-        $obj['topic'] = $topic;
+        $self = clone $this;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 }

@@ -77,32 +77,32 @@ final class Channel implements BaseModel
         ?array $locales = null,
         ?string $type = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
+        $self['id'] = $id;
 
-        null !== $checksum && $obj['checksum'] = $checksum;
-        null !== $content && $obj['content'] = $content;
-        null !== $locales && $obj['locales'] = $locales;
-        null !== $type && $obj['type'] = $type;
+        null !== $checksum && $self['checksum'] = $checksum;
+        null !== $content && $self['content'] = $content;
+        null !== $locales && $self['locales'] = $locales;
+        null !== $type && $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withChecksum(?string $checksum): self
     {
-        $obj = clone $this;
-        $obj['checksum'] = $checksum;
+        $self = clone $this;
+        $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -110,10 +110,10 @@ final class Channel implements BaseModel
      */
     public function withContent(Content|array|null $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -123,17 +123,17 @@ final class Channel implements BaseModel
      */
     public function withLocales(?array $locales): self
     {
-        $obj = clone $this;
-        $obj['locales'] = $locales;
+        $self = clone $this;
+        $self['locales'] = $locales;
 
-        return $obj;
+        return $self;
     }
 
     public function withType(?string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

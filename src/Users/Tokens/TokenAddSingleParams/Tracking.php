@@ -63,14 +63,14 @@ final class Tracking implements BaseModel
         ?string $long = null,
         ?string $osVersion = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $ip && $obj['ip'] = $ip;
-        null !== $lat && $obj['lat'] = $lat;
-        null !== $long && $obj['long'] = $long;
-        null !== $osVersion && $obj['osVersion'] = $osVersion;
+        null !== $ip && $self['ip'] = $ip;
+        null !== $lat && $self['lat'] = $lat;
+        null !== $long && $self['long'] = $long;
+        null !== $osVersion && $self['osVersion'] = $osVersion;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +78,10 @@ final class Tracking implements BaseModel
      */
     public function withIP(?string $ip): self
     {
-        $obj = clone $this;
-        $obj['ip'] = $ip;
+        $self = clone $this;
+        $self['ip'] = $ip;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,10 +89,10 @@ final class Tracking implements BaseModel
      */
     public function withLat(?string $lat): self
     {
-        $obj = clone $this;
-        $obj['lat'] = $lat;
+        $self = clone $this;
+        $self['lat'] = $lat;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,10 +100,10 @@ final class Tracking implements BaseModel
      */
     public function withLong(?string $long): self
     {
-        $obj = clone $this;
-        $obj['long'] = $long;
+        $self = clone $this;
+        $self['long'] = $long;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,9 +111,9 @@ final class Tracking implements BaseModel
      */
     public function withOsVersion(?string $osVersion): self
     {
-        $obj = clone $this;
-        $obj['osVersion'] = $osVersion;
+        $self = clone $this;
+        $self['osVersion'] = $osVersion;
 
-        return $obj;
+        return $self;
     }
 }

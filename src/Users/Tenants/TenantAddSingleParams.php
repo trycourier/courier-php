@@ -64,21 +64,21 @@ final class TenantAddSingleParams implements BaseModel
      */
     public static function with(string $userID, ?array $profile = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['userID'] = $userID;
+        $self['userID'] = $userID;
 
-        null !== $profile && $obj['profile'] = $profile;
+        null !== $profile && $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -86,9 +86,9 @@ final class TenantAddSingleParams implements BaseModel
      */
     public function withProfile(?array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 }

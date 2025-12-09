@@ -77,14 +77,14 @@ final class SubscriptionTopicNew implements BaseModel
         ?array $customRouting = null,
         ?bool $hasCustomRouting = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $customRouting && $obj['customRouting'] = $customRouting;
-        null !== $hasCustomRouting && $obj['hasCustomRouting'] = $hasCustomRouting;
+        null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -92,10 +92,10 @@ final class SubscriptionTopicNew implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -105,10 +105,10 @@ final class SubscriptionTopicNew implements BaseModel
      */
     public function withCustomRouting(?array $customRouting): self
     {
-        $obj = clone $this;
-        $obj['customRouting'] = $customRouting;
+        $self = clone $this;
+        $self['customRouting'] = $customRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,9 +116,9 @@ final class SubscriptionTopicNew implements BaseModel
      */
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
-        $obj = clone $this;
-        $obj['hasCustomRouting'] = $hasCustomRouting;
+        $self = clone $this;
+        $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 }

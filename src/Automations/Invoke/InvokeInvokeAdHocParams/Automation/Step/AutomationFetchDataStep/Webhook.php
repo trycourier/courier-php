@@ -70,15 +70,15 @@ final class Webhook implements BaseModel
         ?string $body = null,
         ?array $headers = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['method'] = $method;
-        $obj['url'] = $url;
+        $self['method'] = $method;
+        $self['url'] = $url;
 
-        null !== $body && $obj['body'] = $body;
-        null !== $headers && $obj['headers'] = $headers;
+        null !== $body && $self['body'] = $body;
+        null !== $headers && $self['headers'] = $headers;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -86,26 +86,26 @@ final class Webhook implements BaseModel
      */
     public function withMethod(Method|string $method): self
     {
-        $obj = clone $this;
-        $obj['method'] = $method;
+        $self = clone $this;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 
     public function withURL(string $url): self
     {
-        $obj = clone $this;
-        $obj['url'] = $url;
+        $self = clone $this;
+        $self['url'] = $url;
 
-        return $obj;
+        return $self;
     }
 
     public function withBody(?string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -113,9 +113,9 @@ final class Webhook implements BaseModel
      */
     public function withHeaders(?array $headers): self
     {
-        $obj = clone $this;
-        $obj['headers'] = $headers;
+        $self = clone $this;
+        $self['headers'] = $headers;
 
-        return $obj;
+        return $self;
     }
 }

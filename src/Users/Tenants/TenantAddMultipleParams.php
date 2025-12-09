@@ -72,11 +72,11 @@ final class TenantAddMultipleParams implements BaseModel
      */
     public static function with(array $tenants): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tenants'] = $tenants;
+        $self['tenants'] = $tenants;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,9 +89,9 @@ final class TenantAddMultipleParams implements BaseModel
      */
     public function withTenants(array $tenants): self
     {
-        $obj = clone $this;
-        $obj['tenants'] = $tenants;
+        $self = clone $this;
+        $self['tenants'] = $tenants;
 
-        return $obj;
+        return $self;
     }
 }

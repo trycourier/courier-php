@@ -58,13 +58,13 @@ final class TenantListParams implements BaseModel
         ?int $limit = null,
         ?string $parentTenantID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $limit && $obj['limit'] = $limit;
-        null !== $parentTenantID && $obj['parentTenantID'] = $parentTenantID;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $limit && $self['limit'] = $limit;
+        null !== $parentTenantID && $self['parentTenantID'] = $parentTenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -72,10 +72,10 @@ final class TenantListParams implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -84,10 +84,10 @@ final class TenantListParams implements BaseModel
      */
     public function withLimit(?int $limit): self
     {
-        $obj = clone $this;
-        $obj['limit'] = $limit;
+        $self = clone $this;
+        $self['limit'] = $limit;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -95,9 +95,9 @@ final class TenantListParams implements BaseModel
      */
     public function withParentTenantID(?string $parentTenantID): self
     {
-        $obj = clone $this;
-        $obj['parentTenantID'] = $parentTenantID;
+        $self = clone $this;
+        $self['parentTenantID'] = $parentTenantID;
 
-        return $obj;
+        return $self;
     }
 }

@@ -79,74 +79,74 @@ final class BrandTemplate implements BaseModel
         ?string $header = null,
         ?string $width = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['enabled'] = $enabled;
+        $self['enabled'] = $enabled;
 
-        null !== $backgroundColor && $obj['backgroundColor'] = $backgroundColor;
-        null !== $blocksBackgroundColor && $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
-        null !== $footer && $obj['footer'] = $footer;
-        null !== $head && $obj['head'] = $head;
-        null !== $header && $obj['header'] = $header;
-        null !== $width && $obj['width'] = $width;
+        null !== $backgroundColor && $self['backgroundColor'] = $backgroundColor;
+        null !== $blocksBackgroundColor && $self['blocksBackgroundColor'] = $blocksBackgroundColor;
+        null !== $footer && $self['footer'] = $footer;
+        null !== $head && $self['head'] = $head;
+        null !== $header && $self['header'] = $header;
+        null !== $width && $self['width'] = $width;
 
-        return $obj;
+        return $self;
     }
 
     public function withEnabled(bool $enabled): self
     {
-        $obj = clone $this;
-        $obj['enabled'] = $enabled;
+        $self = clone $this;
+        $self['enabled'] = $enabled;
 
-        return $obj;
+        return $self;
     }
 
     public function withBackgroundColor(?string $backgroundColor): self
     {
-        $obj = clone $this;
-        $obj['backgroundColor'] = $backgroundColor;
+        $self = clone $this;
+        $self['backgroundColor'] = $backgroundColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withBlocksBackgroundColor(
         ?string $blocksBackgroundColor
     ): self {
-        $obj = clone $this;
-        $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
+        $self = clone $this;
+        $self['blocksBackgroundColor'] = $blocksBackgroundColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withFooter(?string $footer): self
     {
-        $obj = clone $this;
-        $obj['footer'] = $footer;
+        $self = clone $this;
+        $self['footer'] = $footer;
 
-        return $obj;
+        return $self;
     }
 
     public function withHead(?string $head): self
     {
-        $obj = clone $this;
-        $obj['head'] = $head;
+        $self = clone $this;
+        $self['head'] = $head;
 
-        return $obj;
+        return $self;
     }
 
     public function withHeader(?string $header): self
     {
-        $obj = clone $this;
-        $obj['header'] = $header;
+        $self = clone $this;
+        $self['header'] = $header;
 
-        return $obj;
+        return $self;
     }
 
     public function withWidth(?string $width): self
     {
-        $obj = clone $this;
-        $obj['width'] = $width;
+        $self = clone $this;
+        $self['width'] = $width;
 
-        return $obj;
+        return $self;
     }
 }

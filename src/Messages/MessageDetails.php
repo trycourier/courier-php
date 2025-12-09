@@ -170,23 +170,23 @@ final class MessageDetails implements BaseModel
         ?string $error = null,
         Reason|string|null $reason = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['clicked'] = $clicked;
-        $obj['delivered'] = $delivered;
-        $obj['enqueued'] = $enqueued;
-        $obj['event'] = $event;
-        $obj['notification'] = $notification;
-        $obj['opened'] = $opened;
-        $obj['recipient'] = $recipient;
-        $obj['sent'] = $sent;
-        $obj['status'] = $status;
+        $self['id'] = $id;
+        $self['clicked'] = $clicked;
+        $self['delivered'] = $delivered;
+        $self['enqueued'] = $enqueued;
+        $self['event'] = $event;
+        $self['notification'] = $notification;
+        $self['opened'] = $opened;
+        $self['recipient'] = $recipient;
+        $self['sent'] = $sent;
+        $self['status'] = $status;
 
-        null !== $error && $obj['error'] = $error;
-        null !== $reason && $obj['reason'] = $reason;
+        null !== $error && $self['error'] = $error;
+        null !== $reason && $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -194,10 +194,10 @@ final class MessageDetails implements BaseModel
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -205,10 +205,10 @@ final class MessageDetails implements BaseModel
      */
     public function withClicked(int $clicked): self
     {
-        $obj = clone $this;
-        $obj['clicked'] = $clicked;
+        $self = clone $this;
+        $self['clicked'] = $clicked;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -216,10 +216,10 @@ final class MessageDetails implements BaseModel
      */
     public function withDelivered(int $delivered): self
     {
-        $obj = clone $this;
-        $obj['delivered'] = $delivered;
+        $self = clone $this;
+        $self['delivered'] = $delivered;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -227,10 +227,10 @@ final class MessageDetails implements BaseModel
      */
     public function withEnqueued(int $enqueued): self
     {
-        $obj = clone $this;
-        $obj['enqueued'] = $enqueued;
+        $self = clone $this;
+        $self['enqueued'] = $enqueued;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -238,10 +238,10 @@ final class MessageDetails implements BaseModel
      */
     public function withEvent(string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -249,10 +249,10 @@ final class MessageDetails implements BaseModel
      */
     public function withNotification(string $notification): self
     {
-        $obj = clone $this;
-        $obj['notification'] = $notification;
+        $self = clone $this;
+        $self['notification'] = $notification;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -260,10 +260,10 @@ final class MessageDetails implements BaseModel
      */
     public function withOpened(int $opened): self
     {
-        $obj = clone $this;
-        $obj['opened'] = $opened;
+        $self = clone $this;
+        $self['opened'] = $opened;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -271,10 +271,10 @@ final class MessageDetails implements BaseModel
      */
     public function withRecipient(string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -282,10 +282,10 @@ final class MessageDetails implements BaseModel
      */
     public function withSent(int $sent): self
     {
-        $obj = clone $this;
-        $obj['sent'] = $sent;
+        $self = clone $this;
+        $self['sent'] = $sent;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -295,10 +295,10 @@ final class MessageDetails implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -306,10 +306,10 @@ final class MessageDetails implements BaseModel
      */
     public function withError(?string $error): self
     {
-        $obj = clone $this;
-        $obj['error'] = $error;
+        $self = clone $this;
+        $self['error'] = $error;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -319,9 +319,9 @@ final class MessageDetails implements BaseModel
      */
     public function withReason(Reason|string|null $reason): self
     {
-        $obj = clone $this;
-        $obj['reason'] = $reason;
+        $self = clone $this;
+        $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 }

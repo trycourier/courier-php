@@ -91,59 +91,59 @@ final class Brand implements BaseModel
         BrandSnippets|array|null $snippets = null,
         ?string $version = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created'] = $created;
-        $obj['name'] = $name;
-        $obj['updated'] = $updated;
+        $self['id'] = $id;
+        $self['created'] = $created;
+        $self['name'] = $name;
+        $self['updated'] = $updated;
 
-        null !== $published && $obj['published'] = $published;
-        null !== $settings && $obj['settings'] = $settings;
-        null !== $snippets && $obj['snippets'] = $snippets;
-        null !== $version && $obj['version'] = $version;
+        null !== $published && $self['published'] = $published;
+        null !== $settings && $self['settings'] = $settings;
+        null !== $snippets && $self['snippets'] = $snippets;
+        null !== $version && $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(int $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdated(int $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     public function withPublished(?int $published): self
     {
-        $obj = clone $this;
-        $obj['published'] = $published;
+        $self = clone $this;
+        $self['published'] = $published;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -155,10 +155,10 @@ final class Brand implements BaseModel
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
-        $obj = clone $this;
-        $obj['settings'] = $settings;
+        $self = clone $this;
+        $self['settings'] = $settings;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -166,17 +166,17 @@ final class Brand implements BaseModel
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {
-        $obj = clone $this;
-        $obj['snippets'] = $snippets;
+        $self = clone $this;
+        $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 
     public function withVersion(?string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 }

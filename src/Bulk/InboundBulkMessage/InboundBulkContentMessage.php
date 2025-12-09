@@ -101,17 +101,17 @@ final class InboundBulkContentMessage implements BaseModel
         ?array $locale = null,
         ?array $override = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['content'] = $content;
+        $self['content'] = $content;
 
-        null !== $brand && $obj['brand'] = $brand;
-        null !== $data && $obj['data'] = $data;
-        null !== $event && $obj['event'] = $event;
-        null !== $locale && $obj['locale'] = $locale;
-        null !== $override && $obj['override'] = $override;
+        null !== $brand && $self['brand'] = $brand;
+        null !== $data && $self['data'] = $data;
+        null !== $event && $self['event'] = $event;
+        null !== $locale && $self['locale'] = $locale;
+        null !== $override && $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -128,18 +128,18 @@ final class InboundBulkContentMessage implements BaseModel
     public function withContent(
         ElementalContentSugar|array|ElementalContent $content
     ): self {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,18 +147,18 @@ final class InboundBulkContentMessage implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     public function withEvent(?string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -166,10 +166,10 @@ final class InboundBulkContentMessage implements BaseModel
      */
     public function withLocale(?array $locale): self
     {
-        $obj = clone $this;
-        $obj['locale'] = $locale;
+        $self = clone $this;
+        $self['locale'] = $locale;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -177,9 +177,9 @@ final class InboundBulkContentMessage implements BaseModel
      */
     public function withOverride(?array $override): self
     {
-        $obj = clone $this;
-        $obj['override'] = $override;
+        $self = clone $this;
+        $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 }

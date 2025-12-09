@@ -108,16 +108,16 @@ final class Item implements BaseModel
         string $version,
         Data|array $data,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['createdAt'] = $createdAt;
-        $obj['publishedAt'] = $publishedAt;
-        $obj['updatedAt'] = $updatedAt;
-        $obj['version'] = $version;
-        $obj['data'] = $data;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['publishedAt'] = $publishedAt;
+        $self['updatedAt'] = $updatedAt;
+        $self['version'] = $version;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -125,10 +125,10 @@ final class Item implements BaseModel
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -136,10 +136,10 @@ final class Item implements BaseModel
      */
     public function withCreatedAt(string $createdAt): self
     {
-        $obj = clone $this;
-        $obj['createdAt'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,10 +147,10 @@ final class Item implements BaseModel
      */
     public function withPublishedAt(string $publishedAt): self
     {
-        $obj = clone $this;
-        $obj['publishedAt'] = $publishedAt;
+        $self = clone $this;
+        $self['publishedAt'] = $publishedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +158,10 @@ final class Item implements BaseModel
      */
     public function withUpdatedAt(string $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updatedAt'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,10 +169,10 @@ final class Item implements BaseModel
      */
     public function withVersion(string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -182,9 +182,9 @@ final class Item implements BaseModel
      */
     public function withData(Data|array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 }

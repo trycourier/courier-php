@@ -45,18 +45,18 @@ final class AutomationInvokeResponse implements BaseModel
      */
     public static function with(string $runID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['runID'] = $runID;
+        $self['runID'] = $runID;
 
-        return $obj;
+        return $self;
     }
 
     public function withRunID(string $runID): self
     {
-        $obj = clone $this;
-        $obj['runID'] = $runID;
+        $self = clone $this;
+        $self['runID'] = $runID;
 
-        return $obj;
+        return $self;
     }
 }

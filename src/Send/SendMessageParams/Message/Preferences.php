@@ -48,11 +48,11 @@ final class Preferences implements BaseModel
      */
     public static function with(string $subscriptionTopicID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['subscriptionTopicID'] = $subscriptionTopicID;
+        $self['subscriptionTopicID'] = $subscriptionTopicID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -60,9 +60,9 @@ final class Preferences implements BaseModel
      */
     public function withSubscriptionTopicID(string $subscriptionTopicID): self
     {
-        $obj = clone $this;
-        $obj['subscriptionTopicID'] = $subscriptionTopicID;
+        $self = clone $this;
+        $self['subscriptionTopicID'] = $subscriptionTopicID;
 
-        return $obj;
+        return $self;
     }
 }

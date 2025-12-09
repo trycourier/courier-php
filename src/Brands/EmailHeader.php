@@ -59,14 +59,14 @@ final class EmailHeader implements BaseModel
         ?string $barColor = null,
         ?bool $inheritDefault = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['logo'] = $logo;
+        $self['logo'] = $logo;
 
-        null !== $barColor && $obj['barColor'] = $barColor;
-        null !== $inheritDefault && $obj['inheritDefault'] = $inheritDefault;
+        null !== $barColor && $self['barColor'] = $barColor;
+        null !== $inheritDefault && $self['inheritDefault'] = $inheritDefault;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -74,25 +74,25 @@ final class EmailHeader implements BaseModel
      */
     public function withLogo(Logo|array $logo): self
     {
-        $obj = clone $this;
-        $obj['logo'] = $logo;
+        $self = clone $this;
+        $self['logo'] = $logo;
 
-        return $obj;
+        return $self;
     }
 
     public function withBarColor(?string $barColor): self
     {
-        $obj = clone $this;
-        $obj['barColor'] = $barColor;
+        $self = clone $this;
+        $self['barColor'] = $barColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withInheritDefault(?bool $inheritDefault): self
     {
-        $obj = clone $this;
-        $obj['inheritDefault'] = $inheritDefault;
+        $self = clone $this;
+        $self['inheritDefault'] = $inheritDefault;
 
-        return $obj;
+        return $self;
     }
 }

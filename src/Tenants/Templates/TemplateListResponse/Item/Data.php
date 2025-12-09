@@ -53,11 +53,11 @@ final class Data implements BaseModel
      */
     public static function with(MessageRouting|array $routing): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['routing'] = $routing;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,9 +67,9 @@ final class Data implements BaseModel
      */
     public function withRouting(MessageRouting|array $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 }

@@ -54,12 +54,12 @@ final class AutomationInvokeStep implements BaseModel
      */
     public static function with(Action|string $action, string $template): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['template'] = $template;
+        $self['action'] = $action;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,17 +67,17 @@ final class AutomationInvokeStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 }

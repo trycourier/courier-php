@@ -45,18 +45,18 @@ final class BulkNewJobResponse implements BaseModel
      */
     public static function with(string $jobID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['jobID'] = $jobID;
+        $self['jobID'] = $jobID;
 
-        return $obj;
+        return $self;
     }
 
     public function withJobID(string $jobID): self
     {
-        $obj = clone $this;
-        $obj['jobID'] = $jobID;
+        $self = clone $this;
+        $self['jobID'] = $jobID;
 
-        return $obj;
+        return $self;
     }
 }

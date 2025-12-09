@@ -96,16 +96,16 @@ final class InboundTrackEventParams implements BaseModel
         Type|string $type,
         ?string $userID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['event'] = $event;
-        $obj['messageID'] = $messageID;
-        $obj['properties'] = $properties;
-        $obj['type'] = $type;
+        $self['event'] = $event;
+        $self['messageID'] = $messageID;
+        $self['properties'] = $properties;
+        $self['type'] = $type;
 
-        null !== $userID && $obj['userID'] = $userID;
+        null !== $userID && $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -113,10 +113,10 @@ final class InboundTrackEventParams implements BaseModel
      */
     public function withEvent(string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -124,10 +124,10 @@ final class InboundTrackEventParams implements BaseModel
      */
     public function withMessageID(string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageID'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -135,10 +135,10 @@ final class InboundTrackEventParams implements BaseModel
      */
     public function withProperties(array $properties): self
     {
-        $obj = clone $this;
-        $obj['properties'] = $properties;
+        $self = clone $this;
+        $self['properties'] = $properties;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -146,10 +146,10 @@ final class InboundTrackEventParams implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -157,9 +157,9 @@ final class InboundTrackEventParams implements BaseModel
      */
     public function withUserID(?string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

@@ -79,14 +79,14 @@ final class Preferences implements BaseModel
         ?array $categories = null,
         ?string $templateID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['notifications'] = $notifications;
+        $self['notifications'] = $notifications;
 
-        null !== $categories && $obj['categories'] = $categories;
-        null !== $templateID && $obj['templateID'] = $templateID;
+        null !== $categories && $self['categories'] = $categories;
+        null !== $templateID && $self['templateID'] = $templateID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -99,10 +99,10 @@ final class Preferences implements BaseModel
      */
     public function withNotifications(array $notifications): self
     {
-        $obj = clone $this;
-        $obj['notifications'] = $notifications;
+        $self = clone $this;
+        $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,17 +115,17 @@ final class Preferences implements BaseModel
      */
     public function withCategories(?array $categories): self
     {
-        $obj = clone $this;
-        $obj['categories'] = $categories;
+        $self = clone $this;
+        $self['categories'] = $categories;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplateID(?string $templateID): self
     {
-        $obj = clone $this;
-        $obj['templateID'] = $templateID;
+        $self = clone $this;
+        $self['templateID'] = $templateID;
 
-        return $obj;
+        return $self;
     }
 }

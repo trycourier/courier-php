@@ -51,18 +51,18 @@ final class TranslationRetrieveParams implements BaseModel
      */
     public static function with(string $domain): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['domain'] = $domain;
+        $self['domain'] = $domain;
 
-        return $obj;
+        return $self;
     }
 
     public function withDomain(string $domain): self
     {
-        $obj = clone $this;
-        $obj['domain'] = $domain;
+        $self = clone $this;
+        $self['domain'] = $domain;
 
-        return $obj;
+        return $self;
     }
 }

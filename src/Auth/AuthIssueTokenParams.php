@@ -81,12 +81,12 @@ final class AuthIssueTokenParams implements BaseModel
      */
     public static function with(string $expiresIn, string $scope): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['expiresIn'] = $expiresIn;
-        $obj['scope'] = $scope;
+        $self['expiresIn'] = $expiresIn;
+        $self['scope'] = $scope;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -102,10 +102,10 @@ final class AuthIssueTokenParams implements BaseModel
      */
     public function withExpiresIn(string $expiresIn): self
     {
-        $obj = clone $this;
-        $obj['expiresIn'] = $expiresIn;
+        $self = clone $this;
+        $self['expiresIn'] = $expiresIn;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -124,9 +124,9 @@ final class AuthIssueTokenParams implements BaseModel
      */
     public function withScope(string $scope): self
     {
-        $obj = clone $this;
-        $obj['scope'] = $scope;
+        $self = clone $this;
+        $self['scope'] = $scope;
 
-        return $obj;
+        return $self;
     }
 }

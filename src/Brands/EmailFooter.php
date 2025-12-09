@@ -38,27 +38,27 @@ final class EmailFooter implements BaseModel
         ?string $content = null,
         ?bool $inheritDefault = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $content && $obj['content'] = $content;
-        null !== $inheritDefault && $obj['inheritDefault'] = $inheritDefault;
+        null !== $content && $self['content'] = $content;
+        null !== $inheritDefault && $self['inheritDefault'] = $inheritDefault;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(?string $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withInheritDefault(?bool $inheritDefault): self
     {
-        $obj = clone $this;
-        $obj['inheritDefault'] = $inheritDefault;
+        $self = clone $this;
+        $self['inheritDefault'] = $inheritDefault;
 
-        return $obj;
+        return $self;
     }
 }

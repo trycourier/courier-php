@@ -80,15 +80,15 @@ final class TenantAssociation implements BaseModel
         Type|string|null $type = null,
         ?string $userID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tenantID'] = $tenantID;
+        $self['tenantID'] = $tenantID;
 
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $type && $obj['type'] = $type;
-        null !== $userID && $obj['userID'] = $userID;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $type && $self['type'] = $type;
+        null !== $userID && $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,10 +96,10 @@ final class TenantAssociation implements BaseModel
      */
     public function withTenantID(string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenantID'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -109,10 +109,10 @@ final class TenantAssociation implements BaseModel
      */
     public function withProfile(?array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -120,10 +120,10 @@ final class TenantAssociation implements BaseModel
      */
     public function withType(Type|string|null $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -131,9 +131,9 @@ final class TenantAssociation implements BaseModel
      */
     public function withUserID(?string $userID): self
     {
-        $obj = clone $this;
-        $obj['userID'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

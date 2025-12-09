@@ -36,27 +36,27 @@ final class Logo implements BaseModel
         ?string $href = null,
         ?string $image = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $href && $obj['href'] = $href;
-        null !== $image && $obj['image'] = $image;
+        null !== $href && $self['href'] = $href;
+        null !== $image && $self['image'] = $image;
 
-        return $obj;
+        return $self;
     }
 
     public function withHref(?string $href): self
     {
-        $obj = clone $this;
-        $obj['href'] = $href;
+        $self = clone $this;
+        $self['href'] = $href;
 
-        return $obj;
+        return $self;
     }
 
     public function withImage(?string $image): self
     {
-        $obj = clone $this;
-        $obj['image'] = $image;
+        $self = clone $this;
+        $self['image'] = $image;
 
-        return $obj;
+        return $self;
     }
 }

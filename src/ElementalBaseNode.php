@@ -52,14 +52,14 @@ final class ElementalBaseNode implements BaseModel
         ?string $loop = null,
         ?string $ref = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $if && $obj['if'] = $if;
-        null !== $loop && $obj['loop'] = $loop;
-        null !== $ref && $obj['ref'] = $ref;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $if && $self['if'] = $if;
+        null !== $loop && $self['loop'] = $loop;
+        null !== $ref && $self['ref'] = $ref;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,33 +67,33 @@ final class ElementalBaseNode implements BaseModel
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withIf(?string $if): self
     {
-        $obj = clone $this;
-        $obj['if'] = $if;
+        $self = clone $this;
+        $self['if'] = $if;
 
-        return $obj;
+        return $self;
     }
 
     public function withLoop(?string $loop): self
     {
-        $obj = clone $this;
-        $obj['loop'] = $loop;
+        $self = clone $this;
+        $self['loop'] = $loop;
 
-        return $obj;
+        return $self;
     }
 
     public function withRef(?string $ref): self
     {
-        $obj = clone $this;
-        $obj['ref'] = $ref;
+        $self = clone $this;
+        $self['ref'] = $ref;
 
-        return $obj;
+        return $self;
     }
 }

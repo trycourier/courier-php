@@ -73,15 +73,15 @@ final class AutomationUpdateProfileStep implements BaseModel
         Merge|string|null $merge = null,
         ?string $recipientID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['profile'] = $profile;
+        $self['action'] = $action;
+        $self['profile'] = $profile;
 
-        null !== $merge && $obj['merge'] = $merge;
-        null !== $recipientID && $obj['recipientID'] = $recipientID;
+        null !== $merge && $self['merge'] = $merge;
+        null !== $recipientID && $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,10 +89,10 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,10 +100,10 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withProfile(array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,17 +111,17 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withMerge(Merge|string|null $merge): self
     {
-        $obj = clone $this;
-        $obj['merge'] = $merge;
+        $self = clone $this;
+        $self['merge'] = $merge;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(?string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipientID'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 }

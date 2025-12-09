@@ -97,17 +97,17 @@ final class Channel implements BaseModel
         RoutingMethod|string|null $routingMethod = null,
         Timeouts|array|null $timeouts = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $brandID && $obj['brandID'] = $brandID;
-        null !== $if && $obj['if'] = $if;
-        null !== $metadata && $obj['metadata'] = $metadata;
-        null !== $override && $obj['override'] = $override;
-        null !== $providers && $obj['providers'] = $providers;
-        null !== $routingMethod && $obj['routingMethod'] = $routingMethod;
-        null !== $timeouts && $obj['timeouts'] = $timeouts;
+        null !== $brandID && $self['brandID'] = $brandID;
+        null !== $if && $self['if'] = $if;
+        null !== $metadata && $self['metadata'] = $metadata;
+        null !== $override && $self['override'] = $override;
+        null !== $providers && $self['providers'] = $providers;
+        null !== $routingMethod && $self['routingMethod'] = $routingMethod;
+        null !== $timeouts && $self['timeouts'] = $timeouts;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,10 +115,10 @@ final class Channel implements BaseModel
      */
     public function withBrandID(?string $brandID): self
     {
-        $obj = clone $this;
-        $obj['brandID'] = $brandID;
+        $self = clone $this;
+        $self['brandID'] = $brandID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -126,10 +126,10 @@ final class Channel implements BaseModel
      */
     public function withIf(?string $if): self
     {
-        $obj = clone $this;
-        $obj['if'] = $if;
+        $self = clone $this;
+        $self['if'] = $if;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -140,10 +140,10 @@ final class Channel implements BaseModel
     public function withMetadata(
         Metadata|array|null $metadata,
     ): self {
-        $obj = clone $this;
-        $obj['metadata'] = $metadata;
+        $self = clone $this;
+        $self['metadata'] = $metadata;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -153,10 +153,10 @@ final class Channel implements BaseModel
      */
     public function withOverride(?array $override): self
     {
-        $obj = clone $this;
-        $obj['override'] = $override;
+        $self = clone $this;
+        $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -166,10 +166,10 @@ final class Channel implements BaseModel
      */
     public function withProviders(?array $providers): self
     {
-        $obj = clone $this;
-        $obj['providers'] = $providers;
+        $self = clone $this;
+        $self['providers'] = $providers;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -180,10 +180,10 @@ final class Channel implements BaseModel
     public function withRoutingMethod(
         RoutingMethod|string|null $routingMethod
     ): self {
-        $obj = clone $this;
-        $obj['routingMethod'] = $routingMethod;
+        $self = clone $this;
+        $self['routingMethod'] = $routingMethod;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -191,9 +191,9 @@ final class Channel implements BaseModel
      */
     public function withTimeouts(Timeouts|array|null $timeouts): self
     {
-        $obj = clone $this;
-        $obj['timeouts'] = $timeouts;
+        $self = clone $this;
+        $self['timeouts'] = $timeouts;
 
-        return $obj;
+        return $self;
     }
 }

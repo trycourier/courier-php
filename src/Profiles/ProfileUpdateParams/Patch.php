@@ -60,13 +60,13 @@ final class Patch implements BaseModel
      */
     public static function with(string $op, string $path, string $value): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['op'] = $op;
-        $obj['path'] = $path;
-        $obj['value'] = $value;
+        $self['op'] = $op;
+        $self['path'] = $path;
+        $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -74,10 +74,10 @@ final class Patch implements BaseModel
      */
     public function withOp(string $op): self
     {
-        $obj = clone $this;
-        $obj['op'] = $op;
+        $self = clone $this;
+        $self['op'] = $op;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,10 +85,10 @@ final class Patch implements BaseModel
      */
     public function withPath(string $path): self
     {
-        $obj = clone $this;
-        $obj['path'] = $path;
+        $self = clone $this;
+        $self['path'] = $path;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,9 +96,9 @@ final class Patch implements BaseModel
      */
     public function withValue(string $value): self
     {
-        $obj = clone $this;
-        $obj['value'] = $value;
+        $self = clone $this;
+        $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 }

@@ -104,26 +104,26 @@ final class Item implements BaseModel
         UserRecipient|array|null $to = null,
         ?string $messageID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $data && $obj['data'] = $data;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $to && $obj['to'] = $to;
-        null !== $messageID && $obj['messageID'] = $messageID;
+        null !== $data && $self['data'] = $data;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $to && $self['to'] = $to;
+        null !== $messageID && $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     public function withData(mixed $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -135,26 +135,26 @@ final class Item implements BaseModel
     public function withPreferences(
         RecipientPreferences|array $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withProfile(mixed $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -173,10 +173,10 @@ final class Item implements BaseModel
      */
     public function withTo(UserRecipient|array $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -184,17 +184,17 @@ final class Item implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessageID(?string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageID'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 }

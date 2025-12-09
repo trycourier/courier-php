@@ -60,11 +60,11 @@ final class TokenListResponse implements BaseModel
      */
     public static function with(array $tokens): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tokens'] = $tokens;
+        $self['tokens'] = $tokens;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -79,9 +79,9 @@ final class TokenListResponse implements BaseModel
      */
     public function withTokens(array $tokens): self
     {
-        $obj = clone $this;
-        $obj['tokens'] = $tokens;
+        $self = clone $this;
+        $self['tokens'] = $tokens;
 
-        return $obj;
+        return $self;
     }
 }

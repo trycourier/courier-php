@@ -158,24 +158,24 @@ final class MessageListParams implements BaseModel
         ?string $tenantID = null,
         ?string $traceID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $archived && $obj['archived'] = $archived;
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $enqueuedAfter && $obj['enqueuedAfter'] = $enqueuedAfter;
-        null !== $event && $obj['event'] = $event;
-        null !== $list && $obj['list'] = $list;
-        null !== $messageID && $obj['messageID'] = $messageID;
-        null !== $notification && $obj['notification'] = $notification;
-        null !== $provider && $obj['provider'] = $provider;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $status && $obj['status'] = $status;
-        null !== $tag && $obj['tag'] = $tag;
-        null !== $tags && $obj['tags'] = $tags;
-        null !== $tenantID && $obj['tenantID'] = $tenantID;
-        null !== $traceID && $obj['traceID'] = $traceID;
+        null !== $archived && $self['archived'] = $archived;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $enqueuedAfter && $self['enqueuedAfter'] = $enqueuedAfter;
+        null !== $event && $self['event'] = $event;
+        null !== $list && $self['list'] = $list;
+        null !== $messageID && $self['messageID'] = $messageID;
+        null !== $notification && $self['notification'] = $notification;
+        null !== $provider && $self['provider'] = $provider;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $status && $self['status'] = $status;
+        null !== $tag && $self['tag'] = $tag;
+        null !== $tags && $self['tags'] = $tags;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
+        null !== $traceID && $self['traceID'] = $traceID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -183,10 +183,10 @@ final class MessageListParams implements BaseModel
      */
     public function withArchived(?bool $archived): self
     {
-        $obj = clone $this;
-        $obj['archived'] = $archived;
+        $self = clone $this;
+        $self['archived'] = $archived;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -194,10 +194,10 @@ final class MessageListParams implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -205,10 +205,10 @@ final class MessageListParams implements BaseModel
      */
     public function withEnqueuedAfter(?string $enqueuedAfter): self
     {
-        $obj = clone $this;
-        $obj['enqueuedAfter'] = $enqueuedAfter;
+        $self = clone $this;
+        $self['enqueuedAfter'] = $enqueuedAfter;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -216,10 +216,10 @@ final class MessageListParams implements BaseModel
      */
     public function withEvent(?string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -227,10 +227,10 @@ final class MessageListParams implements BaseModel
      */
     public function withList(?string $list): self
     {
-        $obj = clone $this;
-        $obj['list'] = $list;
+        $self = clone $this;
+        $self['list'] = $list;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -238,10 +238,10 @@ final class MessageListParams implements BaseModel
      */
     public function withMessageID(?string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageID'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -249,10 +249,10 @@ final class MessageListParams implements BaseModel
      */
     public function withNotification(?string $notification): self
     {
-        $obj = clone $this;
-        $obj['notification'] = $notification;
+        $self = clone $this;
+        $self['notification'] = $notification;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -262,10 +262,10 @@ final class MessageListParams implements BaseModel
      */
     public function withProvider(array $provider): self
     {
-        $obj = clone $this;
-        $obj['provider'] = $provider;
+        $self = clone $this;
+        $self['provider'] = $provider;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -273,10 +273,10 @@ final class MessageListParams implements BaseModel
      */
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -286,10 +286,10 @@ final class MessageListParams implements BaseModel
      */
     public function withStatus(array $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -299,10 +299,10 @@ final class MessageListParams implements BaseModel
      */
     public function withTag(array $tag): self
     {
-        $obj = clone $this;
-        $obj['tag'] = $tag;
+        $self = clone $this;
+        $self['tag'] = $tag;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -310,10 +310,10 @@ final class MessageListParams implements BaseModel
      */
     public function withTags(?string $tags): self
     {
-        $obj = clone $this;
-        $obj['tags'] = $tags;
+        $self = clone $this;
+        $self['tags'] = $tags;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -321,10 +321,10 @@ final class MessageListParams implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenantID'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -332,9 +332,9 @@ final class MessageListParams implements BaseModel
      */
     public function withTraceID(?string $traceID): self
     {
-        $obj = clone $this;
-        $obj['traceID'] = $traceID;
+        $self = clone $this;
+        $self['traceID'] = $traceID;
 
-        return $obj;
+        return $self;
     }
 }

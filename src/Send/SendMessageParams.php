@@ -102,11 +102,11 @@ final class SendMessageParams implements BaseModel
      */
     public static function with(Message|array $message): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['message'] = $message;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -131,9 +131,9 @@ final class SendMessageParams implements BaseModel
      */
     public function withMessage(Message|array $message): self
     {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }

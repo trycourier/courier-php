@@ -212,32 +212,32 @@ final class Message implements BaseModel
         Timeout|array|null $timeout = null,
         UserRecipient|array|null $to = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $brandID && $obj['brandID'] = $brandID;
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $content && $obj['content'] = $content;
-        null !== $context && $obj['context'] = $context;
-        null !== $data && $obj['data'] = $data;
-        null !== $delay && $obj['delay'] = $delay;
-        null !== $expiry && $obj['expiry'] = $expiry;
-        null !== $metadata && $obj['metadata'] = $metadata;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $providers && $obj['providers'] = $providers;
-        null !== $routing && $obj['routing'] = $routing;
-        null !== $template && $obj['template'] = $template;
-        null !== $timeout && $obj['timeout'] = $timeout;
-        null !== $to && $obj['to'] = $to;
+        null !== $brandID && $self['brandID'] = $brandID;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $content && $self['content'] = $content;
+        null !== $context && $self['context'] = $context;
+        null !== $data && $self['data'] = $data;
+        null !== $delay && $self['delay'] = $delay;
+        null !== $expiry && $self['expiry'] = $expiry;
+        null !== $metadata && $self['metadata'] = $metadata;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $providers && $self['providers'] = $providers;
+        null !== $routing && $self['routing'] = $routing;
+        null !== $template && $self['template'] = $template;
+        null !== $timeout && $self['timeout'] = $timeout;
+        null !== $to && $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrandID(?string $brandID): self
     {
-        $obj = clone $this;
-        $obj['brandID'] = $brandID;
+        $self = clone $this;
+        $self['brandID'] = $brandID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -255,10 +255,10 @@ final class Message implements BaseModel
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -275,10 +275,10 @@ final class Message implements BaseModel
     public function withContent(
         ElementalContentSugar|array|ElementalContent $content
     ): self {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -286,10 +286,10 @@ final class Message implements BaseModel
      */
     public function withContext(MessageContext|array|null $context): self
     {
-        $obj = clone $this;
-        $obj['context'] = $context;
+        $self = clone $this;
+        $self['context'] = $context;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -297,10 +297,10 @@ final class Message implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -308,10 +308,10 @@ final class Message implements BaseModel
      */
     public function withDelay(Delay|array|null $delay): self
     {
-        $obj = clone $this;
-        $obj['delay'] = $delay;
+        $self = clone $this;
+        $self['delay'] = $delay;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -319,10 +319,10 @@ final class Message implements BaseModel
      */
     public function withExpiry(Expiry|array|null $expiry): self
     {
-        $obj = clone $this;
-        $obj['expiry'] = $expiry;
+        $self = clone $this;
+        $self['expiry'] = $expiry;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -335,10 +335,10 @@ final class Message implements BaseModel
      */
     public function withMetadata(Metadata|array|null $metadata): self
     {
-        $obj = clone $this;
-        $obj['metadata'] = $metadata;
+        $self = clone $this;
+        $self['metadata'] = $metadata;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -346,10 +346,10 @@ final class Message implements BaseModel
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -362,10 +362,10 @@ final class Message implements BaseModel
      */
     public function withProviders(?array $providers): self
     {
-        $obj = clone $this;
-        $obj['providers'] = $providers;
+        $self = clone $this;
+        $self['providers'] = $providers;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -377,18 +377,18 @@ final class Message implements BaseModel
      */
     public function withRouting(Routing|array|null $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(?string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -402,10 +402,10 @@ final class Message implements BaseModel
      */
     public function withTimeout(Timeout|array|null $timeout): self
     {
-        $obj = clone $this;
-        $obj['timeout'] = $timeout;
+        $self = clone $this;
+        $self['timeout'] = $timeout;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -437,9 +437,9 @@ final class Message implements BaseModel
      */
     public function withTo(UserRecipient|array|null $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 }

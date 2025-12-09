@@ -48,11 +48,11 @@ final class InboundTrackEventResponse implements BaseModel
      */
     public static function with(string $messageID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['messageID'] = $messageID;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -60,9 +60,9 @@ final class InboundTrackEventResponse implements BaseModel
      */
     public function withMessageID(string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageID'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 }
