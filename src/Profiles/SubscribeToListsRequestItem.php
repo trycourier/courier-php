@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\NotificationPreferenceDetails;
@@ -12,7 +13,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type SubscribeToListsRequestItemShape = array{
- *   listId: string, preferences?: RecipientPreferences|null
+ *   listID: string, preferences?: RecipientPreferences|null
  * }
  */
 final class SubscribeToListsRequestItem implements BaseModel
@@ -20,10 +21,10 @@ final class SubscribeToListsRequestItem implements BaseModel
     /** @use SdkModel<SubscribeToListsRequestItemShape> */
     use SdkModel;
 
-    #[Api]
-    public string $listId;
+    #[Required('listId')]
+    public string $listID;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**
@@ -31,7 +32,7 @@ final class SubscribeToListsRequestItem implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * SubscribeToListsRequestItem::with(listId: ...)
+     * SubscribeToListsRequestItem::with(listID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -56,24 +57,24 @@ final class SubscribeToListsRequestItem implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $listId,
+        string $listID,
         RecipientPreferences|array|null $preferences = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['listId'] = $listId;
+        $self['listID'] = $listID;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withListID(string $listID): self
     {
-        $obj = clone $this;
-        $obj['listId'] = $listID;
+        $self = clone $this;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,9 +86,9 @@ final class SubscribeToListsRequestItem implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

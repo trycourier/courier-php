@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions\SubscriptionListResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\NotificationPreferenceDetails;
@@ -12,7 +13,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type ItemShape = array{
- *   recipientId: string,
+ *   recipientID: string,
  *   created?: string|null,
  *   preferences?: RecipientPreferences|null,
  * }
@@ -22,13 +23,13 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api]
-    public string $recipientId;
+    #[Required('recipientId')]
+    public string $recipientID;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $created;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**
@@ -36,7 +37,7 @@ final class Item implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * Item::with(recipientId: ...)
+     * Item::with(recipientID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -61,34 +62,34 @@ final class Item implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $recipientId,
+        string $recipientID,
         ?string $created = null,
         RecipientPreferences|array|null $preferences = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipientId'] = $recipientId;
+        $self['recipientID'] = $recipientID;
 
-        null !== $created && $obj['created'] = $created;
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $created && $self['created'] = $created;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipientId'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(?string $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,9 +101,9 @@ final class Item implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalTextNodeWithType\Type;
@@ -24,16 +25,16 @@ final class ElementalContent implements BaseModel
     /**
      * @var list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
-    #[Api(list: ElementalNode::class)]
+    #[Required(list: ElementalNode::class)]
     public array $elements;
 
     /**
      * For example, "2022-01-01".
      */
-    #[Api]
+    #[Required]
     public string $version;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /**
@@ -111,14 +112,14 @@ final class ElementalContent implements BaseModel
         string $version,
         ?string $brand = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['elements'] = $elements;
-        $obj['version'] = $version;
+        $self['elements'] = $elements;
+        $self['version'] = $version;
 
-        null !== $brand && $obj['brand'] = $brand;
+        null !== $brand && $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -170,10 +171,10 @@ final class ElementalContent implements BaseModel
      */
     public function withElements(array $elements): self
     {
-        $obj = clone $this;
-        $obj['elements'] = $elements;
+        $self = clone $this;
+        $self['elements'] = $elements;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -181,17 +182,17 @@ final class ElementalContent implements BaseModel
      */
     public function withVersion(string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 }

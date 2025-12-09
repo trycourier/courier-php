@@ -8,23 +8,19 @@ use Courier\Bulk\BulkGetJobResponse\Job;
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
 use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type BulkGetJobResponseShape = array{job: Job}
  */
-final class BulkGetJobResponse implements BaseModel, ResponseConverter
+final class BulkGetJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkGetJobResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Job $job;
 
     /**
@@ -61,11 +57,11 @@ final class BulkGetJobResponse implements BaseModel, ResponseConverter
      */
     public static function with(Job|array $job): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['job'] = $job;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -79,9 +75,9 @@ final class BulkGetJobResponse implements BaseModel, ResponseConverter
      */
     public function withJob(Job|array $job): self
     {
-        $obj = clone $this;
-        $obj['job'] = $job;
+        $self = clone $this;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 }

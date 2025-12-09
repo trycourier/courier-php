@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Courier\Audiences;
 
 use Courier\Audiences\AudienceListMembersResponse\Item;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
@@ -17,18 +15,16 @@ use Courier\Paging;
  *   items: list<Item>, paging: Paging
  * }
  */
-final class AudienceListMembersResponse implements BaseModel, ResponseConverter
+final class AudienceListMembersResponse implements BaseModel
 {
     /** @use SdkModel<AudienceListMembersResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<Item> $items */
-    #[Api(list: Item::class)]
+    #[Required(list: Item::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -56,39 +52,39 @@ final class AudienceListMembersResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<Item|array{
-     *   added_at: string,
-     *   audience_id: string,
-     *   audience_version: int,
-     *   member_id: string,
+     *   addedAt: string,
+     *   audienceID: string,
+     *   audienceVersion: int,
+     *   memberID: string,
      *   reason: string,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param list<Item|array{
-     *   added_at: string,
-     *   audience_id: string,
-     *   audience_version: int,
-     *   member_id: string,
+     *   addedAt: string,
+     *   audienceID: string,
+     *   audienceVersion: int,
+     *   memberID: string,
      *   reason: string,
      * }> $items
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,9 +92,9 @@ final class AudienceListMembersResponse implements BaseModel, ResponseConverter
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Bulk\InboundBulkMessage;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
@@ -24,25 +25,25 @@ final class InboundBulkTemplateMessage implements BaseModel
     /** @use SdkModel<InboundBulkTemplateMessageShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $template;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $event;
 
     /** @var array<string,array<string,mixed>>|null $locale */
-    #[Api(map: new MapOf('mixed'), nullable: true, optional: true)]
+    #[Optional(map: new MapOf('mixed'), nullable: true)]
     public ?array $locale;
 
     /** @var array<string,mixed>|null $override */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $override;
 
     /**
@@ -81,33 +82,33 @@ final class InboundBulkTemplateMessage implements BaseModel
         ?array $locale = null,
         ?array $override = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['template'] = $template;
+        $self['template'] = $template;
 
-        null !== $brand && $obj['brand'] = $brand;
-        null !== $data && $obj['data'] = $data;
-        null !== $event && $obj['event'] = $event;
-        null !== $locale && $obj['locale'] = $locale;
-        null !== $override && $obj['override'] = $override;
+        null !== $brand && $self['brand'] = $brand;
+        null !== $data && $self['data'] = $data;
+        null !== $event && $self['event'] = $event;
+        null !== $locale && $self['locale'] = $locale;
+        null !== $override && $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,18 +116,18 @@ final class InboundBulkTemplateMessage implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     public function withEvent(?string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -134,10 +135,10 @@ final class InboundBulkTemplateMessage implements BaseModel
      */
     public function withLocale(?array $locale): self
     {
-        $obj = clone $this;
-        $obj['locale'] = $locale;
+        $self = clone $this;
+        $self['locale'] = $locale;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -145,9 +146,9 @@ final class InboundBulkTemplateMessage implements BaseModel
      */
     public function withOverride(?array $override): self
     {
-        $obj = clone $this;
-        $obj['override'] = $override;
+        $self = clone $this;
+        $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 }

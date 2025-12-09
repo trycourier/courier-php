@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
@@ -16,18 +14,16 @@ use Courier\Paging;
  *   items: list<SubscriptionList>, paging: Paging
  * }
  */
-final class ListListResponse implements BaseModel, ResponseConverter
+final class ListListResponse implements BaseModel
 {
     /** @use SdkModel<ListListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<SubscriptionList> $items */
-    #[Api(list: SubscriptionList::class)]
+    #[Required(list: SubscriptionList::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -61,12 +57,12 @@ final class ListListResponse implements BaseModel, ResponseConverter
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -76,10 +72,10 @@ final class ListListResponse implements BaseModel, ResponseConverter
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -87,9 +83,9 @@ final class ListListResponse implements BaseModel, ResponseConverter
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

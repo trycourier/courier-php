@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -25,7 +25,7 @@ final class SubscriptionListParams implements BaseModel
     /**
      * A unique identifier that allows for fetching the next set of list subscriptions.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     public function __construct()
@@ -40,11 +40,11 @@ final class SubscriptionListParams implements BaseModel
      */
     public static function with(?string $cursor = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
+        null !== $cursor && $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -52,9 +52,9 @@ final class SubscriptionListParams implements BaseModel
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Tests\Core;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -14,17 +15,17 @@ class TestModel implements BaseModel
     /** @use SdkModel<array<string, mixed>> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api('age_years')]
+    #[Required('age_years')]
     public int $ageYears;
 
     /** @var list<string>|null */
-    #[Api(optional: true)]
+    #[Optional]
     public ?array $friends;
 
-    #[Api]
+    #[Required]
     public ?string $owner;
 
     /**

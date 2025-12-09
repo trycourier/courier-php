@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message\Channel;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
@@ -17,7 +17,7 @@ final class Metadata implements BaseModel
     /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Utm $utm;
 
     public function __construct()
@@ -40,11 +40,11 @@ final class Metadata implements BaseModel
      */
     public static function with(Utm|array|null $utm = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $utm && $obj['utm'] = $utm;
+        null !== $utm && $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -58,9 +58,9 @@ final class Metadata implements BaseModel
      */
     public function withUtm(Utm|array|null $utm): self
     {
-        $obj = clone $this;
-        $obj['utm'] = $utm;
+        $self = clone $this;
+        $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 }

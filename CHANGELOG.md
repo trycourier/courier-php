@@ -1,5 +1,32 @@
 # Changelog
 
+## 4.0.0 (2025-12-09)
+
+Full Changelog: [v3.3.0...v4.0.0](https://github.com/trycourier/courier-php/compare/v3.3.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* use camel casing for all class properties
+
+### Features
+
+* add `BaseResponse` class for accessing raw responses ([5760ba2](https://github.com/trycourier/courier-php/commit/5760ba2f47a6318d66339ff2769a8927d6473da0))
+* split out services into normal & raw types ([25c65d2](https://github.com/trycourier/courier-php/commit/25c65d25a3b60c208210f1ca65f3f9c8b033a1a8))
+* use camel casing for all class properties ([bac38c9](https://github.com/trycourier/courier-php/commit/bac38c9dff9a14b416775a4148e5b4acca97e036))
+
+
+### Bug Fixes
+
+* address some linter warnings and errors ([b5be14d](https://github.com/trycourier/courier-php/commit/b5be14dce568b3f32c36f3c63fa6f32f7a69a41f))
+* **test:** naming collision in request parameters ([58a1fb9](https://github.com/trycourier/courier-php/commit/58a1fb932b052872e3693a16ea539b254a973986))
+
+
+### Chores
+
+* ensure constant values are marked as optional in array types ([a421af3](https://github.com/trycourier/courier-php/commit/a421af35b17f859948c4090246b304481172e944))
+* switch from `#[Api(optional: true|false)]` to `#[Required]|#[Optional]` for annotations ([f5104a3](https://github.com/trycourier/courier-php/commit/f5104a3cfd7796b164dc4ee4b2d1dff8d148b70c))
+* use `$self = clone $this;` instead of `$obj = clone $this;` ([f8143c2](https://github.com/trycourier/courier-php/commit/f8143c25aff7e1207db53b828fb479ce281a6985))
+
 ## 3.3.0 (2025-12-08)
 
 Full Changelog: [v3.2.0...v3.3.0](https://github.com/trycourier/courier-php/compare/v3.2.0...v3.3.0)

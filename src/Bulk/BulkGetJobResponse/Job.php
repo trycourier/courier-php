@@ -7,7 +7,7 @@ namespace Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
 use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalContent;
@@ -27,20 +27,20 @@ final class Job implements BaseModel
     /** @use SdkModel<JobShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public InboundBulkTemplateMessage|InboundBulkContentMessage $definition;
 
-    #[Api]
+    #[Required]
     public int $enqueued;
 
-    #[Api]
+    #[Required]
     public int $failures;
 
-    #[Api]
+    #[Required]
     public int $received;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
@@ -98,15 +98,15 @@ final class Job implements BaseModel
         int $received,
         Status|string $status,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['definition'] = $definition;
-        $obj['enqueued'] = $enqueued;
-        $obj['failures'] = $failures;
-        $obj['received'] = $received;
-        $obj['status'] = $status;
+        $self['definition'] = $definition;
+        $self['enqueued'] = $enqueued;
+        $self['failures'] = $failures;
+        $self['received'] = $received;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -129,34 +129,34 @@ final class Job implements BaseModel
     public function withDefinition(
         InboundBulkTemplateMessage|array|InboundBulkContentMessage $definition
     ): self {
-        $obj = clone $this;
-        $obj['definition'] = $definition;
+        $self = clone $this;
+        $self['definition'] = $definition;
 
-        return $obj;
+        return $self;
     }
 
     public function withEnqueued(int $enqueued): self
     {
-        $obj = clone $this;
-        $obj['enqueued'] = $enqueued;
+        $self = clone $this;
+        $self['enqueued'] = $enqueued;
 
-        return $obj;
+        return $self;
     }
 
     public function withFailures(int $failures): self
     {
-        $obj = clone $this;
-        $obj['failures'] = $failures;
+        $self = clone $this;
+        $self['failures'] = $failures;
 
-        return $obj;
+        return $self;
     }
 
     public function withReceived(int $received): self
     {
-        $obj = clone $this;
-        $obj['received'] = $received;
+        $self = clone $this;
+        $self['received'] = $received;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -164,9 +164,9 @@ final class Job implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 }

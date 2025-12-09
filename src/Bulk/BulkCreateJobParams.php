@@ -6,7 +6,7 @@ namespace Courier\Bulk;
 
 use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -42,7 +42,7 @@ final class BulkCreateJobParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public InboundBulkTemplateMessage|InboundBulkContentMessage $message;
 
     /**
@@ -88,11 +88,11 @@ final class BulkCreateJobParams implements BaseModel
     public static function with(
         InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['message'] = $message;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,9 +115,9 @@ final class BulkCreateJobParams implements BaseModel
     public function withMessage(
         InboundBulkTemplateMessage|array|InboundBulkContentMessage $message
     ): self {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }

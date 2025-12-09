@@ -37,12 +37,8 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->update(
             'submissionId',
-            [
-                'id' => 'id',
-                'checks' => [
-                    ['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom'],
-                ],
-            ],
+            id: 'id',
+            checks: [['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -58,12 +54,8 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->update(
             'submissionId',
-            [
-                'id' => 'id',
-                'checks' => [
-                    ['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom'],
-                ],
-            ],
+            id: 'id',
+            checks: [['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -79,7 +71,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->list(
             'submissionId',
-            ['id' => 'id']
+            id: 'id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -95,7 +87,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->list(
             'submissionId',
-            ['id' => 'id']
+            id: 'id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -111,7 +103,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->delete(
             'submissionId',
-            ['id' => 'id']
+            id: 'id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -127,7 +119,7 @@ final class ChecksTest extends TestCase
 
         $result = $this->client->notifications->checks->delete(
             'submissionId',
-            ['id' => 'id']
+            id: 'id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

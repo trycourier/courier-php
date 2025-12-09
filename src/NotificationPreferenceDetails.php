@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type NotificationPreferenceDetailsShape = array{
  *   status: value-of<PreferenceStatus>,
- *   channel_preferences?: list<ChannelPreference>|null,
+ *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  * }
  */
@@ -21,15 +22,19 @@ final class NotificationPreferenceDetails implements BaseModel
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
-    #[Api(enum: PreferenceStatus::class)]
+    #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
-    /** @var list<ChannelPreference>|null $channel_preferences */
-    #[Api(list: ChannelPreference::class, nullable: true, optional: true)]
-    public ?array $channel_preferences;
+    /** @var list<ChannelPreference>|null $channelPreferences */
+    #[Optional(
+        'channel_preferences',
+        list: ChannelPreference::class,
+        nullable: true
+    )]
+    public ?array $channelPreferences;
 
     /** @var list<Rule>|null $rules */
-    #[Api(list: Rule::class, nullable: true, optional: true)]
+    #[Optional(list: Rule::class, nullable: true)]
     public ?array $rules;
 
     /**
@@ -59,22 +64,22 @@ final class NotificationPreferenceDetails implements BaseModel
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      * @param list<ChannelPreference|array{
      *   channel: value-of<ChannelClassification>
-     * }>|null $channel_preferences
+     * }>|null $channelPreferences
      * @param list<Rule|array{until: string, start?: string|null}>|null $rules
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $channel_preferences = null,
+        ?array $channelPreferences = null,
         ?array $rules = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $channel_preferences && $obj['channel_preferences'] = $channel_preferences;
-        null !== $rules && $obj['rules'] = $rules;
+        null !== $channelPreferences && $self['channelPreferences'] = $channelPreferences;
+        null !== $rules && $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -82,10 +87,10 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -95,10 +100,10 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
-        $obj = clone $this;
-        $obj['channel_preferences'] = $channelPreferences;
+        $self = clone $this;
+        $self['channelPreferences'] = $channelPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,9 +111,9 @@ final class NotificationPreferenceDetails implements BaseModel
      */
     public function withRules(?array $rules): self
     {
-        $obj = clone $this;
-        $obj['rules'] = $rules;
+        $self = clone $this;
+        $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Users\PreferencesService::retrieve()
  *
- * @phpstan-type PreferenceRetrieveParamsShape = array{tenant_id?: string|null}
+ * @phpstan-type PreferenceRetrieveParamsShape = array{tenantID?: string|null}
  */
 final class PreferenceRetrieveParams implements BaseModel
 {
@@ -25,8 +25,8 @@ final class PreferenceRetrieveParams implements BaseModel
     /**
      * Query the preferences of a user for this specific tenant context.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $tenant_id;
+    #[Optional(nullable: true)]
+    public ?string $tenantID;
 
     public function __construct()
     {
@@ -38,13 +38,13 @@ final class PreferenceRetrieveParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?string $tenant_id = null): self
+    public static function with(?string $tenantID = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -52,9 +52,9 @@ final class PreferenceRetrieveParams implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 }

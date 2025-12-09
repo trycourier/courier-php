@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -18,7 +18,7 @@ use Courier\RecipientPreferences;
  *
  * @phpstan-type ListSubscribeParamsShape = array{
  *   lists: list<SubscribeToListsRequestItem|array{
- *     listId: string, preferences?: RecipientPreferences|null
+ *     listID: string, preferences?: RecipientPreferences|null
  *   }>,
  * }
  */
@@ -29,7 +29,7 @@ final class ListSubscribeParams implements BaseModel
     use SdkParams;
 
     /** @var list<SubscribeToListsRequestItem> $lists */
-    #[Api(list: SubscribeToListsRequestItem::class)]
+    #[Required(list: SubscribeToListsRequestItem::class)]
     public array $lists;
 
     /**
@@ -57,28 +57,28 @@ final class ListSubscribeParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
+     *   listID: string, preferences?: RecipientPreferences|null
      * }> $lists
      */
     public static function with(array $lists): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['lists'] = $lists;
+        $self['lists'] = $lists;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
+     *   listID: string, preferences?: RecipientPreferences|null
      * }> $lists
      */
     public function withLists(array $lists): self
     {
-        $obj = clone $this;
-        $obj['lists'] = $lists;
+        $self = clone $this;
+        $self['lists'] = $lists;
 
-        return $obj;
+        return $self;
     }
 }

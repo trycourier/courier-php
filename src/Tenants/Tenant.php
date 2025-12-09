@@ -4,76 +4,73 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\DefaultPreferences\Item;
 
 /**
  * @phpstan-type TenantShape = array{
  *   id: string,
  *   name: string,
- *   brand_id?: string|null,
- *   default_preferences?: DefaultPreferences|null,
- *   parent_tenant_id?: string|null,
+ *   brandID?: string|null,
+ *   defaultPreferences?: DefaultPreferences|null,
+ *   parentTenantID?: string|null,
  *   properties?: array<string,mixed>|null,
- *   user_profile?: array<string,mixed>|null,
+ *   userProfile?: array<string,mixed>|null,
  * }
  */
-final class Tenant implements BaseModel, ResponseConverter
+final class Tenant implements BaseModel
 {
     /** @use SdkModel<TenantShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /**
      * Id of the tenant.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * Name of the tenant.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
     /**
      * Brand to be used for the account when one is not specified by the send call.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $brand_id;
+    #[Optional('brand_id', nullable: true)]
+    public ?string $brandID;
 
     /**
      * Defines the preferences used for the account when the user hasn't specified their own.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?DefaultPreferences $default_preferences;
+    #[Optional('default_preferences', nullable: true)]
+    public ?DefaultPreferences $defaultPreferences;
 
     /**
      * Tenant's parent id (if any).
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $parent_tenant_id;
+    #[Optional('parent_tenant_id', nullable: true)]
+    public ?string $parentTenantID;
 
     /**
      * Arbitrary properties accessible to a template.
      *
      * @var array<string,mixed>|null $properties
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $properties;
 
     /**
      * A user profile object merged with user profile on send.
      *
-     * @var array<string,mixed>|null $user_profile
+     * @var array<string,mixed>|null $userProfile
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
-    public ?array $user_profile;
+    #[Optional('user_profile', map: 'mixed', nullable: true)]
+    public ?array $userProfile;
 
     /**
      * `new Tenant()` is missing required properties by the API.
@@ -101,31 +98,31 @@ final class Tenant implements BaseModel, ResponseConverter
      *
      * @param DefaultPreferences|array{
      *   items?: list<Item>|null
-     * }|null $default_preferences
+     * }|null $defaultPreferences
      * @param array<string,mixed>|null $properties
-     * @param array<string,mixed>|null $user_profile
+     * @param array<string,mixed>|null $userProfile
      */
     public static function with(
         string $id,
         string $name,
-        ?string $brand_id = null,
-        DefaultPreferences|array|null $default_preferences = null,
-        ?string $parent_tenant_id = null,
+        ?string $brandID = null,
+        DefaultPreferences|array|null $defaultPreferences = null,
+        ?string $parentTenantID = null,
         ?array $properties = null,
-        ?array $user_profile = null,
+        ?array $userProfile = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['name'] = $name;
+        $self['id'] = $id;
+        $self['name'] = $name;
 
-        null !== $brand_id && $obj['brand_id'] = $brand_id;
-        null !== $default_preferences && $obj['default_preferences'] = $default_preferences;
-        null !== $parent_tenant_id && $obj['parent_tenant_id'] = $parent_tenant_id;
-        null !== $properties && $obj['properties'] = $properties;
-        null !== $user_profile && $obj['user_profile'] = $user_profile;
+        null !== $brandID && $self['brandID'] = $brandID;
+        null !== $defaultPreferences && $self['defaultPreferences'] = $defaultPreferences;
+        null !== $parentTenantID && $self['parentTenantID'] = $parentTenantID;
+        null !== $properties && $self['properties'] = $properties;
+        null !== $userProfile && $self['userProfile'] = $userProfile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -133,10 +130,10 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -144,10 +141,10 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -155,10 +152,10 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withBrandID(?string $brandID): self
     {
-        $obj = clone $this;
-        $obj['brand_id'] = $brandID;
+        $self = clone $this;
+        $self['brandID'] = $brandID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -171,10 +168,10 @@ final class Tenant implements BaseModel, ResponseConverter
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences
     ): self {
-        $obj = clone $this;
-        $obj['default_preferences'] = $defaultPreferences;
+        $self = clone $this;
+        $self['defaultPreferences'] = $defaultPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -182,10 +179,10 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withParentTenantID(?string $parentTenantID): self
     {
-        $obj = clone $this;
-        $obj['parent_tenant_id'] = $parentTenantID;
+        $self = clone $this;
+        $self['parentTenantID'] = $parentTenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -195,10 +192,10 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withProperties(?array $properties): self
     {
-        $obj = clone $this;
-        $obj['properties'] = $properties;
+        $self = clone $this;
+        $self['properties'] = $properties;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -208,9 +205,9 @@ final class Tenant implements BaseModel, ResponseConverter
      */
     public function withUserProfile(?array $userProfile): self
     {
-        $obj = clone $this;
-        $obj['user_profile'] = $userProfile;
+        $self = clone $this;
+        $self['userProfile'] = $userProfile;
 
-        return $obj;
+        return $self;
     }
 }

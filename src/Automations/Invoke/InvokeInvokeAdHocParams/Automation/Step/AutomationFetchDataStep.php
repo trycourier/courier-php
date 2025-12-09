@@ -8,7 +8,8 @@ use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\Automatio
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\MergeStrategy;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type AutomationFetchDataStepShape = array{
  *   action: value-of<Action>,
  *   webhook: Webhook,
- *   merge_strategy?: value-of<MergeStrategy>|null,
+ *   mergeStrategy?: value-of<MergeStrategy>|null,
  * }
  */
 final class AutomationFetchDataStep implements BaseModel
@@ -25,15 +26,15 @@ final class AutomationFetchDataStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api]
+    #[Required]
     public Webhook $webhook;
 
-    /** @var value-of<MergeStrategy>|null $merge_strategy */
-    #[Api(enum: MergeStrategy::class, nullable: true, optional: true)]
-    public ?string $merge_strategy;
+    /** @var value-of<MergeStrategy>|null $mergeStrategy */
+    #[Optional('merge_strategy', enum: MergeStrategy::class, nullable: true)]
+    public ?string $mergeStrategy;
 
     /**
      * `new AutomationFetchDataStep()` is missing required properties by the API.
@@ -66,21 +67,21 @@ final class AutomationFetchDataStep implements BaseModel
      *   body?: string|null,
      *   headers?: array<string,string>|null,
      * } $webhook
-     * @param MergeStrategy|value-of<MergeStrategy>|null $merge_strategy
+     * @param MergeStrategy|value-of<MergeStrategy>|null $mergeStrategy
      */
     public static function with(
         Action|string $action,
         Webhook|array $webhook,
-        MergeStrategy|string|null $merge_strategy = null,
+        MergeStrategy|string|null $mergeStrategy = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['webhook'] = $webhook;
+        $self['action'] = $action;
+        $self['webhook'] = $webhook;
 
-        null !== $merge_strategy && $obj['merge_strategy'] = $merge_strategy;
+        null !== $mergeStrategy && $self['mergeStrategy'] = $mergeStrategy;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -88,10 +89,10 @@ final class AutomationFetchDataStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -104,10 +105,10 @@ final class AutomationFetchDataStep implements BaseModel
      */
     public function withWebhook(Webhook|array $webhook): self
     {
-        $obj = clone $this;
-        $obj['webhook'] = $webhook;
+        $self = clone $this;
+        $self['webhook'] = $webhook;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,9 +117,9 @@ final class AutomationFetchDataStep implements BaseModel
     public function withMergeStrategy(
         MergeStrategy|string|null $mergeStrategy
     ): self {
-        $obj = clone $this;
-        $obj['merge_strategy'] = $mergeStrategy;
+        $self = clone $this;
+        $self['mergeStrategy'] = $mergeStrategy;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
@@ -12,7 +12,7 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
 
 /**
  * @phpstan-type ResultShape = array{
- *   channel: string, channel_id: string, content: Content
+ *   channel: string, channelID: string, content: Content
  * }
  */
 final class Result implements BaseModel
@@ -23,19 +23,19 @@ final class Result implements BaseModel
     /**
      * The channel used for rendering the message.
      */
-    #[Api]
+    #[Required]
     public string $channel;
 
     /**
      * The ID of channel used for rendering the message.
      */
-    #[Api]
-    public string $channel_id;
+    #[Required('channel_id')]
+    public string $channelID;
 
     /**
      * Content details of the rendered message.
      */
-    #[Api]
+    #[Required]
     public Content $content;
 
     /**
@@ -43,7 +43,7 @@ final class Result implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * Result::with(channel: ..., channel_id: ..., content: ...)
+     * Result::with(channel: ..., channelID: ..., content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -73,16 +73,16 @@ final class Result implements BaseModel
      */
     public static function with(
         string $channel,
-        string $channel_id,
+        string $channelID,
         Content|array $content
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channel'] = $channel;
-        $obj['channel_id'] = $channel_id;
-        $obj['content'] = $content;
+        $self['channel'] = $channel;
+        $self['channelID'] = $channelID;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -90,10 +90,10 @@ final class Result implements BaseModel
      */
     public function withChannel(string $channel): self
     {
-        $obj = clone $this;
-        $obj['channel'] = $channel;
+        $self = clone $this;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -101,10 +101,10 @@ final class Result implements BaseModel
      */
     public function withChannelID(string $channelID): self
     {
-        $obj = clone $this;
-        $obj['channel_id'] = $channelID;
+        $self = clone $this;
+        $self['channelID'] = $channelID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -121,9 +121,9 @@ final class Result implements BaseModel
      */
     public function withContent(Content|array $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -25,7 +25,7 @@ final class MessageHistoryParams implements BaseModel
     /**
      * A supported Message History type that will filter the events returned.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $type;
 
     public function __construct()
@@ -40,11 +40,11 @@ final class MessageHistoryParams implements BaseModel
      */
     public static function with(?string $type = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $type && $obj['type'] = $type;
+        null !== $type && $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -52,9 +52,9 @@ final class MessageHistoryParams implements BaseModel
      */
     public function withType(?string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -17,7 +18,7 @@ use Courier\RecipientPreferences;
  * @see Courier\Services\Lists\SubscriptionsService::subscribeUser()
  *
  * @phpstan-type SubscriptionSubscribeUserParamsShape = array{
- *   list_id: string,
+ *   listID: string,
  *   preferences?: null|RecipientPreferences|array{
  *     categories?: array<string,NotificationPreferenceDetails>|null,
  *     notifications?: array<string,NotificationPreferenceDetails>|null,
@@ -30,10 +31,10 @@ final class SubscriptionSubscribeUserParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $list_id;
+    #[Required]
+    public string $listID;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**
@@ -41,7 +42,7 @@ final class SubscriptionSubscribeUserParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * SubscriptionSubscribeUserParams::with(list_id: ...)
+     * SubscriptionSubscribeUserParams::with(listID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -66,24 +67,24 @@ final class SubscriptionSubscribeUserParams implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $list_id,
+        string $listID,
         RecipientPreferences|array|null $preferences = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['list_id'] = $list_id;
+        $self['listID'] = $listID;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withListID(string $listID): self
     {
-        $obj = clone $this;
-        $obj['list_id'] = $listID;
+        $self = clone $this;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -95,9 +96,9 @@ final class SubscriptionSubscribeUserParams implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

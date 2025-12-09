@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationListResponse\Result;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
@@ -18,7 +18,7 @@ final class Tags implements BaseModel
     use SdkModel;
 
     /** @var list<Data> $data */
-    #[Api(list: Data::class)]
+    #[Required(list: Data::class)]
     public array $data;
 
     /**
@@ -49,11 +49,11 @@ final class Tags implements BaseModel
      */
     public static function with(array $data): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['data'] = $data;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -61,9 +61,9 @@ final class Tags implements BaseModel
      */
     public function withData(array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 }

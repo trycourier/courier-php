@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -20,7 +20,7 @@ final class CheckDeleteParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
@@ -49,18 +49,18 @@ final class CheckDeleteParams implements BaseModel
      */
     public static function with(string $id): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 }

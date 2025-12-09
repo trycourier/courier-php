@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -28,11 +28,11 @@ final class CheckUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var list<BaseCheck> $checks */
-    #[Api(list: BaseCheck::class)]
+    #[Required(list: BaseCheck::class)]
     public array $checks;
 
     /**
@@ -65,20 +65,20 @@ final class CheckUpdateParams implements BaseModel
      */
     public static function with(string $id, array $checks): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['checks'] = $checks;
+        $self['id'] = $id;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -88,9 +88,9 @@ final class CheckUpdateParams implements BaseModel
      */
     public function withChecks(array $checks): self
     {
-        $obj = clone $this;
-        $obj['checks'] = $checks;
+        $self = clone $this;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 }

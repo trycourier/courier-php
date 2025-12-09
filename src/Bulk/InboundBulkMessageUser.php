@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
@@ -27,19 +27,19 @@ final class InboundBulkMessageUser implements BaseModel
     /** @use SdkModel<InboundBulkMessageUserShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?UserRecipient $to;
 
     public function __construct()
@@ -57,16 +57,16 @@ final class InboundBulkMessageUser implements BaseModel
      *   notifications?: array<string,NotificationPreferenceDetails>|null,
      * }|null $preferences
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|null $to
      */
     public static function with(
@@ -76,23 +76,23 @@ final class InboundBulkMessageUser implements BaseModel
         ?string $recipient = null,
         UserRecipient|array|null $to = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $data && $obj['data'] = $data;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $to && $obj['to'] = $to;
+        null !== $data && $self['data'] = $data;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $to && $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     public function withData(mixed $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -104,47 +104,47 @@ final class InboundBulkMessageUser implements BaseModel
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withProfile(mixed $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|null $to
      */
     public function withTo(UserRecipient|array|null $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 }

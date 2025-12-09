@@ -6,7 +6,7 @@ namespace Courier\Brands;
 
 use Courier\Brands\BrandSettingsEmail\TemplateOverride;
 use Courier\Brands\BrandSettingsInApp\Placement;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -22,13 +22,13 @@ final class BrandSettings implements BaseModel
     /** @use SdkModel<BrandSettingsShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandColors $colors;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettingsEmail $email;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettingsInApp $inapp;
 
     public function __construct()
@@ -65,13 +65,13 @@ final class BrandSettings implements BaseModel
         BrandSettingsEmail|array|null $email = null,
         BrandSettingsInApp|array|null $inapp = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $colors && $obj['colors'] = $colors;
-        null !== $email && $obj['email'] = $email;
-        null !== $inapp && $obj['inapp'] = $inapp;
+        null !== $colors && $self['colors'] = $colors;
+        null !== $email && $self['email'] = $email;
+        null !== $inapp && $self['inapp'] = $inapp;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -81,10 +81,10 @@ final class BrandSettings implements BaseModel
      */
     public function withColors(BrandColors|array|null $colors): self
     {
-        $obj = clone $this;
-        $obj['colors'] = $colors;
+        $self = clone $this;
+        $self['colors'] = $colors;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -97,10 +97,10 @@ final class BrandSettings implements BaseModel
      */
     public function withEmail(BrandSettingsEmail|array|null $email): self
     {
-        $obj = clone $this;
-        $obj['email'] = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,9 +116,9 @@ final class BrandSettings implements BaseModel
      */
     public function withInapp(BrandSettingsInApp|array|null $inapp): self
     {
-        $obj = clone $this;
-        $obj['inapp'] = $inapp;
+        $self = clone $this;
+        $self['inapp'] = $inapp;
 
-        return $obj;
+        return $self;
     }
 }

@@ -6,11 +6,9 @@ namespace Courier\Bulk;
 
 use Courier\Bulk\BulkListUsersResponse\Item;
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
@@ -20,18 +18,16 @@ use Courier\UserRecipient;
  *   items: list<Item>, paging: Paging
  * }
  */
-final class BulkListUsersResponse implements BaseModel, ResponseConverter
+final class BulkListUsersResponse implements BaseModel
 {
     /** @use SdkModel<BulkListUsersResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<Item> $items */
-    #[Api(list: Item::class)]
+    #[Required(list: Item::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -65,18 +61,18 @@ final class BulkListUsersResponse implements BaseModel, ResponseConverter
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,
-     *   messageId?: string|null,
+     *   messageID?: string|null,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -87,15 +83,15 @@ final class BulkListUsersResponse implements BaseModel, ResponseConverter
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,
-     *   messageId?: string|null,
+     *   messageID?: string|null,
      * }> $items
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -103,9 +99,9 @@ final class BulkListUsersResponse implements BaseModel, ResponseConverter
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

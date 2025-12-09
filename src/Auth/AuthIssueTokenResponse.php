@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Auth;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AuthIssueTokenResponseShape = array{token: string}
  */
-final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
+final class AuthIssueTokenResponse implements BaseModel
 {
     /** @use SdkModel<AuthIssueTokenResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public string $token;
 
     /**
@@ -49,18 +45,18 @@ final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
      */
     public static function with(string $token): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['token'] = $token;
+        $self['token'] = $token;
 
-        return $obj;
+        return $self;
     }
 
     public function withToken(string $token): self
     {
-        $obj = clone $this;
-        $obj['token'] = $token;
+        $self = clone $this;
+        $self['token'] = $token;
 
-        return $obj;
+        return $self;
     }
 }

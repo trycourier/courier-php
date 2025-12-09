@@ -35,7 +35,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->create(['name' => 'name']);
+        $result = $this->client->brands->create(name: 'name');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Brand::class, $result);
@@ -48,10 +48,10 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->create([
-            'name' => 'name',
-            'id' => 'id',
-            'settings' => [
+        $result = $this->client->brands->create(
+            name: 'name',
+            id: 'id',
+            settings: [
                 'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
                 'email' => [
                     'footer' => ['content' => 'content', 'inheritDefault' => true],
@@ -94,8 +94,8 @@ final class BrandsTest extends TestCase
                     'placement' => 'top',
                 ],
             ],
-            'snippets' => ['items' => [['name' => 'name', 'value' => 'value']]],
-        ]);
+            snippets: ['items' => [['name' => 'name', 'value' => 'value']]],
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Brand::class, $result);
@@ -121,7 +121,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->update('brand_id', ['name' => 'name']);
+        $result = $this->client->brands->update('brand_id', name: 'name');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Brand::class, $result);
@@ -136,19 +136,26 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->update(
             'brand_id',
-            [
-                'name' => 'name',
-                'settings' => [
-                    'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
-                    'email' => [
-                        'footer' => ['content' => 'content', 'inheritDefault' => true],
-                        'head' => ['inheritDefault' => true, 'content' => 'content'],
-                        'header' => [
-                            'logo' => ['href' => 'href', 'image' => 'image'],
-                            'barColor' => 'barColor',
-                            'inheritDefault' => true,
-                        ],
-                        'templateOverride' => [
+            name: 'name',
+            settings: [
+                'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                'email' => [
+                    'footer' => ['content' => 'content', 'inheritDefault' => true],
+                    'head' => ['inheritDefault' => true, 'content' => 'content'],
+                    'header' => [
+                        'logo' => ['href' => 'href', 'image' => 'image'],
+                        'barColor' => 'barColor',
+                        'inheritDefault' => true,
+                    ],
+                    'templateOverride' => [
+                        'enabled' => true,
+                        'backgroundColor' => 'backgroundColor',
+                        'blocksBackgroundColor' => 'blocksBackgroundColor',
+                        'footer' => 'footer',
+                        'head' => 'head',
+                        'header' => 'header',
+                        'width' => 'width',
+                        'mjml' => [
                             'enabled' => true,
                             'backgroundColor' => 'backgroundColor',
                             'blocksBackgroundColor' => 'blocksBackgroundColor',
@@ -156,33 +163,24 @@ final class BrandsTest extends TestCase
                             'head' => 'head',
                             'header' => 'header',
                             'width' => 'width',
-                            'mjml' => [
-                                'enabled' => true,
-                                'backgroundColor' => 'backgroundColor',
-                                'blocksBackgroundColor' => 'blocksBackgroundColor',
-                                'footer' => 'footer',
-                                'head' => 'head',
-                                'header' => 'header',
-                                'width' => 'width',
-                            ],
-                            'footerBackgroundColor' => 'footerBackgroundColor',
-                            'footerFullWidth' => true,
                         ],
-                    ],
-                    'inapp' => [
-                        'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
-                        'icons' => ['bell' => 'bell', 'message' => 'message'],
-                        'widgetBackground' => [
-                            'bottomColor' => 'bottomColor', 'topColor' => 'topColor',
-                        ],
-                        'borderRadius' => 'borderRadius',
-                        'disableMessageIcon' => true,
-                        'fontFamily' => 'fontFamily',
-                        'placement' => 'top',
+                        'footerBackgroundColor' => 'footerBackgroundColor',
+                        'footerFullWidth' => true,
                     ],
                 ],
-                'snippets' => ['items' => [['name' => 'name', 'value' => 'value']]],
+                'inapp' => [
+                    'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                    'icons' => ['bell' => 'bell', 'message' => 'message'],
+                    'widgetBackground' => [
+                        'bottomColor' => 'bottomColor', 'topColor' => 'topColor',
+                    ],
+                    'borderRadius' => 'borderRadius',
+                    'disableMessageIcon' => true,
+                    'fontFamily' => 'fontFamily',
+                    'placement' => 'top',
+                ],
             ],
+            snippets: ['items' => [['name' => 'name', 'value' => 'value']]],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -196,7 +194,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->brands->list([]);
+        $result = $this->client->brands->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BrandListResponse::class, $result);

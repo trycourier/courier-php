@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
@@ -17,18 +16,16 @@ use Courier\RecipientPreferences;
  *   profile: array<string,mixed>, preferences?: RecipientPreferences|null
  * }
  */
-final class ProfileGetResponse implements BaseModel, ResponseConverter
+final class ProfileGetResponse implements BaseModel
 {
     /** @use SdkModel<ProfileGetResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**
@@ -65,13 +62,13 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
         array $profile,
         RecipientPreferences|array|null $preferences = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['profile'] = $profile;
+        $self['profile'] = $profile;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -79,10 +76,10 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
      */
     public function withProfile(array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -94,9 +91,9 @@ final class ProfileGetResponse implements BaseModel, ResponseConverter
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants\Templates\TemplateListResponse\Item;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
@@ -20,7 +20,7 @@ final class Data implements BaseModel
     /** @use SdkModel<DataShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public MessageRouting $routing;
 
     /**
@@ -53,11 +53,11 @@ final class Data implements BaseModel
      */
     public static function with(MessageRouting|array $routing): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['routing'] = $routing;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,9 +67,9 @@ final class Data implements BaseModel
      */
     public function withRouting(MessageRouting|array $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 }

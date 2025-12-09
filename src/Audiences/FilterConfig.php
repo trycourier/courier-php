@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Audiences;
 
 use Courier\Audiences\FilterConfig\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -24,19 +24,19 @@ final class FilterConfig implements BaseModel
      *
      * @var value-of<Operator> $operator
      */
-    #[Api(enum: Operator::class)]
+    #[Required(enum: Operator::class)]
     public string $operator;
 
     /**
      * The attribe name from profile whose value will be operated against the filter value.
      */
-    #[Api]
+    #[Required]
     public string $path;
 
     /**
      * The value to use for filtering.
      */
-    #[Api]
+    #[Required]
     public string $value;
 
     /**
@@ -70,13 +70,13 @@ final class FilterConfig implements BaseModel
         string $path,
         string $value
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['operator'] = $operator;
-        $obj['path'] = $path;
-        $obj['value'] = $value;
+        $self['operator'] = $operator;
+        $self['path'] = $path;
+        $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -86,10 +86,10 @@ final class FilterConfig implements BaseModel
      */
     public function withOperator(Operator|string $operator): self
     {
-        $obj = clone $this;
-        $obj['operator'] = $operator;
+        $self = clone $this;
+        $self['operator'] = $operator;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -97,10 +97,10 @@ final class FilterConfig implements BaseModel
      */
     public function withPath(string $path): self
     {
-        $obj = clone $this;
-        $obj['path'] = $path;
+        $self = clone $this;
+        $self['path'] = $path;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -108,9 +108,9 @@ final class FilterConfig implements BaseModel
      */
     public function withValue(string $value): self
     {
-        $obj = clone $this;
-        $obj['value'] = $value;
+        $self = clone $this;
+        $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Courier\Audiences\AudienceListMembersResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type ItemShape = array{
- *   added_at: string,
- *   audience_id: string,
- *   audience_version: int,
- *   member_id: string,
+ *   addedAt: string,
+ *   audienceID: string,
+ *   audienceVersion: int,
+ *   memberID: string,
  *   reason: string,
  * }
  */
@@ -22,19 +22,19 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api]
-    public string $added_at;
+    #[Required('added_at')]
+    public string $addedAt;
 
-    #[Api]
-    public string $audience_id;
+    #[Required('audience_id')]
+    public string $audienceID;
 
-    #[Api]
-    public int $audience_version;
+    #[Required('audience_version')]
+    public int $audienceVersion;
 
-    #[Api]
-    public string $member_id;
+    #[Required('member_id')]
+    public string $memberID;
 
-    #[Api]
+    #[Required]
     public string $reason;
 
     /**
@@ -43,10 +43,10 @@ final class Item implements BaseModel
      * To enforce required parameters use
      * ```
      * Item::with(
-     *   added_at: ...,
-     *   audience_id: ...,
-     *   audience_version: ...,
-     *   member_id: ...,
+     *   addedAt: ...,
+     *   audienceID: ...,
+     *   audienceVersion: ...,
+     *   memberID: ...,
      *   reason: ...,
      * )
      * ```
@@ -73,60 +73,60 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $added_at,
-        string $audience_id,
-        int $audience_version,
-        string $member_id,
+        string $addedAt,
+        string $audienceID,
+        int $audienceVersion,
+        string $memberID,
         string $reason,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['added_at'] = $added_at;
-        $obj['audience_id'] = $audience_id;
-        $obj['audience_version'] = $audience_version;
-        $obj['member_id'] = $member_id;
-        $obj['reason'] = $reason;
+        $self['addedAt'] = $addedAt;
+        $self['audienceID'] = $audienceID;
+        $self['audienceVersion'] = $audienceVersion;
+        $self['memberID'] = $memberID;
+        $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 
     public function withAddedAt(string $addedAt): self
     {
-        $obj = clone $this;
-        $obj['added_at'] = $addedAt;
+        $self = clone $this;
+        $self['addedAt'] = $addedAt;
 
-        return $obj;
+        return $self;
     }
 
     public function withAudienceID(string $audienceID): self
     {
-        $obj = clone $this;
-        $obj['audience_id'] = $audienceID;
+        $self = clone $this;
+        $self['audienceID'] = $audienceID;
 
-        return $obj;
+        return $self;
     }
 
     public function withAudienceVersion(int $audienceVersion): self
     {
-        $obj = clone $this;
-        $obj['audience_version'] = $audienceVersion;
+        $self = clone $this;
+        $self['audienceVersion'] = $audienceVersion;
 
-        return $obj;
+        return $self;
     }
 
     public function withMemberID(string $memberID): self
     {
-        $obj = clone $this;
-        $obj['member_id'] = $memberID;
+        $self = clone $this;
+        $self['memberID'] = $memberID;
 
-        return $obj;
+        return $self;
     }
 
     public function withReason(string $reason): self
     {
-        $obj = clone $this;
-        $obj['reason'] = $reason;
+        $self = clone $this;
+        $self['reason'] = $reason;
 
-        return $obj;
+        return $self;
     }
 }

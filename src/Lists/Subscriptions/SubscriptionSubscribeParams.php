@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -18,7 +18,7 @@ use Courier\RecipientPreferences;
  *
  * @phpstan-type SubscriptionSubscribeParamsShape = array{
  *   recipients: list<PutSubscriptionsRecipient|array{
- *     recipientId: string, preferences?: RecipientPreferences|null
+ *     recipientID: string, preferences?: RecipientPreferences|null
  *   }>,
  * }
  */
@@ -29,7 +29,7 @@ final class SubscriptionSubscribeParams implements BaseModel
     use SdkParams;
 
     /** @var list<PutSubscriptionsRecipient> $recipients */
-    #[Api(list: PutSubscriptionsRecipient::class)]
+    #[Required(list: PutSubscriptionsRecipient::class)]
     public array $recipients;
 
     /**
@@ -57,28 +57,28 @@ final class SubscriptionSubscribeParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<PutSubscriptionsRecipient|array{
-     *   recipientId: string, preferences?: RecipientPreferences|null
+     *   recipientID: string, preferences?: RecipientPreferences|null
      * }> $recipients
      */
     public static function with(array $recipients): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipients'] = $recipients;
+        $self['recipients'] = $recipients;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param list<PutSubscriptionsRecipient|array{
-     *   recipientId: string, preferences?: RecipientPreferences|null
+     *   recipientID: string, preferences?: RecipientPreferences|null
      * }> $recipients
      */
     public function withRecipients(array $recipients): self
     {
-        $obj = clone $this;
-        $obj['recipients'] = $recipients;
+        $self = clone $this;
+        $self['recipients'] = $recipients;
 
-        return $obj;
+        return $self;
     }
 }

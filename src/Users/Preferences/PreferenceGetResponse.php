@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\PreferenceStatus;
 
@@ -18,25 +16,23 @@ use Courier\PreferenceStatus;
  *   items: list<TopicPreference>, paging: Paging
  * }
  */
-final class PreferenceGetResponse implements BaseModel, ResponseConverter
+final class PreferenceGetResponse implements BaseModel
 {
     /** @use SdkModel<PreferenceGetResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * The Preferences associated with the user_id.
      *
      * @var list<TopicPreference> $items
      */
-    #[Api(list: TopicPreference::class)]
+    #[Required(list: TopicPreference::class)]
     public array $items;
 
     /**
      * Deprecated - Paging not implemented on this endpoint.
      */
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -64,43 +60,43 @@ final class PreferenceGetResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * The Preferences associated with the user_id.
      *
      * @param list<TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
+     *   defaultStatus: value-of<PreferenceStatus>,
      *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   topicID: string,
+     *   topicName: string,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * }> $items
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -110,9 +106,9 @@ final class PreferenceGetResponse implements BaseModel, ResponseConverter
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

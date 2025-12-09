@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -31,16 +32,16 @@ final class BrandCreateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $id;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettings $settings;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSnippets $snippets;
 
     /**
@@ -80,31 +81,31 @@ final class BrandCreateParams implements BaseModel
         BrandSettings|array|null $settings = null,
         BrandSnippets|array|null $snippets = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['name'] = $name;
+        $self['name'] = $name;
 
-        null !== $id && $obj['id'] = $id;
-        null !== $settings && $obj['settings'] = $settings;
-        null !== $snippets && $obj['snippets'] = $snippets;
+        null !== $id && $self['id'] = $id;
+        null !== $settings && $self['settings'] = $settings;
+        null !== $snippets && $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(?string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -116,10 +117,10 @@ final class BrandCreateParams implements BaseModel
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
-        $obj = clone $this;
-        $obj['settings'] = $settings;
+        $self = clone $this;
+        $self['settings'] = $settings;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -127,9 +128,9 @@ final class BrandCreateParams implements BaseModel
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {
-        $obj = clone $this;
-        $obj['snippets'] = $snippets;
+        $self = clone $this;
+        $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 }

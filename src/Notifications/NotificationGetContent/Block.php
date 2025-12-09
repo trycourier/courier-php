@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
@@ -27,29 +28,29 @@ final class Block implements BaseModel
     /** @use SdkModel<BlockShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var value-of<Type> $type */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $alias;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public string|NotificationContentHierarchy|null $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $context;
 
     /**
      * @var array<string,string|Locale\NotificationContentHierarchy>|null $locales
      */
-    #[Api(map: Locale::class, nullable: true, optional: true)]
+    #[Optional(map: Locale::class, nullable: true)]
     public ?array $locales;
 
     /**
@@ -93,26 +94,26 @@ final class Block implements BaseModel
         ?string $context = null,
         ?array $locales = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['type'] = $type;
+        $self['id'] = $id;
+        $self['type'] = $type;
 
-        null !== $alias && $obj['alias'] = $alias;
-        null !== $checksum && $obj['checksum'] = $checksum;
-        null !== $content && $obj['content'] = $content;
-        null !== $context && $obj['context'] = $context;
-        null !== $locales && $obj['locales'] = $locales;
+        null !== $alias && $self['alias'] = $alias;
+        null !== $checksum && $self['checksum'] = $checksum;
+        null !== $content && $self['content'] = $content;
+        null !== $context && $self['context'] = $context;
+        null !== $locales && $self['locales'] = $locales;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -120,26 +121,26 @@ final class Block implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     public function withAlias(?string $alias): self
     {
-        $obj = clone $this;
-        $obj['alias'] = $alias;
+        $self = clone $this;
+        $self['alias'] = $alias;
 
-        return $obj;
+        return $self;
     }
 
     public function withChecksum(?string $checksum): self
     {
-        $obj = clone $this;
-        $obj['checksum'] = $checksum;
+        $self = clone $this;
+        $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -150,18 +151,18 @@ final class Block implements BaseModel
     public function withContent(
         string|NotificationContentHierarchy|array|null $content
     ): self {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withContext(?string $context): self
     {
-        $obj = clone $this;
-        $obj['context'] = $context;
+        $self = clone $this;
+        $self['context'] = $context;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -171,9 +172,9 @@ final class Block implements BaseModel
      */
     public function withLocales(?array $locales): self
     {
-        $obj = clone $this;
-        $obj['locales'] = $locales;
+        $self = clone $this;
+        $self['locales'] = $locales;
 
-        return $obj;
+        return $self;
     }
 }

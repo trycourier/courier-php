@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\NotificationGetContent\Block;
 use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Type;
@@ -23,22 +21,20 @@ use Courier\Notifications\NotificationGetContent\Channel\Locale;
  *   checksum?: string|null,
  * }
  */
-final class NotificationGetContent implements BaseModel, ResponseConverter
+final class NotificationGetContent implements BaseModel
 {
     /** @use SdkModel<NotificationGetContentShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<Block>|null $blocks */
-    #[Api(list: Block::class, nullable: true, optional: true)]
+    #[Optional(list: Block::class, nullable: true)]
     public ?array $blocks;
 
     /** @var list<Channel>|null $channels */
-    #[Api(list: Channel::class, nullable: true, optional: true)]
+    #[Optional(list: Channel::class, nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
     public function __construct()
@@ -73,13 +69,13 @@ final class NotificationGetContent implements BaseModel, ResponseConverter
         ?array $channels = null,
         ?string $checksum = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $blocks && $obj['blocks'] = $blocks;
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $checksum && $obj['checksum'] = $checksum;
+        null !== $blocks && $self['blocks'] = $blocks;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $checksum && $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -95,10 +91,10 @@ final class NotificationGetContent implements BaseModel, ResponseConverter
      */
     public function withBlocks(?array $blocks): self
     {
-        $obj = clone $this;
-        $obj['blocks'] = $blocks;
+        $self = clone $this;
+        $self['blocks'] = $blocks;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -112,17 +108,17 @@ final class NotificationGetContent implements BaseModel, ResponseConverter
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withChecksum(?string $checksum): self
     {
-        $obj = clone $this;
-        $obj['checksum'] = $checksum;
+        $self = clone $this;
+        $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 }

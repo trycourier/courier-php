@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +18,10 @@ final class BrandColors implements BaseModel
     /** @use SdkModel<BrandColorsShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $primary;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $secondary;
 
     public function __construct()
@@ -38,27 +38,27 @@ final class BrandColors implements BaseModel
         ?string $primary = null,
         ?string $secondary = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $primary && $obj['primary'] = $primary;
-        null !== $secondary && $obj['secondary'] = $secondary;
+        null !== $primary && $self['primary'] = $primary;
+        null !== $secondary && $self['secondary'] = $secondary;
 
-        return $obj;
+        return $self;
     }
 
     public function withPrimary(string $primary): self
     {
-        $obj = clone $this;
-        $obj['primary'] = $primary;
+        $self = clone $this;
+        $self['primary'] = $primary;
 
-        return $obj;
+        return $self;
     }
 
     public function withSecondary(string $secondary): self
     {
-        $obj = clone $this;
-        $obj['secondary'] = $secondary;
+        $self = clone $this;
+        $self['secondary'] = $secondary;
 
-        return $obj;
+        return $self;
     }
 }

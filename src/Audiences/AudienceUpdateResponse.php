@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AudienceUpdateResponseShape = array{audience: Audience}
  */
-final class AudienceUpdateResponse implements BaseModel, ResponseConverter
+final class AudienceUpdateResponse implements BaseModel
 {
     /** @use SdkModel<AudienceUpdateResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Audience $audience;
 
     /**
@@ -49,37 +45,37 @@ final class AudienceUpdateResponse implements BaseModel, ResponseConverter
      *
      * @param Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * } $audience
      */
     public static function with(Audience|array $audience): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['audience'] = $audience;
+        $self['audience'] = $audience;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * } $audience
      */
     public function withAudience(Audience|array $audience): self
     {
-        $obj = clone $this;
-        $obj['audience'] = $audience;
+        $self = clone $this;
+        $self['audience'] = $audience;
 
-        return $obj;
+        return $self;
     }
 }

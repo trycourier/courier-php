@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -30,7 +30,7 @@ use Courier\UserRecipient;
  *
  * @phpstan-type SendMessageParamsShape = array{
  *   message: Message|array{
- *     brand_id?: string|null,
+ *     brandID?: string|null,
  *     channels?: array<string,Channel>|null,
  *     content?: null|ElementalContentSugar|ElementalContent,
  *     context?: MessageContext|null,
@@ -56,7 +56,7 @@ final class SendMessageParams implements BaseModel
     /**
      * The message property has the following primary top-level properties. They define the destination and content of the message.
      */
-    #[Api]
+    #[Required]
     public Message $message;
 
     /**
@@ -84,7 +84,7 @@ final class SendMessageParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Message|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   channels?: array<string,Channel>|null,
      *   content?: ElementalContentSugar|ElementalContent|null,
      *   context?: MessageContext|null,
@@ -102,18 +102,18 @@ final class SendMessageParams implements BaseModel
      */
     public static function with(Message|array $message): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['message'] = $message;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * The message property has the following primary top-level properties. They define the destination and content of the message.
      *
      * @param Message|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   channels?: array<string,Channel>|null,
      *   content?: ElementalContentSugar|ElementalContent|null,
      *   context?: MessageContext|null,
@@ -131,9 +131,9 @@ final class SendMessageParams implements BaseModel
      */
     public function withMessage(Message|array $message): self
     {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -18,13 +19,13 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   user_id: string,
+ *   userID: string,
  *   topic: Topic|array{
  *     status: value-of<PreferenceStatus>,
- *     custom_routing?: list<value-of<ChannelClassification>>|null,
- *     has_custom_routing?: bool|null,
+ *     customRouting?: list<value-of<ChannelClassification>>|null,
+ *     hasCustomRouting?: bool|null,
  *   },
- *   tenant_id?: string|null,
+ *   tenantID?: string|null,
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -33,24 +34,24 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $user_id;
+    #[Required]
+    public string $userID;
 
-    #[Api]
+    #[Required]
     public Topic $topic;
 
     /**
      * Update the preferences of a user for this specific tenant context.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $tenant_id;
+    #[Optional(nullable: true)]
+    public ?string $tenantID;
 
     /**
      * `new PreferenceUpdateOrCreateTopicParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PreferenceUpdateOrCreateTopicParams::with(user_id: ..., topic: ...)
+     * PreferenceUpdateOrCreateTopicParams::with(userID: ..., topic: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -71,46 +72,46 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      *
      * @param Topic|array{
      *   status: value-of<PreferenceStatus>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public static function with(
-        string $user_id,
+        string $userID,
         Topic|array $topic,
-        ?string $tenant_id = null
+        ?string $tenantID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['user_id'] = $user_id;
-        $obj['topic'] = $topic;
+        $self['userID'] = $userID;
+        $self['topic'] = $topic;
 
-        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param Topic|array{
      *   status: value-of<PreferenceStatus>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<value-of<ChannelClassification>>|null,
+     *   hasCustomRouting?: bool|null,
      * } $topic
      */
     public function withTopic(Topic|array $topic): self
     {
-        $obj = clone $this;
-        $obj['topic'] = $topic;
+        $self = clone $this;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -118,9 +119,9 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 }

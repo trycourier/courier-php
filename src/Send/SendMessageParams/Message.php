@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalActionNodeWithType;
@@ -38,7 +38,7 @@ use Courier\Utm;
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
  * @phpstan-type MessageShape = array{
- *   brand_id?: string|null,
+ *   brandID?: string|null,
  *   channels?: array<string,Channel>|null,
  *   content?: null|ElementalContentSugar|ElementalContent,
  *   context?: MessageContext|null,
@@ -59,56 +59,56 @@ final class Message implements BaseModel
     /** @use SdkModel<MessageShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $brand_id;
+    #[Optional('brand_id', nullable: true)]
+    public ?string $brandID;
 
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
      * @var array<string,Channel>|null $channels
      */
-    #[Api(map: Channel::class, nullable: true, optional: true)]
+    #[Optional(map: Channel::class, nullable: true)]
     public ?array $channels;
 
     /**
      * Describes content that will work for email, inbox, push, chat, or any channel id.
      */
-    #[Api(optional: true)]
+    #[Optional]
     public ElementalContentSugar|ElementalContent|null $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?MessageContext $context;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Delay $delay;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Expiry $expiry;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Metadata $metadata;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Preferences $preferences;
 
     /** @var array<string,Provider>|null $providers */
-    #[Api(map: Provider::class, nullable: true, optional: true)]
+    #[Optional(map: Provider::class, nullable: true)]
     public ?array $providers;
 
     /**
      * Customize which channels/providers Courier may deliver the message through.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Routing $routing;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $template;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Timeout $timeout;
 
     /**
@@ -116,7 +116,7 @@ final class Message implements BaseModel
      *
      * @var UserRecipient|list<Recipient>|null $to
      */
-    #[Api(union: To::class, nullable: true, optional: true)]
+    #[Optional(union: To::class, nullable: true)]
     public UserRecipient|array|null $to;
 
     public function __construct()
@@ -130,12 +130,12 @@ final class Message implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,Channel|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   if?: string|null,
      *   metadata?: Channel\Metadata|null,
      *   override?: array<string,mixed>|null,
      *   providers?: list<string>|null,
-     *   routing_method?: value-of<RoutingMethod>|null,
+     *   routingMethod?: value-of<RoutingMethod>|null,
      *   timeouts?: Timeouts|null,
      * }>|null $channels
      * @param ElementalContentSugar|array{
@@ -145,19 +145,17 @@ final class Message implements BaseModel
      *   version: string,
      *   brand?: string|null,
      * } $content
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|array{tenantID?: string|null}|null $context
      * @param array<string,mixed>|null $data
      * @param Delay|array{duration?: int|null, until?: string|null}|null $delay
-     * @param Expiry|array{
-     *   expires_in: string|int, expires_at?: string|null
-     * }|null $expiry
+     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
      * @param Metadata|array{
      *   event?: string|null,
      *   tags?: list<string>|null,
-     *   trace_id?: string|null,
+     *   traceID?: string|null,
      *   utm?: Utm|null,
      * }|null $metadata
-     * @param Preferences|array{subscription_topic_id: string}|null $preferences
+     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
      * @param array<string,Provider|array{
      *   if?: string|null,
      *   metadata?: Provider\Metadata|null,
@@ -175,31 +173,31 @@ final class Message implements BaseModel
      *   provider?: array<string,int>|null,
      * }|null $timeout
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: UserRecipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|list<Recipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Recipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }>|null $to
      */
     public static function with(
-        ?string $brand_id = null,
+        ?string $brandID = null,
         ?array $channels = null,
         ElementalContentSugar|array|ElementalContent|null $content = null,
         MessageContext|array|null $context = null,
@@ -214,53 +212,53 @@ final class Message implements BaseModel
         Timeout|array|null $timeout = null,
         UserRecipient|array|null $to = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $brand_id && $obj['brand_id'] = $brand_id;
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $content && $obj['content'] = $content;
-        null !== $context && $obj['context'] = $context;
-        null !== $data && $obj['data'] = $data;
-        null !== $delay && $obj['delay'] = $delay;
-        null !== $expiry && $obj['expiry'] = $expiry;
-        null !== $metadata && $obj['metadata'] = $metadata;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $providers && $obj['providers'] = $providers;
-        null !== $routing && $obj['routing'] = $routing;
-        null !== $template && $obj['template'] = $template;
-        null !== $timeout && $obj['timeout'] = $timeout;
-        null !== $to && $obj['to'] = $to;
+        null !== $brandID && $self['brandID'] = $brandID;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $content && $self['content'] = $content;
+        null !== $context && $self['context'] = $context;
+        null !== $data && $self['data'] = $data;
+        null !== $delay && $self['delay'] = $delay;
+        null !== $expiry && $self['expiry'] = $expiry;
+        null !== $metadata && $self['metadata'] = $metadata;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $providers && $self['providers'] = $providers;
+        null !== $routing && $self['routing'] = $routing;
+        null !== $template && $self['template'] = $template;
+        null !== $timeout && $self['timeout'] = $timeout;
+        null !== $to && $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrandID(?string $brandID): self
     {
-        $obj = clone $this;
-        $obj['brand_id'] = $brandID;
+        $self = clone $this;
+        $self['brandID'] = $brandID;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
      * @param array<string,Channel|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   if?: string|null,
      *   metadata?: Channel\Metadata|null,
      *   override?: array<string,mixed>|null,
      *   providers?: list<string>|null,
-     *   routing_method?: value-of<RoutingMethod>|null,
+     *   routingMethod?: value-of<RoutingMethod>|null,
      *   timeouts?: Timeouts|null,
      * }>|null $channels
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -277,21 +275,21 @@ final class Message implements BaseModel
     public function withContent(
         ElementalContentSugar|array|ElementalContent $content
     ): self {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|array{tenantID?: string|null}|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
-        $obj = clone $this;
-        $obj['context'] = $context;
+        $self = clone $this;
+        $self['context'] = $context;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -299,10 +297,10 @@ final class Message implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -310,50 +308,48 @@ final class Message implements BaseModel
      */
     public function withDelay(Delay|array|null $delay): self
     {
-        $obj = clone $this;
-        $obj['delay'] = $delay;
+        $self = clone $this;
+        $self['delay'] = $delay;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Expiry|array{
-     *   expires_in: string|int, expires_at?: string|null
-     * }|null $expiry
+     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
      */
     public function withExpiry(Expiry|array|null $expiry): self
     {
-        $obj = clone $this;
-        $obj['expiry'] = $expiry;
+        $self = clone $this;
+        $self['expiry'] = $expiry;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param Metadata|array{
      *   event?: string|null,
      *   tags?: list<string>|null,
-     *   trace_id?: string|null,
+     *   traceID?: string|null,
      *   utm?: Utm|null,
      * }|null $metadata
      */
     public function withMetadata(Metadata|array|null $metadata): self
     {
-        $obj = clone $this;
-        $obj['metadata'] = $metadata;
+        $self = clone $this;
+        $self['metadata'] = $metadata;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Preferences|array{subscription_topic_id: string}|null $preferences
+     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -366,10 +362,10 @@ final class Message implements BaseModel
      */
     public function withProviders(?array $providers): self
     {
-        $obj = clone $this;
-        $obj['providers'] = $providers;
+        $self = clone $this;
+        $self['providers'] = $providers;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -381,18 +377,18 @@ final class Message implements BaseModel
      */
     public function withRouting(Routing|array|null $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(?string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -406,44 +402,44 @@ final class Message implements BaseModel
      */
     public function withTimeout(Timeout|array|null $timeout): self
     {
-        $obj = clone $this;
-        $obj['timeout'] = $timeout;
+        $self = clone $this;
+        $self['timeout'] = $timeout;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * The recipient or a list of recipients of the message.
      *
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: UserRecipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|list<Recipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Recipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }>|null $to
      */
     public function withTo(UserRecipient|array|null $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -21,13 +21,13 @@ final class ElementalContentSugar implements BaseModel
     /**
      * The text content displayed in the notification.
      */
-    #[Api]
+    #[Required]
     public string $body;
 
     /**
      * Title/subject displayed by supported channels.
      */
-    #[Api]
+    #[Required]
     public string $title;
 
     /**
@@ -56,12 +56,12 @@ final class ElementalContentSugar implements BaseModel
      */
     public static function with(string $body, string $title): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['body'] = $body;
-        $obj['title'] = $title;
+        $self['body'] = $body;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,10 +69,10 @@ final class ElementalContentSugar implements BaseModel
      */
     public function withBody(string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -80,9 +80,9 @@ final class ElementalContentSugar implements BaseModel
      */
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

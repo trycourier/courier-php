@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Preference\Source;
@@ -12,7 +13,7 @@ use Courier\Preference\Source;
 /**
  * @phpstan-type PreferenceShape = array{
  *   status: value-of<PreferenceStatus>,
- *   channel_preferences?: list<ChannelPreference>|null,
+ *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  *   source?: value-of<Source>|null,
  * }
@@ -23,19 +24,23 @@ final class Preference implements BaseModel
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
-    #[Api(enum: PreferenceStatus::class)]
+    #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
-    /** @var list<ChannelPreference>|null $channel_preferences */
-    #[Api(list: ChannelPreference::class, nullable: true, optional: true)]
-    public ?array $channel_preferences;
+    /** @var list<ChannelPreference>|null $channelPreferences */
+    #[Optional(
+        'channel_preferences',
+        list: ChannelPreference::class,
+        nullable: true
+    )]
+    public ?array $channelPreferences;
 
     /** @var list<Rule>|null $rules */
-    #[Api(list: Rule::class, nullable: true, optional: true)]
+    #[Optional(list: Rule::class, nullable: true)]
     public ?array $rules;
 
     /** @var value-of<Source>|null $source */
-    #[Api(enum: Source::class, nullable: true, optional: true)]
+    #[Optional(enum: Source::class, nullable: true)]
     public ?string $source;
 
     /**
@@ -65,25 +70,25 @@ final class Preference implements BaseModel
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      * @param list<ChannelPreference|array{
      *   channel: value-of<ChannelClassification>
-     * }>|null $channel_preferences
+     * }>|null $channelPreferences
      * @param list<Rule|array{until: string, start?: string|null}>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $channel_preferences = null,
+        ?array $channelPreferences = null,
         ?array $rules = null,
         Source|string|null $source = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $channel_preferences && $obj['channel_preferences'] = $channel_preferences;
-        null !== $rules && $obj['rules'] = $rules;
-        null !== $source && $obj['source'] = $source;
+        null !== $channelPreferences && $self['channelPreferences'] = $channelPreferences;
+        null !== $rules && $self['rules'] = $rules;
+        null !== $source && $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -91,10 +96,10 @@ final class Preference implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -104,10 +109,10 @@ final class Preference implements BaseModel
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
-        $obj = clone $this;
-        $obj['channel_preferences'] = $channelPreferences;
+        $self = clone $this;
+        $self['channelPreferences'] = $channelPreferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -115,10 +120,10 @@ final class Preference implements BaseModel
      */
     public function withRules(?array $rules): self
     {
-        $obj = clone $this;
-        $obj['rules'] = $rules;
+        $self = clone $this;
+        $self['rules'] = $rules;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -126,9 +131,9 @@ final class Preference implements BaseModel
      */
     public function withSource(Source|string|null $source): self
     {
-        $obj = clone $this;
-        $obj['source'] = $source;
+        $self = clone $this;
+        $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 }

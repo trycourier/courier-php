@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkListUsersResponse;
 
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
@@ -22,7 +23,7 @@ use Courier\UserRecipient\Preferences;
  *   recipient?: string|null,
  *   to?: UserRecipient|null,
  *   status: value-of<Status>,
- *   messageId?: string|null,
+ *   messageID?: string|null,
  * }
  */
 final class Item implements BaseModel
@@ -30,27 +31,27 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $data;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?RecipientPreferences $preferences;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?UserRecipient $to;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $messageId;
+    #[Optional('messageId', nullable: true)]
+    public ?string $messageID;
 
     /**
      * `new Item()` is missing required properties by the API.
@@ -82,16 +83,16 @@ final class Item implements BaseModel
      *   notifications?: array<string,NotificationPreferenceDetails>|null,
      * } $preferences
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * } $to
      */
     public static function with(
@@ -101,28 +102,28 @@ final class Item implements BaseModel
         mixed $profile = null,
         ?string $recipient = null,
         UserRecipient|array|null $to = null,
-        ?string $messageId = null,
+        ?string $messageID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $data && $obj['data'] = $data;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $to && $obj['to'] = $to;
-        null !== $messageId && $obj['messageId'] = $messageId;
+        null !== $data && $self['data'] = $data;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $to && $self['to'] = $to;
+        null !== $messageID && $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     public function withData(mixed $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -134,48 +135,48 @@ final class Item implements BaseModel
     public function withPreferences(
         RecipientPreferences|array $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withProfile(mixed $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * } $to
      */
     public function withTo(UserRecipient|array $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -183,17 +184,17 @@ final class Item implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessageID(?string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageId'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 }

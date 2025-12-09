@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Users\Tokens\UserToken\Device;
 use Courier\Users\Tokens\UserToken\ProviderKey;
 use Courier\Users\Tokens\UserToken\Tracking;
@@ -18,15 +16,13 @@ use Courier\Users\Tokens\UserToken\Tracking;
  *
  * @phpstan-type TokenListResponseShape = array{tokens: list<UserToken>}
  */
-final class TokenListResponse implements BaseModel, ResponseConverter
+final class TokenListResponse implements BaseModel
 {
     /** @use SdkModel<TokenListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<UserToken> $tokens */
-    #[Api(list: UserToken::class)]
+    #[Required(list: UserToken::class)]
     public array $tokens;
 
     /**
@@ -55,37 +51,37 @@ final class TokenListResponse implements BaseModel, ResponseConverter
      *
      * @param list<UserToken|array{
      *   token: string,
-     *   provider_key: value-of<ProviderKey>,
+     *   providerKey: value-of<ProviderKey>,
      *   device?: Device|null,
-     *   expiry_date?: string|bool|null,
+     *   expiryDate?: string|bool|null,
      *   properties?: mixed,
      *   tracking?: Tracking|null,
      * }> $tokens
      */
     public static function with(array $tokens): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tokens'] = $tokens;
+        $self['tokens'] = $tokens;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * @param list<UserToken|array{
      *   token: string,
-     *   provider_key: value-of<ProviderKey>,
+     *   providerKey: value-of<ProviderKey>,
      *   device?: Device|null,
-     *   expiry_date?: string|bool|null,
+     *   expiryDate?: string|bool|null,
      *   properties?: mixed,
      *   tracking?: Tracking|null,
      * }> $tokens
      */
     public function withTokens(array $tokens): self
     {
-        $obj = clone $this;
-        $obj['tokens'] = $tokens;
+        $self = clone $this;
+        $self['tokens'] = $tokens;
 
-        return $obj;
+        return $self;
     }
 }

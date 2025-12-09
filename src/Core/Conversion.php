@@ -7,9 +7,7 @@ namespace Courier\Core;
 use Courier\Core\Conversion\CoerceState;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Core\Conversion\DumpState;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * @internal
@@ -25,6 +23,10 @@ final class Conversion
         if (is_object($value)) {
             if (is_a($value, class: ConverterSource::class)) {
                 return $value::converter()->dump($value, state: $state);
+            }
+
+            if (is_a($value, class: \BackedEnum::class)) {
+                return $value->value;
             }
 
             if (is_a($value, class: \DateTimeInterface::class)) {
@@ -43,15 +45,6 @@ final class Conversion
         return $value;
     }
 
-    public static function coerceResponse(Converter|ConverterSource|string $target, ResponseInterface $response): mixed
-    {
-        if (is_a($target, ResponseConverter::class, allow_string: true)) {
-            return $target::fromResponse($response);
-        }
-
-        return self::coerce($target, Util::decodeContent($response));
-    }
-
     public static function coerce(Converter|ConverterSource|string $target, mixed $value, CoerceState $state = new CoerceState): mixed
     {
         if ($value instanceof $target) {
@@ -68,6 +61,26 @@ final class Conversion
             return $target->coerce($value, state: $state);
         }
 
+        return self::tryConvert($target, value: $value, state: $state);
+    }
+
+    public static function dump(Converter|ConverterSource|string $target, mixed $value, DumpState $state = new DumpState): mixed
+    {
+        if ($target instanceof Converter) {
+            return $target->dump($value, state: $state);
+        }
+
+        if (is_a($target, class: ConverterSource::class, allow_string: true)) {
+            return $target::converter()->dump($value, state: $state);
+        }
+
+        self::tryConvert($target, value: $value, state: $state);
+
+        return self::dump_unknown($value, state: $state);
+    }
+
+    private static function tryConvert(Converter|ConverterSource|string $target, mixed $value, CoerceState|DumpState $state): mixed
+    {
         switch ($target) {
             case 'mixed':
                 ++$state->yes;
@@ -162,18 +175,5 @@ final class Conversion
 
                 return $value;
         }
-    }
-
-    public static function dump(Converter|ConverterSource|string $target, mixed $value, DumpState $state = new DumpState): mixed
-    {
-        if ($target instanceof Converter) {
-            return $target->dump($value, state: $state);
-        }
-
-        if (is_a($target, class: ConverterSource::class, allow_string: true)) {
-            return $target::converter()->dump($value, state: $state);
-        }
-
-        return self::dump_unknown($value, state: $state);
     }
 }

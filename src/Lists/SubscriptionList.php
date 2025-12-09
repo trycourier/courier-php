@@ -4,34 +4,31 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type SubscriptionListShape = array{
  *   id: string, name: string, created?: string|null, updated?: string|null
  * }
  */
-final class SubscriptionList implements BaseModel, ResponseConverter
+final class SubscriptionList implements BaseModel
 {
     /** @use SdkModel<SubscriptionListShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $created;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $updated;
 
     /**
@@ -64,46 +61,46 @@ final class SubscriptionList implements BaseModel, ResponseConverter
         ?string $created = null,
         ?string $updated = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['name'] = $name;
+        $self['id'] = $id;
+        $self['name'] = $name;
 
-        null !== $created && $obj['created'] = $created;
-        null !== $updated && $obj['updated'] = $updated;
+        null !== $created && $self['created'] = $created;
+        null !== $updated && $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(?string $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdated(?string $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 }
