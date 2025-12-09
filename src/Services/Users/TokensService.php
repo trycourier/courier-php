@@ -10,6 +10,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
 use Courier\Users\Tokens\TokenAddSingleParams;
+use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenListResponse;
@@ -175,7 +176,7 @@ final class TokensService implements TokensContract
      * @param array{
      *   user_id: string,
      *   token: string,
-     *   provider_key: 'firebase-fcm'|'apn'|'expo'|'onesignal',
+     *   provider_key: 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey,
      *   device?: array{
      *     ad_id?: string|null,
      *     app_id?: string|null,

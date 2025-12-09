@@ -2,6 +2,7 @@
 
 namespace Tests\Services\Tenants\Preferences;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -54,7 +55,7 @@ final class ItemsTest extends TestCase
             [
                 'tenant_id' => 'tenant_id',
                 'status' => 'OPTED_IN',
-                'custom_routing' => ['inbox'],
+                'custom_routing' => [ChannelClassification::INBOX],
                 'has_custom_routing' => true,
             ],
         );

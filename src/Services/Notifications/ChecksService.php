@@ -8,6 +8,8 @@ use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\BaseCheck;
+use Courier\Notifications\BaseCheck\Status;
+use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Checks\CheckDeleteParams;
 use Courier\Notifications\Checks\CheckListParams;
 use Courier\Notifications\Checks\CheckListResponse;
@@ -29,7 +31,9 @@ final class ChecksService implements ChecksContract
      * @param array{
      *   id: string,
      *   checks: list<array{
-     *     id: string, status: 'RESOLVED'|'FAILED'|'PENDING', type: 'custom'
+     *     id: string,
+     *     status: 'RESOLVED'|'FAILED'|'PENDING'|Status,
+     *     type: 'custom'|Type,
      *   }|BaseCheck>,
      * }|CheckUpdateParams $params
      *

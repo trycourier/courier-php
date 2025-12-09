@@ -2,8 +2,10 @@
 
 namespace Tests\Services\Lists;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
+use Courier\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -72,15 +74,19 @@ final class SubscriptionsTest extends TestCase
                         'preferences' => [
                             'categories' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
                             'notifications' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
@@ -126,15 +132,19 @@ final class SubscriptionsTest extends TestCase
                         'preferences' => [
                             'categories' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
                             'notifications' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
@@ -178,15 +188,19 @@ final class SubscriptionsTest extends TestCase
                 'preferences' => [
                     'categories' => [
                         'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'status' => PreferenceStatus::OPTED_IN,
+                            'channel_preferences' => [
+                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                            ],
                             'rules' => [['until' => 'until', 'start' => 'start']],
                         ],
                     ],
                     'notifications' => [
                         'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'status' => PreferenceStatus::OPTED_IN,
+                            'channel_preferences' => [
+                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                            ],
                             'rules' => [['until' => 'until', 'start' => 'start']],
                         ],
                     ],

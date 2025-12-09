@@ -12,6 +12,7 @@ use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Audiences\Filter;
+use Courier\Audiences\Filter\Operator;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
@@ -55,7 +56,7 @@ final class AudiencesService implements AudiencesContract
      * @param array{
      *   description?: string|null,
      *   filter?: array{
-     *     operator: 'ENDS_WITH'|'EQ'|'EXISTS'|'GT'|'GTE'|'INCLUDES'|'IS_AFTER'|'IS_BEFORE'|'LT'|'LTE'|'NEQ'|'OMIT'|'STARTS_WITH'|'AND'|'OR',
+     *     operator: 'ENDS_WITH'|'EQ'|'EXISTS'|'GT'|'GTE'|'INCLUDES'|'IS_AFTER'|'IS_BEFORE'|'LT'|'LTE'|'NEQ'|'OMIT'|'STARTS_WITH'|'AND'|'OR'|Operator,
      *     path: string,
      *     value: string,
      *   }|Filter|null,

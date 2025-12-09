@@ -2,9 +2,11 @@
 
 namespace Tests\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Lists\ListListResponse;
 use Courier\Lists\SubscriptionList;
+use Courier\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -68,15 +70,19 @@ final class ListsTest extends TestCase
                 'preferences' => [
                     'categories' => [
                         'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'status' => PreferenceStatus::OPTED_IN,
+                            'channel_preferences' => [
+                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                            ],
                             'rules' => [['until' => 'until', 'start' => 'start']],
                         ],
                     ],
                     'notifications' => [
                         'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
+                            'status' => PreferenceStatus::OPTED_IN,
+                            'channel_preferences' => [
+                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                            ],
                             'rules' => [['until' => 'until', 'start' => 'start']],
                         ],
                     ],

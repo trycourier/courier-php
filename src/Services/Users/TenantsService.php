@@ -10,6 +10,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TenantsContract;
 use Courier\Tenants\TenantAssociation;
+use Courier\Tenants\TenantAssociation\Type;
 use Courier\Users\Tenants\TenantAddMultipleParams;
 use Courier\Users\Tenants\TenantAddSingleParams;
 use Courier\Users\Tenants\TenantListParams;
@@ -67,7 +68,7 @@ final class TenantsService implements TenantsContract
      *   tenants: list<array{
      *     tenant_id: string,
      *     profile?: array<string,mixed>|null,
-     *     type?: 'user'|null,
+     *     type?: 'user'|Type|null,
      *     user_id?: string|null,
      *   }|TenantAssociation>,
      * }|TenantAddMultipleParams $params

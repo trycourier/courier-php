@@ -2,7 +2,9 @@
 
 namespace Tests\Services\Profiles;
 
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListSubscribeResponse;
@@ -87,15 +89,19 @@ final class ListsTest extends TestCase
                         'preferences' => [
                             'categories' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
                             'notifications' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],

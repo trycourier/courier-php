@@ -2,7 +2,9 @@
 
 namespace Tests\Services\Users;
 
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
@@ -83,7 +85,10 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
-            ['user_id' => 'user_id', 'topic' => ['status' => 'OPTED_IN']]
+            [
+                'user_id' => 'user_id',
+                'topic' => ['status' => PreferenceStatus::OPTED_IN],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -102,8 +107,10 @@ final class PreferencesTest extends TestCase
             [
                 'user_id' => 'user_id',
                 'topic' => [
-                    'status' => 'OPTED_IN',
-                    'custom_routing' => ['inbox', 'email'],
+                    'status' => PreferenceStatus::OPTED_IN,
+                    'custom_routing' => [
+                        ChannelClassification::INBOX, ChannelClassification::EMAIL,
+                    ],
                     'has_custom_routing' => true,
                 ],
                 'tenant_id' => 'tenant_id',
