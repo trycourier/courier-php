@@ -34,10 +34,10 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken([
-            'expiresIn' => '$YOUR_NUMBER days',
-            'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
-        ]);
+        $result = $this->client->auth->issueToken(
+            expiresIn: '$YOUR_NUMBER days',
+            scope: 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);
@@ -50,10 +50,10 @@ final class AuthTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken([
-            'expiresIn' => '$YOUR_NUMBER days',
-            'scope' => 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
-        ]);
+        $result = $this->client->auth->issueToken(
+            expiresIn: '$YOUR_NUMBER days',
+            scope: 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);

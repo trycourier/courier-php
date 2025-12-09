@@ -13,6 +13,11 @@ final class PreferencesService implements PreferencesContract
     /**
      * @api
      */
+    public PreferencesRawService $raw;
+
+    /**
+     * @api
+     */
     public ItemsService $items;
 
     /**
@@ -20,6 +25,7 @@ final class PreferencesService implements PreferencesContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new PreferencesRawService($client);
         $this->items = new ItemsService($client);
     }
 }

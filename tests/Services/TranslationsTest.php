@@ -33,10 +33,7 @@ final class TranslationsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->translations->retrieve(
-            'locale',
-            ['domain' => 'domain']
-        );
+        $result = $this->client->translations->retrieve('locale', domain: 'domain');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertIsString($result);
@@ -49,10 +46,7 @@ final class TranslationsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->translations->retrieve(
-            'locale',
-            ['domain' => 'domain']
-        );
+        $result = $this->client->translations->retrieve('locale', domain: 'domain');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertIsString($result);
@@ -67,7 +61,8 @@ final class TranslationsTest extends TestCase
 
         $result = $this->client->translations->update(
             'locale',
-            ['domain' => 'domain', 'body' => 'body']
+            domain: 'domain',
+            body: 'body'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -83,7 +78,8 @@ final class TranslationsTest extends TestCase
 
         $result = $this->client->translations->update(
             'locale',
-            ['domain' => 'domain', 'body' => 'body']
+            domain: 'domain',
+            body: 'body'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

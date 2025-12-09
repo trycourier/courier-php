@@ -6,57 +6,58 @@ namespace Courier\Services\Tenants\Preferences;
 
 use Courier\ChannelClassification;
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
-use Courier\Tenants\Preferences\Items\ItemDeleteParams;
-use Courier\Tenants\Preferences\Items\ItemUpdateParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 final class ItemsService implements ItemsContract
 {
     /**
+     * @api
+     */
+    public ItemsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new ItemsRawService($client);
+    }
 
     /**
      * @api
      *
      * Create or Replace Default Preferences For Topic
      *
-     * @param array{
-     *   tenantID: string,
-     *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status,
-     *   customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *   hasCustomRouting?: bool|null,
-     * }|ItemUpdateParams $params
+     * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
+     * @param string $tenantID path param: Id of the tenant to update the default preferences for
+     * @param 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status $status Body param:
+     * @param list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null $customRouting Body param: The default channels to send to this tenant when has_custom_routing is enabled
+     * @param bool|null $hasCustomRouting Body param: Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences
      *
      * @throws APIException
      */
     public function update(
         string $topicID,
-        array|ItemUpdateParams $params,
+        string $tenantID,
+        string|Status $status,
+        ?array $customRouting = null,
+        ?bool $hasCustomRouting = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = ItemUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $tenantID = $parsed['tenantID'];
-        unset($parsed['tenantID']);
+        $params = [
+            'tenantID' => $tenantID,
+            'status' => $status,
+            'customRouting' => $customRouting,
+            'hasCustomRouting' => $hasCustomRouting,
+        ];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'put',
-            path: [
-                'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
-            ],
-            body: (object) array_diff_key($parsed, ['tenantID']),
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($topicID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -66,31 +67,20 @@ final class ItemsService implements ItemsContract
      *
      * Remove Default Preferences For Topic
      *
-     * @param array{tenantID: string}|ItemDeleteParams $params
+     * @param string $topicID id fo the susbcription topic you want to have a default preference for
+     * @param string $tenantID id of the tenant to update the default preferences for
      *
      * @throws APIException
      */
     public function delete(
         string $topicID,
-        array|ItemDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $tenantID,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = ItemDeleteParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $tenantID = $parsed['tenantID'];
-        unset($parsed['tenantID']);
+        $params = ['tenantID' => $tenantID];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'delete',
-            path: [
-                'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
-            ],
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($topicID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

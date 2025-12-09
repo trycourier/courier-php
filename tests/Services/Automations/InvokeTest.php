@@ -34,9 +34,9 @@ final class InvokeTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->automations->invoke->invokeAdHoc([
-            'automation' => ['steps' => [['action' => 'delay'], ['action' => 'send']]],
-        ]);
+        $result = $this->client->automations->invoke->invokeAdHoc(
+            automation: ['steps' => [['action' => 'delay'], ['action' => 'send']]]
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
@@ -49,8 +49,8 @@ final class InvokeTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->automations->invoke->invokeAdHoc([
-            'automation' => [
+        $result = $this->client->automations->invoke->invokeAdHoc(
+            automation: [
                 'steps' => [
                     [
                         'action' => 'delay',
@@ -68,12 +68,12 @@ final class InvokeTest extends TestCase
                 ],
                 'cancelationToken' => 'delay-send--user-yes--abc-123',
             ],
-            'brand' => 'brand',
-            'data' => ['name' => 'bar'],
-            'profile' => ['tenant_id' => 'bar'],
-            'recipient' => 'user-yes',
-            'template' => 'template',
-        ]);
+            brand: 'brand',
+            data: ['name' => 'bar'],
+            profile: ['tenant_id' => 'bar'],
+            recipient: 'user-yes',
+            template: 'template',
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(AutomationInvokeResponse::class, $result);
@@ -88,7 +88,7 @@ final class InvokeTest extends TestCase
 
         $result = $this->client->automations->invoke->invokeByTemplate(
             'templateId',
-            ['recipient' => 'recipient']
+            recipient: 'recipient'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -104,13 +104,11 @@ final class InvokeTest extends TestCase
 
         $result = $this->client->automations->invoke->invokeByTemplate(
             'templateId',
-            [
-                'recipient' => 'recipient',
-                'brand' => 'brand',
-                'data' => ['foo' => 'bar'],
-                'profile' => ['foo' => 'bar'],
-                'template' => 'template',
-            ],
+            recipient: 'recipient',
+            brand: 'brand',
+            data: ['foo' => 'bar'],
+            profile: ['foo' => 'bar'],
+            template: 'template',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

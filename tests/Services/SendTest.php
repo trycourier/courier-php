@@ -36,7 +36,7 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(['message' => []]);
+        $result = $this->client->send->message(message: []);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(SendMessageResponse::class, $result);
@@ -49,8 +49,8 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message([
-            'message' => [
+        $result = $this->client->send->message(
+            message: [
                 'brandID' => 'brand_id',
                 'channels' => [
                     'foo' => [
@@ -149,7 +149,7 @@ final class SendTest extends TestCase
                     'userID' => 'example_user',
                 ],
             ],
-        ]);
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(SendMessageResponse::class, $result);
