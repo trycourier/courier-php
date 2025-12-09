@@ -11,6 +11,9 @@ use Courier\MessageContext;
 use Courier\MessageRoutingChannel;
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams;
+use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
+use Courier\Send\SendMessageParams\Message\Routing\Method;
+use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendContract;
 use Courier\UserRecipient;
@@ -36,7 +39,7 @@ final class SendService implements SendContract
      *       metadata?: array<mixed>|null,
      *       override?: array<string,mixed>|null,
      *       providers?: list<string>|null,
-     *       routing_method?: 'all'|'single'|null,
+     *       routing_method?: 'all'|'single'|RoutingMethod|null,
      *       timeouts?: array<mixed>|null,
      *     }>|null,
      *     content?: array<string,mixed>,
@@ -64,12 +67,13 @@ final class SendService implements SendContract
      *       timeouts?: int|null,
      *     }>|null,
      *     routing?: array{
-     *       channels: list<mixed|string|MessageRoutingChannel>, method: 'all'|'single'
+     *       channels: list<mixed|string|MessageRoutingChannel>,
+     *       method: 'all'|'single'|Method,
      *     }|null,
      *     template?: string|null,
      *     timeout?: array{
      *       channel?: array<string,int>|null,
-     *       criteria?: 'no-escalation'|'delivered'|'viewed'|'engaged'|null,
+     *       criteria?: 'no-escalation'|'delivered'|'viewed'|'engaged'|Criteria|null,
      *       escalation?: int|null,
      *       message?: int|null,
      *       provider?: array<string,int>|null,

@@ -2,6 +2,7 @@
 
 namespace Tests\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListResponse;
@@ -71,7 +72,7 @@ final class TenantsTest extends TestCase
                     'items' => [
                         [
                             'status' => 'OPTED_OUT',
-                            'custom_routing' => ['direct_message'],
+                            'custom_routing' => [ChannelClassification::DIRECT_MESSAGE],
                             'has_custom_routing' => true,
                             'id' => 'id',
                         ],

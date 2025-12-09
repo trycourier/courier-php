@@ -2,7 +2,9 @@
 
 namespace Tests\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use Courier\Send\SendMessageResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -123,16 +125,20 @@ final class SendTest extends TestCase
                     'preferences' => [
                         'notifications' => [
                             'foo' => [
-                                'status' => 'OPTED_IN',
-                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channel_preferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
                                 'rules' => [['until' => 'until', 'start' => 'start']],
                                 'source' => 'subscription',
                             ],
                         ],
                         'categories' => [
                             'foo' => [
-                                'status' => 'OPTED_IN',
-                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channel_preferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
                                 'rules' => [['until' => 'until', 'start' => 'start']],
                                 'source' => 'subscription',
                             ],

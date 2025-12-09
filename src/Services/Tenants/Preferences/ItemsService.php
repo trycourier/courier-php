@@ -12,6 +12,7 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
 use Courier\Tenants\Preferences\Items\ItemDeleteParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams;
+use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 final class ItemsService implements ItemsContract
 {
@@ -27,7 +28,7 @@ final class ItemsService implements ItemsContract
      *
      * @param array{
      *   tenant_id: string,
-     *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED',
+     *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status,
      *   custom_routing?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
      *   has_custom_routing?: bool|null,
      * }|ItemUpdateParams $params

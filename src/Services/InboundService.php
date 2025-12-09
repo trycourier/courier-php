@@ -8,6 +8,7 @@ use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Inbound\InboundTrackEventParams;
+use Courier\Inbound\InboundTrackEventParams\Type;
 use Courier\Inbound\InboundTrackEventResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\InboundContract;
@@ -28,7 +29,7 @@ final class InboundService implements InboundContract
      *   event: string,
      *   messageId: string,
      *   properties: array<string,mixed>,
-     *   type: 'track',
+     *   type: 'track'|Type,
      *   userId?: string|null,
      * }|InboundTrackEventParams $params
      *

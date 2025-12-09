@@ -5,7 +5,9 @@ namespace Tests\Services;
 use Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -58,15 +60,19 @@ final class BulkTest extends TestCase
                         'preferences' => [
                             'categories' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
                             'notifications' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channel_preferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
                                 ],
                             ],
@@ -84,16 +90,20 @@ final class BulkTest extends TestCase
                             'preferences' => [
                                 'notifications' => [
                                     'foo' => [
-                                        'status' => 'OPTED_IN',
-                                        'channel_preferences' => [['channel' => 'direct_message']],
+                                        'status' => PreferenceStatus::OPTED_IN,
+                                        'channel_preferences' => [
+                                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                        ],
                                         'rules' => [['until' => 'until', 'start' => 'start']],
                                         'source' => 'subscription',
                                     ],
                                 ],
                                 'categories' => [
                                     'foo' => [
-                                        'status' => 'OPTED_IN',
-                                        'channel_preferences' => [['channel' => 'direct_message']],
+                                        'status' => PreferenceStatus::OPTED_IN,
+                                        'channel_preferences' => [
+                                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                        ],
                                         'rules' => [['until' => 'until', 'start' => 'start']],
                                         'source' => 'subscription',
                                     ],
