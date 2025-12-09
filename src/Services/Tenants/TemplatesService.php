@@ -26,7 +26,7 @@ final class TemplatesService implements TemplatesContract
      *
      * Get a Template in Tenant
      *
-     * @param array{tenant_id: string}|TemplateRetrieveParams $params
+     * @param array{tenantID: string}|TemplateRetrieveParams $params
      *
      * @throws APIException
      */
@@ -39,8 +39,8 @@ final class TemplatesService implements TemplatesContract
             $params,
             $requestOptions,
         );
-        $tenantID = $parsed['tenant_id'];
-        unset($parsed['tenant_id']);
+        $tenantID = $parsed['tenantID'];
+        unset($parsed['tenantID']);
 
         /** @var BaseResponse<BaseTemplateTenantAssociation> */
         $response = $this->client->request(

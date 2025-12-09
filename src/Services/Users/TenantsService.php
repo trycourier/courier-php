@@ -66,10 +66,10 @@ final class TenantsService implements TenantsContract
      *
      * @param array{
      *   tenants: list<array{
-     *     tenant_id: string,
+     *     tenantID: string,
      *     profile?: array<string,mixed>|null,
      *     type?: 'user'|Type|null,
-     *     user_id?: string|null,
+     *     userID?: string|null,
      *   }|TenantAssociation>,
      * }|TenantAddMultipleParams $params
      *
@@ -107,7 +107,7 @@ final class TenantsService implements TenantsContract
      * when sending to the user with that tenant.
      *
      * @param array{
-     *   user_id: string, profile?: array<string,mixed>|null
+     *   userID: string, profile?: array<string,mixed>|null
      * }|TenantAddSingleParams $params
      *
      * @throws APIException
@@ -121,14 +121,14 @@ final class TenantsService implements TenantsContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/tenants/%2$s', $userID, $tenantID],
-            body: (object) array_diff_key($parsed, ['user_id']),
+            body: (object) array_diff_key($parsed, ['userID']),
             options: $options,
             convert: null,
         );
@@ -163,7 +163,7 @@ final class TenantsService implements TenantsContract
      *
      * Removes a user from the supplied tenant.
      *
-     * @param array{user_id: string}|TenantRemoveSingleParams $params
+     * @param array{userID: string}|TenantRemoveSingleParams $params
      *
      * @throws APIException
      */
@@ -176,8 +176,8 @@ final class TenantsService implements TenantsContract
             $params,
             $requestOptions,
         );
-        $userID = $parsed['user_id'];
-        unset($parsed['user_id']);
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(

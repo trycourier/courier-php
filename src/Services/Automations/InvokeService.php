@@ -27,7 +27,7 @@ final class InvokeService implements InvokeContract
      *
      * @param array{
      *   automation: array{
-     *     steps: list<array<string,mixed>>, cancelation_token?: string|null
+     *     steps: list<array<string,mixed>>, cancelationToken?: string|null
      *   },
      *   brand?: string|null,
      *   data?: array<string,mixed>|null,

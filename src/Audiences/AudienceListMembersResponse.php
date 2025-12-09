@@ -52,10 +52,10 @@ final class AudienceListMembersResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<Item|array{
-     *   added_at: string,
-     *   audience_id: string,
-     *   audience_version: int,
-     *   member_id: string,
+     *   addedAt: string,
+     *   audienceID: string,
+     *   audienceVersion: int,
+     *   memberID: string,
      *   reason: string,
      * }> $items
      * @param Paging|array{more: bool, cursor?: string|null} $paging
@@ -72,10 +72,10 @@ final class AudienceListMembersResponse implements BaseModel
 
     /**
      * @param list<Item|array{
-     *   added_at: string,
-     *   audience_id: string,
-     *   audience_version: int,
-     *   member_id: string,
+     *   addedAt: string,
+     *   audienceID: string,
+     *   audienceVersion: int,
+     *   memberID: string,
      *   reason: string,
      * }> $items
      */

@@ -53,7 +53,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -69,7 +69,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            ['user_id' => 'user_id', 'tenant_id' => 'tenant_id']
+            ['userID' => 'user_id', 'tenantID' => 'tenant_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -86,7 +86,7 @@ final class PreferencesTest extends TestCase
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
             [
-                'user_id' => 'user_id',
+                'userID' => 'user_id',
                 'topic' => ['status' => PreferenceStatus::OPTED_IN],
             ],
         );
@@ -105,15 +105,15 @@ final class PreferencesTest extends TestCase
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
             [
-                'user_id' => 'user_id',
+                'userID' => 'user_id',
                 'topic' => [
                     'status' => PreferenceStatus::OPTED_IN,
-                    'custom_routing' => [
+                    'customRouting' => [
                         ChannelClassification::INBOX, ChannelClassification::EMAIL,
                     ],
-                    'has_custom_routing' => true,
+                    'hasCustomRouting' => true,
                 ],
-                'tenant_id' => 'tenant_id',
+                'tenantID' => 'tenant_id',
             ],
         );
 

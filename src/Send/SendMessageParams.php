@@ -30,7 +30,7 @@ use Courier\UserRecipient;
  *
  * @phpstan-type SendMessageParamsShape = array{
  *   message: Message|array{
- *     brand_id?: string|null,
+ *     brandID?: string|null,
  *     channels?: array<string,Channel>|null,
  *     content?: null|ElementalContentSugar|ElementalContent,
  *     context?: MessageContext|null,
@@ -84,7 +84,7 @@ final class SendMessageParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Message|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   channels?: array<string,Channel>|null,
      *   content?: ElementalContentSugar|ElementalContent|null,
      *   context?: MessageContext|null,
@@ -113,7 +113,7 @@ final class SendMessageParams implements BaseModel
      * The message property has the following primary top-level properties. They define the destination and content of the message.
      *
      * @param Message|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   channels?: array<string,Channel>|null,
      *   content?: ElementalContentSugar|ElementalContent|null,
      *   context?: MessageContext|null,

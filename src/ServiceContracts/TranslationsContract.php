@@ -7,6 +7,7 @@ namespace Courier\ServiceContracts;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\Translations\TranslationRetrieveParams;
+use Courier\Translations\TranslationUpdateParams;
 
 interface TranslationsContract
 {
@@ -26,11 +27,13 @@ interface TranslationsContract
     /**
      * @api
      *
+     * @param array<mixed>|TranslationUpdateParams $params
+     *
      * @throws APIException
      */
     public function update(
         string $locale,
-        string $params,
-        ?RequestOptions $requestOptions = null
+        array|TranslationUpdateParams $params,
+        ?RequestOptions $requestOptions = null,
     ): mixed;
 }

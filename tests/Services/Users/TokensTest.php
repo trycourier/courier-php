@@ -37,7 +37,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->retrieve(
             'token',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -53,7 +53,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->retrieve(
             'token',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -69,7 +69,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->update(
             'token',
-            ['user_id' => 'user_id', 'patch' => [['op' => 'op', 'path' => 'path']]],
+            ['userID' => 'user_id', 'patch' => [['op' => 'op', 'path' => 'path']]],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -86,7 +86,7 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->update(
             'token',
             [
-                'user_id' => 'user_id',
+                'userID' => 'user_id',
                 'patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']],
             ],
         );
@@ -117,7 +117,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->delete(
             'token',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -133,7 +133,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->delete(
             'token',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -163,9 +163,9 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->addSingle(
             'token',
             [
-                'user_id' => 'user_id',
+                'userID' => 'user_id',
                 'token' => 'token',
-                'provider_key' => 'firebase-fcm',
+                'providerKey' => 'firebase-fcm',
             ],
         );
 
@@ -183,24 +183,24 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->addSingle(
             'token',
             [
-                'user_id' => 'user_id',
+                'userID' => 'user_id',
                 'token' => 'token',
-                'provider_key' => 'firebase-fcm',
+                'providerKey' => 'firebase-fcm',
                 'device' => [
-                    'ad_id' => 'ad_id',
-                    'app_id' => 'app_id',
-                    'device_id' => 'device_id',
+                    'adID' => 'ad_id',
+                    'appID' => 'app_id',
+                    'deviceID' => 'device_id',
                     'manufacturer' => 'manufacturer',
                     'model' => 'model',
                     'platform' => 'platform',
                 ],
-                'expiry_date' => 'string',
+                'expiryDate' => 'string',
                 'properties' => [],
                 'tracking' => [
                     'ip' => 'ip',
                     'lat' => 'lat',
                     'long' => 'long',
-                    'os_version' => 'os_version',
+                    'osVersion' => 'os_version',
                 ],
             ],
         );

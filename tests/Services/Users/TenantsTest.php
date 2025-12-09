@@ -49,7 +49,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
-            ['tenants' => [['tenant_id' => 'tenant_id']]]
+            ['tenants' => [['tenantID' => 'tenant_id']]]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -68,10 +68,10 @@ final class TenantsTest extends TestCase
             [
                 'tenants' => [
                     [
-                        'tenant_id' => 'tenant_id',
+                        'tenantID' => 'tenant_id',
                         'profile' => ['foo' => 'bar'],
                         'type' => 'user',
-                        'user_id' => 'user_id',
+                        'userID' => 'user_id',
                     ],
                 ],
             ],
@@ -90,7 +90,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -106,7 +106,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            ['user_id' => 'user_id', 'profile' => ['foo' => 'bar']]
+            ['userID' => 'user_id', 'profile' => ['foo' => 'bar']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -135,7 +135,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -151,7 +151,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            ['user_id' => 'user_id']
+            ['userID' => 'user_id']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

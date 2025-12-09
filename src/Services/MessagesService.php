@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Messages\MessageContentResponse;
 use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
@@ -54,18 +55,18 @@ final class MessagesService implements MessagesContract
      * @param array{
      *   archived?: bool|null,
      *   cursor?: string|null,
-     *   enqueued_after?: string|null,
+     *   enqueuedAfter?: string|null,
      *   event?: string|null,
      *   list?: string|null,
-     *   messageId?: string|null,
+     *   messageID?: string|null,
      *   notification?: string|null,
      *   provider?: list<string|null>,
      *   recipient?: string|null,
      *   status?: list<string|null>,
      *   tag?: list<string|null>,
      *   tags?: string|null,
-     *   tenant_id?: string|null,
-     *   traceId?: string|null,
+     *   tenantID?: string|null,
+     *   traceID?: string|null,
      * }|MessageListParams $params
      *
      * @throws APIException
@@ -83,7 +84,15 @@ final class MessagesService implements MessagesContract
         $response = $this->client->request(
             method: 'get',
             path: 'messages',
-            query: $parsed,
+            query: Util::array_transform_keys(
+                $parsed,
+                [
+                    'enqueuedAfter' => 'enqueued_after',
+                    'messageID' => 'messageId',
+                    'tenantID' => 'tenant_id',
+                    'traceID' => 'traceId',
+                ],
+            ),
             options: $options,
             convert: MessageListResponse::class,
         );

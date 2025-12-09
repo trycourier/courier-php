@@ -18,7 +18,7 @@ use Courier\RecipientPreferences;
  * @see Courier\Services\Lists\SubscriptionsService::subscribeUser()
  *
  * @phpstan-type SubscriptionSubscribeUserParamsShape = array{
- *   list_id: string,
+ *   listID: string,
  *   preferences?: null|RecipientPreferences|array{
  *     categories?: array<string,NotificationPreferenceDetails>|null,
  *     notifications?: array<string,NotificationPreferenceDetails>|null,
@@ -32,7 +32,7 @@ final class SubscriptionSubscribeUserParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $list_id;
+    public string $listID;
 
     #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
@@ -42,7 +42,7 @@ final class SubscriptionSubscribeUserParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * SubscriptionSubscribeUserParams::with(list_id: ...)
+     * SubscriptionSubscribeUserParams::with(listID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -67,12 +67,12 @@ final class SubscriptionSubscribeUserParams implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $list_id,
+        string $listID,
         RecipientPreferences|array|null $preferences = null
     ): self {
         $obj = new self;
 
-        $obj['list_id'] = $list_id;
+        $obj['listID'] = $listID;
 
         null !== $preferences && $obj['preferences'] = $preferences;
 
@@ -82,7 +82,7 @@ final class SubscriptionSubscribeUserParams implements BaseModel
     public function withListID(string $listID): self
     {
         $obj = clone $this;
-        $obj['list_id'] = $listID;
+        $obj['listID'] = $listID;
 
         return $obj;
     }

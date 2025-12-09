@@ -22,10 +22,10 @@ use Courier\Tenants\TenantAssociation\Type;
  *
  * @phpstan-type TenantAddMultipleParamsShape = array{
  *   tenants: list<TenantAssociation|array{
- *     tenant_id: string,
+ *     tenantID: string,
  *     profile?: array<string,mixed>|null,
  *     type?: value-of<Type>|null,
- *     user_id?: string|null,
+ *     userID?: string|null,
  *   }>,
  * }
  */
@@ -64,10 +64,10 @@ final class TenantAddMultipleParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<TenantAssociation|array{
-     *   tenant_id: string,
+     *   tenantID: string,
      *   profile?: array<string,mixed>|null,
      *   type?: value-of<Type>|null,
-     *   user_id?: string|null,
+     *   userID?: string|null,
      * }> $tenants
      */
     public static function with(array $tenants): self
@@ -81,10 +81,10 @@ final class TenantAddMultipleParams implements BaseModel
 
     /**
      * @param list<TenantAssociation|array{
-     *   tenant_id: string,
+     *   tenantID: string,
      *   profile?: array<string,mixed>|null,
      *   type?: value-of<Type>|null,
-     *   user_id?: string|null,
+     *   userID?: string|null,
      * }> $tenants
      */
     public function withTenants(array $tenants): self

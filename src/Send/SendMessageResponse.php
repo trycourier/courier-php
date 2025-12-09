@@ -9,7 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type SendMessageResponseShape = array{requestId: string}
+ * @phpstan-type SendMessageResponseShape = array{requestID: string}
  */
 final class SendMessageResponse implements BaseModel
 {
@@ -20,15 +20,15 @@ final class SendMessageResponse implements BaseModel
      * A successful call to `POST /send` returns a `202` status code along with a `requestId` in the response body.
      * For single-recipient requests, the `requestId` is the derived message_id. For multiple recipients, Courier assigns a unique message_id to each derived message.
      */
-    #[Required]
-    public string $requestId;
+    #[Required('requestId')]
+    public string $requestID;
 
     /**
      * `new SendMessageResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendMessageResponse::with(requestId: ...)
+     * SendMessageResponse::with(requestID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -47,11 +47,11 @@ final class SendMessageResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $requestId): self
+    public static function with(string $requestID): self
     {
         $obj = new self;
 
-        $obj['requestId'] = $requestId;
+        $obj['requestID'] = $requestID;
 
         return $obj;
     }
@@ -63,7 +63,7 @@ final class SendMessageResponse implements BaseModel
     public function withRequestID(string $requestID): self
     {
         $obj = clone $this;
-        $obj['requestId'] = $requestID;
+        $obj['requestID'] = $requestID;
 
         return $obj;
     }

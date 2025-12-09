@@ -36,7 +36,7 @@ final class InboundTest extends TestCase
 
         $result = $this->client->inbound->trackEvent([
             'event' => 'New Order Placed',
-            'messageId' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
+            'messageID' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
             'properties' => [
                 'order_id' => 'bar', 'total_orders' => 'bar', 'last_order_id' => 'bar',
             ],
@@ -56,12 +56,12 @@ final class InboundTest extends TestCase
 
         $result = $this->client->inbound->trackEvent([
             'event' => 'New Order Placed',
-            'messageId' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
+            'messageID' => '4c62c457-b329-4bea-9bfc-17bba86c393f',
             'properties' => [
                 'order_id' => 'bar', 'total_orders' => 'bar', 'last_order_id' => 'bar',
             ],
             'type' => 'track',
-            'userId' => '1234',
+            'userID' => '1234',
         ]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

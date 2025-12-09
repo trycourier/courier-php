@@ -67,20 +67,20 @@ final class TenantsTest extends TestCase
             'tenant_id',
             [
                 'name' => 'name',
-                'brand_id' => 'brand_id',
-                'default_preferences' => [
+                'brandID' => 'brand_id',
+                'defaultPreferences' => [
                     'items' => [
                         [
                             'status' => 'OPTED_OUT',
-                            'custom_routing' => [ChannelClassification::DIRECT_MESSAGE],
-                            'has_custom_routing' => true,
+                            'customRouting' => [ChannelClassification::DIRECT_MESSAGE],
+                            'hasCustomRouting' => true,
                             'id' => 'id',
                         ],
                     ],
                 ],
-                'parent_tenant_id' => 'parent_tenant_id',
+                'parentTenantID' => 'parent_tenant_id',
                 'properties' => ['foo' => 'bar'],
-                'user_profile' => ['foo' => 'bar'],
+                'userProfile' => ['foo' => 'bar'],
             ],
         );
 

@@ -16,7 +16,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\Users\PreferencesService::retrieveTopic()
  *
  * @phpstan-type PreferenceRetrieveTopicParamsShape = array{
- *   user_id: string, tenant_id?: string|null
+ *   userID: string, tenantID?: string|null
  * }
  */
 final class PreferenceRetrieveTopicParams implements BaseModel
@@ -26,20 +26,20 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $user_id;
+    public string $userID;
 
     /**
      * Query the preferences of a user for this specific tenant context.
      */
     #[Optional(nullable: true)]
-    public ?string $tenant_id;
+    public ?string $tenantID;
 
     /**
      * `new PreferenceRetrieveTopicParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * PreferenceRetrieveTopicParams::with(user_id: ...)
+     * PreferenceRetrieveTopicParams::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -58,15 +58,13 @@ final class PreferenceRetrieveTopicParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(
-        string $user_id,
-        ?string $tenant_id = null
-    ): self {
+    public static function with(string $userID, ?string $tenantID = null): self
+    {
         $obj = new self;
 
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
 
-        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
+        null !== $tenantID && $obj['tenantID'] = $tenantID;
 
         return $obj;
     }
@@ -74,7 +72,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }
@@ -85,7 +83,7 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     public function withTenantID(?string $tenantID): self
     {
         $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $obj['tenantID'] = $tenantID;
 
         return $obj;
     }

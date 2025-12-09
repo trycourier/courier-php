@@ -38,7 +38,7 @@ use Courier\Utm;
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
  * @phpstan-type MessageShape = array{
- *   brand_id?: string|null,
+ *   brandID?: string|null,
  *   channels?: array<string,Channel>|null,
  *   content?: null|ElementalContentSugar|ElementalContent,
  *   context?: MessageContext|null,
@@ -59,8 +59,8 @@ final class Message implements BaseModel
     /** @use SdkModel<MessageShape> */
     use SdkModel;
 
-    #[Optional(nullable: true)]
-    public ?string $brand_id;
+    #[Optional('brand_id', nullable: true)]
+    public ?string $brandID;
 
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
@@ -130,12 +130,12 @@ final class Message implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,Channel|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   if?: string|null,
      *   metadata?: Channel\Metadata|null,
      *   override?: array<string,mixed>|null,
      *   providers?: list<string>|null,
-     *   routing_method?: value-of<RoutingMethod>|null,
+     *   routingMethod?: value-of<RoutingMethod>|null,
      *   timeouts?: Timeouts|null,
      * }>|null $channels
      * @param ElementalContentSugar|array{
@@ -145,19 +145,17 @@ final class Message implements BaseModel
      *   version: string,
      *   brand?: string|null,
      * } $content
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|array{tenantID?: string|null}|null $context
      * @param array<string,mixed>|null $data
      * @param Delay|array{duration?: int|null, until?: string|null}|null $delay
-     * @param Expiry|array{
-     *   expires_in: string|int, expires_at?: string|null
-     * }|null $expiry
+     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
      * @param Metadata|array{
      *   event?: string|null,
      *   tags?: list<string>|null,
-     *   trace_id?: string|null,
+     *   traceID?: string|null,
      *   utm?: Utm|null,
      * }|null $metadata
-     * @param Preferences|array{subscription_topic_id: string}|null $preferences
+     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
      * @param array<string,Provider|array{
      *   if?: string|null,
      *   metadata?: Provider\Metadata|null,
@@ -175,31 +173,31 @@ final class Message implements BaseModel
      *   provider?: array<string,int>|null,
      * }|null $timeout
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: UserRecipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|list<Recipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Recipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }>|null $to
      */
     public static function with(
-        ?string $brand_id = null,
+        ?string $brandID = null,
         ?array $channels = null,
         ElementalContentSugar|array|ElementalContent|null $content = null,
         MessageContext|array|null $context = null,
@@ -216,7 +214,7 @@ final class Message implements BaseModel
     ): self {
         $obj = new self;
 
-        null !== $brand_id && $obj['brand_id'] = $brand_id;
+        null !== $brandID && $obj['brandID'] = $brandID;
         null !== $channels && $obj['channels'] = $channels;
         null !== $content && $obj['content'] = $content;
         null !== $context && $obj['context'] = $context;
@@ -237,7 +235,7 @@ final class Message implements BaseModel
     public function withBrandID(?string $brandID): self
     {
         $obj = clone $this;
-        $obj['brand_id'] = $brandID;
+        $obj['brandID'] = $brandID;
 
         return $obj;
     }
@@ -246,12 +244,12 @@ final class Message implements BaseModel
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
      * @param array<string,Channel|array{
-     *   brand_id?: string|null,
+     *   brandID?: string|null,
      *   if?: string|null,
      *   metadata?: Channel\Metadata|null,
      *   override?: array<string,mixed>|null,
      *   providers?: list<string>|null,
-     *   routing_method?: value-of<RoutingMethod>|null,
+     *   routingMethod?: value-of<RoutingMethod>|null,
      *   timeouts?: Timeouts|null,
      * }>|null $channels
      */
@@ -284,7 +282,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|array{tenantID?: string|null}|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
@@ -317,9 +315,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Expiry|array{
-     *   expires_in: string|int, expires_at?: string|null
-     * }|null $expiry
+     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
      */
     public function withExpiry(Expiry|array|null $expiry): self
     {
@@ -333,7 +329,7 @@ final class Message implements BaseModel
      * @param Metadata|array{
      *   event?: string|null,
      *   tags?: list<string>|null,
-     *   trace_id?: string|null,
+     *   traceID?: string|null,
      *   utm?: Utm|null,
      * }|null $metadata
      */
@@ -346,7 +342,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Preferences|array{subscription_topic_id: string}|null $preferences
+     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
@@ -416,27 +412,27 @@ final class Message implements BaseModel
      * The recipient or a list of recipients of the message.
      *
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: UserRecipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|list<Recipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Recipient\Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }>|null $to
      */
     public function withTo(UserRecipient|array|null $to): self

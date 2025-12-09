@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type ItemShape = array{
- *   recipientId: string,
+ *   recipientID: string,
  *   created?: string|null,
  *   preferences?: RecipientPreferences|null,
  * }
@@ -23,8 +23,8 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Required]
-    public string $recipientId;
+    #[Required('recipientId')]
+    public string $recipientID;
 
     #[Optional(nullable: true)]
     public ?string $created;
@@ -37,7 +37,7 @@ final class Item implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * Item::with(recipientId: ...)
+     * Item::with(recipientID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -62,13 +62,13 @@ final class Item implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $recipientId,
+        string $recipientID,
         ?string $created = null,
         RecipientPreferences|array|null $preferences = null,
     ): self {
         $obj = new self;
 
-        $obj['recipientId'] = $recipientId;
+        $obj['recipientID'] = $recipientID;
 
         null !== $created && $obj['created'] = $created;
         null !== $preferences && $obj['preferences'] = $preferences;
@@ -79,7 +79,7 @@ final class Item implements BaseModel
     public function withRecipientID(string $recipientID): self
     {
         $obj = clone $this;
-        $obj['recipientId'] = $recipientID;
+        $obj['recipientID'] = $recipientID;
 
         return $obj;
     }

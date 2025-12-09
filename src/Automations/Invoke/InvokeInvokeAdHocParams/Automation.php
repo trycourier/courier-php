@@ -24,7 +24,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-type AutomationShape = array{
  *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
- *   cancelation_token?: string|null,
+ *   cancelationToken?: string|null,
  * }
  */
 final class Automation implements BaseModel
@@ -38,8 +38,8 @@ final class Automation implements BaseModel
     #[Required(list: Step::class)]
     public array $steps;
 
-    #[Optional(nullable: true)]
-    public ?string $cancelation_token;
+    #[Optional('cancelation_token', nullable: true)]
+    public ?string $cancelationToken;
 
     /**
      * `new Automation()` is missing required properties by the API.
@@ -83,14 +83,14 @@ final class Automation implements BaseModel
      *   action: value-of<AutomationUpdateProfileStep\Action>,
      *   profile: array<string,mixed>,
      *   merge?: value-of<Merge>|null,
-     *   recipient_id?: string|null,
+     *   recipientID?: string|null,
      * }|AutomationCancelStep|array{
      *   action: value-of<AutomationCancelStep\Action>,
-     *   cancelation_token: string,
+     *   cancelationToken: string,
      * }|AutomationFetchDataStep|array{
      *   action: value-of<AutomationFetchDataStep\Action>,
      *   webhook: Webhook,
-     *   merge_strategy?: value-of<MergeStrategy>|null,
+     *   mergeStrategy?: value-of<MergeStrategy>|null,
      * }|AutomationInvokeStep|array{
      *   action: value-of<AutomationInvokeStep\Action>,
      *   template: string,
@@ -98,13 +98,13 @@ final class Automation implements BaseModel
      */
     public static function with(
         array $steps,
-        ?string $cancelation_token = null
+        ?string $cancelationToken = null
     ): self {
         $obj = new self;
 
         $obj['steps'] = $steps;
 
-        null !== $cancelation_token && $obj['cancelation_token'] = $cancelation_token;
+        null !== $cancelationToken && $obj['cancelationToken'] = $cancelationToken;
 
         return $obj;
     }
@@ -128,14 +128,14 @@ final class Automation implements BaseModel
      *   action: value-of<AutomationUpdateProfileStep\Action>,
      *   profile: array<string,mixed>,
      *   merge?: value-of<Merge>|null,
-     *   recipient_id?: string|null,
+     *   recipientID?: string|null,
      * }|AutomationCancelStep|array{
      *   action: value-of<AutomationCancelStep\Action>,
-     *   cancelation_token: string,
+     *   cancelationToken: string,
      * }|AutomationFetchDataStep|array{
      *   action: value-of<AutomationFetchDataStep\Action>,
      *   webhook: Webhook,
-     *   merge_strategy?: value-of<MergeStrategy>|null,
+     *   mergeStrategy?: value-of<MergeStrategy>|null,
      * }|AutomationInvokeStep|array{
      *   action: value-of<AutomationInvokeStep\Action>,
      *   template: string,
@@ -152,7 +152,7 @@ final class Automation implements BaseModel
     public function withCancelationToken(?string $cancelationToken): self
     {
         $obj = clone $this;
-        $obj['cancelation_token'] = $cancelationToken;
+        $obj['cancelationToken'] = $cancelationToken;
 
         return $obj;
     }

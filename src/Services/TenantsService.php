@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
 use Courier\Services\Tenants\PreferencesService;
@@ -69,13 +70,13 @@ final class TenantsService implements TenantsContract
      *
      * @param array{
      *   name: string,
-     *   brand_id?: string|null,
-     *   default_preferences?: array{
+     *   brandID?: string|null,
+     *   defaultPreferences?: array{
      *     items?: list<array<mixed>>|null
      *   }|DefaultPreferences|null,
-     *   parent_tenant_id?: string|null,
+     *   parentTenantID?: string|null,
      *   properties?: array<string,mixed>|null,
-     *   user_profile?: array<string,mixed>|null,
+     *   userProfile?: array<string,mixed>|null,
      * }|TenantUpdateParams $params
      *
      * @throws APIException
@@ -108,7 +109,7 @@ final class TenantsService implements TenantsContract
      * Get a List of Tenants
      *
      * @param array{
-     *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null
+     *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
      * }|TenantListParams $params
      *
      * @throws APIException
@@ -126,7 +127,10 @@ final class TenantsService implements TenantsContract
         $response = $this->client->request(
             method: 'get',
             path: 'tenants',
-            query: $parsed,
+            query: Util::array_transform_keys(
+                $parsed,
+                ['parentTenantID' => 'parent_tenant_id']
+            ),
             options: $options,
             convert: TenantListResponse::class,
         );

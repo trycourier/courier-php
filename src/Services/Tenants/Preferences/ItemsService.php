@@ -27,10 +27,10 @@ final class ItemsService implements ItemsContract
      * Create or Replace Default Preferences For Topic
      *
      * @param array{
-     *   tenant_id: string,
+     *   tenantID: string,
      *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status,
-     *   custom_routing?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *   has_custom_routing?: bool|null,
+     *   customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
+     *   hasCustomRouting?: bool|null,
      * }|ItemUpdateParams $params
      *
      * @throws APIException
@@ -44,8 +44,8 @@ final class ItemsService implements ItemsContract
             $params,
             $requestOptions,
         );
-        $tenantID = $parsed['tenant_id'];
-        unset($parsed['tenant_id']);
+        $tenantID = $parsed['tenantID'];
+        unset($parsed['tenantID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(
@@ -53,7 +53,7 @@ final class ItemsService implements ItemsContract
             path: [
                 'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
             ],
-            body: (object) array_diff_key($parsed, ['tenant_id']),
+            body: (object) array_diff_key($parsed, ['tenantID']),
             options: $options,
             convert: null,
         );
@@ -66,7 +66,7 @@ final class ItemsService implements ItemsContract
      *
      * Remove Default Preferences For Topic
      *
-     * @param array{tenant_id: string}|ItemDeleteParams $params
+     * @param array{tenantID: string}|ItemDeleteParams $params
      *
      * @throws APIException
      */
@@ -79,8 +79,8 @@ final class ItemsService implements ItemsContract
             $params,
             $requestOptions,
         );
-        $tenantID = $parsed['tenant_id'];
-        unset($parsed['tenant_id']);
+        $tenantID = $parsed['tenantID'];
+        unset($parsed['tenantID']);
 
         /** @var BaseResponse<mixed> */
         $response = $this->client->request(

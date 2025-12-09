@@ -13,12 +13,12 @@ use Courier\Users\Tenants\TenantListResponse\Type;
 
 /**
  * @phpstan-type TenantListResponseShape = array{
- *   has_more: bool,
+ *   hasMore: bool,
  *   type: value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
  *   items?: list<TenantAssociation>|null,
- *   next_url?: string|null,
+ *   nextURL?: string|null,
  * }
  */
 final class TenantListResponse implements BaseModel
@@ -29,8 +29,8 @@ final class TenantListResponse implements BaseModel
     /**
      * Set to true when there are more pages that can be retrieved.
      */
-    #[Required]
-    public bool $has_more;
+    #[Required('has_more')]
+    public bool $hasMore;
 
     /**
      * Always set to `list`. Represents the type of this object.
@@ -61,15 +61,15 @@ final class TenantListResponse implements BaseModel
      * A url that may be used to generate fetch the next set of results.
      * Defined only when `has_more` is set to true.
      */
-    #[Optional(nullable: true)]
-    public ?string $next_url;
+    #[Optional('next_url', nullable: true)]
+    public ?string $nextURL;
 
     /**
      * `new TenantListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantListResponse::with(has_more: ..., type: ..., url: ...)
+     * TenantListResponse::with(hasMore: ..., type: ..., url: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -90,29 +90,29 @@ final class TenantListResponse implements BaseModel
      *
      * @param Type|value-of<Type> $type
      * @param list<TenantAssociation|array{
-     *   tenant_id: string,
+     *   tenantID: string,
      *   profile?: array<string,mixed>|null,
      *   type?: value-of<TenantAssociation\Type>|null,
-     *   user_id?: string|null,
+     *   userID?: string|null,
      * }>|null $items
      */
     public static function with(
-        bool $has_more,
+        bool $hasMore,
         Type|string $type,
         string $url,
         ?string $cursor = null,
         ?array $items = null,
-        ?string $next_url = null,
+        ?string $nextURL = null,
     ): self {
         $obj = new self;
 
-        $obj['has_more'] = $has_more;
+        $obj['hasMore'] = $hasMore;
         $obj['type'] = $type;
         $obj['url'] = $url;
 
         null !== $cursor && $obj['cursor'] = $cursor;
         null !== $items && $obj['items'] = $items;
-        null !== $next_url && $obj['next_url'] = $next_url;
+        null !== $nextURL && $obj['nextURL'] = $nextURL;
 
         return $obj;
     }
@@ -123,7 +123,7 @@ final class TenantListResponse implements BaseModel
     public function withHasMore(bool $hasMore): self
     {
         $obj = clone $this;
-        $obj['has_more'] = $hasMore;
+        $obj['hasMore'] = $hasMore;
 
         return $obj;
     }
@@ -166,10 +166,10 @@ final class TenantListResponse implements BaseModel
 
     /**
      * @param list<TenantAssociation|array{
-     *   tenant_id: string,
+     *   tenantID: string,
      *   profile?: array<string,mixed>|null,
      *   type?: value-of<TenantAssociation\Type>|null,
-     *   user_id?: string|null,
+     *   userID?: string|null,
      * }>|null $items
      */
     public function withItems(?array $items): self
@@ -187,7 +187,7 @@ final class TenantListResponse implements BaseModel
     public function withNextURL(?string $nextURL): self
     {
         $obj = clone $this;
-        $obj['next_url'] = $nextURL;
+        $obj['nextURL'] = $nextURL;
 
         return $obj;
     }

@@ -39,12 +39,12 @@ final class RecipientPreferences implements BaseModel
      *
      * @param array<string,NotificationPreferenceDetails|array{
      *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
+     *   channelPreferences?: list<ChannelPreference>|null,
      *   rules?: list<Rule>|null,
      * }>|null $categories
      * @param array<string,NotificationPreferenceDetails|array{
      *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
+     *   channelPreferences?: list<ChannelPreference>|null,
      *   rules?: list<Rule>|null,
      * }>|null $notifications
      */
@@ -63,7 +63,7 @@ final class RecipientPreferences implements BaseModel
     /**
      * @param array<string,NotificationPreferenceDetails|array{
      *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
+     *   channelPreferences?: list<ChannelPreference>|null,
      *   rules?: list<Rule>|null,
      * }>|null $categories
      */
@@ -78,7 +78,7 @@ final class RecipientPreferences implements BaseModel
     /**
      * @param array<string,NotificationPreferenceDetails|array{
      *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
+     *   channelPreferences?: list<ChannelPreference>|null,
      *   rules?: list<Rule>|null,
      * }>|null $notifications
      */

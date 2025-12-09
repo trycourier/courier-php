@@ -13,7 +13,7 @@ use Courier\Preference\Source;
 /**
  * @phpstan-type PreferenceShape = array{
  *   status: value-of<PreferenceStatus>,
- *   channel_preferences?: list<ChannelPreference>|null,
+ *   channelPreferences?: list<ChannelPreference>|null,
  *   rules?: list<Rule>|null,
  *   source?: value-of<Source>|null,
  * }
@@ -27,9 +27,13 @@ final class Preference implements BaseModel
     #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
-    /** @var list<ChannelPreference>|null $channel_preferences */
-    #[Optional(list: ChannelPreference::class, nullable: true)]
-    public ?array $channel_preferences;
+    /** @var list<ChannelPreference>|null $channelPreferences */
+    #[Optional(
+        'channel_preferences',
+        list: ChannelPreference::class,
+        nullable: true
+    )]
+    public ?array $channelPreferences;
 
     /** @var list<Rule>|null $rules */
     #[Optional(list: Rule::class, nullable: true)]
@@ -66,13 +70,13 @@ final class Preference implements BaseModel
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      * @param list<ChannelPreference|array{
      *   channel: value-of<ChannelClassification>
-     * }>|null $channel_preferences
+     * }>|null $channelPreferences
      * @param list<Rule|array{until: string, start?: string|null}>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $channel_preferences = null,
+        ?array $channelPreferences = null,
         ?array $rules = null,
         Source|string|null $source = null,
     ): self {
@@ -80,7 +84,7 @@ final class Preference implements BaseModel
 
         $obj['status'] = $status;
 
-        null !== $channel_preferences && $obj['channel_preferences'] = $channel_preferences;
+        null !== $channelPreferences && $obj['channelPreferences'] = $channelPreferences;
         null !== $rules && $obj['rules'] = $rules;
         null !== $source && $obj['source'] = $source;
 
@@ -106,7 +110,7 @@ final class Preference implements BaseModel
     public function withChannelPreferences(?array $channelPreferences): self
     {
         $obj = clone $this;
-        $obj['channel_preferences'] = $channelPreferences;
+        $obj['channelPreferences'] = $channelPreferences;
 
         return $obj;
     }

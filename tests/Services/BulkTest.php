@@ -61,7 +61,7 @@ final class BulkTest extends TestCase
                             'categories' => [
                                 'foo' => [
                                     'status' => PreferenceStatus::OPTED_IN,
-                                    'channel_preferences' => [
+                                    'channelPreferences' => [
                                         ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                     ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
@@ -70,7 +70,7 @@ final class BulkTest extends TestCase
                             'notifications' => [
                                 'foo' => [
                                     'status' => PreferenceStatus::OPTED_IN,
-                                    'channel_preferences' => [
+                                    'channelPreferences' => [
                                         ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                     ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
@@ -80,18 +80,18 @@ final class BulkTest extends TestCase
                         'profile' => [],
                         'recipient' => 'recipient',
                         'to' => [
-                            'account_id' => 'account_id',
-                            'context' => ['tenant_id' => 'tenant_id'],
+                            'accountID' => 'account_id',
+                            'context' => ['tenantID' => 'tenant_id'],
                             'data' => ['foo' => 'bar'],
                             'email' => 'email',
-                            'list_id' => 'list_id',
+                            'listID' => 'list_id',
                             'locale' => 'locale',
-                            'phone_number' => 'phone_number',
+                            'phoneNumber' => 'phone_number',
                             'preferences' => [
                                 'notifications' => [
                                     'foo' => [
                                         'status' => PreferenceStatus::OPTED_IN,
-                                        'channel_preferences' => [
+                                        'channelPreferences' => [
                                             ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                         ],
                                         'rules' => [['until' => 'until', 'start' => 'start']],
@@ -101,17 +101,17 @@ final class BulkTest extends TestCase
                                 'categories' => [
                                     'foo' => [
                                         'status' => PreferenceStatus::OPTED_IN,
-                                        'channel_preferences' => [
+                                        'channelPreferences' => [
                                             ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                         ],
                                         'rules' => [['until' => 'until', 'start' => 'start']],
                                         'source' => 'subscription',
                                     ],
                                 ],
-                                'templateId' => 'templateId',
+                                'templateID' => 'templateId',
                             ],
-                            'tenant_id' => 'tenant_id',
-                            'user_id' => 'user_id',
+                            'tenantID' => 'tenant_id',
+                            'userID' => 'user_id',
                         ],
                     ],
                 ],

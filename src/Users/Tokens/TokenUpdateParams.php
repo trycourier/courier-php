@@ -16,7 +16,7 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
  * @see Courier\Services\Users\TokensService::update()
  *
  * @phpstan-type TokenUpdateParamsShape = array{
- *   user_id: string,
+ *   userID: string,
  *   patch: list<Patch|array{op: string, path: string, value?: string|null}>,
  * }
  */
@@ -27,7 +27,7 @@ final class TokenUpdateParams implements BaseModel
     use SdkParams;
 
     #[Required]
-    public string $user_id;
+    public string $userID;
 
     /** @var list<Patch> $patch */
     #[Required(list: Patch::class)]
@@ -38,7 +38,7 @@ final class TokenUpdateParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenUpdateParams::with(user_id: ..., patch: ...)
+     * TokenUpdateParams::with(userID: ..., patch: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -59,11 +59,11 @@ final class TokenUpdateParams implements BaseModel
      *
      * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
      */
-    public static function with(string $user_id, array $patch): self
+    public static function with(string $userID, array $patch): self
     {
         $obj = new self;
 
-        $obj['user_id'] = $user_id;
+        $obj['userID'] = $userID;
         $obj['patch'] = $patch;
 
         return $obj;
@@ -72,7 +72,7 @@ final class TokenUpdateParams implements BaseModel
     public function withUserID(string $userID): self
     {
         $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $obj['userID'] = $userID;
 
         return $obj;
     }

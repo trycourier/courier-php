@@ -57,16 +57,16 @@ final class InboundBulkMessageUser implements BaseModel
      *   notifications?: array<string,NotificationPreferenceDetails>|null,
      * }|null $preferences
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|null $to
      */
     public static function with(
@@ -128,16 +128,16 @@ final class InboundBulkMessageUser implements BaseModel
 
     /**
      * @param UserRecipient|array{
-     *   account_id?: string|null,
+     *   accountID?: string|null,
      *   context?: MessageContext|null,
      *   data?: array<string,mixed>|null,
      *   email?: string|null,
-     *   list_id?: string|null,
+     *   listID?: string|null,
      *   locale?: string|null,
-     *   phone_number?: string|null,
+     *   phoneNumber?: string|null,
      *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
+     *   tenantID?: string|null,
+     *   userID?: string|null,
      * }|null $to
      */
     public function withTo(UserRecipient|array|null $to): self

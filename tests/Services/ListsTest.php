@@ -71,7 +71,7 @@ final class ListsTest extends TestCase
                     'categories' => [
                         'foo' => [
                             'status' => PreferenceStatus::OPTED_IN,
-                            'channel_preferences' => [
+                            'channelPreferences' => [
                                 ['channel' => ChannelClassification::DIRECT_MESSAGE],
                             ],
                             'rules' => [['until' => 'until', 'start' => 'start']],
@@ -80,7 +80,7 @@ final class ListsTest extends TestCase
                     'notifications' => [
                         'foo' => [
                             'status' => PreferenceStatus::OPTED_IN,
-                            'channel_preferences' => [
+                            'channelPreferences' => [
                                 ['channel' => ChannelClassification::DIRECT_MESSAGE],
                             ],
                             'rules' => [['until' => 'until', 'start' => 'start']],

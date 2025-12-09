@@ -26,7 +26,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
  *   automation: Automation|array{
  *     steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
- *     cancelation_token?: string|null,
+ *     cancelationToken?: string|null,
  *   },
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
@@ -87,7 +87,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * @param Automation|array{
      *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelation_token?: string|null,
+     *   cancelationToken?: string|null,
      * } $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
@@ -116,7 +116,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     /**
      * @param Automation|array{
      *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelation_token?: string|null,
+     *   cancelationToken?: string|null,
      * } $automation
      */
     public function withAutomation(Automation|array $automation): self

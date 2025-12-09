@@ -83,7 +83,7 @@ final class ListsService implements ListsContract
      *
      * @param array{
      *   lists: list<array{
-     *     listId: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     listID: string, preferences?: array<mixed>|RecipientPreferences|null
      *   }>,
      * }|ListSubscribeParams $params
      *

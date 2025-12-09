@@ -12,7 +12,7 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
 
 /**
  * @phpstan-type ResultShape = array{
- *   channel: string, channel_id: string, content: Content
+ *   channel: string, channelID: string, content: Content
  * }
  */
 final class Result implements BaseModel
@@ -29,8 +29,8 @@ final class Result implements BaseModel
     /**
      * The ID of channel used for rendering the message.
      */
-    #[Required]
-    public string $channel_id;
+    #[Required('channel_id')]
+    public string $channelID;
 
     /**
      * Content details of the rendered message.
@@ -43,7 +43,7 @@ final class Result implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * Result::with(channel: ..., channel_id: ..., content: ...)
+     * Result::with(channel: ..., channelID: ..., content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -73,13 +73,13 @@ final class Result implements BaseModel
      */
     public static function with(
         string $channel,
-        string $channel_id,
+        string $channelID,
         Content|array $content
     ): self {
         $obj = new self;
 
         $obj['channel'] = $channel;
-        $obj['channel_id'] = $channel_id;
+        $obj['channelID'] = $channelID;
         $obj['content'] = $content;
 
         return $obj;
@@ -102,7 +102,7 @@ final class Result implements BaseModel
     public function withChannelID(string $channelID): self
     {
         $obj = clone $this;
-        $obj['channel_id'] = $channelID;
+        $obj['channelID'] = $channelID;
 
         return $obj;
     }

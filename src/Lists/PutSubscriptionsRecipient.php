@@ -13,7 +13,7 @@ use Courier\RecipientPreferences;
 
 /**
  * @phpstan-type PutSubscriptionsRecipientShape = array{
- *   recipientId: string, preferences?: RecipientPreferences|null
+ *   recipientID: string, preferences?: RecipientPreferences|null
  * }
  */
 final class PutSubscriptionsRecipient implements BaseModel
@@ -21,8 +21,8 @@ final class PutSubscriptionsRecipient implements BaseModel
     /** @use SdkModel<PutSubscriptionsRecipientShape> */
     use SdkModel;
 
-    #[Required]
-    public string $recipientId;
+    #[Required('recipientId')]
+    public string $recipientID;
 
     #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
@@ -32,7 +32,7 @@ final class PutSubscriptionsRecipient implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * PutSubscriptionsRecipient::with(recipientId: ...)
+     * PutSubscriptionsRecipient::with(recipientID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -57,12 +57,12 @@ final class PutSubscriptionsRecipient implements BaseModel
      * }|null $preferences
      */
     public static function with(
-        string $recipientId,
+        string $recipientID,
         RecipientPreferences|array|null $preferences = null
     ): self {
         $obj = new self;
 
-        $obj['recipientId'] = $recipientId;
+        $obj['recipientID'] = $recipientID;
 
         null !== $preferences && $obj['preferences'] = $preferences;
 
@@ -72,7 +72,7 @@ final class PutSubscriptionsRecipient implements BaseModel
     public function withRecipientID(string $recipientID): self
     {
         $obj = clone $this;
-        $obj['recipientId'] = $recipientID;
+        $obj['recipientID'] = $recipientID;
 
         return $obj;
     }

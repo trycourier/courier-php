@@ -32,25 +32,25 @@ final class SendService implements SendContract
      *
      * @param array{
      *   message: array{
-     *     brand_id?: string|null,
+     *     brandID?: string|null,
      *     channels?: array<string,array{
-     *       brand_id?: string|null,
+     *       brandID?: string|null,
      *       if?: string|null,
      *       metadata?: array<mixed>|null,
      *       override?: array<string,mixed>|null,
      *       providers?: list<string>|null,
-     *       routing_method?: 'all'|'single'|RoutingMethod|null,
+     *       routingMethod?: 'all'|'single'|RoutingMethod|null,
      *       timeouts?: array<mixed>|null,
      *     }>|null,
      *     content?: array<string,mixed>,
-     *     context?: array{tenant_id?: string|null}|MessageContext|null,
+     *     context?: array{tenantID?: string|null}|MessageContext|null,
      *     data?: array<string,mixed>|null,
      *     delay?: array{duration?: int|null, until?: string|null}|null,
-     *     expiry?: array{expires_in: string|int, expires_at?: string|null}|null,
+     *     expiry?: array{expiresIn: string|int, expiresAt?: string|null}|null,
      *     metadata?: array{
      *       event?: string|null,
      *       tags?: list<string>|null,
-     *       trace_id?: string|null,
+     *       traceID?: string|null,
      *       utm?: array{
      *         campaign?: string|null,
      *         content?: string|null,
@@ -59,7 +59,7 @@ final class SendService implements SendContract
      *         term?: string|null,
      *       }|null,
      *     }|null,
-     *     preferences?: array{subscription_topic_id: string}|null,
+     *     preferences?: array{subscriptionTopicID: string}|null,
      *     providers?: array<string,array{
      *       if?: string|null,
      *       metadata?: array<mixed>|null,
@@ -79,16 +79,16 @@ final class SendService implements SendContract
      *       provider?: array<string,int>|null,
      *     }|null,
      *     to?: array{
-     *       account_id?: string|null,
+     *       accountID?: string|null,
      *       context?: array<mixed>|MessageContext|null,
      *       data?: array<string,mixed>|null,
      *       email?: string|null,
-     *       list_id?: string|null,
+     *       listID?: string|null,
      *       locale?: string|null,
-     *       phone_number?: string|null,
+     *       phoneNumber?: string|null,
      *       preferences?: array<mixed>|null,
-     *       tenant_id?: string|null,
-     *       user_id?: string|null,
+     *       tenantID?: string|null,
+     *       userID?: string|null,
      *     }|UserRecipient|list<array<mixed>>|null,
      *   },
      * }|SendMessageParams $params

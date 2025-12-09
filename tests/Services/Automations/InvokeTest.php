@@ -66,7 +66,7 @@ final class InvokeTest extends TestCase
                         'template' => '64TP5HKPFTM8VTK1Y75SJDQX9JK0',
                     ],
                 ],
-                'cancelation_token' => 'delay-send--user-yes--abc-123',
+                'cancelationToken' => 'delay-send--user-yes--abc-123',
             ],
             'brand' => 'brand',
             'data' => ['name' => 'bar'],

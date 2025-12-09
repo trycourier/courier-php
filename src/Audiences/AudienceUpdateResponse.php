@@ -45,11 +45,11 @@ final class AudienceUpdateResponse implements BaseModel
      *
      * @param Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * } $audience
      */
     public static function with(Audience|array $audience): self
@@ -64,11 +64,11 @@ final class AudienceUpdateResponse implements BaseModel
     /**
      * @param Audience|array{
      *   id: string,
-     *   created_at: string,
+     *   createdAt: string,
      *   description: string,
      *   filter: Filter,
      *   name: string,
-     *   updated_at: string,
+     *   updatedAt: string,
      * } $audience
      */
     public function withAudience(Audience|array $audience): self
