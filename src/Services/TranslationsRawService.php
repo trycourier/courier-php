@@ -77,11 +77,14 @@ final class TranslationsRawService implements TranslationsRawContract
         $domain = $parsed['domain'];
         unset($parsed['domain']);
 
+        /** @var array<string,mixed> */
+        $body = $parsed['body'];
+
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['translations/%1$s/%2$s', $domain, $locale],
-            body: array_diff_key($parsed['body'], ['domain']),
+            body: array_diff_key($body, ['domain']),
             options: $options,
             convert: null,
         );
