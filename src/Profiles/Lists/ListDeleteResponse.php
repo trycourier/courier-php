@@ -6,20 +6,16 @@ namespace Courier\Profiles\Lists;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\Lists\ListDeleteResponse\Status;
 
 /**
  * @phpstan-type ListDeleteResponseShape = array{status: value-of<Status>}
  */
-final class ListDeleteResponse implements BaseModel, ResponseConverter
+final class ListDeleteResponse implements BaseModel
 {
     /** @use SdkModel<ListDeleteResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var value-of<Status> $status */
     #[Api(enum: Status::class)]

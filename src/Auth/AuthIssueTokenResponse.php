@@ -6,19 +6,15 @@ namespace Courier\Auth;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AuthIssueTokenResponseShape = array{token: string}
  */
-final class AuthIssueTokenResponse implements BaseModel, ResponseConverter
+final class AuthIssueTokenResponse implements BaseModel
 {
     /** @use SdkModel<AuthIssueTokenResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $token;

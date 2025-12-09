@@ -7,9 +7,7 @@ namespace Courier\Users\Preferences;
 use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\PreferenceStatus;
 
@@ -18,12 +16,10 @@ use Courier\PreferenceStatus;
  *   items: list<TopicPreference>, paging: Paging
  * }
  */
-final class PreferenceGetResponse implements BaseModel, ResponseConverter
+final class PreferenceGetResponse implements BaseModel
 {
     /** @use SdkModel<PreferenceGetResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * The Preferences associated with the user_id.

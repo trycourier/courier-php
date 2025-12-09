@@ -6,19 +6,15 @@ namespace Courier\Send;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type SendMessageResponseShape = array{requestId: string}
  */
-final class SendMessageResponse implements BaseModel, ResponseConverter
+final class SendMessageResponse implements BaseModel
 {
     /** @use SdkModel<SendMessageResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * A successful call to `POST /send` returns a `202` status code along with a `requestId` in the response body.

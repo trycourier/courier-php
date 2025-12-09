@@ -6,20 +6,16 @@ namespace Courier\Profiles\Lists;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\Lists\ListSubscribeResponse\Status;
 
 /**
  * @phpstan-type ListSubscribeResponseShape = array{status: value-of<Status>}
  */
-final class ListSubscribeResponse implements BaseModel, ResponseConverter
+final class ListSubscribeResponse implements BaseModel
 {
     /** @use SdkModel<ListSubscribeResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var value-of<Status> $status */
     #[Api(enum: Status::class)]

@@ -6,19 +6,15 @@ namespace Courier\Audiences;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AudienceUpdateResponseShape = array{audience: Audience}
  */
-final class AudienceUpdateResponse implements BaseModel, ResponseConverter
+final class AudienceUpdateResponse implements BaseModel
 {
     /** @use SdkModel<AudienceUpdateResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Audience $audience;

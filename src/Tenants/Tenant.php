@@ -6,9 +6,7 @@ namespace Courier\Tenants;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\DefaultPreferences\Item;
 
 /**
@@ -22,12 +20,10 @@ use Courier\Tenants\DefaultPreferences\Item;
  *   user_profile?: array<string,mixed>|null,
  * }
  */
-final class Tenant implements BaseModel, ResponseConverter
+final class Tenant implements BaseModel
 {
     /** @use SdkModel<TenantShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * Id of the tenant.

@@ -13,6 +13,7 @@ use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Audiences\Filter;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
@@ -35,13 +36,15 @@ final class AudiencesService implements AudiencesContract
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): Audience {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Audience> */
+        $response = $this->client->request(
             method: 'get',
             path: ['audiences/%1$s', $audienceID],
             options: $requestOptions,
             convert: Audience::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -71,14 +74,16 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AudienceUpdateResponse> */
+        $response = $this->client->request(
             method: 'put',
             path: ['audiences/%1$s', $audienceID],
             body: (object) $parsed,
             options: $options,
             convert: AudienceUpdateResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -99,14 +104,16 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AudienceListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'audiences',
             query: $parsed,
             options: $options,
             convert: AudienceListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -120,13 +127,15 @@ final class AudiencesService implements AudiencesContract
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['audiences/%1$s', $audienceID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -148,13 +157,15 @@ final class AudiencesService implements AudiencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AudienceListMembersResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['audiences/%1$s/members', $audienceID],
             query: $parsed,
             options: $options,
             convert: AudienceListMembersResponse::class,
         );
+
+        return $response->parse();
     }
 }

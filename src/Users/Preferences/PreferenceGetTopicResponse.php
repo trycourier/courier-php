@@ -7,20 +7,16 @@ namespace Courier\Users\Preferences;
 use Courier\ChannelClassification;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type PreferenceGetTopicResponseShape = array{topic: TopicPreference}
  */
-final class PreferenceGetTopicResponse implements BaseModel, ResponseConverter
+final class PreferenceGetTopicResponse implements BaseModel
 {
     /** @use SdkModel<PreferenceGetTopicResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public TopicPreference $topic;

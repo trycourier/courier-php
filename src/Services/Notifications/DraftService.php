@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Notifications;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
@@ -26,12 +27,14 @@ final class DraftService implements DraftContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<NotificationGetContent> */
+        $response = $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/draft/content', $id],
             options: $requestOptions,
             convert: NotificationGetContent::class,
         );
+
+        return $response->parse();
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
@@ -50,13 +51,15 @@ final class TenantsService implements TenantsContract
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): Tenant {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Tenant> */
+        $response = $this->client->request(
             method: 'get',
             path: ['tenants/%1$s', $tenantID],
             options: $requestOptions,
             convert: Tenant::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -87,14 +90,16 @@ final class TenantsService implements TenantsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Tenant> */
+        $response = $this->client->request(
             method: 'put',
             path: ['tenants/%1$s', $tenantID],
             body: (object) $parsed,
             options: $options,
             convert: Tenant::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -117,14 +122,16 @@ final class TenantsService implements TenantsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<TenantListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'tenants',
             query: $parsed,
             options: $options,
             convert: TenantListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -138,13 +145,15 @@ final class TenantsService implements TenantsContract
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['tenants/%1$s', $tenantID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -168,13 +177,15 @@ final class TenantsService implements TenantsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<TenantListUsersResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['tenants/%1$s/users', $tenantID],
             query: $parsed,
             options: $options,
             convert: TenantListUsersResponse::class,
         );
+
+        return $response->parse();
     }
 }

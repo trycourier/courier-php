@@ -6,9 +6,7 @@ namespace Courier\Messages;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Messages\MessageDetails\Reason;
 use Courier\Messages\MessageDetails\Status;
 use Courier\Paging;
@@ -18,12 +16,10 @@ use Courier\Paging;
  *   paging: Paging, results: list<MessageDetails>
  * }
  */
-final class MessageListResponse implements BaseModel, ResponseConverter
+final class MessageListResponse implements BaseModel
 {
     /** @use SdkModel<MessageListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * Paging information for the result set.

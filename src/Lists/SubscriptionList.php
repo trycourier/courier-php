@@ -6,21 +6,17 @@ namespace Courier\Lists;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type SubscriptionListShape = array{
  *   id: string, name: string, created?: string|null, updated?: string|null
  * }
  */
-final class SubscriptionList implements BaseModel, ResponseConverter
+final class SubscriptionList implements BaseModel
 {
     /** @use SdkModel<SubscriptionListShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $id;

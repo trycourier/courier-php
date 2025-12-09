@@ -6,6 +6,7 @@ namespace Courier\Services\Tenants\Preferences;
 
 use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
@@ -45,8 +46,8 @@ final class ItemsService implements ItemsContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: [
                 'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
@@ -55,6 +56,8 @@ final class ItemsService implements ItemsContract
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -78,8 +81,8 @@ final class ItemsService implements ItemsContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: [
                 'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
@@ -87,5 +90,7 @@ final class ItemsService implements ItemsContract
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

@@ -6,19 +6,15 @@ namespace Courier\Inbound;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type InboundTrackEventResponseShape = array{messageId: string}
  */
-final class InboundTrackEventResponse implements BaseModel, ResponseConverter
+final class InboundTrackEventResponse implements BaseModel
 {
     /** @use SdkModel<InboundTrackEventResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * A successful call returns a `202` status code along with a `requestId` in the response body.

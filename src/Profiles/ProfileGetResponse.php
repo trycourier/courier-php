@@ -6,9 +6,7 @@ namespace Courier\Profiles;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
@@ -17,12 +15,10 @@ use Courier\RecipientPreferences;
  *   profile: array<string,mixed>, preferences?: RecipientPreferences|null
  * }
  */
-final class ProfileGetResponse implements BaseModel, ResponseConverter
+final class ProfileGetResponse implements BaseModel
 {
     /** @use SdkModel<ProfileGetResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var array<string,mixed> $profile */
     #[Api(map: 'mixed')]

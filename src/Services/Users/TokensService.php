@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Users;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
@@ -43,13 +44,15 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<TokenGetResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
             options: $options,
             convert: TokenGetResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -76,14 +79,16 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'patch',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
             body: (object) array_diff_key($parsed, ['user_id']),
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -97,13 +102,15 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): TokenListResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<TokenListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/tokens', $userID],
             options: $requestOptions,
             convert: TokenListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -127,13 +134,15 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -147,13 +156,15 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens', $userID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -197,13 +208,15 @@ final class TokensService implements TokensContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
             body: (object) array_diff_key($parsed, ['user_id']),
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

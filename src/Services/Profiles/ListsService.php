@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Profiles;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
@@ -41,14 +42,16 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ListGetResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['profiles/%1$s/lists', $userID],
             query: $parsed,
             options: $options,
             convert: ListGetResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -62,13 +65,15 @@ final class ListsService implements ListsContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): ListDeleteResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ListDeleteResponse> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['profiles/%1$s/lists', $userID],
             options: $requestOptions,
             convert: ListDeleteResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -94,13 +99,15 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ListSubscribeResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: ['profiles/%1$s/lists', $userID],
             body: (object) $parsed,
             options: $options,
             convert: ListSubscribeResponse::class,
         );
+
+        return $response->parse();
     }
 }

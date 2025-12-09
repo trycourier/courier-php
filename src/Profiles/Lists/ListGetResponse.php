@@ -6,9 +6,7 @@ namespace Courier\Profiles\Lists;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
 use Courier\RecipientPreferences;
@@ -18,12 +16,10 @@ use Courier\RecipientPreferences;
  *   paging: Paging, results: list<Result>
  * }
  */
-final class ListGetResponse implements BaseModel, ResponseConverter
+final class ListGetResponse implements BaseModel
 {
     /** @use SdkModel<ListGetResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Paging $paging;

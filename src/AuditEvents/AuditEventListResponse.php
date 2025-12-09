@@ -7,9 +7,7 @@ namespace Courier\AuditEvents;
 use Courier\AuditEvents\AuditEvent\Actor;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
@@ -17,12 +15,10 @@ use Courier\Paging;
  *   paging: Paging, results: list<AuditEvent>
  * }
  */
-final class AuditEventListResponse implements BaseModel, ResponseConverter
+final class AuditEventListResponse implements BaseModel
 {
     /** @use SdkModel<AuditEventListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Paging $paging;

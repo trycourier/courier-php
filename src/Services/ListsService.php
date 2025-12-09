@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Lists\ListListParams;
 use Courier\Lists\ListListResponse;
@@ -42,13 +43,15 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): SubscriptionList {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<SubscriptionList> */
+        $response = $this->client->request(
             method: 'get',
             path: ['lists/%1$s', $listID],
             options: $requestOptions,
             convert: SubscriptionList::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -76,14 +79,16 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['lists/%1$s', $listID],
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -104,14 +109,16 @@ final class ListsService implements ListsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ListListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'lists',
             query: $parsed,
             options: $options,
             convert: ListListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -125,13 +132,15 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['lists/%1$s', $listID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -145,12 +154,14 @@ final class ListsService implements ListsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['lists/%1$s/restore', $listID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

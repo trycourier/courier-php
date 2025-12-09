@@ -6,9 +6,7 @@ namespace Courier\Notifications\Checks;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\BaseCheck\Status;
 use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Check;
@@ -16,12 +14,10 @@ use Courier\Notifications\Check;
 /**
  * @phpstan-type CheckListResponseShape = array{checks: list<Check>}
  */
-final class CheckListResponse implements BaseModel, ResponseConverter
+final class CheckListResponse implements BaseModel
 {
     /** @use SdkModel<CheckListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var list<Check> $checks */
     #[Api(list: Check::class)]

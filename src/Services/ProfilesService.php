@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\ProfileCreateParams;
 use Courier\Profiles\ProfileGetResponse;
@@ -50,14 +51,16 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ProfileNewResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: ['profiles/%1$s', $userID],
             body: (object) $parsed,
             options: $options,
             convert: ProfileNewResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -71,13 +74,15 @@ final class ProfilesService implements ProfilesContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): ProfileGetResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ProfileGetResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['profiles/%1$s', $userID],
             options: $requestOptions,
             convert: ProfileGetResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -101,14 +106,16 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'patch',
             path: ['profiles/%1$s', $userID],
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -122,13 +129,15 @@ final class ProfilesService implements ProfilesContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['profiles/%1$s', $userID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -153,13 +162,15 @@ final class ProfilesService implements ProfilesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<ProfileReplaceResponse> */
+        $response = $this->client->request(
             method: 'put',
             path: ['profiles/%1$s', $userID],
             body: (object) $parsed,
             options: $options,
             convert: ProfileReplaceResponse::class,
         );
+
+        return $response->parse();
     }
 }

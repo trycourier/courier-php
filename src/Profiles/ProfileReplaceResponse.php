@@ -6,20 +6,16 @@ namespace Courier\Profiles;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\ProfileReplaceResponse\Status;
 
 /**
  * @phpstan-type ProfileReplaceResponseShape = array{status: value-of<Status>}
  */
-final class ProfileReplaceResponse implements BaseModel, ResponseConverter
+final class ProfileReplaceResponse implements BaseModel
 {
     /** @use SdkModel<ProfileReplaceResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var value-of<Status> $status */
     #[Api(enum: Status::class)]

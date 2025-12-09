@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Lists;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Lists\Subscriptions\SubscriptionAddParams;
 use Courier\Lists\Subscriptions\SubscriptionListParams;
@@ -43,14 +44,16 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<SubscriptionListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['lists/%1$s/subscriptions', $listID],
             query: $parsed,
             options: $options,
             convert: SubscriptionListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -76,14 +79,16 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: ['lists/%1$s/subscriptions', $listID],
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -109,14 +114,16 @@ final class SubscriptionsService implements SubscriptionsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions', $listID],
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -146,14 +153,16 @@ final class SubscriptionsService implements SubscriptionsContract
         $listID = $parsed['list_id'];
         unset($parsed['list_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
             body: (object) array_diff_key($parsed, ['list_id']),
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -177,12 +186,14 @@ final class SubscriptionsService implements SubscriptionsContract
         $listID = $parsed['list_id'];
         unset($parsed['list_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }
