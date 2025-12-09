@@ -6,9 +6,7 @@ namespace Courier\Brands;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
@@ -16,12 +14,10 @@ use Courier\Paging;
  *   paging: Paging, results: list<Brand>
  * }
  */
-final class BrandListResponse implements BaseModel, ResponseConverter
+final class BrandListResponse implements BaseModel
 {
     /** @use SdkModel<BrandListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Paging $paging;

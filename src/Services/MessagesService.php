@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Messages\MessageContentResponse;
 use Courier\Messages\MessageDetails;
@@ -34,13 +35,15 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageGetResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<MessageGetResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['messages/%1$s', $messageID],
             options: $requestOptions,
             convert: MessageGetResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -76,14 +79,16 @@ final class MessagesService implements MessagesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<MessageListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'messages',
             query: $parsed,
             options: $options,
             convert: MessageListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -97,13 +102,15 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageDetails {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<MessageDetails> */
+        $response = $this->client->request(
             method: 'post',
             path: ['messages/%1$s/cancel', $messageID],
             options: $requestOptions,
             convert: MessageDetails::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -117,13 +124,15 @@ final class MessagesService implements MessagesContract
         string $messageID,
         ?RequestOptions $requestOptions = null
     ): MessageContentResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<MessageContentResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['messages/%1$s/output', $messageID],
             options: $requestOptions,
             convert: MessageContentResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -145,13 +154,15 @@ final class MessagesService implements MessagesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<MessageHistoryResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['messages/%1$s/history', $messageID],
             query: $parsed,
             options: $options,
             convert: MessageHistoryResponse::class,
         );
+
+        return $response->parse();
     }
 }

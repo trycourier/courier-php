@@ -8,6 +8,7 @@ use Courier\AuditEvents\AuditEvent;
 use Courier\AuditEvents\AuditEventListParams;
 use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
@@ -30,13 +31,15 @@ final class AuditEventsService implements AuditEventsContract
         string $auditEventID,
         ?RequestOptions $requestOptions = null
     ): AuditEvent {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AuditEvent> */
+        $response = $this->client->request(
             method: 'get',
             path: ['audit-events/%1$s', $auditEventID],
             options: $requestOptions,
             convert: AuditEvent::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -57,13 +60,15 @@ final class AuditEventsService implements AuditEventsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AuditEventListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'audit-events',
             query: $parsed,
             options: $options,
             convert: AuditEventListResponse::class,
         );
+
+        return $response->parse();
     }
 }

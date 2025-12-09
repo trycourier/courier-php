@@ -6,9 +6,7 @@ namespace Courier\Tenants\Templates;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\Templates\TemplateListResponse\Item;
 use Courier\Tenants\Templates\TemplateListResponse\Type;
 
@@ -22,12 +20,10 @@ use Courier\Tenants\Templates\TemplateListResponse\Type;
  *   next_url?: string|null,
  * }
  */
-final class TemplateListResponse implements BaseModel, ResponseConverter
+final class TemplateListResponse implements BaseModel
 {
     /** @use SdkModel<TemplateListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * Set to true when there are more pages that can be retrieved.

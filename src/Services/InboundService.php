@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Inbound\InboundTrackEventParams;
 use Courier\Inbound\InboundTrackEventResponse;
@@ -42,13 +43,15 @@ final class InboundService implements InboundContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<InboundTrackEventResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: 'inbound/courier',
             body: (object) $parsed,
             options: $options,
             convert: InboundTrackEventResponse::class,
         );
+
+        return $response->parse();
     }
 }

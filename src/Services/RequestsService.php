@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\RequestsContract;
@@ -27,12 +28,14 @@ final class RequestsService implements RequestsContract
         string $requestID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'put',
             path: ['requests/%1$s/archive', $requestID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

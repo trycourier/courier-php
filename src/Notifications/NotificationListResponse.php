@@ -6,9 +6,7 @@ namespace Courier\Notifications;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\NotificationListResponse\Result;
 use Courier\Paging;
 
@@ -17,12 +15,10 @@ use Courier\Paging;
  *   paging: Paging, results: list<mixed>
  * }
  */
-final class NotificationListResponse implements BaseModel, ResponseConverter
+final class NotificationListResponse implements BaseModel
 {
     /** @use SdkModel<NotificationListResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Paging $paging;

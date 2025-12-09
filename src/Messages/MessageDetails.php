@@ -6,9 +6,7 @@ namespace Courier\Messages;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Messages\MessageDetails\Reason;
 use Courier\Messages\MessageDetails\Status;
 
@@ -28,12 +26,10 @@ use Courier\Messages\MessageDetails\Status;
  *   reason?: value-of<Reason>|null,
  * }
  */
-final class MessageDetails implements BaseModel, ResponseConverter
+final class MessageDetails implements BaseModel
 {
     /** @use SdkModel<MessageDetailsShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * A unique identifier associated with the message you wish to retrieve (results from a send).

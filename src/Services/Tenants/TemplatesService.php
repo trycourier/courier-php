@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Tenants;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\TemplatesContract;
@@ -41,13 +42,15 @@ final class TemplatesService implements TemplatesContract
         $tenantID = $parsed['tenant_id'];
         unset($parsed['tenant_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<BaseTemplateTenantAssociation> */
+        $response = $this->client->request(
             method: 'get',
             path: ['tenants/%1$s/templates/%2$s', $tenantID, $templateID],
             options: $options,
             convert: BaseTemplateTenantAssociation::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -69,13 +72,15 @@ final class TemplatesService implements TemplatesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<TemplateListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['tenants/%1$s/templates', $tenantID],
             query: $parsed,
             options: $options,
             convert: TemplateListResponse::class,
         );
+
+        return $response->parse();
     }
 }

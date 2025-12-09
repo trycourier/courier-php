@@ -7,9 +7,7 @@ namespace Courier\Audiences;
 use Courier\Audiences\AudienceListMembersResponse\Item;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
@@ -17,12 +15,10 @@ use Courier\Paging;
  *   items: list<Item>, paging: Paging
  * }
  */
-final class AudienceListMembersResponse implements BaseModel, ResponseConverter
+final class AudienceListMembersResponse implements BaseModel
 {
     /** @use SdkModel<AudienceListMembersResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var list<Item> $items */
     #[Api(list: Item::class)]

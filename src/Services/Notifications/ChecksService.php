@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services\Notifications;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\BaseCheck;
 use Courier\Notifications\Checks\CheckDeleteParams;
@@ -46,14 +47,16 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<CheckUpdateResponse> */
+        $response = $this->client->request(
             method: 'put',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
             body: (object) array_diff_key($parsed, ['id']),
             options: $options,
             convert: CheckUpdateResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -75,13 +78,15 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<CheckListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
             options: $options,
             convert: CheckListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -103,12 +108,14 @@ final class ChecksService implements ChecksContract
         $id = $parsed['id'];
         unset($parsed['id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

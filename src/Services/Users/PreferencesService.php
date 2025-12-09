@@ -6,6 +6,7 @@ namespace Courier\Services\Users;
 
 use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\PreferenceStatus;
 use Courier\RequestOptions;
@@ -43,14 +44,16 @@ final class PreferencesService implements PreferencesContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<PreferenceGetResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences', $userID],
             query: $parsed,
             options: $options,
             convert: PreferenceGetResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -76,14 +79,16 @@ final class PreferencesService implements PreferencesContract
         $userID = $parsed['user_id'];
         unset($parsed['user_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<PreferenceGetTopicResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
             query: $parsed,
             options: $options,
             convert: PreferenceGetTopicResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -116,8 +121,8 @@ final class PreferencesService implements PreferencesContract
         unset($parsed['user_id']);
         $query_params = ['tenant_id'];
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<PreferenceUpdateOrNewTopicResponse> */
+        $response = $this->client->request(
             method: 'put',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
             query: array_diff_key($parsed, $query_params),
@@ -128,5 +133,7 @@ final class PreferencesService implements PreferencesContract
             options: $options,
             convert: PreferenceUpdateOrNewTopicResponse::class,
         );
+
+        return $response->parse();
     }
 }

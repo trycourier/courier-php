@@ -10,19 +10,15 @@ use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type BulkGetJobResponseShape = array{job: Job}
  */
-final class BulkGetJobResponse implements BaseModel, ResponseConverter
+final class BulkGetJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkGetJobResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Job $job;

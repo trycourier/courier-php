@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Auth\AuthIssueTokenParams;
 use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuthContract;
@@ -36,13 +37,15 @@ final class AuthService implements AuthContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AuthIssueTokenResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: 'auth/issue-token',
             body: (object) $parsed,
             options: $options,
             convert: AuthIssueTokenResponse::class,
         );
+
+        return $response->parse();
     }
 }

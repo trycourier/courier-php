@@ -8,6 +8,7 @@ use Courier\Automations\AutomationInvokeResponse;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams;
 use Courier\Automations\Invoke\InvokeInvokeByTemplateParams;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeContract;
@@ -46,14 +47,16 @@ final class InvokeService implements InvokeContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AutomationInvokeResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: 'automations/invoke',
             body: (object) $parsed,
             options: $options,
             convert: AutomationInvokeResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -81,13 +84,15 @@ final class InvokeService implements InvokeContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<AutomationInvokeResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: ['automations/%1$s/invoke', $templateID],
             body: (object) $parsed,
             options: $options,
             convert: AutomationInvokeResponse::class,
         );
+
+        return $response->parse();
     }
 }

@@ -13,6 +13,7 @@ use Courier\Bulk\BulkNewJobResponse;
 use Courier\Bulk\InboundBulkMessage;
 use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
@@ -53,14 +54,16 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: ['bulk/%1$s', $jobID],
             body: (object) $parsed,
             options: $options,
             convert: null,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -83,14 +86,16 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<BulkNewJobResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: 'bulk',
             body: (object) $parsed,
             options: $options,
             convert: BulkNewJobResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -112,14 +117,16 @@ final class BulkService implements BulkContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<BulkListUsersResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['bulk/%1$s/users', $jobID],
             query: $parsed,
             options: $options,
             convert: BulkListUsersResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -133,13 +140,15 @@ final class BulkService implements BulkContract
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): BulkGetJobResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<BulkGetJobResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: ['bulk/%1$s', $jobID],
             options: $requestOptions,
             convert: BulkGetJobResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -153,12 +162,14 @@ final class BulkService implements BulkContract
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'post',
             path: ['bulk/%1$s/run', $jobID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

@@ -6,9 +6,7 @@ namespace Courier\Notifications;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\NotificationGetContent\Block;
 use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Type;
@@ -23,12 +21,10 @@ use Courier\Notifications\NotificationGetContent\Channel\Locale;
  *   checksum?: string|null,
  * }
  */
-final class NotificationGetContent implements BaseModel, ResponseConverter
+final class NotificationGetContent implements BaseModel
 {
     /** @use SdkModel<NotificationGetContentShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var list<Block>|null $blocks */
     #[Api(list: Block::class, nullable: true, optional: true)]

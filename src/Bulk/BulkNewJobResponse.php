@@ -6,19 +6,15 @@ namespace Courier\Bulk;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type BulkNewJobResponseShape = array{jobId: string}
  */
-final class BulkNewJobResponse implements BaseModel, ResponseConverter
+final class BulkNewJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkNewJobResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $jobId;

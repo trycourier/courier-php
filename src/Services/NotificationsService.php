@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListParams;
@@ -53,14 +54,16 @@ final class NotificationsService implements NotificationsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<NotificationListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'notifications',
             query: $parsed,
             options: $options,
             convert: NotificationListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -72,12 +75,14 @@ final class NotificationsService implements NotificationsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<NotificationGetContent> */
+        $response = $this->client->request(
             method: 'get',
             path: ['notifications/%1$s/content', $id],
             options: $requestOptions,
             convert: NotificationGetContent::class,
         );
+
+        return $response->parse();
     }
 }

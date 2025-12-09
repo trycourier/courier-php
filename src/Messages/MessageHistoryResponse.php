@@ -6,9 +6,7 @@ namespace Courier\Messages;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Core\Conversion\MapOf;
 
 /**
@@ -16,12 +14,10 @@ use Courier\Core\Conversion\MapOf;
  *   results: list<array<string,mixed>>
  * }
  */
-final class MessageHistoryResponse implements BaseModel, ResponseConverter
+final class MessageHistoryResponse implements BaseModel
 {
     /** @use SdkModel<MessageHistoryResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var list<array<string,mixed>> $results */
     #[Api(list: new MapOf('mixed'))]

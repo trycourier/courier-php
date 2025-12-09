@@ -7,9 +7,7 @@ namespace Courier\AuditEvents;
 use Courier\AuditEvents\AuditEvent\Actor;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AuditEventShape = array{
@@ -21,12 +19,10 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  *   type: string,
  * }
  */
-final class AuditEvent implements BaseModel, ResponseConverter
+final class AuditEvent implements BaseModel
 {
     /** @use SdkModel<AuditEventShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public Actor $actor;

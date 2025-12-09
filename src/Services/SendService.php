@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\MessageContext;
 use Courier\MessageRoutingChannel;
@@ -99,13 +100,15 @@ final class SendService implements SendContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<SendMessageResponse> */
+        $response = $this->client->request(
             method: 'post',
             path: 'send',
             body: (object) $parsed,
             options: $options,
             convert: SendMessageResponse::class,
         );
+
+        return $response->parse();
     }
 }

@@ -6,9 +6,7 @@ namespace Courier\Users\Tokens;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Users\Tokens\TokenGetResponse\Status;
 use Courier\Users\Tokens\UserToken\Device;
 use Courier\Users\Tokens\UserToken\ProviderKey;
@@ -26,12 +24,10 @@ use Courier\Users\Tokens\UserToken\Tracking;
  *   status_reason?: string|null,
  * }
  */
-final class TokenGetResponse implements BaseModel, ResponseConverter
+final class TokenGetResponse implements BaseModel
 {
     /** @use SdkModel<TokenGetResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * Full body of the token. Must match token in URL path parameter.

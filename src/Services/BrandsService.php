@@ -16,6 +16,7 @@ use Courier\Brands\BrandSnippet;
 use Courier\Brands\BrandSnippets;
 use Courier\Brands\BrandUpdateParams;
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsContract;
@@ -56,14 +57,16 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Brand> */
+        $response = $this->client->request(
             method: 'post',
             path: 'brands',
             body: (object) $parsed,
             options: $options,
             convert: Brand::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -77,13 +80,15 @@ final class BrandsService implements BrandsContract
         string $brandID,
         ?RequestOptions $requestOptions = null
     ): Brand {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Brand> */
+        $response = $this->client->request(
             method: 'get',
             path: ['brands/%1$s', $brandID],
             options: $requestOptions,
             convert: Brand::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -115,14 +120,16 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<Brand> */
+        $response = $this->client->request(
             method: 'put',
             path: ['brands/%1$s', $brandID],
             body: (object) $parsed,
             options: $options,
             convert: Brand::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -143,14 +150,16 @@ final class BrandsService implements BrandsContract
             $requestOptions,
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<BrandListResponse> */
+        $response = $this->client->request(
             method: 'get',
             path: 'brands',
             query: $parsed,
             options: $options,
             convert: BrandListResponse::class,
         );
+
+        return $response->parse();
     }
 
     /**
@@ -164,12 +173,14 @@ final class BrandsService implements BrandsContract
         string $brandID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
+        /** @var BaseResponse<mixed> */
+        $response = $this->client->request(
             method: 'delete',
             path: ['brands/%1$s', $brandID],
             options: $requestOptions,
             convert: null,
         );
+
+        return $response->parse();
     }
 }

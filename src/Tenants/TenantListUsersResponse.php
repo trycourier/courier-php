@@ -6,9 +6,7 @@ namespace Courier\Tenants;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\TenantListUsersResponse\Type;
 
 /**
@@ -21,12 +19,10 @@ use Courier\Tenants\TenantListUsersResponse\Type;
  *   next_url?: string|null,
  * }
  */
-final class TenantListUsersResponse implements BaseModel, ResponseConverter
+final class TenantListUsersResponse implements BaseModel
 {
     /** @use SdkModel<TenantListUsersResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * Set to true when there are more pages that can be retrieved.

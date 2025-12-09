@@ -7,9 +7,7 @@ namespace Courier\Audiences;
 use Courier\Audiences\Filter\Operator;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type AudienceShape = array{
@@ -21,12 +19,10 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  *   updated_at: string,
  * }
  */
-final class Audience implements BaseModel, ResponseConverter
+final class Audience implements BaseModel
 {
     /** @use SdkModel<AudienceShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * A unique identifier representing the audience_id.

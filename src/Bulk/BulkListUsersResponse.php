@@ -8,9 +8,7 @@ use Courier\Bulk\BulkListUsersResponse\Item;
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
@@ -20,12 +18,10 @@ use Courier\UserRecipient;
  *   items: list<Item>, paging: Paging
  * }
  */
-final class BulkListUsersResponse implements BaseModel, ResponseConverter
+final class BulkListUsersResponse implements BaseModel
 {
     /** @use SdkModel<BulkListUsersResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /** @var list<Item> $items */
     #[Api(list: Item::class)]

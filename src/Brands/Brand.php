@@ -6,9 +6,7 @@ namespace Courier\Brands;
 
 use Courier\Core\Attributes\Api;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type BrandShape = array{
@@ -22,12 +20,10 @@ use Courier\Core\Conversion\Contracts\ResponseConverter;
  *   version?: string|null,
  * }
  */
-final class Brand implements BaseModel, ResponseConverter
+final class Brand implements BaseModel
 {
     /** @use SdkModel<BrandShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     #[Api]
     public string $id;
