@@ -181,7 +181,7 @@ final class TokensRawService implements TokensRawContract
      *
      * Adds a single token to a user and overwrites a matching existing token.
      *
-     * @param string $token path param: The full token string
+     * @param string $token_ path param: The full token string
      * @param array{
      *   userID: string,
      *   token: string,
@@ -209,7 +209,7 @@ final class TokensRawService implements TokensRawContract
      * @throws APIException
      */
     public function addSingle(
-        string $token,
+        string $token_,
         array|TokenAddSingleParams $params,
         ?RequestOptions $requestOptions = null,
     ): BaseResponse {
@@ -223,7 +223,7 @@ final class TokensRawService implements TokensRawContract
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
+            path: ['users/%1$s/tokens/%2$s', $userID, $token_],
             body: (object) array_diff_key($parsed, ['userID']),
             options: $options,
             convert: null,

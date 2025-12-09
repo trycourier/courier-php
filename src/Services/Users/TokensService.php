@@ -143,9 +143,9 @@ final class TokensService implements TokensContract
      *
      * Adds a single token to a user and overwrites a matching existing token.
      *
-     * @param string $token path param: The full token string
+     * @param string $token_ path param: The full token string
      * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
-     * @param string $token1 Body param: Full body of the token. Must match token in URL path parameter.
+     * @param string $token Body param: Full body of the token. Must match token in URL path parameter.
      * @param 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey $providerKey Body param:
      * @param array{
      *   adID?: string|null,
@@ -167,9 +167,9 @@ final class TokensService implements TokensContract
      * @throws APIException
      */
     public function addSingle(
-        string $token,
+        string $token_,
         string $userID,
-        string $token1,
+        string $token,
         string|ProviderKey $providerKey,
         ?array $device = null,
         string|bool|null $expiryDate = null,
@@ -179,7 +179,7 @@ final class TokensService implements TokensContract
     ): mixed {
         $params = [
             'userID' => $userID,
-            'token' => $token1,
+            'token' => $token,
             'providerKey' => $providerKey,
             'device' => $device,
             'expiryDate' => $expiryDate,
@@ -190,7 +190,7 @@ final class TokensService implements TokensContract
         $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
         // @phpstan-ignore-next-line argument.type
-        $response = $this->raw->addSingle($token, params: $params, requestOptions: $requestOptions);
+        $response = $this->raw->addSingle($token_, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
