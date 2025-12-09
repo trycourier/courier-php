@@ -6,7 +6,7 @@ namespace Courier\Brands;
 
 use Courier\Brands\BrandSettingsEmail\TemplateOverride;
 use Courier\Brands\BrandSettingsInApp\Placement;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -22,13 +22,13 @@ final class BrandSettings implements BaseModel
     /** @use SdkModel<BrandSettingsShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandColors $colors;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettingsEmail $email;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettingsInApp $inapp;
 
     public function __construct()

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,13 +19,13 @@ final class EmailHeader implements BaseModel
     /** @use SdkModel<EmailHeaderShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Logo $logo;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $barColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $inheritDefault;
 
     /**

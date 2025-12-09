@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
@@ -22,17 +22,17 @@ final class Metadata implements BaseModel
     /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $event;
 
     /** @var list<string>|null $tags */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $tags;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $trace_id;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Utm $utm;
 
     public function __construct()

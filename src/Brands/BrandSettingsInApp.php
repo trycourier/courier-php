@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Brands;
 
 use Courier\Brands\BrandSettingsInApp\Placement;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -25,26 +26,26 @@ final class BrandSettingsInApp implements BaseModel
     /** @use SdkModel<BrandSettingsInAppShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public BrandColors $colors;
 
-    #[Api]
+    #[Required]
     public Icons $icons;
 
-    #[Api]
+    #[Required]
     public WidgetBackground $widgetBackground;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $borderRadius;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $disableMessageIcon;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $fontFamily;
 
     /** @var value-of<Placement>|null $placement */
-    #[Api(enum: Placement::class, nullable: true, optional: true)]
+    #[Optional(enum: Placement::class, nullable: true)]
     public ?string $placement;
 
     /**

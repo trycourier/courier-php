@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse\Result;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content\Block;
@@ -31,37 +31,37 @@ final class Content implements BaseModel
      *
      * @var list<Block> $blocks
      */
-    #[Api(list: Block::class)]
+    #[Required(list: Block::class)]
     public array $blocks;
 
     /**
      * The body of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $body;
 
     /**
      * The html content of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $html;
 
     /**
      * The subject of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $subject;
 
     /**
      * The text of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $text;
 
     /**
      * The title of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $title;
 
     /**

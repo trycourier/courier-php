@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalTextNodeWithType\Type;
@@ -24,16 +25,16 @@ final class ElementalContent implements BaseModel
     /**
      * @var list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
-    #[Api(list: ElementalNode::class)]
+    #[Required(list: ElementalNode::class)]
     public array $elements;
 
     /**
      * For example, "2022-01-01".
      */
-    #[Api]
+    #[Required]
     public string $version;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /**

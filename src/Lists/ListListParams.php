@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -27,13 +27,13 @@ final class ListListParams implements BaseModel
     /**
      * A unique identifier that allows for fetching the next page of lists.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
      * "A pattern used to filter the list items returned. Pattern types supported: exact match on `list_id` or a pattern of one or more pattern parts. you may replace a part with either: `*` to match all parts in that position, or `**` to signify a wildcard `endsWith` pattern match.".
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $pattern;
 
     public function __construct()

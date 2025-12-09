@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
@@ -31,16 +31,16 @@ final class Channel implements BaseModel
     /**
      * Brand id used for rendering.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand_id;
 
     /**
      * JS conditional with access to data/profile.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Metadata $metadata;
 
     /**
@@ -48,7 +48,7 @@ final class Channel implements BaseModel
      *
      * @var array<string,mixed>|null $override
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $override;
 
     /**
@@ -56,7 +56,7 @@ final class Channel implements BaseModel
      *
      * @var list<string>|null $providers
      */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $providers;
 
     /**
@@ -64,10 +64,10 @@ final class Channel implements BaseModel
      *
      * @var value-of<RoutingMethod>|null $routing_method
      */
-    #[Api(enum: RoutingMethod::class, nullable: true, optional: true)]
+    #[Optional(enum: RoutingMethod::class, nullable: true)]
     public ?string $routing_method;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Timeouts $timeouts;
 
     public function __construct()

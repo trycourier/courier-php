@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Brands\BrandSettingsEmail;
 
 use Courier\Brands\BrandTemplate;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -28,34 +29,34 @@ final class TemplateOverride implements BaseModel
     /** @use SdkModel<TemplateOverrideShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public bool $enabled;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $backgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $blocksBackgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $footer;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $head;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $header;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $width;
 
-    #[Api]
+    #[Required]
     public BrandTemplate $mjml;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $footerBackgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $footerFullWidth;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -17,7 +17,7 @@ final class BrandSnippets implements BaseModel
     use SdkModel;
 
     /** @var list<BrandSnippet>|null $items */
-    #[Api(list: BrandSnippet::class, nullable: true, optional: true)]
+    #[Optional(list: BrandSnippet::class, nullable: true)]
     public ?array $items;
 
     public function __construct()

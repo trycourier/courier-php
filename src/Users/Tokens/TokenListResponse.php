@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Tokens\UserToken\Device;
@@ -22,7 +22,7 @@ final class TokenListResponse implements BaseModel
     use SdkModel;
 
     /** @var list<UserToken> $tokens */
-    #[Api(list: UserToken::class)]
+    #[Required(list: UserToken::class)]
     public array $tokens;
 
     /**

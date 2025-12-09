@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Audiences;
 
 use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -32,19 +32,19 @@ final class AudienceUpdateParams implements BaseModel
     /**
      * A description of the audience.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $description;
 
     /**
      * A single filter to use for filtering.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Filter $filter;
 
     /**
      * The name of the audience.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $name;
 
     public function __construct()

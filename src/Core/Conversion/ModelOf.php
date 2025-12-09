@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Core\Conversion;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion;
 use Courier\Core\Conversion\Contracts\Converter;
@@ -27,7 +28,9 @@ final class ModelOf implements Converter
         $properties = [];
 
         foreach ($this->class->getProperties() as $property) {
-            if (!empty($property->getAttributes(Api::class))) {
+            $attributes = [...$property->getAttributes(Required::class), ...$property->getAttributes(Optional::class)];
+
+            if (!empty($attributes)) {
                 $name = $property->getName();
                 $properties[$name] = new PropertyInfo($property);
             }
@@ -97,7 +100,8 @@ final class ModelOf implements Converter
     public function from(array $data): BaseModel
     {
         $instance = $this->class->newInstanceWithoutConstructor();
-        $instance->__unserialize($data); // @phpstan-ignore-line
+        // @phpstan-ignore-next-line
+        $instance->__unserialize($data);
 
         return $instance;
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message\Channel;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,10 +16,10 @@ final class Timeouts implements BaseModel
     /** @use SdkModel<TimeoutsShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $channel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $provider;
 
     public function __construct()

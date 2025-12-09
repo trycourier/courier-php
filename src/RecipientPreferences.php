@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -20,19 +20,11 @@ final class RecipientPreferences implements BaseModel
     use SdkModel;
 
     /** @var array<string,NotificationPreferenceDetails>|null $categories */
-    #[Api(
-        map: NotificationPreferenceDetails::class,
-        nullable: true,
-        optional: true
-    )]
+    #[Optional(map: NotificationPreferenceDetails::class, nullable: true)]
     public ?array $categories;
 
     /** @var array<string,NotificationPreferenceDetails>|null $notifications */
-    #[Api(
-        map: NotificationPreferenceDetails::class,
-        nullable: true,
-        optional: true
-    )]
+    #[Optional(map: NotificationPreferenceDetails::class, nullable: true)]
     public ?array $notifications;
 
     public function __construct()

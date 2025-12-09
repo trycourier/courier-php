@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationListResponse\Result;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
@@ -18,7 +18,7 @@ final class Tags implements BaseModel
     use SdkModel;
 
     /** @var list<Data> $data */
-    #[Api(list: Data::class)]
+    #[Required(list: Data::class)]
     public array $data;
 
     /**

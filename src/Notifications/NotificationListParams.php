@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,13 +22,13 @@ final class NotificationListParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
      * Retrieve the notes from the Notification template settings.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $notes;
 
     public function __construct()

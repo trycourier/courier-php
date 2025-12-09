@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageDetails\Reason;
@@ -24,7 +24,7 @@ final class MessageListResponse implements BaseModel
     /**
      * Paging information for the result set.
      */
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -32,7 +32,7 @@ final class MessageListResponse implements BaseModel
      *
      * @var list<MessageDetails> $results
      */
-    #[Api(list: MessageDetails::class)]
+    #[Required(list: MessageDetails::class)]
     public array $results;
 
     /**

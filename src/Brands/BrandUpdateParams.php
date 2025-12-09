@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -33,13 +34,13 @@ final class BrandUpdateParams implements BaseModel
     /**
      * The name of the brand.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettings $settings;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSnippets $snippets;
 
     /**

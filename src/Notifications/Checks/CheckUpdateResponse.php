@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck\Status;
@@ -20,7 +20,7 @@ final class CheckUpdateResponse implements BaseModel
     use SdkModel;
 
     /** @var list<Check> $checks */
-    #[Api(list: Check::class)]
+    #[Required(list: Check::class)]
     public array $checks;
 
     /**

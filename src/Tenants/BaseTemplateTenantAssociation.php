@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -25,31 +25,31 @@ final class BaseTemplateTenantAssociation implements BaseModel
     /**
      * The template's id.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * The timestamp at which the template was created.
      */
-    #[Api]
+    #[Required]
     public string $created_at;
 
     /**
      * The timestamp at which the template was published.
      */
-    #[Api]
+    #[Required]
     public string $published_at;
 
     /**
      * The timestamp at which the template was last updated.
      */
-    #[Api]
+    #[Required]
     public string $updated_at;
 
     /**
      * The version of the template.
      */
-    #[Api]
+    #[Required]
     public string $version;
 
     /**

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -21,13 +22,13 @@ final class Expiry implements BaseModel
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
      */
-    #[Api]
+    #[Required]
     public string|int $expires_in;
 
     /**
      * Epoch or ISO8601 timestamp with timezone.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $expires_at;
 
     /**

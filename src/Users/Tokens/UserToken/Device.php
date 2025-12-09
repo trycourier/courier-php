@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens\UserToken;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -28,37 +28,37 @@ final class Device implements BaseModel
     /**
      * Id of the advertising identifier.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ad_id;
 
     /**
      * Id of the application the token is used for.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $app_id;
 
     /**
      * Id of the device the token is associated with.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $device_id;
 
     /**
      * The device manufacturer.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $manufacturer;
 
     /**
      * The device model.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $model;
 
     /**
      * The device platform i.e. android, ios, web.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $platform;
 
     public function __construct()

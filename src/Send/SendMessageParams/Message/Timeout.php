@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
@@ -24,21 +24,21 @@ final class Timeout implements BaseModel
     use SdkModel;
 
     /** @var array<string,int>|null $channel */
-    #[Api(map: 'int', nullable: true, optional: true)]
+    #[Optional(map: 'int', nullable: true)]
     public ?array $channel;
 
     /** @var value-of<Criteria>|null $criteria */
-    #[Api(enum: Criteria::class, nullable: true, optional: true)]
+    #[Optional(enum: Criteria::class, nullable: true)]
     public ?string $criteria;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $escalation;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $message;
 
     /** @var array<string,int>|null $provider */
-    #[Api(map: 'int', nullable: true, optional: true)]
+    #[Optional(map: 'int', nullable: true)]
     public ?array $provider;
 
     public function __construct()

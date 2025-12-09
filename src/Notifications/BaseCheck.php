@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck\Status;
@@ -20,15 +20,15 @@ final class BaseCheck implements BaseModel
     /** @use SdkModel<BaseCheckShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /** @var value-of<Type> $type */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
     /**

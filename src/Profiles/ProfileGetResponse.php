@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\NotificationPreferenceDetails;
@@ -21,10 +22,10 @@ final class ProfileGetResponse implements BaseModel
     use SdkModel;
 
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**

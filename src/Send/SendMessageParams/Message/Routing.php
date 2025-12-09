@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRoutingChannel;
@@ -27,11 +27,11 @@ final class Routing implements BaseModel
      *
      * @var list<mixed> $channels
      */
-    #[Api(list: MessageRoutingChannel::class)]
+    #[Required(list: MessageRoutingChannel::class)]
     public array $channels;
 
     /** @var value-of<Method> $method */
-    #[Api(enum: Method::class)]
+    #[Required(enum: Method::class)]
     public string $method;
 
     /**

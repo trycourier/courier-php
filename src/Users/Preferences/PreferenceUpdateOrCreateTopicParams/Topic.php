@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\PreferenceStatus;
@@ -23,7 +24,7 @@ final class Topic implements BaseModel
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
-    #[Api(enum: PreferenceStatus::class)]
+    #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
     /**
@@ -31,10 +32,10 @@ final class Topic implements BaseModel
      *
      * @var list<value-of<ChannelClassification>>|null $custom_routing
      */
-    #[Api(list: ChannelClassification::class, nullable: true, optional: true)]
+    #[Optional(list: ChannelClassification::class, nullable: true)]
     public ?array $custom_routing;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $has_custom_routing;
 
     /**

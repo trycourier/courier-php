@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +18,10 @@ final class EmailFooter implements BaseModel
     /** @use SdkModel<EmailFooterShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $inheritDefault;
 
     public function __construct()

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation\Type;
@@ -25,7 +26,7 @@ final class TenantAssociation implements BaseModel
     /**
      * Tenant ID for the association between tenant and user.
      */
-    #[Api]
+    #[Required]
     public string $tenant_id;
 
     /**
@@ -33,17 +34,17 @@ final class TenantAssociation implements BaseModel
      *
      * @var array<string,mixed>|null $profile
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $profile;
 
     /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, nullable: true, optional: true)]
+    #[Optional(enum: Type::class, nullable: true)]
     public ?string $type;
 
     /**
      * User ID for the association between tenant and user.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $user_id;
 
     /**

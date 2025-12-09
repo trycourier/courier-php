@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\NotificationPreferenceDetails;
@@ -20,10 +21,10 @@ final class SubscribeToListsRequestItem implements BaseModel
     /** @use SdkModel<SubscribeToListsRequestItemShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $listId;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**

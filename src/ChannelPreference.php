@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,7 +19,7 @@ final class ChannelPreference implements BaseModel
     use SdkModel;
 
     /** @var value-of<ChannelClassification> $channel */
-    #[Api(enum: ChannelClassification::class)]
+    #[Required(enum: ChannelClassification::class)]
     public string $channel;
 
     /**

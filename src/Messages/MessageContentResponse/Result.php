@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
@@ -23,19 +23,19 @@ final class Result implements BaseModel
     /**
      * The channel used for rendering the message.
      */
-    #[Api]
+    #[Required]
     public string $channel;
 
     /**
      * The ID of channel used for rendering the message.
      */
-    #[Api]
+    #[Required]
     public string $channel_id;
 
     /**
      * Content details of the rendered message.
      */
-    #[Api]
+    #[Required]
     public Content $content;
 
     /**

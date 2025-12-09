@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -23,7 +23,7 @@ final class ProfileCreateParams implements BaseModel
     use SdkParams;
 
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
     /**

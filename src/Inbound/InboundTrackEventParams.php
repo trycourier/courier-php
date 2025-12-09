@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Inbound;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -32,27 +33,27 @@ final class InboundTrackEventParams implements BaseModel
     /**
      * A descriptive name of the event. This name will appear as a trigger in the Courier Automation Trigger node.
      */
-    #[Api]
+    #[Required]
     public string $event;
 
     /**
      * A required unique identifier that will be used to de-duplicate requests. If not unique, will respond with 409 Conflict status.
      */
-    #[Api]
+    #[Required]
     public string $messageId;
 
     /** @var array<string,mixed> $properties */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $properties;
 
     /** @var value-of<Type> $type */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
     /**
      * The user id associatiated with the track.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $userId;
 
     /**

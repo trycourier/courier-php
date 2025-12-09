@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\ProfileReplaceResponse\Status;
@@ -18,7 +18,7 @@ final class ProfileReplaceResponse implements BaseModel
     use SdkModel;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -30,7 +30,7 @@ final class ProfileUpdateParams implements BaseModel
      *
      * @var list<Patch> $patch
      */
-    #[Api(list: Patch::class)]
+    #[Required(list: Patch::class)]
     public array $patch;
 
     /**

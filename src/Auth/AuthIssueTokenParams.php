@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Auth;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -35,7 +35,7 @@ final class AuthIssueTokenParams implements BaseModel
      * - "5s" - 5 seconds
      * - "1y" - 1 year
      */
-    #[Api]
+    #[Required]
     public string $expires_in;
 
     /**
@@ -52,7 +52,7 @@ final class AuthIssueTokenParams implements BaseModel
      * - `write:preferences` - Write user preferences.
      * Example: `user_id:user123 write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands`
      */
-    #[Api]
+    #[Required]
     public string $scope;
 
     /**

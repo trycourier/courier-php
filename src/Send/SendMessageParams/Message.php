@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalActionNodeWithType;
@@ -59,7 +59,7 @@ final class Message implements BaseModel
     /** @use SdkModel<MessageShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand_id;
 
     /**
@@ -67,48 +67,48 @@ final class Message implements BaseModel
      *
      * @var array<string,Channel>|null $channels
      */
-    #[Api(map: Channel::class, nullable: true, optional: true)]
+    #[Optional(map: Channel::class, nullable: true)]
     public ?array $channels;
 
     /**
      * Describes content that will work for email, inbox, push, chat, or any channel id.
      */
-    #[Api(optional: true)]
+    #[Optional]
     public ElementalContentSugar|ElementalContent|null $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?MessageContext $context;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Delay $delay;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Expiry $expiry;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Metadata $metadata;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Preferences $preferences;
 
     /** @var array<string,Provider>|null $providers */
-    #[Api(map: Provider::class, nullable: true, optional: true)]
+    #[Optional(map: Provider::class, nullable: true)]
     public ?array $providers;
 
     /**
      * Customize which channels/providers Courier may deliver the message through.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Routing $routing;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $template;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Timeout $timeout;
 
     /**
@@ -116,7 +116,7 @@ final class Message implements BaseModel
      *
      * @var UserRecipient|list<Recipient>|null $to
      */
-    #[Api(union: To::class, nullable: true, optional: true)]
+    #[Optional(union: To::class, nullable: true)]
     public UserRecipient|array|null $to;
 
     public function __construct()

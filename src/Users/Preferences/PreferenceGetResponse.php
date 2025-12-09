@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -26,13 +26,13 @@ final class PreferenceGetResponse implements BaseModel
      *
      * @var list<TopicPreference> $items
      */
-    #[Api(list: TopicPreference::class)]
+    #[Required(list: TopicPreference::class)]
     public array $items;
 
     /**
      * Deprecated - Paging not implemented on this endpoint.
      */
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**

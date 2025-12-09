@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\AuditEvents;
 
 use Courier\AuditEvents\AuditEvent\Actor;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -20,11 +20,11 @@ final class AuditEventListResponse implements BaseModel
     /** @use SdkModel<AuditEventListResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /** @var list<AuditEvent> $results */
-    #[Api(list: AuditEvent::class)]
+    #[Required(list: AuditEvent::class)]
     public array $results;
 
     /**

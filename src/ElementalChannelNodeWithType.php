@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalChannelNodeWithType\Type;
@@ -35,23 +36,23 @@ final class ElementalChannelNodeWithType implements BaseModel
     use SdkModel;
 
     /** @var list<string>|null $channels */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $loop;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ref;
 
     /**
      * The channel the contents of this element should be applied to. Can be `email`,
      * `push`, `direct_message`, `sms` or a provider such as slack.
      */
-    #[Api]
+    #[Required]
     public string $channel;
 
     /**
@@ -59,11 +60,11 @@ final class ElementalChannelNodeWithType implements BaseModel
      *
      * @var array<string,mixed>|null $raw
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $raw;
 
     /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
+    #[Optional(enum: Type::class)]
     public ?string $type;
 
     /**

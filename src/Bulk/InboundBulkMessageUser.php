@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
@@ -27,19 +27,19 @@ final class InboundBulkMessageUser implements BaseModel
     /** @use SdkModel<InboundBulkMessageUserShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?UserRecipient $to;
 
     public function __construct()

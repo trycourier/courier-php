@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Tenants\Preferences\Items;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -29,11 +30,11 @@ final class ItemUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $tenant_id;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
@@ -41,13 +42,13 @@ final class ItemUpdateParams implements BaseModel
      *
      * @var list<value-of<ChannelClassification>>|null $custom_routing
      */
-    #[Api(list: ChannelClassification::class, nullable: true, optional: true)]
+    #[Optional(list: ChannelClassification::class, nullable: true)]
     public ?array $custom_routing;
 
     /**
      * Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $has_custom_routing;
 
     /**
