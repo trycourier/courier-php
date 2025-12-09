@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Preference\Source;
@@ -23,19 +24,19 @@ final class Preference implements BaseModel
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
-    #[Api(enum: PreferenceStatus::class)]
+    #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
     /** @var list<ChannelPreference>|null $channel_preferences */
-    #[Api(list: ChannelPreference::class, nullable: true, optional: true)]
+    #[Optional(list: ChannelPreference::class, nullable: true)]
     public ?array $channel_preferences;
 
     /** @var list<Rule>|null $rules */
-    #[Api(list: Rule::class, nullable: true, optional: true)]
+    #[Optional(list: Rule::class, nullable: true)]
     public ?array $rules;
 
     /** @var value-of<Source>|null $source */
-    #[Api(enum: Source::class, nullable: true, optional: true)]
+    #[Optional(enum: Source::class, nullable: true)]
     public ?string $source;
 
     /**

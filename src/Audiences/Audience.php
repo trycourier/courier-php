@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Audiences;
 
 use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -27,31 +27,31 @@ final class Audience implements BaseModel
     /**
      * A unique identifier representing the audience_id.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public string $created_at;
 
     /**
      * A description of the audience.
      */
-    #[Api]
+    #[Required]
     public string $description;
 
     /**
      * A single filter to use for filtering.
      */
-    #[Api]
+    #[Required]
     public Filter $filter;
 
     /**
      * The name of the audience.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api]
+    #[Required]
     public string $updated_at;
 
     /**

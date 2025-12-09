@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -21,13 +21,13 @@ final class ElementalContentSugar implements BaseModel
     /**
      * The text content displayed in the notification.
      */
-    #[Api]
+    #[Required]
     public string $body;
 
     /**
      * Title/subject displayed by supported channels.
      */
-    #[Api]
+    #[Required]
     public string $title;
 
     /**

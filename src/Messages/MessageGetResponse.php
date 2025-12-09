@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
@@ -36,55 +37,55 @@ final class MessageGetResponse implements BaseModel
     /**
      * A unique identifier associated with the message you wish to retrieve (results from a send).
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * A UTC timestamp at which the recipient clicked on a tracked link for the first time. Stored as a millisecond representation of the Unix epoch.
      */
-    #[Api]
+    #[Required]
     public int $clicked;
 
     /**
      * A UTC timestamp at which the Integration provider delivered the message. Stored as a millisecond representation of the Unix epoch.
      */
-    #[Api]
+    #[Required]
     public int $delivered;
 
     /**
      * A UTC timestamp at which Courier received the message request. Stored as a millisecond representation of the Unix epoch.
      */
-    #[Api]
+    #[Required]
     public int $enqueued;
 
     /**
      * A unique identifier associated with the event of the delivered message.
      */
-    #[Api]
+    #[Required]
     public string $event;
 
     /**
      * A unique identifier associated with the notification of the delivered message.
      */
-    #[Api]
+    #[Required]
     public string $notification;
 
     /**
      * A UTC timestamp at which the recipient opened a message for the first time. Stored as a millisecond representation of the Unix epoch.
      */
-    #[Api]
+    #[Required]
     public int $opened;
 
     /**
      * A unique identifier associated with the recipient of the delivered message.
      */
-    #[Api]
+    #[Required]
     public string $recipient;
 
     /**
      * A UTC timestamp at which Courier passed the message to the Integration provider. Stored as a millisecond representation of the Unix epoch.
      */
-    #[Api]
+    #[Required]
     public int $sent;
 
     /**
@@ -92,13 +93,13 @@ final class MessageGetResponse implements BaseModel
      *
      * @var value-of<Status> $status
      */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
      * A message describing the error that occurred.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $error;
 
     /**
@@ -106,11 +107,11 @@ final class MessageGetResponse implements BaseModel
      *
      * @var value-of<Reason>|null $reason
      */
-    #[Api(enum: Reason::class, nullable: true, optional: true)]
+    #[Optional(enum: Reason::class, nullable: true)]
     public ?string $reason;
 
     /** @var list<array<string,mixed>>|null $providers */
-    #[Api(list: new MapOf('mixed'), nullable: true, optional: true)]
+    #[Optional(list: new MapOf('mixed'), nullable: true)]
     public ?array $providers;
 
     /**

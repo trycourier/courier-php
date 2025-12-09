@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Inbound;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,7 +19,7 @@ final class InboundTrackEventResponse implements BaseModel
     /**
      * A successful call returns a `202` status code along with a `requestId` in the response body.
      */
-    #[Api]
+    #[Required]
     public string $messageId;
 
     /**

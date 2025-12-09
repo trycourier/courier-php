@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,7 +19,7 @@ final class Preferences implements BaseModel
     /**
      * The subscription topic to apply to the message.
      */
-    #[Api]
+    #[Required]
     public string $subscription_topic_id;
 
     /**

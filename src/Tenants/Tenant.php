@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\DefaultPreferences\Item;
@@ -28,31 +29,31 @@ final class Tenant implements BaseModel
     /**
      * Id of the tenant.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * Name of the tenant.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
     /**
      * Brand to be used for the account when one is not specified by the send call.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand_id;
 
     /**
      * Defines the preferences used for the account when the user hasn't specified their own.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?DefaultPreferences $default_preferences;
 
     /**
      * Tenant's parent id (if any).
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $parent_tenant_id;
 
     /**
@@ -60,7 +61,7 @@ final class Tenant implements BaseModel
      *
      * @var array<string,mixed>|null $properties
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $properties;
 
     /**
@@ -68,7 +69,7 @@ final class Tenant implements BaseModel
      *
      * @var array<string,mixed>|null $user_profile
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $user_profile;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\UserRecipient\Preferences;
@@ -31,56 +31,56 @@ final class UserRecipient implements BaseModel
     /**
      * Deprecated - Use `tenant_id` instead.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $account_id;
 
     /**
      * Context such as tenant_id to send the notification with.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?MessageContext $context;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
     /**
      * The user's email address.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $email;
 
     /**
      * The id of the list to send the message to.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $list_id;
 
     /**
      * The user's preferred ISO 639-1 language code.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $locale;
 
     /**
      * The user's phone number.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $phone_number;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Preferences $preferences;
 
     /**
      * The id of the tenant the user is associated with.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $tenant_id;
 
     /**
      * The user's unique identifier. Typically, this will match the user id of a user in your system.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $user_id;
 
     public function __construct()

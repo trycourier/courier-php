@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationGetContent\Channel\Content;
@@ -24,20 +25,20 @@ final class Channel implements BaseModel
     /** @use SdkModel<ChannelShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Content $content;
 
     /** @var array<string,Locale>|null $locales */
-    #[Api(map: Locale::class, nullable: true, optional: true)]
+    #[Optional(map: Locale::class, nullable: true)]
     public ?array $locales;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $type;
 
     /**

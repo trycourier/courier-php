@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -29,7 +29,7 @@ final class SubscriptionAddParams implements BaseModel
     use SdkParams;
 
     /** @var list<PutSubscriptionsRecipient> $recipients */
-    #[Api(list: PutSubscriptionsRecipient::class)]
+    #[Required(list: PutSubscriptionsRecipient::class)]
     public array $recipients;
 
     /**

@@ -6,7 +6,8 @@ namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep\Action;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep\Merge;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -24,18 +25,18 @@ final class AutomationUpdateProfileStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
     /** @var value-of<Merge>|null $merge */
-    #[Api(enum: Merge::class, nullable: true, optional: true)]
+    #[Optional(enum: Merge::class, nullable: true)]
     public ?string $merge;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient_id;
 
     /**

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -23,17 +24,17 @@ final class Webhook implements BaseModel
     use SdkModel;
 
     /** @var value-of<Method> $method */
-    #[Api(enum: Method::class)]
+    #[Required(enum: Method::class)]
     public string $method;
 
-    #[Api]
+    #[Required]
     public string $url;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $body;
 
     /** @var array<string,string>|null $headers */
-    #[Api(map: 'string', nullable: true, optional: true)]
+    #[Optional(map: 'string', nullable: true)]
     public ?array $headers;
 
     /**

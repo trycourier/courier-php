@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Automations;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,7 +16,7 @@ final class AutomationInvokeResponse implements BaseModel
     /** @use SdkModel<AutomationInvokeResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $runId;
 
     /**

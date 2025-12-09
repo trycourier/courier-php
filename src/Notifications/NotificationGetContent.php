@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationGetContent\Block;
@@ -27,14 +27,14 @@ final class NotificationGetContent implements BaseModel
     use SdkModel;
 
     /** @var list<Block>|null $blocks */
-    #[Api(list: Block::class, nullable: true, optional: true)]
+    #[Optional(list: Block::class, nullable: true)]
     public ?array $blocks;
 
     /** @var list<Channel>|null $channels */
-    #[Api(list: Channel::class, nullable: true, optional: true)]
+    #[Optional(list: Channel::class, nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
     public function __construct()

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -20,10 +20,10 @@ final class AudienceListResponse implements BaseModel
     use SdkModel;
 
     /** @var list<Audience> $items */
-    #[Api(list: Audience::class)]
+    #[Required(list: Audience::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**

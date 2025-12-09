@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent\Channel;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,10 +16,10 @@ final class Locale implements BaseModel
     /** @use SdkModel<LocaleShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $subject;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $title;
 
     public function __construct()

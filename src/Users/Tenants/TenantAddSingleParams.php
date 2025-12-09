@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -28,11 +29,11 @@ final class TenantAddSingleParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $user_id;
 
     /** @var array<string,mixed>|null $profile */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $profile;
 
     /**

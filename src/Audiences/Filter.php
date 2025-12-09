@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Audiences;
 
 use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -24,19 +24,19 @@ final class Filter implements BaseModel
      *
      * @var value-of<Operator> $operator
      */
-    #[Api(enum: Operator::class)]
+    #[Required(enum: Operator::class)]
     public string $operator;
 
     /**
      * The attribe name from profile whose value will be operated against the filter value.
      */
-    #[Api]
+    #[Required]
     public string $path;
 
     /**
      * The value to use for filtering.
      */
-    #[Api]
+    #[Required]
     public string $value;
 
     /**

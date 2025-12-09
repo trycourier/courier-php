@@ -7,7 +7,7 @@ namespace Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
 use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalContent;
@@ -27,20 +27,20 @@ final class Job implements BaseModel
     /** @use SdkModel<JobShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public InboundBulkTemplateMessage|InboundBulkContentMessage $definition;
 
-    #[Api]
+    #[Required]
     public int $enqueued;
 
-    #[Api]
+    #[Required]
     public int $failures;
 
-    #[Api]
+    #[Required]
     public int $received;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**

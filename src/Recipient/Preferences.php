@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Recipient;
 
 use Courier\ChannelPreference;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Preference;
@@ -26,14 +27,14 @@ final class Preferences implements BaseModel
     use SdkModel;
 
     /** @var array<string,Preference> $notifications */
-    #[Api(map: Preference::class)]
+    #[Required(map: Preference::class)]
     public array $notifications;
 
     /** @var array<string,Preference>|null $categories */
-    #[Api(map: Preference::class, nullable: true, optional: true)]
+    #[Optional(map: Preference::class, nullable: true)]
     public ?array $categories;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $templateId;
 
     /**

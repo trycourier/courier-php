@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -24,13 +25,13 @@ final class PreferenceRetrieveTopicParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $user_id;
 
     /**
      * Query the preferences of a user for this specific tenant context.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $tenant_id;
 
     /**

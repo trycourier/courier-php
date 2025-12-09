@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalActionNodeWithType\Type;
@@ -24,20 +24,20 @@ final class ElementalActionNodeWithType implements BaseModel
     use SdkModel;
 
     /** @var list<string>|null $channels */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $loop;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ref;
 
     /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
+    #[Optional(enum: Type::class)]
     public ?string $type;
 
     public function __construct()

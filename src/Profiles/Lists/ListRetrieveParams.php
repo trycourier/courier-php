@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -25,7 +25,7 @@ final class ListRetrieveParams implements BaseModel
     /**
      * A unique identifier that allows for fetching the next set of message statuses.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     public function __construct()

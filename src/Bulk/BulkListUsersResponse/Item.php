@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkListUsersResponse;
 
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageContext;
@@ -30,26 +31,26 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $data;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?RecipientPreferences $preferences;
 
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?UserRecipient $to;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $messageId;
 
     /**

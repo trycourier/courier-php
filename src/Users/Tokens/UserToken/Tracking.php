@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens\UserToken;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -26,25 +26,25 @@ final class Tracking implements BaseModel
     /**
      * The IP address of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ip;
 
     /**
      * The latitude of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $lat;
 
     /**
      * The longitude of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $long;
 
     /**
      * The operating system version.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $os_version;
 
     public function __construct()

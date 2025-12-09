@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,7 +16,7 @@ final class BulkNewJobResponse implements BaseModel
     /** @use SdkModel<BulkNewJobResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $jobId;
 
     /**

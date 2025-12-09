@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -21,7 +21,7 @@ final class ListGetResponse implements BaseModel
     /** @use SdkModel<ListGetResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -29,7 +29,7 @@ final class ListGetResponse implements BaseModel
      *
      * @var list<Result> $results
      */
-    #[Api(list: Result::class)]
+    #[Required(list: Result::class)]
     public array $results;
 
     /**

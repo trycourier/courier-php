@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,7 +16,7 @@ final class AudienceUpdateResponse implements BaseModel
     /** @use SdkModel<AudienceUpdateResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Audience $audience;
 
     /**

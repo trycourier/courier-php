@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\PreferenceStatus;
@@ -18,7 +18,7 @@ final class PreferenceGetTopicResponse implements BaseModel
     /** @use SdkModel<PreferenceGetTopicResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public TopicPreference $topic;
 
     /**

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Bulk\InboundBulkMessage;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
@@ -36,25 +37,25 @@ final class InboundBulkContentMessage implements BaseModel
     /**
      * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
      */
-    #[Api]
+    #[Required]
     public ElementalContentSugar|ElementalContent $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $event;
 
     /** @var array<string,array<string,mixed>>|null $locale */
-    #[Api(map: new MapOf('mixed'), nullable: true, optional: true)]
+    #[Optional(map: new MapOf('mixed'), nullable: true)]
     public ?array $locale;
 
     /** @var array<string,mixed>|null $override */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $override;
 
     /**

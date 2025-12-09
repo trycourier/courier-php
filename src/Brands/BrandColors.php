@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +18,10 @@ final class BrandColors implements BaseModel
     /** @use SdkModel<BrandColorsShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $primary;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?string $secondary;
 
     public function __construct()

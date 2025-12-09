@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,7 +16,7 @@ final class PreferenceUpdateOrNewTopicResponse implements BaseModel
     /** @use SdkModel<PreferenceUpdateOrNewTopicResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $message;
 
     /**

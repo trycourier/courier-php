@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\AuditEvents;
 
 use Courier\AuditEvents\AuditEvent\Actor;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -24,22 +24,22 @@ final class AuditEvent implements BaseModel
     /** @use SdkModel<AuditEventShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Actor $actor;
 
-    #[Api]
+    #[Required]
     public string $auditEventId;
 
-    #[Api]
+    #[Required]
     public string $source;
 
-    #[Api]
+    #[Required]
     public string $target;
 
-    #[Api]
+    #[Required]
     public string $timestamp;
 
-    #[Api]
+    #[Required]
     public string $type;
 
     /**

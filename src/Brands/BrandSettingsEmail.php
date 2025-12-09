@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Brands;
 
 use Courier\Brands\BrandSettingsEmail\TemplateOverride;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -22,16 +22,16 @@ final class BrandSettingsEmail implements BaseModel
     /** @use SdkModel<BrandSettingsEmailShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?EmailFooter $footer;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?EmailHead $head;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?EmailHeader $header;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?TemplateOverride $templateOverride;
 
     public function __construct()

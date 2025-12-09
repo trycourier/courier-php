@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -19,11 +19,11 @@ final class BrandListResponse implements BaseModel
     /** @use SdkModel<BrandListResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /** @var list<Brand> $results */
-    #[Api(list: Brand::class)]
+    #[Required(list: Brand::class)]
     public array $results;
 
     /**

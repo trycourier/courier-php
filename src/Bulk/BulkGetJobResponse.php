@@ -8,7 +8,7 @@ use Courier\Bulk\BulkGetJobResponse\Job;
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
 use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
 use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -20,7 +20,7 @@ final class BulkGetJobResponse implements BaseModel
     /** @use SdkModel<BulkGetJobResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Job $job;
 
     /**

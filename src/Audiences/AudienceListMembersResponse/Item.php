@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences\AudienceListMembersResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -22,19 +22,19 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $added_at;
 
-    #[Api]
+    #[Required]
     public string $audience_id;
 
-    #[Api]
+    #[Required]
     public int $audience_version;
 
-    #[Api]
+    #[Required]
     public string $member_id;
 
-    #[Api]
+    #[Required]
     public string $reason;
 
     /**

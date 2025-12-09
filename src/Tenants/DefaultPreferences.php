@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Tenants;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\DefaultPreferences\Item;
@@ -20,7 +20,7 @@ final class DefaultPreferences implements BaseModel
     use SdkModel;
 
     /** @var list<Item>|null $items */
-    #[Api(list: Item::class, nullable: true, optional: true)]
+    #[Optional(list: Item::class, nullable: true)]
     public ?array $items;
 
     public function __construct()

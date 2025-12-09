@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -56,7 +56,7 @@ final class SendMessageParams implements BaseModel
     /**
      * The message property has the following primary top-level properties. They define the destination and content of the message.
      */
-    #[Api]
+    #[Required]
     public Message $message;
 
     /**

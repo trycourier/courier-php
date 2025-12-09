@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Translations;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,10 +22,10 @@ final class TranslationUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $domain;
 
-    #[Api]
+    #[Required]
     public string $body;
 
     /**

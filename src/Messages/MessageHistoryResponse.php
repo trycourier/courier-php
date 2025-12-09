@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
@@ -20,7 +20,7 @@ final class MessageHistoryResponse implements BaseModel
     use SdkModel;
 
     /** @var list<array<string,mixed>> $results */
-    #[Api(list: new MapOf('mixed'))]
+    #[Required(list: new MapOf('mixed'))]
     public array $results;
 
     /**

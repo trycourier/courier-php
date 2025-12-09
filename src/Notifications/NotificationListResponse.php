@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationListResponse\Result;
@@ -20,11 +20,11 @@ final class NotificationListResponse implements BaseModel
     /** @use SdkModel<NotificationListResponseShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /** @var list<mixed> $results */
-    #[Api(list: Result::class)]
+    #[Required(list: Result::class)]
     public array $results;
 
     /**

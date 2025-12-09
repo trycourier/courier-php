@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation;
@@ -28,7 +29,7 @@ final class TenantListResponse implements BaseModel
     /**
      * Set to true when there are more pages that can be retrieved.
      */
-    #[Api]
+    #[Required]
     public bool $has_more;
 
     /**
@@ -36,31 +37,31 @@ final class TenantListResponse implements BaseModel
      *
      * @var value-of<Type> $type
      */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
     /**
      * A url that may be used to generate these results.
      */
-    #[Api]
+    #[Required]
     public string $url;
 
     /**
      * A pointer to the next page of results. Defined
      * only when `has_more` is set to true.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /** @var list<TenantAssociation>|null $items */
-    #[Api(list: TenantAssociation::class, nullable: true, optional: true)]
+    #[Optional(list: TenantAssociation::class, nullable: true)]
     public ?array $items;
 
     /**
      * A url that may be used to generate fetch the next set of results.
      * Defined only when `has_more` is set to true.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $next_url;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse\Result\Content;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,13 +19,13 @@ final class Block implements BaseModel
     /**
      * The block text of the rendered message block.
      */
-    #[Api]
+    #[Required]
     public string $text;
 
     /**
      * The block type of the rendered message block.
      */
-    #[Api]
+    #[Required]
     public string $type;
 
     /**

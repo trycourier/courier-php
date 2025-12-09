@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants\Preferences\Items;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,7 +22,7 @@ final class ItemDeleteParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $tenant_id;
 
     /**

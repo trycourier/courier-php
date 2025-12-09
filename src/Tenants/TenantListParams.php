@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -27,20 +27,20 @@ final class TenantListParams implements BaseModel
     /**
      * Continue the pagination with the next cursor.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
      * The number of tenants to return
      * (defaults to 20, maximum value of 100).
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $limit;
 
     /**
      * Filter the list of tenants by parent_id.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $parent_tenant_id;
 
     public function __construct()

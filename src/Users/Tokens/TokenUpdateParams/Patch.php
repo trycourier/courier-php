@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens\TokenUpdateParams;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,19 +20,19 @@ final class Patch implements BaseModel
     /**
      * The operation to perform.
      */
-    #[Api]
+    #[Required]
     public string $op;
 
     /**
      * The JSON path specifying the part of the profile to operate on.
      */
-    #[Api]
+    #[Required]
     public string $path;
 
     /**
      * The value for the operation.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $value;
 
     /**

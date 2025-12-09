@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -45,41 +46,41 @@ final class TokenAddSingleParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $user_id;
 
     /**
      * Full body of the token. Must match token in URL path parameter.
      */
-    #[Api]
+    #[Required]
     public string $token;
 
     /** @var value-of<ProviderKey> $provider_key */
-    #[Api(enum: ProviderKey::class)]
+    #[Required(enum: ProviderKey::class)]
     public string $provider_key;
 
     /**
      * Information about the device the token came from.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Device $device;
 
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public string|bool|null $expiry_date;
 
     /**
      * Properties about the token.
      */
-    #[Api(optional: true)]
+    #[Optional]
     public mixed $properties;
 
     /**
      * Tracking information about the device the token came from.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Tracking $tracking;
 
     /**

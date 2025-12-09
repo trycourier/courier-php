@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationListResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
@@ -30,10 +31,10 @@ final class Result implements BaseModel
     /** @use SdkModel<ResultShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public int $created_at;
 
     /**
@@ -41,25 +42,25 @@ final class Result implements BaseModel
      *
      * @var list<string> $event_ids
      */
-    #[Api(list: 'string')]
+    #[Required(list: 'string')]
     public array $event_ids;
 
-    #[Api]
+    #[Required]
     public string $note;
 
-    #[Api]
+    #[Required]
     public MessageRouting $routing;
 
-    #[Api]
+    #[Required]
     public string $topic_id;
 
-    #[Api]
+    #[Required]
     public int $updated_at;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Tags $tags;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $title;
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
@@ -20,10 +20,10 @@ final class ListListResponse implements BaseModel
     use SdkModel;
 
     /** @var list<SubscriptionList> $items */
-    #[Api(list: SubscriptionList::class)]
+    #[Required(list: SubscriptionList::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**

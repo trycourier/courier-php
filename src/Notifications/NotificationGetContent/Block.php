@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
@@ -27,29 +28,29 @@ final class Block implements BaseModel
     /** @use SdkModel<BlockShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var value-of<Type> $type */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $alias;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public string|NotificationContentHierarchy|null $content;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $context;
 
     /**
      * @var array<string,string|Locale\NotificationContentHierarchy>|null $locales
      */
-    #[Api(map: Locale::class, nullable: true, optional: true)]
+    #[Optional(map: Locale::class, nullable: true)]
     public ?array $locales;
 
     /**

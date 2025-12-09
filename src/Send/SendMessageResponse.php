@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -20,7 +20,7 @@ final class SendMessageResponse implements BaseModel
      * A successful call to `POST /send` returns a `202` status code along with a `requestId` in the response body.
      * For single-recipient requests, the `requestId` is the derived message_id. For multiple recipients, Courier assigns a unique message_id to each derived message.
      */
-    #[Api]
+    #[Required]
     public string $requestId;
 
     /**

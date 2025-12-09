@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists\ListGetResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\NotificationPreferenceDetails;
@@ -24,28 +25,28 @@ final class Result implements BaseModel
     /** @use SdkModel<ResultShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * The date/time of when the list was created. Represented as a string in ISO format.
      */
-    #[Api]
+    #[Required]
     public string $created;
 
     /**
      * List name.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
     /**
      * The date/time of when the list was updated. Represented as a string in ISO format.
      */
-    #[Api]
+    #[Required]
     public string $updated;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**

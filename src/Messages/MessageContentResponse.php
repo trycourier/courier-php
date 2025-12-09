@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result;
@@ -23,7 +23,7 @@ final class MessageContentResponse implements BaseModel
      *
      * @var list<Result> $results
      */
-    #[Api(list: Result::class)]
+    #[Required(list: Result::class)]
     public array $results;
 
     /**

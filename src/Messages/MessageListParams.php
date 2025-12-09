@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -41,43 +41,43 @@ final class MessageListParams implements BaseModel
     /**
      * A boolean value that indicates whether archived messages should be included in the response.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $archived;
 
     /**
      * A unique identifier that allows for fetching the next set of messages.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
      * The enqueued datetime of a message to filter out messages received before.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $enqueued_after;
 
     /**
      * A unique identifier representing the event that was used to send the event.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $event;
 
     /**
      * A unique identifier representing the list the message was sent to.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $list;
 
     /**
      * A unique identifier representing the message_id returned from either /send or /send/list.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $messageId;
 
     /**
      * A unique identifier representing the notification that was used to send the event.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $notification;
 
     /**
@@ -85,13 +85,13 @@ final class MessageListParams implements BaseModel
      *
      * @var list<string|null>|null $provider
      */
-    #[Api(type: new ListOf('string', nullable: true), optional: true)]
+    #[Optional(type: new ListOf('string', nullable: true))]
     public ?array $provider;
 
     /**
      * A unique identifier representing the recipient associated with the requested profile.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
     /**
@@ -99,7 +99,7 @@ final class MessageListParams implements BaseModel
      *
      * @var list<string|null>|null $status
      */
-    #[Api(type: new ListOf('string', nullable: true), optional: true)]
+    #[Optional(type: new ListOf('string', nullable: true))]
     public ?array $status;
 
     /**
@@ -107,25 +107,25 @@ final class MessageListParams implements BaseModel
      *
      * @var list<string|null>|null $tag
      */
-    #[Api(type: new ListOf('string', nullable: true), optional: true)]
+    #[Optional(type: new ListOf('string', nullable: true))]
     public ?array $tag;
 
     /**
      * A comma delimited list of 'tags'. Messages will be returned if they match any of the tags passed in.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $tags;
 
     /**
      * Messages sent with the context of a Tenant.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $tenant_id;
 
     /**
      * The unique identifier used to trace the requests.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $traceId;
 
     public function __construct()

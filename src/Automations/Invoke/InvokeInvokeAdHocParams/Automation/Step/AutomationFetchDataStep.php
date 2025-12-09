@@ -8,7 +8,8 @@ use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\Automatio
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\MergeStrategy;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -25,14 +26,14 @@ final class AutomationFetchDataStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api]
+    #[Required]
     public Webhook $webhook;
 
     /** @var value-of<MergeStrategy>|null $merge_strategy */
-    #[Api(enum: MergeStrategy::class, nullable: true, optional: true)]
+    #[Optional(enum: MergeStrategy::class, nullable: true)]
     public ?string $merge_strategy;
 
     /**
