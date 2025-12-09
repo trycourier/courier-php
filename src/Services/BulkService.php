@@ -4,64 +4,110 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
-use Courier\Bulk\BulkAddUsersParams;
-use Courier\Bulk\BulkCreateJobParams;
 use Courier\Bulk\BulkGetJobResponse;
-use Courier\Bulk\BulkListUsersParams;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
 use Courier\Bulk\InboundBulkMessage;
 use Courier\Bulk\InboundBulkMessageUser;
+use Courier\ChannelClassification;
+use Courier\ChannelPreference;
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\MessageContext;
+use Courier\NotificationPreferenceDetails;
+use Courier\Preference;
+use Courier\Preference\Source;
+use Courier\PreferenceStatus;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
+use Courier\Rule;
 use Courier\ServiceContracts\BulkContract;
 use Courier\UserRecipient;
 
 final class BulkService implements BulkContract
 {
     /**
+     * @api
+     */
+    public BulkRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new BulkRawService($client);
+    }
 
     /**
      * @api
      *
      * Ingest user data into a Bulk Job
      *
-     * @param array{
-     *   users: list<array{
-     *     data?: mixed,
-     *     preferences?: array<mixed>|RecipientPreferences|null,
-     *     profile?: mixed,
-     *     recipient?: string|null,
-     *     to?: array<mixed>|UserRecipient|null,
-     *   }|InboundBulkMessageUser>,
-     * }|BulkAddUsersParams $params
+     * @param string $jobID A unique identifier representing the bulk job
+     * @param list<array{
+     *   data?: mixed,
+     *   preferences?: array{
+     *     categories?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *   }|RecipientPreferences|null,
+     *   profile?: mixed,
+     *   recipient?: string|null,
+     *   to?: array{
+     *     accountID?: string|null,
+     *     context?: array{tenantID?: string|null}|MessageContext|null,
+     *     data?: array<string,mixed>|null,
+     *     email?: string|null,
+     *     listID?: string|null,
+     *     locale?: string|null,
+     *     phoneNumber?: string|null,
+     *     preferences?: array{
+     *       notifications: array<string,array{
+     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *         channelPreferences?: list<array{
+     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *         }|ChannelPreference>|null,
+     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *         source?: 'subscription'|'list'|'recipient'|Source|null,
+     *       }|Preference>,
+     *       categories?: array<string,array{
+     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *         channelPreferences?: list<array{
+     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *         }|ChannelPreference>|null,
+     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *         source?: 'subscription'|'list'|'recipient'|Source|null,
+     *       }|Preference>|null,
+     *       templateID?: string|null,
+     *     }|null,
+     *     tenantID?: string|null,
+     *     userID?: string|null,
+     *   }|UserRecipient|null,
+     * }|InboundBulkMessageUser> $users
      *
      * @throws APIException
      */
     public function addUsers(
         string $jobID,
-        array|BulkAddUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $users,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = BulkAddUsersParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['users' => $users];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'post',
-            path: ['bulk/%1$s', $jobID],
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->addUsers($jobID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -71,29 +117,18 @@ final class BulkService implements BulkContract
      *
      * Create a bulk job
      *
-     * @param array{
-     *   message: InboundBulkMessage|array<string,mixed>
-     * }|BulkCreateJobParams $params
+     * @param InboundBulkMessage|array<string,mixed> $message
      *
      * @throws APIException
      */
     public function createJob(
-        array|BulkCreateJobParams $params,
+        InboundBulkMessage|array $message,
         ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse {
-        [$parsed, $options] = BulkCreateJobParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['message' => $message];
 
-        /** @var BaseResponse<BulkNewJobResponse> */
-        $response = $this->client->request(
-            method: 'post',
-            path: 'bulk',
-            body: (object) $parsed,
-            options: $options,
-            convert: BulkNewJobResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->createJob(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -103,28 +138,22 @@ final class BulkService implements BulkContract
      *
      * Get Bulk Job Users
      *
-     * @param array{cursor?: string|null}|BulkListUsersParams $params
+     * @param string $jobID A unique identifier representing the bulk job
+     * @param string|null $cursor A unique identifier that allows for fetching the next set of users added to the bulk job
      *
      * @throws APIException
      */
     public function listUsers(
         string $jobID,
-        array|BulkListUsersParams $params,
+        ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): BulkListUsersResponse {
-        [$parsed, $options] = BulkListUsersParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['cursor' => $cursor];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<BulkListUsersResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['bulk/%1$s/users', $jobID],
-            query: $parsed,
-            options: $options,
-            convert: BulkListUsersResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listUsers($jobID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -134,19 +163,16 @@ final class BulkService implements BulkContract
      *
      * Get a bulk job
      *
+     * @param string $jobID A unique identifier representing the bulk job
+     *
      * @throws APIException
      */
     public function retrieveJob(
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): BulkGetJobResponse {
-        /** @var BaseResponse<BulkGetJobResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['bulk/%1$s', $jobID],
-            options: $requestOptions,
-            convert: BulkGetJobResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieveJob($jobID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -156,19 +182,16 @@ final class BulkService implements BulkContract
      *
      * Run a bulk job
      *
+     * @param string $jobID A unique identifier representing the bulk job
+     *
      * @throws APIException
      */
     public function runJob(
         string $jobID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'post',
-            path: ['bulk/%1$s/run', $jobID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->runJob($jobID, requestOptions: $requestOptions);
 
         return $response->parse();
     }

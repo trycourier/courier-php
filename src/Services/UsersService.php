@@ -15,6 +15,11 @@ final class UsersService implements UsersContract
     /**
      * @api
      */
+    public UsersRawService $raw;
+
+    /**
+     * @api
+     */
     public PreferencesService $preferences;
 
     /**
@@ -32,6 +37,7 @@ final class UsersService implements UsersContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new UsersRawService($client);
         $this->preferences = new PreferencesService($client);
         $this->tenants = new TenantsService($client);
         $this->tokens = new TokensService($client);

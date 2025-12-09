@@ -36,7 +36,8 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->update(
             'topic_id',
-            ['tenantID' => 'tenant_id', 'status' => 'OPTED_IN']
+            tenantID: 'tenant_id',
+            status: 'OPTED_IN'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -52,12 +53,10 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->update(
             'topic_id',
-            [
-                'tenantID' => 'tenant_id',
-                'status' => 'OPTED_IN',
-                'customRouting' => [ChannelClassification::INBOX],
-                'hasCustomRouting' => true,
-            ],
+            tenantID: 'tenant_id',
+            status: 'OPTED_IN',
+            customRouting: [ChannelClassification::INBOX],
+            hasCustomRouting: true,
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -73,7 +72,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
-            ['tenantID' => 'tenant_id']
+            tenantID: 'tenant_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -89,7 +88,7 @@ final class ItemsTest extends TestCase
 
         $result = $this->client->tenants->preferences->items->delete(
             'topic_id',
-            ['tenantID' => 'tenant_id']
+            tenantID: 'tenant_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

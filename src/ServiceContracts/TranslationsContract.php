@@ -6,34 +6,36 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
-use Courier\Translations\TranslationRetrieveParams;
-use Courier\Translations\TranslationUpdateParams;
 
 interface TranslationsContract
 {
     /**
      * @api
      *
-     * @param array<mixed>|TranslationRetrieveParams $params
+     * @param string $locale The locale you want to retrieve the translations for
+     * @param string $domain The domain you want to retrieve translations for. Only `default` is supported at the moment
      *
      * @throws APIException
      */
     public function retrieve(
         string $locale,
-        array|TranslationRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $domain,
+        ?RequestOptions $requestOptions = null
     ): string;
 
     /**
      * @api
      *
-     * @param array<mixed>|TranslationUpdateParams $params
+     * @param string $locale Path param: The locale you want to retrieve the translations for
+     * @param string $domain Path param: The domain you want to retrieve translations for. Only `default` is supported at the moment
+     * @param string $body Body param:
      *
      * @throws APIException
      */
     public function update(
         string $locale,
-        array|TranslationUpdateParams $params,
+        string $domain,
+        string $body,
         ?RequestOptions $requestOptions = null,
     ): mixed;
 }

@@ -38,7 +38,7 @@ final class PreferencesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->preferences->retrieve('user_id', []);
+        $result = $this->client->users->preferences->retrieve('user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(PreferenceGetResponse::class, $result);
@@ -53,7 +53,7 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            ['userID' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -69,7 +69,8 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->retrieveTopic(
             'topic_id',
-            ['userID' => 'user_id', 'tenantID' => 'tenant_id']
+            userID: 'user_id',
+            tenantID: 'tenant_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -85,10 +86,8 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
-            [
-                'userID' => 'user_id',
-                'topic' => ['status' => PreferenceStatus::OPTED_IN],
-            ],
+            userID: 'user_id',
+            topic: ['status' => PreferenceStatus::OPTED_IN],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -104,17 +103,15 @@ final class PreferencesTest extends TestCase
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
             'topic_id',
-            [
-                'userID' => 'user_id',
-                'topic' => [
-                    'status' => PreferenceStatus::OPTED_IN,
-                    'customRouting' => [
-                        ChannelClassification::INBOX, ChannelClassification::EMAIL,
-                    ],
-                    'hasCustomRouting' => true,
+            userID: 'user_id',
+            topic: [
+                'status' => PreferenceStatus::OPTED_IN,
+                'customRouting' => [
+                    ChannelClassification::INBOX, ChannelClassification::EMAIL,
                 ],
-                'tenantID' => 'tenant_id',
+                'hasCustomRouting' => true,
             ],
+            tenantID: 'tenant_id',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

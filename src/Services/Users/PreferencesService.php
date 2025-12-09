@@ -6,53 +6,50 @@ namespace Courier\Services\Users;
 
 use Courier\ChannelClassification;
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
-use Courier\Core\Util;
 use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesContract;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
-use Courier\Users\Preferences\PreferenceRetrieveParams;
-use Courier\Users\Preferences\PreferenceRetrieveTopicParams;
-use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 
 final class PreferencesService implements PreferencesContract
 {
     /**
+     * @api
+     */
+    public PreferencesRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new PreferencesRawService($client);
+    }
 
     /**
      * @api
      *
      * Fetch all user preferences.
      *
-     * @param array{tenantID?: string|null}|PreferenceRetrieveParams $params
+     * @param string $userID a unique identifier associated with the user whose preferences you wish to retrieve
+     * @param string|null $tenantID query the preferences of a user for this specific tenant context
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        array|PreferenceRetrieveParams $params,
+        ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceGetResponse {
-        [$parsed, $options] = PreferenceRetrieveParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['tenantID' => $tenantID];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<PreferenceGetResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['users/%1$s/preferences', $userID],
-            query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
-            options: $options,
-            convert: PreferenceGetResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($userID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -62,32 +59,24 @@ final class PreferencesService implements PreferencesContract
      *
      * Fetch user preferences for a specific subscription topic.
      *
-     * @param array{
-     *   userID: string, tenantID?: string|null
-     * }|PreferenceRetrieveTopicParams $params
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
+     * @param string|null $tenantID query param: Query the preferences of a user for this specific tenant context
      *
      * @throws APIException
      */
     public function retrieveTopic(
         string $topicID,
-        array|PreferenceRetrieveTopicParams $params,
+        string $userID,
+        ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceGetTopicResponse {
-        [$parsed, $options] = PreferenceRetrieveTopicParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $params = ['userID' => $userID, 'tenantID' => $tenantID];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<PreferenceGetTopicResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
-            query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
-            options: $options,
-            convert: PreferenceGetTopicResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieveTopic($topicID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -97,46 +86,30 @@ final class PreferencesService implements PreferencesContract
      *
      * Update or Create user preferences for a specific subscription topic.
      *
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
      * @param array{
-     *   userID: string,
-     *   topic: array{
-     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *     customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *     hasCustomRouting?: bool|null,
-     *   },
-     *   tenantID?: string|null,
-     * }|PreferenceUpdateOrCreateTopicParams $params
+     *   status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *   customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
+     *   hasCustomRouting?: bool|null,
+     * } $topic Body param:
+     * @param string|null $tenantID query param: Update the preferences of a user for this specific tenant context
      *
      * @throws APIException
      */
     public function updateOrCreateTopic(
         string $topicID,
-        array|PreferenceUpdateOrCreateTopicParams $params,
+        string $userID,
+        array $topic,
+        ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceUpdateOrNewTopicResponse {
-        [$parsed, $options] = PreferenceUpdateOrCreateTopicParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
-        $query_params = ['tenant_id'];
+        $params = ['userID' => $userID, 'topic' => $topic, 'tenantID' => $tenantID];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<PreferenceUpdateOrNewTopicResponse> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
-            query: Util::array_transform_keys(
-                array_diff_key($parsed, $query_params),
-                ['tenantID' => 'tenant_id']
-            ),
-            body: (object) array_diff_key(
-                array_diff_key($parsed, $query_params),
-                ['userID']
-            ),
-            options: $options,
-            convert: PreferenceUpdateOrNewTopicResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->updateOrCreateTopic($topicID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

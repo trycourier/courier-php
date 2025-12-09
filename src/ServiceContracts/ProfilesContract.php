@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
-use Courier\Profiles\ProfileCreateParams;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
-use Courier\Profiles\ProfileReplaceParams;
 use Courier\Profiles\ProfileReplaceResponse;
-use Courier\Profiles\ProfileUpdateParams;
 use Courier\RequestOptions;
 
 interface ProfilesContract
@@ -18,18 +15,21 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param array<mixed>|ProfileCreateParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param array<string,mixed> $profile
      *
      * @throws APIException
      */
     public function create(
         string $userID,
-        array|ProfileCreateParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $profile,
+        ?RequestOptions $requestOptions = null
     ): ProfileNewResponse;
 
     /**
      * @api
+     *
+     * @param string $userID a unique identifier representing the user associated with the requested profile
      *
      * @throws APIException
      */
@@ -41,18 +41,23 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param array<mixed>|ProfileUpdateParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param list<array{
+     *   op: string, path: string, value: string
+     * }> $patch List of patch operations to apply to the profile
      *
      * @throws APIException
      */
     public function update(
         string $userID,
-        array|ProfileUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $patch,
+        ?RequestOptions $requestOptions = null
     ): mixed;
 
     /**
      * @api
+     *
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
      *
      * @throws APIException
      */
@@ -64,13 +69,14 @@ interface ProfilesContract
     /**
      * @api
      *
-     * @param array<mixed>|ProfileReplaceParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param array<string,mixed> $profile
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
-        array|ProfileReplaceParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $profile,
+        ?RequestOptions $requestOptions = null
     ): ProfileReplaceResponse;
 }

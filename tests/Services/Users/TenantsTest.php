@@ -34,7 +34,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tenants->list('user_id', []);
+        $result = $this->client->users->tenants->list('user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(TenantListResponse::class, $result);
@@ -49,7 +49,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
-            ['tenants' => [['tenantID' => 'tenant_id']]]
+            tenants: [['tenantID' => 'tenant_id']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -65,14 +65,12 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
-            [
-                'tenants' => [
-                    [
-                        'tenantID' => 'tenant_id',
-                        'profile' => ['foo' => 'bar'],
-                        'type' => 'user',
-                        'userID' => 'user_id',
-                    ],
+            tenants: [
+                [
+                    'tenantID' => 'tenant_id',
+                    'profile' => ['foo' => 'bar'],
+                    'type' => 'user',
+                    'userID' => 'user_id',
                 ],
             ],
         );
@@ -90,7 +88,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            ['userID' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -106,7 +104,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
-            ['userID' => 'user_id', 'profile' => ['foo' => 'bar']]
+            userID: 'user_id',
+            profile: ['foo' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -135,7 +134,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            ['userID' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -151,7 +150,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->removeSingle(
             'tenant_id',
-            ['userID' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

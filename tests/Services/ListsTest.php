@@ -50,7 +50,7 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->lists->update('list_id', ['name' => 'name']);
+        $result = $this->client->lists->update('list_id', name: 'name');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -65,26 +65,24 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->update(
             'list_id',
-            [
-                'name' => 'name',
-                'preferences' => [
-                    'categories' => [
-                        'foo' => [
-                            'status' => PreferenceStatus::OPTED_IN,
-                            'channelPreferences' => [
-                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
-                            ],
-                            'rules' => [['until' => 'until', 'start' => 'start']],
+            name: 'name',
+            preferences: [
+                'categories' => [
+                    'foo' => [
+                        'status' => PreferenceStatus::OPTED_IN,
+                        'channelPreferences' => [
+                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
                         ],
+                        'rules' => [['until' => 'until', 'start' => 'start']],
                     ],
-                    'notifications' => [
-                        'foo' => [
-                            'status' => PreferenceStatus::OPTED_IN,
-                            'channelPreferences' => [
-                                ['channel' => ChannelClassification::DIRECT_MESSAGE],
-                            ],
-                            'rules' => [['until' => 'until', 'start' => 'start']],
+                ],
+                'notifications' => [
+                    'foo' => [
+                        'status' => PreferenceStatus::OPTED_IN,
+                        'channelPreferences' => [
+                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
                         ],
+                        'rules' => [['until' => 'until', 'start' => 'start']],
                     ],
                 ],
             ],
@@ -101,7 +99,7 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->lists->list([]);
+        $result = $this->client->lists->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(ListListResponse::class, $result);

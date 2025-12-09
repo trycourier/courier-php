@@ -5,53 +5,47 @@ declare(strict_types=1);
 namespace Courier\Services\Users;
 
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
-use Courier\Users\Tokens\TokenAddSingleParams;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
-use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenListResponse;
-use Courier\Users\Tokens\TokenRetrieveParams;
-use Courier\Users\Tokens\TokenUpdateParams;
 
 final class TokensService implements TokensContract
 {
     /**
+     * @api
+     */
+    public TokensRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new TokensRawService($client);
+    }
 
     /**
      * @api
      *
      * Get single token available for a `:token`
      *
-     * @param array{userID: string}|TokenRetrieveParams $params
+     * @param string $token the full token string
+     * @param string $userID The user's ID. This can be any uniquely identifiable string.
      *
      * @throws APIException
      */
     public function retrieve(
         string $token,
-        array|TokenRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $userID,
+        ?RequestOptions $requestOptions = null
     ): TokenGetResponse {
-        [$parsed, $options] = TokenRetrieveParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $params = ['userID' => $userID];
 
-        /** @var BaseResponse<TokenGetResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            options: $options,
-            convert: TokenGetResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($token, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -61,33 +55,24 @@ final class TokensService implements TokensContract
      *
      * Apply a JSON Patch (RFC 6902) to the specified token.
      *
-     * @param array{
-     *   userID: string,
-     *   patch: list<array{op: string, path: string, value?: string|null}>,
-     * }|TokenUpdateParams $params
+     * @param string $token path param: The full token string
+     * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
+     * @param list<array{
+     *   op: string, path: string, value?: string|null
+     * }> $patch Body param:
      *
      * @throws APIException
      */
     public function update(
         string $token,
-        array|TokenUpdateParams $params,
+        string $userID,
+        array $patch,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = TokenUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $params = ['userID' => $userID, 'patch' => $patch];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'patch',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['userID']),
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($token, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -97,19 +82,16 @@ final class TokensService implements TokensContract
      *
      * Gets all tokens available for a :user_id
      *
+     * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     *
      * @throws APIException
      */
     public function list(
         string $userID,
         ?RequestOptions $requestOptions = null
     ): TokenListResponse {
-        /** @var BaseResponse<TokenListResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['users/%1$s/tokens', $userID],
-            options: $requestOptions,
-            convert: TokenListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list($userID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -119,29 +101,20 @@ final class TokensService implements TokensContract
      *
      * Delete User Token
      *
-     * @param array{userID: string}|TokenDeleteParams $params
+     * @param string $token the full token string
+     * @param string $userID The user's ID. This can be any uniquely identifiable string.
      *
      * @throws APIException
      */
     public function delete(
         string $token,
-        array|TokenDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $userID,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = TokenDeleteParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $params = ['userID' => $userID];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'delete',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($token, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -151,19 +124,16 @@ final class TokensService implements TokensContract
      *
      * Adds multiple tokens to a user and overwrites matching existing tokens.
      *
+     * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     *
      * @throws APIException
      */
     public function addMultiple(
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['users/%1$s/tokens', $userID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->addMultiple($userID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -173,50 +143,54 @@ final class TokensService implements TokensContract
      *
      * Adds a single token to a user and overwrites a matching existing token.
      *
+     * @param string $token path param: The full token string
+     * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
+     * @param string $token1 Body param: Full body of the token. Must match token in URL path parameter.
+     * @param 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey $providerKey Body param:
      * @param array{
-     *   userID: string,
-     *   token: string,
-     *   providerKey: 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey,
-     *   device?: array{
-     *     adID?: string|null,
-     *     appID?: string|null,
-     *     deviceID?: string|null,
-     *     manufacturer?: string|null,
-     *     model?: string|null,
-     *     platform?: string|null,
-     *   }|null,
-     *   expiryDate?: string|bool|null,
-     *   properties?: mixed,
-     *   tracking?: array{
-     *     ip?: string|null,
-     *     lat?: string|null,
-     *     long?: string|null,
-     *     osVersion?: string|null,
-     *   }|null,
-     * }|TokenAddSingleParams $params
+     *   adID?: string|null,
+     *   appID?: string|null,
+     *   deviceID?: string|null,
+     *   manufacturer?: string|null,
+     *   model?: string|null,
+     *   platform?: string|null,
+     * }|null $device Body param: Information about the device the token came from
+     * @param string|bool|null $expiryDate Body param: ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     * @param mixed $properties body param: Properties about the token
+     * @param array{
+     *   ip?: string|null,
+     *   lat?: string|null,
+     *   long?: string|null,
+     *   osVersion?: string|null,
+     * }|null $tracking Body param: Tracking information about the device the token came from
      *
      * @throws APIException
      */
     public function addSingle(
         string $token,
-        array|TokenAddSingleParams $params,
+        string $userID,
+        string $token1,
+        string|ProviderKey $providerKey,
+        ?array $device = null,
+        string|bool|null $expiryDate = null,
+        mixed $properties = null,
+        ?array $tracking = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = TokenAddSingleParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $userID = $parsed['userID'];
-        unset($parsed['userID']);
+        $params = [
+            'userID' => $userID,
+            'token' => $token1,
+            'providerKey' => $providerKey,
+            'device' => $device,
+            'expiryDate' => $expiryDate,
+            'properties' => $properties,
+            'tracking' => $tracking,
+        ];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['userID']),
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->addSingle($token, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

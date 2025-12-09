@@ -38,7 +38,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->create(
             'user_id',
-            ['profile' => ['foo' => 'bar']]
+            profile: ['foo' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -54,7 +54,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->create(
             'user_id',
-            ['profile' => ['foo' => 'bar']]
+            profile: ['foo' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -83,7 +83,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
+            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -99,7 +99,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            ['patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']]],
+            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -128,7 +128,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->replace(
             'user_id',
-            ['profile' => ['foo' => 'bar']]
+            profile: ['foo' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -144,7 +144,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->replace(
             'user_id',
-            ['profile' => ['foo' => 'bar']]
+            profile: ['foo' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

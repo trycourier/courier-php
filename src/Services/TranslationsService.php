@@ -5,48 +5,44 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TranslationsContract;
-use Courier\Translations\TranslationRetrieveParams;
-use Courier\Translations\TranslationUpdateParams;
 
 final class TranslationsService implements TranslationsContract
 {
     /**
+     * @api
+     */
+    public TranslationsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new TranslationsRawService($client);
+    }
 
     /**
      * @api
      *
      * Get translations by locale
      *
-     * @param array{domain: string}|TranslationRetrieveParams $params
+     * @param string $locale The locale you want to retrieve the translations for
+     * @param string $domain The domain you want to retrieve translations for. Only `default` is supported at the moment
      *
      * @throws APIException
      */
     public function retrieve(
         string $locale,
-        array|TranslationRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $domain,
+        ?RequestOptions $requestOptions = null
     ): string {
-        [$parsed, $options] = TranslationRetrieveParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $domain = $parsed['domain'];
-        unset($parsed['domain']);
+        $params = ['domain' => $domain];
 
-        /** @var BaseResponse<string> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['translations/%1$s/%2$s', $domain, $locale],
-            options: $options,
-            convert: 'string',
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($locale, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -56,30 +52,22 @@ final class TranslationsService implements TranslationsContract
      *
      * Update a translation
      *
-     * @param array{domain: string, body: string}|TranslationUpdateParams $params
+     * @param string $locale Path param: The locale you want to retrieve the translations for
+     * @param string $domain Path param: The domain you want to retrieve translations for. Only `default` is supported at the moment
+     * @param string $body Body param:
      *
      * @throws APIException
      */
     public function update(
         string $locale,
-        array|TranslationUpdateParams $params,
+        string $domain,
+        string $body,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = TranslationUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $domain = $parsed['domain'];
-        unset($parsed['domain']);
+        $params = ['domain' => $domain, 'body' => $body];
 
-        /** @var BaseResponse<mixed> */
-        $response = $this->client->request(
-            method: 'put',
-            path: ['translations/%1$s/%2$s', $domain, $locale],
-            body: array_diff_key($parsed['body'], ['domain']),
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($locale, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

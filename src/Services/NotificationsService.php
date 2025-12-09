@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Client;
-use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\NotificationGetContent;
-use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsContract;
@@ -17,6 +15,11 @@ use Courier\Services\Notifications\DraftService;
 
 final class NotificationsService implements NotificationsContract
 {
+    /**
+     * @api
+     */
+    public NotificationsRawService $raw;
+
     /**
      * @api
      */
@@ -32,6 +35,7 @@ final class NotificationsService implements NotificationsContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new NotificationsRawService($client);
         $this->draft = new DraftService($client);
         $this->checks = new ChecksService($client);
     }
@@ -39,29 +43,21 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * @param array{
-     *   cursor?: string|null, notes?: bool|null
-     * }|NotificationListParams $params
+     * @param bool|null $notes retrieve the notes from the Notification template settings
      *
      * @throws APIException
      */
     public function list(
-        array|NotificationListParams $params,
-        ?RequestOptions $requestOptions = null
+        ?string $cursor = null,
+        ?bool $notes = null,
+        ?RequestOptions $requestOptions = null,
     ): NotificationListResponse {
-        [$parsed, $options] = NotificationListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = ['cursor' => $cursor, 'notes' => $notes];
+        // @phpstan-ignore-next-line function.impossibleType
+        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
 
-        /** @var BaseResponse<NotificationListResponse> */
-        $response = $this->client->request(
-            method: 'get',
-            path: 'notifications',
-            query: $parsed,
-            options: $options,
-            convert: NotificationListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -75,13 +71,8 @@ final class NotificationsService implements NotificationsContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        /** @var BaseResponse<NotificationGetContent> */
-        $response = $this->client->request(
-            method: 'get',
-            path: ['notifications/%1$s/content', $id],
-            options: $requestOptions,
-            convert: NotificationGetContent::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieveContent($id, requestOptions: $requestOptions);
 
         return $response->parse();
     }
