@@ -85,9 +85,9 @@ interface TokensContract
     /**
      * @api
      *
-     * @param string $token path param: The full token string
+     * @param string $token_ path param: The full token string
      * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
-     * @param string $token1 Body param: Full body of the token. Must match token in URL path parameter.
+     * @param string $token Body param: Full body of the token. Must match token in URL path parameter.
      * @param 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey $providerKey Body param:
      * @param array{
      *   adID?: string|null,
@@ -109,9 +109,9 @@ interface TokensContract
      * @throws APIException
      */
     public function addSingle(
-        string $token,
+        string $token_,
         string $userID,
-        string $token1,
+        string $token,
         string|ProviderKey $providerKey,
         ?array $device = null,
         string|bool|null $expiryDate = null,
