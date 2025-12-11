@@ -185,7 +185,7 @@ final class TokensTest extends TestCase
                 'platform' => 'platform',
             ],
             expiryDate: 'string',
-            properties: [],
+            properties: (object) [],
             tracking: [
                 'ip' => 'ip',
                 'lat' => 'lat',

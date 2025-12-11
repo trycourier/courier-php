@@ -6,6 +6,7 @@ namespace Courier\Services\Users;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TenantsContract;
 use Courier\Tenants\TenantAssociation;
@@ -45,9 +46,7 @@ final class TenantsService implements TenantsContract
         ?int $limit = null,
         ?RequestOptions $requestOptions = null,
     ): TenantListResponse {
-        $params = ['cursor' => $cursor, 'limit' => $limit];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list($userID, params: $params, requestOptions: $requestOptions);
@@ -79,7 +78,7 @@ final class TenantsService implements TenantsContract
         array $tenants,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['tenants' => $tenants];
+        $params = Util::removeNulls(['tenants' => $tenants]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->addMultiple($userID, params: $params, requestOptions: $requestOptions);
@@ -108,9 +107,7 @@ final class TenantsService implements TenantsContract
         ?array $profile = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = ['userID' => $userID, 'profile' => $profile];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['userID' => $userID, 'profile' => $profile]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->addSingle($tenantID, params: $params, requestOptions: $requestOptions);
@@ -152,7 +149,7 @@ final class TenantsService implements TenantsContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['userID' => $userID];
+        $params = Util::removeNulls(['userID' => $userID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->removeSingle($tenantID, params: $params, requestOptions: $requestOptions);

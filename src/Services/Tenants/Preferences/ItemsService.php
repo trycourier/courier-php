@@ -7,6 +7,7 @@ namespace Courier\Services\Tenants\Preferences;
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\Preferences\ItemsContract;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
@@ -47,14 +48,14 @@ final class ItemsService implements ItemsContract
         ?bool $hasCustomRouting = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = [
-            'tenantID' => $tenantID,
-            'status' => $status,
-            'customRouting' => $customRouting,
-            'hasCustomRouting' => $hasCustomRouting,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'tenantID' => $tenantID,
+                'status' => $status,
+                'customRouting' => $customRouting,
+                'hasCustomRouting' => $hasCustomRouting,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($topicID, params: $params, requestOptions: $requestOptions);
@@ -77,7 +78,7 @@ final class ItemsService implements ItemsContract
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['tenantID' => $tenantID];
+        $params = Util::removeNulls(['tenantID' => $tenantID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($topicID, params: $params, requestOptions: $requestOptions);

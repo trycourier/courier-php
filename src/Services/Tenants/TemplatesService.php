@@ -6,6 +6,7 @@ namespace Courier\Services\Tenants;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Tenants\TemplatesContract;
 use Courier\Tenants\BaseTemplateTenantAssociation;
@@ -41,7 +42,7 @@ final class TemplatesService implements TemplatesContract
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): BaseTemplateTenantAssociation {
-        $params = ['tenantID' => $tenantID];
+        $params = Util::removeNulls(['tenantID' => $tenantID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($templateID, params: $params, requestOptions: $requestOptions);
@@ -66,9 +67,7 @@ final class TemplatesService implements TemplatesContract
         ?int $limit = null,
         ?RequestOptions $requestOptions = null,
     ): TemplateListResponse {
-        $params = ['cursor' => $cursor, 'limit' => $limit];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list($tenantID, params: $params, requestOptions: $requestOptions);

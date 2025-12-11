@@ -7,6 +7,7 @@ namespace Courier\Services\Users;
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesContract;
@@ -44,9 +45,7 @@ final class PreferencesService implements PreferencesContract
         ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceGetResponse {
-        $params = ['tenantID' => $tenantID];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['tenantID' => $tenantID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($userID, params: $params, requestOptions: $requestOptions);
@@ -71,9 +70,7 @@ final class PreferencesService implements PreferencesContract
         ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceGetTopicResponse {
-        $params = ['userID' => $userID, 'tenantID' => $tenantID];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['userID' => $userID, 'tenantID' => $tenantID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieveTopic($topicID, params: $params, requestOptions: $requestOptions);
@@ -104,9 +101,9 @@ final class PreferencesService implements PreferencesContract
         ?string $tenantID = null,
         ?RequestOptions $requestOptions = null,
     ): PreferenceUpdateOrNewTopicResponse {
-        $params = ['userID' => $userID, 'topic' => $topic, 'tenantID' => $tenantID];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['userID' => $userID, 'topic' => $topic, 'tenantID' => $tenantID]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->updateOrCreateTopic($topicID, params: $params, requestOptions: $requestOptions);

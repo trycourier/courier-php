@@ -13,6 +13,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\MessageContext;
 use Courier\NotificationPreferenceDetails;
 use Courier\Preference;
@@ -104,7 +105,7 @@ final class BulkService implements BulkContract
         array $users,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['users' => $users];
+        $params = Util::removeNulls(['users' => $users]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->addUsers($jobID, params: $params, requestOptions: $requestOptions);
@@ -125,7 +126,7 @@ final class BulkService implements BulkContract
         InboundBulkMessage|array $message,
         ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse {
-        $params = ['message' => $message];
+        $params = Util::removeNulls(['message' => $message]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->createJob(params: $params, requestOptions: $requestOptions);
@@ -148,9 +149,7 @@ final class BulkService implements BulkContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): BulkListUsersResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->listUsers($jobID, params: $params, requestOptions: $requestOptions);

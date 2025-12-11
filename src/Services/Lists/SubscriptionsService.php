@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
 use Courier\NotificationPreferenceDetails;
 use Courier\PreferenceStatus;
@@ -46,9 +47,7 @@ final class SubscriptionsService implements SubscriptionsContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): SubscriptionListResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list($listID, params: $params, requestOptions: $requestOptions);
@@ -89,7 +88,7 @@ final class SubscriptionsService implements SubscriptionsContract
         array $recipients,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['recipients' => $recipients];
+        $params = Util::removeNulls(['recipients' => $recipients]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->add($listID, params: $params, requestOptions: $requestOptions);
@@ -130,7 +129,7 @@ final class SubscriptionsService implements SubscriptionsContract
         array $recipients,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['recipients' => $recipients];
+        $params = Util::removeNulls(['recipients' => $recipients]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->subscribe($listID, params: $params, requestOptions: $requestOptions);
@@ -170,9 +169,9 @@ final class SubscriptionsService implements SubscriptionsContract
         array|RecipientPreferences|null $preferences = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = ['listID' => $listID, 'preferences' => $preferences];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['listID' => $listID, 'preferences' => $preferences]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->subscribeUser($userID, params: $params, requestOptions: $requestOptions);
@@ -195,7 +194,7 @@ final class SubscriptionsService implements SubscriptionsContract
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['listID' => $listID];
+        $params = Util::removeNulls(['listID' => $listID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->unsubscribeUser($userID, params: $params, requestOptions: $requestOptions);

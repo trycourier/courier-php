@@ -7,6 +7,7 @@ namespace Courier\Services\Automations;
 use Courier\Automations\AutomationInvokeResponse;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeContract;
 
@@ -47,16 +48,16 @@ final class InvokeService implements InvokeContract
         ?string $template = null,
         ?RequestOptions $requestOptions = null,
     ): AutomationInvokeResponse {
-        $params = [
-            'automation' => $automation,
-            'brand' => $brand,
-            'data' => $data,
-            'profile' => $profile,
-            'recipient' => $recipient,
-            'template' => $template,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'automation' => $automation,
+                'brand' => $brand,
+                'data' => $data,
+                'profile' => $profile,
+                'recipient' => $recipient,
+                'template' => $template,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->invokeAdHoc(params: $params, requestOptions: $requestOptions);
@@ -84,15 +85,15 @@ final class InvokeService implements InvokeContract
         ?string $template = null,
         ?RequestOptions $requestOptions = null,
     ): AutomationInvokeResponse {
-        $params = [
-            'recipient' => $recipient,
-            'brand' => $brand,
-            'data' => $data,
-            'profile' => $profile,
-            'template' => $template,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'recipient' => $recipient,
+                'brand' => $brand,
+                'data' => $data,
+                'profile' => $profile,
+                'template' => $template,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->invokeByTemplate($templateID, params: $params, requestOptions: $requestOptions);

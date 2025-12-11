@@ -6,6 +6,7 @@ namespace Courier\Services\Users;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensContract;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
@@ -42,7 +43,7 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): TokenGetResponse {
-        $params = ['userID' => $userID];
+        $params = Util::removeNulls(['userID' => $userID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($token, params: $params, requestOptions: $requestOptions);
@@ -69,7 +70,7 @@ final class TokensService implements TokensContract
         array $patch,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = ['userID' => $userID, 'patch' => $patch];
+        $params = Util::removeNulls(['userID' => $userID, 'patch' => $patch]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($token, params: $params, requestOptions: $requestOptions);
@@ -111,7 +112,7 @@ final class TokensService implements TokensContract
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['userID' => $userID];
+        $params = Util::removeNulls(['userID' => $userID]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($token, params: $params, requestOptions: $requestOptions);
@@ -177,17 +178,17 @@ final class TokensService implements TokensContract
         ?array $tracking = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = [
-            'userID' => $userID,
-            'token' => $token,
-            'providerKey' => $providerKey,
-            'device' => $device,
-            'expiryDate' => $expiryDate,
-            'properties' => $properties,
-            'tracking' => $tracking,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'userID' => $userID,
+                'token' => $token,
+                'providerKey' => $providerKey,
+                'device' => $device,
+                'expiryDate' => $expiryDate,
+                'properties' => $properties,
+                'tracking' => $tracking,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->addSingle($token_, params: $params, requestOptions: $requestOptions);

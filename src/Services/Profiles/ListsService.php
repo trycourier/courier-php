@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\NotificationPreferenceDetails;
 use Courier\PreferenceStatus;
 use Courier\Profiles\Lists\ListDeleteResponse;
@@ -48,9 +49,7 @@ final class ListsService implements ListsContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): ListGetResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($userID, params: $params, requestOptions: $requestOptions);
@@ -110,7 +109,7 @@ final class ListsService implements ListsContract
         array $lists,
         ?RequestOptions $requestOptions = null
     ): ListSubscribeResponse {
-        $params = ['lists' => $lists];
+        $params = Util::removeNulls(['lists' => $lists]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->subscribe($userID, params: $params, requestOptions: $requestOptions);

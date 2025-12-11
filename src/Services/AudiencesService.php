@@ -12,6 +12,7 @@ use Courier\Audiences\Filter;
 use Courier\Audiences\Filter\Operator;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
 
@@ -72,11 +73,9 @@ final class AudiencesService implements AudiencesContract
         ?string $name = null,
         ?RequestOptions $requestOptions = null,
     ): AudienceUpdateResponse {
-        $params = [
-            'description' => $description, 'filter' => $filter, 'name' => $name,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['description' => $description, 'filter' => $filter, 'name' => $name]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($audienceID, params: $params, requestOptions: $requestOptions);
@@ -97,9 +96,7 @@ final class AudiencesService implements AudiencesContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null
     ): AudienceListResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
@@ -141,9 +138,7 @@ final class AudiencesService implements AudiencesContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): AudienceListMembersResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->listMembers($audienceID, params: $params, requestOptions: $requestOptions);

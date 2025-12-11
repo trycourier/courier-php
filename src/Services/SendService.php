@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\MessageContext;
 use Courier\MessageRoutingChannel;
 use Courier\Preference;
@@ -172,7 +173,7 @@ final class SendService implements SendContract
         array $message,
         ?RequestOptions $requestOptions = null
     ): SendMessageResponse {
-        $params = ['message' => $message];
+        $params = Util::removeNulls(['message' => $message]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->message(params: $params, requestOptions: $requestOptions);

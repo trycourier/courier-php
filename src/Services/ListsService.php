@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Lists\ListListResponse;
 use Courier\Lists\SubscriptionList;
 use Courier\NotificationPreferenceDetails;
@@ -89,9 +90,9 @@ final class ListsService implements ListsContract
         array|RecipientPreferences|null $preferences = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = ['name' => $name, 'preferences' => $preferences];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['name' => $name, 'preferences' => $preferences]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($listID, params: $params, requestOptions: $requestOptions);
@@ -114,9 +115,7 @@ final class ListsService implements ListsContract
         ?string $pattern = null,
         ?RequestOptions $requestOptions = null,
     ): ListListResponse {
-        $params = ['cursor' => $cursor, 'pattern' => $pattern];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor, 'pattern' => $pattern]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
