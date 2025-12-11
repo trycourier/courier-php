@@ -22,6 +22,7 @@ use Courier\Brands\Logo;
 use Courier\Brands\WidgetBackground;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsContract;
 
@@ -103,14 +104,14 @@ final class BrandsService implements BrandsContract
         array|BrandSnippets|null $snippets = null,
         ?RequestOptions $requestOptions = null,
     ): Brand {
-        $params = [
-            'name' => $name,
-            'id' => $id,
-            'settings' => $settings,
-            'snippets' => $snippets,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'name' => $name,
+                'id' => $id,
+                'settings' => $settings,
+                'snippets' => $snippets,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
@@ -202,11 +203,9 @@ final class BrandsService implements BrandsContract
         array|BrandSnippets|null $snippets = null,
         ?RequestOptions $requestOptions = null,
     ): Brand {
-        $params = [
-            'name' => $name, 'settings' => $settings, 'snippets' => $snippets,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            ['name' => $name, 'settings' => $settings, 'snippets' => $snippets]
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($brandID, params: $params, requestOptions: $requestOptions);
@@ -227,9 +226,7 @@ final class BrandsService implements BrandsContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null
     ): BrandListResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);

@@ -8,6 +8,7 @@ use Courier\AuditEvents\AuditEvent;
 use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
 
@@ -58,9 +59,7 @@ final class AuditEventsService implements AuditEventsContract
         ?string $cursor = null,
         ?RequestOptions $requestOptions = null
     ): AuditEventListResponse {
-        $params = ['cursor' => $cursor];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);

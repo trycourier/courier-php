@@ -6,6 +6,7 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TranslationsContract;
 
@@ -39,7 +40,7 @@ final class TranslationsService implements TranslationsContract
         string $domain,
         ?RequestOptions $requestOptions = null
     ): string {
-        $params = ['domain' => $domain];
+        $params = Util::removeNulls(['domain' => $domain]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($locale, params: $params, requestOptions: $requestOptions);
@@ -64,7 +65,7 @@ final class TranslationsService implements TranslationsContract
         string $body,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        $params = ['domain' => $domain, 'body' => $body];
+        $params = Util::removeNulls(['domain' => $domain, 'body' => $body]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($locale, params: $params, requestOptions: $requestOptions);

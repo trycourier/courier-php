@@ -6,6 +6,7 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Messages\MessageContentResponse;
 use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
@@ -87,24 +88,24 @@ final class MessagesService implements MessagesContract
         ?string $traceID = null,
         ?RequestOptions $requestOptions = null,
     ): MessageListResponse {
-        $params = [
-            'archived' => $archived,
-            'cursor' => $cursor,
-            'enqueuedAfter' => $enqueuedAfter,
-            'event' => $event,
-            'list' => $list,
-            'messageID' => $messageID,
-            'notification' => $notification,
-            'provider' => $provider,
-            'recipient' => $recipient,
-            'status' => $status,
-            'tag' => $tag,
-            'tags' => $tags,
-            'tenantID' => $tenantID,
-            'traceID' => $traceID,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'archived' => $archived,
+                'cursor' => $cursor,
+                'enqueuedAfter' => $enqueuedAfter,
+                'event' => $event,
+                'list' => $list,
+                'messageID' => $messageID,
+                'notification' => $notification,
+                'provider' => $provider,
+                'recipient' => $recipient,
+                'status' => $status,
+                'tag' => $tag,
+                'tags' => $tags,
+                'tenantID' => $tenantID,
+                'traceID' => $traceID,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
@@ -165,9 +166,7 @@ final class MessagesService implements MessagesContract
         ?string $type = null,
         ?RequestOptions $requestOptions = null,
     ): MessageHistoryResponse {
-        $params = ['type' => $type];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['type' => $type]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->history($messageID, params: $params, requestOptions: $requestOptions);

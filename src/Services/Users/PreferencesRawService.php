@@ -126,14 +126,14 @@ final class PreferencesRawService implements PreferencesRawContract
         );
         $userID = $parsed['userID'];
         unset($parsed['userID']);
-        $query_params = array_flip(['tenant_id']);
+        $query_params = array_flip(['tenantID']);
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
             query: Util::array_transform_keys(
-                array_diff_key($parsed, $query_params),
+                array_intersect_key($parsed, $query_params),
                 ['tenantID' => 'tenant_id']
             ),
             body: (object) array_diff_key(

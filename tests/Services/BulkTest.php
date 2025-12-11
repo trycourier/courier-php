@@ -55,7 +55,7 @@ final class BulkTest extends TestCase
             'job_id',
             users: [
                 [
-                    'data' => [],
+                    'data' => (object) [],
                     'preferences' => [
                         'categories' => [
                             'foo' => [
@@ -76,7 +76,7 @@ final class BulkTest extends TestCase
                             ],
                         ],
                     ],
-                    'profile' => [],
+                    'profile' => (object) [],
                     'recipient' => 'recipient',
                     'to' => [
                         'accountID' => 'account_id',

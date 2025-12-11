@@ -6,6 +6,7 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
 use Courier\Profiles\ProfileReplaceResponse;
@@ -49,7 +50,7 @@ final class ProfilesService implements ProfilesContract
         array $profile,
         ?RequestOptions $requestOptions = null
     ): ProfileNewResponse {
-        $params = ['profile' => $profile];
+        $params = Util::removeNulls(['profile' => $profile]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create($userID, params: $params, requestOptions: $requestOptions);
@@ -93,7 +94,7 @@ final class ProfilesService implements ProfilesContract
         array $patch,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['patch' => $patch];
+        $params = Util::removeNulls(['patch' => $patch]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($userID, params: $params, requestOptions: $requestOptions);
@@ -138,7 +139,7 @@ final class ProfilesService implements ProfilesContract
         array $profile,
         ?RequestOptions $requestOptions = null
     ): ProfileReplaceResponse {
-        $params = ['profile' => $profile];
+        $params = Util::removeNulls(['profile' => $profile]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->replace($userID, params: $params, requestOptions: $requestOptions);

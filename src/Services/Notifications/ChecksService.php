@@ -6,6 +6,7 @@ namespace Courier\Services\Notifications;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Notifications\BaseCheck;
 use Courier\Notifications\BaseCheck\Status;
 use Courier\Notifications\BaseCheck\Type;
@@ -46,7 +47,7 @@ final class ChecksService implements ChecksContract
         array $checks,
         ?RequestOptions $requestOptions = null,
     ): CheckUpdateResponse {
-        $params = ['id' => $id, 'checks' => $checks];
+        $params = Util::removeNulls(['id' => $id, 'checks' => $checks]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($submissionID, params: $params, requestOptions: $requestOptions);
@@ -64,7 +65,7 @@ final class ChecksService implements ChecksContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): CheckListResponse {
-        $params = ['id' => $id];
+        $params = Util::removeNulls(['id' => $id]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list($submissionID, params: $params, requestOptions: $requestOptions);
@@ -82,7 +83,7 @@ final class ChecksService implements ChecksContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        $params = ['id' => $id];
+        $params = Util::removeNulls(['id' => $id]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($submissionID, params: $params, requestOptions: $requestOptions);

@@ -6,6 +6,7 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
@@ -52,9 +53,7 @@ final class NotificationsService implements NotificationsContract
         ?bool $notes = null,
         ?RequestOptions $requestOptions = null,
     ): NotificationListResponse {
-        $params = ['cursor' => $cursor, 'notes' => $notes];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor, 'notes' => $notes]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);

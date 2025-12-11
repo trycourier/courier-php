@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
 use Courier\Services\Tenants\PreferencesService;
@@ -95,16 +96,16 @@ final class TenantsService implements TenantsContract
         ?array $userProfile = null,
         ?RequestOptions $requestOptions = null,
     ): Tenant {
-        $params = [
-            'name' => $name,
-            'brandID' => $brandID,
-            'defaultPreferences' => $defaultPreferences,
-            'parentTenantID' => $parentTenantID,
-            'properties' => $properties,
-            'userProfile' => $userProfile,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'name' => $name,
+                'brandID' => $brandID,
+                'defaultPreferences' => $defaultPreferences,
+                'parentTenantID' => $parentTenantID,
+                'properties' => $properties,
+                'userProfile' => $userProfile,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->update($tenantID, params: $params, requestOptions: $requestOptions);
@@ -130,13 +131,13 @@ final class TenantsService implements TenantsContract
         ?string $parentTenantID = null,
         ?RequestOptions $requestOptions = null,
     ): TenantListResponse {
-        $params = [
-            'cursor' => $cursor,
-            'limit' => $limit,
-            'parentTenantID' => $parentTenantID,
-        ];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(
+            [
+                'cursor' => $cursor,
+                'limit' => $limit,
+                'parentTenantID' => $parentTenantID,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
@@ -181,9 +182,7 @@ final class TenantsService implements TenantsContract
         ?int $limit = null,
         ?RequestOptions $requestOptions = null,
     ): TenantListUsersResponse {
-        $params = ['cursor' => $cursor, 'limit' => $limit];
-        // @phpstan-ignore-next-line function.impossibleType
-        $params = array_filter($params, callback: static fn ($v) => !is_null($v));
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->listUsers($tenantID, params: $params, requestOptions: $requestOptions);

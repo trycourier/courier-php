@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuthContract;
 
@@ -59,7 +60,7 @@ final class AuthService implements AuthContract
         string $scope,
         ?RequestOptions $requestOptions = null
     ): AuthIssueTokenResponse {
-        $params = ['expiresIn' => $expiresIn, 'scope' => $scope];
+        $params = Util::removeNulls(['expiresIn' => $expiresIn, 'scope' => $scope]);
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->issueToken(params: $params, requestOptions: $requestOptions);
