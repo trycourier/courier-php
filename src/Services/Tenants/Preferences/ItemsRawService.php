@@ -57,7 +57,7 @@ final class ItemsRawService implements ItemsRawContract
             path: [
                 'tenants/%1$s/default_preferences/items/%2$s', $tenantID, $topicID,
             ],
-            body: (object) array_diff_key($parsed, ['tenantID']),
+            body: (object) array_diff_key($parsed, array_flip(['tenantID'])),
             options: $options,
             convert: null,
         );
