@@ -134,7 +134,7 @@ final class TenantsRawService implements TenantsRawContract
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tenants/%2$s', $userID, $tenantID],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, array_flip(['userID'])),
             options: $options,
             convert: null,
         );

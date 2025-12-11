@@ -89,7 +89,7 @@ final class TokensRawService implements TokensRawContract
         return $this->client->request(
             method: 'patch',
             path: ['users/%1$s/tokens/%2$s', $userID, $token],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, array_flip(['userID'])),
             options: $options,
             convert: null,
         );
@@ -224,7 +224,7 @@ final class TokensRawService implements TokensRawContract
         return $this->client->request(
             method: 'put',
             path: ['users/%1$s/tokens/%2$s', $userID, $token_],
-            body: (object) array_diff_key($parsed, ['userID']),
+            body: (object) array_diff_key($parsed, array_flip(['userID'])),
             options: $options,
             convert: null,
         );

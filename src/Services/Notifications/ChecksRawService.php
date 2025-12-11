@@ -59,7 +59,7 @@ final class ChecksRawService implements ChecksRawContract
         return $this->client->request(
             method: 'put',
             path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
-            body: (object) array_diff_key($parsed, ['id']),
+            body: (object) array_diff_key($parsed, array_flip(['id'])),
             options: $options,
             convert: CheckUpdateResponse::class,
         );

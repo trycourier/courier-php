@@ -126,7 +126,7 @@ final class PreferencesRawService implements PreferencesRawContract
         );
         $userID = $parsed['userID'];
         unset($parsed['userID']);
-        $query_params = ['tenant_id'];
+        $query_params = array_flip(['tenant_id']);
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -138,7 +138,7 @@ final class PreferencesRawService implements PreferencesRawContract
             ),
             body: (object) array_diff_key(
                 array_diff_key($parsed, $query_params),
-                ['userID']
+                array_flip(['userID'])
             ),
             options: $options,
             convert: PreferenceUpdateOrNewTopicResponse::class,

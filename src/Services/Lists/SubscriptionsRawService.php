@@ -164,7 +164,7 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
         return $this->client->request(
             method: 'put',
             path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
-            body: (object) array_diff_key($parsed, ['listID']),
+            body: (object) array_diff_key($parsed, array_flip(['listID'])),
             options: $options,
             convert: null,
         );
