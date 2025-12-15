@@ -47,7 +47,9 @@ interface SendContract
      *   content?: array<string,mixed>,
      *   context?: array{tenantID?: string|null}|MessageContext|null,
      *   data?: array<string,mixed>|null,
-     *   delay?: array{duration?: int|null, until?: string|null}|null,
+     *   delay?: array{
+     *     duration?: int|null, timezone?: string|null, until?: string|null
+     *   }|null,
      *   expiry?: array{expiresIn: string|int, expiresAt?: string|null}|null,
      *   metadata?: array{
      *     event?: string|null,

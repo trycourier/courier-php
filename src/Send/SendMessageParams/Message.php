@@ -147,7 +147,9 @@ final class Message implements BaseModel
      * } $content
      * @param MessageContext|array{tenantID?: string|null}|null $context
      * @param array<string,mixed>|null $data
-     * @param Delay|array{duration?: int|null, until?: string|null}|null $delay
+     * @param Delay|array{
+     *   duration?: int|null, timezone?: string|null, until?: string|null
+     * }|null $delay
      * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
      * @param Metadata|array{
      *   event?: string|null,
@@ -304,7 +306,9 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Delay|array{duration?: int|null, until?: string|null}|null $delay
+     * @param Delay|array{
+     *   duration?: int|null, timezone?: string|null, until?: string|null
+     * }|null $delay
      */
     public function withDelay(Delay|array|null $delay): self
     {

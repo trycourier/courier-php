@@ -9,7 +9,9 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type DelayShape = array{duration?: int|null, until?: string|null}
+ * @phpstan-type DelayShape = array{
+ *   duration?: int|null, timezone?: string|null, until?: string|null
+ * }
  */
 final class Delay implements BaseModel
 {
@@ -21,6 +23,12 @@ final class Delay implements BaseModel
      */
     #[Optional(nullable: true)]
     public ?int $duration;
+
+    /**
+     * IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Used when resolving opening hours expressions. Takes precedence over user profile timezone settings.
+     */
+    #[Optional(nullable: true)]
+    public ?string $timezone;
 
     /**
      * ISO 8601 timestamp or opening_hours-like format.
@@ -40,11 +48,13 @@ final class Delay implements BaseModel
      */
     public static function with(
         ?int $duration = null,
+        ?string $timezone = null,
         ?string $until = null
     ): self {
         $self = new self;
 
         null !== $duration && $self['duration'] = $duration;
+        null !== $timezone && $self['timezone'] = $timezone;
         null !== $until && $self['until'] = $until;
 
         return $self;
@@ -57,6 +67,17 @@ final class Delay implements BaseModel
     {
         $self = clone $this;
         $self['duration'] = $duration;
+
+        return $self;
+    }
+
+    /**
+     * IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Used when resolving opening hours expressions. Takes precedence over user profile timezone settings.
+     */
+    public function withTimezone(?string $timezone): self
+    {
+        $self = clone $this;
+        $self['timezone'] = $timezone;
 
         return $self;
     }
