@@ -74,7 +74,9 @@ final class SendTest extends TestCase
                 'content' => ['body' => 'body', 'title' => 'title'],
                 'context' => ['tenantID' => 'tenant_id'],
                 'data' => ['foo' => 'bar'],
-                'delay' => ['duration' => 0, 'until' => 'until'],
+                'delay' => [
+                    'duration' => 0, 'timezone' => 'timezone', 'until' => 'until',
+                ],
                 'expiry' => ['expiresIn' => 'string', 'expiresAt' => 'expires_at'],
                 'metadata' => [
                     'event' => 'event',
