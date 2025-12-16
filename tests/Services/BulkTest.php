@@ -76,7 +76,7 @@ final class BulkTest extends TestCase
                             ],
                         ],
                     ],
-                    'profile' => (object) [],
+                    'profile' => ['foo' => 'bar'],
                     'recipient' => 'recipient',
                     'to' => [
                         'accountID' => 'account_id',
@@ -127,9 +127,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob(
-            message: ['template' => 'template']
-        );
+        $result = $this->client->bulk->createJob(message: ['event' => 'event']);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BulkNewJobResponse::class, $result);
@@ -144,12 +142,13 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->createJob(
             message: [
-                'template' => 'template',
-                'brand' => 'brand',
-                'data' => ['foo' => 'bar'],
                 'event' => 'event',
+                'brand' => 'brand',
+                'content' => ['body' => 'body', 'title' => 'title'],
+                'data' => ['foo' => 'bar'],
                 'locale' => ['foo' => ['foo' => 'bar']],
                 'override' => ['foo' => 'bar'],
+                'template' => 'template',
             ],
         );
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
+namespace Courier\Bulk\InboundBulkMessage;
 
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
@@ -11,7 +11,8 @@ use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
 
 /**
- * Syntactic sugar to provide a fast shorthand for Courier Elemental Blocks.
+ * Elemental content (optional, for V2 format). When provided, this will be used
+ * instead of the notification associated with the `event` field.
  */
 final class Content implements ConverterSource
 {

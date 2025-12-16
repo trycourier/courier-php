@@ -6,8 +6,6 @@ namespace Courier\Bulk;
 
 use Courier\Bulk\BulkGetJobResponse\Job;
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -48,7 +46,7 @@ final class BulkGetJobResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Job|array{
-     *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
+     *   definition: InboundBulkMessage,
      *   enqueued: int,
      *   failures: int,
      *   received: int,
@@ -66,7 +64,7 @@ final class BulkGetJobResponse implements BaseModel
 
     /**
      * @param Job|array{
-     *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
+     *   definition: InboundBulkMessage,
      *   enqueued: int,
      *   failures: int,
      *   received: int,

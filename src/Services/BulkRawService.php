@@ -31,14 +31,18 @@ final class BulkRawService implements BulkRawContract
     /**
      * @api
      *
-     * Ingest user data into a Bulk Job
+     * Ingest user data into a Bulk Job.
+     *
+     * **Important**: For email-based bulk jobs, each user must include `profile.email`
+     * for provider routing to work correctly. The `to.email` field is not sufficient
+     * for email provider routing.
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param array{
      *   users: list<array{
      *     data?: mixed,
      *     preferences?: array<mixed>|RecipientPreferences|null,
-     *     profile?: mixed,
+     *     profile?: array<string,mixed>|null,
      *     recipient?: string|null,
      *     to?: array<mixed>|UserRecipient|null,
      *   }|InboundBulkMessageUser>,
@@ -71,10 +75,23 @@ final class BulkRawService implements BulkRawContract
     /**
      * @api
      *
-     * Create a bulk job
+     * Creates a new bulk job for sending messages to multiple recipients.
+     *
+     * **Required**: `message.event` (event ID or notification ID)
+     *
+     * **Optional (V2 format)**: `message.template` (notification ID) or `message.content` (Elemental content)
+     * can be provided to override the notification associated with the event.
      *
      * @param array{
-     *   message: InboundBulkMessage|array<string,mixed>
+     *   message: array{
+     *     event: string,
+     *     brand?: string|null,
+     *     content?: array<string,mixed>|null,
+     *     data?: array<string,mixed>|null,
+     *     locale?: array<string,array<string,mixed>>|null,
+     *     override?: array<string,mixed>|null,
+     *     template?: string|null,
+     *   }|InboundBulkMessage,
      * }|BulkCreateJobParams $params
      *
      * @return BaseResponse<BulkNewJobResponse>

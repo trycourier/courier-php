@@ -46,7 +46,7 @@ interface BulkContract
      *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
      *     }|NotificationPreferenceDetails>|null,
      *   }|RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: array{
      *     accountID?: string|null,
@@ -91,12 +91,22 @@ interface BulkContract
     /**
      * @api
      *
-     * @param InboundBulkMessage|array<string,mixed> $message
+     * @param array{
+     *   event: string,
+     *   brand?: string|null,
+     *   content?: array<string,mixed>|null,
+     *   data?: array<string,mixed>|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     *   template?: string|null,
+     * }|InboundBulkMessage $message Bulk message definition. Supports two formats:
+     * - V1 format: Requires `event` field (event ID or notification ID)
+     * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
      *
      * @throws APIException
      */
     public function createJob(
-        InboundBulkMessage|array $message,
+        array|InboundBulkMessage $message,
         ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse;
 

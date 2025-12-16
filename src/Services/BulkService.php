@@ -43,7 +43,11 @@ final class BulkService implements BulkContract
     /**
      * @api
      *
-     * Ingest user data into a Bulk Job
+     * Ingest user data into a Bulk Job.
+     *
+     * **Important**: For email-based bulk jobs, each user must include `profile.email`
+     * for provider routing to work correctly. The `to.email` field is not sufficient
+     * for email provider routing.
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param list<array{
@@ -64,7 +68,7 @@ final class BulkService implements BulkContract
      *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
      *     }|NotificationPreferenceDetails>|null,
      *   }|RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: array{
      *     accountID?: string|null,
@@ -116,14 +120,29 @@ final class BulkService implements BulkContract
     /**
      * @api
      *
-     * Create a bulk job
+     * Creates a new bulk job for sending messages to multiple recipients.
      *
-     * @param InboundBulkMessage|array<string,mixed> $message
+     * **Required**: `message.event` (event ID or notification ID)
+     *
+     * **Optional (V2 format)**: `message.template` (notification ID) or `message.content` (Elemental content)
+     * can be provided to override the notification associated with the event.
+     *
+     * @param array{
+     *   event: string,
+     *   brand?: string|null,
+     *   content?: array<string,mixed>|null,
+     *   data?: array<string,mixed>|null,
+     *   locale?: array<string,array<string,mixed>>|null,
+     *   override?: array<string,mixed>|null,
+     *   template?: string|null,
+     * }|InboundBulkMessage $message Bulk message definition. Supports two formats:
+     * - V1 format: Requires `event` field (event ID or notification ID)
+     * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
      *
      * @throws APIException
      */
     public function createJob(
-        InboundBulkMessage|array $message,
+        array|InboundBulkMessage $message,
         ?RequestOptions $requestOptions = null
     ): BulkNewJobResponse {
         $params = Util::removeNulls(['message' => $message]);
