@@ -57,7 +57,7 @@ final class BulkListUsersResponse implements BaseModel
      * @param list<Item|array{
      *   data?: mixed,
      *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,
@@ -79,7 +79,7 @@ final class BulkListUsersResponse implements BaseModel
      * @param list<Item|array{
      *   data?: mixed,
      *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      *   status: value-of<Status>,

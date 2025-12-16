@@ -19,7 +19,7 @@ use Courier\UserRecipient\Preferences;
  * @phpstan-type ItemShape = array{
  *   data?: mixed,
  *   preferences?: RecipientPreferences|null,
- *   profile?: mixed,
+ *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
  *   to?: UserRecipient|null,
  *   status: value-of<Status>,
@@ -31,15 +31,28 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
+    /**
+     * User-specific data that will be merged with message.data.
+     */
     #[Optional]
     public mixed $data;
 
     #[Optional]
     public ?RecipientPreferences $preferences;
 
-    #[Optional]
-    public mixed $profile;
+    /**
+     * User profile information. For email-based bulk jobs, `profile.email` is required
+     * for provider routing to determine if the message can be delivered. The email
+     * address should be provided here rather than in `to.email`.
+     *
+     * @var array<string,mixed>|null $profile
+     */
+    #[Optional(map: 'mixed', nullable: true)]
+    public ?array $profile;
 
+    /**
+     * User ID (legacy field, use profile or to.user_id instead).
+     */
     #[Optional(nullable: true)]
     public ?string $recipient;
 
@@ -82,6 +95,7 @@ final class Item implements BaseModel
      *   categories?: array<string,NotificationPreferenceDetails>|null,
      *   notifications?: array<string,NotificationPreferenceDetails>|null,
      * } $preferences
+     * @param array<string,mixed>|null $profile
      * @param UserRecipient|array{
      *   accountID?: string|null,
      *   context?: MessageContext|null,
@@ -99,7 +113,7 @@ final class Item implements BaseModel
         Status|string $status,
         mixed $data = null,
         RecipientPreferences|array|null $preferences = null,
-        mixed $profile = null,
+        ?array $profile = null,
         ?string $recipient = null,
         UserRecipient|array|null $to = null,
         ?string $messageID = null,
@@ -118,6 +132,9 @@ final class Item implements BaseModel
         return $self;
     }
 
+    /**
+     * User-specific data that will be merged with message.data.
+     */
     public function withData(mixed $data): self
     {
         $self = clone $this;
@@ -141,7 +158,14 @@ final class Item implements BaseModel
         return $self;
     }
 
-    public function withProfile(mixed $profile): self
+    /**
+     * User profile information. For email-based bulk jobs, `profile.email` is required
+     * for provider routing to determine if the message can be delivered. The email
+     * address should be provided here rather than in `to.email`.
+     *
+     * @param array<string,mixed>|null $profile
+     */
+    public function withProfile(?array $profile): self
     {
         $self = clone $this;
         $self['profile'] = $profile;
@@ -149,6 +173,9 @@ final class Item implements BaseModel
         return $self;
     }
 
+    /**
+     * User ID (legacy field, use profile or to.user_id instead).
+     */
     public function withRecipient(?string $recipient): self
     {
         $self = clone $this;

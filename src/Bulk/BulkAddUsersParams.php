@@ -14,13 +14,17 @@ use Courier\UserRecipient;
 /**
  * Ingest user data into a Bulk Job.
  *
+ * **Important**: For email-based bulk jobs, each user must include `profile.email`
+ * for provider routing to work correctly. The `to.email` field is not sufficient
+ * for email provider routing.
+ *
  * @see Courier\Services\BulkService::addUsers()
  *
  * @phpstan-type BulkAddUsersParamsShape = array{
  *   users: list<InboundBulkMessageUser|array{
  *     data?: mixed,
  *     preferences?: RecipientPreferences|null,
- *     profile?: mixed,
+ *     profile?: array<string,mixed>|null,
  *     recipient?: string|null,
  *     to?: UserRecipient|null,
  *   }>,
@@ -63,7 +67,7 @@ final class BulkAddUsersParams implements BaseModel
      * @param list<InboundBulkMessageUser|array{
      *   data?: mixed,
      *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      * }> $users
@@ -81,7 +85,7 @@ final class BulkAddUsersParams implements BaseModel
      * @param list<InboundBulkMessageUser|array{
      *   data?: mixed,
      *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
+     *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   to?: UserRecipient|null,
      * }> $users
