@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier;
 
 use Courier\Core\BaseClient;
+use Courier\Core\Util;
 use Courier\Services\AudiencesService;
 use Courier\Services\AuditEventsService;
 use Courier\Services\AuthService;
