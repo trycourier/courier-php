@@ -123,7 +123,6 @@ class Client extends BaseClient
         );
 
         parent::__construct(
-            // x-release-please-start-version
             headers: [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
@@ -135,9 +134,8 @@ class Client extends BaseClient
                 'X-Stainless-Runtime' => 'php',
                 'X-Stainless-Runtime-Version' => phpversion(),
             ],
-            // x-release-please-end
             baseUrl: $baseUrl,
-            options: $options,
+            options: $options
         );
 
         $this->send = new SendService($this);
