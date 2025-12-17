@@ -8,6 +8,7 @@ use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\MessageContext;
+use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
 use Courier\RequestOptions;
 use Courier\Send\SendMessageParams;
@@ -37,11 +38,11 @@ final class SendRawService implements SendRawContract
      *     channels?: array<string,array{
      *       brandID?: string|null,
      *       if?: string|null,
-     *       metadata?: array<mixed>|null,
+     *       metadata?: array<string,mixed>|null,
      *       override?: array<string,mixed>|null,
      *       providers?: list<string>|null,
      *       routingMethod?: 'all'|'single'|RoutingMethod|null,
-     *       timeouts?: array<mixed>|null,
+     *       timeouts?: array<string,mixed>|null,
      *     }>|null,
      *     content?: array<string,mixed>,
      *     context?: array{tenantID?: string|null}|MessageContext|null,
@@ -65,12 +66,12 @@ final class SendRawService implements SendRawContract
      *     preferences?: array{subscriptionTopicID: string}|null,
      *     providers?: array<string,array{
      *       if?: string|null,
-     *       metadata?: array<mixed>|null,
+     *       metadata?: array<string,mixed>|null,
      *       override?: array<string,mixed>|null,
      *       timeouts?: int|null,
      *     }>|null,
      *     routing?: array{
-     *       channels: list<mixed|string|MessageRoutingChannel>,
+     *       channels: list<string|MessageRouting|MessageRoutingChannel>,
      *       method: 'all'|'single'|Method,
      *     }|null,
      *     template?: string|null,
@@ -83,16 +84,16 @@ final class SendRawService implements SendRawContract
      *     }|null,
      *     to?: array{
      *       accountID?: string|null,
-     *       context?: array<mixed>|MessageContext|null,
+     *       context?: array<string,mixed>|MessageContext|null,
      *       data?: array<string,mixed>|null,
      *       email?: string|null,
      *       listID?: string|null,
      *       locale?: string|null,
      *       phoneNumber?: string|null,
-     *       preferences?: array<mixed>|null,
+     *       preferences?: array<string,mixed>|null,
      *       tenantID?: string|null,
      *       userID?: string|null,
-     *     }|UserRecipient|list<array<mixed>>|null,
+     *     }|UserRecipient|list<array<string,mixed>>|null,
      *   },
      * }|SendMessageParams $params
      *

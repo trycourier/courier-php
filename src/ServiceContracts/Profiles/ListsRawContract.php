@@ -19,7 +19,7 @@ interface ListsRawContract
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param array<mixed>|ListRetrieveParams $params
+     * @param array<string,mixed>|ListRetrieveParams $params
      *
      * @return BaseResponse<ListGetResponse>
      *
@@ -49,7 +49,7 @@ interface ListsRawContract
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param array<mixed>|ListSubscribeParams $params
+     * @param array<string,mixed>|ListSubscribeParams $params
      *
      * @return BaseResponse<ListSubscribeResponse>
      *

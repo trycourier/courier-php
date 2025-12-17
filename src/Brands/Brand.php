@@ -10,14 +10,17 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
+ * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
+ *
  * @phpstan-type BrandShape = array{
  *   id: string,
  *   created: int,
  *   name: string,
  *   updated: int,
  *   published?: int|null,
- *   settings?: BrandSettings|null,
- *   snippets?: BrandSnippets|null,
+ *   settings?: null|BrandSettings|BrandSettingsShape,
+ *   snippets?: null|BrandSnippets|BrandSnippetsShape,
  *   version?: string|null,
  * }
  */
@@ -74,12 +77,8 @@ final class Brand implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSettingsShape|null $settings
+     * @param BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $id,
@@ -147,11 +146,7 @@ final class Brand implements BaseModel
     }
 
     /**
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
+     * @param BrandSettingsShape|null $settings
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
@@ -162,7 +157,7 @@ final class Brand implements BaseModel
     }
 
     /**
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSnippetsShape|null $snippets
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {

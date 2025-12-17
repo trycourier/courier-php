@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\ChannelClassification;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\PreferenceStatus;
 
 /**
- * @phpstan-type PreferenceGetTopicResponseShape = array{topic: TopicPreference}
+ * @phpstan-import-type TopicPreferenceShape from \Courier\Users\Preferences\TopicPreference
+ *
+ * @phpstan-type PreferenceGetTopicResponseShape = array{
+ *   topic: TopicPreference|TopicPreferenceShape
+ * }
  */
 final class PreferenceGetTopicResponse implements BaseModel
 {
@@ -45,14 +47,7 @@ final class PreferenceGetTopicResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param TopicPreference|array{
-     *   defaultStatus: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topicID: string,
-     *   topicName: string,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * } $topic
+     * @param TopicPreferenceShape $topic
      */
     public static function with(TopicPreference|array $topic): self
     {
@@ -64,14 +59,7 @@ final class PreferenceGetTopicResponse implements BaseModel
     }
 
     /**
-     * @param TopicPreference|array{
-     *   defaultStatus: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topicID: string,
-     *   topicName: string,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * } $topic
+     * @param TopicPreferenceShape $topic
      */
     public function withTopic(TopicPreference|array $topic): self
     {

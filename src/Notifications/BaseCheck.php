@@ -12,7 +12,7 @@ use Courier\Notifications\BaseCheck\Type;
 
 /**
  * @phpstan-type BaseCheckShape = array{
- *   id: string, status: value-of<Status>, type: value-of<Type>
+ *   id: string, status: Status|value-of<Status>, type: Type|value-of<Type>
  * }
  */
 final class BaseCheck implements BaseModel

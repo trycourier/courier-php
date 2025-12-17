@@ -8,12 +8,14 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ *
  * @phpstan-type ProfileGetResponseShape = array{
- *   profile: array<string,mixed>, preferences?: RecipientPreferences|null
+ *   profile: array<string,mixed>,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
  * }
  */
 final class ProfileGetResponse implements BaseModel
@@ -53,10 +55,7 @@ final class ProfileGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,mixed> $profile
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      */
     public static function with(
         array $profile,
@@ -83,10 +82,7 @@ final class ProfileGetResponse implements BaseModel
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences

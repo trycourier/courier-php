@@ -34,7 +34,7 @@ interface MessagesRawContract
     /**
      * @api
      *
-     * @param array<mixed>|MessageListParams $params
+     * @param array<string,mixed>|MessageListParams $params
      *
      * @return BaseResponse<MessageListResponse>
      *
@@ -77,7 +77,7 @@ interface MessagesRawContract
      * @api
      *
      * @param string $messageID A unique identifier representing the message ID
-     * @param array<mixed>|MessageHistoryParams $params
+     * @param array<string,mixed>|MessageHistoryParams $params
      *
      * @return BaseResponse<MessageHistoryResponse>
      *

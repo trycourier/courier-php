@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\ChannelClassification;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\PreferenceStatus;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 
 /**
@@ -18,14 +16,10 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  *
  * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *
+ * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic
+ *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   userID: string,
- *   topic: Topic|array{
- *     status: value-of<PreferenceStatus>,
- *     customRouting?: list<value-of<ChannelClassification>>|null,
- *     hasCustomRouting?: bool|null,
- *   },
- *   tenantID?: string|null,
+ *   userID: string, topic: TopicShape, tenantID?: string|null
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -70,11 +64,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Topic|array{
-     *   status: value-of<PreferenceStatus>,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * } $topic
+     * @param TopicShape $topic
      */
     public static function with(
         string $userID,
@@ -100,11 +90,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     }
 
     /**
-     * @param Topic|array{
-     *   status: value-of<PreferenceStatus>,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * } $topic
+     * @param TopicShape $topic
      */
     public function withTopic(Topic|array $topic): self
     {

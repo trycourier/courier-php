@@ -10,8 +10,10 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ActorShape from \Courier\AuditEvents\AuditEvent\Actor
+ *
  * @phpstan-type AuditEventShape = array{
- *   actor: Actor,
+ *   actor: Actor|ActorShape,
  *   auditEventID: string,
  *   source: string,
  *   target: string,
@@ -79,7 +81,7 @@ final class AuditEvent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Actor|array{id: string, email?: string|null} $actor
+     * @param ActorShape $actor
      */
     public static function with(
         Actor|array $actor,
@@ -102,7 +104,7 @@ final class AuditEvent implements BaseModel
     }
 
     /**
-     * @param Actor|array{id: string, email?: string|null} $actor
+     * @param ActorShape $actor
      */
     public function withActor(Actor|array $actor): self
     {

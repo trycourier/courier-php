@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\Lists\ListDeleteResponse\Status;
 
 /**
- * @phpstan-type ListDeleteResponseShape = array{status: value-of<Status>}
+ * @phpstan-type ListDeleteResponseShape = array{status: Status|value-of<Status>}
  */
 final class ListDeleteResponse implements BaseModel
 {

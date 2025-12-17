@@ -10,17 +10,19 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Channel\Metadata;
 use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
 use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
-use Courier\Utm;
 
 /**
+ * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Channel\Metadata
+ * @phpstan-import-type TimeoutsShape from \Courier\Send\SendMessageParams\Message\Channel\Timeouts
+ *
  * @phpstan-type ChannelShape = array{
  *   brandID?: string|null,
  *   if?: string|null,
- *   metadata?: \Courier\Send\SendMessageParams\Message\Channel\Metadata|null,
+ *   metadata?: null|\Courier\Send\SendMessageParams\Message\Channel\Metadata|MetadataShape,
  *   override?: array<string,mixed>|null,
  *   providers?: list<string>|null,
- *   routingMethod?: value-of<RoutingMethod>|null,
- *   timeouts?: Timeouts|null,
+ *   routingMethod?: null|RoutingMethod|value-of<RoutingMethod>,
+ *   timeouts?: null|Timeouts|TimeoutsShape,
  * }
  */
 final class Channel implements BaseModel
@@ -80,13 +82,11 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param MetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
      * @param RoutingMethod|value-of<RoutingMethod>|null $routingMethod
-     * @param Timeouts|array{channel?: int|null, provider?: int|null}|null $timeouts
+     * @param TimeoutsShape|null $timeouts
      */
     public static function with(
         ?string $brandID = null,
@@ -133,9 +133,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param MetadataShape|null $metadata
      */
     public function withMetadata(
         Metadata|array|null $metadata,
@@ -187,7 +185,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param Timeouts|array{channel?: int|null, provider?: int|null}|null $timeouts
+     * @param TimeoutsShape|null $timeouts
      */
     public function withTimeouts(Timeouts|array|null $timeouts): self
     {

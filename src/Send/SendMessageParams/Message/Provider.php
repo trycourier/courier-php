@@ -8,12 +8,13 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Provider\Metadata;
-use Courier\Utm;
 
 /**
+ * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Provider\Metadata
+ *
  * @phpstan-type ProviderShape = array{
  *   if?: string|null,
- *   metadata?: \Courier\Send\SendMessageParams\Message\Provider\Metadata|null,
+ *   metadata?: null|\Courier\Send\SendMessageParams\Message\Provider\Metadata|MetadataShape,
  *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
@@ -53,9 +54,7 @@ final class Provider implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param MetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      */
     public static function with(
@@ -86,9 +85,7 @@ final class Provider implements BaseModel
     }
 
     /**
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param MetadataShape|null $metadata
      */
     public function withMetadata(
         Metadata|array|null $metadata,

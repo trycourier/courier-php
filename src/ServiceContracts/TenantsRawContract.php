@@ -34,7 +34,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
-     * @param array<mixed>|TenantUpdateParams $params
+     * @param array<string,mixed>|TenantUpdateParams $params
      *
      * @return BaseResponse<Tenant>
      *
@@ -49,7 +49,7 @@ interface TenantsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|TenantListParams $params
+     * @param array<string,mixed>|TenantListParams $params
      *
      * @return BaseResponse<TenantListResponse>
      *
@@ -78,7 +78,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $tenantID id of the tenant for user membership
-     * @param array<mixed>|TenantListUsersParams $params
+     * @param array<string,mixed>|TenantListUsersParams $params
      *
      * @return BaseResponse<TenantListUsersResponse>
      *

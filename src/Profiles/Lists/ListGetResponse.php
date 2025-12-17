@@ -9,11 +9,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
-use Courier\RecipientPreferences;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type ResultShape from \Courier\Profiles\Lists\ListGetResponse\Result
+ *
  * @phpstan-type ListGetResponseShape = array{
- *   paging: Paging, results: list<Result>
+ *   paging: Paging|PagingShape, results: list<ResultShape>
  * }
  */
 final class ListGetResponse implements BaseModel
@@ -56,14 +58,8 @@ final class ListGetResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<Result|array{
-     *   id: string,
-     *   created: string,
-     *   name: string,
-     *   updated: string,
-     *   preferences?: RecipientPreferences|null,
-     * }> $results
+     * @param PagingShape $paging
+     * @param list<ResultShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -76,7 +72,7 @@ final class ListGetResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
@@ -89,13 +85,7 @@ final class ListGetResponse implements BaseModel
     /**
      * An array of lists.
      *
-     * @param list<Result|array{
-     *   id: string,
-     *   created: string,
-     *   name: string,
-     *   updated: string,
-     *   preferences?: RecipientPreferences|null,
-     * }> $results
+     * @param list<ResultShape> $results
      */
     public function withResults(array $results): self
     {

@@ -8,14 +8,15 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\DefaultPreferences\Item;
 
 /**
+ * @phpstan-import-type DefaultPreferencesShape from \Courier\Tenants\DefaultPreferences
+ *
  * @phpstan-type TenantShape = array{
  *   id: string,
  *   name: string,
  *   brandID?: string|null,
- *   defaultPreferences?: DefaultPreferences|null,
+ *   defaultPreferences?: null|DefaultPreferences|DefaultPreferencesShape,
  *   parentTenantID?: string|null,
  *   properties?: array<string,mixed>|null,
  *   userProfile?: array<string,mixed>|null,
@@ -96,9 +97,7 @@ final class Tenant implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param DefaultPreferences|array{
-     *   items?: list<Item>|null
-     * }|null $defaultPreferences
+     * @param DefaultPreferencesShape|null $defaultPreferences
      * @param array<string,mixed>|null $properties
      * @param array<string,mixed>|null $userProfile
      */
@@ -161,9 +160,7 @@ final class Tenant implements BaseModel
     /**
      * Defines the preferences used for the account when the user hasn't specified their own.
      *
-     * @param DefaultPreferences|array{
-     *   items?: list<Item>|null
-     * }|null $defaultPreferences
+     * @param DefaultPreferencesShape|null $defaultPreferences
      */
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences

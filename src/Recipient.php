@@ -10,15 +10,18 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Recipient\Preferences;
 
 /**
+ * @phpstan-import-type MessageContextShape from \Courier\MessageContext
+ * @phpstan-import-type PreferencesShape from \Courier\Recipient\Preferences
+ *
  * @phpstan-type RecipientShape = array{
  *   accountID?: string|null,
- *   context?: MessageContext|null,
+ *   context?: null|MessageContext|MessageContextShape,
  *   data?: array<string,mixed>|null,
  *   email?: string|null,
  *   listID?: string|null,
  *   locale?: string|null,
  *   phoneNumber?: string|null,
- *   preferences?: Preferences|null,
+ *   preferences?: null|Preferences|PreferencesShape,
  *   tenantID?: string|null,
  *   userID?: string|null,
  * }
@@ -93,13 +96,9 @@ final class Recipient implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageContext|array{tenantID?: string|null}|null $context
+     * @param MessageContextShape|null $context
      * @param array<string,mixed>|null $data
-     * @param Preferences|array{
-     *   notifications: array<string,Preference>,
-     *   categories?: array<string,Preference>|null,
-     *   templateID?: string|null,
-     * }|null $preferences
+     * @param PreferencesShape|null $preferences
      */
     public static function with(
         ?string $accountID = null,
@@ -143,7 +142,7 @@ final class Recipient implements BaseModel
     /**
      * Context such as tenant_id to send the notification with.
      *
-     * @param MessageContext|array{tenantID?: string|null}|null $context
+     * @param MessageContextShape|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
@@ -209,11 +208,7 @@ final class Recipient implements BaseModel
     }
 
     /**
-     * @param Preferences|array{
-     *   notifications: array<string,Preference>,
-     *   categories?: array<string,Preference>|null,
-     *   templateID?: string|null,
-     * }|null $preferences
+     * @param PreferencesShape|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {

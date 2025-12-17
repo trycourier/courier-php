@@ -9,16 +9,16 @@ use Courier\Bulk\InboundBulkMessage;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalContent;
-use Courier\ElementalContentSugar;
 
 /**
+ * @phpstan-import-type InboundBulkMessageShape from \Courier\Bulk\InboundBulkMessage
+ *
  * @phpstan-type JobShape = array{
- *   definition: InboundBulkMessage,
+ *   definition: InboundBulkMessage|InboundBulkMessageShape,
  *   enqueued: int,
  *   failures: int,
  *   received: int,
- *   status: value-of<Status>,
+ *   status: Status|value-of<Status>,
  * }
  */
 final class Job implements BaseModel
@@ -78,15 +78,7 @@ final class Job implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param InboundBulkMessage|array{
-     *   event: string,
-     *   brand?: string|null,
-     *   content?: ElementalContentSugar|ElementalContent|null,
-     *   data?: array<string,mixed>|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     *   template?: string|null,
-     * } $definition
+     * @param InboundBulkMessageShape $definition
      * @param Status|value-of<Status> $status
      */
     public static function with(
@@ -112,15 +104,7 @@ final class Job implements BaseModel
      * - V1 format: Requires `event` field (event ID or notification ID)
      * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
      *
-     * @param InboundBulkMessage|array{
-     *   event: string,
-     *   brand?: string|null,
-     *   content?: ElementalContentSugar|ElementalContent|null,
-     *   data?: array<string,mixed>|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     *   template?: string|null,
-     * } $definition
+     * @param InboundBulkMessageShape $definition
      */
     public function withDefinition(InboundBulkMessage|array $definition): self
     {

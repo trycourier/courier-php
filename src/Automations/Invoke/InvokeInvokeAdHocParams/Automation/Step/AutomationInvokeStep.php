@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationInvokeStepShape = array{
- *   action: value-of<Action>, template: string
+ *   action: Action|value-of<Action>, template: string
  * }
  */
 final class AutomationInvokeStep implements BaseModel

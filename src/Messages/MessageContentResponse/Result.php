@@ -8,11 +8,12 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content;
-use Courier\Messages\MessageContentResponse\Result\Content\Block;
 
 /**
+ * @phpstan-import-type ContentShape from \Courier\Messages\MessageContentResponse\Result\Content
+ *
  * @phpstan-type ResultShape = array{
- *   channel: string, channelID: string, content: Content
+ *   channel: string, channelID: string, content: Content|ContentShape
  * }
  */
 final class Result implements BaseModel
@@ -62,14 +63,7 @@ final class Result implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Content|array{
-     *   blocks: list<Block>,
-     *   body: string,
-     *   html: string,
-     *   subject: string,
-     *   text: string,
-     *   title: string,
-     * } $content
+     * @param ContentShape $content
      */
     public static function with(
         string $channel,
@@ -110,14 +104,7 @@ final class Result implements BaseModel
     /**
      * Content details of the rendered message.
      *
-     * @param Content|array{
-     *   blocks: list<Block>,
-     *   body: string,
-     *   html: string,
-     *   subject: string,
-     *   text: string,
-     *   title: string,
-     * } $content
+     * @param ContentShape $content
      */
     public function withContent(Content|array $content): self
     {

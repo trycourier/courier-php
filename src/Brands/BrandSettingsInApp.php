@@ -11,14 +11,18 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandColorsShape from \Courier\Brands\BrandColors
+ * @phpstan-import-type IconsShape from \Courier\Brands\Icons
+ * @phpstan-import-type WidgetBackgroundShape from \Courier\Brands\WidgetBackground
+ *
  * @phpstan-type BrandSettingsInAppShape = array{
- *   colors: BrandColors,
- *   icons: Icons,
- *   widgetBackground: WidgetBackground,
+ *   colors: BrandColors|BrandColorsShape,
+ *   icons: Icons|IconsShape,
+ *   widgetBackground: WidgetBackground|WidgetBackgroundShape,
  *   borderRadius?: string|null,
  *   disableMessageIcon?: bool|null,
  *   fontFamily?: string|null,
- *   placement?: value-of<Placement>|null,
+ *   placement?: null|Placement|value-of<Placement>,
  * }
  */
 final class BrandSettingsInApp implements BaseModel
@@ -75,11 +79,9 @@ final class BrandSettingsInApp implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
-     * @param Icons|array{bell?: string|null, message?: string|null} $icons
-     * @param WidgetBackground|array{
-     *   bottomColor?: string|null, topColor?: string|null
-     * } $widgetBackground
+     * @param BrandColorsShape $colors
+     * @param IconsShape $icons
+     * @param WidgetBackgroundShape $widgetBackground
      * @param Placement|value-of<Placement>|null $placement
      */
     public static function with(
@@ -106,7 +108,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
+     * @param BrandColorsShape $colors
      */
     public function withColors(BrandColors|array $colors): self
     {
@@ -117,7 +119,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param Icons|array{bell?: string|null, message?: string|null} $icons
+     * @param IconsShape $icons
      */
     public function withIcons(Icons|array $icons): self
     {
@@ -128,9 +130,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param WidgetBackground|array{
-     *   bottomColor?: string|null, topColor?: string|null
-     * } $widgetBackground
+     * @param WidgetBackgroundShape $widgetBackground
      */
     public function withWidgetBackground(
         WidgetBackground|array $widgetBackground

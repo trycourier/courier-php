@@ -15,9 +15,10 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
  *
  * @see Courier\Services\Users\TokensService::update()
  *
+ * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
+ *
  * @phpstan-type TokenUpdateParamsShape = array{
- *   userID: string,
- *   patch: list<Patch|array{op: string, path: string, value?: string|null}>,
+ *   userID: string, patch: list<PatchShape>
  * }
  */
 final class TokenUpdateParams implements BaseModel
@@ -57,7 +58,7 @@ final class TokenUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
+     * @param list<PatchShape> $patch
      */
     public static function with(string $userID, array $patch): self
     {
@@ -78,7 +79,7 @@ final class TokenUpdateParams implements BaseModel
     }
 
     /**
-     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
+     * @param list<PatchShape> $patch
      */
     public function withPatch(array $patch): self
     {

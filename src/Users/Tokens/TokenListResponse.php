@@ -7,14 +7,13 @@ namespace Courier\Users\Tokens;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Users\Tokens\UserToken\Device;
-use Courier\Users\Tokens\UserToken\ProviderKey;
-use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
  * A list of tokens registered with the user.
  *
- * @phpstan-type TokenListResponseShape = array{tokens: list<UserToken>}
+ * @phpstan-import-type UserTokenShape from \Courier\Users\Tokens\UserToken
+ *
+ * @phpstan-type TokenListResponseShape = array{tokens: list<UserTokenShape>}
  */
 final class TokenListResponse implements BaseModel
 {
@@ -49,14 +48,7 @@ final class TokenListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UserToken|array{
-     *   token: string,
-     *   providerKey: value-of<ProviderKey>,
-     *   device?: Device|null,
-     *   expiryDate?: string|bool|null,
-     *   properties?: mixed,
-     *   tracking?: Tracking|null,
-     * }> $tokens
+     * @param list<UserTokenShape> $tokens
      */
     public static function with(array $tokens): self
     {
@@ -68,14 +60,7 @@ final class TokenListResponse implements BaseModel
     }
 
     /**
-     * @param list<UserToken|array{
-     *   token: string,
-     *   providerKey: value-of<ProviderKey>,
-     *   device?: Device|null,
-     *   expiryDate?: string|bool|null,
-     *   properties?: mixed,
-     *   tracking?: Tracking|null,
-     * }> $tokens
+     * @param list<UserTokenShape> $tokens
      */
     public function withTokens(array $tokens): self
     {

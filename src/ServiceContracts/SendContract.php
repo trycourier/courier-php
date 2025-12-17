@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\ChannelPreference;
 use Courier\Core\Exceptions\APIException;
 use Courier\MessageContext;
+use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
 use Courier\Preference;
 use Courier\Preference\Source;
@@ -79,7 +80,7 @@ interface SendContract
      *     timeouts?: int|null,
      *   }>|null,
      *   routing?: array{
-     *     channels: list<mixed|string|MessageRoutingChannel>,
+     *     channels: list<string|MessageRouting|MessageRoutingChannel>,
      *     method: 'all'|'single'|Method,
      *   }|null,
      *   template?: string|null,

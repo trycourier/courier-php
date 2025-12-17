@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type WebhookShape = array{
- *   method: value-of<Method>,
+ *   method: Method|value-of<Method>,
  *   url: string,
  *   body?: string|null,
  *   headers?: array<string,string>|null,

@@ -13,8 +13,8 @@ use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type TopicShape = array{
- *   status: value-of<PreferenceStatus>,
- *   customRouting?: list<value-of<ChannelClassification>>|null,
+ *   status: PreferenceStatus|value-of<PreferenceStatus>,
+ *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   hasCustomRouting?: bool|null,
  * }
  */

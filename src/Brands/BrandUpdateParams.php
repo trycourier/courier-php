@@ -15,14 +15,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\BrandsService::update()
  *
+ * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
+ * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
+ *
  * @phpstan-type BrandUpdateParamsShape = array{
  *   name: string,
- *   settings?: null|BrandSettings|array{
- *     colors?: BrandColors|null,
- *     email?: BrandSettingsEmail|null,
- *     inapp?: BrandSettingsInApp|null,
- *   },
- *   snippets?: null|BrandSnippets|array{items?: list<BrandSnippet>|null},
+ *   settings?: BrandSettingsShape|null,
+ *   snippets?: BrandSnippetsShape|null,
  * }
  */
 final class BrandUpdateParams implements BaseModel
@@ -67,12 +66,8 @@ final class BrandUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSettingsShape|null $settings
+     * @param BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $name,
@@ -101,11 +96,7 @@ final class BrandUpdateParams implements BaseModel
     }
 
     /**
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
+     * @param BrandSettingsShape|null $settings
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
@@ -116,7 +107,7 @@ final class BrandUpdateParams implements BaseModel
     }
 
     /**
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSnippetsShape|null $snippets
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {

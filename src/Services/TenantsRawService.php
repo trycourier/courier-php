@@ -60,7 +60,7 @@ final class TenantsRawService implements TenantsRawContract
      *   name: string,
      *   brandID?: string|null,
      *   defaultPreferences?: array{
-     *     items?: list<array<mixed>>|null
+     *     items?: list<array<string,mixed>>|null
      *   }|DefaultPreferences|null,
      *   parentTenantID?: string|null,
      *   properties?: array<string,mixed>|null,

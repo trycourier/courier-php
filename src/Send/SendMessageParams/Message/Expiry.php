@@ -10,8 +10,10 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ExpiresInShape from \Courier\Send\SendMessageParams\Message\Expiry\ExpiresIn
+ *
  * @phpstan-type ExpiryShape = array{
- *   expiresIn: string|int, expiresAt?: string|null
+ *   expiresIn: ExpiresInShape, expiresAt?: string|null
  * }
  */
 final class Expiry implements BaseModel
@@ -54,6 +56,8 @@ final class Expiry implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param ExpiresInShape $expiresIn
      */
     public static function with(
         string|int $expiresIn,
@@ -70,6 +74,8 @@ final class Expiry implements BaseModel
 
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
+     *
+     * @param ExpiresInShape $expiresIn
      */
     public function withExpiresIn(string|int $expiresIn): self
     {

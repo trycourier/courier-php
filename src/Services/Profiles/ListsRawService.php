@@ -88,7 +88,7 @@ final class ListsRawService implements ListsRawContract
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{
      *   lists: list<array{
-     *     listID: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     listID: string, preferences?: array<string,mixed>|RecipientPreferences|null
      *   }>,
      * }|ListSubscribeParams $params
      *

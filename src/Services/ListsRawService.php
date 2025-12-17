@@ -57,8 +57,8 @@ final class ListsRawService implements ListsRawContract
      * @param array{
      *   name: string,
      *   preferences?: array{
-     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *     categories?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
      *   }|RecipientPreferences|null,
      * }|ListUpdateParams $params
      *

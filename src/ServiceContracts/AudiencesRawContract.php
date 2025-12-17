@@ -35,7 +35,7 @@ interface AudiencesRawContract
      * @api
      *
      * @param string $audienceID A unique identifier representing the audience id
-     * @param array<mixed>|AudienceUpdateParams $params
+     * @param array<string,mixed>|AudienceUpdateParams $params
      *
      * @return BaseResponse<AudienceUpdateResponse>
      *
@@ -50,7 +50,7 @@ interface AudiencesRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AudienceListParams $params
+     * @param array<string,mixed>|AudienceListParams $params
      *
      * @return BaseResponse<AudienceListResponse>
      *
@@ -79,7 +79,7 @@ interface AudiencesRawContract
      * @api
      *
      * @param string $audienceID A unique identifier representing the audience id
-     * @param array<mixed>|AudienceListMembersParams $params
+     * @param array<string,mixed>|AudienceListMembersParams $params
      *
      * @return BaseResponse<AudienceListMembersResponse>
      *

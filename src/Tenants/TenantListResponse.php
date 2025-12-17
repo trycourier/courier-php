@@ -11,10 +11,12 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantListResponse\Type;
 
 /**
+ * @phpstan-import-type TenantShape from \Courier\Tenants\Tenant
+ *
  * @phpstan-type TenantListResponseShape = array{
  *   hasMore: bool,
- *   items: list<Tenant>,
- *   type: value-of<Type>,
+ *   items: list<TenantShape>,
+ *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
  *   nextURL?: string|null,
@@ -94,15 +96,7 @@ final class TenantListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Tenant|array{
-     *   id: string,
-     *   name: string,
-     *   brandID?: string|null,
-     *   defaultPreferences?: DefaultPreferences|null,
-     *   parentTenantID?: string|null,
-     *   properties?: array<string,mixed>|null,
-     *   userProfile?: array<string,mixed>|null,
-     * }> $items
+     * @param list<TenantShape> $items
      * @param Type|value-of<Type> $type
      */
     public static function with(
@@ -140,15 +134,7 @@ final class TenantListResponse implements BaseModel
     /**
      * An array of Tenants.
      *
-     * @param list<Tenant|array{
-     *   id: string,
-     *   name: string,
-     *   brandID?: string|null,
-     *   defaultPreferences?: DefaultPreferences|null,
-     *   parentTenantID?: string|null,
-     *   properties?: array<string,mixed>|null,
-     *   userProfile?: array<string,mixed>|null,
-     * }> $items
+     * @param list<TenantShape> $items
      */
     public function withItems(array $items): self
     {

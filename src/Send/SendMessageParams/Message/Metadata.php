@@ -10,11 +10,13 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
+ * @phpstan-import-type UtmShape from \Courier\Utm
+ *
  * @phpstan-type MetadataShape = array{
  *   event?: string|null,
  *   tags?: list<string>|null,
  *   traceID?: string|null,
- *   utm?: Utm|null,
+ *   utm?: null|Utm|UtmShape,
  * }
  */
 final class Metadata implements BaseModel
@@ -46,13 +48,7 @@ final class Metadata implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $tags
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param UtmShape|null $utm
      */
     public static function with(
         ?string $event = null,
@@ -98,13 +94,7 @@ final class Metadata implements BaseModel
     }
 
     /**
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param UtmShape|null $utm
      */
     public function withUtm(Utm|array|null $utm): self
     {

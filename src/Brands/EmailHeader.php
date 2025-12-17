@@ -10,8 +10,10 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type LogoShape from \Courier\Brands\Logo
+ *
  * @phpstan-type EmailHeaderShape = array{
- *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
+ *   logo: Logo|LogoShape, barColor?: string|null, inheritDefault?: bool|null
  * }
  */
 final class EmailHeader implements BaseModel
@@ -52,7 +54,7 @@ final class EmailHeader implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Logo|array{href?: string|null, image?: string|null} $logo
+     * @param LogoShape $logo
      */
     public static function with(
         Logo|array $logo,
@@ -70,7 +72,7 @@ final class EmailHeader implements BaseModel
     }
 
     /**
-     * @param Logo|array{href?: string|null, image?: string|null} $logo
+     * @param LogoShape $logo
      */
     public function withLogo(Logo|array $logo): self
     {

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationDelayStepShape = array{
- *   action: value-of<Action>, duration?: string|null, until?: string|null
+ *   action: Action|value-of<Action>, duration?: string|null, until?: string|null
  * }
  */
 final class AutomationDelayStep implements BaseModel

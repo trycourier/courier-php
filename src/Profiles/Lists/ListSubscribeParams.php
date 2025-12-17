@@ -9,17 +9,16 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\SubscribeToListsRequestItem;
-use Courier\RecipientPreferences;
 
 /**
  * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
  *
  * @see Courier\Services\Profiles\ListsService::subscribe()
  *
+ * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
+ *
  * @phpstan-type ListSubscribeParamsShape = array{
- *   lists: list<SubscribeToListsRequestItem|array{
- *     listID: string, preferences?: RecipientPreferences|null
- *   }>,
+ *   lists: list<SubscribeToListsRequestItemShape>
  * }
  */
 final class ListSubscribeParams implements BaseModel
@@ -56,9 +55,7 @@ final class ListSubscribeParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscribeToListsRequestItem|array{
-     *   listID: string, preferences?: RecipientPreferences|null
-     * }> $lists
+     * @param list<SubscribeToListsRequestItemShape> $lists
      */
     public static function with(array $lists): self
     {
@@ -70,9 +67,7 @@ final class ListSubscribeParams implements BaseModel
     }
 
     /**
-     * @param list<SubscribeToListsRequestItem|array{
-     *   listID: string, preferences?: RecipientPreferences|null
-     * }> $lists
+     * @param list<SubscribeToListsRequestItemShape> $lists
      */
     public function withLists(array $lists): self
     {

@@ -12,7 +12,7 @@ use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 /**
  * @phpstan-type TimeoutShape = array{
  *   channel?: array<string,int>|null,
- *   criteria?: value-of<Criteria>|null,
+ *   criteria?: null|Criteria|value-of<Criteria>,
  *   escalation?: int|null,
  *   message?: int|null,
  *   provider?: array<string,int>|null,

@@ -16,7 +16,7 @@ interface ItemsRawContract
      * @api
      *
      * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
-     * @param array<mixed>|ItemUpdateParams $params
+     * @param array<string,mixed>|ItemUpdateParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -32,7 +32,7 @@ interface ItemsRawContract
      * @api
      *
      * @param string $topicID id fo the susbcription topic you want to have a default preference for
-     * @param array<mixed>|ItemDeleteParams $params
+     * @param array<string,mixed>|ItemDeleteParams $params
      *
      * @return BaseResponse<mixed>
      *

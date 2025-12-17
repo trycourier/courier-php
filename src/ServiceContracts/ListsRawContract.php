@@ -32,7 +32,7 @@ interface ListsRawContract
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
-     * @param array<mixed>|ListUpdateParams $params
+     * @param array<string,mixed>|ListUpdateParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -47,7 +47,7 @@ interface ListsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|ListListParams $params
+     * @param array<string,mixed>|ListListParams $params
      *
      * @return BaseResponse<ListListResponse>
      *

@@ -14,7 +14,7 @@ use Courier\Tenants\TenantAssociation\Type;
  * @phpstan-type TenantAssociationShape = array{
  *   tenantID: string,
  *   profile?: array<string,mixed>|null,
- *   type?: value-of<Type>|null,
+ *   type?: null|Type|value-of<Type>,
  *   userID?: string|null,
  * }
  */

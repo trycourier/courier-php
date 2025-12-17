@@ -18,7 +18,7 @@ interface TemplatesRawContract
      * @api
      *
      * @param string $templateID id of the template to be retrieved
-     * @param array<mixed>|TemplateRetrieveParams $params
+     * @param array<string,mixed>|TemplateRetrieveParams $params
      *
      * @return BaseResponse<BaseTemplateTenantAssociation>
      *
@@ -34,7 +34,7 @@ interface TemplatesRawContract
      * @api
      *
      * @param string $tenantID id of the tenant for which to retrieve the templates
-     * @param array<mixed>|TemplateListParams $params
+     * @param array<string,mixed>|TemplateListParams $params
      *
      * @return BaseResponse<TemplateListResponse>
      *

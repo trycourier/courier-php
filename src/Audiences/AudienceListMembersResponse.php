@@ -11,8 +11,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type ItemShape from \Courier\Audiences\AudienceListMembersResponse\Item
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type AudienceListMembersResponseShape = array{
- *   items: list<Item>, paging: Paging
+ *   items: list<ItemShape>, paging: Paging|PagingShape
  * }
  */
 final class AudienceListMembersResponse implements BaseModel
@@ -51,14 +54,8 @@ final class AudienceListMembersResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item|array{
-     *   addedAt: string,
-     *   audienceID: string,
-     *   audienceVersion: int,
-     *   memberID: string,
-     *   reason: string,
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<ItemShape> $items
+     * @param PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
@@ -71,13 +68,7 @@ final class AudienceListMembersResponse implements BaseModel
     }
 
     /**
-     * @param list<Item|array{
-     *   addedAt: string,
-     *   audienceID: string,
-     *   audienceVersion: int,
-     *   memberID: string,
-     *   reason: string,
-     * }> $items
+     * @param list<ItemShape> $items
      */
     public function withItems(array $items): self
     {
@@ -88,7 +79,7 @@ final class AudienceListMembersResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

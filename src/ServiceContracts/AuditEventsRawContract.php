@@ -30,7 +30,7 @@ interface AuditEventsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AuditEventListParams $params
+     * @param array<string,mixed>|AuditEventListParams $params
      *
      * @return BaseResponse<AuditEventListResponse>
      *

@@ -11,6 +11,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandTemplateShape from \Courier\Brands\BrandTemplate
+ *
  * @phpstan-type TemplateOverrideShape = array{
  *   enabled: bool,
  *   backgroundColor?: string|null,
@@ -19,7 +21,7 @@ use Courier\Core\Contracts\BaseModel;
  *   head?: string|null,
  *   header?: string|null,
  *   width?: string|null,
- *   mjml: BrandTemplate,
+ *   mjml: BrandTemplate|BrandTemplateShape,
  *   footerBackgroundColor?: string|null,
  *   footerFullWidth?: bool|null,
  * }
@@ -83,15 +85,7 @@ final class TemplateOverride implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandTemplate|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     * } $mjml
+     * @param BrandTemplateShape $mjml
      */
     public static function with(
         bool $enabled,
@@ -180,15 +174,7 @@ final class TemplateOverride implements BaseModel
     }
 
     /**
-     * @param BrandTemplate|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     * } $mjml
+     * @param BrandTemplateShape $mjml
      */
     public function withMjml(BrandTemplate|array $mjml): self
     {

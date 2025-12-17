@@ -8,16 +8,15 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationGetContent\Block;
-use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
-use Courier\Notifications\NotificationGetContent\Block\Type;
 use Courier\Notifications\NotificationGetContent\Channel;
-use Courier\Notifications\NotificationGetContent\Channel\Content;
-use Courier\Notifications\NotificationGetContent\Channel\Locale;
 
 /**
+ * @phpstan-import-type BlockShape from \Courier\Notifications\NotificationGetContent\Block
+ * @phpstan-import-type ChannelShape from \Courier\Notifications\NotificationGetContent\Channel
+ *
  * @phpstan-type NotificationGetContentShape = array{
- *   blocks?: list<Block>|null,
- *   channels?: list<Channel>|null,
+ *   blocks?: list<BlockShape>|null,
+ *   channels?: list<ChannelShape>|null,
  *   checksum?: string|null,
  * }
  */
@@ -47,22 +46,8 @@ final class NotificationGetContent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Block|array{
-     *   id: string,
-     *   type: value-of<Type>,
-     *   alias?: string|null,
-     *   checksum?: string|null,
-     *   content?: string|NotificationContentHierarchy|null,
-     *   context?: string|null,
-     *   locales?: array<string,string|Block\Locale\NotificationContentHierarchy>|null,
-     * }>|null $blocks
-     * @param list<Channel|array{
-     *   id: string,
-     *   checksum?: string|null,
-     *   content?: Content|null,
-     *   locales?: array<string,Locale>|null,
-     *   type?: string|null,
-     * }>|null $channels
+     * @param list<BlockShape>|null $blocks
+     * @param list<ChannelShape>|null $channels
      */
     public static function with(
         ?array $blocks = null,
@@ -79,15 +64,7 @@ final class NotificationGetContent implements BaseModel
     }
 
     /**
-     * @param list<Block|array{
-     *   id: string,
-     *   type: value-of<Type>,
-     *   alias?: string|null,
-     *   checksum?: string|null,
-     *   content?: string|NotificationContentHierarchy|null,
-     *   context?: string|null,
-     *   locales?: array<string,string|Block\Locale\NotificationContentHierarchy>|null,
-     * }>|null $blocks
+     * @param list<BlockShape>|null $blocks
      */
     public function withBlocks(?array $blocks): self
     {
@@ -98,13 +75,7 @@ final class NotificationGetContent implements BaseModel
     }
 
     /**
-     * @param list<Channel|array{
-     *   id: string,
-     *   checksum?: string|null,
-     *   content?: Content|null,
-     *   locales?: array<string,Locale>|null,
-     *   type?: string|null,
-     * }>|null $channels
+     * @param list<ChannelShape>|null $channels
      */
     public function withChannels(?array $channels): self
     {

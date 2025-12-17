@@ -23,9 +23,9 @@ use Courier\Messages\MessageDetails\Status;
  *   opened: int,
  *   recipient: string,
  *   sent: int,
- *   status: value-of<Status>,
+ *   status: Status|value-of<Status>,
  *   error?: string|null,
- *   reason?: value-of<Reason>|null,
+ *   reason?: null|Reason|value-of<Reason>,
  *   providers?: list<array<string,mixed>>|null,
  * }
  */

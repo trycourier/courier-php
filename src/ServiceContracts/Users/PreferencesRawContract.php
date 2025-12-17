@@ -20,7 +20,7 @@ interface PreferencesRawContract
      * @api
      *
      * @param string $userID a unique identifier associated with the user whose preferences you wish to retrieve
-     * @param array<mixed>|PreferenceRetrieveParams $params
+     * @param array<string,mixed>|PreferenceRetrieveParams $params
      *
      * @return BaseResponse<PreferenceGetResponse>
      *
@@ -36,7 +36,7 @@ interface PreferencesRawContract
      * @api
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
-     * @param array<mixed>|PreferenceRetrieveTopicParams $params
+     * @param array<string,mixed>|PreferenceRetrieveTopicParams $params
      *
      * @return BaseResponse<PreferenceGetTopicResponse>
      *
@@ -52,7 +52,7 @@ interface PreferencesRawContract
      * @api
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
-     * @param array<mixed>|PreferenceUpdateOrCreateTopicParams $params
+     * @param array<string,mixed>|PreferenceUpdateOrCreateTopicParams $params
      *
      * @return BaseResponse<PreferenceUpdateOrNewTopicResponse>
      *

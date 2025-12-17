@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\Operator;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -15,12 +14,10 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\AudiencesService::update()
  *
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ *
  * @phpstan-type AudienceUpdateParamsShape = array{
- *   description?: string|null,
- *   filter?: null|Filter|array{
- *     operator: value-of<Operator>, path: string, value: string
- *   },
- *   name?: string|null,
+ *   description?: string|null, filter?: FilterShape|null, name?: string|null
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -57,9 +54,7 @@ final class AudienceUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * }|null $filter
+     * @param FilterShape|null $filter
      */
     public static function with(
         ?string $description = null,
@@ -89,9 +84,7 @@ final class AudienceUpdateParams implements BaseModel
     /**
      * A single filter to use for filtering.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * }|null $filter
+     * @param FilterShape|null $filter
      */
     public function withFilter(Filter|array|null $filter): self
     {

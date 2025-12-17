@@ -9,17 +9,14 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck;
-use Courier\Notifications\BaseCheck\Status;
-use Courier\Notifications\BaseCheck\Type;
 
 /**
  * @see Courier\Services\Notifications\ChecksService::update()
  *
+ * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck
+ *
  * @phpstan-type CheckUpdateParamsShape = array{
- *   id: string,
- *   checks: list<BaseCheck|array{
- *     id: string, status: value-of<Status>, type: value-of<Type>
- *   }>,
+ *   id: string, checks: list<BaseCheckShape>
  * }
  */
 final class CheckUpdateParams implements BaseModel
@@ -59,9 +56,7 @@ final class CheckUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BaseCheck|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>
-     * }> $checks
+     * @param list<BaseCheckShape> $checks
      */
     public static function with(string $id, array $checks): self
     {
@@ -82,9 +77,7 @@ final class CheckUpdateParams implements BaseModel
     }
 
     /**
-     * @param list<BaseCheck|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>
-     * }> $checks
+     * @param list<BaseCheckShape> $checks
      */
     public function withChecks(array $checks): self
     {

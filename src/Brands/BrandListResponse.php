@@ -10,8 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type BrandShape from \Courier\Brands\Brand
+ *
  * @phpstan-type BrandListResponseShape = array{
- *   paging: Paging, results: list<Brand>
+ *   paging: Paging|PagingShape, results: list<BrandShape>
  * }
  */
 final class BrandListResponse implements BaseModel
@@ -50,17 +53,8 @@ final class BrandListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<Brand|array{
-     *   id: string,
-     *   created: int,
-     *   name: string,
-     *   updated: int,
-     *   published?: int|null,
-     *   settings?: BrandSettings|null,
-     *   snippets?: BrandSnippets|null,
-     *   version?: string|null,
-     * }> $results
+     * @param PagingShape $paging
+     * @param list<BrandShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -73,7 +67,7 @@ final class BrandListResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
@@ -84,16 +78,7 @@ final class BrandListResponse implements BaseModel
     }
 
     /**
-     * @param list<Brand|array{
-     *   id: string,
-     *   created: int,
-     *   name: string,
-     *   updated: int,
-     *   published?: int|null,
-     *   settings?: BrandSettings|null,
-     *   snippets?: BrandSnippets|null,
-     *   version?: string|null,
-     * }> $results
+     * @param list<BrandShape> $results
      */
     public function withResults(array $results): self
     {

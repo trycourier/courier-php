@@ -9,7 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type AudienceUpdateResponseShape = array{audience: Audience}
+ * @phpstan-import-type AudienceShape from \Courier\Audiences\Audience
+ *
+ * @phpstan-type AudienceUpdateResponseShape = array{
+ *   audience: Audience|AudienceShape
+ * }
  */
 final class AudienceUpdateResponse implements BaseModel
 {
@@ -43,14 +47,7 @@ final class AudienceUpdateResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Audience|array{
-     *   id: string,
-     *   createdAt: string,
-     *   description: string,
-     *   filter: Filter,
-     *   name: string,
-     *   updatedAt: string,
-     * } $audience
+     * @param AudienceShape $audience
      */
     public static function with(Audience|array $audience): self
     {
@@ -62,14 +59,7 @@ final class AudienceUpdateResponse implements BaseModel
     }
 
     /**
-     * @param Audience|array{
-     *   id: string,
-     *   createdAt: string,
-     *   description: string,
-     *   filter: Filter,
-     *   name: string,
-     *   updatedAt: string,
-     * } $audience
+     * @param AudienceShape $audience
      */
     public function withAudience(Audience|array $audience): self
     {

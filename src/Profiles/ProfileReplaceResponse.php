@@ -10,7 +10,9 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\ProfileReplaceResponse\Status;
 
 /**
- * @phpstan-type ProfileReplaceResponseShape = array{status: value-of<Status>}
+ * @phpstan-type ProfileReplaceResponseShape = array{
+ *   status: Status|value-of<Status>
+ * }
  */
 final class ProfileReplaceResponse implements BaseModel
 {

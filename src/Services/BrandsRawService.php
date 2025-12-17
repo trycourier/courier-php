@@ -38,12 +38,12 @@ final class BrandsRawService implements BrandsRawContract
      *   name: string,
      *   id?: string|null,
      *   settings?: array{
-     *     colors?: array<mixed>|BrandColors|null,
-     *     email?: array<mixed>|BrandSettingsEmail|null,
-     *     inapp?: array<mixed>|BrandSettingsInApp|null,
+     *     colors?: array<string,mixed>|BrandColors|null,
+     *     email?: array<string,mixed>|BrandSettingsEmail|null,
+     *     inapp?: array<string,mixed>|BrandSettingsInApp|null,
      *   }|BrandSettings|null,
      *   snippets?: array{
-     *     items?: list<array<mixed>|BrandSnippet>|null
+     *     items?: list<array<string,mixed>|BrandSnippet>|null
      *   }|BrandSnippets|null,
      * }|BrandCreateParams $params
      *
@@ -103,12 +103,12 @@ final class BrandsRawService implements BrandsRawContract
      * @param array{
      *   name: string,
      *   settings?: array{
-     *     colors?: array<mixed>|BrandColors|null,
-     *     email?: array<mixed>|BrandSettingsEmail|null,
-     *     inapp?: array<mixed>|BrandSettingsInApp|null,
+     *     colors?: array<string,mixed>|BrandColors|null,
+     *     email?: array<string,mixed>|BrandSettingsEmail|null,
+     *     inapp?: array<string,mixed>|BrandSettingsInApp|null,
      *   }|BrandSettings|null,
      *   snippets?: array{
-     *     items?: list<array<mixed>|BrandSnippet>|null
+     *     items?: list<array<string,mixed>|BrandSnippet>|null
      *   }|BrandSnippets|null,
      * }|BrandUpdateParams $params
      *

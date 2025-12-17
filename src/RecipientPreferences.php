@@ -9,9 +9,11 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type NotificationPreferenceDetailsShape from \Courier\NotificationPreferenceDetails
+ *
  * @phpstan-type RecipientPreferencesShape = array{
- *   categories?: array<string,NotificationPreferenceDetails>|null,
- *   notifications?: array<string,NotificationPreferenceDetails>|null,
+ *   categories?: array<string,NotificationPreferenceDetailsShape>|null,
+ *   notifications?: array<string,NotificationPreferenceDetailsShape>|null,
  * }
  */
 final class RecipientPreferences implements BaseModel
@@ -37,16 +39,8 @@ final class RecipientPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channelPreferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $categories
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channelPreferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $notifications
+     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
+     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
      */
     public static function with(
         ?array $categories = null,
@@ -61,11 +55,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channelPreferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $categories
+     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
      */
     public function withCategories(?array $categories): self
     {
@@ -76,11 +66,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channelPreferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $notifications
+     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
      */
     public function withNotifications(?array $notifications): self
     {

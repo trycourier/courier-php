@@ -27,7 +27,7 @@ use Courier\ElementalChannelNodeWithType\Type;
  *   ref?: string|null,
  *   channel: string,
  *   raw?: array<string,mixed>|null,
- *   type?: value-of<Type>|null,
+ *   type?: null|Type|value-of<Type>,
  * }
  */
 final class ElementalChannelNodeWithType implements BaseModel

@@ -10,11 +10,16 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type EmailFooterShape from \Courier\Brands\EmailFooter
+ * @phpstan-import-type EmailHeadShape from \Courier\Brands\EmailHead
+ * @phpstan-import-type EmailHeaderShape from \Courier\Brands\EmailHeader
+ * @phpstan-import-type TemplateOverrideShape from \Courier\Brands\BrandSettingsEmail\TemplateOverride
+ *
  * @phpstan-type BrandSettingsEmailShape = array{
- *   footer?: EmailFooter|null,
- *   head?: EmailHead|null,
- *   header?: EmailHeader|null,
- *   templateOverride?: TemplateOverride|null,
+ *   footer?: null|EmailFooter|EmailFooterShape,
+ *   head?: null|EmailHead|EmailHeadShape,
+ *   header?: null|EmailHeader|EmailHeaderShape,
+ *   templateOverride?: null|TemplateOverride|TemplateOverrideShape,
  * }
  */
 final class BrandSettingsEmail implements BaseModel
@@ -44,25 +49,10 @@ final class BrandSettingsEmail implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param EmailFooter|array{
-     *   content?: string|null, inheritDefault?: bool|null
-     * }|null $footer
-     * @param EmailHead|array{inheritDefault: bool, content?: string|null}|null $head
-     * @param EmailHeader|array{
-     *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
-     * }|null $header
-     * @param TemplateOverride|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     *   mjml: BrandTemplate,
-     *   footerBackgroundColor?: string|null,
-     *   footerFullWidth?: bool|null,
-     * }|null $templateOverride
+     * @param EmailFooterShape|null $footer
+     * @param EmailHeadShape|null $head
+     * @param EmailHeaderShape|null $header
+     * @param TemplateOverrideShape|null $templateOverride
      */
     public static function with(
         EmailFooter|array|null $footer = null,
@@ -81,9 +71,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailFooter|array{
-     *   content?: string|null, inheritDefault?: bool|null
-     * }|null $footer
+     * @param EmailFooterShape|null $footer
      */
     public function withFooter(EmailFooter|array|null $footer): self
     {
@@ -94,7 +82,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailHead|array{inheritDefault: bool, content?: string|null}|null $head
+     * @param EmailHeadShape|null $head
      */
     public function withHead(EmailHead|array|null $head): self
     {
@@ -105,9 +93,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailHeader|array{
-     *   logo: Logo, barColor?: string|null, inheritDefault?: bool|null
-     * }|null $header
+     * @param EmailHeaderShape|null $header
      */
     public function withHeader(EmailHeader|array|null $header): self
     {
@@ -118,18 +104,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param TemplateOverride|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     *   mjml: BrandTemplate,
-     *   footerBackgroundColor?: string|null,
-     *   footerFullWidth?: bool|null,
-     * }|null $templateOverride
+     * @param TemplateOverrideShape|null $templateOverride
      */
     public function withTemplateOverride(
         TemplateOverride|array|null $templateOverride

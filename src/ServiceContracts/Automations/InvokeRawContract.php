@@ -16,7 +16,7 @@ interface InvokeRawContract
     /**
      * @api
      *
-     * @param array<mixed>|InvokeInvokeAdHocParams $params
+     * @param array<string,mixed>|InvokeInvokeAdHocParams $params
      *
      * @return BaseResponse<AutomationInvokeResponse>
      *
@@ -31,7 +31,7 @@ interface InvokeRawContract
      * @api
      *
      * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
-     * @param array<mixed>|InvokeInvokeByTemplateParams $params
+     * @param array<string,mixed>|InvokeInvokeByTemplateParams $params
      *
      * @return BaseResponse<AutomationInvokeResponse>
      *

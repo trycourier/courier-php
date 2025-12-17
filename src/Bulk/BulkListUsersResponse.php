@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Courier\Bulk;
 
 use Courier\Bulk\BulkListUsersResponse\Item;
-use Courier\Bulk\BulkListUsersResponse\Item\Status;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
-use Courier\RecipientPreferences;
-use Courier\UserRecipient;
 
 /**
+ * @phpstan-import-type ItemShape from \Courier\Bulk\BulkListUsersResponse\Item
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type BulkListUsersResponseShape = array{
- *   items: list<Item>, paging: Paging
+ *   items: list<ItemShape>, paging: Paging|PagingShape
  * }
  */
 final class BulkListUsersResponse implements BaseModel
@@ -54,16 +54,8 @@ final class BulkListUsersResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: array<string,mixed>|null,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     *   status: value-of<Status>,
-     *   messageID?: string|null,
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<ItemShape> $items
+     * @param PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
@@ -76,15 +68,7 @@ final class BulkListUsersResponse implements BaseModel
     }
 
     /**
-     * @param list<Item|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: array<string,mixed>|null,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     *   status: value-of<Status>,
-     *   messageID?: string|null,
-     * }> $items
+     * @param list<ItemShape> $items
      */
     public function withItems(array $items): self
     {
@@ -95,7 +79,7 @@ final class BulkListUsersResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

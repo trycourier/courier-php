@@ -7,19 +7,19 @@ namespace Courier\Bulk;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageContext;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
-use Courier\UserRecipient\Preferences;
 
 /**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
+ *
  * @phpstan-type InboundBulkMessageUserShape = array{
  *   data?: mixed,
- *   preferences?: RecipientPreferences|null,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
  *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
- *   to?: UserRecipient|null,
+ *   to?: null|UserRecipient|UserRecipientShape,
  * }
  */
 final class InboundBulkMessageUser implements BaseModel
@@ -70,23 +70,9 @@ final class InboundBulkMessageUser implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      * @param array<string,mixed>|null $profile
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }|null $to
+     * @param UserRecipientShape|null $to
      */
     public static function with(
         mixed $data = null,
@@ -118,10 +104,7 @@ final class InboundBulkMessageUser implements BaseModel
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences
@@ -163,18 +146,7 @@ final class InboundBulkMessageUser implements BaseModel
      * `profile.email` instead of `to.email`. The `to` field is primarily used
      * for recipient identification and data merging.
      *
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }|null $to
+     * @param UserRecipientShape|null $to
      */
     public function withTo(UserRecipient|array|null $to): self
     {

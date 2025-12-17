@@ -10,8 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type SubscriptionListShape from \Courier\Lists\SubscriptionList
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type ListListResponseShape = array{
- *   items: list<SubscriptionList>, paging: Paging
+ *   items: list<SubscriptionListShape>, paging: Paging|PagingShape
  * }
  */
 final class ListListResponse implements BaseModel
@@ -50,10 +53,8 @@ final class ListListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscriptionList|array{
-     *   id: string, name: string, created?: string|null, updated?: string|null
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<SubscriptionListShape> $items
+     * @param PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
@@ -66,9 +67,7 @@ final class ListListResponse implements BaseModel
     }
 
     /**
-     * @param list<SubscriptionList|array{
-     *   id: string, name: string, created?: string|null, updated?: string|null
-     * }> $items
+     * @param list<SubscriptionListShape> $items
      */
     public function withItems(array $items): self
     {
@@ -79,7 +78,7 @@ final class ListListResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

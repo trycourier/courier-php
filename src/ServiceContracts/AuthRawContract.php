@@ -15,7 +15,7 @@ interface AuthRawContract
     /**
      * @api
      *
-     * @param array<mixed>|AuthIssueTokenParams $params
+     * @param array<string,mixed>|AuthIssueTokenParams $params
      *
      * @return BaseResponse<AuthIssueTokenResponse>
      *

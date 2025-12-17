@@ -13,6 +13,11 @@ use Courier\UserRecipient;
 
 /**
  * The recipient or a list of recipients of the message.
+ *
+ * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
+ * @phpstan-import-type RecipientShape from \Courier\Recipient
+ *
+ * @phpstan-type ToShape = UserRecipientShape|list<RecipientShape>
  */
 final class To implements ConverterSource
 {
