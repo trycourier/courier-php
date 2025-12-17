@@ -16,7 +16,7 @@ interface TranslationsRawContract
      * @api
      *
      * @param string $locale The locale you want to retrieve the translations for
-     * @param array<mixed>|TranslationRetrieveParams $params
+     * @param array<string,mixed>|TranslationRetrieveParams $params
      *
      * @return BaseResponse<string>
      *
@@ -32,7 +32,7 @@ interface TranslationsRawContract
      * @api
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
-     * @param array<mixed>|TranslationUpdateParams $params
+     * @param array<string,mixed>|TranslationUpdateParams $params
      *
      * @return BaseResponse<mixed>
      *

@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type FilterConfigShape = array{
- *   operator: value-of<Operator>, path: string, value: string
+ *   operator: Operator|value-of<Operator>, path: string, value: string
  * }
  */
 final class FilterConfig implements BaseModel

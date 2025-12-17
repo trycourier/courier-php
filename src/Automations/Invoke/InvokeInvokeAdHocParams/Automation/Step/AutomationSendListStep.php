@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationSendListStepShape = array{
- *   action: value-of<Action>,
+ *   action: Action|value-of<Action>,
  *   list: string,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,

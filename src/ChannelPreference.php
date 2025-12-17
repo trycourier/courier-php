@@ -10,7 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type ChannelPreferenceShape = array{
- *   channel: value-of<ChannelClassification>
+ *   channel: ChannelClassification|value-of<ChannelClassification>
  * }
  */
 final class ChannelPreference implements BaseModel

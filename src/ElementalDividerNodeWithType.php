@@ -15,7 +15,7 @@ use Courier\ElementalDividerNodeWithType\Type;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>|null,
+ *   type?: null|Type|value-of<Type>,
  * }
  */
 final class ElementalDividerNodeWithType implements BaseModel

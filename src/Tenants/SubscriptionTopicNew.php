@@ -13,8 +13,8 @@ use Courier\Tenants\SubscriptionTopicNew\Status;
 
 /**
  * @phpstan-type SubscriptionTopicNewShape = array{
- *   status: value-of<Status>,
- *   customRouting?: list<value-of<ChannelClassification>>|null,
+ *   status: Status|value-of<Status>,
+ *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   hasCustomRouting?: bool|null,
  * }
  */

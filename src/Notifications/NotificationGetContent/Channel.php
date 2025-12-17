@@ -12,11 +12,14 @@ use Courier\Notifications\NotificationGetContent\Channel\Content;
 use Courier\Notifications\NotificationGetContent\Channel\Locale;
 
 /**
+ * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationGetContent\Channel\Content
+ * @phpstan-import-type LocaleShape from \Courier\Notifications\NotificationGetContent\Channel\Locale
+ *
  * @phpstan-type ChannelShape = array{
  *   id: string,
  *   checksum?: string|null,
- *   content?: Content|null,
- *   locales?: array<string,Locale>|null,
+ *   content?: null|Content|ContentShape,
+ *   locales?: array<string,LocaleShape>|null,
  *   type?: string|null,
  * }
  */
@@ -65,10 +68,8 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Content|array{subject?: string|null, title?: string|null}|null $content
-     * @param array<string,Locale|array{
-     *   subject?: string|null, title?: string|null
-     * }>|null $locales
+     * @param ContentShape|null $content
+     * @param array<string,LocaleShape>|null $locales
      */
     public static function with(
         string $id,
@@ -106,7 +107,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param Content|array{subject?: string|null, title?: string|null}|null $content
+     * @param ContentShape|null $content
      */
     public function withContent(Content|array|null $content): self
     {
@@ -117,9 +118,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param array<string,Locale|array{
-     *   subject?: string|null, title?: string|null
-     * }>|null $locales
+     * @param array<string,LocaleShape>|null $locales
      */
     public function withLocales(?array $locales): self
     {

@@ -13,9 +13,9 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationUpdateProfileStepShape = array{
- *   action: value-of<Action>,
+ *   action: Action|value-of<Action>,
  *   profile: array<string,mixed>,
- *   merge?: value-of<Merge>|null,
+ *   merge?: null|Merge|value-of<Merge>,
  *   recipientID?: string|null,
  * }
  */

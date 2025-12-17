@@ -15,7 +15,7 @@ interface SendRawContract
     /**
      * @api
      *
-     * @param array<mixed>|SendMessageParams $params
+     * @param array<string,mixed>|SendMessageParams $params
      *
      * @return BaseResponse<SendMessageResponse>
      *

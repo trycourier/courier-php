@@ -10,10 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ChannelPreferenceShape from \Courier\ChannelPreference
+ * @phpstan-import-type RuleShape from \Courier\Rule
+ *
  * @phpstan-type NotificationPreferenceDetailsShape = array{
- *   status: value-of<PreferenceStatus>,
- *   channelPreferences?: list<ChannelPreference>|null,
- *   rules?: list<Rule>|null,
+ *   status: PreferenceStatus|value-of<PreferenceStatus>,
+ *   channelPreferences?: list<ChannelPreferenceShape>|null,
+ *   rules?: list<RuleShape>|null,
  * }
  */
 final class NotificationPreferenceDetails implements BaseModel
@@ -62,10 +65,8 @@ final class NotificationPreferenceDetails implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelPreference|array{
-     *   channel: value-of<ChannelClassification>
-     * }>|null $channelPreferences
-     * @param list<Rule|array{until: string, start?: string|null}>|null $rules
+     * @param list<ChannelPreferenceShape>|null $channelPreferences
+     * @param list<RuleShape>|null $rules
      */
     public static function with(
         PreferenceStatus|string $status,
@@ -94,9 +95,7 @@ final class NotificationPreferenceDetails implements BaseModel
     }
 
     /**
-     * @param list<ChannelPreference|array{
-     *   channel: value-of<ChannelClassification>
-     * }>|null $channelPreferences
+     * @param list<ChannelPreferenceShape>|null $channelPreferences
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
@@ -107,7 +106,7 @@ final class NotificationPreferenceDetails implements BaseModel
     }
 
     /**
-     * @param list<Rule|array{until: string, start?: string|null}>|null $rules
+     * @param list<RuleShape>|null $rules
      */
     public function withRules(?array $rules): self
     {

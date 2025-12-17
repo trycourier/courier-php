@@ -7,12 +7,12 @@ namespace Courier\Notifications\Checks;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Notifications\BaseCheck\Status;
-use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Check;
 
 /**
- * @phpstan-type CheckListResponseShape = array{checks: list<Check>}
+ * @phpstan-import-type CheckShape from \Courier\Notifications\Check
+ *
+ * @phpstan-type CheckListResponseShape = array{checks: list<CheckShape>}
  */
 final class CheckListResponse implements BaseModel
 {
@@ -47,9 +47,7 @@ final class CheckListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Check|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
-     * }> $checks
+     * @param list<CheckShape> $checks
      */
     public static function with(array $checks): self
     {
@@ -61,9 +59,7 @@ final class CheckListResponse implements BaseModel
     }
 
     /**
-     * @param list<Check|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
-     * }> $checks
+     * @param list<CheckShape> $checks
      */
     public function withChecks(array $checks): self
     {

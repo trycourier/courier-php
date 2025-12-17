@@ -7,17 +7,18 @@ namespace Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageRouting;
 use Courier\Tenants\Templates\TemplateListResponse\Item\Data;
 
 /**
+ * @phpstan-import-type DataShape from \Courier\Tenants\Templates\TemplateListResponse\Item\Data
+ *
  * @phpstan-type ItemShape = array{
  *   id: string,
  *   createdAt: string,
  *   publishedAt: string,
  *   updatedAt: string,
  *   version: string,
- *   data: Data,
+ *   data: Data|DataShape,
  * }
  */
 final class Item implements BaseModel
@@ -98,7 +99,7 @@ final class Item implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Data|array{routing: MessageRouting} $data
+     * @param DataShape $data
      */
     public static function with(
         string $id,
@@ -178,7 +179,7 @@ final class Item implements BaseModel
     /**
      * The template's data containing it's routing configs.
      *
-     * @param Data|array{routing: MessageRouting} $data
+     * @param DataShape $data
      */
     public function withData(Data|array $data): self
     {

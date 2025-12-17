@@ -11,7 +11,7 @@ use Courier\MessageRouting\Method;
 
 /**
  * @phpstan-type MessageRoutingShape = array{
- *   channels: list<mixed>, method: value-of<Method>
+ *   channels: list<mixed>, method: Method|value-of<Method>
  * }
  */
 final class MessageRouting implements BaseModel

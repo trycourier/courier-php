@@ -41,10 +41,10 @@ final class BulkRawService implements BulkRawContract
      * @param array{
      *   users: list<array{
      *     data?: mixed,
-     *     preferences?: array<mixed>|RecipientPreferences|null,
+     *     preferences?: array<string,mixed>|RecipientPreferences|null,
      *     profile?: array<string,mixed>|null,
      *     recipient?: string|null,
-     *     to?: array<mixed>|UserRecipient|null,
+     *     to?: array<string,mixed>|UserRecipient|null,
      *   }|InboundBulkMessageUser>,
      * }|BulkAddUsersParams $params
      *

@@ -11,12 +11,14 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantListUsersResponse\Type;
 
 /**
+ * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
+ *
  * @phpstan-type TenantListUsersResponseShape = array{
  *   hasMore: bool,
- *   type: value-of<Type>,
+ *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   items?: list<TenantAssociation>|null,
+ *   items?: list<TenantAssociationShape>|null,
  *   nextURL?: string|null,
  * }
  */
@@ -88,12 +90,7 @@ final class TenantListUsersResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param list<TenantAssociation|array{
-     *   tenantID: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<TenantAssociation\Type>|null,
-     *   userID?: string|null,
-     * }>|null $items
+     * @param list<TenantAssociationShape>|null $items
      */
     public static function with(
         bool $hasMore,
@@ -164,12 +161,7 @@ final class TenantListUsersResponse implements BaseModel
     }
 
     /**
-     * @param list<TenantAssociation|array{
-     *   tenantID: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<TenantAssociation\Type>|null,
-     *   userID?: string|null,
-     * }>|null $items
+     * @param list<TenantAssociationShape>|null $items
      */
     public function withItems(?array $items): self
     {

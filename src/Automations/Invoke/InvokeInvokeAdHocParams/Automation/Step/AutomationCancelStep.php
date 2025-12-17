@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationCancelStepShape = array{
- *   action: value-of<Action>, cancelationToken: string
+ *   action: Action|value-of<Action>, cancelationToken: string
  * }
  */
 final class AutomationCancelStep implements BaseModel

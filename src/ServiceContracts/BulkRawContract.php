@@ -20,7 +20,7 @@ interface BulkRawContract
      * @api
      *
      * @param string $jobID A unique identifier representing the bulk job
-     * @param array<mixed>|BulkAddUsersParams $params
+     * @param array<string,mixed>|BulkAddUsersParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -35,7 +35,7 @@ interface BulkRawContract
     /**
      * @api
      *
-     * @param array<mixed>|BulkCreateJobParams $params
+     * @param array<string,mixed>|BulkCreateJobParams $params
      *
      * @return BaseResponse<BulkNewJobResponse>
      *
@@ -50,7 +50,7 @@ interface BulkRawContract
      * @api
      *
      * @param string $jobID A unique identifier representing the bulk job
-     * @param array<mixed>|BulkListUsersParams $params
+     * @param array<string,mixed>|BulkListUsersParams $params
      *
      * @return BaseResponse<BulkListUsersResponse>
      *

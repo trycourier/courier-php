@@ -13,6 +13,11 @@ use Courier\ElementalContentSugar;
 /**
  * Elemental content (optional, for V2 format). When provided, this will be used
  * instead of the notification associated with the `event` field.
+ *
+ * @phpstan-import-type ElementalContentSugarShape from \Courier\ElementalContentSugar
+ * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
+ *
+ * @phpstan-type ContentShape = ElementalContentSugarShape|ElementalContentShape
  */
 final class Content implements ConverterSource
 {

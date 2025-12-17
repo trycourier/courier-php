@@ -7,51 +7,51 @@ namespace Courier\Send\SendMessageParams;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalActionNodeWithType;
-use Courier\ElementalChannelNodeWithType;
 use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
-use Courier\ElementalDividerNodeWithType;
-use Courier\ElementalImageNodeWithType;
-use Courier\ElementalMetaNodeWithType;
-use Courier\ElementalQuoteNodeWithType;
-use Courier\ElementalTextNodeWithType;
 use Courier\MessageContext;
 use Courier\Recipient;
 use Courier\Send\SendMessageParams\Message\Channel;
-use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
-use Courier\Send\SendMessageParams\Message\Channel\Timeouts;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
 use Courier\Send\SendMessageParams\Message\Metadata;
 use Courier\Send\SendMessageParams\Message\Preferences;
 use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
-use Courier\Send\SendMessageParams\Message\Routing\Method;
 use Courier\Send\SendMessageParams\Message\Timeout;
-use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 use Courier\Send\SendMessageParams\Message\To;
 use Courier\UserRecipient;
-use Courier\Utm;
 
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
+ * @phpstan-import-type ChannelShape from \Courier\Send\SendMessageParams\Message\Channel
+ * @phpstan-import-type ContentShape from \Courier\Send\SendMessageParams\Message\Content
+ * @phpstan-import-type MessageContextShape from \Courier\MessageContext
+ * @phpstan-import-type DelayShape from \Courier\Send\SendMessageParams\Message\Delay
+ * @phpstan-import-type ExpiryShape from \Courier\Send\SendMessageParams\Message\Expiry
+ * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Metadata
+ * @phpstan-import-type PreferencesShape from \Courier\Send\SendMessageParams\Message\Preferences
+ * @phpstan-import-type ProviderShape from \Courier\Send\SendMessageParams\Message\Provider
+ * @phpstan-import-type RoutingShape from \Courier\Send\SendMessageParams\Message\Routing
+ * @phpstan-import-type TimeoutShape from \Courier\Send\SendMessageParams\Message\Timeout
+ * @phpstan-import-type ToShape from \Courier\Send\SendMessageParams\Message\To
+ *
  * @phpstan-type MessageShape = array{
  *   brandID?: string|null,
- *   channels?: array<string,Channel>|null,
- *   content?: null|ElementalContentSugar|ElementalContent,
- *   context?: MessageContext|null,
+ *   channels?: array<string,ChannelShape>|null,
+ *   content?: null|ContentShape|ElementalContentSugar|ElementalContent,
+ *   context?: null|MessageContext|MessageContextShape,
  *   data?: array<string,mixed>|null,
- *   delay?: Delay|null,
- *   expiry?: Expiry|null,
- *   metadata?: Metadata|null,
- *   preferences?: Preferences|null,
- *   providers?: array<string,Provider>|null,
- *   routing?: Routing|null,
+ *   delay?: null|Delay|DelayShape,
+ *   expiry?: null|Expiry|ExpiryShape,
+ *   metadata?: null|Metadata|MetadataShape,
+ *   preferences?: null|Preferences|PreferencesShape,
+ *   providers?: array<string,ProviderShape>|null,
+ *   routing?: null|Routing|RoutingShape,
  *   template?: string|null,
- *   timeout?: Timeout|null,
- *   to?: null|UserRecipient|list<Recipient>,
+ *   timeout?: null|Timeout|TimeoutShape,
+ *   to?: ToShape|null,
  * }
  */
 final class Message implements BaseModel
@@ -129,74 +129,18 @@ final class Message implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,Channel|array{
-     *   brandID?: string|null,
-     *   if?: string|null,
-     *   metadata?: Channel\Metadata|null,
-     *   override?: array<string,mixed>|null,
-     *   providers?: list<string>|null,
-     *   routingMethod?: value-of<RoutingMethod>|null,
-     *   timeouts?: Timeouts|null,
-     * }>|null $channels
-     * @param ElementalContentSugar|array{
-     *   body: string, title: string
-     * }|ElementalContent|array{
-     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
-     *   version: string,
-     *   brand?: string|null,
-     * } $content
-     * @param MessageContext|array{tenantID?: string|null}|null $context
+     * @param array<string,ChannelShape>|null $channels
+     * @param ContentShape $content
+     * @param MessageContextShape|null $context
      * @param array<string,mixed>|null $data
-     * @param Delay|array{
-     *   duration?: int|null, timezone?: string|null, until?: string|null
-     * }|null $delay
-     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
-     * @param Metadata|array{
-     *   event?: string|null,
-     *   tags?: list<string>|null,
-     *   traceID?: string|null,
-     *   utm?: Utm|null,
-     * }|null $metadata
-     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
-     * @param array<string,Provider|array{
-     *   if?: string|null,
-     *   metadata?: Provider\Metadata|null,
-     *   override?: array<string,mixed>|null,
-     *   timeouts?: int|null,
-     * }>|null $providers
-     * @param Routing|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * }|null $routing
-     * @param Timeout|array{
-     *   channel?: array<string,int>|null,
-     *   criteria?: value-of<Criteria>|null,
-     *   escalation?: int|null,
-     *   message?: int|null,
-     *   provider?: array<string,int>|null,
-     * }|null $timeout
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: UserRecipient\Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }|list<Recipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Recipient\Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }>|null $to
+     * @param DelayShape|null $delay
+     * @param ExpiryShape|null $expiry
+     * @param MetadataShape|null $metadata
+     * @param PreferencesShape|null $preferences
+     * @param array<string,ProviderShape>|null $providers
+     * @param RoutingShape|null $routing
+     * @param TimeoutShape|null $timeout
+     * @param ToShape|null $to
      */
     public static function with(
         ?string $brandID = null,
@@ -245,15 +189,7 @@ final class Message implements BaseModel
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
-     * @param array<string,Channel|array{
-     *   brandID?: string|null,
-     *   if?: string|null,
-     *   metadata?: Channel\Metadata|null,
-     *   override?: array<string,mixed>|null,
-     *   providers?: list<string>|null,
-     *   routingMethod?: value-of<RoutingMethod>|null,
-     *   timeouts?: Timeouts|null,
-     * }>|null $channels
+     * @param array<string,ChannelShape>|null $channels
      */
     public function withChannels(?array $channels): self
     {
@@ -266,13 +202,7 @@ final class Message implements BaseModel
     /**
      * Describes content that will work for email, inbox, push, chat, or any channel id.
      *
-     * @param ElementalContentSugar|array{
-     *   body: string, title: string
-     * }|ElementalContent|array{
-     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
-     *   version: string,
-     *   brand?: string|null,
-     * } $content
+     * @param ContentShape $content
      */
     public function withContent(
         ElementalContentSugar|array|ElementalContent $content
@@ -284,7 +214,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param MessageContext|array{tenantID?: string|null}|null $context
+     * @param MessageContextShape|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
@@ -306,9 +236,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Delay|array{
-     *   duration?: int|null, timezone?: string|null, until?: string|null
-     * }|null $delay
+     * @param DelayShape|null $delay
      */
     public function withDelay(Delay|array|null $delay): self
     {
@@ -319,7 +247,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Expiry|array{expiresIn: string|int, expiresAt?: string|null}|null $expiry
+     * @param ExpiryShape|null $expiry
      */
     public function withExpiry(Expiry|array|null $expiry): self
     {
@@ -330,12 +258,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Metadata|array{
-     *   event?: string|null,
-     *   tags?: list<string>|null,
-     *   traceID?: string|null,
-     *   utm?: Utm|null,
-     * }|null $metadata
+     * @param MetadataShape|null $metadata
      */
     public function withMetadata(Metadata|array|null $metadata): self
     {
@@ -346,7 +269,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Preferences|array{subscriptionTopicID: string}|null $preferences
+     * @param PreferencesShape|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
@@ -357,12 +280,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param array<string,Provider|array{
-     *   if?: string|null,
-     *   metadata?: Provider\Metadata|null,
-     *   override?: array<string,mixed>|null,
-     *   timeouts?: int|null,
-     * }>|null $providers
+     * @param array<string,ProviderShape>|null $providers
      */
     public function withProviders(?array $providers): self
     {
@@ -375,9 +293,7 @@ final class Message implements BaseModel
     /**
      * Customize which channels/providers Courier may deliver the message through.
      *
-     * @param Routing|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * }|null $routing
+     * @param RoutingShape|null $routing
      */
     public function withRouting(Routing|array|null $routing): self
     {
@@ -396,13 +312,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param Timeout|array{
-     *   channel?: array<string,int>|null,
-     *   criteria?: value-of<Criteria>|null,
-     *   escalation?: int|null,
-     *   message?: int|null,
-     *   provider?: array<string,int>|null,
-     * }|null $timeout
+     * @param TimeoutShape|null $timeout
      */
     public function withTimeout(Timeout|array|null $timeout): self
     {
@@ -415,29 +325,7 @@ final class Message implements BaseModel
     /**
      * The recipient or a list of recipients of the message.
      *
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: UserRecipient\Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }|list<Recipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Recipient\Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * }>|null $to
+     * @param ToShape|null $to
      */
     public function withTo(UserRecipient|array|null $to): self
     {

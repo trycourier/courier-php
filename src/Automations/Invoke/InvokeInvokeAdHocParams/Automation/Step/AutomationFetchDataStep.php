@@ -7,17 +7,18 @@ namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Action;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\MergeStrategy;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type WebhookShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook
+ *
  * @phpstan-type AutomationFetchDataStepShape = array{
- *   action: value-of<Action>,
- *   webhook: Webhook,
- *   mergeStrategy?: value-of<MergeStrategy>|null,
+ *   action: Action|value-of<Action>,
+ *   webhook: Webhook|WebhookShape,
+ *   mergeStrategy?: null|MergeStrategy|value-of<MergeStrategy>,
  * }
  */
 final class AutomationFetchDataStep implements BaseModel
@@ -61,12 +62,7 @@ final class AutomationFetchDataStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param Webhook|array{
-     *   method: value-of<Method>,
-     *   url: string,
-     *   body?: string|null,
-     *   headers?: array<string,string>|null,
-     * } $webhook
+     * @param WebhookShape $webhook
      * @param MergeStrategy|value-of<MergeStrategy>|null $mergeStrategy
      */
     public static function with(
@@ -96,12 +92,7 @@ final class AutomationFetchDataStep implements BaseModel
     }
 
     /**
-     * @param Webhook|array{
-     *   method: value-of<Method>,
-     *   url: string,
-     *   body?: string|null,
-     *   headers?: array<string,string>|null,
-     * } $webhook
+     * @param WebhookShape $webhook
      */
     public function withWebhook(Webhook|array $webhook): self
     {

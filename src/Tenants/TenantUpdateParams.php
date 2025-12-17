@@ -9,17 +9,18 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\DefaultPreferences\Item;
 
 /**
  * Create or Replace a Tenant.
  *
  * @see Courier\Services\TenantsService::update()
  *
+ * @phpstan-import-type DefaultPreferencesShape from \Courier\Tenants\DefaultPreferences
+ *
  * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
  *   brandID?: string|null,
- *   defaultPreferences?: null|DefaultPreferences|array{items?: list<Item>|null},
+ *   defaultPreferences?: DefaultPreferencesShape|null,
  *   parentTenantID?: string|null,
  *   properties?: array<string,mixed>|null,
  *   userProfile?: array<string,mixed>|null,
@@ -95,9 +96,7 @@ final class TenantUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param DefaultPreferences|array{
-     *   items?: list<Item>|null
-     * }|null $defaultPreferences
+     * @param DefaultPreferencesShape|null $defaultPreferences
      * @param array<string,mixed>|null $properties
      * @param array<string,mixed>|null $userProfile
      */
@@ -147,9 +146,7 @@ final class TenantUpdateParams implements BaseModel
     /**
      * Defines the preferences used for the tenant when the user hasn't specified their own.
      *
-     * @param DefaultPreferences|array{
-     *   items?: list<Item>|null
-     * }|null $defaultPreferences
+     * @param DefaultPreferencesShape|null $defaultPreferences
      */
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences

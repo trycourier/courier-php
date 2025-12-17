@@ -10,7 +10,9 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\Lists\ListSubscribeResponse\Status;
 
 /**
- * @phpstan-type ListSubscribeResponseShape = array{status: value-of<Status>}
+ * @phpstan-type ListSubscribeResponseShape = array{
+ *   status: Status|value-of<Status>
+ * }
  */
 final class ListSubscribeResponse implements BaseModel
 {

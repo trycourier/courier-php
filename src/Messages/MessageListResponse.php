@@ -7,13 +7,14 @@ namespace Courier\Messages;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Messages\MessageDetails\Reason;
-use Courier\Messages\MessageDetails\Status;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type MessageDetailsShape from \Courier\Messages\MessageDetails
+ *
  * @phpstan-type MessageListResponseShape = array{
- *   paging: Paging, results: list<MessageDetails>
+ *   paging: Paging|PagingShape, results: list<MessageDetailsShape>
  * }
  */
 final class MessageListResponse implements BaseModel
@@ -59,21 +60,8 @@ final class MessageListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<MessageDetails|array{
-     *   id: string,
-     *   clicked: int,
-     *   delivered: int,
-     *   enqueued: int,
-     *   event: string,
-     *   notification: string,
-     *   opened: int,
-     *   recipient: string,
-     *   sent: int,
-     *   status: value-of<Status>,
-     *   error?: string|null,
-     *   reason?: value-of<Reason>|null,
-     * }> $results
+     * @param PagingShape $paging
+     * @param list<MessageDetailsShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -88,7 +76,7 @@ final class MessageListResponse implements BaseModel
     /**
      * Paging information for the result set.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
@@ -101,20 +89,7 @@ final class MessageListResponse implements BaseModel
     /**
      * An array of messages with their details.
      *
-     * @param list<MessageDetails|array{
-     *   id: string,
-     *   clicked: int,
-     *   delivered: int,
-     *   enqueued: int,
-     *   event: string,
-     *   notification: string,
-     *   opened: int,
-     *   recipient: string,
-     *   sent: int,
-     *   status: value-of<Status>,
-     *   error?: string|null,
-     *   reason?: value-of<Reason>|null,
-     * }> $results
+     * @param list<MessageDetailsShape> $results
      */
     public function withResults(array $results): self
     {

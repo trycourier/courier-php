@@ -16,7 +16,7 @@ interface NotificationsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|NotificationListParams $params
+     * @param array<string,mixed>|NotificationListParams $params
      *
      * @return BaseResponse<NotificationListResponse>
      *

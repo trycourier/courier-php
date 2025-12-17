@@ -20,7 +20,7 @@ interface SubscriptionsRawContract
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
-     * @param array<mixed>|SubscriptionListParams $params
+     * @param array<string,mixed>|SubscriptionListParams $params
      *
      * @return BaseResponse<SubscriptionListResponse>
      *
@@ -36,7 +36,7 @@ interface SubscriptionsRawContract
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
-     * @param array<mixed>|SubscriptionAddParams $params
+     * @param array<string,mixed>|SubscriptionAddParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -52,7 +52,7 @@ interface SubscriptionsRawContract
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
-     * @param array<mixed>|SubscriptionSubscribeParams $params
+     * @param array<string,mixed>|SubscriptionSubscribeParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -68,7 +68,7 @@ interface SubscriptionsRawContract
      * @api
      *
      * @param string $userID Path param: A unique identifier representing the recipient associated with the list
-     * @param array<mixed>|SubscriptionSubscribeUserParams $params
+     * @param array<string,mixed>|SubscriptionSubscribeUserParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -84,7 +84,7 @@ interface SubscriptionsRawContract
      * @api
      *
      * @param string $userID A unique identifier representing the recipient associated with the list
-     * @param array<mixed>|SubscriptionUnsubscribeUserParams $params
+     * @param array<string,mixed>|SubscriptionUnsubscribeUserParams $params
      *
      * @return BaseResponse<mixed>
      *

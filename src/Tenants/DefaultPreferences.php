@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\ChannelClassification;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\DefaultPreferences\Item;
-use Courier\Tenants\SubscriptionTopicNew\Status;
 
 /**
- * @phpstan-type DefaultPreferencesShape = array{items?: list<Item>|null}
+ * @phpstan-import-type ItemShape from \Courier\Tenants\DefaultPreferences\Item
+ *
+ * @phpstan-type DefaultPreferencesShape = array{items?: list<ItemShape>|null}
  */
 final class DefaultPreferences implements BaseModel
 {
@@ -33,12 +33,7 @@ final class DefaultPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item|array{
-     *   status: value-of<Status>,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     *   id: string,
-     * }>|null $items
+     * @param list<ItemShape>|null $items
      */
     public static function with(?array $items = null): self
     {
@@ -50,12 +45,7 @@ final class DefaultPreferences implements BaseModel
     }
 
     /**
-     * @param list<Item|array{
-     *   status: value-of<Status>,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     *   id: string,
-     * }>|null $items
+     * @param list<ItemShape>|null $items
      */
     public function withItems(?array $items): self
     {

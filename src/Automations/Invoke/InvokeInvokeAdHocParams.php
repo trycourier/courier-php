@@ -5,13 +5,6 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
@@ -23,11 +16,10 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *
+ * @phpstan-import-type AutomationShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation
+ *
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
- *   automation: Automation|array{
- *     steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
- *     cancelationToken?: string|null,
- *   },
+ *   automation: AutomationShape,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
@@ -85,10 +77,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Automation|array{
-     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelationToken?: string|null,
-     * } $automation
+     * @param AutomationShape $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
      */
@@ -114,10 +103,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     }
 
     /**
-     * @param Automation|array{
-     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelationToken?: string|null,
-     * } $automation
+     * @param AutomationShape $automation
      */
     public function withAutomation(Automation|array $automation): self
     {

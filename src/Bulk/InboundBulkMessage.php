@@ -9,25 +9,20 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\MapOf;
-use Courier\ElementalActionNodeWithType;
-use Courier\ElementalChannelNodeWithType;
 use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
-use Courier\ElementalDividerNodeWithType;
-use Courier\ElementalImageNodeWithType;
-use Courier\ElementalMetaNodeWithType;
-use Courier\ElementalQuoteNodeWithType;
-use Courier\ElementalTextNodeWithType;
 
 /**
  * Bulk message definition. Supports two formats:
  * - V1 format: Requires `event` field (event ID or notification ID)
  * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
  *
+ * @phpstan-import-type ContentShape from \Courier\Bulk\InboundBulkMessage\Content
+ *
  * @phpstan-type InboundBulkMessageShape = array{
  *   event: string,
  *   brand?: string|null,
- *   content?: null|ElementalContentSugar|ElementalContent,
+ *   content?: null|ContentShape|ElementalContentSugar|ElementalContent,
  *   data?: array<string,mixed>|null,
  *   locale?: array<string,array<string,mixed>>|null,
  *   override?: array<string,mixed>|null,
@@ -100,13 +95,7 @@ final class InboundBulkMessage implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ElementalContentSugar|array{
-     *   body: string, title: string
-     * }|ElementalContent|array{
-     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
-     *   version: string,
-     *   brand?: string|null,
-     * }|null $content
+     * @param ContentShape|null $content
      * @param array<string,mixed>|null $data
      * @param array<string,array<string,mixed>>|null $locale
      * @param array<string,mixed>|null $override
@@ -159,13 +148,7 @@ final class InboundBulkMessage implements BaseModel
      * Elemental content (optional, for V2 format). When provided, this will be used
      * instead of the notification associated with the `event` field.
      *
-     * @param ElementalContentSugar|array{
-     *   body: string, title: string
-     * }|ElementalContent|array{
-     *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
-     *   version: string,
-     *   brand?: string|null,
-     * }|null $content
+     * @param ContentShape|null $content
      */
     public function withContent(
         ElementalContentSugar|array|ElementalContent|null $content

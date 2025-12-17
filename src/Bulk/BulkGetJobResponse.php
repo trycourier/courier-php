@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Courier\Bulk;
 
 use Courier\Bulk\BulkGetJobResponse\Job;
-use Courier\Bulk\BulkGetJobResponse\Job\Status;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BulkGetJobResponseShape = array{job: Job}
+ * @phpstan-import-type JobShape from \Courier\Bulk\BulkGetJobResponse\Job
+ *
+ * @phpstan-type BulkGetJobResponseShape = array{job: Job|JobShape}
  */
 final class BulkGetJobResponse implements BaseModel
 {
@@ -45,13 +46,7 @@ final class BulkGetJobResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Job|array{
-     *   definition: InboundBulkMessage,
-     *   enqueued: int,
-     *   failures: int,
-     *   received: int,
-     *   status: value-of<Status>,
-     * } $job
+     * @param JobShape $job
      */
     public static function with(Job|array $job): self
     {
@@ -63,13 +58,7 @@ final class BulkGetJobResponse implements BaseModel
     }
 
     /**
-     * @param Job|array{
-     *   definition: InboundBulkMessage,
-     *   enqueued: int,
-     *   failures: int,
-     *   received: int,
-     *   status: value-of<Status>,
-     * } $job
+     * @param JobShape $job
      */
     public function withJob(Job|array $job): self
     {

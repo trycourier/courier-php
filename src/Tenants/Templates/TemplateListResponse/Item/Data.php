@@ -8,12 +8,13 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
-use Courier\MessageRouting\Method;
 
 /**
  * The template's data containing it's routing configs.
  *
- * @phpstan-type DataShape = array{routing: MessageRouting}
+ * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
+ *
+ * @phpstan-type DataShape = array{routing: MessageRouting|MessageRoutingShape}
  */
 final class Data implements BaseModel
 {
@@ -47,9 +48,7 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRoutingShape $routing
      */
     public static function with(MessageRouting|array $routing): self
     {
@@ -61,9 +60,7 @@ final class Data implements BaseModel
     }
 
     /**
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {

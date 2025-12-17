@@ -14,7 +14,7 @@ use Courier\Tenants\Templates\TemplateListResponse\Type;
 /**
  * @phpstan-type TemplateListResponseShape = array{
  *   hasMore: bool,
- *   type: value-of<Type>,
+ *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
  *   items?: list<mixed>|null,

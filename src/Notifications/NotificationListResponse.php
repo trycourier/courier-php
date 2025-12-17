@@ -11,8 +11,10 @@ use Courier\Notifications\NotificationListResponse\Result;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type NotificationListResponseShape = array{
- *   paging: Paging, results: list<mixed>
+ *   paging: Paging|PagingShape, results: list<mixed>
  * }
  */
 final class NotificationListResponse implements BaseModel
@@ -51,7 +53,7 @@ final class NotificationListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      * @param list<mixed> $results
      */
     public static function with(Paging|array $paging, array $results): self
@@ -65,7 +67,7 @@ final class NotificationListResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

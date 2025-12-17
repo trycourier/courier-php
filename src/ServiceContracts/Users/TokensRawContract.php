@@ -20,7 +20,7 @@ interface TokensRawContract
      * @api
      *
      * @param string $token the full token string
-     * @param array<mixed>|TokenRetrieveParams $params
+     * @param array<string,mixed>|TokenRetrieveParams $params
      *
      * @return BaseResponse<TokenGetResponse>
      *
@@ -36,7 +36,7 @@ interface TokensRawContract
      * @api
      *
      * @param string $token path param: The full token string
-     * @param array<mixed>|TokenUpdateParams $params
+     * @param array<string,mixed>|TokenUpdateParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -66,7 +66,7 @@ interface TokensRawContract
      * @api
      *
      * @param string $token the full token string
-     * @param array<mixed>|TokenDeleteParams $params
+     * @param array<string,mixed>|TokenDeleteParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -96,7 +96,7 @@ interface TokensRawContract
      * @api
      *
      * @param string $token_ path param: The full token string
-     * @param array<mixed>|TokenAddSingleParams $params
+     * @param array<string,mixed>|TokenAddSingleParams $params
      *
      * @return BaseResponse<mixed>
      *

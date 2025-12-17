@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\AuditEvents;
 
-use Courier\AuditEvents\AuditEvent\Actor;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type AuditEventShape from \Courier\AuditEvents\AuditEvent
+ *
  * @phpstan-type AuditEventListResponseShape = array{
- *   paging: Paging, results: list<AuditEvent>
+ *   paging: Paging|PagingShape, results: list<AuditEventShape>
  * }
  */
 final class AuditEventListResponse implements BaseModel
@@ -51,15 +53,8 @@ final class AuditEventListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<AuditEvent|array{
-     *   actor: Actor,
-     *   auditEventID: string,
-     *   source: string,
-     *   target: string,
-     *   timestamp: string,
-     *   type: string,
-     * }> $results
+     * @param PagingShape $paging
+     * @param list<AuditEventShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -72,7 +67,7 @@ final class AuditEventListResponse implements BaseModel
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
@@ -83,14 +78,7 @@ final class AuditEventListResponse implements BaseModel
     }
 
     /**
-     * @param list<AuditEvent|array{
-     *   actor: Actor,
-     *   auditEventID: string,
-     *   source: string,
-     *   target: string,
-     *   timestamp: string,
-     *   type: string,
-     * }> $results
+     * @param list<AuditEventShape> $results
      */
     public function withResults(array $results): self
     {

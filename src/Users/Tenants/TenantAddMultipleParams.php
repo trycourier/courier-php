@@ -9,7 +9,6 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation;
-use Courier\Tenants\TenantAssociation\Type;
 
 /**
  * This endpoint is used to add a user to
@@ -20,13 +19,10 @@ use Courier\Tenants\TenantAssociation\Type;
  *
  * @see Courier\Services\Users\TenantsService::addMultiple()
  *
+ * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
+ *
  * @phpstan-type TenantAddMultipleParamsShape = array{
- *   tenants: list<TenantAssociation|array{
- *     tenantID: string,
- *     profile?: array<string,mixed>|null,
- *     type?: value-of<Type>|null,
- *     userID?: string|null,
- *   }>,
+ *   tenants: list<TenantAssociationShape>
  * }
  */
 final class TenantAddMultipleParams implements BaseModel
@@ -63,12 +59,7 @@ final class TenantAddMultipleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TenantAssociation|array{
-     *   tenantID: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<Type>|null,
-     *   userID?: string|null,
-     * }> $tenants
+     * @param list<TenantAssociationShape> $tenants
      */
     public static function with(array $tenants): self
     {
@@ -80,12 +71,7 @@ final class TenantAddMultipleParams implements BaseModel
     }
 
     /**
-     * @param list<TenantAssociation|array{
-     *   tenantID: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<Type>|null,
-     *   userID?: string|null,
-     * }> $tenants
+     * @param list<TenantAssociationShape> $tenants
      */
     public function withTenants(array $tenants): self
     {

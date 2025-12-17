@@ -9,20 +9,20 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageContext;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
-use Courier\UserRecipient\Preferences;
 
 /**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
+ *
  * @phpstan-type ItemShape = array{
  *   data?: mixed,
- *   preferences?: RecipientPreferences|null,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
  *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
- *   to?: UserRecipient|null,
- *   status: value-of<Status>,
+ *   to?: null|UserRecipient|UserRecipientShape,
+ *   status: Status|value-of<Status>,
  *   messageID?: string|null,
  * }
  */
@@ -91,23 +91,9 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Status|value-of<Status> $status
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * } $preferences
+     * @param RecipientPreferencesShape $preferences
      * @param array<string,mixed>|null $profile
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * } $to
+     * @param UserRecipientShape $to
      */
     public static function with(
         Status|string $status,
@@ -144,10 +130,7 @@ final class Item implements BaseModel
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * } $preferences
+     * @param RecipientPreferencesShape $preferences
      */
     public function withPreferences(
         RecipientPreferences|array $preferences
@@ -185,18 +168,7 @@ final class Item implements BaseModel
     }
 
     /**
-     * @param UserRecipient|array{
-     *   accountID?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   listID?: string|null,
-     *   locale?: string|null,
-     *   phoneNumber?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenantID?: string|null,
-     *   userID?: string|null,
-     * } $to
+     * @param UserRecipientShape $to
      */
     public function withTo(UserRecipient|array $to): self
     {

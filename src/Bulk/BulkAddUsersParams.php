@@ -8,8 +8,6 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\RecipientPreferences;
-use Courier\UserRecipient;
 
 /**
  * Ingest user data into a Bulk Job.
@@ -20,14 +18,10 @@ use Courier\UserRecipient;
  *
  * @see Courier\Services\BulkService::addUsers()
  *
+ * @phpstan-import-type InboundBulkMessageUserShape from \Courier\Bulk\InboundBulkMessageUser
+ *
  * @phpstan-type BulkAddUsersParamsShape = array{
- *   users: list<InboundBulkMessageUser|array{
- *     data?: mixed,
- *     preferences?: RecipientPreferences|null,
- *     profile?: array<string,mixed>|null,
- *     recipient?: string|null,
- *     to?: UserRecipient|null,
- *   }>,
+ *   users: list<InboundBulkMessageUserShape>
  * }
  */
 final class BulkAddUsersParams implements BaseModel
@@ -64,13 +58,7 @@ final class BulkAddUsersParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<InboundBulkMessageUser|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: array<string,mixed>|null,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     * }> $users
+     * @param list<InboundBulkMessageUserShape> $users
      */
     public static function with(array $users): self
     {
@@ -82,13 +70,7 @@ final class BulkAddUsersParams implements BaseModel
     }
 
     /**
-     * @param list<InboundBulkMessageUser|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: array<string,mixed>|null,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     * }> $users
+     * @param list<InboundBulkMessageUserShape> $users
      */
     public function withUsers(array $users): self
     {

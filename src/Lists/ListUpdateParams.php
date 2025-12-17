@@ -9,7 +9,6 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
@@ -17,12 +16,10 @@ use Courier\RecipientPreferences;
  *
  * @see Courier\Services\ListsService::update()
  *
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ *
  * @phpstan-type ListUpdateParamsShape = array{
- *   name: string,
- *   preferences?: null|RecipientPreferences|array{
- *     categories?: array<string,NotificationPreferenceDetails>|null,
- *     notifications?: array<string,NotificationPreferenceDetails>|null,
- *   },
+ *   name: string, preferences?: RecipientPreferencesShape|null
  * }
  */
 final class ListUpdateParams implements BaseModel
@@ -61,10 +58,7 @@ final class ListUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      */
     public static function with(
         string $name,
@@ -88,10 +82,7 @@ final class ListUpdateParams implements BaseModel
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences

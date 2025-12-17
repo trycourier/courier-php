@@ -8,19 +8,22 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Locale;
+use Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Type;
 
 /**
+ * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationGetContent\Block\Content
+ * @phpstan-import-type LocaleShape from \Courier\Notifications\NotificationGetContent\Block\Locale
+ *
  * @phpstan-type BlockShape = array{
  *   id: string,
- *   type: value-of<Type>,
+ *   type: Type|value-of<Type>,
  *   alias?: string|null,
  *   checksum?: string|null,
- *   content?: string|null|NotificationContentHierarchy,
+ *   content?: ContentShape|null,
  *   context?: string|null,
- *   locales?: array<string,string|\Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy>|null,
+ *   locales?: array<string,LocaleShape>|null,
  * }
  */
 final class Block implements BaseModel
@@ -42,14 +45,12 @@ final class Block implements BaseModel
     public ?string $checksum;
 
     #[Optional(nullable: true)]
-    public string|NotificationContentHierarchy|null $content;
+    public string|Block\Content\NotificationContentHierarchy|null $content;
 
     #[Optional(nullable: true)]
     public ?string $context;
 
-    /**
-     * @var array<string,string|Locale\NotificationContentHierarchy>|null $locales
-     */
+    /** @var array<string,string|NotificationContentHierarchy>|null $locales */
     #[Optional(map: Locale::class, nullable: true)]
     public ?array $locales;
 
@@ -78,19 +79,15 @@ final class Block implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param string|NotificationContentHierarchy|array{
-     *   children?: string|null, parent?: string|null
-     * }|null $content
-     * @param array<string,string|Locale\NotificationContentHierarchy|array{
-     *   children?: string|null, parent?: string|null
-     * }>|null $locales
+     * @param ContentShape|null $content
+     * @param array<string,LocaleShape>|null $locales
      */
     public static function with(
         string $id,
         Type|string $type,
         ?string $alias = null,
         ?string $checksum = null,
-        string|NotificationContentHierarchy|array|null $content = null,
+        string|Block\Content\NotificationContentHierarchy|array|null $content = null,
         ?string $context = null,
         ?array $locales = null,
     ): self {
@@ -144,12 +141,10 @@ final class Block implements BaseModel
     }
 
     /**
-     * @param string|NotificationContentHierarchy|array{
-     *   children?: string|null, parent?: string|null
-     * }|null $content
+     * @param ContentShape|null $content
      */
     public function withContent(
-        string|NotificationContentHierarchy|array|null $content
+        string|Block\Content\NotificationContentHierarchy|array|null $content,
     ): self {
         $self = clone $this;
         $self['content'] = $content;
@@ -166,9 +161,7 @@ final class Block implements BaseModel
     }
 
     /**
-     * @param array<string,string|Locale\NotificationContentHierarchy|array{
-     *   children?: string|null, parent?: string|null
-     * }>|null $locales
+     * @param array<string,LocaleShape>|null $locales
      */
     public function withLocales(?array $locales): self
     {

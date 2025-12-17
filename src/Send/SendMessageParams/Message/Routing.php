@@ -14,7 +14,7 @@ use Courier\Send\SendMessageParams\Message\Routing\Method;
  * Customize which channels/providers Courier may deliver the message through.
  *
  * @phpstan-type RoutingShape = array{
- *   channels: list<mixed>, method: value-of<Method>
+ *   channels: list<mixed>, method: Method|value-of<Method>
  * }
  */
 final class Routing implements BaseModel

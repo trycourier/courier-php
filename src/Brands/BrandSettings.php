@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Brands\BrandSettingsEmail\TemplateOverride;
-use Courier\Brands\BrandSettingsInApp\Placement;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandColorsShape from \Courier\Brands\BrandColors
+ * @phpstan-import-type BrandSettingsEmailShape from \Courier\Brands\BrandSettingsEmail
+ * @phpstan-import-type BrandSettingsInAppShape from \Courier\Brands\BrandSettingsInApp
+ *
  * @phpstan-type BrandSettingsShape = array{
- *   colors?: BrandColors|null,
- *   email?: BrandSettingsEmail|null,
- *   inapp?: BrandSettingsInApp|null,
+ *   colors?: null|BrandColors|BrandColorsShape,
+ *   email?: null|BrandSettingsEmail|BrandSettingsEmailShape,
+ *   inapp?: null|BrandSettingsInApp|BrandSettingsInAppShape,
  * }
  */
 final class BrandSettings implements BaseModel
@@ -41,24 +43,9 @@ final class BrandSettings implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandColors|array{
-     *   primary?: string|null, secondary?: string|null
-     * }|null $colors
-     * @param BrandSettingsEmail|array{
-     *   footer?: EmailFooter|null,
-     *   head?: EmailHead|null,
-     *   header?: EmailHeader|null,
-     *   templateOverride?: TemplateOverride|null,
-     * }|null $email
-     * @param BrandSettingsInApp|array{
-     *   colors: BrandColors,
-     *   icons: Icons,
-     *   widgetBackground: WidgetBackground,
-     *   borderRadius?: string|null,
-     *   disableMessageIcon?: bool|null,
-     *   fontFamily?: string|null,
-     *   placement?: value-of<Placement>|null,
-     * }|null $inapp
+     * @param BrandColorsShape|null $colors
+     * @param BrandSettingsEmailShape|null $email
+     * @param BrandSettingsInAppShape|null $inapp
      */
     public static function with(
         BrandColors|array|null $colors = null,
@@ -75,9 +62,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandColors|array{
-     *   primary?: string|null, secondary?: string|null
-     * }|null $colors
+     * @param BrandColorsShape|null $colors
      */
     public function withColors(BrandColors|array|null $colors): self
     {
@@ -88,12 +73,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandSettingsEmail|array{
-     *   footer?: EmailFooter|null,
-     *   head?: EmailHead|null,
-     *   header?: EmailHeader|null,
-     *   templateOverride?: TemplateOverride|null,
-     * }|null $email
+     * @param BrandSettingsEmailShape|null $email
      */
     public function withEmail(BrandSettingsEmail|array|null $email): self
     {
@@ -104,15 +84,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandSettingsInApp|array{
-     *   colors: BrandColors,
-     *   icons: Icons,
-     *   widgetBackground: WidgetBackground,
-     *   borderRadius?: string|null,
-     *   disableMessageIcon?: bool|null,
-     *   fontFamily?: string|null,
-     *   placement?: value-of<Placement>|null,
-     * }|null $inapp
+     * @param BrandSettingsInAppShape|null $inapp
      */
     public function withInapp(BrandSettingsInApp|array|null $inapp): self
     {

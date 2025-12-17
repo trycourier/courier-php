@@ -19,7 +19,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $userID id of the user to retrieve all associated tenants for
-     * @param array<mixed>|TenantListParams $params
+     * @param array<string,mixed>|TenantListParams $params
      *
      * @return BaseResponse<TenantListResponse>
      *
@@ -35,7 +35,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
-     * @param array<mixed>|TenantAddMultipleParams $params
+     * @param array<string,mixed>|TenantAddMultipleParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -51,7 +51,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $tenantID path param: Id of the tenant the user should be added to
-     * @param array<mixed>|TenantAddSingleParams $params
+     * @param array<string,mixed>|TenantAddSingleParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -81,7 +81,7 @@ interface TenantsRawContract
      * @api
      *
      * @param string $tenantID id of the tenant the user should be removed from
-     * @param array<mixed>|TenantRemoveSingleParams $params
+     * @param array<string,mixed>|TenantRemoveSingleParams $params
      *
      * @return BaseResponse<mixed>
      *

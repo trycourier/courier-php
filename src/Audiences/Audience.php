@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\Operator;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ *
  * @phpstan-type AudienceShape = array{
  *   id: string,
  *   createdAt: string,
  *   description: string,
- *   filter: Filter,
+ *   filter: Filter|FilterShape,
  *   name: string,
  *   updatedAt: string,
  * }
@@ -91,9 +92,7 @@ final class Audience implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * } $filter
+     * @param FilterShape $filter
      */
     public static function with(
         string $id,
@@ -148,9 +147,7 @@ final class Audience implements BaseModel
     /**
      * A single filter to use for filtering.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * } $filter
+     * @param FilterShape $filter
      */
     public function withFilter(Filter|array $filter): self
     {

@@ -15,7 +15,7 @@ interface InboundRawContract
     /**
      * @api
      *
-     * @param array<mixed>|InboundTrackEventParams $params
+     * @param array<string,mixed>|InboundTrackEventParams $params
      *
      * @return BaseResponse<InboundTrackEventResponse>
      *

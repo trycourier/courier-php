@@ -18,7 +18,7 @@ interface BrandsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|BrandCreateParams $params
+     * @param array<string,mixed>|BrandCreateParams $params
      *
      * @return BaseResponse<Brand>
      *
@@ -47,7 +47,7 @@ interface BrandsRawContract
      * @api
      *
      * @param string $brandID a unique identifier associated with the brand you wish to update
-     * @param array<mixed>|BrandUpdateParams $params
+     * @param array<string,mixed>|BrandUpdateParams $params
      *
      * @return BaseResponse<Brand>
      *
@@ -62,7 +62,7 @@ interface BrandsRawContract
     /**
      * @api
      *
-     * @param array<mixed>|BrandListParams $params
+     * @param array<string,mixed>|BrandListParams $params
      *
      * @return BaseResponse<BrandListResponse>
      *

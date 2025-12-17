@@ -9,20 +9,21 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
-use Courier\MessageRouting\Method;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
-use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 
 /**
+ * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
+ * @phpstan-import-type TagsShape from \Courier\Notifications\NotificationListResponse\Result\Tags
+ *
  * @phpstan-type ResultShape = array{
  *   id: string,
  *   createdAt: int,
  *   eventIDs: list<string>,
  *   note: string,
- *   routing: MessageRouting,
+ *   routing: MessageRouting|MessageRoutingShape,
  *   topicID: string,
  *   updatedAt: int,
- *   tags?: Tags|null,
+ *   tags?: null|Tags|TagsShape,
  *   title?: string|null,
  * }
  */
@@ -103,10 +104,8 @@ final class Result implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string> $eventIDs
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
-     * @param Tags|array{data: list<Data>}|null $tags
+     * @param MessageRoutingShape $routing
+     * @param TagsShape|null $tags
      */
     public static function with(
         string $id,
@@ -173,9 +172,7 @@ final class Result implements BaseModel
     }
 
     /**
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {
@@ -202,7 +199,7 @@ final class Result implements BaseModel
     }
 
     /**
-     * @param Tags|array{data: list<Data>}|null $tags
+     * @param TagsShape|null $tags
      */
     public function withTags(Tags|array|null $tags): self
     {

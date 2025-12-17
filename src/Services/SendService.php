@@ -10,6 +10,7 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\MessageContext;
+use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
 use Courier\Preference;
 use Courier\Preference\Source;
@@ -97,7 +98,7 @@ final class SendService implements SendContract
      *     timeouts?: int|null,
      *   }>|null,
      *   routing?: array{
-     *     channels: list<mixed|string|MessageRoutingChannel>,
+     *     channels: list<string|MessageRouting|MessageRoutingChannel>,
      *     method: 'all'|'single'|Method,
      *   }|null,
      *   template?: string|null,

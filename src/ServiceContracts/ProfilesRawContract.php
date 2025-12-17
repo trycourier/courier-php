@@ -20,7 +20,7 @@ interface ProfilesRawContract
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
-     * @param array<mixed>|ProfileCreateParams $params
+     * @param array<string,mixed>|ProfileCreateParams $params
      *
      * @return BaseResponse<ProfileNewResponse>
      *
@@ -50,7 +50,7 @@ interface ProfilesRawContract
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param array<mixed>|ProfileUpdateParams $params
+     * @param array<string,mixed>|ProfileUpdateParams $params
      *
      * @return BaseResponse<mixed>
      *
@@ -80,7 +80,7 @@ interface ProfilesRawContract
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param array<mixed>|ProfileReplaceParams $params
+     * @param array<string,mixed>|ProfileReplaceParams $params
      *
      * @return BaseResponse<ProfileReplaceResponse>
      *

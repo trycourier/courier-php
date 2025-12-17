@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\ChannelClassification;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
-use Courier\PreferenceStatus;
 
 /**
+ * @phpstan-import-type TopicPreferenceShape from \Courier\Users\Preferences\TopicPreference
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type PreferenceGetResponseShape = array{
- *   items: list<TopicPreference>, paging: Paging
+ *   items: list<TopicPreferenceShape>, paging: Paging|PagingShape
  * }
  */
 final class PreferenceGetResponse implements BaseModel
@@ -59,15 +60,8 @@ final class PreferenceGetResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TopicPreference|array{
-     *   defaultStatus: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topicID: string,
-     *   topicName: string,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<TopicPreferenceShape> $items
+     * @param PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
@@ -82,14 +76,7 @@ final class PreferenceGetResponse implements BaseModel
     /**
      * The Preferences associated with the user_id.
      *
-     * @param list<TopicPreference|array{
-     *   defaultStatus: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topicID: string,
-     *   topicName: string,
-     *   customRouting?: list<value-of<ChannelClassification>>|null,
-     *   hasCustomRouting?: bool|null,
-     * }> $items
+     * @param list<TopicPreferenceShape> $items
      */
     public function withItems(array $items): self
     {
@@ -102,7 +89,7 @@ final class PreferenceGetResponse implements BaseModel
     /**
      * Deprecated - Paging not implemented on this endpoint.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

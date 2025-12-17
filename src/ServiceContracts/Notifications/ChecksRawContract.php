@@ -19,7 +19,7 @@ interface ChecksRawContract
      * @api
      *
      * @param string $submissionID Path param:
-     * @param array<mixed>|CheckUpdateParams $params
+     * @param array<string,mixed>|CheckUpdateParams $params
      *
      * @return BaseResponse<CheckUpdateResponse>
      *
@@ -34,7 +34,7 @@ interface ChecksRawContract
     /**
      * @api
      *
-     * @param array<mixed>|CheckListParams $params
+     * @param array<string,mixed>|CheckListParams $params
      *
      * @return BaseResponse<CheckListResponse>
      *
@@ -49,7 +49,7 @@ interface ChecksRawContract
     /**
      * @api
      *
-     * @param array<mixed>|CheckDeleteParams $params
+     * @param array<string,mixed>|CheckDeleteParams $params
      *
      * @return BaseResponse<mixed>
      *

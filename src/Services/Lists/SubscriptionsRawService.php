@@ -66,7 +66,8 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array{
      *   recipients: list<array{
-     *     recipientID: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     recipientID: string,
+     *     preferences?: array<string,mixed>|RecipientPreferences|null,
      *   }>,
      * }|SubscriptionAddParams $params
      *
@@ -102,7 +103,8 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array{
      *   recipients: list<array{
-     *     recipientID: string, preferences?: array<mixed>|RecipientPreferences|null
+     *     recipientID: string,
+     *     preferences?: array<string,mixed>|RecipientPreferences|null,
      *   }>,
      * }|SubscriptionSubscribeParams $params
      *
@@ -139,8 +141,8 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
      * @param array{
      *   listID: string,
      *   preferences?: array{
-     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
+     *     categories?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
      *   }|RecipientPreferences|null,
      * }|SubscriptionSubscribeUserParams $params
      *
