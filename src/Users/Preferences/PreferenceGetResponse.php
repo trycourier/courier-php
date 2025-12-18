@@ -61,7 +61,7 @@ final class PreferenceGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<TopicPreferenceShape> $items
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
@@ -89,7 +89,7 @@ final class PreferenceGetResponse implements BaseModel
     /**
      * Deprecated - Paging not implemented on this endpoint.
      *
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

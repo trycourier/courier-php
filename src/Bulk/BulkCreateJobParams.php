@@ -21,7 +21,9 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-import-type InboundBulkMessageShape from \Courier\Bulk\InboundBulkMessage
  *
- * @phpstan-type BulkCreateJobParamsShape = array{message: InboundBulkMessageShape}
+ * @phpstan-type BulkCreateJobParamsShape = array{
+ *   message: InboundBulkMessage|InboundBulkMessageShape
+ * }
  */
 final class BulkCreateJobParams implements BaseModel
 {
@@ -61,7 +63,7 @@ final class BulkCreateJobParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param InboundBulkMessageShape $message
+     * @param InboundBulkMessage|InboundBulkMessageShape $message
      */
     public static function with(InboundBulkMessage|array $message): self
     {
@@ -77,7 +79,7 @@ final class BulkCreateJobParams implements BaseModel
      * - V1 format: Requires `event` field (event ID or notification ID)
      * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
      *
-     * @param InboundBulkMessageShape $message
+     * @param InboundBulkMessage|InboundBulkMessageShape $message
      */
     public function withMessage(InboundBulkMessage|array $message): self
     {

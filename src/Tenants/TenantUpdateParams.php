@@ -20,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type TenantUpdateParamsShape = array{
  *   name: string,
  *   brandID?: string|null,
- *   defaultPreferences?: DefaultPreferencesShape|null,
+ *   defaultPreferences?: null|DefaultPreferences|DefaultPreferencesShape,
  *   parentTenantID?: string|null,
  *   properties?: array<string,mixed>|null,
  *   userProfile?: array<string,mixed>|null,
@@ -96,7 +96,7 @@ final class TenantUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param DefaultPreferencesShape|null $defaultPreferences
+     * @param DefaultPreferences|DefaultPreferencesShape|null $defaultPreferences
      * @param array<string,mixed>|null $properties
      * @param array<string,mixed>|null $userProfile
      */
@@ -146,7 +146,7 @@ final class TenantUpdateParams implements BaseModel
     /**
      * Defines the preferences used for the tenant when the user hasn't specified their own.
      *
-     * @param DefaultPreferencesShape|null $defaultPreferences
+     * @param DefaultPreferences|DefaultPreferencesShape|null $defaultPreferences
      */
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences

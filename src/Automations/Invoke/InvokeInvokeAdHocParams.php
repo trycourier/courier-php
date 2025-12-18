@@ -19,7 +19,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-import-type AutomationShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation
  *
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
- *   automation: AutomationShape,
+ *   automation: Automation|AutomationShape,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
@@ -77,7 +77,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param AutomationShape $automation
+     * @param Automation|AutomationShape $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
      */
@@ -103,7 +103,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
     }
 
     /**
-     * @param AutomationShape $automation
+     * @param Automation|AutomationShape $automation
      */
     public function withAutomation(Automation|array $automation): self
     {

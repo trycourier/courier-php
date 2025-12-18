@@ -62,7 +62,7 @@ final class AutomationFetchDataStep implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Action|value-of<Action> $action
-     * @param WebhookShape $webhook
+     * @param Webhook|WebhookShape $webhook
      * @param MergeStrategy|value-of<MergeStrategy>|null $mergeStrategy
      */
     public static function with(
@@ -92,7 +92,7 @@ final class AutomationFetchDataStep implements BaseModel
     }
 
     /**
-     * @param WebhookShape $webhook
+     * @param Webhook|WebhookShape $webhook
      */
     public function withWebhook(Webhook|array $webhook): self
     {

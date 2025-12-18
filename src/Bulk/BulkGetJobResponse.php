@@ -46,7 +46,7 @@ final class BulkGetJobResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param JobShape $job
+     * @param Job|JobShape $job
      */
     public static function with(Job|array $job): self
     {
@@ -58,7 +58,7 @@ final class BulkGetJobResponse implements BaseModel
     }
 
     /**
-     * @param JobShape $job
+     * @param Job|JobShape $job
      */
     public function withJob(Job|array $job): self
     {

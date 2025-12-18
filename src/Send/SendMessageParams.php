@@ -17,7 +17,7 @@ use Courier\Send\SendMessageParams\Message;
  *
  * @phpstan-import-type MessageShape from \Courier\Send\SendMessageParams\Message
  *
- * @phpstan-type SendMessageParamsShape = array{message: MessageShape}
+ * @phpstan-type SendMessageParamsShape = array{message: Message|MessageShape}
  */
 final class SendMessageParams implements BaseModel
 {
@@ -55,7 +55,7 @@ final class SendMessageParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageShape $message
+     * @param Message|MessageShape $message
      */
     public static function with(Message|array $message): self
     {
@@ -69,7 +69,7 @@ final class SendMessageParams implements BaseModel
     /**
      * The message property has the following primary top-level properties. They define the destination and content of the message.
      *
-     * @param MessageShape $message
+     * @param Message|MessageShape $message
      */
     public function withMessage(Message|array $message): self
     {

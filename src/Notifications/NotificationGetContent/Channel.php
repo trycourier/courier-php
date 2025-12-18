@@ -68,7 +68,7 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ContentShape|null $content
+     * @param Content|ContentShape|null $content
      * @param array<string,LocaleShape>|null $locales
      */
     public static function with(
@@ -107,7 +107,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param ContentShape|null $content
+     * @param Content|ContentShape|null $content
      */
     public function withContent(Content|array|null $content): self
     {

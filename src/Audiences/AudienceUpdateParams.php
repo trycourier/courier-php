@@ -17,7 +17,9 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
- *   description?: string|null, filter?: FilterShape|null, name?: string|null
+ *   description?: string|null,
+ *   filter?: null|Filter|FilterShape,
+ *   name?: string|null,
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -54,7 +56,7 @@ final class AudienceUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param FilterShape|null $filter
+     * @param Filter|FilterShape|null $filter
      */
     public static function with(
         ?string $description = null,
@@ -84,7 +86,7 @@ final class AudienceUpdateParams implements BaseModel
     /**
      * A single filter to use for filtering.
      *
-     * @param FilterShape|null $filter
+     * @param Filter|FilterShape|null $filter
      */
     public function withFilter(Filter|array|null $filter): self
     {

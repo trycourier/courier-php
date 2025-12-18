@@ -20,8 +20,8 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-type BrandUpdateParamsShape = array{
  *   name: string,
- *   settings?: BrandSettingsShape|null,
- *   snippets?: BrandSnippetsShape|null,
+ *   settings?: null|BrandSettings|BrandSettingsShape,
+ *   snippets?: null|BrandSnippets|BrandSnippetsShape,
  * }
  */
 final class BrandUpdateParams implements BaseModel
@@ -66,8 +66,8 @@ final class BrandUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettingsShape|null $settings
-     * @param BrandSnippetsShape|null $snippets
+     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $name,
@@ -96,7 +96,7 @@ final class BrandUpdateParams implements BaseModel
     }
 
     /**
-     * @param BrandSettingsShape|null $settings
+     * @param BrandSettings|BrandSettingsShape|null $settings
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
@@ -107,7 +107,7 @@ final class BrandUpdateParams implements BaseModel
     }
 
     /**
-     * @param BrandSnippetsShape|null $snippets
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {

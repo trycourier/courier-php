@@ -32,7 +32,7 @@ final class Metadata implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param UtmShape|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public static function with(Utm|array|null $utm = null): self
     {
@@ -44,7 +44,7 @@ final class Metadata implements BaseModel
     }
 
     /**
-     * @param UtmShape|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public function withUtm(Utm|array|null $utm): self
     {

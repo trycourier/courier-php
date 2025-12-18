@@ -93,7 +93,7 @@ final class ElementalChannelNodeWithType implements BaseModel
      *
      * @param list<string>|null $channels
      * @param array<string,mixed>|null $raw
-     * @param Type|value-of<Type> $type
+     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         string $channel,

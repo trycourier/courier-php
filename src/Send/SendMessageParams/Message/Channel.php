@@ -82,11 +82,11 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MetadataShape|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
      * @param RoutingMethod|value-of<RoutingMethod>|null $routingMethod
-     * @param TimeoutsShape|null $timeouts
+     * @param Timeouts|TimeoutsShape|null $timeouts
      */
     public static function with(
         ?string $brandID = null,
@@ -133,7 +133,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param MetadataShape|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      */
     public function withMetadata(
         Metadata|array|null $metadata,
@@ -185,7 +185,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param TimeoutsShape|null $timeouts
+     * @param Timeouts|TimeoutsShape|null $timeouts
      */
     public function withTimeouts(Timeouts|array|null $timeouts): self
     {

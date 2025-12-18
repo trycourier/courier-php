@@ -48,7 +48,7 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageRoutingShape $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public static function with(MessageRouting|array $routing): self
     {
@@ -60,7 +60,7 @@ final class Data implements BaseModel
     }
 
     /**
-     * @param MessageRoutingShape $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {

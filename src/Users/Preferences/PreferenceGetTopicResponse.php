@@ -47,7 +47,7 @@ final class PreferenceGetTopicResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param TopicPreferenceShape $topic
+     * @param TopicPreference|TopicPreferenceShape $topic
      */
     public static function with(TopicPreference|array $topic): self
     {
@@ -59,7 +59,7 @@ final class PreferenceGetTopicResponse implements BaseModel
     }
 
     /**
-     * @param TopicPreferenceShape $topic
+     * @param TopicPreference|TopicPreferenceShape $topic
      */
     public function withTopic(TopicPreference|array $topic): self
     {

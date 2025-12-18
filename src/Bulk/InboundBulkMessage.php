@@ -22,7 +22,7 @@ use Courier\ElementalContentSugar;
  * @phpstan-type InboundBulkMessageShape = array{
  *   event: string,
  *   brand?: string|null,
- *   content?: null|ContentShape|ElementalContentSugar|ElementalContent,
+ *   content?: ContentShape|null,
  *   data?: array<string,mixed>|null,
  *   locale?: array<string,array<string,mixed>>|null,
  *   override?: array<string,mixed>|null,

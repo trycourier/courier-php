@@ -70,9 +70,9 @@ final class InboundBulkMessageUser implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      * @param array<string,mixed>|null $profile
-     * @param UserRecipientShape|null $to
+     * @param UserRecipient|UserRecipientShape|null $to
      */
     public static function with(
         mixed $data = null,
@@ -104,7 +104,7 @@ final class InboundBulkMessageUser implements BaseModel
     }
 
     /**
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences
@@ -146,7 +146,7 @@ final class InboundBulkMessageUser implements BaseModel
      * `profile.email` instead of `to.email`. The `to` field is primarily used
      * for recipient identification and data merging.
      *
-     * @param UserRecipientShape|null $to
+     * @param UserRecipient|UserRecipientShape|null $to
      */
     public function withTo(UserRecipient|array|null $to): self
     {

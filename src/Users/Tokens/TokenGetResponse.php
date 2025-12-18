@@ -103,9 +103,9 @@ final class TokenGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param ProviderKey|value-of<ProviderKey> $providerKey
-     * @param DeviceShape|null $device
+     * @param Device|DeviceShape|null $device
      * @param ExpiryDateShape|null $expiryDate
-     * @param TrackingShape|null $tracking
+     * @param Tracking|TrackingShape|null $tracking
      * @param Status|value-of<Status>|null $status
      */
     public static function with(
@@ -158,7 +158,7 @@ final class TokenGetResponse implements BaseModel
     /**
      * Information about the device the token came from.
      *
-     * @param DeviceShape|null $device
+     * @param Device|DeviceShape|null $device
      */
     public function withDevice(Device|array|null $device): self
     {
@@ -195,7 +195,7 @@ final class TokenGetResponse implements BaseModel
     /**
      * Tracking information about the device the token came from.
      *
-     * @param TrackingShape|null $tracking
+     * @param Tracking|TrackingShape|null $tracking
      */
     public function withTracking(Tracking|array|null $tracking): self
     {

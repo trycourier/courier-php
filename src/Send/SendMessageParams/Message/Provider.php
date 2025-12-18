@@ -54,7 +54,7 @@ final class Provider implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MetadataShape|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      */
     public static function with(
@@ -85,7 +85,7 @@ final class Provider implements BaseModel
     }
 
     /**
-     * @param MetadataShape|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      */
     public function withMetadata(
         Metadata|array|null $metadata,

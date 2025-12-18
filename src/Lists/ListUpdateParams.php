@@ -19,7 +19,8 @@ use Courier\RecipientPreferences;
  * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
  *
  * @phpstan-type ListUpdateParamsShape = array{
- *   name: string, preferences?: RecipientPreferencesShape|null
+ *   name: string,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
  * }
  */
 final class ListUpdateParams implements BaseModel
@@ -58,7 +59,7 @@ final class ListUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public static function with(
         string $name,
@@ -82,7 +83,7 @@ final class ListUpdateParams implements BaseModel
     }
 
     /**
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences

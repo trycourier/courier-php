@@ -79,9 +79,9 @@ final class BrandSettingsInApp implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandColorsShape $colors
-     * @param IconsShape $icons
-     * @param WidgetBackgroundShape $widgetBackground
+     * @param BrandColors|BrandColorsShape $colors
+     * @param Icons|IconsShape $icons
+     * @param WidgetBackground|WidgetBackgroundShape $widgetBackground
      * @param Placement|value-of<Placement>|null $placement
      */
     public static function with(
@@ -108,7 +108,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param BrandColorsShape $colors
+     * @param BrandColors|BrandColorsShape $colors
      */
     public function withColors(BrandColors|array $colors): self
     {
@@ -119,7 +119,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param IconsShape $icons
+     * @param Icons|IconsShape $icons
      */
     public function withIcons(Icons|array $icons): self
     {
@@ -130,7 +130,7 @@ final class BrandSettingsInApp implements BaseModel
     }
 
     /**
-     * @param WidgetBackgroundShape $widgetBackground
+     * @param WidgetBackground|WidgetBackgroundShape $widgetBackground
      */
     public function withWidgetBackground(
         WidgetBackground|array $widgetBackground

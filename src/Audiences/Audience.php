@@ -92,7 +92,7 @@ final class Audience implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param FilterShape $filter
+     * @param Filter|FilterShape $filter
      */
     public static function with(
         string $id,
@@ -147,7 +147,7 @@ final class Audience implements BaseModel
     /**
      * A single filter to use for filtering.
      *
-     * @param FilterShape $filter
+     * @param Filter|FilterShape $filter
      */
     public function withFilter(Filter|array $filter): self
     {

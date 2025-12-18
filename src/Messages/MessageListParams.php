@@ -138,9 +138,9 @@ final class MessageListParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string|null> $provider
-     * @param list<string|null> $status
-     * @param list<string|null> $tag
+     * @param list<string|null>|null $provider
+     * @param list<string|null>|null $status
+     * @param list<string|null>|null $tag
      */
     public static function with(
         ?bool $archived = null,

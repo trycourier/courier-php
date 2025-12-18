@@ -99,7 +99,7 @@ final class Item implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param DataShape $data
+     * @param Data|DataShape $data
      */
     public static function with(
         string $id,
@@ -179,7 +179,7 @@ final class Item implements BaseModel
     /**
      * The template's data containing it's routing configs.
      *
-     * @param DataShape $data
+     * @param Data|DataShape $data
      */
     public function withData(Data|array $data): self
     {
