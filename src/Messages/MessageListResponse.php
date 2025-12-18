@@ -60,7 +60,7 @@ final class MessageListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      * @param list<MessageDetailsShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
@@ -76,7 +76,7 @@ final class MessageListResponse implements BaseModel
     /**
      * Paging information for the result set.
      *
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

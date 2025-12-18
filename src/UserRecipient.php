@@ -96,9 +96,9 @@ final class UserRecipient implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageContextShape|null $context
+     * @param MessageContext|MessageContextShape|null $context
      * @param array<string,mixed>|null $data
-     * @param PreferencesShape|null $preferences
+     * @param Preferences|PreferencesShape|null $preferences
      */
     public static function with(
         ?string $accountID = null,
@@ -142,7 +142,7 @@ final class UserRecipient implements BaseModel
     /**
      * Context such as tenant_id to send the notification with.
      *
-     * @param MessageContextShape|null $context
+     * @param MessageContext|MessageContextShape|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
@@ -208,7 +208,7 @@ final class UserRecipient implements BaseModel
     }
 
     /**
-     * @param PreferencesShape|null $preferences
+     * @param Preferences|PreferencesShape|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {

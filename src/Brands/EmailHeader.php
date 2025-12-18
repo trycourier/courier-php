@@ -54,7 +54,7 @@ final class EmailHeader implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param LogoShape $logo
+     * @param Logo|LogoShape $logo
      */
     public static function with(
         Logo|array $logo,
@@ -72,7 +72,7 @@ final class EmailHeader implements BaseModel
     }
 
     /**
-     * @param LogoShape $logo
+     * @param Logo|LogoShape $logo
      */
     public function withLogo(Logo|array $logo): self
     {

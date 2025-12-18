@@ -51,7 +51,7 @@ final class ElementalActionNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param Type|value-of<Type> $type
+     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         ?array $channels = null,

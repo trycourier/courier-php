@@ -40,7 +40,7 @@ use Courier\UserRecipient;
  * @phpstan-type MessageShape = array{
  *   brandID?: string|null,
  *   channels?: array<string,ChannelShape>|null,
- *   content?: null|ContentShape|ElementalContentSugar|ElementalContent,
+ *   content?: ContentShape|null,
  *   context?: null|MessageContext|MessageContextShape,
  *   data?: array<string,mixed>|null,
  *   delay?: null|Delay|DelayShape,
@@ -130,16 +130,16 @@ final class Message implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,ChannelShape>|null $channels
-     * @param ContentShape $content
-     * @param MessageContextShape|null $context
+     * @param ContentShape|null $content
+     * @param MessageContext|MessageContextShape|null $context
      * @param array<string,mixed>|null $data
-     * @param DelayShape|null $delay
-     * @param ExpiryShape|null $expiry
-     * @param MetadataShape|null $metadata
-     * @param PreferencesShape|null $preferences
+     * @param Delay|DelayShape|null $delay
+     * @param Expiry|ExpiryShape|null $expiry
+     * @param Metadata|MetadataShape|null $metadata
+     * @param Preferences|PreferencesShape|null $preferences
      * @param array<string,ProviderShape>|null $providers
-     * @param RoutingShape|null $routing
-     * @param TimeoutShape|null $timeout
+     * @param Routing|RoutingShape|null $routing
+     * @param Timeout|TimeoutShape|null $timeout
      * @param ToShape|null $to
      */
     public static function with(
@@ -214,7 +214,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param MessageContextShape|null $context
+     * @param MessageContext|MessageContextShape|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
@@ -236,7 +236,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param DelayShape|null $delay
+     * @param Delay|DelayShape|null $delay
      */
     public function withDelay(Delay|array|null $delay): self
     {
@@ -247,7 +247,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param ExpiryShape|null $expiry
+     * @param Expiry|ExpiryShape|null $expiry
      */
     public function withExpiry(Expiry|array|null $expiry): self
     {
@@ -258,7 +258,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param MetadataShape|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      */
     public function withMetadata(Metadata|array|null $metadata): self
     {
@@ -269,7 +269,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param PreferencesShape|null $preferences
+     * @param Preferences|PreferencesShape|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
@@ -293,7 +293,7 @@ final class Message implements BaseModel
     /**
      * Customize which channels/providers Courier may deliver the message through.
      *
-     * @param RoutingShape|null $routing
+     * @param Routing|RoutingShape|null $routing
      */
     public function withRouting(Routing|array|null $routing): self
     {
@@ -312,7 +312,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param TimeoutShape|null $timeout
+     * @param Timeout|TimeoutShape|null $timeout
      */
     public function withTimeout(Timeout|array|null $timeout): self
     {

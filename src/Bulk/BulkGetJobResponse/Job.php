@@ -78,7 +78,7 @@ final class Job implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param InboundBulkMessageShape $definition
+     * @param InboundBulkMessage|InboundBulkMessageShape $definition
      * @param Status|value-of<Status> $status
      */
     public static function with(
@@ -104,7 +104,7 @@ final class Job implements BaseModel
      * - V1 format: Requires `event` field (event ID or notification ID)
      * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
      *
-     * @param InboundBulkMessageShape $definition
+     * @param InboundBulkMessage|InboundBulkMessageShape $definition
      */
     public function withDefinition(InboundBulkMessage|array $definition): self
     {

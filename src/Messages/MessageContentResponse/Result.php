@@ -63,7 +63,7 @@ final class Result implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ContentShape $content
+     * @param Content|ContentShape $content
      */
     public static function with(
         string $channel,
@@ -104,7 +104,7 @@ final class Result implements BaseModel
     /**
      * Content details of the rendered message.
      *
-     * @param ContentShape $content
+     * @param Content|ContentShape $content
      */
     public function withContent(Content|array $content): self
     {

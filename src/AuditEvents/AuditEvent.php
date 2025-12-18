@@ -81,7 +81,7 @@ final class AuditEvent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param ActorShape $actor
+     * @param Actor|ActorShape $actor
      */
     public static function with(
         Actor|array $actor,
@@ -104,7 +104,7 @@ final class AuditEvent implements BaseModel
     }
 
     /**
-     * @param ActorShape $actor
+     * @param Actor|ActorShape $actor
      */
     public function withActor(Actor|array $actor): self
     {

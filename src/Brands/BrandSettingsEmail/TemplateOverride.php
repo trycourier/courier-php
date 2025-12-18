@@ -85,7 +85,7 @@ final class TemplateOverride implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandTemplateShape $mjml
+     * @param BrandTemplate|BrandTemplateShape $mjml
      */
     public static function with(
         bool $enabled,
@@ -174,7 +174,7 @@ final class TemplateOverride implements BaseModel
     }
 
     /**
-     * @param BrandTemplateShape $mjml
+     * @param BrandTemplate|BrandTemplateShape $mjml
      */
     public function withMjml(BrandTemplate|array $mjml): self
     {

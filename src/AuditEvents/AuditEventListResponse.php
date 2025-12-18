@@ -53,7 +53,7 @@ final class AuditEventListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      * @param list<AuditEventShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
@@ -67,7 +67,7 @@ final class AuditEventListResponse implements BaseModel
     }
 
     /**
-     * @param PagingShape $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {

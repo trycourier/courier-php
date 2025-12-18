@@ -104,8 +104,8 @@ final class Result implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string> $eventIDs
-     * @param MessageRoutingShape $routing
-     * @param TagsShape|null $tags
+     * @param MessageRouting|MessageRoutingShape $routing
+     * @param Tags|TagsShape|null $tags
      */
     public static function with(
         string $id,
@@ -172,7 +172,7 @@ final class Result implements BaseModel
     }
 
     /**
-     * @param MessageRoutingShape $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {
@@ -199,7 +199,7 @@ final class Result implements BaseModel
     }
 
     /**
-     * @param TagsShape|null $tags
+     * @param Tags|TagsShape|null $tags
      */
     public function withTags(Tags|array|null $tags): self
     {

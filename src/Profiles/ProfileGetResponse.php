@@ -55,7 +55,7 @@ final class ProfileGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,mixed> $profile
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public static function with(
         array $profile,
@@ -82,7 +82,7 @@ final class ProfileGetResponse implements BaseModel
     }
 
     /**
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences

@@ -47,7 +47,7 @@ final class AudienceUpdateResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param AudienceShape $audience
+     * @param Audience|AudienceShape $audience
      */
     public static function with(Audience|array $audience): self
     {
@@ -59,7 +59,7 @@ final class AudienceUpdateResponse implements BaseModel
     }
 
     /**
-     * @param AudienceShape $audience
+     * @param Audience|AudienceShape $audience
      */
     public function withAudience(Audience|array $audience): self
     {

@@ -19,7 +19,7 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
  * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic
  *
  * @phpstan-type PreferenceUpdateOrCreateTopicParamsShape = array{
- *   userID: string, topic: TopicShape, tenantID?: string|null
+ *   userID: string, topic: Topic|TopicShape, tenantID?: string|null
  * }
  */
 final class PreferenceUpdateOrCreateTopicParams implements BaseModel
@@ -64,7 +64,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param TopicShape $topic
+     * @param Topic|TopicShape $topic
      */
     public static function with(
         string $userID,
@@ -90,7 +90,7 @@ final class PreferenceUpdateOrCreateTopicParams implements BaseModel
     }
 
     /**
-     * @param TopicShape $topic
+     * @param Topic|TopicShape $topic
      */
     public function withTopic(Topic|array $topic): self
     {

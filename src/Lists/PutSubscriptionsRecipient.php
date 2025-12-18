@@ -53,7 +53,7 @@ final class PutSubscriptionsRecipient implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public static function with(
         string $recipientID,
@@ -77,7 +77,7 @@ final class PutSubscriptionsRecipient implements BaseModel
     }
 
     /**
-     * @param RecipientPreferencesShape|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences

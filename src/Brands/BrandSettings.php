@@ -43,9 +43,9 @@ final class BrandSettings implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandColorsShape|null $colors
-     * @param BrandSettingsEmailShape|null $email
-     * @param BrandSettingsInAppShape|null $inapp
+     * @param BrandColors|BrandColorsShape|null $colors
+     * @param BrandSettingsEmail|BrandSettingsEmailShape|null $email
+     * @param BrandSettingsInApp|BrandSettingsInAppShape|null $inapp
      */
     public static function with(
         BrandColors|array|null $colors = null,
@@ -62,7 +62,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandColorsShape|null $colors
+     * @param BrandColors|BrandColorsShape|null $colors
      */
     public function withColors(BrandColors|array|null $colors): self
     {
@@ -73,7 +73,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandSettingsEmailShape|null $email
+     * @param BrandSettingsEmail|BrandSettingsEmailShape|null $email
      */
     public function withEmail(BrandSettingsEmail|array|null $email): self
     {
@@ -84,7 +84,7 @@ final class BrandSettings implements BaseModel
     }
 
     /**
-     * @param BrandSettingsInAppShape|null $inapp
+     * @param BrandSettingsInApp|BrandSettingsInAppShape|null $inapp
      */
     public function withInapp(BrandSettingsInApp|array|null $inapp): self
     {

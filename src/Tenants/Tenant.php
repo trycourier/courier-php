@@ -97,7 +97,7 @@ final class Tenant implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param DefaultPreferencesShape|null $defaultPreferences
+     * @param DefaultPreferences|DefaultPreferencesShape|null $defaultPreferences
      * @param array<string,mixed>|null $properties
      * @param array<string,mixed>|null $userProfile
      */
@@ -160,7 +160,7 @@ final class Tenant implements BaseModel
     /**
      * Defines the preferences used for the account when the user hasn't specified their own.
      *
-     * @param DefaultPreferencesShape|null $defaultPreferences
+     * @param DefaultPreferences|DefaultPreferencesShape|null $defaultPreferences
      */
     public function withDefaultPreferences(
         DefaultPreferences|array|null $defaultPreferences

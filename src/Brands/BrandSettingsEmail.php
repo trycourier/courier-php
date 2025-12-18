@@ -49,10 +49,10 @@ final class BrandSettingsEmail implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param EmailFooterShape|null $footer
-     * @param EmailHeadShape|null $head
-     * @param EmailHeaderShape|null $header
-     * @param TemplateOverrideShape|null $templateOverride
+     * @param EmailFooter|EmailFooterShape|null $footer
+     * @param EmailHead|EmailHeadShape|null $head
+     * @param EmailHeader|EmailHeaderShape|null $header
+     * @param TemplateOverride|TemplateOverrideShape|null $templateOverride
      */
     public static function with(
         EmailFooter|array|null $footer = null,
@@ -71,7 +71,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailFooterShape|null $footer
+     * @param EmailFooter|EmailFooterShape|null $footer
      */
     public function withFooter(EmailFooter|array|null $footer): self
     {
@@ -82,7 +82,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailHeadShape|null $head
+     * @param EmailHead|EmailHeadShape|null $head
      */
     public function withHead(EmailHead|array|null $head): self
     {
@@ -93,7 +93,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param EmailHeaderShape|null $header
+     * @param EmailHeader|EmailHeaderShape|null $header
      */
     public function withHeader(EmailHeader|array|null $header): self
     {
@@ -104,7 +104,7 @@ final class BrandSettingsEmail implements BaseModel
     }
 
     /**
-     * @param TemplateOverrideShape|null $templateOverride
+     * @param TemplateOverride|TemplateOverrideShape|null $templateOverride
      */
     public function withTemplateOverride(
         TemplateOverride|array|null $templateOverride

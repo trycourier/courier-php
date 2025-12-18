@@ -91,9 +91,9 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Status|value-of<Status> $status
-     * @param RecipientPreferencesShape $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      * @param array<string,mixed>|null $profile
-     * @param UserRecipientShape $to
+     * @param UserRecipient|UserRecipientShape|null $to
      */
     public static function with(
         Status|string $status,
@@ -130,7 +130,7 @@ final class Item implements BaseModel
     }
 
     /**
-     * @param RecipientPreferencesShape $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape $preferences
      */
     public function withPreferences(
         RecipientPreferences|array $preferences
@@ -168,7 +168,7 @@ final class Item implements BaseModel
     }
 
     /**
-     * @param UserRecipientShape $to
+     * @param UserRecipient|UserRecipientShape $to
      */
     public function withTo(UserRecipient|array $to): self
     {

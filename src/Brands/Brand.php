@@ -77,8 +77,8 @@ final class Brand implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettingsShape|null $settings
-     * @param BrandSnippetsShape|null $snippets
+     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $id,
@@ -146,7 +146,7 @@ final class Brand implements BaseModel
     }
 
     /**
-     * @param BrandSettingsShape|null $settings
+     * @param BrandSettings|BrandSettingsShape|null $settings
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
@@ -157,7 +157,7 @@ final class Brand implements BaseModel
     }
 
     /**
-     * @param BrandSnippetsShape|null $snippets
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {
