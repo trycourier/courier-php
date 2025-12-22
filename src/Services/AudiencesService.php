@@ -9,7 +9,6 @@ use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Audiences\Filter;
-use Courier\Audiences\Filter\Operator;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
@@ -57,11 +56,7 @@ final class AudiencesService implements AudiencesContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $description A description of the audience
-     * @param array{
-     *   operator: 'ENDS_WITH'|'EQ'|'EXISTS'|'GT'|'GTE'|'INCLUDES'|'IS_AFTER'|'IS_BEFORE'|'LT'|'LTE'|'NEQ'|'OMIT'|'STARTS_WITH'|'AND'|'OR'|Operator,
-     *   path: string,
-     *   value: string,
-     * }|Filter|null $filter A single filter to use for filtering
+     * @param Filter|array<string,mixed>|null $filter A single filter to use for filtering
      * @param string|null $name The name of the audience
      *
      * @throws APIException
@@ -69,7 +64,7 @@ final class AudiencesService implements AudiencesContract
     public function update(
         string $audienceID,
         ?string $description = null,
-        array|Filter|null $filter = null,
+        Filter|array|null $filter = null,
         ?string $name = null,
         ?RequestOptions $requestOptions = null,
     ): AudienceUpdateResponse {

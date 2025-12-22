@@ -17,7 +17,6 @@ use Courier\Send\SendMessageParams\Message\Routing\Method;
 use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendRawContract;
-use Courier\UserRecipient;
 
 final class SendRawService implements SendRawContract
 {
@@ -82,18 +81,7 @@ final class SendRawService implements SendRawContract
      *       message?: int|null,
      *       provider?: array<string,int>|null,
      *     }|null,
-     *     to?: array{
-     *       accountID?: string|null,
-     *       context?: array<string,mixed>|MessageContext|null,
-     *       data?: array<string,mixed>|null,
-     *       email?: string|null,
-     *       listID?: string|null,
-     *       locale?: string|null,
-     *       phoneNumber?: string|null,
-     *       preferences?: array<string,mixed>|null,
-     *       tenantID?: string|null,
-     *       userID?: string|null,
-     *     }|UserRecipient|list<array<string,mixed>>|null,
+     *     to?: array<string,mixed>|null,
      *   },
      * }|SendMessageParams $params
      *

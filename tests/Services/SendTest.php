@@ -148,7 +148,7 @@ final class SendTest extends TestCase
                         'templateID' => 'templateId',
                     ],
                     'tenantID' => 'tenant_id',
-                    'userID' => 'example_user',
+                    'userID' => 'user_id',
                 ],
             ],
         );

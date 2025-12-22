@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  *   id: string,
  *   createdAt: string,
  *   description: string,
- *   filter: Filter|FilterShape,
+ *   filter: FilterShape,
  *   name: string,
  *   updatedAt: string,
  * }
@@ -44,7 +44,7 @@ final class Audience implements BaseModel
      * A single filter to use for filtering.
      */
     #[Required]
-    public Filter $filter;
+    public SingleFilterConfig|NestedFilterConfig $filter;
 
     /**
      * The name of the audience.
@@ -92,13 +92,13 @@ final class Audience implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|FilterShape $filter
+     * @param FilterShape $filter
      */
     public static function with(
         string $id,
         string $createdAt,
         string $description,
-        Filter|array $filter,
+        SingleFilterConfig|array|NestedFilterConfig $filter,
         string $name,
         string $updatedAt,
     ): self {
@@ -147,10 +147,11 @@ final class Audience implements BaseModel
     /**
      * A single filter to use for filtering.
      *
-     * @param Filter|FilterShape $filter
+     * @param FilterShape $filter
      */
-    public function withFilter(Filter|array $filter): self
-    {
+    public function withFilter(
+        SingleFilterConfig|array|NestedFilterConfig $filter
+    ): self {
         $self = clone $this;
         $self['filter'] = $filter;
 

@@ -10,11 +10,10 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
- * @phpstan-import-type AudienceShape from \Courier\Audiences\Audience
  * @phpstan-import-type PagingShape from \Courier\Paging
  *
  * @phpstan-type AudienceListResponseShape = array{
- *   items: list<AudienceShape>, paging: Paging|PagingShape
+ *   items: list<mixed>, paging: Paging|PagingShape
  * }
  */
 final class AudienceListResponse implements BaseModel
@@ -22,7 +21,7 @@ final class AudienceListResponse implements BaseModel
     /** @use SdkModel<AudienceListResponseShape> */
     use SdkModel;
 
-    /** @var list<Audience> $items */
+    /** @var list<mixed> $items */
     #[Required(list: Audience::class)]
     public array $items;
 
@@ -53,7 +52,7 @@ final class AudienceListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<AudienceShape> $items
+     * @param list<mixed> $items
      * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
@@ -67,7 +66,7 @@ final class AudienceListResponse implements BaseModel
     }
 
     /**
-     * @param list<AudienceShape> $items
+     * @param list<mixed> $items
      */
     public function withItems(array $items): self
     {

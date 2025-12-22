@@ -62,10 +62,10 @@ var_dump($response->requestId);
 
 ### Value Objects
 
-It is recommended to use the static `with` constructor `ChannelPreference::with(channel: 'direct_message', ...)`
+It is recommended to use the static `with` constructor `AudienceFilter::with(operator: 'MEMBER_OF', ...)`
 and named parameters to initialize value objects.
 
-However, builders are also provided `(new ChannelPreference)->withChannel('direct_message')`.
+However, builders are also provided `(new AudienceFilter)->withOperator('MEMBER_OF')`.
 
 ### Handling errors
 
