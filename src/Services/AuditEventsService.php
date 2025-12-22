@@ -5,24 +5,34 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\AuditEvents\AuditEvent;
-use Courier\AuditEvents\AuditEventListParams;
 use Courier\AuditEvents\AuditEventListResponse;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
 
 final class AuditEventsService implements AuditEventsContract
 {
     /**
+     * @api
+     */
+    public AuditEventsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new AuditEventsRawService($client);
+    }
 
     /**
      * @api
      *
      * Fetch a specific audit event by ID.
+     *
+     * @param string $auditEventID A unique identifier associated with the audit event you wish to retrieve
      *
      * @throws APIException
      */
@@ -30,13 +40,10 @@ final class AuditEventsService implements AuditEventsContract
         string $auditEventID,
         ?RequestOptions $requestOptions = null
     ): AuditEvent {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['audit-events/%1$s', $auditEventID],
-            options: $requestOptions,
-            convert: AuditEvent::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($auditEventID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -44,26 +51,19 @@ final class AuditEventsService implements AuditEventsContract
      *
      * Fetch the list of audit events
      *
-     * @param array{cursor?: string|null}|AuditEventListParams $params
+     * @param string|null $cursor a unique identifier that allows for fetching the next set of audit events
      *
      * @throws APIException
      */
     public function list(
-        array|AuditEventListParams $params,
+        ?string $cursor = null,
         ?RequestOptions $requestOptions = null
     ): AuditEventListResponse {
-        [$parsed, $options] = AuditEventListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: 'audit-events',
-            query: $parsed,
-            options: $options,
-            convert: AuditEventListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

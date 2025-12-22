@@ -12,6 +12,11 @@ use Courier\ElementalContentSugar;
 
 /**
  * Describes content that will work for email, inbox, push, chat, or any channel id.
+ *
+ * @phpstan-import-type ElementalContentSugarShape from \Courier\ElementalContentSugar
+ * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
+ *
+ * @phpstan-type ContentShape = ElementalContentSugarShape|ElementalContentShape
  */
 final class Content implements ConverterSource
 {

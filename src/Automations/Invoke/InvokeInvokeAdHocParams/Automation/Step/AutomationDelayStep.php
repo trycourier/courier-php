@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep\Action;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationDelayStepShape = array{
- *   action: value-of<Action>, duration?: string|null, until?: string|null
+ *   action: Action|value-of<Action>, duration?: string|null, until?: string|null
  * }
  */
 final class AutomationDelayStep implements BaseModel
@@ -20,13 +21,13 @@ final class AutomationDelayStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $duration;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $until;
 
     /**
@@ -60,14 +61,14 @@ final class AutomationDelayStep implements BaseModel
         ?string $duration = null,
         ?string $until = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
+        $self['action'] = $action;
 
-        null !== $duration && $obj['duration'] = $duration;
-        null !== $until && $obj['until'] = $until;
+        null !== $duration && $self['duration'] = $duration;
+        null !== $until && $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -75,25 +76,25 @@ final class AutomationDelayStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withDuration(?string $duration): self
     {
-        $obj = clone $this;
-        $obj['duration'] = $duration;
+        $self = clone $this;
+        $self['duration'] = $duration;
 
-        return $obj;
+        return $self;
     }
 
     public function withUntil(?string $until): self
     {
-        $obj = clone $this;
-        $obj['until'] = $until;
+        $self = clone $this;
+        $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 }

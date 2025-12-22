@@ -4,75 +4,74 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantListResponse\Type;
 
 /**
+ * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
+ *
  * @phpstan-type TenantListResponseShape = array{
- *   has_more: bool,
- *   type: value-of<Type>,
+ *   hasMore: bool,
+ *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   items?: list<TenantAssociation>|null,
- *   next_url?: string|null,
+ *   items?: list<TenantAssociationShape>|null,
+ *   nextURL?: string|null,
  * }
  */
-final class TenantListResponse implements BaseModel, ResponseConverter
+final class TenantListResponse implements BaseModel
 {
     /** @use SdkModel<TenantListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /**
      * Set to true when there are more pages that can be retrieved.
      */
-    #[Api]
-    public bool $has_more;
+    #[Required('has_more')]
+    public bool $hasMore;
 
     /**
      * Always set to `list`. Represents the type of this object.
      *
      * @var value-of<Type> $type
      */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
     /**
      * A url that may be used to generate these results.
      */
-    #[Api]
+    #[Required]
     public string $url;
 
     /**
      * A pointer to the next page of results. Defined
      * only when `has_more` is set to true.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /** @var list<TenantAssociation>|null $items */
-    #[Api(list: TenantAssociation::class, nullable: true, optional: true)]
+    #[Optional(list: TenantAssociation::class, nullable: true)]
     public ?array $items;
 
     /**
      * A url that may be used to generate fetch the next set of results.
      * Defined only when `has_more` is set to true.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $next_url;
+    #[Optional('next_url', nullable: true)]
+    public ?string $nextURL;
 
     /**
      * `new TenantListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantListResponse::with(has_more: ..., type: ..., url: ...)
+     * TenantListResponse::with(hasMore: ..., type: ..., url: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -92,32 +91,27 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param list<TenantAssociation|array{
-     *   tenant_id: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<TenantAssociation\Type>|null,
-     *   user_id?: string|null,
-     * }>|null $items
+     * @param list<TenantAssociationShape>|null $items
      */
     public static function with(
-        bool $has_more,
+        bool $hasMore,
         Type|string $type,
         string $url,
         ?string $cursor = null,
         ?array $items = null,
-        ?string $next_url = null,
+        ?string $nextURL = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['has_more'] = $has_more;
-        $obj['type'] = $type;
-        $obj['url'] = $url;
+        $self['hasMore'] = $hasMore;
+        $self['type'] = $type;
+        $self['url'] = $url;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $items && $obj['items'] = $items;
-        null !== $next_url && $obj['next_url'] = $next_url;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $items && $self['items'] = $items;
+        null !== $nextURL && $self['nextURL'] = $nextURL;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -125,10 +119,10 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      */
     public function withHasMore(bool $hasMore): self
     {
-        $obj = clone $this;
-        $obj['has_more'] = $hasMore;
+        $self = clone $this;
+        $self['hasMore'] = $hasMore;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -138,10 +132,10 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -149,10 +143,10 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      */
     public function withURL(string $url): self
     {
-        $obj = clone $this;
-        $obj['url'] = $url;
+        $self = clone $this;
+        $self['url'] = $url;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -161,26 +155,21 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      */
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<TenantAssociation|array{
-     *   tenant_id: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<TenantAssociation\Type>|null,
-     *   user_id?: string|null,
-     * }>|null $items
+     * @param list<TenantAssociationShape>|null $items
      */
     public function withItems(?array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -189,9 +178,9 @@ final class TenantListResponse implements BaseModel, ResponseConverter
      */
     public function withNextURL(?string $nextURL): self
     {
-        $obj = clone $this;
-        $obj['next_url'] = $nextURL;
+        $self = clone $this;
+        $self['nextURL'] = $nextURL;
 
-        return $obj;
+        return $self;
     }
 }

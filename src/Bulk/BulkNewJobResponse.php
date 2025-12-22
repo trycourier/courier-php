@@ -4,31 +4,27 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type BulkNewJobResponseShape = array{jobId: string}
+ * @phpstan-type BulkNewJobResponseShape = array{jobID: string}
  */
-final class BulkNewJobResponse implements BaseModel, ResponseConverter
+final class BulkNewJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkNewJobResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
-    public string $jobId;
+    #[Required('jobId')]
+    public string $jobID;
 
     /**
      * `new BulkNewJobResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BulkNewJobResponse::with(jobId: ...)
+     * BulkNewJobResponse::with(jobID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -47,20 +43,20 @@ final class BulkNewJobResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $jobId): self
+    public static function with(string $jobID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['jobId'] = $jobId;
+        $self['jobID'] = $jobID;
 
-        return $obj;
+        return $self;
     }
 
     public function withJobID(string $jobID): self
     {
-        $obj = clone $this;
-        $obj['jobId'] = $jobID;
+        $self = clone $this;
+        $self['jobID'] = $jobID;
 
-        return $obj;
+        return $self;
     }
 }

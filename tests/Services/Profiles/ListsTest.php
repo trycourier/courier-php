@@ -2,7 +2,9 @@
 
 namespace Tests\Services\Profiles;
 
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListSubscribeResponse;
@@ -36,7 +38,7 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->profiles->lists->retrieve('user_id', []);
+        $result = $this->client->profiles->lists->retrieve('user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(ListGetResponse::class, $result);
@@ -64,7 +66,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
-            ['lists' => [['listId' => 'listId']]]
+            lists: [['listID' => 'listId']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -80,24 +82,26 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
-            [
-                'lists' => [
-                    [
-                        'listId' => 'listId',
-                        'preferences' => [
-                            'categories' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+            lists: [
+                [
+                    'listID' => 'listId',
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
-                            'notifications' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
                         ],
                     ],

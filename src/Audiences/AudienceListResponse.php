@@ -4,30 +4,28 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type AudienceListResponseShape = array{
- *   items: list<Audience>, paging: Paging
+ *   items: list<mixed>, paging: Paging|PagingShape
  * }
  */
-final class AudienceListResponse implements BaseModel, ResponseConverter
+final class AudienceListResponse implements BaseModel
 {
     /** @use SdkModel<AudienceListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    /** @var list<Audience> $items */
-    #[Api(list: Audience::class)]
+    /** @var list<mixed> $items */
+    #[Required(list: Audience::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -54,52 +52,38 @@ final class AudienceListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Audience|array{
-     *   id: string,
-     *   created_at: string,
-     *   description: string,
-     *   filter: Filter,
-     *   name: string,
-     *   updated_at: string,
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<mixed> $items
+     * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Audience|array{
-     *   id: string,
-     *   created_at: string,
-     *   description: string,
-     *   filter: Filter,
-     *   name: string,
-     *   updated_at: string,
-     * }> $items
+     * @param list<mixed> $items
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

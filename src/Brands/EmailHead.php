@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +19,10 @@ final class EmailHead implements BaseModel
     /** @use SdkModel<EmailHeadShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public bool $inheritDefault;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $content;
 
     /**
@@ -52,28 +53,28 @@ final class EmailHead implements BaseModel
         bool $inheritDefault,
         ?string $content = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['inheritDefault'] = $inheritDefault;
+        $self['inheritDefault'] = $inheritDefault;
 
-        null !== $content && $obj['content'] = $content;
+        null !== $content && $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 
     public function withInheritDefault(bool $inheritDefault): self
     {
-        $obj = clone $this;
-        $obj['inheritDefault'] = $inheritDefault;
+        $self = clone $this;
+        $self['inheritDefault'] = $inheritDefault;
 
-        return $obj;
+        return $self;
     }
 
     public function withContent(?string $content): self
     {
-        $obj = clone $this;
-        $obj['content'] = $content;
+        $self = clone $this;
+        $self['content'] = $content;
 
-        return $obj;
+        return $self;
     }
 }

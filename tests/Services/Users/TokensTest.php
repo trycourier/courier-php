@@ -37,7 +37,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->retrieve(
             'token',
-            ['user_id' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -53,7 +53,7 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->retrieve(
             'token',
-            ['user_id' => 'user_id']
+            userID: 'user_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -69,7 +69,8 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->update(
             'token',
-            ['user_id' => 'user_id', 'patch' => [['op' => 'op', 'path' => 'path']]],
+            userID: 'user_id',
+            patch: [['op' => 'op', 'path' => 'path']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -85,10 +86,8 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->update(
             'token',
-            [
-                'user_id' => 'user_id',
-                'patch' => [['op' => 'op', 'path' => 'path', 'value' => 'value']],
-            ],
+            userID: 'user_id',
+            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -115,10 +114,7 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->delete(
-            'token',
-            ['user_id' => 'user_id']
-        );
+        $result = $this->client->users->tokens->delete('token', userID: 'user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -131,10 +127,7 @@ final class TokensTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->users->tokens->delete(
-            'token',
-            ['user_id' => 'user_id']
-        );
+        $result = $this->client->users->tokens->delete('token', userID: 'user_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -162,11 +155,9 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->addSingle(
             'token',
-            [
-                'user_id' => 'user_id',
-                'token' => 'token',
-                'provider_key' => 'firebase-fcm',
-            ],
+            userID: 'user_id',
+            token: 'token',
+            providerKey: 'firebase-fcm'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -182,26 +173,24 @@ final class TokensTest extends TestCase
 
         $result = $this->client->users->tokens->addSingle(
             'token',
-            [
-                'user_id' => 'user_id',
-                'token' => 'token',
-                'provider_key' => 'firebase-fcm',
-                'device' => [
-                    'ad_id' => 'ad_id',
-                    'app_id' => 'app_id',
-                    'device_id' => 'device_id',
-                    'manufacturer' => 'manufacturer',
-                    'model' => 'model',
-                    'platform' => 'platform',
-                ],
-                'expiry_date' => 'string',
-                'properties' => [],
-                'tracking' => [
-                    'ip' => 'ip',
-                    'lat' => 'lat',
-                    'long' => 'long',
-                    'os_version' => 'os_version',
-                ],
+            userID: 'user_id',
+            token: 'token',
+            providerKey: 'firebase-fcm',
+            device: [
+                'adID' => 'ad_id',
+                'appID' => 'app_id',
+                'deviceID' => 'device_id',
+                'manufacturer' => 'manufacturer',
+                'model' => 'model',
+                'platform' => 'platform',
+            ],
+            expiryDate: 'string',
+            properties: (object) [],
+            tracking: [
+                'ip' => 'ip',
+                'lat' => 'lat',
+                'long' => 'long',
+                'osVersion' => 'os_version',
             ],
         );
 

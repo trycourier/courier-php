@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep\Action;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationCancelStepShape = array{
- *   action: value-of<Action>, cancelation_token: string
+ *   action: Action|value-of<Action>, cancelationToken: string
  * }
  */
 final class AutomationCancelStep implements BaseModel
@@ -20,18 +20,18 @@ final class AutomationCancelStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api]
-    public string $cancelation_token;
+    #[Required('cancelation_token')]
+    public string $cancelationToken;
 
     /**
      * `new AutomationCancelStep()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * AutomationCancelStep::with(action: ..., cancelation_token: ...)
+     * AutomationCancelStep::with(action: ..., cancelationToken: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -54,14 +54,14 @@ final class AutomationCancelStep implements BaseModel
      */
     public static function with(
         Action|string $action,
-        string $cancelation_token
+        string $cancelationToken
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['cancelation_token'] = $cancelation_token;
+        $self['action'] = $action;
+        $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,17 +69,17 @@ final class AutomationCancelStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withCancelationToken(string $cancelationToken): self
     {
-        $obj = clone $this;
-        $obj['cancelation_token'] = $cancelationToken;
+        $self = clone $this;
+        $self['cancelationToken'] = $cancelationToken;
 
-        return $obj;
+        return $self;
     }
 }

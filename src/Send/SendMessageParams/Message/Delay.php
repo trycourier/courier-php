@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type DelayShape = array{duration?: int|null, until?: string|null}
+ * @phpstan-type DelayShape = array{
+ *   duration?: int|null, timezone?: string|null, until?: string|null
+ * }
  */
 final class Delay implements BaseModel
 {
@@ -19,13 +21,19 @@ final class Delay implements BaseModel
     /**
      * The duration of the delay in milliseconds.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $duration;
+
+    /**
+     * IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Used when resolving opening hours expressions. Takes precedence over user profile timezone settings.
+     */
+    #[Optional(nullable: true)]
+    public ?string $timezone;
 
     /**
      * ISO 8601 timestamp or opening_hours-like format.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $until;
 
     public function __construct()
@@ -40,14 +48,16 @@ final class Delay implements BaseModel
      */
     public static function with(
         ?int $duration = null,
+        ?string $timezone = null,
         ?string $until = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $duration && $obj['duration'] = $duration;
-        null !== $until && $obj['until'] = $until;
+        null !== $duration && $self['duration'] = $duration;
+        null !== $timezone && $self['timezone'] = $timezone;
+        null !== $until && $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -55,10 +65,21 @@ final class Delay implements BaseModel
      */
     public function withDuration(?int $duration): self
     {
-        $obj = clone $this;
-        $obj['duration'] = $duration;
+        $self = clone $this;
+        $self['duration'] = $duration;
 
-        return $obj;
+        return $self;
+    }
+
+    /**
+     * IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Used when resolving opening hours expressions. Takes precedence over user profile timezone settings.
+     */
+    public function withTimezone(?string $timezone): self
+    {
+        $self = clone $this;
+        $self['timezone'] = $timezone;
+
+        return $self;
     }
 
     /**
@@ -66,9 +87,9 @@ final class Delay implements BaseModel
      */
     public function withUntil(?string $until): self
     {
-        $obj = clone $this;
-        $obj['until'] = $until;
+        $self = clone $this;
+        $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 }

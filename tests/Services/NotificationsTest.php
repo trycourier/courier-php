@@ -35,7 +35,7 @@ final class NotificationsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->notifications->list([]);
+        $result = $this->client->notifications->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(NotificationListResponse::class, $result);

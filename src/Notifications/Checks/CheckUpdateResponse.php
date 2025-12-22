@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
-use Courier\Notifications\BaseCheck\Status;
-use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Check;
 
 /**
- * @phpstan-type CheckUpdateResponseShape = array{checks: list<Check>}
+ * @phpstan-import-type CheckShape from \Courier\Notifications\Check
+ *
+ * @phpstan-type CheckUpdateResponseShape = array{checks: list<CheckShape>}
  */
-final class CheckUpdateResponse implements BaseModel, ResponseConverter
+final class CheckUpdateResponse implements BaseModel
 {
     /** @use SdkModel<CheckUpdateResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<Check> $checks */
-    #[Api(list: Check::class)]
+    #[Required(list: Check::class)]
     public array $checks;
 
     /**
@@ -51,29 +47,25 @@ final class CheckUpdateResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Check|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
-     * }> $checks
+     * @param list<CheckShape> $checks
      */
     public static function with(array $checks): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['checks'] = $checks;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Check|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>, updated: int
-     * }> $checks
+     * @param list<CheckShape> $checks
      */
     public function withChecks(array $checks): self
     {
-        $obj = clone $this;
-        $obj['checks'] = $checks;
+        $self = clone $this;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 }

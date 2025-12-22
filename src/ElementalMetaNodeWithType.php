@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalMetaNodeWithType\Type;
@@ -15,7 +15,7 @@ use Courier\ElementalMetaNodeWithType\Type;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   type?: value-of<Type>|null,
+ *   type?: null|Type|value-of<Type>,
  * }
  */
 final class ElementalMetaNodeWithType implements BaseModel
@@ -24,20 +24,20 @@ final class ElementalMetaNodeWithType implements BaseModel
     use SdkModel;
 
     /** @var list<string>|null $channels */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $loop;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ref;
 
     /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
+    #[Optional(enum: Type::class)]
     public ?string $type;
 
     public function __construct()
@@ -51,7 +51,7 @@ final class ElementalMetaNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param Type|value-of<Type> $type
+     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         ?array $channels = null,
@@ -60,15 +60,15 @@ final class ElementalMetaNodeWithType implements BaseModel
         ?string $ref = null,
         Type|string|null $type = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $if && $obj['if'] = $if;
-        null !== $loop && $obj['loop'] = $loop;
-        null !== $ref && $obj['ref'] = $ref;
-        null !== $type && $obj['type'] = $type;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $if && $self['if'] = $if;
+        null !== $loop && $self['loop'] = $loop;
+        null !== $ref && $self['ref'] = $ref;
+        null !== $type && $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -76,34 +76,34 @@ final class ElementalMetaNodeWithType implements BaseModel
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withIf(?string $if): self
     {
-        $obj = clone $this;
-        $obj['if'] = $if;
+        $self = clone $this;
+        $self['if'] = $if;
 
-        return $obj;
+        return $self;
     }
 
     public function withLoop(?string $loop): self
     {
-        $obj = clone $this;
-        $obj['loop'] = $loop;
+        $self = clone $this;
+        $self['loop'] = $loop;
 
-        return $obj;
+        return $self;
     }
 
     public function withRef(?string $ref): self
     {
-        $obj = clone $this;
-        $obj['ref'] = $ref;
+        $self = clone $this;
+        $self['ref'] = $ref;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,9 +111,9 @@ final class ElementalMetaNodeWithType implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

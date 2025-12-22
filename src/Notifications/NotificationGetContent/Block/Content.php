@@ -9,6 +9,11 @@ use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
 
+/**
+ * @phpstan-import-type NotificationContentHierarchyShape from \Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy
+ *
+ * @phpstan-type ContentShape = string|NotificationContentHierarchyShape
+ */
 final class Content implements ConverterSource
 {
     use SdkUnion;

@@ -4,59 +4,56 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ *
  * @phpstan-type AudienceShape = array{
  *   id: string,
- *   created_at: string,
+ *   createdAt: string,
  *   description: string,
- *   filter: Filter,
+ *   filter: FilterShape,
  *   name: string,
- *   updated_at: string,
+ *   updatedAt: string,
  * }
  */
-final class Audience implements BaseModel, ResponseConverter
+final class Audience implements BaseModel
 {
     /** @use SdkModel<AudienceShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /**
      * A unique identifier representing the audience_id.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
-    public string $created_at;
+    #[Required('created_at')]
+    public string $createdAt;
 
     /**
      * A description of the audience.
      */
-    #[Api]
+    #[Required]
     public string $description;
 
     /**
      * A single filter to use for filtering.
      */
-    #[Api]
-    public Filter $filter;
+    #[Required]
+    public SingleFilterConfig|NestedFilterConfig $filter;
 
     /**
      * The name of the audience.
      */
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api]
-    public string $updated_at;
+    #[Required('updated_at')]
+    public string $updatedAt;
 
     /**
      * `new Audience()` is missing required properties by the API.
@@ -65,11 +62,11 @@ final class Audience implements BaseModel, ResponseConverter
      * ```
      * Audience::with(
      *   id: ...,
-     *   created_at: ...,
+     *   createdAt: ...,
      *   description: ...,
      *   filter: ...,
      *   name: ...,
-     *   updated_at: ...,
+     *   updatedAt: ...,
      * )
      * ```
      *
@@ -95,28 +92,26 @@ final class Audience implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * } $filter
+     * @param FilterShape $filter
      */
     public static function with(
         string $id,
-        string $created_at,
+        string $createdAt,
         string $description,
-        Filter|array $filter,
+        SingleFilterConfig|array|NestedFilterConfig $filter,
         string $name,
-        string $updated_at,
+        string $updatedAt,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created_at'] = $created_at;
-        $obj['description'] = $description;
-        $obj['filter'] = $filter;
-        $obj['name'] = $name;
-        $obj['updated_at'] = $updated_at;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['description'] = $description;
+        $self['filter'] = $filter;
+        $self['name'] = $name;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -124,18 +119,18 @@ final class Audience implements BaseModel, ResponseConverter
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(string $createdAt): self
     {
-        $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -143,25 +138,24 @@ final class Audience implements BaseModel, ResponseConverter
      */
     public function withDescription(string $description): self
     {
-        $obj = clone $this;
-        $obj['description'] = $description;
+        $self = clone $this;
+        $self['description'] = $description;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * A single filter to use for filtering.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * } $filter
+     * @param FilterShape $filter
      */
-    public function withFilter(Filter|array $filter): self
-    {
-        $obj = clone $this;
-        $obj['filter'] = $filter;
+    public function withFilter(
+        SingleFilterConfig|array|NestedFilterConfig $filter
+    ): self {
+        $self = clone $this;
+        $self['filter'] = $filter;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,17 +163,17 @@ final class Audience implements BaseModel, ResponseConverter
      */
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(string $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 }

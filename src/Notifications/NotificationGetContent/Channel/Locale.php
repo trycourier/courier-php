@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent\Channel;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,10 +16,10 @@ final class Locale implements BaseModel
     /** @use SdkModel<LocaleShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $subject;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $title;
 
     public function __construct()
@@ -36,27 +36,27 @@ final class Locale implements BaseModel
         ?string $subject = null,
         ?string $title = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $subject && $obj['subject'] = $subject;
-        null !== $title && $obj['title'] = $title;
+        null !== $subject && $self['subject'] = $subject;
+        null !== $title && $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withSubject(?string $subject): self
     {
-        $obj = clone $this;
-        $obj['subject'] = $subject;
+        $self = clone $this;
+        $self['subject'] = $subject;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(?string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

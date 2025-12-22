@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
+use Courier\ChannelClassification;
+use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Lists\ListListParams;
+use Courier\Core\Util;
 use Courier\Lists\ListListResponse;
-use Courier\Lists\ListUpdateParams;
 use Courier\Lists\SubscriptionList;
 use Courier\NotificationPreferenceDetails;
+use Courier\PreferenceStatus;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
+use Courier\Rule;
 use Courier\ServiceContracts\ListsContract;
 use Courier\Services\Lists\SubscriptionsService;
 
 final class ListsService implements ListsContract
 {
+    /**
+     * @api
+     */
+    public ListsRawService $raw;
+
     /**
      * @api
      */
@@ -28,6 +36,7 @@ final class ListsService implements ListsContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new ListsRawService($client);
         $this->subscriptions = new SubscriptionsService($client);
     }
 
@@ -36,19 +45,18 @@ final class ListsService implements ListsContract
      *
      * Returns a list based on the list ID provided.
      *
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     *
      * @throws APIException
      */
     public function retrieve(
         string $listID,
         ?RequestOptions $requestOptions = null
     ): SubscriptionList {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['lists/%1$s', $listID],
-            options: $requestOptions,
-            convert: SubscriptionList::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($listID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -56,34 +64,40 @@ final class ListsService implements ListsContract
      *
      * Create or replace an existing list with the supplied values.
      *
+     * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array{
-     *   name: string,
-     *   preferences?: array{
-     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *   }|RecipientPreferences|null,
-     * }|ListUpdateParams $params
+     *   categories?: array<string,array{
+     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *     channelPreferences?: list<array{
+     *       channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *     }|ChannelPreference>|null,
+     *     rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *   }|NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,array{
+     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *     channelPreferences?: list<array{
+     *       channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *     }|ChannelPreference>|null,
+     *     rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *   }|NotificationPreferenceDetails>|null,
+     * }|RecipientPreferences|null $preferences
      *
      * @throws APIException
      */
     public function update(
         string $listID,
-        array|ListUpdateParams $params,
+        string $name,
+        array|RecipientPreferences|null $preferences = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = ListUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            ['name' => $name, 'preferences' => $preferences]
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['lists/%1$s', $listID],
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($listID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -91,27 +105,22 @@ final class ListsService implements ListsContract
      *
      * Returns all of the lists, with the ability to filter based on a pattern.
      *
-     * @param array{cursor?: string|null, pattern?: string|null}|ListListParams $params
+     * @param string|null $cursor a unique identifier that allows for fetching the next page of lists
+     * @param string|null $pattern "A pattern used to filter the list items returned. Pattern types supported: exact match on `list_id` or a pattern of one or more pattern parts. you may replace a part with either: `*` to match all parts in that position, or `**` to signify a wildcard `endsWith` pattern match."
      *
      * @throws APIException
      */
     public function list(
-        array|ListListParams $params,
-        ?RequestOptions $requestOptions = null
+        ?string $cursor = null,
+        ?string $pattern = null,
+        ?RequestOptions $requestOptions = null,
     ): ListListResponse {
-        [$parsed, $options] = ListListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor, 'pattern' => $pattern]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: 'lists',
-            query: $parsed,
-            options: $options,
-            convert: ListListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -119,19 +128,18 @@ final class ListsService implements ListsContract
      *
      * Delete a list by list ID.
      *
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     *
      * @throws APIException
      */
     public function delete(
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['lists/%1$s', $listID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($listID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -139,18 +147,17 @@ final class ListsService implements ListsContract
      *
      * Restore a previously deleted list.
      *
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     *
      * @throws APIException
      */
     public function restore(
         string $listID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['lists/%1$s/restore', $listID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->restore($listID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

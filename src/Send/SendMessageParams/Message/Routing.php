@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRoutingChannel;
@@ -14,7 +14,7 @@ use Courier\Send\SendMessageParams\Message\Routing\Method;
  * Customize which channels/providers Courier may deliver the message through.
  *
  * @phpstan-type RoutingShape = array{
- *   channels: list<mixed>, method: value-of<Method>
+ *   channels: list<mixed>, method: Method|value-of<Method>
  * }
  */
 final class Routing implements BaseModel
@@ -27,11 +27,11 @@ final class Routing implements BaseModel
      *
      * @var list<mixed> $channels
      */
-    #[Api(list: MessageRoutingChannel::class)]
+    #[Required(list: MessageRoutingChannel::class)]
     public array $channels;
 
     /** @var value-of<Method> $method */
-    #[Api(enum: Method::class)]
+    #[Required(enum: Method::class)]
     public string $method;
 
     /**
@@ -63,12 +63,12 @@ final class Routing implements BaseModel
      */
     public static function with(array $channels, Method|string $method): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channels'] = $channels;
-        $obj['method'] = $method;
+        $self['channels'] = $channels;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +78,10 @@ final class Routing implements BaseModel
      */
     public function withChannels(array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,9 +89,9 @@ final class Routing implements BaseModel
      */
     public function withMethod(Method|string $method): self
     {
-        $obj = clone $this;
-        $obj['method'] = $method;
+        $self = clone $this;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 }

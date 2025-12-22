@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep\Action;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationSendListStepShape = array{
- *   action: value-of<Action>,
+ *   action: Action|value-of<Action>,
  *   list: string,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
@@ -23,17 +24,17 @@ final class AutomationSendListStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api]
+    #[Required]
     public string $list;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
     /**
@@ -69,15 +70,15 @@ final class AutomationSendListStep implements BaseModel
         ?string $brand = null,
         ?array $data = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['list'] = $list;
+        $self['action'] = $action;
+        $self['list'] = $list;
 
-        null !== $brand && $obj['brand'] = $brand;
-        null !== $data && $obj['data'] = $data;
+        null !== $brand && $self['brand'] = $brand;
+        null !== $data && $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,26 +86,26 @@ final class AutomationSendListStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withList(string $list): self
     {
-        $obj = clone $this;
-        $obj['list'] = $list;
+        $self = clone $this;
+        $self['list'] = $list;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -112,9 +113,9 @@ final class AutomationSendListStep implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 }

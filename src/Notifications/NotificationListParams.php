@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,13 +22,13 @@ final class NotificationListParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
      * Retrieve the notes from the Notification template settings.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $notes;
 
     public function __construct()
@@ -45,20 +45,20 @@ final class NotificationListParams implements BaseModel
         ?string $cursor = null,
         ?bool $notes = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $cursor && $obj['cursor'] = $cursor;
-        null !== $notes && $obj['notes'] = $notes;
+        null !== $cursor && $self['cursor'] = $cursor;
+        null !== $notes && $self['notes'] = $notes;
 
-        return $obj;
+        return $self;
     }
 
     public function withCursor(?string $cursor): self
     {
-        $obj = clone $this;
-        $obj['cursor'] = $cursor;
+        $self = clone $this;
+        $self['cursor'] = $cursor;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -66,9 +66,9 @@ final class NotificationListParams implements BaseModel
      */
     public function withNotes(?bool $notes): self
     {
-        $obj = clone $this;
-        $obj['notes'] = $notes;
+        $self = clone $this;
+        $self['notes'] = $notes;
 
-        return $obj;
+        return $self;
     }
 }

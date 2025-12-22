@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,10 +16,10 @@ final class Icons implements BaseModel
     /** @use SdkModel<IconsShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $bell;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $message;
 
     public function __construct()
@@ -36,27 +36,27 @@ final class Icons implements BaseModel
         ?string $bell = null,
         ?string $message = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $bell && $obj['bell'] = $bell;
-        null !== $message && $obj['message'] = $message;
+        null !== $bell && $self['bell'] = $bell;
+        null !== $message && $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     public function withBell(?string $bell): self
     {
-        $obj = clone $this;
-        $obj['bell'] = $bell;
+        $self = clone $this;
+        $self['bell'] = $bell;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessage(?string $message): self
     {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }
