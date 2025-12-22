@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Courier\Audiences;
+namespace Courier;
 
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
- * A single filter to use for filtering.
+ * @phpstan-import-type TokenShape from \Courier\Token
+ * @phpstan-import-type MultipleTokensShape from \Courier\MultipleTokens
  *
- * @phpstan-import-type SingleFilterConfigShape from \Courier\Audiences\SingleFilterConfig
- *
- * @phpstan-type FilterConfigShape = SingleFilterConfigShape|NestedFilterConfig
+ * @phpstan-type ExpoShape = TokenShape|MultipleTokensShape
  */
-final class FilterConfig implements ConverterSource
+final class Expo implements ConverterSource
 {
     use SdkUnion;
 
@@ -24,6 +23,6 @@ final class FilterConfig implements ConverterSource
      */
     public static function variants(): array
     {
-        return [SingleFilterConfig::class, NestedFilterConfig::class];
+        return [Token::class, MultipleTokens::class];
     }
 }

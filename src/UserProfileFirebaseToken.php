@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Courier\Audiences;
+namespace Courier;
 
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\Core\Conversion\ListOf;
 
 /**
- * A single filter to use for filtering.
- *
- * @phpstan-import-type SingleFilterConfigShape from \Courier\Audiences\SingleFilterConfig
- *
- * @phpstan-type FilterConfigShape = SingleFilterConfigShape|NestedFilterConfig
+ * @phpstan-type UserProfileFirebaseTokenShape = string|list<string>
  */
-final class FilterConfig implements ConverterSource
+final class UserProfileFirebaseToken implements ConverterSource
 {
     use SdkUnion;
 
@@ -24,6 +21,6 @@ final class FilterConfig implements ConverterSource
      */
     public static function variants(): array
     {
-        return [SingleFilterConfig::class, NestedFilterConfig::class];
+        return ['string', new ListOf('string')];
     }
 }

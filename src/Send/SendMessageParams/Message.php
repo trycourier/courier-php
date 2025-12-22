@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams;
 
+use Courier\AudienceRecipient;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalContent;
 use Courier\ElementalContentSugar;
+use Courier\ListPatternRecipient;
+use Courier\ListRecipient;
 use Courier\MessageContext;
-use Courier\Recipient;
+use Courier\MsTeamsRecipient;
+use Courier\PagerdutyRecipient;
 use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
@@ -19,8 +23,9 @@ use Courier\Send\SendMessageParams\Message\Preferences;
 use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
-use Courier\Send\SendMessageParams\Message\To;
+use Courier\SlackRecipient;
 use Courier\UserRecipient;
+use Courier\WebhookRecipient;
 
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
@@ -113,11 +118,9 @@ final class Message implements BaseModel
 
     /**
      * The recipient or a list of recipients of the message.
-     *
-     * @var UserRecipient|list<Recipient>|null $to
      */
-    #[Optional(union: To::class, nullable: true)]
-    public UserRecipient|array|null $to;
+    #[Optional(nullable: true)]
+    public UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|null $to;
 
     public function __construct()
     {
@@ -156,7 +159,7 @@ final class Message implements BaseModel
         Routing|array|null $routing = null,
         ?string $template = null,
         Timeout|array|null $timeout = null,
-        UserRecipient|array|null $to = null,
+        UserRecipient|array|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|null $to = null,
     ): self {
         $self = new self;
 
@@ -327,8 +330,9 @@ final class Message implements BaseModel
      *
      * @param ToShape|null $to
      */
-    public function withTo(UserRecipient|array|null $to): self
-    {
+    public function withTo(
+        UserRecipient|array|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|null $to,
+    ): self {
         $self = clone $this;
         $self['to'] = $to;
 

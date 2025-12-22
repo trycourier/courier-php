@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\MessageContext;
 use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
-use Courier\Preference;
-use Courier\Preference\Source;
-use Courier\PreferenceStatus;
 use Courier\RequestOptions;
-use Courier\Rule;
 use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
 use Courier\Send\SendMessageParams\Message\Routing\Method;
 use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendContract;
-use Courier\UserRecipient;
 
 final class SendService implements SendContract
 {
@@ -109,65 +102,7 @@ final class SendService implements SendContract
      *     message?: int|null,
      *     provider?: array<string,int>|null,
      *   }|null,
-     *   to?: array{
-     *     accountID?: string|null,
-     *     context?: array{tenantID?: string|null}|MessageContext|null,
-     *     data?: array<string,mixed>|null,
-     *     email?: string|null,
-     *     listID?: string|null,
-     *     locale?: string|null,
-     *     phoneNumber?: string|null,
-     *     preferences?: array{
-     *       notifications: array<string,array{
-     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *         channelPreferences?: list<array{
-     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *         }|ChannelPreference>|null,
-     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *         source?: 'subscription'|'list'|'recipient'|Source|null,
-     *       }|Preference>,
-     *       categories?: array<string,array{
-     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *         channelPreferences?: list<array{
-     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *         }|ChannelPreference>|null,
-     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *         source?: 'subscription'|'list'|'recipient'|Source|null,
-     *       }|Preference>|null,
-     *       templateID?: string|null,
-     *     }|null,
-     *     tenantID?: string|null,
-     *     userID?: string|null,
-     *   }|UserRecipient|list<array{
-     *     accountID?: string|null,
-     *     context?: array{tenantID?: string|null}|MessageContext|null,
-     *     data?: array<string,mixed>|null,
-     *     email?: string|null,
-     *     listID?: string|null,
-     *     locale?: string|null,
-     *     phoneNumber?: string|null,
-     *     preferences?: array{
-     *       notifications: array<string,array{
-     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *         channelPreferences?: list<array{
-     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *         }|ChannelPreference>|null,
-     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *         source?: 'subscription'|'list'|'recipient'|Source|null,
-     *       }|Preference>,
-     *       categories?: array<string,array{
-     *         status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *         channelPreferences?: list<array{
-     *           channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *         }|ChannelPreference>|null,
-     *         rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *         source?: 'subscription'|'list'|'recipient'|Source|null,
-     *       }|Preference>|null,
-     *       templateID?: string|null,
-     *     }|null,
-     *     tenantID?: string|null,
-     *     userID?: string|null,
-     *   }>|null,
+     *   to?: array<string,mixed>|null,
      * } $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
      * @throws APIException

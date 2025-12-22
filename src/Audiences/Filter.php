@@ -4,113 +4,27 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Required;
-use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Contracts\BaseModel;
+use Courier\Core\Concerns\SdkUnion;
+use Courier\Core\Conversion\Contracts\Converter;
+use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
- * @phpstan-type FilterShape = array{
- *   operator: Operator|value-of<Operator>, path: string, value: string
- * }
+ * A single filter to use for filtering.
+ *
+ * @phpstan-import-type SingleFilterConfigShape from \Courier\Audiences\SingleFilterConfig
+ * @phpstan-import-type NestedFilterConfigShape from \Courier\Audiences\NestedFilterConfig
+ *
+ * @phpstan-type FilterShape = SingleFilterConfigShape|NestedFilterConfigShape
  */
-final class Filter implements BaseModel
+final class Filter implements ConverterSource
 {
-    /** @use SdkModel<FilterShape> */
-    use SdkModel;
+    use SdkUnion;
 
     /**
-     * The operator to use for filtering.
-     *
-     * @var value-of<Operator> $operator
+     * @return list<string|Converter|ConverterSource>|array<string,string|Converter|ConverterSource>
      */
-    #[Required(enum: Operator::class)]
-    public string $operator;
-
-    /**
-     * The attribe name from profile whose value will be operated against the filter value.
-     */
-    #[Required]
-    public string $path;
-
-    /**
-     * The value to use for filtering.
-     */
-    #[Required]
-    public string $value;
-
-    /**
-     * `new Filter()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * Filter::with(operator: ..., path: ..., value: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new Filter)->withOperator(...)->withPath(...)->withValue(...)
-     * ```
-     */
-    public function __construct()
+    public static function variants(): array
     {
-        $this->initialize();
-    }
-
-    /**
-     * Construct an instance from the required parameters.
-     *
-     * You must use named parameters to construct any parameters with a default value.
-     *
-     * @param Operator|value-of<Operator> $operator
-     */
-    public static function with(
-        Operator|string $operator,
-        string $path,
-        string $value
-    ): self {
-        $self = new self;
-
-        $self['operator'] = $operator;
-        $self['path'] = $path;
-        $self['value'] = $value;
-
-        return $self;
-    }
-
-    /**
-     * The operator to use for filtering.
-     *
-     * @param Operator|value-of<Operator> $operator
-     */
-    public function withOperator(Operator|string $operator): self
-    {
-        $self = clone $this;
-        $self['operator'] = $operator;
-
-        return $self;
-    }
-
-    /**
-     * The attribe name from profile whose value will be operated against the filter value.
-     */
-    public function withPath(string $path): self
-    {
-        $self = clone $this;
-        $self['path'] = $path;
-
-        return $self;
-    }
-
-    /**
-     * The value to use for filtering.
-     */
-    public function withValue(string $value): self
-    {
-        $self = clone $this;
-        $self['value'] = $value;
-
-        return $self;
+        return [SingleFilterConfig::class, NestedFilterConfig::class];
     }
 }
