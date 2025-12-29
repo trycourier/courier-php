@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\DefaultPreferences\Item;
-use Courier\Tenants\SubscriptionTopicNew\Status;
 
 /**
- * @phpstan-type DefaultPreferencesShape = array{items?: list<Item>|null}
+ * @phpstan-import-type ItemShape from \Courier\Tenants\DefaultPreferences\Item
+ *
+ * @phpstan-type DefaultPreferencesShape = array{items?: list<ItemShape>|null}
  */
 final class DefaultPreferences implements BaseModel
 {
@@ -20,7 +20,7 @@ final class DefaultPreferences implements BaseModel
     use SdkModel;
 
     /** @var list<Item>|null $items */
-    #[Api(list: Item::class, nullable: true, optional: true)]
+    #[Optional(list: Item::class, nullable: true)]
     public ?array $items;
 
     public function __construct()
@@ -33,35 +33,25 @@ final class DefaultPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Item|array{
-     *   status: value-of<Status>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
-     *   id: string,
-     * }>|null $items
+     * @param list<ItemShape>|null $items
      */
     public static function with(?array $items = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $items && $obj['items'] = $items;
+        null !== $items && $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Item|array{
-     *   status: value-of<Status>,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
-     *   id: string,
-     * }>|null $items
+     * @param list<ItemShape>|null $items
      */
     public function withItems(?array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationListResponse;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
-use Courier\MessageRouting\Method;
 use Courier\Notifications\NotificationListResponse\Result\Tags;
-use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 
 /**
+ * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
+ * @phpstan-import-type TagsShape from \Courier\Notifications\NotificationListResponse\Result\Tags
+ *
  * @phpstan-type ResultShape = array{
  *   id: string,
- *   created_at: int,
- *   event_ids: list<string>,
+ *   createdAt: int,
+ *   eventIDs: list<string>,
  *   note: string,
- *   routing: MessageRouting,
- *   topic_id: string,
- *   updated_at: int,
- *   tags?: Tags|null,
+ *   routing: MessageRouting|MessageRoutingShape,
+ *   topicID: string,
+ *   updatedAt: int,
+ *   tags?: null|Tags|TagsShape,
  *   title?: string|null,
  * }
  */
@@ -30,36 +32,36 @@ final class Result implements BaseModel
     /** @use SdkModel<ResultShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
-    public int $created_at;
+    #[Required('created_at')]
+    public int $createdAt;
 
     /**
      * Array of event IDs associated with this notification.
      *
-     * @var list<string> $event_ids
+     * @var list<string> $eventIDs
      */
-    #[Api(list: 'string')]
-    public array $event_ids;
+    #[Required('event_ids', list: 'string')]
+    public array $eventIDs;
 
-    #[Api]
+    #[Required]
     public string $note;
 
-    #[Api]
+    #[Required]
     public MessageRouting $routing;
 
-    #[Api]
-    public string $topic_id;
+    #[Required('topic_id')]
+    public string $topicID;
 
-    #[Api]
-    public int $updated_at;
+    #[Required('updated_at')]
+    public int $updatedAt;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Tags $tags;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $title;
 
     /**
@@ -69,12 +71,12 @@ final class Result implements BaseModel
      * ```
      * Result::with(
      *   id: ...,
-     *   created_at: ...,
-     *   event_ids: ...,
+     *   createdAt: ...,
+     *   eventIDs: ...,
      *   note: ...,
      *   routing: ...,
-     *   topic_id: ...,
-     *   updated_at: ...,
+     *   topicID: ...,
+     *   updatedAt: ...,
      * )
      * ```
      *
@@ -101,53 +103,51 @@ final class Result implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<string> $event_ids
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
-     * @param Tags|array{data: list<Data>}|null $tags
+     * @param list<string> $eventIDs
+     * @param MessageRouting|MessageRoutingShape $routing
+     * @param Tags|TagsShape|null $tags
      */
     public static function with(
         string $id,
-        int $created_at,
-        array $event_ids,
+        int $createdAt,
+        array $eventIDs,
         string $note,
         MessageRouting|array $routing,
-        string $topic_id,
-        int $updated_at,
+        string $topicID,
+        int $updatedAt,
         Tags|array|null $tags = null,
         ?string $title = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created_at'] = $created_at;
-        $obj['event_ids'] = $event_ids;
-        $obj['note'] = $note;
-        $obj['routing'] = $routing;
-        $obj['topic_id'] = $topic_id;
-        $obj['updated_at'] = $updated_at;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['eventIDs'] = $eventIDs;
+        $self['note'] = $note;
+        $self['routing'] = $routing;
+        $self['topicID'] = $topicID;
+        $self['updatedAt'] = $updatedAt;
 
-        null !== $tags && $obj['tags'] = $tags;
-        null !== $title && $obj['title'] = $title;
+        null !== $tags && $self['tags'] = $tags;
+        null !== $title && $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreatedAt(int $createdAt): self
     {
-        $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -157,65 +157,63 @@ final class Result implements BaseModel
      */
     public function withEventIDs(array $eventIDs): self
     {
-        $obj = clone $this;
-        $obj['event_ids'] = $eventIDs;
+        $self = clone $this;
+        $self['eventIDs'] = $eventIDs;
 
-        return $obj;
+        return $self;
     }
 
     public function withNote(string $note): self
     {
-        $obj = clone $this;
-        $obj['note'] = $note;
+        $self = clone $this;
+        $self['note'] = $note;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     public function withTopicID(string $topicID): self
     {
-        $obj = clone $this;
-        $obj['topic_id'] = $topicID;
+        $self = clone $this;
+        $self['topicID'] = $topicID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdatedAt(int $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Tags|array{data: list<Data>}|null $tags
+     * @param Tags|TagsShape|null $tags
      */
     public function withTags(Tags|array|null $tags): self
     {
-        $obj = clone $this;
-        $obj['tags'] = $tags;
+        $self = clone $this;
+        $self['tags'] = $tags;
 
-        return $obj;
+        return $self;
     }
 
     public function withTitle(?string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

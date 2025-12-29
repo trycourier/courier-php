@@ -9,6 +9,11 @@ use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy;
 
+/**
+ * @phpstan-import-type NotificationContentHierarchyShape from \Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy
+ *
+ * @phpstan-type LocaleShape = string|NotificationContentHierarchyShape
+ */
 final class Locale implements ConverterSource
 {
     use SdkUnion;

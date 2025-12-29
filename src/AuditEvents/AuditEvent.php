@@ -5,45 +5,43 @@ declare(strict_types=1);
 namespace Courier\AuditEvents;
 
 use Courier\AuditEvents\AuditEvent\Actor;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
+ * @phpstan-import-type ActorShape from \Courier\AuditEvents\AuditEvent\Actor
+ *
  * @phpstan-type AuditEventShape = array{
- *   actor: Actor,
- *   auditEventId: string,
+ *   actor: Actor|ActorShape,
+ *   auditEventID: string,
  *   source: string,
  *   target: string,
  *   timestamp: string,
  *   type: string,
  * }
  */
-final class AuditEvent implements BaseModel, ResponseConverter
+final class AuditEvent implements BaseModel
 {
     /** @use SdkModel<AuditEventShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Actor $actor;
 
-    #[Api]
-    public string $auditEventId;
+    #[Required('auditEventId')]
+    public string $auditEventID;
 
-    #[Api]
+    #[Required]
     public string $source;
 
-    #[Api]
+    #[Required]
     public string $target;
 
-    #[Api]
+    #[Required]
     public string $timestamp;
 
-    #[Api]
+    #[Required]
     public string $type;
 
     /**
@@ -53,7 +51,7 @@ final class AuditEvent implements BaseModel, ResponseConverter
      * ```
      * AuditEvent::with(
      *   actor: ...,
-     *   auditEventId: ...,
+     *   auditEventID: ...,
      *   source: ...,
      *   target: ...,
      *   timestamp: ...,
@@ -83,76 +81,76 @@ final class AuditEvent implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Actor|array{id: string, email?: string|null} $actor
+     * @param Actor|ActorShape $actor
      */
     public static function with(
         Actor|array $actor,
-        string $auditEventId,
+        string $auditEventID,
         string $source,
         string $target,
         string $timestamp,
         string $type,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['actor'] = $actor;
-        $obj['auditEventId'] = $auditEventId;
-        $obj['source'] = $source;
-        $obj['target'] = $target;
-        $obj['timestamp'] = $timestamp;
-        $obj['type'] = $type;
+        $self['actor'] = $actor;
+        $self['auditEventID'] = $auditEventID;
+        $self['source'] = $source;
+        $self['target'] = $target;
+        $self['timestamp'] = $timestamp;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Actor|array{id: string, email?: string|null} $actor
+     * @param Actor|ActorShape $actor
      */
     public function withActor(Actor|array $actor): self
     {
-        $obj = clone $this;
-        $obj['actor'] = $actor;
+        $self = clone $this;
+        $self['actor'] = $actor;
 
-        return $obj;
+        return $self;
     }
 
     public function withAuditEventID(string $auditEventID): self
     {
-        $obj = clone $this;
-        $obj['auditEventId'] = $auditEventID;
+        $self = clone $this;
+        $self['auditEventID'] = $auditEventID;
 
-        return $obj;
+        return $self;
     }
 
     public function withSource(string $source): self
     {
-        $obj = clone $this;
-        $obj['source'] = $source;
+        $self = clone $this;
+        $self['source'] = $source;
 
-        return $obj;
+        return $self;
     }
 
     public function withTarget(string $target): self
     {
-        $obj = clone $this;
-        $obj['target'] = $target;
+        $self = clone $this;
+        $self['target'] = $target;
 
-        return $obj;
+        return $self;
     }
 
     public function withTimestamp(string $timestamp): self
     {
-        $obj = clone $this;
-        $obj['timestamp'] = $timestamp;
+        $self = clone $this;
+        $self['timestamp'] = $timestamp;
 
-        return $obj;
+        return $self;
     }
 
     public function withType(string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

@@ -17,6 +17,16 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * Note: As an alternative, most elements support a `channel` property. Which allows you to selectively
  * display an individual element on a per channel basis. See the
  * [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
+ *
+ * @phpstan-import-type ElementalTextNodeWithTypeShape from \Courier\ElementalTextNodeWithType
+ * @phpstan-import-type ElementalMetaNodeWithTypeShape from \Courier\ElementalMetaNodeWithType
+ * @phpstan-import-type ElementalChannelNodeWithTypeShape from \Courier\ElementalChannelNodeWithType
+ * @phpstan-import-type ElementalImageNodeWithTypeShape from \Courier\ElementalImageNodeWithType
+ * @phpstan-import-type ElementalActionNodeWithTypeShape from \Courier\ElementalActionNodeWithType
+ * @phpstan-import-type ElementalDividerNodeWithTypeShape from \Courier\ElementalDividerNodeWithType
+ * @phpstan-import-type ElementalQuoteNodeWithTypeShape from \Courier\ElementalQuoteNodeWithType
+ *
+ * @phpstan-type ElementalNodeShape = ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape
  */
 final class ElementalNode implements ConverterSource
 {

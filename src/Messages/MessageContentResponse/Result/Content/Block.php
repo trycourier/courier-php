@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse\Result\Content;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,13 +19,13 @@ final class Block implements BaseModel
     /**
      * The block text of the rendered message block.
      */
-    #[Api]
+    #[Required]
     public string $text;
 
     /**
      * The block type of the rendered message block.
      */
-    #[Api]
+    #[Required]
     public string $type;
 
     /**
@@ -54,12 +54,12 @@ final class Block implements BaseModel
      */
     public static function with(string $text, string $type): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['text'] = $text;
-        $obj['type'] = $type;
+        $self['text'] = $text;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,10 +67,10 @@ final class Block implements BaseModel
      */
     public function withText(string $text): self
     {
-        $obj = clone $this;
-        $obj['text'] = $text;
+        $self = clone $this;
+        $self['text'] = $text;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,9 +78,9 @@ final class Block implements BaseModel
      */
     public function withType(string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

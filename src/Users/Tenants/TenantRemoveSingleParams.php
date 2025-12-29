@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Users\TenantsService::removeSingle()
  *
- * @phpstan-type TenantRemoveSingleParamsShape = array{user_id: string}
+ * @phpstan-type TenantRemoveSingleParamsShape = array{userID: string}
  */
 final class TenantRemoveSingleParams implements BaseModel
 {
@@ -22,15 +22,15 @@ final class TenantRemoveSingleParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $user_id;
+    #[Required]
+    public string $userID;
 
     /**
      * `new TenantRemoveSingleParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TenantRemoveSingleParams::with(user_id: ...)
+     * TenantRemoveSingleParams::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,20 +49,20 @@ final class TenantRemoveSingleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $user_id): self
+    public static function with(string $userID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['user_id'] = $user_id;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

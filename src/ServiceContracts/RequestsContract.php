@@ -12,6 +12,8 @@ interface RequestsContract
     /**
      * @api
      *
+     * @param string $requestID A unique identifier representing the request ID
+     *
      * @throws APIException
      */
     public function archive(

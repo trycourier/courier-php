@@ -2,8 +2,10 @@
 
 namespace Tests\Services\Lists;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
+use Courier\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +36,7 @@ final class SubscriptionsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->lists->subscriptions->list('list_id', []);
+        $result = $this->client->lists->subscriptions->list('list_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(SubscriptionListResponse::class, $result);
@@ -49,7 +51,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->add(
             'list_id',
-            ['recipients' => [['recipientId' => 'recipientId']]]
+            recipients: [['recipientID' => 'recipientId']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -65,24 +67,26 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->add(
             'list_id',
-            [
-                'recipients' => [
-                    [
-                        'recipientId' => 'recipientId',
-                        'preferences' => [
-                            'categories' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+            recipients: [
+                [
+                    'recipientID' => 'recipientId',
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
-                            'notifications' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
                         ],
                     ],
@@ -103,7 +107,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribe(
             'list_id',
-            ['recipients' => [['recipientId' => 'recipientId']]]
+            recipients: [['recipientID' => 'recipientId']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -119,24 +123,26 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribe(
             'list_id',
-            [
-                'recipients' => [
-                    [
-                        'recipientId' => 'recipientId',
-                        'preferences' => [
-                            'categories' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+            recipients: [
+                [
+                    'recipientID' => 'recipientId',
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
-                            'notifications' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
                         ],
                     ],
@@ -157,7 +163,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribeUser(
             'user_id',
-            ['list_id' => 'list_id']
+            listID: 'list_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -173,22 +179,24 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribeUser(
             'user_id',
-            [
-                'list_id' => 'list_id',
-                'preferences' => [
-                    'categories' => [
-                        'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
-                            'rules' => [['until' => 'until', 'start' => 'start']],
+            listID: 'list_id',
+            preferences: [
+                'categories' => [
+                    'foo' => [
+                        'status' => PreferenceStatus::OPTED_IN,
+                        'channelPreferences' => [
+                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
                         ],
+                        'rules' => [['until' => 'until', 'start' => 'start']],
                     ],
-                    'notifications' => [
-                        'foo' => [
-                            'status' => 'OPTED_IN',
-                            'channel_preferences' => [['channel' => 'direct_message']],
-                            'rules' => [['until' => 'until', 'start' => 'start']],
+                ],
+                'notifications' => [
+                    'foo' => [
+                        'status' => PreferenceStatus::OPTED_IN,
+                        'channelPreferences' => [
+                            ['channel' => ChannelClassification::DIRECT_MESSAGE],
                         ],
+                        'rules' => [['until' => 'until', 'start' => 'start']],
                     ],
                 ],
             ],
@@ -207,7 +215,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(
             'user_id',
-            ['list_id' => 'list_id']
+            listID: 'list_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -223,7 +231,7 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(
             'user_id',
-            ['list_id' => 'list_id']
+            listID: 'list_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

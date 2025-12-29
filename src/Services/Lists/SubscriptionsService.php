@@ -4,53 +4,55 @@ declare(strict_types=1);
 
 namespace Courier\Services\Lists;
 
+use Courier\ChannelClassification;
+use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Lists\Subscriptions\SubscriptionAddParams;
-use Courier\Lists\Subscriptions\SubscriptionListParams;
+use Courier\Core\Util;
 use Courier\Lists\Subscriptions\SubscriptionListResponse;
-use Courier\Lists\Subscriptions\SubscriptionSubscribeParams;
-use Courier\Lists\Subscriptions\SubscriptionSubscribeUserParams;
-use Courier\Lists\Subscriptions\SubscriptionUnsubscribeUserParams;
 use Courier\NotificationPreferenceDetails;
+use Courier\PreferenceStatus;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
+use Courier\Rule;
 use Courier\ServiceContracts\Lists\SubscriptionsContract;
 
 final class SubscriptionsService implements SubscriptionsContract
 {
     /**
+     * @api
+     */
+    public SubscriptionsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new SubscriptionsRawService($client);
+    }
 
     /**
      * @api
      *
      * Get the list's subscriptions.
      *
-     * @param array{cursor?: string|null}|SubscriptionListParams $params
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param string|null $cursor A unique identifier that allows for fetching the next set of list subscriptions
      *
      * @throws APIException
      */
     public function list(
         string $listID,
-        array|SubscriptionListParams $params,
+        ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): SubscriptionListResponse {
-        [$parsed, $options] = SubscriptionListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['lists/%1$s/subscriptions', $listID],
-            query: $parsed,
-            options: $options,
-            convert: SubscriptionListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list($listID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -58,32 +60,40 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param array{
-     *   recipients: list<array{
-     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
-     *   }>,
-     * }|SubscriptionAddParams $params
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param list<array{
+     *   recipientID: string,
+     *   preferences?: array{
+     *     categories?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *   }|RecipientPreferences|null,
+     * }> $recipients
      *
      * @throws APIException
      */
     public function add(
         string $listID,
-        array|SubscriptionAddParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $recipients,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = SubscriptionAddParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['recipients' => $recipients]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: ['lists/%1$s/subscriptions', $listID],
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->add($listID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -91,32 +101,40 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribes the users to the list, overwriting existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param array{
-     *   recipients: list<array{
-     *     recipientId: string, preferences?: array<mixed>|RecipientPreferences|null
-     *   }>,
-     * }|SubscriptionSubscribeParams $params
+     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param list<array{
+     *   recipientID: string,
+     *   preferences?: array{
+     *     categories?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *     notifications?: array<string,array{
+     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *       channelPreferences?: list<array{
+     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *       }|ChannelPreference>|null,
+     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *     }|NotificationPreferenceDetails>|null,
+     *   }|RecipientPreferences|null,
+     * }> $recipients
      *
      * @throws APIException
      */
     public function subscribe(
         string $listID,
-        array|SubscriptionSubscribeParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $recipients,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = SubscriptionSubscribeParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['recipients' => $recipients]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['lists/%1$s/subscriptions', $listID],
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->subscribe($listID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -124,36 +142,41 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
      *
+     * @param string $userID Path param: A unique identifier representing the recipient associated with the list
+     * @param string $listID path param: A unique identifier representing the list you wish to retrieve
      * @param array{
-     *   list_id: string,
-     *   preferences?: array{
-     *     categories?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array<mixed>|NotificationPreferenceDetails>|null,
-     *   }|RecipientPreferences|null,
-     * }|SubscriptionSubscribeUserParams $params
+     *   categories?: array<string,array{
+     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *     channelPreferences?: list<array{
+     *       channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *     }|ChannelPreference>|null,
+     *     rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *   }|NotificationPreferenceDetails>|null,
+     *   notifications?: array<string,array{
+     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
+     *     channelPreferences?: list<array{
+     *       channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
+     *     }|ChannelPreference>|null,
+     *     rules?: list<array{until: string, start?: string|null}|Rule>|null,
+     *   }|NotificationPreferenceDetails>|null,
+     * }|RecipientPreferences|null $preferences Body param:
      *
      * @throws APIException
      */
     public function subscribeUser(
         string $userID,
-        array|SubscriptionSubscribeUserParams $params,
+        string $listID,
+        array|RecipientPreferences|null $preferences = null,
         ?RequestOptions $requestOptions = null,
     ): mixed {
-        [$parsed, $options] = SubscriptionSubscribeUserParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            ['listID' => $listID, 'preferences' => $preferences]
         );
-        $listID = $parsed['list_id'];
-        unset($parsed['list_id']);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
-            body: (object) array_diff_key($parsed, ['list_id']),
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->subscribeUser($userID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -161,28 +184,21 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Delete a subscription to a list by list ID and user ID.
      *
-     * @param array{list_id: string}|SubscriptionUnsubscribeUserParams $params
+     * @param string $userID A unique identifier representing the recipient associated with the list
+     * @param string $listID a unique identifier representing the list you wish to retrieve
      *
      * @throws APIException
      */
     public function unsubscribeUser(
         string $userID,
-        array|SubscriptionUnsubscribeUserParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $listID,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = SubscriptionUnsubscribeUserParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $listID = $parsed['list_id'];
-        unset($parsed['list_id']);
+        $params = Util::removeNulls(['listID' => $listID]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['lists/%1$s/subscriptions/%2$s', $listID, $userID],
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->unsubscribeUser($userID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

@@ -6,11 +6,11 @@ namespace Courier\Services\Notifications;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Notifications\BaseCheck;
-use Courier\Notifications\Checks\CheckDeleteParams;
-use Courier\Notifications\Checks\CheckListParams;
+use Courier\Notifications\BaseCheck\Status;
+use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Checks\CheckListResponse;
-use Courier\Notifications\Checks\CheckUpdateParams;
 use Courier\Notifications\Checks\CheckUpdateResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\ChecksContract;
@@ -18,97 +18,76 @@ use Courier\ServiceContracts\Notifications\ChecksContract;
 final class ChecksService implements ChecksContract
 {
     /**
+     * @api
+     */
+    public ChecksRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new ChecksRawService($client);
+    }
 
     /**
      * @api
      *
-     * @param array{
-     *   id: string,
-     *   checks: list<array{
-     *     id: string, status: 'RESOLVED'|'FAILED'|'PENDING', type: 'custom'
-     *   }|BaseCheck>,
-     * }|CheckUpdateParams $params
+     * @param string $submissionID Path param:
+     * @param string $id Path param:
+     * @param list<array{
+     *   id: string, status: 'RESOLVED'|'FAILED'|'PENDING'|Status, type: 'custom'|Type
+     * }|BaseCheck> $checks Body param:
      *
      * @throws APIException
      */
     public function update(
         string $submissionID,
-        array|CheckUpdateParams $params,
+        string $id,
+        array $checks,
         ?RequestOptions $requestOptions = null,
     ): CheckUpdateResponse {
-        [$parsed, $options] = CheckUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $id = $parsed['id'];
-        unset($parsed['id']);
+        $params = Util::removeNulls(['id' => $id, 'checks' => $checks]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
-            body: (object) array_diff_key($parsed, ['id']),
-            options: $options,
-            convert: CheckUpdateResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($submissionID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
      * @api
-     *
-     * @param array{id: string}|CheckListParams $params
      *
      * @throws APIException
      */
     public function list(
         string $submissionID,
-        array|CheckListParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $id,
+        ?RequestOptions $requestOptions = null
     ): CheckListResponse {
-        [$parsed, $options] = CheckListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $id = $parsed['id'];
-        unset($parsed['id']);
+        $params = Util::removeNulls(['id' => $id]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
-            options: $options,
-            convert: CheckListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list($submissionID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
      * @api
      *
-     * @param array{id: string}|CheckDeleteParams $params
-     *
      * @throws APIException
      */
     public function delete(
         string $submissionID,
-        array|CheckDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        string $id,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = CheckDeleteParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
-        $id = $parsed['id'];
-        unset($parsed['id']);
+        $params = Util::removeNulls(['id' => $id]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['notifications/%1$s/%2$s/checks', $id, $submissionID],
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($submissionID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

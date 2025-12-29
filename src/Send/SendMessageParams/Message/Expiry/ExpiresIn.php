@@ -10,6 +10,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
  * Duration in ms or ISO8601 duration (e.g. P1DT4H).
+ *
+ * @phpstan-type ExpiresInShape = string|int
  */
 final class ExpiresIn implements ConverterSource
 {

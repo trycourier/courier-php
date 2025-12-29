@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep\Webhook\Method;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type WebhookShape = array{
- *   method: value-of<Method>,
+ *   method: Method|value-of<Method>,
  *   url: string,
  *   body?: string|null,
  *   headers?: array<string,string>|null,
@@ -23,17 +24,17 @@ final class Webhook implements BaseModel
     use SdkModel;
 
     /** @var value-of<Method> $method */
-    #[Api(enum: Method::class)]
+    #[Required(enum: Method::class)]
     public string $method;
 
-    #[Api]
+    #[Required]
     public string $url;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $body;
 
     /** @var array<string,string>|null $headers */
-    #[Api(map: 'string', nullable: true, optional: true)]
+    #[Optional(map: 'string', nullable: true)]
     public ?array $headers;
 
     /**
@@ -69,15 +70,15 @@ final class Webhook implements BaseModel
         ?string $body = null,
         ?array $headers = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['method'] = $method;
-        $obj['url'] = $url;
+        $self['method'] = $method;
+        $self['url'] = $url;
 
-        null !== $body && $obj['body'] = $body;
-        null !== $headers && $obj['headers'] = $headers;
+        null !== $body && $self['body'] = $body;
+        null !== $headers && $self['headers'] = $headers;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,26 +86,26 @@ final class Webhook implements BaseModel
      */
     public function withMethod(Method|string $method): self
     {
-        $obj = clone $this;
-        $obj['method'] = $method;
+        $self = clone $this;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 
     public function withURL(string $url): self
     {
-        $obj = clone $this;
-        $obj['url'] = $url;
+        $self = clone $this;
+        $self['url'] = $url;
 
-        return $obj;
+        return $self;
     }
 
     public function withBody(?string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -112,9 +113,9 @@ final class Webhook implements BaseModel
      */
     public function withHeaders(?array $headers): self
     {
-        $obj = clone $this;
-        $obj['headers'] = $headers;
+        $self = clone $this;
+        $self['headers'] = $headers;
 
-        return $obj;
+        return $self;
     }
 }

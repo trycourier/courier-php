@@ -8,6 +8,9 @@ use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 
+/**
+ * @phpstan-type MessageRoutingChannelShape = string|MessageRouting
+ */
 final class MessageRoutingChannel implements ConverterSource
 {
     use SdkUnion;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Core\Concerns;
 
 use Courier\Client;
+use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Core\Exceptions\APIStatusException;
@@ -14,21 +15,12 @@ use Courier\RequestOptions;
  * @internal
  *
  * @template Item
- *
- * @phpstan-import-type normalized_request from \Courier\Core\BaseClient
  */
 trait SdkPage
 {
     private Converter|ConverterSource|string $convert;
 
     private Client $client;
-
-    /**
-     * normalized_request $request.
-     */
-    private array $request;
-
-    private RequestOptions $options;
 
     /**
      * @return list<Item>
@@ -61,7 +53,11 @@ trait SdkPage
         [$req, $opts] = $next;
 
         // @phpstan-ignore-next-line argument.type
-        return $this->client->request(...$req, convert: $this->convert, page: $this::class, options: $opts);
+        /** @var BaseResponse<static> */
+        $response = $this->client->request(...$req, convert: $this->convert, page: $this::class, options: $opts);
+
+        // @phpstan-ignore-next-line return.type
+        return $response->parse();
     }
 
     /**
@@ -94,15 +90,6 @@ trait SdkPage
             }
         }
     }
-
-    /**
-     * @internal
-     *
-     * @param array<string, mixed> $data
-     *
-     * @return static<Item>
-     */
-    abstract public static function fromArray(array $data): static;
 
     /**
      * @internal

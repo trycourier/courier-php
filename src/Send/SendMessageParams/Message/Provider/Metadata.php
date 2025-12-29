@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message\Provider;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
- * @phpstan-type MetadataShape = array{utm?: Utm|null}
+ * @phpstan-import-type UtmShape from \Courier\Utm
+ *
+ * @phpstan-type MetadataShape = array{utm?: null|Utm|UtmShape}
  */
 final class Metadata implements BaseModel
 {
     /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Utm $utm;
 
     public function __construct()
@@ -30,37 +32,25 @@ final class Metadata implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public static function with(Utm|array|null $utm = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $utm && $obj['utm'] = $utm;
+        null !== $utm && $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public function withUtm(Utm|array|null $utm): self
     {
-        $obj = clone $this;
-        $obj['utm'] = $utm;
+        $self = clone $this;
+        $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 }

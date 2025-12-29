@@ -5,14 +5,8 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,11 +16,10 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *
+ * @phpstan-import-type AutomationShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation
+ *
  * @phpstan-type InvokeInvokeAdHocParamsShape = array{
- *   automation: Automation|array{
- *     steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
- *     cancelation_token?: string|null,
- *   },
+ *   automation: Automation|AutomationShape,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
@@ -40,24 +33,24 @@ final class InvokeInvokeAdHocParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public Automation $automation;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
     /** @var array<string,mixed>|null $profile */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $template;
 
     /**
@@ -84,10 +77,7 @@ final class InvokeInvokeAdHocParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Automation|array{
-     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelation_token?: string|null,
-     * } $automation
+     * @param Automation|AutomationShape $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
      */
@@ -99,39 +89,36 @@ final class InvokeInvokeAdHocParams implements BaseModel
         ?string $recipient = null,
         ?string $template = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['automation'] = $automation;
+        $self['automation'] = $automation;
 
-        null !== $brand && $obj['brand'] = $brand;
-        null !== $data && $obj['data'] = $data;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $template && $obj['template'] = $template;
+        null !== $brand && $self['brand'] = $brand;
+        null !== $data && $self['data'] = $data;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $template && $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Automation|array{
-     *   steps: list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep>,
-     *   cancelation_token?: string|null,
-     * } $automation
+     * @param Automation|AutomationShape $automation
      */
     public function withAutomation(Automation|array $automation): self
     {
-        $obj = clone $this;
-        $obj['automation'] = $automation;
+        $self = clone $this;
+        $self['automation'] = $automation;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -139,10 +126,10 @@ final class InvokeInvokeAdHocParams implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -150,25 +137,25 @@ final class InvokeInvokeAdHocParams implements BaseModel
      */
     public function withProfile(?array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(?string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 }

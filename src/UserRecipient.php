@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\UserRecipient\Preferences;
 
 /**
+ * @phpstan-import-type MessageContextShape from \Courier\MessageContext
+ * @phpstan-import-type PreferencesShape from \Courier\UserRecipient\Preferences
+ *
  * @phpstan-type UserRecipientShape = array{
- *   account_id?: string|null,
- *   context?: MessageContext|null,
+ *   accountID?: string|null,
+ *   context?: null|MessageContext|MessageContextShape,
  *   data?: array<string,mixed>|null,
  *   email?: string|null,
- *   list_id?: string|null,
+ *   listID?: string|null,
  *   locale?: string|null,
- *   phone_number?: string|null,
- *   preferences?: Preferences|null,
- *   tenant_id?: string|null,
- *   user_id?: string|null,
+ *   phoneNumber?: string|null,
+ *   preferences?: null|Preferences|PreferencesShape,
+ *   tenantID?: string|null,
+ *   userID?: string|null,
  * }
  */
 final class UserRecipient implements BaseModel
@@ -31,57 +34,57 @@ final class UserRecipient implements BaseModel
     /**
      * Deprecated - Use `tenant_id` instead.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $account_id;
+    #[Optional('account_id', nullable: true)]
+    public ?string $accountID;
 
     /**
      * Context such as tenant_id to send the notification with.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?MessageContext $context;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
     /**
      * The user's email address.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $email;
 
     /**
      * The id of the list to send the message to.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $list_id;
+    #[Optional('list_id', nullable: true)]
+    public ?string $listID;
 
     /**
      * The user's preferred ISO 639-1 language code.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $locale;
 
     /**
      * The user's phone number.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $phone_number;
+    #[Optional('phone_number', nullable: true)]
+    public ?string $phoneNumber;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Preferences $preferences;
 
     /**
      * The id of the tenant the user is associated with.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $tenant_id;
+    #[Optional('tenant_id', nullable: true)]
+    public ?string $tenantID;
 
     /**
      * The user's unique identifier. Typically, this will match the user id of a user in your system.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $user_id;
+    #[Optional('user_id', nullable: true)]
+    public ?string $userID;
 
     public function __construct()
     {
@@ -93,40 +96,36 @@ final class UserRecipient implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|MessageContextShape|null $context
      * @param array<string,mixed>|null $data
-     * @param Preferences|array{
-     *   notifications: array<string,Preference>,
-     *   categories?: array<string,Preference>|null,
-     *   templateId?: string|null,
-     * }|null $preferences
+     * @param Preferences|PreferencesShape|null $preferences
      */
     public static function with(
-        ?string $account_id = null,
+        ?string $accountID = null,
         MessageContext|array|null $context = null,
         ?array $data = null,
         ?string $email = null,
-        ?string $list_id = null,
+        ?string $listID = null,
         ?string $locale = null,
-        ?string $phone_number = null,
+        ?string $phoneNumber = null,
         Preferences|array|null $preferences = null,
-        ?string $tenant_id = null,
-        ?string $user_id = null,
+        ?string $tenantID = null,
+        ?string $userID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $account_id && $obj['account_id'] = $account_id;
-        null !== $context && $obj['context'] = $context;
-        null !== $data && $obj['data'] = $data;
-        null !== $email && $obj['email'] = $email;
-        null !== $list_id && $obj['list_id'] = $list_id;
-        null !== $locale && $obj['locale'] = $locale;
-        null !== $phone_number && $obj['phone_number'] = $phone_number;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $tenant_id && $obj['tenant_id'] = $tenant_id;
-        null !== $user_id && $obj['user_id'] = $user_id;
+        null !== $accountID && $self['accountID'] = $accountID;
+        null !== $context && $self['context'] = $context;
+        null !== $data && $self['data'] = $data;
+        null !== $email && $self['email'] = $email;
+        null !== $listID && $self['listID'] = $listID;
+        null !== $locale && $self['locale'] = $locale;
+        null !== $phoneNumber && $self['phoneNumber'] = $phoneNumber;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
+        null !== $userID && $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -134,23 +133,23 @@ final class UserRecipient implements BaseModel
      */
     public function withAccountID(?string $accountID): self
     {
-        $obj = clone $this;
-        $obj['account_id'] = $accountID;
+        $self = clone $this;
+        $self['accountID'] = $accountID;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * Context such as tenant_id to send the notification with.
      *
-     * @param MessageContext|array{tenant_id?: string|null}|null $context
+     * @param MessageContext|MessageContextShape|null $context
      */
     public function withContext(MessageContext|array|null $context): self
     {
-        $obj = clone $this;
-        $obj['context'] = $context;
+        $self = clone $this;
+        $self['context'] = $context;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +157,10 @@ final class UserRecipient implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,10 +168,10 @@ final class UserRecipient implements BaseModel
      */
     public function withEmail(?string $email): self
     {
-        $obj = clone $this;
-        $obj['email'] = $email;
+        $self = clone $this;
+        $self['email'] = $email;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -180,10 +179,10 @@ final class UserRecipient implements BaseModel
      */
     public function withListID(?string $listID): self
     {
-        $obj = clone $this;
-        $obj['list_id'] = $listID;
+        $self = clone $this;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -191,10 +190,10 @@ final class UserRecipient implements BaseModel
      */
     public function withLocale(?string $locale): self
     {
-        $obj = clone $this;
-        $obj['locale'] = $locale;
+        $self = clone $this;
+        $self['locale'] = $locale;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -202,25 +201,21 @@ final class UserRecipient implements BaseModel
      */
     public function withPhoneNumber(?string $phoneNumber): self
     {
-        $obj = clone $this;
-        $obj['phone_number'] = $phoneNumber;
+        $self = clone $this;
+        $self['phoneNumber'] = $phoneNumber;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Preferences|array{
-     *   notifications: array<string,Preference>,
-     *   categories?: array<string,Preference>|null,
-     *   templateId?: string|null,
-     * }|null $preferences
+     * @param Preferences|PreferencesShape|null $preferences
      */
     public function withPreferences(Preferences|array|null $preferences): self
     {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -228,10 +223,10 @@ final class UserRecipient implements BaseModel
      */
     public function withTenantID(?string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -239,9 +234,9 @@ final class UserRecipient implements BaseModel
      */
     public function withUserID(?string $userID): self
     {
-        $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 }

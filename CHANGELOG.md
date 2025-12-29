@@ -1,5 +1,49 @@
 # Changelog
 
+## 4.0.0 (2025-12-29)
+
+Full Changelog: [v3.3.0...v4.0.0](https://github.com/trycourier/courier-php/compare/v3.3.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* use aliases for phpstan types
+* use camel casing for all class properties
+
+### Features
+
+* add `BaseResponse` class for accessing raw responses ([5760ba2](https://github.com/trycourier/courier-php/commit/5760ba2f47a6318d66339ff2769a8927d6473da0))
+* add idempotency header support ([17408d4](https://github.com/trycourier/courier-php/commit/17408d480ec536703e68a4013b88d647719f101e))
+* Add timezone field to Delay schema ([fee5c42](https://github.com/trycourier/courier-php/commit/fee5c429790d3ac871ea5f4970d7bf1644400486))
+* **api:** add slack/teams/pagerduty/webhook/audience recipients, remove preferences model ([739d7d7](https://github.com/trycourier/courier-php/commit/739d7d7714d97f58cb6e9145608bb2f18b75c3e0))
+* improved phpstan type annotations ([d3b2bfb](https://github.com/trycourier/courier-php/commit/d3b2bfb1f6d0f9f94645c21a6fb2fb816dba0975))
+* split out services into normal & raw types ([25c65d2](https://github.com/trycourier/courier-php/commit/25c65d25a3b60c208210f1ca65f3f9c8b033a1a8))
+* support unwrapping envelopes ([83eb112](https://github.com/trycourier/courier-php/commit/83eb11240d2f16af4e9d20c664b89ac83015adb4))
+* Update bulk API spec: make event required, document profile.email req… ([72f10c2](https://github.com/trycourier/courier-php/commit/72f10c29244af3c4ae711c18f5224d8f723330ee))
+* use aliases for phpstan types ([71a9aee](https://github.com/trycourier/courier-php/commit/71a9aee4184646dfe425733d35ddc15a2d6a7aeb))
+* use camel casing for all class properties ([bac38c9](https://github.com/trycourier/courier-php/commit/bac38c9dff9a14b416775a4148e5b4acca97e036))
+
+
+### Bug Fixes
+
+* a number of serialization errors ([c71acba](https://github.com/trycourier/courier-php/commit/c71acbad72fa79821a323b9e0964234d0a91aaa5))
+* address some linter warnings and errors ([b5be14d](https://github.com/trycourier/courier-php/commit/b5be14dce568b3f32c36f3c63fa6f32f7a69a41f))
+* correctly serialize dates ([24b9a2c](https://github.com/trycourier/courier-php/commit/24b9a2c4228d69e0082385e8d333b0afec6f1c04))
+* support arrays in query param construction ([4807291](https://github.com/trycourier/courier-php/commit/4807291b2feecae43fca95cd08073cb70e7ffdd1))
+* **test:** naming collision in request parameters ([58a1fb9](https://github.com/trycourier/courier-php/commit/58a1fb932b052872e3693a16ea539b254a973986))
+
+
+### Chores
+
+* ensure constant values are marked as optional in array types ([a421af3](https://github.com/trycourier/courier-php/commit/a421af35b17f859948c4090246b304481172e944))
+* **internal:** codegen related update ([b321d32](https://github.com/trycourier/courier-php/commit/b321d3293c1c2b84f0bca17e1d569fefba8d6964))
+* **internal:** codegen related update ([851723b](https://github.com/trycourier/courier-php/commit/851723b7189178e09531df1d881a09ed840df3ff))
+* **internal:** codegen related update ([13842ed](https://github.com/trycourier/courier-php/commit/13842edc738a41f7f49d81ac9949b37a8d631d46))
+* **internal:** codegen related update ([e6f46e3](https://github.com/trycourier/courier-php/commit/e6f46e307d0801da7a39166e1b15a14fbae27537))
+* **internal:** codegen related update ([1508286](https://github.com/trycourier/courier-php/commit/1508286dfb9965c1933673de4df4613e23edef6a))
+* **internal:** codegen related update ([cfc2c5e](https://github.com/trycourier/courier-php/commit/cfc2c5e855668af09ac67c2b59f31599a432ce7f))
+* switch from `#[Api(optional: true|false)]` to `#[Required]|#[Optional]` for annotations ([f5104a3](https://github.com/trycourier/courier-php/commit/f5104a3cfd7796b164dc4ee4b2d1dff8d148b70c))
+* use `$self = clone $this;` instead of `$obj = clone $this;` ([f8143c2](https://github.com/trycourier/courier-php/commit/f8143c25aff7e1207db53b828fb479ce281a6985))
+
 ## 3.3.0 (2025-12-08)
 
 Full Changelog: [v3.2.0...v3.3.0](https://github.com/trycourier/courier-php/compare/v3.2.0...v3.3.0)

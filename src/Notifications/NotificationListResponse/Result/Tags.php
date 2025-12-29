@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationListResponse\Result;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 
 /**
- * @phpstan-type TagsShape = array{data: list<Data>}
+ * @phpstan-import-type DataShape from \Courier\Notifications\NotificationListResponse\Result\Tags\Data
+ *
+ * @phpstan-type TagsShape = array{data: list<DataShape>}
  */
 final class Tags implements BaseModel
 {
@@ -18,7 +20,7 @@ final class Tags implements BaseModel
     use SdkModel;
 
     /** @var list<Data> $data */
-    #[Api(list: Data::class)]
+    #[Required(list: Data::class)]
     public array $data;
 
     /**
@@ -45,25 +47,25 @@ final class Tags implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Data|array{id: string, name: string}> $data
+     * @param list<DataShape> $data
      */
     public static function with(array $data): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['data'] = $data;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Data|array{id: string, name: string}> $data
+     * @param list<DataShape> $data
      */
     public function withData(array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 }

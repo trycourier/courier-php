@@ -13,6 +13,11 @@ final class AutomationsService implements AutomationsContract
     /**
      * @api
      */
+    public AutomationsRawService $raw;
+
+    /**
+     * @api
+     */
     public InvokeService $invoke;
 
     /**
@@ -20,6 +25,7 @@ final class AutomationsService implements AutomationsContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new AutomationsRawService($client);
         $this->invoke = new InvokeService($client);
     }
 }

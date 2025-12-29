@@ -4,41 +4,36 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Notifications\NotificationGetContent\Block;
-use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
-use Courier\Notifications\NotificationGetContent\Block\Type;
 use Courier\Notifications\NotificationGetContent\Channel;
-use Courier\Notifications\NotificationGetContent\Channel\Content;
-use Courier\Notifications\NotificationGetContent\Channel\Locale;
 
 /**
+ * @phpstan-import-type BlockShape from \Courier\Notifications\NotificationGetContent\Block
+ * @phpstan-import-type ChannelShape from \Courier\Notifications\NotificationGetContent\Channel
+ *
  * @phpstan-type NotificationGetContentShape = array{
- *   blocks?: list<Block>|null,
- *   channels?: list<Channel>|null,
+ *   blocks?: list<BlockShape>|null,
+ *   channels?: list<ChannelShape>|null,
  *   checksum?: string|null,
  * }
  */
-final class NotificationGetContent implements BaseModel, ResponseConverter
+final class NotificationGetContent implements BaseModel
 {
     /** @use SdkModel<NotificationGetContentShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<Block>|null $blocks */
-    #[Api(list: Block::class, nullable: true, optional: true)]
+    #[Optional(list: Block::class, nullable: true)]
     public ?array $blocks;
 
     /** @var list<Channel>|null $channels */
-    #[Api(list: Channel::class, nullable: true, optional: true)]
+    #[Optional(list: Channel::class, nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $checksum;
 
     public function __construct()
@@ -51,78 +46,50 @@ final class NotificationGetContent implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Block|array{
-     *   id: string,
-     *   type: value-of<Type>,
-     *   alias?: string|null,
-     *   checksum?: string|null,
-     *   content?: string|NotificationContentHierarchy|null,
-     *   context?: string|null,
-     *   locales?: array<string,string|Block\Locale\NotificationContentHierarchy>|null,
-     * }>|null $blocks
-     * @param list<Channel|array{
-     *   id: string,
-     *   checksum?: string|null,
-     *   content?: Content|null,
-     *   locales?: array<string,Locale>|null,
-     *   type?: string|null,
-     * }>|null $channels
+     * @param list<BlockShape>|null $blocks
+     * @param list<ChannelShape>|null $channels
      */
     public static function with(
         ?array $blocks = null,
         ?array $channels = null,
         ?string $checksum = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $blocks && $obj['blocks'] = $blocks;
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $checksum && $obj['checksum'] = $checksum;
+        null !== $blocks && $self['blocks'] = $blocks;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $checksum && $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Block|array{
-     *   id: string,
-     *   type: value-of<Type>,
-     *   alias?: string|null,
-     *   checksum?: string|null,
-     *   content?: string|NotificationContentHierarchy|null,
-     *   context?: string|null,
-     *   locales?: array<string,string|Block\Locale\NotificationContentHierarchy>|null,
-     * }>|null $blocks
+     * @param list<BlockShape>|null $blocks
      */
     public function withBlocks(?array $blocks): self
     {
-        $obj = clone $this;
-        $obj['blocks'] = $blocks;
+        $self = clone $this;
+        $self['blocks'] = $blocks;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Channel|array{
-     *   id: string,
-     *   checksum?: string|null,
-     *   content?: Content|null,
-     *   locales?: array<string,Locale>|null,
-     *   type?: string|null,
-     * }>|null $channels
+     * @param list<ChannelShape>|null $channels
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withChecksum(?string $checksum): self
     {
-        $obj = clone $this;
-        $obj['checksum'] = $checksum;
+        $self = clone $this;
+        $self['checksum'] = $checksum;
 
-        return $obj;
+        return $self;
     }
 }

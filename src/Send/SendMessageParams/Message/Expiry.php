@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ExpiresInShape from \Courier\Send\SendMessageParams\Message\Expiry\ExpiresIn
+ *
  * @phpstan-type ExpiryShape = array{
- *   expires_in: string|int, expires_at?: string|null
+ *   expiresIn: ExpiresInShape, expiresAt?: string|null
  * }
  */
 final class Expiry implements BaseModel
@@ -21,21 +24,21 @@ final class Expiry implements BaseModel
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
      */
-    #[Api]
-    public string|int $expires_in;
+    #[Required('expires_in')]
+    public string|int $expiresIn;
 
     /**
      * Epoch or ISO8601 timestamp with timezone.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $expires_at;
+    #[Optional('expires_at', nullable: true)]
+    public ?string $expiresAt;
 
     /**
      * `new Expiry()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Expiry::with(expires_in: ...)
+     * Expiry::with(expiresIn: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -53,29 +56,33 @@ final class Expiry implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param ExpiresInShape $expiresIn
      */
     public static function with(
-        string|int $expires_in,
-        ?string $expires_at = null
+        string|int $expiresIn,
+        ?string $expiresAt = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['expires_in'] = $expires_in;
+        $self['expiresIn'] = $expiresIn;
 
-        null !== $expires_at && $obj['expires_at'] = $expires_at;
+        null !== $expiresAt && $self['expiresAt'] = $expiresAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
+     *
+     * @param ExpiresInShape $expiresIn
      */
     public function withExpiresIn(string|int $expiresIn): self
     {
-        $obj = clone $this;
-        $obj['expires_in'] = $expiresIn;
+        $self = clone $this;
+        $self['expiresIn'] = $expiresIn;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -83,9 +90,9 @@ final class Expiry implements BaseModel
      */
     public function withExpiresAt(?string $expiresAt): self
     {
-        $obj = clone $this;
-        $obj['expires_at'] = $expiresAt;
+        $self = clone $this;
+        $self['expiresAt'] = $expiresAt;
 
-        return $obj;
+        return $self;
     }
 }

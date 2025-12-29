@@ -13,9 +13,17 @@ use Courier\ServiceContracts\Notifications\DraftContract;
 final class DraftService implements DraftContract
 {
     /**
+     * @api
+     */
+    public DraftRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new DraftRawService($client);
+    }
 
     /**
      * @api
@@ -26,12 +34,9 @@ final class DraftService implements DraftContract
         string $id,
         ?RequestOptions $requestOptions = null
     ): NotificationGetContent {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['notifications/%1$s/draft/content', $id],
-            options: $requestOptions,
-            convert: NotificationGetContent::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieveContent($id, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

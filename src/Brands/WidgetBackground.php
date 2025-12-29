@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +18,10 @@ final class WidgetBackground implements BaseModel
     /** @use SdkModel<WidgetBackgroundShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $bottomColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $topColor;
 
     public function __construct()
@@ -38,27 +38,27 @@ final class WidgetBackground implements BaseModel
         ?string $bottomColor = null,
         ?string $topColor = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $bottomColor && $obj['bottomColor'] = $bottomColor;
-        null !== $topColor && $obj['topColor'] = $topColor;
+        null !== $bottomColor && $self['bottomColor'] = $bottomColor;
+        null !== $topColor && $self['topColor'] = $topColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withBottomColor(?string $bottomColor): self
     {
-        $obj = clone $this;
-        $obj['bottomColor'] = $bottomColor;
+        $self = clone $this;
+        $self['bottomColor'] = $bottomColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withTopColor(?string $topColor): self
     {
-        $obj = clone $this;
-        $obj['topColor'] = $topColor;
+        $self = clone $this;
+        $self['topColor'] = $topColor;
 
-        return $obj;
+        return $self;
     }
 }

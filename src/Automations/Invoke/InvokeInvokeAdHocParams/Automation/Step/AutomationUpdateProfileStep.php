@@ -6,16 +6,17 @@ namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep\Action;
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep\Merge;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationUpdateProfileStepShape = array{
- *   action: value-of<Action>,
+ *   action: Action|value-of<Action>,
  *   profile: array<string,mixed>,
- *   merge?: value-of<Merge>|null,
- *   recipient_id?: string|null,
+ *   merge?: null|Merge|value-of<Merge>,
+ *   recipientID?: string|null,
  * }
  */
 final class AutomationUpdateProfileStep implements BaseModel
@@ -24,19 +25,19 @@ final class AutomationUpdateProfileStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
     /** @var value-of<Merge>|null $merge */
-    #[Api(enum: Merge::class, nullable: true, optional: true)]
+    #[Optional(enum: Merge::class, nullable: true)]
     public ?string $merge;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $recipient_id;
+    #[Optional('recipient_id', nullable: true)]
+    public ?string $recipientID;
 
     /**
      * `new AutomationUpdateProfileStep()` is missing required properties by the API.
@@ -70,17 +71,17 @@ final class AutomationUpdateProfileStep implements BaseModel
         Action|string $action,
         array $profile,
         Merge|string|null $merge = null,
-        ?string $recipient_id = null,
+        ?string $recipientID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['profile'] = $profile;
+        $self['action'] = $action;
+        $self['profile'] = $profile;
 
-        null !== $merge && $obj['merge'] = $merge;
-        null !== $recipient_id && $obj['recipient_id'] = $recipient_id;
+        null !== $merge && $self['merge'] = $merge;
+        null !== $recipientID && $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -88,10 +89,10 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -99,10 +100,10 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withProfile(array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -110,17 +111,17 @@ final class AutomationUpdateProfileStep implements BaseModel
      */
     public function withMerge(Merge|string|null $merge): self
     {
-        $obj = clone $this;
-        $obj['merge'] = $merge;
+        $self = clone $this;
+        $self['merge'] = $merge;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(?string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipient_id'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 }

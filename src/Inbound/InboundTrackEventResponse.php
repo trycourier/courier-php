@@ -4,34 +4,30 @@ declare(strict_types=1);
 
 namespace Courier\Inbound;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type InboundTrackEventResponseShape = array{messageId: string}
+ * @phpstan-type InboundTrackEventResponseShape = array{messageID: string}
  */
-final class InboundTrackEventResponse implements BaseModel, ResponseConverter
+final class InboundTrackEventResponse implements BaseModel
 {
     /** @use SdkModel<InboundTrackEventResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /**
      * A successful call returns a `202` status code along with a `requestId` in the response body.
      */
-    #[Api]
-    public string $messageId;
+    #[Required('messageId')]
+    public string $messageID;
 
     /**
      * `new InboundTrackEventResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * InboundTrackEventResponse::with(messageId: ...)
+     * InboundTrackEventResponse::with(messageID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -50,13 +46,13 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $messageId): self
+    public static function with(string $messageID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['messageId'] = $messageId;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -64,9 +60,9 @@ final class InboundTrackEventResponse implements BaseModel, ResponseConverter
      */
     public function withMessageID(string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageId'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 }

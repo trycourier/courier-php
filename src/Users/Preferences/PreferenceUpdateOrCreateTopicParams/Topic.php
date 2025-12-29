@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\PreferenceStatus;
 
 /**
  * @phpstan-type TopicShape = array{
- *   status: value-of<PreferenceStatus>,
- *   custom_routing?: list<value-of<ChannelClassification>>|null,
- *   has_custom_routing?: bool|null,
+ *   status: PreferenceStatus|value-of<PreferenceStatus>,
+ *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   hasCustomRouting?: bool|null,
  * }
  */
 final class Topic implements BaseModel
@@ -23,19 +24,23 @@ final class Topic implements BaseModel
     use SdkModel;
 
     /** @var value-of<PreferenceStatus> $status */
-    #[Api(enum: PreferenceStatus::class)]
+    #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
     /**
      * The Channels a user has chosen to receive notifications through for this topic.
      *
-     * @var list<value-of<ChannelClassification>>|null $custom_routing
+     * @var list<value-of<ChannelClassification>>|null $customRouting
      */
-    #[Api(list: ChannelClassification::class, nullable: true, optional: true)]
-    public ?array $custom_routing;
+    #[Optional(
+        'custom_routing',
+        list: ChannelClassification::class,
+        nullable: true
+    )]
+    public ?array $customRouting;
 
-    #[Api(nullable: true, optional: true)]
-    public ?bool $has_custom_routing;
+    #[Optional('has_custom_routing', nullable: true)]
+    public ?bool $hasCustomRouting;
 
     /**
      * `new Topic()` is missing required properties by the API.
@@ -62,21 +67,21 @@ final class Topic implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $custom_routing
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
      */
     public static function with(
         PreferenceStatus|string $status,
-        ?array $custom_routing = null,
-        ?bool $has_custom_routing = null,
+        ?array $customRouting = null,
+        ?bool $hasCustomRouting = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
+        null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -84,10 +89,10 @@ final class Topic implements BaseModel
      */
     public function withStatus(PreferenceStatus|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -97,17 +102,17 @@ final class Topic implements BaseModel
      */
     public function withCustomRouting(?array $customRouting): self
     {
-        $obj = clone $this;
-        $obj['custom_routing'] = $customRouting;
+        $self = clone $this;
+        $self['customRouting'] = $customRouting;
 
-        return $obj;
+        return $self;
     }
 
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
-        $obj = clone $this;
-        $obj['has_custom_routing'] = $hasCustomRouting;
+        $self = clone $this;
+        $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 }

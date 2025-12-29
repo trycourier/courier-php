@@ -4,53 +4,53 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
+ * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
+ * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
+ *
  * @phpstan-type BrandShape = array{
  *   id: string,
  *   created: int,
  *   name: string,
  *   updated: int,
  *   published?: int|null,
- *   settings?: BrandSettings|null,
- *   snippets?: BrandSnippets|null,
+ *   settings?: null|BrandSettings|BrandSettingsShape,
+ *   snippets?: null|BrandSnippets|BrandSnippetsShape,
  *   version?: string|null,
  * }
  */
-final class Brand implements BaseModel, ResponseConverter
+final class Brand implements BaseModel
 {
     /** @use SdkModel<BrandShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public string $id;
 
-    #[Api]
+    #[Required]
     public int $created;
 
-    #[Api]
+    #[Required]
     public string $name;
 
-    #[Api]
+    #[Required]
     public int $updated;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $published;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSettings $settings;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?BrandSnippets $snippets;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $version;
 
     /**
@@ -77,12 +77,8 @@ final class Brand implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $id,
@@ -94,92 +90,88 @@ final class Brand implements BaseModel, ResponseConverter
         BrandSnippets|array|null $snippets = null,
         ?string $version = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created'] = $created;
-        $obj['name'] = $name;
-        $obj['updated'] = $updated;
+        $self['id'] = $id;
+        $self['created'] = $created;
+        $self['name'] = $name;
+        $self['updated'] = $updated;
 
-        null !== $published && $obj['published'] = $published;
-        null !== $settings && $obj['settings'] = $settings;
-        null !== $snippets && $obj['snippets'] = $snippets;
-        null !== $version && $obj['version'] = $version;
+        null !== $published && $self['published'] = $published;
+        null !== $settings && $self['settings'] = $settings;
+        null !== $snippets && $self['snippets'] = $snippets;
+        null !== $version && $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     public function withCreated(int $created): self
     {
-        $obj = clone $this;
-        $obj['created'] = $created;
+        $self = clone $this;
+        $self['created'] = $created;
 
-        return $obj;
+        return $self;
     }
 
     public function withName(string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     public function withUpdated(int $updated): self
     {
-        $obj = clone $this;
-        $obj['updated'] = $updated;
+        $self = clone $this;
+        $self['updated'] = $updated;
 
-        return $obj;
+        return $self;
     }
 
     public function withPublished(?int $published): self
     {
-        $obj = clone $this;
-        $obj['published'] = $published;
+        $self = clone $this;
+        $self['published'] = $published;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param BrandSettings|array{
-     *   colors?: BrandColors|null,
-     *   email?: BrandSettingsEmail|null,
-     *   inapp?: BrandSettingsInApp|null,
-     * }|null $settings
+     * @param BrandSettings|BrandSettingsShape|null $settings
      */
     public function withSettings(BrandSettings|array|null $settings): self
     {
-        $obj = clone $this;
-        $obj['settings'] = $settings;
+        $self = clone $this;
+        $self['settings'] = $settings;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param BrandSnippets|array{items?: list<BrandSnippet>|null}|null $snippets
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public function withSnippets(BrandSnippets|array|null $snippets): self
     {
-        $obj = clone $this;
-        $obj['snippets'] = $snippets;
+        $self = clone $this;
+        $self['snippets'] = $snippets;
 
-        return $obj;
+        return $self;
     }
 
     public function withVersion(?string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 }

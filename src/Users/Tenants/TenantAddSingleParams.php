@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -19,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\Users\TenantsService::addSingle()
  *
  * @phpstan-type TenantAddSingleParamsShape = array{
- *   user_id: string, profile?: array<string,mixed>|null
+ *   userID: string, profile?: array<string,mixed>|null
  * }
  */
 final class TenantAddSingleParams implements BaseModel
@@ -28,11 +29,11 @@ final class TenantAddSingleParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $user_id;
+    #[Required]
+    public string $userID;
 
     /** @var array<string,mixed>|null $profile */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $profile;
 
     /**
@@ -40,7 +41,7 @@ final class TenantAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TenantAddSingleParams::with(user_id: ...)
+     * TenantAddSingleParams::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -61,23 +62,23 @@ final class TenantAddSingleParams implements BaseModel
      *
      * @param array<string,mixed>|null $profile
      */
-    public static function with(string $user_id, ?array $profile = null): self
+    public static function with(string $userID, ?array $profile = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['user_id'] = $user_id;
+        $self['userID'] = $userID;
 
-        null !== $profile && $obj['profile'] = $profile;
+        null !== $profile && $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,9 +86,9 @@ final class TenantAddSingleParams implements BaseModel
      */
     public function withProfile(?array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 }

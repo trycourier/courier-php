@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\Checks;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck;
-use Courier\Notifications\BaseCheck\Status;
-use Courier\Notifications\BaseCheck\Type;
 
 /**
  * @see Courier\Services\Notifications\ChecksService::update()
  *
+ * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck
+ *
  * @phpstan-type CheckUpdateParamsShape = array{
- *   id: string,
- *   checks: list<BaseCheck|array{
- *     id: string, status: value-of<Status>, type: value-of<Type>
- *   }>,
+ *   id: string, checks: list<BaseCheckShape>
  * }
  */
 final class CheckUpdateParams implements BaseModel
@@ -28,11 +25,11 @@ final class CheckUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var list<BaseCheck> $checks */
-    #[Api(list: BaseCheck::class)]
+    #[Required(list: BaseCheck::class)]
     public array $checks;
 
     /**
@@ -59,38 +56,34 @@ final class CheckUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BaseCheck|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>
-     * }> $checks
+     * @param list<BaseCheckShape> $checks
      */
     public static function with(string $id, array $checks): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['checks'] = $checks;
+        $self['id'] = $id;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<BaseCheck|array{
-     *   id: string, status: value-of<Status>, type: value-of<Type>
-     * }> $checks
+     * @param list<BaseCheckShape> $checks
      */
     public function withChecks(array $checks): self
     {
-        $obj = clone $this;
-        $obj['checks'] = $checks;
+        $self = clone $this;
+        $self['checks'] = $checks;
 
-        return $obj;
+        return $self;
     }
 }

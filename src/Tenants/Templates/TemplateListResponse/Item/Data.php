@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Courier\Tenants\Templates\TemplateListResponse\Item;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting;
-use Courier\MessageRouting\Method;
 
 /**
  * The template's data containing it's routing configs.
  *
- * @phpstan-type DataShape = array{routing: MessageRouting}
+ * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
+ *
+ * @phpstan-type DataShape = array{routing: MessageRouting|MessageRoutingShape}
  */
 final class Data implements BaseModel
 {
     /** @use SdkModel<DataShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public MessageRouting $routing;
 
     /**
@@ -47,29 +48,25 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public static function with(MessageRouting|array $routing): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['routing'] = $routing;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param MessageRouting|array{
-     *   channels: list<mixed>, method: value-of<Method>
-     * } $routing
+     * @param MessageRouting|MessageRoutingShape $routing
      */
     public function withRouting(MessageRouting|array $routing): self
     {
-        $obj = clone $this;
-        $obj['routing'] = $routing;
+        $self = clone $this;
+        $self['routing'] = $routing;
 
-        return $obj;
+        return $self;
     }
 }

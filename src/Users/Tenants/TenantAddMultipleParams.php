@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation;
-use Courier\Tenants\TenantAssociation\Type;
 
 /**
  * This endpoint is used to add a user to
@@ -20,13 +19,10 @@ use Courier\Tenants\TenantAssociation\Type;
  *
  * @see Courier\Services\Users\TenantsService::addMultiple()
  *
+ * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
+ *
  * @phpstan-type TenantAddMultipleParamsShape = array{
- *   tenants: list<TenantAssociation|array{
- *     tenant_id: string,
- *     profile?: array<string,mixed>|null,
- *     type?: value-of<Type>|null,
- *     user_id?: string|null,
- *   }>,
+ *   tenants: list<TenantAssociationShape>
  * }
  */
 final class TenantAddMultipleParams implements BaseModel
@@ -36,7 +32,7 @@ final class TenantAddMultipleParams implements BaseModel
     use SdkParams;
 
     /** @var list<TenantAssociation> $tenants */
-    #[Api(list: TenantAssociation::class)]
+    #[Required(list: TenantAssociation::class)]
     public array $tenants;
 
     /**
@@ -63,35 +59,25 @@ final class TenantAddMultipleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TenantAssociation|array{
-     *   tenant_id: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<Type>|null,
-     *   user_id?: string|null,
-     * }> $tenants
+     * @param list<TenantAssociationShape> $tenants
      */
     public static function with(array $tenants): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tenants'] = $tenants;
+        $self['tenants'] = $tenants;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<TenantAssociation|array{
-     *   tenant_id: string,
-     *   profile?: array<string,mixed>|null,
-     *   type?: value-of<Type>|null,
-     *   user_id?: string|null,
-     * }> $tenants
+     * @param list<TenantAssociationShape> $tenants
      */
     public function withTenants(array $tenants): self
     {
-        $obj = clone $this;
-        $obj['tenants'] = $tenants;
+        $self = clone $this;
+        $self['tenants'] = $tenants;
 
-        return $obj;
+        return $self;
     }
 }

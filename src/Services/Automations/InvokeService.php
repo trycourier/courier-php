@@ -5,19 +5,26 @@ declare(strict_types=1);
 namespace Courier\Services\Automations;
 
 use Courier\Automations\AutomationInvokeResponse;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams;
-use Courier\Automations\Invoke\InvokeInvokeByTemplateParams;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeContract;
 
 final class InvokeService implements InvokeContract
 {
     /**
+     * @api
+     */
+    public InvokeRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new InvokeRawService($client);
+    }
 
     /**
      * @api
@@ -25,35 +32,37 @@ final class InvokeService implements InvokeContract
      * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
      *
      * @param array{
-     *   automation: array{
-     *     steps: list<array<string,mixed>>, cancelation_token?: string|null
-     *   },
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   profile?: array<string,mixed>|null,
-     *   recipient?: string|null,
-     *   template?: string|null,
-     * }|InvokeInvokeAdHocParams $params
+     *   steps: list<array<string,mixed>>, cancelationToken?: string|null
+     * } $automation
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      *
      * @throws APIException
      */
     public function invokeAdHoc(
-        array|InvokeInvokeAdHocParams $params,
+        array $automation,
+        ?string $brand = null,
+        ?array $data = null,
+        ?array $profile = null,
+        ?string $recipient = null,
+        ?string $template = null,
         ?RequestOptions $requestOptions = null,
     ): AutomationInvokeResponse {
-        [$parsed, $options] = InvokeInvokeAdHocParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            [
+                'automation' => $automation,
+                'brand' => $brand,
+                'data' => $data,
+                'profile' => $profile,
+                'recipient' => $recipient,
+                'template' => $template,
+            ],
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: 'automations/invoke',
-            body: (object) $parsed,
-            options: $options,
-            convert: AutomationInvokeResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->invokeAdHoc(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -61,33 +70,34 @@ final class InvokeService implements InvokeContract
      *
      * Invoke an automation run from an automation template.
      *
-     * @param array{
-     *   recipient: string|null,
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   profile?: array<string,mixed>|null,
-     *   template?: string|null,
-     * }|InvokeInvokeByTemplateParams $params
+     * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
+     * @param array<string,mixed>|null $data
+     * @param array<string,mixed>|null $profile
      *
      * @throws APIException
      */
     public function invokeByTemplate(
         string $templateID,
-        array|InvokeInvokeByTemplateParams $params,
+        ?string $recipient,
+        ?string $brand = null,
+        ?array $data = null,
+        ?array $profile = null,
+        ?string $template = null,
         ?RequestOptions $requestOptions = null,
     ): AutomationInvokeResponse {
-        [$parsed, $options] = InvokeInvokeByTemplateParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            [
+                'recipient' => $recipient,
+                'brand' => $brand,
+                'data' => $data,
+                'profile' => $profile,
+                'template' => $template,
+            ],
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: ['automations/%1$s/invoke', $templateID],
-            body: (object) $parsed,
-            options: $options,
-            convert: AutomationInvokeResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->invokeByTemplate($templateID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }
