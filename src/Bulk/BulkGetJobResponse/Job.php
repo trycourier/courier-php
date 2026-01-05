@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkGetJobResponse;
 
 use Courier\Bulk\BulkGetJobResponse\Job\Status;
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Bulk\InboundBulkMessage;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalContent;
-use Courier\ElementalContentSugar;
 
 /**
+ * @phpstan-import-type InboundBulkMessageShape from \Courier\Bulk\InboundBulkMessage
+ *
  * @phpstan-type JobShape = array{
- *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
+ *   definition: InboundBulkMessage|InboundBulkMessageShape,
  *   enqueued: int,
  *   failures: int,
  *   received: int,
- *   status: value-of<Status>,
+ *   status: Status|value-of<Status>,
  * }
  */
 final class Job implements BaseModel
@@ -27,20 +26,25 @@ final class Job implements BaseModel
     /** @use SdkModel<JobShape> */
     use SdkModel;
 
-    #[Api]
-    public InboundBulkTemplateMessage|InboundBulkContentMessage $definition;
+    /**
+     * Bulk message definition. Supports two formats:
+     * - V1 format: Requires `event` field (event ID or notification ID)
+     * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
+     */
+    #[Required]
+    public InboundBulkMessage $definition;
 
-    #[Api]
+    #[Required]
     public int $enqueued;
 
-    #[Api]
+    #[Required]
     public int $failures;
 
-    #[Api]
+    #[Required]
     public int $received;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
@@ -74,89 +78,64 @@ final class Job implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param InboundBulkTemplateMessage|array{
-     *   template: string,
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   event?: string|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     * }|InboundBulkContentMessage|array{
-     *   content: ElementalContentSugar|ElementalContent,
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   event?: string|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     * } $definition
+     * @param InboundBulkMessage|InboundBulkMessageShape $definition
      * @param Status|value-of<Status> $status
      */
     public static function with(
-        InboundBulkTemplateMessage|array|InboundBulkContentMessage $definition,
+        InboundBulkMessage|array $definition,
         int $enqueued,
         int $failures,
         int $received,
         Status|string $status,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['definition'] = $definition;
-        $obj['enqueued'] = $enqueued;
-        $obj['failures'] = $failures;
-        $obj['received'] = $received;
-        $obj['status'] = $status;
+        $self['definition'] = $definition;
+        $self['enqueued'] = $enqueued;
+        $self['failures'] = $failures;
+        $self['received'] = $received;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param InboundBulkTemplateMessage|array{
-     *   template: string,
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   event?: string|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     * }|InboundBulkContentMessage|array{
-     *   content: ElementalContentSugar|ElementalContent,
-     *   brand?: string|null,
-     *   data?: array<string,mixed>|null,
-     *   event?: string|null,
-     *   locale?: array<string,array<string,mixed>>|null,
-     *   override?: array<string,mixed>|null,
-     * } $definition
+     * Bulk message definition. Supports two formats:
+     * - V1 format: Requires `event` field (event ID or notification ID)
+     * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
+     *
+     * @param InboundBulkMessage|InboundBulkMessageShape $definition
      */
-    public function withDefinition(
-        InboundBulkTemplateMessage|array|InboundBulkContentMessage $definition
-    ): self {
-        $obj = clone $this;
-        $obj['definition'] = $definition;
+    public function withDefinition(InboundBulkMessage|array $definition): self
+    {
+        $self = clone $this;
+        $self['definition'] = $definition;
 
-        return $obj;
+        return $self;
     }
 
     public function withEnqueued(int $enqueued): self
     {
-        $obj = clone $this;
-        $obj['enqueued'] = $enqueued;
+        $self = clone $this;
+        $self['enqueued'] = $enqueued;
 
-        return $obj;
+        return $self;
     }
 
     public function withFailures(int $failures): self
     {
-        $obj = clone $this;
-        $obj['failures'] = $failures;
+        $self = clone $this;
+        $self['failures'] = $failures;
 
-        return $obj;
+        return $self;
     }
 
     public function withReceived(int $received): self
     {
-        $obj = clone $this;
-        $obj['received'] = $received;
+        $self = clone $this;
+        $self['received'] = $received;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -164,9 +143,9 @@ final class Job implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 }

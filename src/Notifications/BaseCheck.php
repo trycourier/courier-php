@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck\Status;
@@ -12,7 +12,7 @@ use Courier\Notifications\BaseCheck\Type;
 
 /**
  * @phpstan-type BaseCheckShape = array{
- *   id: string, status: value-of<Status>, type: value-of<Type>
+ *   id: string, status: Status|value-of<Status>, type: Type|value-of<Type>
  * }
  */
 final class BaseCheck implements BaseModel
@@ -20,15 +20,15 @@ final class BaseCheck implements BaseModel
     /** @use SdkModel<BaseCheckShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $id;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /** @var value-of<Type> $type */
-    #[Api(enum: Type::class)]
+    #[Required(enum: Type::class)]
     public string $type;
 
     /**
@@ -63,21 +63,21 @@ final class BaseCheck implements BaseModel
         Status|string $status,
         Type|string $type
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['status'] = $status;
-        $obj['type'] = $type;
+        $self['id'] = $id;
+        $self['status'] = $status;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -85,10 +85,10 @@ final class BaseCheck implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,9 +96,9 @@ final class BaseCheck implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Auth;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\AuthService::issueToken()
  *
  * @phpstan-type AuthIssueTokenParamsShape = array{
- *   expires_in: string, scope: string
+ *   expiresIn: string, scope: string
  * }
  */
 final class AuthIssueTokenParams implements BaseModel
@@ -35,8 +35,8 @@ final class AuthIssueTokenParams implements BaseModel
      * - "5s" - 5 seconds
      * - "1y" - 1 year
      */
-    #[Api]
-    public string $expires_in;
+    #[Required('expires_in')]
+    public string $expiresIn;
 
     /**
      * Available scopes:
@@ -52,7 +52,7 @@ final class AuthIssueTokenParams implements BaseModel
      * - `write:preferences` - Write user preferences.
      * Example: `user_id:user123 write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands`
      */
-    #[Api]
+    #[Required]
     public string $scope;
 
     /**
@@ -60,7 +60,7 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * AuthIssueTokenParams::with(expires_in: ..., scope: ...)
+     * AuthIssueTokenParams::with(expiresIn: ..., scope: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -79,14 +79,14 @@ final class AuthIssueTokenParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $expires_in, string $scope): self
+    public static function with(string $expiresIn, string $scope): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['expires_in'] = $expires_in;
-        $obj['scope'] = $scope;
+        $self['expiresIn'] = $expiresIn;
+        $self['scope'] = $scope;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -102,10 +102,10 @@ final class AuthIssueTokenParams implements BaseModel
      */
     public function withExpiresIn(string $expiresIn): self
     {
-        $obj = clone $this;
-        $obj['expires_in'] = $expiresIn;
+        $self = clone $this;
+        $self['expiresIn'] = $expiresIn;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -124,9 +124,9 @@ final class AuthIssueTokenParams implements BaseModel
      */
     public function withScope(string $scope): self
     {
-        $obj = clone $this;
-        $obj['scope'] = $scope;
+        $self = clone $this;
+        $self['scope'] = $scope;
 
-        return $obj;
+        return $self;
     }
 }

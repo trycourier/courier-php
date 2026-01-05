@@ -5,19 +5,24 @@ declare(strict_types=1);
 namespace Courier\Brands;
 
 use Courier\Brands\BrandSettingsInApp\Placement;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandColorsShape from \Courier\Brands\BrandColors
+ * @phpstan-import-type IconsShape from \Courier\Brands\Icons
+ * @phpstan-import-type WidgetBackgroundShape from \Courier\Brands\WidgetBackground
+ *
  * @phpstan-type BrandSettingsInAppShape = array{
- *   colors: BrandColors,
- *   icons: Icons,
- *   widgetBackground: WidgetBackground,
+ *   colors: BrandColors|BrandColorsShape,
+ *   icons: Icons|IconsShape,
+ *   widgetBackground: WidgetBackground|WidgetBackgroundShape,
  *   borderRadius?: string|null,
  *   disableMessageIcon?: bool|null,
  *   fontFamily?: string|null,
- *   placement?: value-of<Placement>|null,
+ *   placement?: null|Placement|value-of<Placement>,
  * }
  */
 final class BrandSettingsInApp implements BaseModel
@@ -25,26 +30,26 @@ final class BrandSettingsInApp implements BaseModel
     /** @use SdkModel<BrandSettingsInAppShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public BrandColors $colors;
 
-    #[Api]
+    #[Required]
     public Icons $icons;
 
-    #[Api]
+    #[Required]
     public WidgetBackground $widgetBackground;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $borderRadius;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $disableMessageIcon;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $fontFamily;
 
     /** @var value-of<Placement>|null $placement */
-    #[Api(enum: Placement::class, nullable: true, optional: true)]
+    #[Optional(enum: Placement::class, nullable: true)]
     public ?string $placement;
 
     /**
@@ -74,11 +79,9 @@ final class BrandSettingsInApp implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
-     * @param Icons|array{bell?: string|null, message?: string|null} $icons
-     * @param WidgetBackground|array{
-     *   bottomColor?: string|null, topColor?: string|null
-     * } $widgetBackground
+     * @param BrandColors|BrandColorsShape $colors
+     * @param Icons|IconsShape $icons
+     * @param WidgetBackground|WidgetBackgroundShape $widgetBackground
      * @param Placement|value-of<Placement>|null $placement
      */
     public static function with(
@@ -90,78 +93,76 @@ final class BrandSettingsInApp implements BaseModel
         ?string $fontFamily = null,
         Placement|string|null $placement = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['colors'] = $colors;
-        $obj['icons'] = $icons;
-        $obj['widgetBackground'] = $widgetBackground;
+        $self['colors'] = $colors;
+        $self['icons'] = $icons;
+        $self['widgetBackground'] = $widgetBackground;
 
-        null !== $borderRadius && $obj['borderRadius'] = $borderRadius;
-        null !== $disableMessageIcon && $obj['disableMessageIcon'] = $disableMessageIcon;
-        null !== $fontFamily && $obj['fontFamily'] = $fontFamily;
-        null !== $placement && $obj['placement'] = $placement;
+        null !== $borderRadius && $self['borderRadius'] = $borderRadius;
+        null !== $disableMessageIcon && $self['disableMessageIcon'] = $disableMessageIcon;
+        null !== $fontFamily && $self['fontFamily'] = $fontFamily;
+        null !== $placement && $self['placement'] = $placement;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param BrandColors|array{primary?: string|null, secondary?: string|null} $colors
+     * @param BrandColors|BrandColorsShape $colors
      */
     public function withColors(BrandColors|array $colors): self
     {
-        $obj = clone $this;
-        $obj['colors'] = $colors;
+        $self = clone $this;
+        $self['colors'] = $colors;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Icons|array{bell?: string|null, message?: string|null} $icons
+     * @param Icons|IconsShape $icons
      */
     public function withIcons(Icons|array $icons): self
     {
-        $obj = clone $this;
-        $obj['icons'] = $icons;
+        $self = clone $this;
+        $self['icons'] = $icons;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param WidgetBackground|array{
-     *   bottomColor?: string|null, topColor?: string|null
-     * } $widgetBackground
+     * @param WidgetBackground|WidgetBackgroundShape $widgetBackground
      */
     public function withWidgetBackground(
         WidgetBackground|array $widgetBackground
     ): self {
-        $obj = clone $this;
-        $obj['widgetBackground'] = $widgetBackground;
+        $self = clone $this;
+        $self['widgetBackground'] = $widgetBackground;
 
-        return $obj;
+        return $self;
     }
 
     public function withBorderRadius(?string $borderRadius): self
     {
-        $obj = clone $this;
-        $obj['borderRadius'] = $borderRadius;
+        $self = clone $this;
+        $self['borderRadius'] = $borderRadius;
 
-        return $obj;
+        return $self;
     }
 
     public function withDisableMessageIcon(?bool $disableMessageIcon): self
     {
-        $obj = clone $this;
-        $obj['disableMessageIcon'] = $disableMessageIcon;
+        $self = clone $this;
+        $self['disableMessageIcon'] = $disableMessageIcon;
 
-        return $obj;
+        return $self;
     }
 
     public function withFontFamily(?string $fontFamily): self
     {
-        $obj = clone $this;
-        $obj['fontFamily'] = $fontFamily;
+        $self = clone $this;
+        $self['fontFamily'] = $fontFamily;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,9 +170,9 @@ final class BrandSettingsInApp implements BaseModel
      */
     public function withPlacement(Placement|string|null $placement): self
     {
-        $obj = clone $this;
-        $obj['placement'] = $placement;
+        $self = clone $this;
+        $self['placement'] = $placement;
 
-        return $obj;
+        return $self;
     }
 }

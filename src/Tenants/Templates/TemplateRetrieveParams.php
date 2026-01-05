@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Tenants\Templates;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Tenants\TemplatesService::retrieve()
  *
- * @phpstan-type TemplateRetrieveParamsShape = array{tenant_id: string}
+ * @phpstan-type TemplateRetrieveParamsShape = array{tenantID: string}
  */
 final class TemplateRetrieveParams implements BaseModel
 {
@@ -22,15 +22,15 @@ final class TemplateRetrieveParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $tenant_id;
+    #[Required]
+    public string $tenantID;
 
     /**
      * `new TemplateRetrieveParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * TemplateRetrieveParams::with(tenant_id: ...)
+     * TemplateRetrieveParams::with(tenantID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,20 +49,20 @@ final class TemplateRetrieveParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $tenant_id): self
+    public static function with(string $tenantID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['tenant_id'] = $tenant_id;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 
     public function withTenantID(string $tenantID): self
     {
-        $obj = clone $this;
-        $obj['tenant_id'] = $tenantID;
+        $self = clone $this;
+        $self['tenantID'] = $tenantID;
 
-        return $obj;
+        return $self;
     }
 }

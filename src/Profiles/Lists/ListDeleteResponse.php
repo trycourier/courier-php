@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Profiles\Lists\ListDeleteResponse\Status;
 
 /**
- * @phpstan-type ListDeleteResponseShape = array{status: value-of<Status>}
+ * @phpstan-type ListDeleteResponseShape = array{status: Status|value-of<Status>}
  */
-final class ListDeleteResponse implements BaseModel, ResponseConverter
+final class ListDeleteResponse implements BaseModel
 {
     /** @use SdkModel<ListDeleteResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
@@ -53,11 +49,11 @@ final class ListDeleteResponse implements BaseModel, ResponseConverter
      */
     public static function with(Status|string $status): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -65,9 +61,9 @@ final class ListDeleteResponse implements BaseModel, ResponseConverter
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 }

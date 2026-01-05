@@ -10,6 +10,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
  * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+ *
+ * @phpstan-type ExpiryDateShape = string|bool
  */
 final class ExpiryDate implements ConverterSource
 {

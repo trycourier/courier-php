@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalChannelNodeWithType\Type;
@@ -26,7 +27,7 @@ use Courier\ElementalChannelNodeWithType\Type;
  *   ref?: string|null,
  *   channel: string,
  *   raw?: array<string,mixed>|null,
- *   type?: value-of<Type>|null,
+ *   type?: null|Type|value-of<Type>,
  * }
  */
 final class ElementalChannelNodeWithType implements BaseModel
@@ -35,23 +36,23 @@ final class ElementalChannelNodeWithType implements BaseModel
     use SdkModel;
 
     /** @var list<string>|null $channels */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $channels;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $loop;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ref;
 
     /**
      * The channel the contents of this element should be applied to. Can be `email`,
      * `push`, `direct_message`, `sms` or a provider such as slack.
      */
-    #[Api]
+    #[Required]
     public string $channel;
 
     /**
@@ -59,11 +60,11 @@ final class ElementalChannelNodeWithType implements BaseModel
      *
      * @var array<string,mixed>|null $raw
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $raw;
 
     /** @var value-of<Type>|null $type */
-    #[Api(enum: Type::class, optional: true)]
+    #[Optional(enum: Type::class)]
     public ?string $type;
 
     /**
@@ -92,7 +93,7 @@ final class ElementalChannelNodeWithType implements BaseModel
      *
      * @param list<string>|null $channels
      * @param array<string,mixed>|null $raw
-     * @param Type|value-of<Type> $type
+     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         string $channel,
@@ -103,18 +104,18 @@ final class ElementalChannelNodeWithType implements BaseModel
         ?array $raw = null,
         Type|string|null $type = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channel'] = $channel;
+        $self['channel'] = $channel;
 
-        null !== $channels && $obj['channels'] = $channels;
-        null !== $if && $obj['if'] = $if;
-        null !== $loop && $obj['loop'] = $loop;
-        null !== $ref && $obj['ref'] = $ref;
-        null !== $raw && $obj['raw'] = $raw;
-        null !== $type && $obj['type'] = $type;
+        null !== $channels && $self['channels'] = $channels;
+        null !== $if && $self['if'] = $if;
+        null !== $loop && $self['loop'] = $loop;
+        null !== $ref && $self['ref'] = $ref;
+        null !== $raw && $self['raw'] = $raw;
+        null !== $type && $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -122,34 +123,34 @@ final class ElementalChannelNodeWithType implements BaseModel
      */
     public function withChannels(?array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     public function withIf(?string $if): self
     {
-        $obj = clone $this;
-        $obj['if'] = $if;
+        $self = clone $this;
+        $self['if'] = $if;
 
-        return $obj;
+        return $self;
     }
 
     public function withLoop(?string $loop): self
     {
-        $obj = clone $this;
-        $obj['loop'] = $loop;
+        $self = clone $this;
+        $self['loop'] = $loop;
 
-        return $obj;
+        return $self;
     }
 
     public function withRef(?string $ref): self
     {
-        $obj = clone $this;
-        $obj['ref'] = $ref;
+        $self = clone $this;
+        $self['ref'] = $ref;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +159,10 @@ final class ElementalChannelNodeWithType implements BaseModel
      */
     public function withChannel(string $channel): self
     {
-        $obj = clone $this;
-        $obj['channel'] = $channel;
+        $self = clone $this;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -171,10 +172,10 @@ final class ElementalChannelNodeWithType implements BaseModel
      */
     public function withRaw(?array $raw): self
     {
-        $obj = clone $this;
-        $obj['raw'] = $raw;
+        $self = clone $this;
+        $self['raw'] = $raw;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -182,9 +183,9 @@ final class ElementalChannelNodeWithType implements BaseModel
      */
     public function withType(Type|string $type): self
     {
-        $obj = clone $this;
-        $obj['type'] = $type;
+        $self = clone $this;
+        $self['type'] = $type;
 
-        return $obj;
+        return $self;
     }
 }

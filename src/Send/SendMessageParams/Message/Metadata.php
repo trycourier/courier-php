@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Utm;
 
 /**
+ * @phpstan-import-type UtmShape from \Courier\Utm
+ *
  * @phpstan-type MetadataShape = array{
  *   event?: string|null,
  *   tags?: list<string>|null,
- *   trace_id?: string|null,
- *   utm?: Utm|null,
+ *   traceID?: string|null,
+ *   utm?: null|Utm|UtmShape,
  * }
  */
 final class Metadata implements BaseModel
@@ -22,17 +24,17 @@ final class Metadata implements BaseModel
     /** @use SdkModel<MetadataShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $event;
 
     /** @var list<string>|null $tags */
-    #[Api(list: 'string', nullable: true, optional: true)]
+    #[Optional(list: 'string', nullable: true)]
     public ?array $tags;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $trace_id;
+    #[Optional('trace_id', nullable: true)]
+    public ?string $traceID;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Utm $utm;
 
     public function __construct()
@@ -46,36 +48,30 @@ final class Metadata implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $tags
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public static function with(
         ?string $event = null,
         ?array $tags = null,
-        ?string $trace_id = null,
+        ?string $traceID = null,
         Utm|array|null $utm = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $event && $obj['event'] = $event;
-        null !== $tags && $obj['tags'] = $tags;
-        null !== $trace_id && $obj['trace_id'] = $trace_id;
-        null !== $utm && $obj['utm'] = $utm;
+        null !== $event && $self['event'] = $event;
+        null !== $tags && $self['tags'] = $tags;
+        null !== $traceID && $self['traceID'] = $traceID;
+        null !== $utm && $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 
     public function withEvent(?string $event): self
     {
-        $obj = clone $this;
-        $obj['event'] = $event;
+        $self = clone $this;
+        $self['event'] = $event;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -83,34 +79,28 @@ final class Metadata implements BaseModel
      */
     public function withTags(?array $tags): self
     {
-        $obj = clone $this;
-        $obj['tags'] = $tags;
+        $self = clone $this;
+        $self['tags'] = $tags;
 
-        return $obj;
+        return $self;
     }
 
     public function withTraceID(?string $traceID): self
     {
-        $obj = clone $this;
-        $obj['trace_id'] = $traceID;
+        $self = clone $this;
+        $self['traceID'] = $traceID;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Utm|array{
-     *   campaign?: string|null,
-     *   content?: string|null,
-     *   medium?: string|null,
-     *   source?: string|null,
-     *   term?: string|null,
-     * }|null $utm
+     * @param Utm|UtmShape|null $utm
      */
     public function withUtm(Utm|array|null $utm): self
     {
-        $obj = clone $this;
-        $obj['utm'] = $utm;
+        $self = clone $this;
+        $self['utm'] = $utm;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens\UserToken;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  *   ip?: string|null,
  *   lat?: string|null,
  *   long?: string|null,
- *   os_version?: string|null,
+ *   osVersion?: string|null,
  * }
  */
 final class Tracking implements BaseModel
@@ -26,26 +26,26 @@ final class Tracking implements BaseModel
     /**
      * The IP address of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $ip;
 
     /**
      * The latitude of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $lat;
 
     /**
      * The longitude of the device.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $long;
 
     /**
      * The operating system version.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?string $os_version;
+    #[Optional('os_version', nullable: true)]
+    public ?string $osVersion;
 
     public function __construct()
     {
@@ -61,16 +61,16 @@ final class Tracking implements BaseModel
         ?string $ip = null,
         ?string $lat = null,
         ?string $long = null,
-        ?string $os_version = null,
+        ?string $osVersion = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $ip && $obj['ip'] = $ip;
-        null !== $lat && $obj['lat'] = $lat;
-        null !== $long && $obj['long'] = $long;
-        null !== $os_version && $obj['os_version'] = $os_version;
+        null !== $ip && $self['ip'] = $ip;
+        null !== $lat && $self['lat'] = $lat;
+        null !== $long && $self['long'] = $long;
+        null !== $osVersion && $self['osVersion'] = $osVersion;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +78,10 @@ final class Tracking implements BaseModel
      */
     public function withIP(?string $ip): self
     {
-        $obj = clone $this;
-        $obj['ip'] = $ip;
+        $self = clone $this;
+        $self['ip'] = $ip;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,10 +89,10 @@ final class Tracking implements BaseModel
      */
     public function withLat(?string $lat): self
     {
-        $obj = clone $this;
-        $obj['lat'] = $lat;
+        $self = clone $this;
+        $self['lat'] = $lat;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,10 +100,10 @@ final class Tracking implements BaseModel
      */
     public function withLong(?string $long): self
     {
-        $obj = clone $this;
-        $obj['long'] = $long;
+        $self = clone $this;
+        $self['long'] = $long;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -111,9 +111,9 @@ final class Tracking implements BaseModel
      */
     public function withOsVersion(?string $osVersion): self
     {
-        $obj = clone $this;
-        $obj['os_version'] = $osVersion;
+        $self = clone $this;
+        $self['osVersion'] = $osVersion;
 
-        return $obj;
+        return $self;
     }
 }

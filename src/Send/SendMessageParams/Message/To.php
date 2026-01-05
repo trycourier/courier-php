@@ -4,15 +4,31 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
+use Courier\AudienceRecipient;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\Core\Conversion\ListOf;
-use Courier\Recipient;
+use Courier\ListPatternRecipient;
+use Courier\ListRecipient;
+use Courier\MsTeamsRecipient;
+use Courier\PagerdutyRecipient;
+use Courier\SlackRecipient;
 use Courier\UserRecipient;
+use Courier\WebhookRecipient;
 
 /**
  * The recipient or a list of recipients of the message.
+ *
+ * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
+ * @phpstan-import-type AudienceRecipientShape from \Courier\AudienceRecipient
+ * @phpstan-import-type ListRecipientShape from \Courier\ListRecipient
+ * @phpstan-import-type ListPatternRecipientShape from \Courier\ListPatternRecipient
+ * @phpstan-import-type SlackRecipientShape from \Courier\SlackRecipient
+ * @phpstan-import-type MsTeamsRecipientShape from \Courier\MsTeamsRecipient
+ * @phpstan-import-type PagerdutyRecipientShape from \Courier\PagerdutyRecipient
+ * @phpstan-import-type WebhookRecipientShape from \Courier\WebhookRecipient
+ *
+ * @phpstan-type ToShape = UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape
  */
 final class To implements ConverterSource
 {
@@ -23,6 +39,15 @@ final class To implements ConverterSource
      */
     public static function variants(): array
     {
-        return [UserRecipient::class, new ListOf(Recipient::class)];
+        return [
+            UserRecipient::class,
+            AudienceRecipient::class,
+            ListRecipient::class,
+            ListPatternRecipient::class,
+            SlackRecipient::class,
+            MsTeamsRecipient::class,
+            PagerdutyRecipient::class,
+            WebhookRecipient::class,
+        ];
     }
 }

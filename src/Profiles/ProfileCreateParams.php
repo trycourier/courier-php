@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -23,7 +23,7 @@ final class ProfileCreateParams implements BaseModel
     use SdkParams;
 
     /** @var array<string,mixed> $profile */
-    #[Api(map: 'mixed')]
+    #[Required(map: 'mixed')]
     public array $profile;
 
     /**
@@ -54,11 +54,11 @@ final class ProfileCreateParams implements BaseModel
      */
     public static function with(array $profile): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['profile'] = $profile;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -66,9 +66,9 @@ final class ProfileCreateParams implements BaseModel
      */
     public function withProfile(array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 }

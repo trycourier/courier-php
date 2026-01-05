@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Core\Conversion\MapOf;
 
 /**
@@ -16,15 +14,13 @@ use Courier\Core\Conversion\MapOf;
  *   results: list<array<string,mixed>>
  * }
  */
-final class MessageHistoryResponse implements BaseModel, ResponseConverter
+final class MessageHistoryResponse implements BaseModel
 {
     /** @use SdkModel<MessageHistoryResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<array<string,mixed>> $results */
-    #[Api(list: new MapOf('mixed'))]
+    #[Required(list: new MapOf('mixed'))]
     public array $results;
 
     /**
@@ -55,11 +51,11 @@ final class MessageHistoryResponse implements BaseModel, ResponseConverter
      */
     public static function with(array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['results'] = $results;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,9 +63,9 @@ final class MessageHistoryResponse implements BaseModel, ResponseConverter
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

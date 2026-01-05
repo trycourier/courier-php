@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens\TokenUpdateParams;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -19,19 +20,19 @@ final class Patch implements BaseModel
     /**
      * The operation to perform.
      */
-    #[Api]
+    #[Required]
     public string $op;
 
     /**
      * The JSON path specifying the part of the profile to operate on.
      */
-    #[Api]
+    #[Required]
     public string $path;
 
     /**
      * The value for the operation.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $value;
 
     /**
@@ -63,14 +64,14 @@ final class Patch implements BaseModel
         string $path,
         ?string $value = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['op'] = $op;
-        $obj['path'] = $path;
+        $self['op'] = $op;
+        $self['path'] = $path;
 
-        null !== $value && $obj['value'] = $value;
+        null !== $value && $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -78,10 +79,10 @@ final class Patch implements BaseModel
      */
     public function withOp(string $op): self
     {
-        $obj = clone $this;
-        $obj['op'] = $op;
+        $self = clone $this;
+        $self['op'] = $op;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -89,10 +90,10 @@ final class Patch implements BaseModel
      */
     public function withPath(string $path): self
     {
-        $obj = clone $this;
-        $obj['path'] = $path;
+        $self = clone $this;
+        $self['path'] = $path;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -100,9 +101,9 @@ final class Patch implements BaseModel
      */
     public function withValue(?string $value): self
     {
-        $obj = clone $this;
-        $obj['value'] = $value;
+        $self = clone $this;
+        $self['value'] = $value;
 
-        return $obj;
+        return $self;
     }
 }

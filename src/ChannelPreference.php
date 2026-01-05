@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type ChannelPreferenceShape = array{
- *   channel: value-of<ChannelClassification>
+ *   channel: ChannelClassification|value-of<ChannelClassification>
  * }
  */
 final class ChannelPreference implements BaseModel
@@ -19,7 +19,7 @@ final class ChannelPreference implements BaseModel
     use SdkModel;
 
     /** @var value-of<ChannelClassification> $channel */
-    #[Api(enum: ChannelClassification::class)]
+    #[Required(enum: ChannelClassification::class)]
     public string $channel;
 
     /**
@@ -50,11 +50,11 @@ final class ChannelPreference implements BaseModel
      */
     public static function with(ChannelClassification|string $channel): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channel'] = $channel;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -62,9 +62,9 @@ final class ChannelPreference implements BaseModel
      */
     public function withChannel(ChannelClassification|string $channel): self
     {
-        $obj = clone $this;
-        $obj['channel'] = $channel;
+        $self = clone $this;
+        $self['channel'] = $channel;
 
-        return $obj;
+        return $self;
     }
 }

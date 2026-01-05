@@ -7,35 +7,37 @@ namespace Courier\ServiceContracts\Tenants;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\Tenants\BaseTemplateTenantAssociation;
-use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
-use Courier\Tenants\Templates\TemplateRetrieveParams;
 
 interface TemplatesContract
 {
     /**
      * @api
      *
-     * @param array<mixed>|TemplateRetrieveParams $params
+     * @param string $templateID id of the template to be retrieved
+     * @param string $tenantID id of the tenant for which to retrieve the template
      *
      * @throws APIException
      */
     public function retrieve(
         string $templateID,
-        array|TemplateRetrieveParams $params,
+        string $tenantID,
         ?RequestOptions $requestOptions = null,
     ): BaseTemplateTenantAssociation;
 
     /**
      * @api
      *
-     * @param array<mixed>|TemplateListParams $params
+     * @param string $tenantID id of the tenant for which to retrieve the templates
+     * @param string|null $cursor Continue the pagination with the next cursor
+     * @param int|null $limit The number of templates to return (defaults to 20, maximum value of 100)
      *
      * @throws APIException
      */
     public function list(
         string $tenantID,
-        array|TemplateListParams $params,
+        ?string $cursor = null,
+        ?int $limit = null,
         ?RequestOptions $requestOptions = null,
     ): TemplateListResponse;
 }

@@ -2,7 +2,9 @@
 
 namespace Tests\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use Courier\Send\SendMessageResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -34,7 +36,7 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message(['message' => []]);
+        $result = $this->client->send->message(message: []);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(SendMessageResponse::class, $result);
@@ -47,12 +49,12 @@ final class SendTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->send->message([
-            'message' => [
-                'brand_id' => 'brand_id',
+        $result = $this->client->send->message(
+            message: [
+                'brandID' => 'brand_id',
                 'channels' => [
                     'foo' => [
-                        'brand_id' => 'brand_id',
+                        'brandID' => 'brand_id',
                         'if' => 'if',
                         'metadata' => [
                             'utm' => [
@@ -65,19 +67,21 @@ final class SendTest extends TestCase
                         ],
                         'override' => ['foo' => 'bar'],
                         'providers' => ['string'],
-                        'routing_method' => 'all',
+                        'routingMethod' => 'all',
                         'timeouts' => ['channel' => 0, 'provider' => 0],
                     ],
                 ],
                 'content' => ['body' => 'body', 'title' => 'title'],
-                'context' => ['tenant_id' => 'tenant_id'],
+                'context' => ['tenantID' => 'tenant_id'],
                 'data' => ['foo' => 'bar'],
-                'delay' => ['duration' => 0, 'until' => 'until'],
-                'expiry' => ['expires_in' => 'string', 'expires_at' => 'expires_at'],
+                'delay' => [
+                    'duration' => 0, 'timezone' => 'timezone', 'until' => 'until',
+                ],
+                'expiry' => ['expiresIn' => 'string', 'expiresAt' => 'expires_at'],
                 'metadata' => [
                     'event' => 'event',
                     'tags' => ['string'],
-                    'trace_id' => 'trace_id',
+                    'traceID' => 'trace_id',
                     'utm' => [
                         'campaign' => 'campaign',
                         'content' => 'content',
@@ -86,7 +90,7 @@ final class SendTest extends TestCase
                         'term' => 'term',
                     ],
                 ],
-                'preferences' => ['subscription_topic_id' => 'subscription_topic_id'],
+                'preferences' => ['subscriptionTopicID' => 'subscription_topic_id'],
                 'providers' => [
                     'foo' => [
                         'if' => 'if',
@@ -113,37 +117,41 @@ final class SendTest extends TestCase
                     'provider' => ['foo' => 0],
                 ],
                 'to' => [
-                    'account_id' => 'account_id',
-                    'context' => ['tenant_id' => 'tenant_id'],
+                    'accountID' => 'account_id',
+                    'context' => ['tenantID' => 'tenant_id'],
                     'data' => ['foo' => 'bar'],
                     'email' => 'email',
-                    'list_id' => 'list_id',
+                    'listID' => 'list_id',
                     'locale' => 'locale',
-                    'phone_number' => 'phone_number',
+                    'phoneNumber' => 'phone_number',
                     'preferences' => [
                         'notifications' => [
                             'foo' => [
-                                'status' => 'OPTED_IN',
-                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
                                 'rules' => [['until' => 'until', 'start' => 'start']],
                                 'source' => 'subscription',
                             ],
                         ],
                         'categories' => [
                             'foo' => [
-                                'status' => 'OPTED_IN',
-                                'channel_preferences' => [['channel' => 'direct_message']],
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
                                 'rules' => [['until' => 'until', 'start' => 'start']],
                                 'source' => 'subscription',
                             ],
                         ],
-                        'templateId' => 'templateId',
+                        'templateID' => 'templateId',
                     ],
-                    'tenant_id' => 'tenant_id',
-                    'user_id' => 'example_user',
+                    'tenantID' => 'tenant_id',
+                    'userID' => 'user_id',
                 ],
             ],
-        ]);
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(SendMessageResponse::class, $result);

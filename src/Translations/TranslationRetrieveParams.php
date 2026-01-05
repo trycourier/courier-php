@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Translations;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -22,7 +22,7 @@ final class TranslationRetrieveParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
+    #[Required]
     public string $domain;
 
     /**
@@ -51,18 +51,18 @@ final class TranslationRetrieveParams implements BaseModel
      */
     public static function with(string $domain): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['domain'] = $domain;
+        $self['domain'] = $domain;
 
-        return $obj;
+        return $self;
     }
 
     public function withDomain(string $domain): self
     {
-        $obj = clone $this;
-        $obj['domain'] = $domain;
+        $self = clone $this;
+        $self['domain'] = $domain;
 
-        return $obj;
+        return $self;
     }
 }

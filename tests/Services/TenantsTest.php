@@ -2,6 +2,7 @@
 
 namespace Tests\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListResponse;
@@ -49,7 +50,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->update('tenant_id', ['name' => 'name']);
+        $result = $this->client->tenants->update('tenant_id', name: 'name');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Tenant::class, $result);
@@ -64,23 +65,21 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->update(
             'tenant_id',
-            [
-                'name' => 'name',
-                'brand_id' => 'brand_id',
-                'default_preferences' => [
-                    'items' => [
-                        [
-                            'status' => 'OPTED_OUT',
-                            'custom_routing' => ['direct_message'],
-                            'has_custom_routing' => true,
-                            'id' => 'id',
-                        ],
+            name: 'name',
+            brandID: 'brand_id',
+            defaultPreferences: [
+                'items' => [
+                    [
+                        'status' => 'OPTED_OUT',
+                        'customRouting' => [ChannelClassification::DIRECT_MESSAGE],
+                        'hasCustomRouting' => true,
+                        'id' => 'id',
                     ],
                 ],
-                'parent_tenant_id' => 'parent_tenant_id',
-                'properties' => ['foo' => 'bar'],
-                'user_profile' => ['foo' => 'bar'],
             ],
+            parentTenantID: 'parent_tenant_id',
+            properties: ['foo' => 'bar'],
+            userProfile: ['foo' => 'bar'],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -94,7 +93,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->list([]);
+        $result = $this->client->tenants->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(TenantListResponse::class, $result);
@@ -120,7 +119,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->listUsers('tenant_id', []);
+        $result = $this->client->tenants->listUsers('tenant_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(TenantListUsersResponse::class, $result);

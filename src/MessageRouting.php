@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\MessageRouting\Method;
 
 /**
  * @phpstan-type MessageRoutingShape = array{
- *   channels: list<mixed>, method: value-of<Method>
+ *   channels: list<mixed>, method: Method|value-of<Method>
  * }
  */
 final class MessageRouting implements BaseModel
@@ -20,11 +20,11 @@ final class MessageRouting implements BaseModel
     use SdkModel;
 
     /** @var list<mixed> $channels */
-    #[Api(list: MessageRoutingChannel::class)]
+    #[Required(list: MessageRoutingChannel::class)]
     public array $channels;
 
     /** @var value-of<Method> $method */
-    #[Api(enum: Method::class)]
+    #[Required(enum: Method::class)]
     public string $method;
 
     /**
@@ -56,12 +56,12 @@ final class MessageRouting implements BaseModel
      */
     public static function with(array $channels, Method|string $method): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['channels'] = $channels;
-        $obj['method'] = $method;
+        $self['channels'] = $channels;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -69,10 +69,10 @@ final class MessageRouting implements BaseModel
      */
     public function withChannels(array $channels): self
     {
-        $obj = clone $this;
-        $obj['channels'] = $channels;
+        $self = clone $this;
+        $self['channels'] = $channels;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -80,9 +80,9 @@ final class MessageRouting implements BaseModel
      */
     public function withMethod(Method|string $method): self
     {
-        $obj = clone $this;
-        $obj['method'] = $method;
+        $self = clone $this;
+        $self['method'] = $method;
 
-        return $obj;
+        return $self;
     }
 }

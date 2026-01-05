@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type PreferencesShape = array{subscription_topic_id: string}
+ * @phpstan-type PreferencesShape = array{subscriptionTopicID: string}
  */
 final class Preferences implements BaseModel
 {
@@ -19,15 +19,15 @@ final class Preferences implements BaseModel
     /**
      * The subscription topic to apply to the message.
      */
-    #[Api]
-    public string $subscription_topic_id;
+    #[Required('subscription_topic_id')]
+    public string $subscriptionTopicID;
 
     /**
      * `new Preferences()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Preferences::with(subscription_topic_id: ...)
+     * Preferences::with(subscriptionTopicID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -46,13 +46,13 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $subscription_topic_id): self
+    public static function with(string $subscriptionTopicID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['subscription_topic_id'] = $subscription_topic_id;
+        $self['subscriptionTopicID'] = $subscriptionTopicID;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -60,9 +60,9 @@ final class Preferences implements BaseModel
      */
     public function withSubscriptionTopicID(string $subscriptionTopicID): self
     {
-        $obj = clone $this;
-        $obj['subscription_topic_id'] = $subscriptionTopicID;
+        $self = clone $this;
+        $self['subscriptionTopicID'] = $subscriptionTopicID;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
-use Courier\Audiences\Filter\Operator;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -15,12 +14,10 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\AudiencesService::update()
  *
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ *
  * @phpstan-type AudienceUpdateParamsShape = array{
- *   description?: string|null,
- *   filter?: null|Filter|array{
- *     operator: value-of<Operator>, path: string, value: string
- *   },
- *   name?: string|null,
+ *   description?: string|null, filter?: FilterShape|null, name?: string|null
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -32,19 +29,19 @@ final class AudienceUpdateParams implements BaseModel
     /**
      * A description of the audience.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $description;
 
     /**
      * A single filter to use for filtering.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?Filter $filter;
+    #[Optional(nullable: true)]
+    public SingleFilterConfig|NestedFilterConfig|null $filter;
 
     /**
      * The name of the audience.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $name;
 
     public function __construct()
@@ -57,22 +54,20 @@ final class AudienceUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * }|null $filter
+     * @param FilterShape|null $filter
      */
     public static function with(
         ?string $description = null,
-        Filter|array|null $filter = null,
+        SingleFilterConfig|array|NestedFilterConfig|null $filter = null,
         ?string $name = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $description && $obj['description'] = $description;
-        null !== $filter && $obj['filter'] = $filter;
-        null !== $name && $obj['name'] = $name;
+        null !== $description && $self['description'] = $description;
+        null !== $filter && $self['filter'] = $filter;
+        null !== $name && $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -80,25 +75,24 @@ final class AudienceUpdateParams implements BaseModel
      */
     public function withDescription(?string $description): self
     {
-        $obj = clone $this;
-        $obj['description'] = $description;
+        $self = clone $this;
+        $self['description'] = $description;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * A single filter to use for filtering.
      *
-     * @param Filter|array{
-     *   operator: value-of<Operator>, path: string, value: string
-     * }|null $filter
+     * @param FilterShape|null $filter
      */
-    public function withFilter(Filter|array|null $filter): self
-    {
-        $obj = clone $this;
-        $obj['filter'] = $filter;
+    public function withFilter(
+        SingleFilterConfig|array|NestedFilterConfig|null $filter
+    ): self {
+        $self = clone $this;
+        $self['filter'] = $filter;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,9 +100,9 @@ final class AudienceUpdateParams implements BaseModel
      */
     public function withName(?string $name): self
     {
-        $obj = clone $this;
-        $obj['name'] = $name;
+        $self = clone $this;
+        $self['name'] = $name;
 
-        return $obj;
+        return $self;
     }
 }

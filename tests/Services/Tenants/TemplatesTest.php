@@ -37,7 +37,7 @@ final class TemplatesTest extends TestCase
 
         $result = $this->client->tenants->templates->retrieve(
             'template_id',
-            ['tenant_id' => 'tenant_id']
+            tenantID: 'tenant_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -53,7 +53,7 @@ final class TemplatesTest extends TestCase
 
         $result = $this->client->tenants->templates->retrieve(
             'template_id',
-            ['tenant_id' => 'tenant_id']
+            tenantID: 'tenant_id'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -67,7 +67,7 @@ final class TemplatesTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->tenants->templates->list('tenant_id', []);
+        $result = $this->client->tenants->templates->list('tenant_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(TemplateListResponse::class, $result);

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type BaseTemplateTenantAssociationShape = array{
  *   id: string,
- *   created_at: string,
- *   published_at: string,
- *   updated_at: string,
+ *   createdAt: string,
+ *   publishedAt: string,
+ *   updatedAt: string,
  *   version: string,
  * }
  */
@@ -25,31 +25,31 @@ final class BaseTemplateTenantAssociation implements BaseModel
     /**
      * The template's id.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
      * The timestamp at which the template was created.
      */
-    #[Api]
-    public string $created_at;
+    #[Required('created_at')]
+    public string $createdAt;
 
     /**
      * The timestamp at which the template was published.
      */
-    #[Api]
-    public string $published_at;
+    #[Required('published_at')]
+    public string $publishedAt;
 
     /**
      * The timestamp at which the template was last updated.
      */
-    #[Api]
-    public string $updated_at;
+    #[Required('updated_at')]
+    public string $updatedAt;
 
     /**
      * The version of the template.
      */
-    #[Api]
+    #[Required]
     public string $version;
 
     /**
@@ -58,7 +58,7 @@ final class BaseTemplateTenantAssociation implements BaseModel
      * To enforce required parameters use
      * ```
      * BaseTemplateTenantAssociation::with(
-     *   id: ..., created_at: ..., published_at: ..., updated_at: ..., version: ...
+     *   id: ..., createdAt: ..., publishedAt: ..., updatedAt: ..., version: ...
      * )
      * ```
      *
@@ -85,20 +85,20 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public static function with(
         string $id,
-        string $created_at,
-        string $published_at,
-        string $updated_at,
+        string $createdAt,
+        string $publishedAt,
+        string $updatedAt,
         string $version,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['id'] = $id;
-        $obj['created_at'] = $created_at;
-        $obj['published_at'] = $published_at;
-        $obj['updated_at'] = $updated_at;
-        $obj['version'] = $version;
+        $self['id'] = $id;
+        $self['createdAt'] = $createdAt;
+        $self['publishedAt'] = $publishedAt;
+        $self['updatedAt'] = $updatedAt;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,10 +106,10 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -117,10 +117,10 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public function withCreatedAt(string $createdAt): self
     {
-        $obj = clone $this;
-        $obj['created_at'] = $createdAt;
+        $self = clone $this;
+        $self['createdAt'] = $createdAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -128,10 +128,10 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public function withPublishedAt(string $publishedAt): self
     {
-        $obj = clone $this;
-        $obj['published_at'] = $publishedAt;
+        $self = clone $this;
+        $self['publishedAt'] = $publishedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -139,10 +139,10 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public function withUpdatedAt(string $updatedAt): self
     {
-        $obj = clone $this;
-        $obj['updated_at'] = $updatedAt;
+        $self = clone $this;
+        $self['updatedAt'] = $updatedAt;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -150,9 +150,9 @@ final class BaseTemplateTenantAssociation implements BaseModel
      */
     public function withVersion(string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 }

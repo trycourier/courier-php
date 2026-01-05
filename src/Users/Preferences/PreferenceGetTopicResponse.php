@@ -4,25 +4,23 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
-use Courier\PreferenceStatus;
 
 /**
- * @phpstan-type PreferenceGetTopicResponseShape = array{topic: TopicPreference}
+ * @phpstan-import-type TopicPreferenceShape from \Courier\Users\Preferences\TopicPreference
+ *
+ * @phpstan-type PreferenceGetTopicResponseShape = array{
+ *   topic: TopicPreference|TopicPreferenceShape
+ * }
  */
-final class PreferenceGetTopicResponse implements BaseModel, ResponseConverter
+final class PreferenceGetTopicResponse implements BaseModel
 {
     /** @use SdkModel<PreferenceGetTopicResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public TopicPreference $topic;
 
     /**
@@ -49,39 +47,25 @@ final class PreferenceGetTopicResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
-     * } $topic
+     * @param TopicPreference|TopicPreferenceShape $topic
      */
     public static function with(TopicPreference|array $topic): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['topic'] = $topic;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param TopicPreference|array{
-     *   default_status: value-of<PreferenceStatus>,
-     *   status: value-of<PreferenceStatus>,
-     *   topic_id: string,
-     *   topic_name: string,
-     *   custom_routing?: list<value-of<ChannelClassification>>|null,
-     *   has_custom_routing?: bool|null,
-     * } $topic
+     * @param TopicPreference|TopicPreferenceShape $topic
      */
     public function withTopic(TopicPreference|array $topic): self
     {
-        $obj = clone $this;
-        $obj['topic'] = $topic;
+        $self = clone $this;
+        $self['topic'] = $topic;
 
-        return $obj;
+        return $self;
     }
 }

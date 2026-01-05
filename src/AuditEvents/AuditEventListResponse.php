@@ -4,31 +4,29 @@ declare(strict_types=1);
 
 namespace Courier\AuditEvents;
 
-use Courier\AuditEvents\AuditEvent\Actor;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type AuditEventShape from \Courier\AuditEvents\AuditEvent
+ *
  * @phpstan-type AuditEventListResponseShape = array{
- *   paging: Paging, results: list<AuditEvent>
+ *   paging: Paging|PagingShape, results: list<AuditEventShape>
  * }
  */
-final class AuditEventListResponse implements BaseModel, ResponseConverter
+final class AuditEventListResponse implements BaseModel
 {
     /** @use SdkModel<AuditEventListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /** @var list<AuditEvent> $results */
-    #[Api(list: AuditEvent::class)]
+    #[Required(list: AuditEvent::class)]
     public array $results;
 
     /**
@@ -55,52 +53,38 @@ final class AuditEventListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<AuditEvent|array{
-     *   actor: Actor,
-     *   auditEventId: string,
-     *   source: string,
-     *   target: string,
-     *   timestamp: string,
-     *   type: string,
-     * }> $results
+     * @param Paging|PagingShape $paging
+     * @param list<AuditEventShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['paging'] = $paging;
-        $obj['results'] = $results;
+        $self['paging'] = $paging;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<AuditEvent|array{
-     *   actor: Actor,
-     *   auditEventId: string,
-     *   source: string,
-     *   target: string,
-     *   timestamp: string,
-     *   type: string,
-     * }> $results
+     * @param list<AuditEventShape> $results
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

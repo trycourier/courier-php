@@ -4,26 +4,24 @@ declare(strict_types=1);
 
 namespace Courier\Bulk;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
-use Courier\RecipientPreferences;
-use Courier\UserRecipient;
 
 /**
  * Ingest user data into a Bulk Job.
  *
+ * **Important**: For email-based bulk jobs, each user must include `profile.email`
+ * for provider routing to work correctly. The `to.email` field is not sufficient
+ * for email provider routing.
+ *
  * @see Courier\Services\BulkService::addUsers()
  *
+ * @phpstan-import-type InboundBulkMessageUserShape from \Courier\Bulk\InboundBulkMessageUser
+ *
  * @phpstan-type BulkAddUsersParamsShape = array{
- *   users: list<InboundBulkMessageUser|array{
- *     data?: mixed,
- *     preferences?: RecipientPreferences|null,
- *     profile?: mixed,
- *     recipient?: string|null,
- *     to?: UserRecipient|null,
- *   }>,
+ *   users: list<InboundBulkMessageUserShape>
  * }
  */
 final class BulkAddUsersParams implements BaseModel
@@ -33,7 +31,7 @@ final class BulkAddUsersParams implements BaseModel
     use SdkParams;
 
     /** @var list<InboundBulkMessageUser> $users */
-    #[Api(list: InboundBulkMessageUser::class)]
+    #[Required(list: InboundBulkMessageUser::class)]
     public array $users;
 
     /**
@@ -60,37 +58,25 @@ final class BulkAddUsersParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<InboundBulkMessageUser|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     * }> $users
+     * @param list<InboundBulkMessageUserShape> $users
      */
     public static function with(array $users): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['users'] = $users;
+        $self['users'] = $users;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<InboundBulkMessageUser|array{
-     *   data?: mixed,
-     *   preferences?: RecipientPreferences|null,
-     *   profile?: mixed,
-     *   recipient?: string|null,
-     *   to?: UserRecipient|null,
-     * }> $users
+     * @param list<InboundBulkMessageUserShape> $users
      */
     public function withUsers(array $users): self
     {
-        $obj = clone $this;
-        $obj['users'] = $users;
+        $self = clone $this;
+        $self['users'] = $users;
 
-        return $obj;
+        return $self;
     }
 }

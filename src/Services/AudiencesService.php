@@ -5,29 +5,37 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Audiences\Audience;
-use Courier\Audiences\AudienceListMembersParams;
 use Courier\Audiences\AudienceListMembersResponse;
-use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
-use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
 
 final class AudiencesService implements AudiencesContract
 {
     /**
+     * @api
+     */
+    public AudiencesRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new AudiencesRawService($client);
+    }
 
     /**
      * @api
      *
      * Returns the specified audience by id.
+     *
+     * @param string $audienceID A unique identifier representing the audience_id
      *
      * @throws APIException
      */
@@ -35,13 +43,10 @@ final class AudiencesService implements AudiencesContract
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): Audience {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['audiences/%1$s', $audienceID],
-            options: $requestOptions,
-            convert: Audience::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($audienceID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -49,36 +54,28 @@ final class AudiencesService implements AudiencesContract
      *
      * Creates or updates audience.
      *
-     * @param array{
-     *   description?: string|null,
-     *   filter?: array{
-     *     operator: 'ENDS_WITH'|'EQ'|'EXISTS'|'GT'|'GTE'|'INCLUDES'|'IS_AFTER'|'IS_BEFORE'|'LT'|'LTE'|'NEQ'|'OMIT'|'STARTS_WITH'|'AND'|'OR',
-     *     path: string,
-     *     value: string,
-     *   }|Filter|null,
-     *   name?: string|null,
-     * }|AudienceUpdateParams $params
+     * @param string $audienceID A unique identifier representing the audience id
+     * @param string|null $description A description of the audience
+     * @param Filter|array<string,mixed>|null $filter A single filter to use for filtering
+     * @param string|null $name The name of the audience
      *
      * @throws APIException
      */
     public function update(
         string $audienceID,
-        array|AudienceUpdateParams $params,
+        ?string $description = null,
+        Filter|array|null $filter = null,
+        ?string $name = null,
         ?RequestOptions $requestOptions = null,
     ): AudienceUpdateResponse {
-        [$parsed, $options] = AudienceUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            ['description' => $description, 'filter' => $filter, 'name' => $name]
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['audiences/%1$s', $audienceID],
-            body: (object) $parsed,
-            options: $options,
-            convert: AudienceUpdateResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($audienceID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -86,27 +83,20 @@ final class AudiencesService implements AudiencesContract
      *
      * Get the audiences associated with the authorization token.
      *
-     * @param array{cursor?: string|null}|AudienceListParams $params
+     * @param string|null $cursor A unique identifier that allows for fetching the next set of audiences
      *
      * @throws APIException
      */
     public function list(
-        array|AudienceListParams $params,
+        ?string $cursor = null,
         ?RequestOptions $requestOptions = null
     ): AudienceListResponse {
-        [$parsed, $options] = AudienceListParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: 'audiences',
-            query: $parsed,
-            options: $options,
-            convert: AudienceListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -114,19 +104,18 @@ final class AudiencesService implements AudiencesContract
      *
      * Deletes the specified audience.
      *
+     * @param string $audienceID A unique identifier representing the audience id
+     *
      * @throws APIException
      */
     public function delete(
         string $audienceID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['audiences/%1$s', $audienceID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($audienceID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -134,27 +123,21 @@ final class AudiencesService implements AudiencesContract
      *
      * Get list of members of an audience.
      *
-     * @param array{cursor?: string|null}|AudienceListMembersParams $params
+     * @param string $audienceID A unique identifier representing the audience id
+     * @param string|null $cursor A unique identifier that allows for fetching the next set of members
      *
      * @throws APIException
      */
     public function listMembers(
         string $audienceID,
-        array|AudienceListMembersParams $params,
+        ?string $cursor = null,
         ?RequestOptions $requestOptions = null,
     ): AudienceListMembersResponse {
-        [$parsed, $options] = AudienceListMembersParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['audiences/%1$s/members', $audienceID],
-            query: $parsed,
-            options: $options,
-            convert: AudienceListMembersResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listMembers($audienceID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

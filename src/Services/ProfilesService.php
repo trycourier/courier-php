@@ -6,18 +6,21 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
-use Courier\Profiles\ProfileCreateParams;
+use Courier\Core\Util;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
-use Courier\Profiles\ProfileReplaceParams;
 use Courier\Profiles\ProfileReplaceResponse;
-use Courier\Profiles\ProfileUpdateParams;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProfilesContract;
 use Courier\Services\Profiles\ListsService;
 
 final class ProfilesService implements ProfilesContract
 {
+    /**
+     * @api
+     */
+    public ProfilesRawService $raw;
+
     /**
      * @api
      */
@@ -28,6 +31,7 @@ final class ProfilesService implements ProfilesContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new ProfilesRawService($client);
         $this->lists = new ListsService($client);
     }
 
@@ -36,28 +40,22 @@ final class ProfilesService implements ProfilesContract
      *
      * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
      *
-     * @param array{profile: array<string,mixed>}|ProfileCreateParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param array<string,mixed> $profile
      *
      * @throws APIException
      */
     public function create(
         string $userID,
-        array|ProfileCreateParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $profile,
+        ?RequestOptions $requestOptions = null
     ): ProfileNewResponse {
-        [$parsed, $options] = ProfileCreateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['profile' => $profile]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: ['profiles/%1$s', $userID],
-            body: (object) $parsed,
-            options: $options,
-            convert: ProfileNewResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->create($userID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -65,19 +63,18 @@ final class ProfilesService implements ProfilesContract
      *
      * Returns the specified user profile.
      *
+     * @param string $userID a unique identifier representing the user associated with the requested profile
+     *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
         ?RequestOptions $requestOptions = null
     ): ProfileGetResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['profiles/%1$s', $userID],
-            options: $requestOptions,
-            convert: ProfileGetResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($userID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -85,30 +82,24 @@ final class ProfilesService implements ProfilesContract
      *
      * Update a profile
      *
-     * @param array{
-     *   patch: list<array{op: string, path: string, value: string}>
-     * }|ProfileUpdateParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param list<array{
+     *   op: string, path: string, value: string
+     * }> $patch List of patch operations to apply to the profile
      *
      * @throws APIException
      */
     public function update(
         string $userID,
-        array|ProfileUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $patch,
+        ?RequestOptions $requestOptions = null
     ): mixed {
-        [$parsed, $options] = ProfileUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['patch' => $patch]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'patch',
-            path: ['profiles/%1$s', $userID],
-            body: (object) $parsed,
-            options: $options,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($userID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -116,19 +107,18 @@ final class ProfilesService implements ProfilesContract
      *
      * Deletes the specified user profile.
      *
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     *
      * @throws APIException
      */
     public function delete(
         string $userID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['profiles/%1$s', $userID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($userID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -139,27 +129,21 @@ final class ProfilesService implements ProfilesContract
      * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
      * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
      *
-     * @param array{profile: array<string,mixed>}|ProfileReplaceParams $params
+     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param array<string,mixed> $profile
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
-        array|ProfileReplaceParams $params,
-        ?RequestOptions $requestOptions = null,
+        array $profile,
+        ?RequestOptions $requestOptions = null
     ): ProfileReplaceResponse {
-        [$parsed, $options] = ProfileReplaceParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['profile' => $profile]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['profiles/%1$s', $userID],
-            body: (object) $parsed,
-            options: $options,
-            convert: ProfileReplaceResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->replace($userID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

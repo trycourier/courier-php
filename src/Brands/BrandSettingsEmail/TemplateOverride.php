@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Courier\Brands\BrandSettingsEmail;
 
 use Courier\Brands\BrandTemplate;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type BrandTemplateShape from \Courier\Brands\BrandTemplate
+ *
  * @phpstan-type TemplateOverrideShape = array{
  *   enabled: bool,
  *   backgroundColor?: string|null,
@@ -18,7 +21,7 @@ use Courier\Core\Contracts\BaseModel;
  *   head?: string|null,
  *   header?: string|null,
  *   width?: string|null,
- *   mjml: BrandTemplate,
+ *   mjml: BrandTemplate|BrandTemplateShape,
  *   footerBackgroundColor?: string|null,
  *   footerFullWidth?: bool|null,
  * }
@@ -28,34 +31,34 @@ final class TemplateOverride implements BaseModel
     /** @use SdkModel<TemplateOverrideShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public bool $enabled;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $backgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $blocksBackgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $footer;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $head;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $header;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $width;
 
-    #[Api]
+    #[Required]
     public BrandTemplate $mjml;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $footerBackgroundColor;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?bool $footerFullWidth;
 
     /**
@@ -82,15 +85,7 @@ final class TemplateOverride implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandTemplate|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     * } $mjml
+     * @param BrandTemplate|BrandTemplateShape $mjml
      */
     public static function with(
         bool $enabled,
@@ -104,113 +99,105 @@ final class TemplateOverride implements BaseModel
         ?string $footerBackgroundColor = null,
         ?bool $footerFullWidth = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['enabled'] = $enabled;
-        $obj['mjml'] = $mjml;
+        $self['enabled'] = $enabled;
+        $self['mjml'] = $mjml;
 
-        null !== $backgroundColor && $obj['backgroundColor'] = $backgroundColor;
-        null !== $blocksBackgroundColor && $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
-        null !== $footer && $obj['footer'] = $footer;
-        null !== $head && $obj['head'] = $head;
-        null !== $header && $obj['header'] = $header;
-        null !== $width && $obj['width'] = $width;
-        null !== $footerBackgroundColor && $obj['footerBackgroundColor'] = $footerBackgroundColor;
-        null !== $footerFullWidth && $obj['footerFullWidth'] = $footerFullWidth;
+        null !== $backgroundColor && $self['backgroundColor'] = $backgroundColor;
+        null !== $blocksBackgroundColor && $self['blocksBackgroundColor'] = $blocksBackgroundColor;
+        null !== $footer && $self['footer'] = $footer;
+        null !== $head && $self['head'] = $head;
+        null !== $header && $self['header'] = $header;
+        null !== $width && $self['width'] = $width;
+        null !== $footerBackgroundColor && $self['footerBackgroundColor'] = $footerBackgroundColor;
+        null !== $footerFullWidth && $self['footerFullWidth'] = $footerFullWidth;
 
-        return $obj;
+        return $self;
     }
 
     public function withEnabled(bool $enabled): self
     {
-        $obj = clone $this;
-        $obj['enabled'] = $enabled;
+        $self = clone $this;
+        $self['enabled'] = $enabled;
 
-        return $obj;
+        return $self;
     }
 
     public function withBackgroundColor(?string $backgroundColor): self
     {
-        $obj = clone $this;
-        $obj['backgroundColor'] = $backgroundColor;
+        $self = clone $this;
+        $self['backgroundColor'] = $backgroundColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withBlocksBackgroundColor(
         ?string $blocksBackgroundColor
     ): self {
-        $obj = clone $this;
-        $obj['blocksBackgroundColor'] = $blocksBackgroundColor;
+        $self = clone $this;
+        $self['blocksBackgroundColor'] = $blocksBackgroundColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withFooter(?string $footer): self
     {
-        $obj = clone $this;
-        $obj['footer'] = $footer;
+        $self = clone $this;
+        $self['footer'] = $footer;
 
-        return $obj;
+        return $self;
     }
 
     public function withHead(?string $head): self
     {
-        $obj = clone $this;
-        $obj['head'] = $head;
+        $self = clone $this;
+        $self['head'] = $head;
 
-        return $obj;
+        return $self;
     }
 
     public function withHeader(?string $header): self
     {
-        $obj = clone $this;
-        $obj['header'] = $header;
+        $self = clone $this;
+        $self['header'] = $header;
 
-        return $obj;
+        return $self;
     }
 
     public function withWidth(?string $width): self
     {
-        $obj = clone $this;
-        $obj['width'] = $width;
+        $self = clone $this;
+        $self['width'] = $width;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param BrandTemplate|array{
-     *   enabled: bool,
-     *   backgroundColor?: string|null,
-     *   blocksBackgroundColor?: string|null,
-     *   footer?: string|null,
-     *   head?: string|null,
-     *   header?: string|null,
-     *   width?: string|null,
-     * } $mjml
+     * @param BrandTemplate|BrandTemplateShape $mjml
      */
     public function withMjml(BrandTemplate|array $mjml): self
     {
-        $obj = clone $this;
-        $obj['mjml'] = $mjml;
+        $self = clone $this;
+        $self['mjml'] = $mjml;
 
-        return $obj;
+        return $self;
     }
 
     public function withFooterBackgroundColor(
         ?string $footerBackgroundColor
     ): self {
-        $obj = clone $this;
-        $obj['footerBackgroundColor'] = $footerBackgroundColor;
+        $self = clone $this;
+        $self['footerBackgroundColor'] = $footerBackgroundColor;
 
-        return $obj;
+        return $self;
     }
 
     public function withFooterFullWidth(?bool $footerFullWidth): self
     {
-        $obj = clone $this;
-        $obj['footerFullWidth'] = $footerFullWidth;
+        $self = clone $this;
+        $self['footerFullWidth'] = $footerFullWidth;
 
-        return $obj;
+        return $self;
     }
 }

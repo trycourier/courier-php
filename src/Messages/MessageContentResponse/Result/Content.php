@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Messages\MessageContentResponse\Result;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Messages\MessageContentResponse\Result\Content\Block;
@@ -12,8 +12,10 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
 /**
  * Content details of the rendered message.
  *
+ * @phpstan-import-type BlockShape from \Courier\Messages\MessageContentResponse\Result\Content\Block
+ *
  * @phpstan-type ContentShape = array{
- *   blocks: list<Block>,
+ *   blocks: list<BlockShape>,
  *   body: string,
  *   html: string,
  *   subject: string,
@@ -31,37 +33,37 @@ final class Content implements BaseModel
      *
      * @var list<Block> $blocks
      */
-    #[Api(list: Block::class)]
+    #[Required(list: Block::class)]
     public array $blocks;
 
     /**
      * The body of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $body;
 
     /**
      * The html content of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $html;
 
     /**
      * The subject of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $subject;
 
     /**
      * The text of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $text;
 
     /**
      * The title of the rendered message.
      */
-    #[Api]
+    #[Required]
     public string $title;
 
     /**
@@ -96,7 +98,7 @@ final class Content implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Block|array{text: string, type: string}> $blocks
+     * @param list<BlockShape> $blocks
      */
     public static function with(
         array $blocks,
@@ -106,29 +108,29 @@ final class Content implements BaseModel
         string $text,
         string $title,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['blocks'] = $blocks;
-        $obj['body'] = $body;
-        $obj['html'] = $html;
-        $obj['subject'] = $subject;
-        $obj['text'] = $text;
-        $obj['title'] = $title;
+        $self['blocks'] = $blocks;
+        $self['body'] = $body;
+        $self['html'] = $html;
+        $self['subject'] = $subject;
+        $self['text'] = $text;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * The blocks of the rendered message.
      *
-     * @param list<Block|array{text: string, type: string}> $blocks
+     * @param list<BlockShape> $blocks
      */
     public function withBlocks(array $blocks): self
     {
-        $obj = clone $this;
-        $obj['blocks'] = $blocks;
+        $self = clone $this;
+        $self['blocks'] = $blocks;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -136,10 +138,10 @@ final class Content implements BaseModel
      */
     public function withBody(string $body): self
     {
-        $obj = clone $this;
-        $obj['body'] = $body;
+        $self = clone $this;
+        $self['body'] = $body;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -147,10 +149,10 @@ final class Content implements BaseModel
      */
     public function withHTML(string $html): self
     {
-        $obj = clone $this;
-        $obj['html'] = $html;
+        $self = clone $this;
+        $self['html'] = $html;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -158,10 +160,10 @@ final class Content implements BaseModel
      */
     public function withSubject(string $subject): self
     {
-        $obj = clone $this;
-        $obj['subject'] = $subject;
+        $self = clone $this;
+        $self['subject'] = $subject;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -169,10 +171,10 @@ final class Content implements BaseModel
      */
     public function withText(string $text): self
     {
-        $obj = clone $this;
-        $obj['text'] = $text;
+        $self = clone $this;
+        $self['text'] = $text;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -180,9 +182,9 @@ final class Content implements BaseModel
      */
     public function withTitle(string $title): self
     {
-        $obj = clone $this;
-        $obj['title'] = $title;
+        $self = clone $this;
+        $self['title'] = $title;
 
-        return $obj;
+        return $self;
     }
 }

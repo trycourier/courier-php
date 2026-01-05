@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep\Action;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationSendStepShape = array{
- *   action: value-of<Action>,
+ *   action: Action|value-of<Action>,
  *   brand?: string|null,
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
@@ -25,24 +26,24 @@ final class AutomationSendStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /** @var array<string,mixed>|null $data */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $data;
 
     /** @var array<string,mixed>|null $profile */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $profile;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $template;
 
     /**
@@ -81,17 +82,17 @@ final class AutomationSendStep implements BaseModel
         ?string $recipient = null,
         ?string $template = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
+        $self['action'] = $action;
 
-        null !== $brand && $obj['brand'] = $brand;
-        null !== $data && $obj['data'] = $data;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $template && $obj['template'] = $template;
+        null !== $brand && $self['brand'] = $brand;
+        null !== $data && $self['data'] = $data;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $template && $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -99,18 +100,18 @@ final class AutomationSendStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -118,10 +119,10 @@ final class AutomationSendStep implements BaseModel
      */
     public function withData(?array $data): self
     {
-        $obj = clone $this;
-        $obj['data'] = $data;
+        $self = clone $this;
+        $self['data'] = $data;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -129,25 +130,25 @@ final class AutomationSendStep implements BaseModel
      */
     public function withProfile(?array $profile): self
     {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
+        $self = clone $this;
+        $self['profile'] = $profile;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipient(?string $recipient): self
     {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
+        $self = clone $this;
+        $self['recipient'] = $recipient;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(?string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 }

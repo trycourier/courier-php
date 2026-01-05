@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\UserRecipient;
 
-use Courier\ChannelPreference;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Preference;
-use Courier\Preference\Source;
-use Courier\PreferenceStatus;
-use Courier\Rule;
 
 /**
+ * @phpstan-import-type PreferenceShape from \Courier\Preference
+ *
  * @phpstan-type PreferencesShape = array{
- *   notifications: array<string,Preference>,
- *   categories?: array<string,Preference>|null,
- *   templateId?: string|null,
+ *   notifications: array<string,PreferenceShape>,
+ *   categories?: array<string,PreferenceShape>|null,
+ *   templateID?: string|null,
  * }
  */
 final class Preferences implements BaseModel
@@ -26,15 +25,15 @@ final class Preferences implements BaseModel
     use SdkModel;
 
     /** @var array<string,Preference> $notifications */
-    #[Api(map: Preference::class)]
+    #[Required(map: Preference::class)]
     public array $notifications;
 
     /** @var array<string,Preference>|null $categories */
-    #[Api(map: Preference::class, nullable: true, optional: true)]
+    #[Optional(map: Preference::class, nullable: true)]
     public ?array $categories;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $templateId;
+    #[Optional('templateId', nullable: true)]
+    public ?string $templateID;
 
     /**
      * `new Preferences()` is missing required properties by the API.
@@ -60,71 +59,51 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,Preference|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     *   source?: value-of<Source>|null,
-     * }> $notifications
-     * @param array<string,Preference|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     *   source?: value-of<Source>|null,
-     * }>|null $categories
+     * @param array<string,PreferenceShape> $notifications
+     * @param array<string,PreferenceShape>|null $categories
      */
     public static function with(
         array $notifications,
         ?array $categories = null,
-        ?string $templateId = null
+        ?string $templateID = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['notifications'] = $notifications;
+        $self['notifications'] = $notifications;
 
-        null !== $categories && $obj['categories'] = $categories;
-        null !== $templateId && $obj['templateId'] = $templateId;
+        null !== $categories && $self['categories'] = $categories;
+        null !== $templateID && $self['templateID'] = $templateID;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param array<string,Preference|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     *   source?: value-of<Source>|null,
-     * }> $notifications
+     * @param array<string,PreferenceShape> $notifications
      */
     public function withNotifications(array $notifications): self
     {
-        $obj = clone $this;
-        $obj['notifications'] = $notifications;
+        $self = clone $this;
+        $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param array<string,Preference|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     *   source?: value-of<Source>|null,
-     * }>|null $categories
+     * @param array<string,PreferenceShape>|null $categories
      */
     public function withCategories(?array $categories): self
     {
-        $obj = clone $this;
-        $obj['categories'] = $categories;
+        $self = clone $this;
+        $self['categories'] = $categories;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplateID(?string $templateID): self
     {
-        $obj = clone $this;
-        $obj['templateId'] = $templateID;
+        $self = clone $this;
+        $self['templateID'] = $templateID;
 
-        return $obj;
+        return $self;
     }
 }

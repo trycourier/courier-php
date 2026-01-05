@@ -4,30 +4,27 @@ declare(strict_types=1);
 
 namespace Courier\Messages;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Messages\MessageContentResponse\Result;
-use Courier\Messages\MessageContentResponse\Result\Content;
 
 /**
- * @phpstan-type MessageContentResponseShape = array{results: list<Result>}
+ * @phpstan-import-type ResultShape from \Courier\Messages\MessageContentResponse\Result
+ *
+ * @phpstan-type MessageContentResponseShape = array{results: list<ResultShape>}
  */
-final class MessageContentResponse implements BaseModel, ResponseConverter
+final class MessageContentResponse implements BaseModel
 {
     /** @use SdkModel<MessageContentResponseShape> */
     use SdkModel;
-
-    use SdkResponse;
 
     /**
      * An array of render output of a previously sent message.
      *
      * @var list<Result> $results
      */
-    #[Api(list: Result::class)]
+    #[Required(list: Result::class)]
     public array $results;
 
     /**
@@ -54,31 +51,27 @@ final class MessageContentResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Result|array{
-     *   channel: string, channel_id: string, content: Content
-     * }> $results
+     * @param list<ResultShape> $results
      */
     public static function with(array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['results'] = $results;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * An array of render output of a previously sent message.
      *
-     * @param list<Result|array{
-     *   channel: string, channel_id: string, content: Content
-     * }> $results
+     * @param list<ResultShape> $results
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

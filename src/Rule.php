@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -16,10 +17,10 @@ final class Rule implements BaseModel
     /** @use SdkModel<RuleShape> */
     use SdkModel;
 
-    #[Api]
+    #[Required]
     public string $until;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $start;
 
     /**
@@ -48,28 +49,28 @@ final class Rule implements BaseModel
      */
     public static function with(string $until, ?string $start = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['until'] = $until;
+        $self['until'] = $until;
 
-        null !== $start && $obj['start'] = $start;
+        null !== $start && $self['start'] = $start;
 
-        return $obj;
+        return $self;
     }
 
     public function withUntil(string $until): self
     {
-        $obj = clone $this;
-        $obj['until'] = $until;
+        $self = clone $this;
+        $self['until'] = $until;
 
-        return $obj;
+        return $self;
     }
 
     public function withStart(?string $start): self
     {
-        $obj = clone $this;
-        $obj['start'] = $start;
+        $self = clone $this;
+        $self['start'] = $start;
 
-        return $obj;
+        return $self;
     }
 }

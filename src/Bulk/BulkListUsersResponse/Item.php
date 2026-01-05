@@ -5,24 +5,25 @@ declare(strict_types=1);
 namespace Courier\Bulk\BulkListUsersResponse;
 
 use Courier\Bulk\BulkListUsersResponse\Item\Status;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\MessageContext;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\UserRecipient;
-use Courier\UserRecipient\Preferences;
 
 /**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
+ *
  * @phpstan-type ItemShape = array{
  *   data?: mixed,
- *   preferences?: RecipientPreferences|null,
- *   profile?: mixed,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
+ *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
- *   to?: UserRecipient|null,
- *   status: value-of<Status>,
- *   messageId?: string|null,
+ *   to?: null|UserRecipient|UserRecipientShape,
+ *   status: Status|value-of<Status>,
+ *   messageID?: string|null,
  * }
  */
 final class Item implements BaseModel
@@ -30,27 +31,40 @@ final class Item implements BaseModel
     /** @use SdkModel<ItemShape> */
     use SdkModel;
 
-    #[Api(optional: true)]
+    /**
+     * User-specific data that will be merged with message.data.
+     */
+    #[Optional]
     public mixed $data;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?RecipientPreferences $preferences;
 
-    #[Api(optional: true)]
-    public mixed $profile;
+    /**
+     * User profile information. For email-based bulk jobs, `profile.email` is required
+     * for provider routing to determine if the message can be delivered. The email
+     * address should be provided here rather than in `to.email`.
+     *
+     * @var array<string,mixed>|null $profile
+     */
+    #[Optional(map: 'mixed', nullable: true)]
+    public ?array $profile;
 
-    #[Api(nullable: true, optional: true)]
+    /**
+     * User ID (legacy field, use profile or to.user_id instead).
+     */
+    #[Optional(nullable: true)]
     public ?string $recipient;
 
-    #[Api(optional: true)]
+    #[Optional]
     public ?UserRecipient $to;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
-    #[Api(nullable: true, optional: true)]
-    public ?string $messageId;
+    #[Optional('messageId', nullable: true)]
+    public ?string $messageID;
 
     /**
      * `new Item()` is missing required properties by the API.
@@ -77,105 +91,91 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Status|value-of<Status> $status
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * } $preferences
-     * @param UserRecipient|array{
-     *   account_id?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   list_id?: string|null,
-     *   locale?: string|null,
-     *   phone_number?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
-     * } $to
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
+     * @param array<string,mixed>|null $profile
+     * @param UserRecipient|UserRecipientShape|null $to
      */
     public static function with(
         Status|string $status,
         mixed $data = null,
         RecipientPreferences|array|null $preferences = null,
-        mixed $profile = null,
+        ?array $profile = null,
         ?string $recipient = null,
         UserRecipient|array|null $to = null,
-        ?string $messageId = null,
+        ?string $messageID = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
+        $self['status'] = $status;
 
-        null !== $data && $obj['data'] = $data;
-        null !== $preferences && $obj['preferences'] = $preferences;
-        null !== $profile && $obj['profile'] = $profile;
-        null !== $recipient && $obj['recipient'] = $recipient;
-        null !== $to && $obj['to'] = $to;
-        null !== $messageId && $obj['messageId'] = $messageId;
+        null !== $data && $self['data'] = $data;
+        null !== $preferences && $self['preferences'] = $preferences;
+        null !== $profile && $self['profile'] = $profile;
+        null !== $recipient && $self['recipient'] = $recipient;
+        null !== $to && $self['to'] = $to;
+        null !== $messageID && $self['messageID'] = $messageID;
 
-        return $obj;
-    }
-
-    public function withData(mixed $data): self
-    {
-        $obj = clone $this;
-        $obj['data'] = $data;
-
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * } $preferences
+     * User-specific data that will be merged with message.data.
+     */
+    public function withData(mixed $data): self
+    {
+        $self = clone $this;
+        $self['data'] = $data;
+
+        return $self;
+    }
+
+    /**
+     * @param RecipientPreferences|RecipientPreferencesShape $preferences
      */
     public function withPreferences(
         RecipientPreferences|array $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
-    }
-
-    public function withProfile(mixed $profile): self
-    {
-        $obj = clone $this;
-        $obj['profile'] = $profile;
-
-        return $obj;
-    }
-
-    public function withRecipient(?string $recipient): self
-    {
-        $obj = clone $this;
-        $obj['recipient'] = $recipient;
-
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param UserRecipient|array{
-     *   account_id?: string|null,
-     *   context?: MessageContext|null,
-     *   data?: array<string,mixed>|null,
-     *   email?: string|null,
-     *   list_id?: string|null,
-     *   locale?: string|null,
-     *   phone_number?: string|null,
-     *   preferences?: Preferences|null,
-     *   tenant_id?: string|null,
-     *   user_id?: string|null,
-     * } $to
+     * User profile information. For email-based bulk jobs, `profile.email` is required
+     * for provider routing to determine if the message can be delivered. The email
+     * address should be provided here rather than in `to.email`.
+     *
+     * @param array<string,mixed>|null $profile
+     */
+    public function withProfile(?array $profile): self
+    {
+        $self = clone $this;
+        $self['profile'] = $profile;
+
+        return $self;
+    }
+
+    /**
+     * User ID (legacy field, use profile or to.user_id instead).
+     */
+    public function withRecipient(?string $recipient): self
+    {
+        $self = clone $this;
+        $self['recipient'] = $recipient;
+
+        return $self;
+    }
+
+    /**
+     * @param UserRecipient|UserRecipientShape $to
      */
     public function withTo(UserRecipient|array $to): self
     {
-        $obj = clone $this;
-        $obj['to'] = $to;
+        $self = clone $this;
+        $self['to'] = $to;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -183,17 +183,17 @@ final class Item implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessageID(?string $messageID): self
     {
-        $obj = clone $this;
-        $obj['messageId'] = $messageID;
+        $self = clone $this;
+        $self['messageID'] = $messageID;
 
-        return $obj;
+        return $self;
     }
 }

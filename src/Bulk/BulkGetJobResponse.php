@@ -5,26 +5,21 @@ declare(strict_types=1);
 namespace Courier\Bulk;
 
 use Courier\Bulk\BulkGetJobResponse\Job;
-use Courier\Bulk\BulkGetJobResponse\Job\Status;
-use Courier\Bulk\InboundBulkMessage\InboundBulkContentMessage;
-use Courier\Bulk\InboundBulkMessage\InboundBulkTemplateMessage;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
- * @phpstan-type BulkGetJobResponseShape = array{job: Job}
+ * @phpstan-import-type JobShape from \Courier\Bulk\BulkGetJobResponse\Job
+ *
+ * @phpstan-type BulkGetJobResponseShape = array{job: Job|JobShape}
  */
-final class BulkGetJobResponse implements BaseModel, ResponseConverter
+final class BulkGetJobResponse implements BaseModel
 {
     /** @use SdkModel<BulkGetJobResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Job $job;
 
     /**
@@ -51,37 +46,25 @@ final class BulkGetJobResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Job|array{
-     *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
-     *   enqueued: int,
-     *   failures: int,
-     *   received: int,
-     *   status: value-of<Status>,
-     * } $job
+     * @param Job|JobShape $job
      */
     public static function with(Job|array $job): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['job'] = $job;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Job|array{
-     *   definition: InboundBulkTemplateMessage|InboundBulkContentMessage,
-     *   enqueued: int,
-     *   failures: int,
-     *   received: int,
-     *   status: value-of<Status>,
-     * } $job
+     * @param Job|JobShape $job
      */
     public function withJob(Job|array $job): self
     {
-        $obj = clone $this;
-        $obj['job'] = $job;
+        $self = clone $this;
+        $self['job'] = $job;
 
-        return $obj;
+        return $self;
     }
 }

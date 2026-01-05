@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\SubscribeToListsRequestItem;
-use Courier\RecipientPreferences;
 
 /**
  * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
  *
  * @see Courier\Services\Profiles\ListsService::subscribe()
  *
+ * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
+ *
  * @phpstan-type ListSubscribeParamsShape = array{
- *   lists: list<SubscribeToListsRequestItem|array{
- *     listId: string, preferences?: RecipientPreferences|null
- *   }>,
+ *   lists: list<SubscribeToListsRequestItemShape>
  * }
  */
 final class ListSubscribeParams implements BaseModel
@@ -29,7 +28,7 @@ final class ListSubscribeParams implements BaseModel
     use SdkParams;
 
     /** @var list<SubscribeToListsRequestItem> $lists */
-    #[Api(list: SubscribeToListsRequestItem::class)]
+    #[Required(list: SubscribeToListsRequestItem::class)]
     public array $lists;
 
     /**
@@ -56,29 +55,25 @@ final class ListSubscribeParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
-     * }> $lists
+     * @param list<SubscribeToListsRequestItemShape> $lists
      */
     public static function with(array $lists): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['lists'] = $lists;
+        $self['lists'] = $lists;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<SubscribeToListsRequestItem|array{
-     *   listId: string, preferences?: RecipientPreferences|null
-     * }> $lists
+     * @param list<SubscribeToListsRequestItemShape> $lists
      */
     public function withLists(array $lists): self
     {
-        $obj = clone $this;
-        $obj['lists'] = $lists;
+        $self = clone $this;
+        $self['lists'] = $lists;
 
-        return $obj;
+        return $self;
     }
 }

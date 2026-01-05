@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type BrandShape from \Courier\Brands\Brand
+ *
  * @phpstan-type BrandListResponseShape = array{
- *   paging: Paging, results: list<Brand>
+ *   paging: Paging|PagingShape, results: list<BrandShape>
  * }
  */
-final class BrandListResponse implements BaseModel, ResponseConverter
+final class BrandListResponse implements BaseModel
 {
     /** @use SdkModel<BrandListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /** @var list<Brand> $results */
-    #[Api(list: Brand::class)]
+    #[Required(list: Brand::class)]
     public array $results;
 
     /**
@@ -54,56 +53,38 @@ final class BrandListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<Brand|array{
-     *   id: string,
-     *   created: int,
-     *   name: string,
-     *   updated: int,
-     *   published?: int|null,
-     *   settings?: BrandSettings|null,
-     *   snippets?: BrandSnippets|null,
-     *   version?: string|null,
-     * }> $results
+     * @param Paging|PagingShape $paging
+     * @param list<BrandShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['paging'] = $paging;
-        $obj['results'] = $results;
+        $self['paging'] = $paging;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Brand|array{
-     *   id: string,
-     *   created: int,
-     *   name: string,
-     *   updated: int,
-     *   published?: int|null,
-     *   settings?: BrandSettings|null,
-     *   snippets?: BrandSnippets|null,
-     *   version?: string|null,
-     * }> $results
+     * @param list<BrandShape> $results
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

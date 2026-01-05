@@ -4,28 +4,26 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 use Courier\Profiles\Lists\ListGetResponse\Result;
-use Courier\RecipientPreferences;
 
 /**
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ * @phpstan-import-type ResultShape from \Courier\Profiles\Lists\ListGetResponse\Result
+ *
  * @phpstan-type ListGetResponseShape = array{
- *   paging: Paging, results: list<Result>
+ *   paging: Paging|PagingShape, results: list<ResultShape>
  * }
  */
-final class ListGetResponse implements BaseModel, ResponseConverter
+final class ListGetResponse implements BaseModel
 {
     /** @use SdkModel<ListGetResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -33,7 +31,7 @@ final class ListGetResponse implements BaseModel, ResponseConverter
      *
      * @var list<Result> $results
      */
-    #[Api(list: Result::class)]
+    #[Required(list: Result::class)]
     public array $results;
 
     /**
@@ -60,52 +58,40 @@ final class ListGetResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
-     * @param list<Result|array{
-     *   id: string,
-     *   created: string,
-     *   name: string,
-     *   updated: string,
-     *   preferences?: RecipientPreferences|null,
-     * }> $results
+     * @param Paging|PagingShape $paging
+     * @param list<ResultShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['paging'] = $paging;
-        $obj['results'] = $results;
+        $self['paging'] = $paging;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
      * An array of lists.
      *
-     * @param list<Result|array{
-     *   id: string,
-     *   created: string,
-     *   name: string,
-     *   updated: string,
-     *   preferences?: RecipientPreferences|null,
-     * }> $results
+     * @param list<ResultShape> $results
      */
     public function withResults(array $results): self
     {
-        $obj = clone $this;
-        $obj['results'] = $results;
+        $self = clone $this;
+        $self['results'] = $results;
 
-        return $obj;
+        return $self;
     }
 }

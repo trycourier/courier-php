@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Lists\Subscriptions;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -14,7 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\Lists\SubscriptionsService::unsubscribeUser()
  *
- * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{list_id: string}
+ * @phpstan-type SubscriptionUnsubscribeUserParamsShape = array{listID: string}
  */
 final class SubscriptionUnsubscribeUserParams implements BaseModel
 {
@@ -22,15 +22,15 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $list_id;
+    #[Required]
+    public string $listID;
 
     /**
      * `new SubscriptionUnsubscribeUserParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SubscriptionUnsubscribeUserParams::with(list_id: ...)
+     * SubscriptionUnsubscribeUserParams::with(listID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -49,20 +49,20 @@ final class SubscriptionUnsubscribeUserParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $list_id): self
+    public static function with(string $listID): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['list_id'] = $list_id;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 
     public function withListID(string $listID): self
     {
-        $obj = clone $this;
-        $obj['list_id'] = $listID;
+        $self = clone $this;
+        $self['listID'] = $listID;
 
-        return $obj;
+        return $self;
     }
 }

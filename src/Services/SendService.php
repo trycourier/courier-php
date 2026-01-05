@@ -6,20 +6,31 @@ namespace Courier\Services;
 
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\MessageContext;
+use Courier\MessageRouting;
 use Courier\MessageRoutingChannel;
 use Courier\RequestOptions;
-use Courier\Send\SendMessageParams;
+use Courier\Send\SendMessageParams\Message\Channel\RoutingMethod;
+use Courier\Send\SendMessageParams\Message\Routing\Method;
+use Courier\Send\SendMessageParams\Message\Timeout\Criteria;
 use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendContract;
-use Courier\UserRecipient;
 
 final class SendService implements SendContract
 {
     /**
+     * @api
+     */
+    public SendRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new SendRawService($client);
+    }
 
     /**
      * @api
@@ -27,26 +38,11 @@ final class SendService implements SendContract
      * Send a message to one or more recipients.
      *
      * @param array{
-     *   message: array{
-     *     brand_id?: string|null,
-     *     channels?: array<string,array{
-     *       brand_id?: string|null,
-     *       if?: string|null,
-     *       metadata?: array<mixed>|null,
-     *       override?: array<string,mixed>|null,
-     *       providers?: list<string>|null,
-     *       routing_method?: 'all'|'single'|null,
-     *       timeouts?: array<mixed>|null,
-     *     }>|null,
-     *     content?: array<string,mixed>,
-     *     context?: array{tenant_id?: string|null}|MessageContext|null,
-     *     data?: array<string,mixed>|null,
-     *     delay?: array{duration?: int|null, until?: string|null}|null,
-     *     expiry?: array{expires_in: string|int, expires_at?: string|null}|null,
+     *   brandID?: string|null,
+     *   channels?: array<string,array{
+     *     brandID?: string|null,
+     *     if?: string|null,
      *     metadata?: array{
-     *       event?: string|null,
-     *       tags?: list<string>|null,
-     *       trace_id?: string|null,
      *       utm?: array{
      *         campaign?: string|null,
      *         content?: string|null,
@@ -55,57 +51,71 @@ final class SendService implements SendContract
      *         term?: string|null,
      *       }|null,
      *     }|null,
-     *     preferences?: array{subscription_topic_id: string}|null,
-     *     providers?: array<string,array{
-     *       if?: string|null,
-     *       metadata?: array<mixed>|null,
-     *       override?: array<string,mixed>|null,
-     *       timeouts?: int|null,
-     *     }>|null,
-     *     routing?: array{
-     *       channels: list<mixed|string|MessageRoutingChannel>, method: 'all'|'single'
+     *     override?: array<string,mixed>|null,
+     *     providers?: list<string>|null,
+     *     routingMethod?: 'all'|'single'|RoutingMethod|null,
+     *     timeouts?: array{channel?: int|null, provider?: int|null}|null,
+     *   }>|null,
+     *   content?: array<string,mixed>,
+     *   context?: array{tenantID?: string|null}|MessageContext|null,
+     *   data?: array<string,mixed>|null,
+     *   delay?: array{
+     *     duration?: int|null, timezone?: string|null, until?: string|null
+     *   }|null,
+     *   expiry?: array{expiresIn: string|int, expiresAt?: string|null}|null,
+     *   metadata?: array{
+     *     event?: string|null,
+     *     tags?: list<string>|null,
+     *     traceID?: string|null,
+     *     utm?: array{
+     *       campaign?: string|null,
+     *       content?: string|null,
+     *       medium?: string|null,
+     *       source?: string|null,
+     *       term?: string|null,
      *     }|null,
-     *     template?: string|null,
-     *     timeout?: array{
-     *       channel?: array<string,int>|null,
-     *       criteria?: 'no-escalation'|'delivered'|'viewed'|'engaged'|null,
-     *       escalation?: int|null,
-     *       message?: int|null,
-     *       provider?: array<string,int>|null,
+     *   }|null,
+     *   preferences?: array{subscriptionTopicID: string}|null,
+     *   providers?: array<string,array{
+     *     if?: string|null,
+     *     metadata?: array{
+     *       utm?: array{
+     *         campaign?: string|null,
+     *         content?: string|null,
+     *         medium?: string|null,
+     *         source?: string|null,
+     *         term?: string|null,
+     *       }|null,
      *     }|null,
-     *     to?: array{
-     *       account_id?: string|null,
-     *       context?: array<mixed>|MessageContext|null,
-     *       data?: array<string,mixed>|null,
-     *       email?: string|null,
-     *       list_id?: string|null,
-     *       locale?: string|null,
-     *       phone_number?: string|null,
-     *       preferences?: array<mixed>|null,
-     *       tenant_id?: string|null,
-     *       user_id?: string|null,
-     *     }|UserRecipient|list<array<mixed>>|null,
-     *   },
-     * }|SendMessageParams $params
+     *     override?: array<string,mixed>|null,
+     *     timeouts?: int|null,
+     *   }>|null,
+     *   routing?: array{
+     *     channels: list<string|MessageRouting|MessageRoutingChannel>,
+     *     method: 'all'|'single'|Method,
+     *   }|null,
+     *   template?: string|null,
+     *   timeout?: array{
+     *     channel?: array<string,int>|null,
+     *     criteria?: 'no-escalation'|'delivered'|'viewed'|'engaged'|Criteria|null,
+     *     escalation?: int|null,
+     *     message?: int|null,
+     *     provider?: array<string,int>|null,
+     *   }|null,
+     *   to?: array<string,mixed>|null,
+     * } $message The message property has the following primary top-level properties. They define the destination and content of the message.
      *
      * @throws APIException
      */
     public function message(
-        array|SendMessageParams $params,
+        array $message,
         ?RequestOptions $requestOptions = null
     ): SendMessageResponse {
-        [$parsed, $options] = SendMessageParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['message' => $message]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: 'send',
-            body: (object) $parsed,
-            options: $options,
-            convert: SendMessageResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->message(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

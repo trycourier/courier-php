@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 
 /**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ *
  * @phpstan-type PutSubscriptionsRecipientShape = array{
- *   recipientId: string, preferences?: RecipientPreferences|null
+ *   recipientID: string,
+ *   preferences?: null|RecipientPreferences|RecipientPreferencesShape,
  * }
  */
 final class PutSubscriptionsRecipient implements BaseModel
@@ -20,10 +23,10 @@ final class PutSubscriptionsRecipient implements BaseModel
     /** @use SdkModel<PutSubscriptionsRecipientShape> */
     use SdkModel;
 
-    #[Api]
-    public string $recipientId;
+    #[Required('recipientId')]
+    public string $recipientID;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?RecipientPreferences $preferences;
 
     /**
@@ -31,7 +34,7 @@ final class PutSubscriptionsRecipient implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * PutSubscriptionsRecipient::with(recipientId: ...)
+     * PutSubscriptionsRecipient::with(recipientID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -50,44 +53,38 @@ final class PutSubscriptionsRecipient implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public static function with(
-        string $recipientId,
+        string $recipientID,
         RecipientPreferences|array|null $preferences = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['recipientId'] = $recipientId;
+        $self['recipientID'] = $recipientID;
 
-        null !== $preferences && $obj['preferences'] = $preferences;
+        null !== $preferences && $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 
     public function withRecipientID(string $recipientID): self
     {
-        $obj = clone $this;
-        $obj['recipientId'] = $recipientID;
+        $self = clone $this;
+        $self['recipientID'] = $recipientID;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param RecipientPreferences|array{
-     *   categories?: array<string,NotificationPreferenceDetails>|null,
-     *   notifications?: array<string,NotificationPreferenceDetails>|null,
-     * }|null $preferences
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences
      */
     public function withPreferences(
         RecipientPreferences|array|null $preferences
     ): self {
-        $obj = clone $this;
-        $obj['preferences'] = $preferences;
+        $self = clone $this;
+        $self['preferences'] = $preferences;
 
-        return $obj;
+        return $self;
     }
 }

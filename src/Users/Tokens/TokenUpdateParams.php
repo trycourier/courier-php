@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Users\Tokens;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -15,9 +15,10 @@ use Courier\Users\Tokens\TokenUpdateParams\Patch;
  *
  * @see Courier\Services\Users\TokensService::update()
  *
+ * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
+ *
  * @phpstan-type TokenUpdateParamsShape = array{
- *   user_id: string,
- *   patch: list<Patch|array{op: string, path: string, value?: string|null}>,
+ *   userID: string, patch: list<PatchShape>
  * }
  */
 final class TokenUpdateParams implements BaseModel
@@ -26,11 +27,11 @@ final class TokenUpdateParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Api]
-    public string $user_id;
+    #[Required]
+    public string $userID;
 
     /** @var list<Patch> $patch */
-    #[Api(list: Patch::class)]
+    #[Required(list: Patch::class)]
     public array $patch;
 
     /**
@@ -38,7 +39,7 @@ final class TokenUpdateParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenUpdateParams::with(user_id: ..., patch: ...)
+     * TokenUpdateParams::with(userID: ..., patch: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
@@ -57,34 +58,34 @@ final class TokenUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
+     * @param list<PatchShape> $patch
      */
-    public static function with(string $user_id, array $patch): self
+    public static function with(string $userID, array $patch): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['user_id'] = $user_id;
-        $obj['patch'] = $patch;
+        $self['userID'] = $userID;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 
     public function withUserID(string $userID): self
     {
-        $obj = clone $this;
-        $obj['user_id'] = $userID;
+        $self = clone $this;
+        $self['userID'] = $userID;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<Patch|array{op: string, path: string, value?: string|null}> $patch
+     * @param list<PatchShape> $patch
      */
     public function withPatch(array $patch): self
     {
-        $obj = clone $this;
-        $obj['patch'] = $patch;
+        $self = clone $this;
+        $self['patch'] = $patch;
 
-        return $obj;
+        return $self;
     }
 }

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep\Action;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type AutomationInvokeStepShape = array{
- *   action: value-of<Action>, template: string
+ *   action: Action|value-of<Action>, template: string
  * }
  */
 final class AutomationInvokeStep implements BaseModel
@@ -20,10 +20,10 @@ final class AutomationInvokeStep implements BaseModel
     use SdkModel;
 
     /** @var value-of<Action> $action */
-    #[Api(enum: Action::class)]
+    #[Required(enum: Action::class)]
     public string $action;
 
-    #[Api]
+    #[Required]
     public string $template;
 
     /**
@@ -54,12 +54,12 @@ final class AutomationInvokeStep implements BaseModel
      */
     public static function with(Action|string $action, string $template): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['action'] = $action;
-        $obj['template'] = $template;
+        $self['action'] = $action;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -67,17 +67,17 @@ final class AutomationInvokeStep implements BaseModel
      */
     public function withAction(Action|string $action): self
     {
-        $obj = clone $this;
-        $obj['action'] = $action;
+        $self = clone $this;
+        $self['action'] = $action;
 
-        return $obj;
+        return $self;
     }
 
     public function withTemplate(string $template): self
     {
-        $obj = clone $this;
-        $obj['template'] = $template;
+        $self = clone $this;
+        $self['template'] = $template;
 
-        return $obj;
+        return $self;
     }
 }

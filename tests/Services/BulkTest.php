@@ -5,7 +5,9 @@ namespace Tests\Services;
 use Courier\Bulk\BulkGetJobResponse;
 use Courier\Bulk\BulkListUsersResponse;
 use Courier\Bulk\BulkNewJobResponse;
+use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\PreferenceStatus;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +38,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->addUsers('job_id', ['users' => [[]]]);
+        $result = $this->client->bulk->addUsers('job_id', users: [[]]);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -51,58 +53,64 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->addUsers(
             'job_id',
-            [
-                'users' => [
-                    [
-                        'data' => [],
-                        'preferences' => [
-                            'categories' => [
-                                'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
-                                    'rules' => [['until' => 'until', 'start' => 'start']],
+            users: [
+                [
+                    'data' => (object) [],
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                 ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
                             ],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                            ],
+                        ],
+                    ],
+                    'profile' => ['foo' => 'bar'],
+                    'recipient' => 'recipient',
+                    'to' => [
+                        'accountID' => 'account_id',
+                        'context' => ['tenantID' => 'tenant_id'],
+                        'data' => ['foo' => 'bar'],
+                        'email' => 'email',
+                        'listID' => 'list_id',
+                        'locale' => 'locale',
+                        'phoneNumber' => 'phone_number',
+                        'preferences' => [
                             'notifications' => [
                                 'foo' => [
-                                    'status' => 'OPTED_IN',
-                                    'channel_preferences' => [['channel' => 'direct_message']],
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channelPreferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                    ],
                                     'rules' => [['until' => 'until', 'start' => 'start']],
+                                    'source' => 'subscription',
                                 ],
                             ],
-                        ],
-                        'profile' => [],
-                        'recipient' => 'recipient',
-                        'to' => [
-                            'account_id' => 'account_id',
-                            'context' => ['tenant_id' => 'tenant_id'],
-                            'data' => ['foo' => 'bar'],
-                            'email' => 'email',
-                            'list_id' => 'list_id',
-                            'locale' => 'locale',
-                            'phone_number' => 'phone_number',
-                            'preferences' => [
-                                'notifications' => [
-                                    'foo' => [
-                                        'status' => 'OPTED_IN',
-                                        'channel_preferences' => [['channel' => 'direct_message']],
-                                        'rules' => [['until' => 'until', 'start' => 'start']],
-                                        'source' => 'subscription',
+                            'categories' => [
+                                'foo' => [
+                                    'status' => PreferenceStatus::OPTED_IN,
+                                    'channelPreferences' => [
+                                        ['channel' => ChannelClassification::DIRECT_MESSAGE],
                                     ],
+                                    'rules' => [['until' => 'until', 'start' => 'start']],
+                                    'source' => 'subscription',
                                 ],
-                                'categories' => [
-                                    'foo' => [
-                                        'status' => 'OPTED_IN',
-                                        'channel_preferences' => [['channel' => 'direct_message']],
-                                        'rules' => [['until' => 'until', 'start' => 'start']],
-                                        'source' => 'subscription',
-                                    ],
-                                ],
-                                'templateId' => 'templateId',
                             ],
-                            'tenant_id' => 'tenant_id',
-                            'user_id' => 'user_id',
+                            'templateID' => 'templateId',
                         ],
+                        'tenantID' => 'tenant_id',
+                        'userID' => 'user_id',
                     ],
                 ],
             ],
@@ -119,9 +127,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob([
-            'message' => ['template' => 'template'],
-        ]);
+        $result = $this->client->bulk->createJob(message: ['event' => 'event']);
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BulkNewJobResponse::class, $result);
@@ -134,16 +140,17 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob([
-            'message' => [
-                'template' => 'template',
-                'brand' => 'brand',
-                'data' => ['foo' => 'bar'],
+        $result = $this->client->bulk->createJob(
+            message: [
                 'event' => 'event',
+                'brand' => 'brand',
+                'content' => ['body' => 'body', 'title' => 'title'],
+                'data' => ['foo' => 'bar'],
                 'locale' => ['foo' => ['foo' => 'bar']],
                 'override' => ['foo' => 'bar'],
+                'template' => 'template',
             ],
-        ]);
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BulkNewJobResponse::class, $result);
@@ -156,7 +163,7 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Prism tests are disabled');
         }
 
-        $result = $this->client->bulk->listUsers('job_id', []);
+        $result = $this->client->bulk->listUsers('job_id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BulkListUsersResponse::class, $result);

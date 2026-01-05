@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type NotificationPreferenceDetailsShape from \Courier\NotificationPreferenceDetails
+ *
  * @phpstan-type RecipientPreferencesShape = array{
- *   categories?: array<string,NotificationPreferenceDetails>|null,
- *   notifications?: array<string,NotificationPreferenceDetails>|null,
+ *   categories?: array<string,NotificationPreferenceDetailsShape>|null,
+ *   notifications?: array<string,NotificationPreferenceDetailsShape>|null,
  * }
  */
 final class RecipientPreferences implements BaseModel
@@ -20,19 +22,11 @@ final class RecipientPreferences implements BaseModel
     use SdkModel;
 
     /** @var array<string,NotificationPreferenceDetails>|null $categories */
-    #[Api(
-        map: NotificationPreferenceDetails::class,
-        nullable: true,
-        optional: true
-    )]
+    #[Optional(map: NotificationPreferenceDetails::class, nullable: true)]
     public ?array $categories;
 
     /** @var array<string,NotificationPreferenceDetails>|null $notifications */
-    #[Api(
-        map: NotificationPreferenceDetails::class,
-        nullable: true,
-        optional: true
-    )]
+    #[Optional(map: NotificationPreferenceDetails::class, nullable: true)]
     public ?array $notifications;
 
     public function __construct()
@@ -45,56 +39,40 @@ final class RecipientPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $categories
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $notifications
+     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
+     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
      */
     public static function with(
         ?array $categories = null,
         ?array $notifications = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $categories && $obj['categories'] = $categories;
-        null !== $notifications && $obj['notifications'] = $notifications;
+        null !== $categories && $self['categories'] = $categories;
+        null !== $notifications && $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $categories
+     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
      */
     public function withCategories(?array $categories): self
     {
-        $obj = clone $this;
-        $obj['categories'] = $categories;
+        $self = clone $this;
+        $self['categories'] = $categories;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetails|array{
-     *   status: value-of<PreferenceStatus>,
-     *   channel_preferences?: list<ChannelPreference>|null,
-     *   rules?: list<Rule>|null,
-     * }>|null $notifications
+     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
      */
     public function withNotifications(?array $notifications): self
     {
-        $obj = clone $this;
-        $obj['notifications'] = $notifications;
+        $self = clone $this;
+        $self['notifications'] = $notifications;
 
-        return $obj;
+        return $self;
     }
 }

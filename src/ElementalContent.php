@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalTextNodeWithType\Type;
 
 /**
+ * @phpstan-import-type ElementalNodeShape from \Courier\ElementalNode
+ *
  * @phpstan-type ElementalContentShape = array{
- *   elements: list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType>,
- *   version: string,
- *   brand?: string|null,
+ *   elements: list<ElementalNodeShape>, version: string, brand?: string|null
  * }
  */
 final class ElementalContent implements BaseModel
@@ -24,16 +24,16 @@ final class ElementalContent implements BaseModel
     /**
      * @var list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
      */
-    #[Api(list: ElementalNode::class)]
+    #[Required(list: ElementalNode::class)]
     public array $elements;
 
     /**
      * For example, "2022-01-01".
      */
-    #[Api]
+    #[Required]
     public string $version;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $brand;
 
     /**
@@ -60,120 +60,32 @@ final class ElementalContent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<ElementalTextNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<Type>|null,
-     * }|ElementalMetaNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalMetaNodeWithType\Type>|null,
-     * }|ElementalChannelNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   channel: string,
-     *   raw?: array<string,mixed>|null,
-     *   type?: value-of<ElementalChannelNodeWithType\Type>|null,
-     * }|ElementalImageNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalImageNodeWithType\Type>|null,
-     * }|ElementalActionNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalActionNodeWithType\Type>|null,
-     * }|ElementalDividerNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalDividerNodeWithType\Type>|null,
-     * }|ElementalQuoteNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalQuoteNodeWithType\Type>|null,
-     * }> $elements
+     * @param list<ElementalNodeShape> $elements
      */
     public static function with(
         array $elements,
         string $version,
         ?string $brand = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['elements'] = $elements;
-        $obj['version'] = $version;
+        $self['elements'] = $elements;
+        $self['version'] = $version;
 
-        null !== $brand && $obj['brand'] = $brand;
+        null !== $brand && $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<ElementalTextNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<Type>|null,
-     * }|ElementalMetaNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalMetaNodeWithType\Type>|null,
-     * }|ElementalChannelNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   channel: string,
-     *   raw?: array<string,mixed>|null,
-     *   type?: value-of<ElementalChannelNodeWithType\Type>|null,
-     * }|ElementalImageNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalImageNodeWithType\Type>|null,
-     * }|ElementalActionNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalActionNodeWithType\Type>|null,
-     * }|ElementalDividerNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalDividerNodeWithType\Type>|null,
-     * }|ElementalQuoteNodeWithType|array{
-     *   channels?: list<string>|null,
-     *   if?: string|null,
-     *   loop?: string|null,
-     *   ref?: string|null,
-     *   type?: value-of<ElementalQuoteNodeWithType\Type>|null,
-     * }> $elements
+     * @param list<ElementalNodeShape> $elements
      */
     public function withElements(array $elements): self
     {
-        $obj = clone $this;
-        $obj['elements'] = $elements;
+        $self = clone $this;
+        $self['elements'] = $elements;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -181,17 +93,17 @@ final class ElementalContent implements BaseModel
      */
     public function withVersion(string $version): self
     {
-        $obj = clone $this;
-        $obj['version'] = $version;
+        $self = clone $this;
+        $self['version'] = $version;
 
-        return $obj;
+        return $self;
     }
 
     public function withBrand(?string $brand): self
     {
-        $obj = clone $this;
-        $obj['brand'] = $brand;
+        $self = clone $this;
+        $self['brand'] = $brand;
 
-        return $obj;
+        return $self;
     }
 }

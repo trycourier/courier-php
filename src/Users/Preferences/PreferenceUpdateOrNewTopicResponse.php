@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace Courier\Users\Preferences;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 
 /**
  * @phpstan-type PreferenceUpdateOrNewTopicResponseShape = array{message: string}
  */
-final class PreferenceUpdateOrNewTopicResponse implements BaseModel, ResponseConverter
+final class PreferenceUpdateOrNewTopicResponse implements BaseModel
 {
     /** @use SdkModel<PreferenceUpdateOrNewTopicResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
-    #[Api]
+    #[Required]
     public string $message;
 
     /**
@@ -49,18 +45,18 @@ final class PreferenceUpdateOrNewTopicResponse implements BaseModel, ResponseCon
      */
     public static function with(string $message): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['message'] = $message;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 
     public function withMessage(string $message): self
     {
-        $obj = clone $this;
-        $obj['message'] = $message;
+        $self = clone $this;
+        $self['message'] = $message;
 
-        return $obj;
+        return $self;
     }
 }

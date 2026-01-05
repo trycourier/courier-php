@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Courier\Send\SendMessageParams\Message;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Send\SendMessageParams\Message\Provider\Metadata;
-use Courier\Utm;
 
 /**
+ * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Provider\Metadata
+ *
  * @phpstan-type ProviderShape = array{
  *   if?: string|null,
- *   metadata?: \Courier\Send\SendMessageParams\Message\Provider\Metadata|null,
+ *   metadata?: null|\Courier\Send\SendMessageParams\Message\Provider\Metadata|MetadataShape,
  *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
@@ -26,10 +27,10 @@ final class Provider implements BaseModel
     /**
      * JS conditional with access to data/profile.
      */
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $if;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?Metadata $metadata;
 
     /**
@@ -37,10 +38,10 @@ final class Provider implements BaseModel
      *
      * @var array<string,mixed>|null $override
      */
-    #[Api(map: 'mixed', nullable: true, optional: true)]
+    #[Optional(map: 'mixed', nullable: true)]
     public ?array $override;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?int $timeouts;
 
     public function __construct()
@@ -53,9 +54,7 @@ final class Provider implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      */
     public static function with(
@@ -64,14 +63,14 @@ final class Provider implements BaseModel
         ?array $override = null,
         ?int $timeouts = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $if && $obj['if'] = $if;
-        null !== $metadata && $obj['metadata'] = $metadata;
-        null !== $override && $obj['override'] = $override;
-        null !== $timeouts && $obj['timeouts'] = $timeouts;
+        null !== $if && $self['if'] = $if;
+        null !== $metadata && $self['metadata'] = $metadata;
+        null !== $override && $self['override'] = $override;
+        null !== $timeouts && $self['timeouts'] = $timeouts;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -79,24 +78,22 @@ final class Provider implements BaseModel
      */
     public function withIf(?string $if): self
     {
-        $obj = clone $this;
-        $obj['if'] = $if;
+        $self = clone $this;
+        $self['if'] = $if;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Metadata|array{
-     *   utm?: Utm|null
-     * }|null $metadata
+     * @param Metadata|MetadataShape|null $metadata
      */
     public function withMetadata(
         Metadata|array|null $metadata,
     ): self {
-        $obj = clone $this;
-        $obj['metadata'] = $metadata;
+        $self = clone $this;
+        $self['metadata'] = $metadata;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -106,17 +103,17 @@ final class Provider implements BaseModel
      */
     public function withOverride(?array $override): self
     {
-        $obj = clone $this;
-        $obj['override'] = $override;
+        $self = clone $this;
+        $self['override'] = $override;
 
-        return $obj;
+        return $self;
     }
 
     public function withTimeouts(?int $timeouts): self
     {
-        $obj = clone $this;
-        $obj['timeouts'] = $timeouts;
+        $self = clone $this;
+        $self['timeouts'] = $timeouts;
 
-        return $obj;
+        return $self;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications\NotificationGetContent\Block\Locale;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -18,10 +18,10 @@ final class NotificationContentHierarchy implements BaseModel
     /** @use SdkModel<NotificationContentHierarchyShape> */
     use SdkModel;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $children;
 
-    #[Api(nullable: true, optional: true)]
+    #[Optional(nullable: true)]
     public ?string $parent;
 
     public function __construct()
@@ -38,27 +38,27 @@ final class NotificationContentHierarchy implements BaseModel
         ?string $children = null,
         ?string $parent = null
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        null !== $children && $obj['children'] = $children;
-        null !== $parent && $obj['parent'] = $parent;
+        null !== $children && $self['children'] = $children;
+        null !== $parent && $self['parent'] = $parent;
 
-        return $obj;
+        return $self;
     }
 
     public function withChildren(?string $children): self
     {
-        $obj = clone $this;
-        $obj['children'] = $children;
+        $self = clone $this;
+        $self['children'] = $children;
 
-        return $obj;
+        return $self;
     }
 
     public function withParent(?string $parent): self
     {
-        $obj = clone $this;
-        $obj['parent'] = $parent;
+        $self = clone $this;
+        $self['parent'] = $parent;
 
-        return $obj;
+        return $self;
     }
 }

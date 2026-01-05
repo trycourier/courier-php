@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Courier\Lists;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
-use Courier\Core\Concerns\SdkResponse;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Core\Conversion\Contracts\ResponseConverter;
 use Courier\Paging;
 
 /**
+ * @phpstan-import-type SubscriptionListShape from \Courier\Lists\SubscriptionList
+ * @phpstan-import-type PagingShape from \Courier\Paging
+ *
  * @phpstan-type ListListResponseShape = array{
- *   items: list<SubscriptionList>, paging: Paging
+ *   items: list<SubscriptionListShape>, paging: Paging|PagingShape
  * }
  */
-final class ListListResponse implements BaseModel, ResponseConverter
+final class ListListResponse implements BaseModel
 {
     /** @use SdkModel<ListListResponseShape> */
     use SdkModel;
 
-    use SdkResponse;
-
     /** @var list<SubscriptionList> $items */
-    #[Api(list: SubscriptionList::class)]
+    #[Required(list: SubscriptionList::class)]
     public array $items;
 
-    #[Api]
+    #[Required]
     public Paging $paging;
 
     /**
@@ -54,42 +53,38 @@ final class ListListResponse implements BaseModel, ResponseConverter
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscriptionList|array{
-     *   id: string, name: string, created?: string|null, updated?: string|null
-     * }> $items
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param list<SubscriptionListShape> $items
+     * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
     {
-        $obj = new self;
+        $self = new self;
 
-        $obj['items'] = $items;
-        $obj['paging'] = $paging;
+        $self['items'] = $items;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<SubscriptionList|array{
-     *   id: string, name: string, created?: string|null, updated?: string|null
-     * }> $items
+     * @param list<SubscriptionListShape> $items
      */
     public function withItems(array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param Paging|array{more: bool, cursor?: string|null} $paging
+     * @param Paging|PagingShape $paging
      */
     public function withPaging(Paging|array $paging): self
     {
-        $obj = clone $this;
-        $obj['paging'] = $paging;
+        $self = clone $this;
+        $self['paging'] = $paging;
 
-        return $obj;
+        return $self;
     }
 }

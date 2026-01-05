@@ -12,14 +12,24 @@ use Courier\ServiceContracts\RequestsContract;
 final class RequestsService implements RequestsContract
 {
     /**
+     * @api
+     */
+    public RequestsRawService $raw;
+
+    /**
      * @internal
      */
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+        $this->raw = new RequestsRawService($client);
+    }
 
     /**
      * @api
      *
      * Archive message
+     *
+     * @param string $requestID A unique identifier representing the request ID
      *
      * @throws APIException
      */
@@ -27,12 +37,9 @@ final class RequestsService implements RequestsContract
         string $requestID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['requests/%1$s/archive', $requestID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->archive($requestID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

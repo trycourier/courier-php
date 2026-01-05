@@ -4,22 +4,27 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
+use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TenantsContract;
 use Courier\Services\Tenants\PreferencesService;
 use Courier\Services\Tenants\TemplatesService;
 use Courier\Tenants\DefaultPreferences;
+use Courier\Tenants\SubscriptionTopicNew\Status;
 use Courier\Tenants\Tenant;
-use Courier\Tenants\TenantListParams;
 use Courier\Tenants\TenantListResponse;
-use Courier\Tenants\TenantListUsersParams;
 use Courier\Tenants\TenantListUsersResponse;
-use Courier\Tenants\TenantUpdateParams;
 
 final class TenantsService implements TenantsContract
 {
+    /**
+     * @api
+     */
+    public TenantsRawService $raw;
+
     /**
      * @api
      */
@@ -35,6 +40,7 @@ final class TenantsService implements TenantsContract
      */
     public function __construct(private Client $client)
     {
+        $this->raw = new TenantsRawService($client);
         $this->preferences = new PreferencesService($client);
         $this->templates = new TemplatesService($client);
     }
@@ -44,19 +50,18 @@ final class TenantsService implements TenantsContract
      *
      * Get a Tenant
      *
+     * @param string $tenantID a unique identifier representing the tenant to be returned
+     *
      * @throws APIException
      */
     public function retrieve(
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): Tenant {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['tenants/%1$s', $tenantID],
-            options: $requestOptions,
-            convert: Tenant::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($tenantID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -64,37 +69,48 @@ final class TenantsService implements TenantsContract
      *
      * Create or Replace a Tenant
      *
+     * @param string $tenantID a unique identifier representing the tenant to be returned
+     * @param string $name name of the tenant
+     * @param string|null $brandID brand to be used for the account when one is not specified by the send call
      * @param array{
-     *   name: string,
-     *   brand_id?: string|null,
-     *   default_preferences?: array{
-     *     items?: list<array<mixed>>|null
-     *   }|DefaultPreferences|null,
-     *   parent_tenant_id?: string|null,
-     *   properties?: array<string,mixed>|null,
-     *   user_profile?: array<string,mixed>|null,
-     * }|TenantUpdateParams $params
+     *   items?: list<array{
+     *     status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status,
+     *     customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
+     *     hasCustomRouting?: bool|null,
+     *     id: string,
+     *   }>|null,
+     * }|DefaultPreferences|null $defaultPreferences Defines the preferences used for the tenant when the user hasn't specified their own
+     * @param string|null $parentTenantID tenant's parent id (if any)
+     * @param array<string,mixed>|null $properties arbitrary properties accessible to a template
+     * @param array<string,mixed>|null $userProfile a user profile object merged with user profile on send
      *
      * @throws APIException
      */
     public function update(
         string $tenantID,
-        array|TenantUpdateParams $params,
+        string $name,
+        ?string $brandID = null,
+        array|DefaultPreferences|null $defaultPreferences = null,
+        ?string $parentTenantID = null,
+        ?array $properties = null,
+        ?array $userProfile = null,
         ?RequestOptions $requestOptions = null,
     ): Tenant {
-        [$parsed, $options] = TenantUpdateParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            [
+                'name' => $name,
+                'brandID' => $brandID,
+                'defaultPreferences' => $defaultPreferences,
+                'parentTenantID' => $parentTenantID,
+                'properties' => $properties,
+                'userProfile' => $userProfile,
+            ],
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'put',
-            path: ['tenants/%1$s', $tenantID],
-            body: (object) $parsed,
-            options: $options,
-            convert: Tenant::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->update($tenantID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -102,29 +118,31 @@ final class TenantsService implements TenantsContract
      *
      * Get a List of Tenants
      *
-     * @param array{
-     *   cursor?: string|null, limit?: int|null, parent_tenant_id?: string|null
-     * }|TenantListParams $params
+     * @param string|null $cursor Continue the pagination with the next cursor
+     * @param int|null $limit The number of tenants to return
+     * (defaults to 20, maximum value of 100)
+     * @param string|null $parentTenantID Filter the list of tenants by parent_id
      *
      * @throws APIException
      */
     public function list(
-        array|TenantListParams $params,
-        ?RequestOptions $requestOptions = null
+        ?string $cursor = null,
+        ?int $limit = null,
+        ?string $parentTenantID = null,
+        ?RequestOptions $requestOptions = null,
     ): TenantListResponse {
-        [$parsed, $options] = TenantListParams::parseRequest(
-            $params,
-            $requestOptions,
+        $params = Util::removeNulls(
+            [
+                'cursor' => $cursor,
+                'limit' => $limit,
+                'parentTenantID' => $parentTenantID,
+            ],
         );
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: 'tenants',
-            query: $parsed,
-            options: $options,
-            convert: TenantListResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -132,19 +150,18 @@ final class TenantsService implements TenantsContract
      *
      * Delete a Tenant
      *
+     * @param string $tenantID id of the tenant to be deleted
+     *
      * @throws APIException
      */
     public function delete(
         string $tenantID,
         ?RequestOptions $requestOptions = null
     ): mixed {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'delete',
-            path: ['tenants/%1$s', $tenantID],
-            options: $requestOptions,
-            convert: null,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($tenantID, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -152,29 +169,24 @@ final class TenantsService implements TenantsContract
      *
      * Get Users in Tenant
      *
-     * @param array{
-     *   cursor?: string|null, limit?: int|null
-     * }|TenantListUsersParams $params
+     * @param string $tenantID id of the tenant for user membership
+     * @param string|null $cursor Continue the pagination with the next cursor
+     * @param int|null $limit The number of accounts to return
+     * (defaults to 20, maximum value of 100)
      *
      * @throws APIException
      */
     public function listUsers(
         string $tenantID,
-        array|TenantListUsersParams $params,
+        ?string $cursor = null,
+        ?int $limit = null,
         ?RequestOptions $requestOptions = null,
     ): TenantListUsersResponse {
-        [$parsed, $options] = TenantListUsersParams::parseRequest(
-            $params,
-            $requestOptions,
-        );
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
 
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'get',
-            path: ['tenants/%1$s/users', $tenantID],
-            query: $parsed,
-            options: $options,
-            convert: TenantListUsersResponse::class,
-        );
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listUsers($tenantID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 }

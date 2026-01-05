@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Courier\Tenants\DefaultPreferences;
 
 use Courier\ChannelClassification;
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\SubscriptionTopicNew\Status;
 
 /**
  * @phpstan-type ItemShape = array{
- *   status: value-of<Status>,
- *   custom_routing?: list<value-of<ChannelClassification>>|null,
- *   has_custom_routing?: bool|null,
+ *   status: Status|value-of<Status>,
+ *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   hasCustomRouting?: bool|null,
  *   id: string,
  * }
  */
@@ -24,27 +25,31 @@ final class Item implements BaseModel
     use SdkModel;
 
     /** @var value-of<Status> $status */
-    #[Api(enum: Status::class)]
+    #[Required(enum: Status::class)]
     public string $status;
 
     /**
      * The default channels to send to this tenant when has_custom_routing is enabled.
      *
-     * @var list<value-of<ChannelClassification>>|null $custom_routing
+     * @var list<value-of<ChannelClassification>>|null $customRouting
      */
-    #[Api(list: ChannelClassification::class, nullable: true, optional: true)]
-    public ?array $custom_routing;
+    #[Optional(
+        'custom_routing',
+        list: ChannelClassification::class,
+        nullable: true
+    )]
+    public ?array $customRouting;
 
     /**
      * Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences.
      */
-    #[Api(nullable: true, optional: true)]
-    public ?bool $has_custom_routing;
+    #[Optional('has_custom_routing', nullable: true)]
+    public ?bool $hasCustomRouting;
 
     /**
      * Topic ID.
      */
-    #[Api]
+    #[Required]
     public string $id;
 
     /**
@@ -72,23 +77,23 @@ final class Item implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Status|value-of<Status> $status
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $custom_routing
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
      */
     public static function with(
         Status|string $status,
         string $id,
-        ?array $custom_routing = null,
-        ?bool $has_custom_routing = null,
+        ?array $customRouting = null,
+        ?bool $hasCustomRouting = null,
     ): self {
-        $obj = new self;
+        $self = new self;
 
-        $obj['status'] = $status;
-        $obj['id'] = $id;
+        $self['status'] = $status;
+        $self['id'] = $id;
 
-        null !== $custom_routing && $obj['custom_routing'] = $custom_routing;
-        null !== $has_custom_routing && $obj['has_custom_routing'] = $has_custom_routing;
+        null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -96,10 +101,10 @@ final class Item implements BaseModel
      */
     public function withStatus(Status|string $status): self
     {
-        $obj = clone $this;
-        $obj['status'] = $status;
+        $self = clone $this;
+        $self['status'] = $status;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -109,10 +114,10 @@ final class Item implements BaseModel
      */
     public function withCustomRouting(?array $customRouting): self
     {
-        $obj = clone $this;
-        $obj['custom_routing'] = $customRouting;
+        $self = clone $this;
+        $self['customRouting'] = $customRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -120,10 +125,10 @@ final class Item implements BaseModel
      */
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
-        $obj = clone $this;
-        $obj['has_custom_routing'] = $hasCustomRouting;
+        $self = clone $this;
+        $self['hasCustomRouting'] = $hasCustomRouting;
 
-        return $obj;
+        return $self;
     }
 
     /**
@@ -131,9 +136,9 @@ final class Item implements BaseModel
      */
     public function withID(string $id): self
     {
-        $obj = clone $this;
-        $obj['id'] = $id;
+        $self = clone $this;
+        $self['id'] = $id;
 
-        return $obj;
+        return $self;
     }
 }

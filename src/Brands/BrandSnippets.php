@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Courier\Brands;
 
-use Courier\Core\Attributes\Api;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BrandSnippetsShape = array{items?: list<BrandSnippet>|null}
+ * @phpstan-import-type BrandSnippetShape from \Courier\Brands\BrandSnippet
+ *
+ * @phpstan-type BrandSnippetsShape = array{items?: list<BrandSnippetShape>|null}
  */
 final class BrandSnippets implements BaseModel
 {
@@ -17,7 +19,7 @@ final class BrandSnippets implements BaseModel
     use SdkModel;
 
     /** @var list<BrandSnippet>|null $items */
-    #[Api(list: BrandSnippet::class, nullable: true, optional: true)]
+    #[Optional(list: BrandSnippet::class, nullable: true)]
     public ?array $items;
 
     public function __construct()
@@ -30,25 +32,25 @@ final class BrandSnippets implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BrandSnippet|array{name: string, value: string}>|null $items
+     * @param list<BrandSnippetShape>|null $items
      */
     public static function with(?array $items = null): self
     {
-        $obj = new self;
+        $self = new self;
 
-        null !== $items && $obj['items'] = $items;
+        null !== $items && $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 
     /**
-     * @param list<BrandSnippet|array{name: string, value: string}>|null $items
+     * @param list<BrandSnippetShape>|null $items
      */
     public function withItems(?array $items): self
     {
-        $obj = clone $this;
-        $obj['items'] = $items;
+        $self = clone $this;
+        $self['items'] = $items;
 
-        return $obj;
+        return $self;
     }
 }
