@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Courier\Core\Contracts;
 
 /**
- * @internal
+ * @phpstan-import-type NormalizedRequest from \Courier\Core\BaseClient
  *
- * @phpstan-import-type normalized_request from \Courier\Core\BaseClient
+ * @internal
  *
  * @template Item
  *
