@@ -18,6 +18,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  *
  * @see Courier\Services\Users\TokensService::addSingle()
  *
+ * @phpstan-import-type ExpiryDateVariants from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate
  * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\TokenAddSingleParams\Device
  * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate
  * @phpstan-import-type TrackingShape from \Courier\Users\Tokens\TokenAddSingleParams\Tracking
@@ -59,6 +60,8 @@ final class TokenAddSingleParams implements BaseModel
 
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     *
+     * @var ExpiryDateVariants|null $expiryDate
      */
     #[Optional('expiry_date', nullable: true)]
     public string|bool|null $expiryDate;

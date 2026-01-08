@@ -13,9 +13,14 @@ use Courier\Profiles\ProfileNewResponse;
 use Courier\Profiles\ProfileReplaceParams;
 use Courier\Profiles\ProfileReplaceResponse;
 use Courier\Profiles\ProfileUpdateParams;
+use Courier\Profiles\ProfileUpdateParams\Patch;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProfilesRawContract;
 
+/**
+ * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ProfilesRawService implements ProfilesRawContract
 {
     // @phpstan-ignore-next-line
@@ -31,6 +36,7 @@ final class ProfilesRawService implements ProfilesRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param array{profile: array<string,mixed>}|ProfileCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileNewResponse>
      *
@@ -39,7 +45,7 @@ final class ProfilesRawService implements ProfilesRawContract
     public function create(
         string $userID,
         array|ProfileCreateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ProfileCreateParams::parseRequest(
             $params,
@@ -62,6 +68,7 @@ final class ProfilesRawService implements ProfilesRawContract
      * Returns the specified user profile.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileGetResponse>
      *
@@ -69,7 +76,7 @@ final class ProfilesRawService implements ProfilesRawContract
      */
     public function retrieve(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -86,9 +93,8 @@ final class ProfilesRawService implements ProfilesRawContract
      * Update a profile
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param array{
-     *   patch: list<array{op: string, path: string, value: string}>
-     * }|ProfileUpdateParams $params
+     * @param array{patch: list<Patch|PatchShape>}|ProfileUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -97,7 +103,7 @@ final class ProfilesRawService implements ProfilesRawContract
     public function update(
         string $userID,
         array|ProfileUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ProfileUpdateParams::parseRequest(
             $params,
@@ -120,6 +126,7 @@ final class ProfilesRawService implements ProfilesRawContract
      * Deletes the specified user profile.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -127,7 +134,7 @@ final class ProfilesRawService implements ProfilesRawContract
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -148,6 +155,7 @@ final class ProfilesRawService implements ProfilesRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{profile: array<string,mixed>}|ProfileReplaceParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileReplaceResponse>
      *
@@ -156,7 +164,7 @@ final class ProfilesRawService implements ProfilesRawContract
     public function replace(
         string $userID,
         array|ProfileReplaceParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ProfileReplaceParams::parseRequest(
             $params,

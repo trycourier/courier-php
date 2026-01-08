@@ -12,6 +12,9 @@ use Courier\ServiceContracts\TranslationsRawContract;
 use Courier\Translations\TranslationRetrieveParams;
 use Courier\Translations\TranslationUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TranslationsRawService implements TranslationsRawContract
 {
     // @phpstan-ignore-next-line
@@ -27,6 +30,7 @@ final class TranslationsRawService implements TranslationsRawContract
      *
      * @param string $locale The locale you want to retrieve the translations for
      * @param array{domain: string}|TranslationRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<string>
      *
@@ -35,7 +39,7 @@ final class TranslationsRawService implements TranslationsRawContract
     public function retrieve(
         string $locale,
         array|TranslationRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TranslationRetrieveParams::parseRequest(
             $params,
@@ -60,6 +64,7 @@ final class TranslationsRawService implements TranslationsRawContract
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param array{domain: string, body: string}|TranslationUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -68,7 +73,7 @@ final class TranslationsRawService implements TranslationsRawContract
     public function update(
         string $locale,
         array|TranslationUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TranslationUpdateParams::parseRequest(
             $params,

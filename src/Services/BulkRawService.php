@@ -15,11 +15,14 @@ use Courier\Bulk\InboundBulkMessageUser;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
-use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BulkRawContract;
-use Courier\UserRecipient;
 
+/**
+ * @phpstan-import-type InboundBulkMessageUserShape from \Courier\Bulk\InboundBulkMessageUser
+ * @phpstan-import-type InboundBulkMessageShape from \Courier\Bulk\InboundBulkMessage
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class BulkRawService implements BulkRawContract
 {
     // @phpstan-ignore-next-line
@@ -39,14 +42,9 @@ final class BulkRawService implements BulkRawContract
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param array{
-     *   users: list<array{
-     *     data?: mixed,
-     *     preferences?: array<string,mixed>|RecipientPreferences|null,
-     *     profile?: array<string,mixed>|null,
-     *     recipient?: string|null,
-     *     to?: array<string,mixed>|UserRecipient|null,
-     *   }|InboundBulkMessageUser>,
+     *   users: list<InboundBulkMessageUser|InboundBulkMessageUserShape>
      * }|BulkAddUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -55,7 +53,7 @@ final class BulkRawService implements BulkRawContract
     public function addUsers(
         string $jobID,
         array|BulkAddUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BulkAddUsersParams::parseRequest(
             $params,
@@ -83,16 +81,9 @@ final class BulkRawService implements BulkRawContract
      * can be provided to override the notification associated with the event.
      *
      * @param array{
-     *   message: array{
-     *     event: string,
-     *     brand?: string|null,
-     *     content?: array<string,mixed>|null,
-     *     data?: array<string,mixed>|null,
-     *     locale?: array<string,array<string,mixed>>|null,
-     *     override?: array<string,mixed>|null,
-     *     template?: string|null,
-     *   }|InboundBulkMessage,
+     *   message: InboundBulkMessage|InboundBulkMessageShape
      * }|BulkCreateJobParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkNewJobResponse>
      *
@@ -100,7 +91,7 @@ final class BulkRawService implements BulkRawContract
      */
     public function createJob(
         array|BulkCreateJobParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BulkCreateJobParams::parseRequest(
             $params,
@@ -124,6 +115,7 @@ final class BulkRawService implements BulkRawContract
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param array{cursor?: string|null}|BulkListUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkListUsersResponse>
      *
@@ -132,7 +124,7 @@ final class BulkRawService implements BulkRawContract
     public function listUsers(
         string $jobID,
         array|BulkListUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BulkListUsersParams::parseRequest(
             $params,
@@ -155,6 +147,7 @@ final class BulkRawService implements BulkRawContract
      * Get a bulk job
      *
      * @param string $jobID A unique identifier representing the bulk job
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkGetJobResponse>
      *
@@ -162,7 +155,7 @@ final class BulkRawService implements BulkRawContract
      */
     public function retrieveJob(
         string $jobID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -179,6 +172,7 @@ final class BulkRawService implements BulkRawContract
      * Run a bulk job
      *
      * @param string $jobID A unique identifier representing the bulk job
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -186,7 +180,7 @@ final class BulkRawService implements BulkRawContract
      */
     public function runJob(
         string $jobID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

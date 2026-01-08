@@ -14,7 +14,7 @@ use Courier\Paging;
  * @phpstan-import-type AuditEventShape from \Courier\AuditEvents\AuditEvent
  *
  * @phpstan-type AuditEventListResponseShape = array{
- *   paging: Paging|PagingShape, results: list<AuditEventShape>
+ *   paging: Paging|PagingShape, results: list<AuditEvent|AuditEventShape>
  * }
  */
 final class AuditEventListResponse implements BaseModel
@@ -54,7 +54,7 @@ final class AuditEventListResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Paging|PagingShape $paging
-     * @param list<AuditEventShape> $results
+     * @param list<AuditEvent|AuditEventShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -78,7 +78,7 @@ final class AuditEventListResponse implements BaseModel
     }
 
     /**
-     * @param list<AuditEventShape> $results
+     * @param list<AuditEvent|AuditEventShape> $results
      */
     public function withResults(array $results): self
     {

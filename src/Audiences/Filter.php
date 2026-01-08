@@ -14,7 +14,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type SingleFilterConfigShape from \Courier\Audiences\SingleFilterConfig
  * @phpstan-import-type NestedFilterConfigShape from \Courier\Audiences\NestedFilterConfig
  *
- * @phpstan-type FilterShape = SingleFilterConfigShape|NestedFilterConfigShape
+ * @phpstan-type FilterVariants = SingleFilterConfig|NestedFilterConfig
+ * @phpstan-type FilterShape = FilterVariants|SingleFilterConfigShape|NestedFilterConfigShape
  */
 final class Filter implements ConverterSource
 {

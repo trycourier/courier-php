@@ -10,6 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ExpiresInVariants from \Courier\Send\SendMessageParams\Message\Expiry\ExpiresIn
  * @phpstan-import-type ExpiresInShape from \Courier\Send\SendMessageParams\Message\Expiry\ExpiresIn
  *
  * @phpstan-type ExpiryShape = array{
@@ -23,6 +24,8 @@ final class Expiry implements BaseModel
 
     /**
      * Duration in ms or ISO8601 duration (e.g. P1DT4H).
+     *
+     * @var ExpiresInVariants $expiresIn
      */
     #[Required('expires_in')]
     public string|int $expiresIn;

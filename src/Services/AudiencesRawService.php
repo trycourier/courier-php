@@ -11,13 +11,16 @@ use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesRawContract;
 
+/**
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class AudiencesRawService implements AudiencesRawContract
 {
     // @phpstan-ignore-next-line
@@ -32,6 +35,7 @@ final class AudiencesRawService implements AudiencesRawContract
      * Returns the specified audience by id.
      *
      * @param string $audienceID A unique identifier representing the audience_id
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Audience>
      *
@@ -39,7 +43,7 @@ final class AudiencesRawService implements AudiencesRawContract
      */
     public function retrieve(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -57,10 +61,9 @@ final class AudiencesRawService implements AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{
-     *   description?: string|null,
-     *   filter?: Filter|array<string,mixed>|null,
-     *   name?: string|null,
+     *   description?: string|null, filter?: FilterShape|null, name?: string|null
      * }|AudienceUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceUpdateResponse>
      *
@@ -69,7 +72,7 @@ final class AudiencesRawService implements AudiencesRawContract
     public function update(
         string $audienceID,
         array|AudienceUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AudienceUpdateParams::parseRequest(
             $params,
@@ -92,6 +95,7 @@ final class AudiencesRawService implements AudiencesRawContract
      * Get the audiences associated with the authorization token.
      *
      * @param array{cursor?: string|null}|AudienceListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceListResponse>
      *
@@ -99,7 +103,7 @@ final class AudiencesRawService implements AudiencesRawContract
      */
     public function list(
         array|AudienceListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AudienceListParams::parseRequest(
             $params,
@@ -122,6 +126,7 @@ final class AudiencesRawService implements AudiencesRawContract
      * Deletes the specified audience.
      *
      * @param string $audienceID A unique identifier representing the audience id
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -129,7 +134,7 @@ final class AudiencesRawService implements AudiencesRawContract
      */
     public function delete(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -147,6 +152,7 @@ final class AudiencesRawService implements AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{cursor?: string|null}|AudienceListMembersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceListMembersResponse>
      *
@@ -155,7 +161,7 @@ final class AudiencesRawService implements AudiencesRawContract
     public function listMembers(
         string $audienceID,
         array|AudienceListMembersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AudienceListMembersParams::parseRequest(
             $params,

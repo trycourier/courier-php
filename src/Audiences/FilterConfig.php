@@ -12,8 +12,10 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * A single filter to use for filtering.
  *
  * @phpstan-import-type SingleFilterConfigShape from \Courier\Audiences\SingleFilterConfig
+ * @phpstan-import-type NestedFilterConfigShape from \Courier\Audiences\NestedFilterConfig
  *
- * @phpstan-type FilterConfigShape = SingleFilterConfigShape|NestedFilterConfig
+ * @phpstan-type FilterConfigVariants = mixed|SingleFilterConfig
+ * @phpstan-type FilterConfigShape = FilterConfigVariants|SingleFilterConfigShape|NestedFilterConfigShape
  */
 final class FilterConfig implements ConverterSource
 {

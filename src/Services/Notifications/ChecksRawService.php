@@ -8,8 +8,6 @@ use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\BaseCheck;
-use Courier\Notifications\BaseCheck\Status;
-use Courier\Notifications\BaseCheck\Type;
 use Courier\Notifications\Checks\CheckDeleteParams;
 use Courier\Notifications\Checks\CheckListParams;
 use Courier\Notifications\Checks\CheckListResponse;
@@ -18,6 +16,10 @@ use Courier\Notifications\Checks\CheckUpdateResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\ChecksRawContract;
 
+/**
+ * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ChecksRawService implements ChecksRawContract
 {
     // @phpstan-ignore-next-line
@@ -31,13 +33,9 @@ final class ChecksRawService implements ChecksRawContract
      *
      * @param string $submissionID Path param:
      * @param array{
-     *   id: string,
-     *   checks: list<array{
-     *     id: string,
-     *     status: 'RESOLVED'|'FAILED'|'PENDING'|Status,
-     *     type: 'custom'|Type,
-     *   }|BaseCheck>,
+     *   id: string, checks: list<BaseCheck|BaseCheckShape>
      * }|CheckUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<CheckUpdateResponse>
      *
@@ -46,7 +44,7 @@ final class ChecksRawService implements ChecksRawContract
     public function update(
         string $submissionID,
         array|CheckUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = CheckUpdateParams::parseRequest(
             $params,
@@ -69,6 +67,7 @@ final class ChecksRawService implements ChecksRawContract
      * @api
      *
      * @param array{id: string}|CheckListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<CheckListResponse>
      *
@@ -77,7 +76,7 @@ final class ChecksRawService implements ChecksRawContract
     public function list(
         string $submissionID,
         array|CheckListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = CheckListParams::parseRequest(
             $params,
@@ -99,6 +98,7 @@ final class ChecksRawService implements ChecksRawContract
      * @api
      *
      * @param array{id: string}|CheckDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -107,7 +107,7 @@ final class ChecksRawService implements ChecksRawContract
     public function delete(
         string $submissionID,
         array|CheckDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = CheckDeleteParams::parseRequest(
             $params,

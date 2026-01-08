@@ -12,6 +12,9 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuthRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class AuthRawService implements AuthRawContract
 {
     // @phpstan-ignore-next-line
@@ -26,6 +29,7 @@ final class AuthRawService implements AuthRawContract
      * Returns a new access token.
      *
      * @param array{expiresIn: string, scope: string}|AuthIssueTokenParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuthIssueTokenResponse>
      *
@@ -33,7 +37,7 @@ final class AuthRawService implements AuthRawContract
      */
     public function issueToken(
         array|AuthIssueTokenParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AuthIssueTokenParams::parseRequest(
             $params,

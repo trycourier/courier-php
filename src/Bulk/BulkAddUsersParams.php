@@ -21,7 +21,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-import-type InboundBulkMessageUserShape from \Courier\Bulk\InboundBulkMessageUser
  *
  * @phpstan-type BulkAddUsersParamsShape = array{
- *   users: list<InboundBulkMessageUserShape>
+ *   users: list<InboundBulkMessageUser|InboundBulkMessageUserShape>
  * }
  */
 final class BulkAddUsersParams implements BaseModel
@@ -58,7 +58,7 @@ final class BulkAddUsersParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<InboundBulkMessageUserShape> $users
+     * @param list<InboundBulkMessageUser|InboundBulkMessageUserShape> $users
      */
     public static function with(array $users): self
     {
@@ -70,7 +70,7 @@ final class BulkAddUsersParams implements BaseModel
     }
 
     /**
-     * @param list<InboundBulkMessageUserShape> $users
+     * @param list<InboundBulkMessageUser|InboundBulkMessageUserShape> $users
      */
     public function withUsers(array $users): self
     {

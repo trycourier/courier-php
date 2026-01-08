@@ -11,12 +11,16 @@ use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface NotificationsRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|NotificationListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<NotificationListResponse>
      *
@@ -24,11 +28,13 @@ interface NotificationsRawContract
      */
     public function list(
         array|NotificationListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<NotificationGetContent>
      *
@@ -36,6 +42,6 @@ interface NotificationsRawContract
      */
     public function retrieveContent(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

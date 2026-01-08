@@ -13,12 +13,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface BrandsRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|BrandCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -26,13 +30,14 @@ interface BrandsRawContract
      */
     public function create(
         array|BrandCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -40,7 +45,7 @@ interface BrandsRawContract
      */
     public function retrieve(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -48,6 +53,7 @@ interface BrandsRawContract
      *
      * @param string $brandID a unique identifier associated with the brand you wish to update
      * @param array<string,mixed>|BrandUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -56,13 +62,14 @@ interface BrandsRawContract
     public function update(
         string $brandID,
         array|BrandUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|BrandListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BrandListResponse>
      *
@@ -70,13 +77,14 @@ interface BrandsRawContract
      */
     public function list(
         array|BrandListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -84,6 +92,6 @@ interface BrandsRawContract
      */
     public function delete(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

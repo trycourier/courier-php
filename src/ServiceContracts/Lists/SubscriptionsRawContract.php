@@ -14,6 +14,9 @@ use Courier\Lists\Subscriptions\SubscriptionSubscribeUserParams;
 use Courier\Lists\Subscriptions\SubscriptionUnsubscribeUserParams;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface SubscriptionsRawContract
 {
     /**
@@ -21,6 +24,7 @@ interface SubscriptionsRawContract
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array<string,mixed>|SubscriptionListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<SubscriptionListResponse>
      *
@@ -29,7 +33,7 @@ interface SubscriptionsRawContract
     public function list(
         string $listID,
         array|SubscriptionListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -37,6 +41,7 @@ interface SubscriptionsRawContract
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array<string,mixed>|SubscriptionAddParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -45,7 +50,7 @@ interface SubscriptionsRawContract
     public function add(
         string $listID,
         array|SubscriptionAddParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -53,6 +58,7 @@ interface SubscriptionsRawContract
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array<string,mixed>|SubscriptionSubscribeParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -61,7 +67,7 @@ interface SubscriptionsRawContract
     public function subscribe(
         string $listID,
         array|SubscriptionSubscribeParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -69,6 +75,7 @@ interface SubscriptionsRawContract
      *
      * @param string $userID Path param: A unique identifier representing the recipient associated with the list
      * @param array<string,mixed>|SubscriptionSubscribeUserParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -77,7 +84,7 @@ interface SubscriptionsRawContract
     public function subscribeUser(
         string $userID,
         array|SubscriptionSubscribeUserParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -85,6 +92,7 @@ interface SubscriptionsRawContract
      *
      * @param string $userID A unique identifier representing the recipient associated with the list
      * @param array<string,mixed>|SubscriptionUnsubscribeUserParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -93,6 +101,6 @@ interface SubscriptionsRawContract
     public function unsubscribeUser(
         string $userID,
         array|SubscriptionUnsubscribeUserParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

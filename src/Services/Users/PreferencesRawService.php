@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Services\Users;
 
-use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
-use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesRawContract;
 use Courier\Users\Preferences\PreferenceGetResponse;
@@ -17,8 +15,13 @@ use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceRetrieveParams;
 use Courier\Users\Preferences\PreferenceRetrieveTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
+use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 
+/**
+ * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class PreferencesRawService implements PreferencesRawContract
 {
     // @phpstan-ignore-next-line
@@ -34,6 +37,7 @@ final class PreferencesRawService implements PreferencesRawContract
      *
      * @param string $userID a unique identifier associated with the user whose preferences you wish to retrieve
      * @param array{tenantID?: string|null}|PreferenceRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceGetResponse>
      *
@@ -42,7 +46,7 @@ final class PreferencesRawService implements PreferencesRawContract
     public function retrieve(
         string $userID,
         array|PreferenceRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PreferenceRetrieveParams::parseRequest(
             $params,
@@ -68,6 +72,7 @@ final class PreferencesRawService implements PreferencesRawContract
      * @param array{
      *   userID: string, tenantID?: string|null
      * }|PreferenceRetrieveTopicParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceGetTopicResponse>
      *
@@ -76,7 +81,7 @@ final class PreferencesRawService implements PreferencesRawContract
     public function retrieveTopic(
         string $topicID,
         array|PreferenceRetrieveTopicParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PreferenceRetrieveTopicParams::parseRequest(
             $params,
@@ -102,14 +107,9 @@ final class PreferencesRawService implements PreferencesRawContract
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param array{
-     *   userID: string,
-     *   topic: array{
-     *     status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *     customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *     hasCustomRouting?: bool|null,
-     *   },
-     *   tenantID?: string|null,
+     *   userID: string, topic: Topic|TopicShape, tenantID?: string|null
      * }|PreferenceUpdateOrCreateTopicParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceUpdateOrNewTopicResponse>
      *
@@ -118,7 +118,7 @@ final class PreferencesRawService implements PreferencesRawContract
     public function updateOrCreateTopic(
         string $topicID,
         array|PreferenceUpdateOrCreateTopicParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = PreferenceUpdateOrCreateTopicParams::parseRequest(
             $params,

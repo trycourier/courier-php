@@ -10,6 +10,9 @@ use Courier\RequestOptions;
 use Courier\Translations\TranslationRetrieveParams;
 use Courier\Translations\TranslationUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface TranslationsRawContract
 {
     /**
@@ -17,6 +20,7 @@ interface TranslationsRawContract
      *
      * @param string $locale The locale you want to retrieve the translations for
      * @param array<string,mixed>|TranslationRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<string>
      *
@@ -25,7 +29,7 @@ interface TranslationsRawContract
     public function retrieve(
         string $locale,
         array|TranslationRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -33,6 +37,7 @@ interface TranslationsRawContract
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param array<string,mixed>|TranslationUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -41,6 +46,6 @@ interface TranslationsRawContract
     public function update(
         string $locale,
         array|TranslationUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

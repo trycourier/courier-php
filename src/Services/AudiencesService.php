@@ -8,13 +8,18 @@ use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter;
+use Courier\Audiences\NestedFilterConfig;
+use Courier\Audiences\SingleFilterConfig;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
 
+/**
+ * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class AudiencesService implements AudiencesContract
 {
     /**
@@ -36,12 +41,13 @@ final class AudiencesService implements AudiencesContract
      * Returns the specified audience by id.
      *
      * @param string $audienceID A unique identifier representing the audience_id
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Audience {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($audienceID, requestOptions: $requestOptions);
@@ -56,17 +62,18 @@ final class AudiencesService implements AudiencesContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $description A description of the audience
-     * @param Filter|array<string,mixed>|null $filter A single filter to use for filtering
+     * @param FilterShape|null $filter A single filter to use for filtering
      * @param string|null $name The name of the audience
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function update(
         string $audienceID,
         ?string $description = null,
-        Filter|array|null $filter = null,
+        SingleFilterConfig|array|NestedFilterConfig|null $filter = null,
         ?string $name = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): AudienceUpdateResponse {
         $params = Util::removeNulls(
             ['description' => $description, 'filter' => $filter, 'name' => $name]
@@ -84,12 +91,13 @@ final class AudiencesService implements AudiencesContract
      * Get the audiences associated with the authorization token.
      *
      * @param string|null $cursor A unique identifier that allows for fetching the next set of audiences
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function list(
         ?string $cursor = null,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): AudienceListResponse {
         $params = Util::removeNulls(['cursor' => $cursor]);
 
@@ -105,12 +113,13 @@ final class AudiencesService implements AudiencesContract
      * Deletes the specified audience.
      *
      * @param string $audienceID A unique identifier representing the audience id
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($audienceID, requestOptions: $requestOptions);
@@ -125,13 +134,14 @@ final class AudiencesService implements AudiencesContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $cursor A unique identifier that allows for fetching the next set of members
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function listMembers(
         string $audienceID,
         ?string $cursor = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): AudienceListMembersResponse {
         $params = Util::removeNulls(['cursor' => $cursor]);
 

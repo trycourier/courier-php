@@ -12,7 +12,8 @@ use Courier\Notifications\NotificationGetContent\Block\Locale\NotificationConten
 /**
  * @phpstan-import-type NotificationContentHierarchyShape from \Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy
  *
- * @phpstan-type LocaleShape = string|NotificationContentHierarchyShape
+ * @phpstan-type LocaleVariants = string|NotificationContentHierarchy
+ * @phpstan-type LocaleShape = LocaleVariants|NotificationContentHierarchyShape
  */
 final class Locale implements ConverterSource
 {

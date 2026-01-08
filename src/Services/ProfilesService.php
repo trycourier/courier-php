@@ -10,10 +10,15 @@ use Courier\Core\Util;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
 use Courier\Profiles\ProfileReplaceResponse;
+use Courier\Profiles\ProfileUpdateParams\Patch;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProfilesContract;
 use Courier\Services\Profiles\ListsService;
 
+/**
+ * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ProfilesService implements ProfilesContract
 {
     /**
@@ -42,13 +47,14 @@ final class ProfilesService implements ProfilesContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param array<string,mixed> $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function create(
         string $userID,
         array $profile,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): ProfileNewResponse {
         $params = Util::removeNulls(['profile' => $profile]);
 
@@ -64,12 +70,13 @@ final class ProfilesService implements ProfilesContract
      * Returns the specified user profile.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): ProfileGetResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($userID, requestOptions: $requestOptions);
@@ -83,16 +90,15 @@ final class ProfilesService implements ProfilesContract
      * Update a profile
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param list<array{
-     *   op: string, path: string, value: string
-     * }> $patch List of patch operations to apply to the profile
+     * @param list<Patch|PatchShape> $patch list of patch operations to apply to the profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function update(
         string $userID,
         array $patch,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(['patch' => $patch]);
 
@@ -108,12 +114,13 @@ final class ProfilesService implements ProfilesContract
      * Deletes the specified user profile.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($userID, requestOptions: $requestOptions);
@@ -131,13 +138,14 @@ final class ProfilesService implements ProfilesContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed> $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
         array $profile,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): ProfileReplaceResponse {
         $params = Util::removeNulls(['profile' => $profile]);
 

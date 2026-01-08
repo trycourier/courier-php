@@ -15,8 +15,8 @@ use Courier\Notifications\NotificationGetContent\Channel;
  * @phpstan-import-type ChannelShape from \Courier\Notifications\NotificationGetContent\Channel
  *
  * @phpstan-type NotificationGetContentShape = array{
- *   blocks?: list<BlockShape>|null,
- *   channels?: list<ChannelShape>|null,
+ *   blocks?: list<Block|BlockShape>|null,
+ *   channels?: list<Channel|ChannelShape>|null,
  *   checksum?: string|null,
  * }
  */
@@ -46,8 +46,8 @@ final class NotificationGetContent implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BlockShape>|null $blocks
-     * @param list<ChannelShape>|null $channels
+     * @param list<Block|BlockShape>|null $blocks
+     * @param list<Channel|ChannelShape>|null $channels
      */
     public static function with(
         ?array $blocks = null,
@@ -64,7 +64,7 @@ final class NotificationGetContent implements BaseModel
     }
 
     /**
-     * @param list<BlockShape>|null $blocks
+     * @param list<Block|BlockShape>|null $blocks
      */
     public function withBlocks(?array $blocks): self
     {
@@ -75,7 +75,7 @@ final class NotificationGetContent implements BaseModel
     }
 
     /**
-     * @param list<ChannelShape>|null $channels
+     * @param list<Channel|ChannelShape>|null $channels
      */
     public function withChannels(?array $channels): self
     {

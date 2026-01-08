@@ -13,6 +13,9 @@ use Courier\Notifications\NotificationListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class NotificationsRawService implements NotificationsRawContract
 {
     // @phpstan-ignore-next-line
@@ -27,6 +30,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * @param array{
      *   cursor?: string|null, notes?: bool|null
      * }|NotificationListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<NotificationListResponse>
      *
@@ -34,7 +38,7 @@ final class NotificationsRawService implements NotificationsRawContract
      */
     public function list(
         array|NotificationListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = NotificationListParams::parseRequest(
             $params,
@@ -54,13 +58,15 @@ final class NotificationsRawService implements NotificationsRawContract
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<NotificationGetContent>
      *
      * @throws APIException
      */
     public function retrieveContent(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

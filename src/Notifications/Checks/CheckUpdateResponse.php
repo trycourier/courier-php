@@ -12,7 +12,7 @@ use Courier\Notifications\Check;
 /**
  * @phpstan-import-type CheckShape from \Courier\Notifications\Check
  *
- * @phpstan-type CheckUpdateResponseShape = array{checks: list<CheckShape>}
+ * @phpstan-type CheckUpdateResponseShape = array{checks: list<Check|CheckShape>}
  */
 final class CheckUpdateResponse implements BaseModel
 {
@@ -47,7 +47,7 @@ final class CheckUpdateResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<CheckShape> $checks
+     * @param list<Check|CheckShape> $checks
      */
     public static function with(array $checks): self
     {
@@ -59,7 +59,7 @@ final class CheckUpdateResponse implements BaseModel
     }
 
     /**
-     * @param list<CheckShape> $checks
+     * @param list<Check|CheckShape> $checks
      */
     public function withChecks(array $checks): self
     {

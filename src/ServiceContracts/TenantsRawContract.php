@@ -14,12 +14,16 @@ use Courier\Tenants\TenantListUsersParams;
 use Courier\Tenants\TenantListUsersResponse;
 use Courier\Tenants\TenantUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface TenantsRawContract
 {
     /**
      * @api
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Tenant>
      *
@@ -27,7 +31,7 @@ interface TenantsRawContract
      */
     public function retrieve(
         string $tenantID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -35,6 +39,7 @@ interface TenantsRawContract
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
      * @param array<string,mixed>|TenantUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Tenant>
      *
@@ -43,13 +48,14 @@ interface TenantsRawContract
     public function update(
         string $tenantID,
         array|TenantUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|TenantListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TenantListResponse>
      *
@@ -57,13 +63,14 @@ interface TenantsRawContract
      */
     public function list(
         array|TenantListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $tenantID id of the tenant to be deleted
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -71,7 +78,7 @@ interface TenantsRawContract
      */
     public function delete(
         string $tenantID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -79,6 +86,7 @@ interface TenantsRawContract
      *
      * @param string $tenantID id of the tenant for user membership
      * @param array<string,mixed>|TenantListUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TenantListUsersResponse>
      *
@@ -87,6 +95,6 @@ interface TenantsRawContract
     public function listUsers(
         string $tenantID,
         array|TenantListUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

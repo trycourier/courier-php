@@ -8,6 +8,9 @@ use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface AuthContract
 {
     /**
@@ -34,12 +37,13 @@ interface AuthContract
      * - `read:preferences` - Read user preferences.
      * - `write:preferences` - Write user preferences.
      * Example: `user_id:user123 write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands`
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function issueToken(
         string $expiresIn,
         string $scope,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): AuthIssueTokenResponse;
 }

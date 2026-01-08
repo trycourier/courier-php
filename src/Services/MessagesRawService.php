@@ -18,6 +18,9 @@ use Courier\Messages\MessageListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\MessagesRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class MessagesRawService implements MessagesRawContract
 {
     // @phpstan-ignore-next-line
@@ -32,6 +35,7 @@ final class MessagesRawService implements MessagesRawContract
      * Fetch the status of a message you've previously sent.
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageGetResponse>
      *
@@ -39,7 +43,7 @@ final class MessagesRawService implements MessagesRawContract
      */
     public function retrieve(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -71,6 +75,7 @@ final class MessagesRawService implements MessagesRawContract
      *   tenantID?: string|null,
      *   traceID?: string|null,
      * }|MessageListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageListResponse>
      *
@@ -78,7 +83,7 @@ final class MessagesRawService implements MessagesRawContract
      */
     public function list(
         array|MessageListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = MessageListParams::parseRequest(
             $params,
@@ -109,6 +114,7 @@ final class MessagesRawService implements MessagesRawContract
      * Cancel a message that is currently in the process of being delivered. A well-formatted API call to the cancel message API will return either `200` status code for a successful cancellation or `409` status code for an unsuccessful cancellation. Both cases will include the actual message record in the response body (see details below).
      *
      * @param string $messageID A unique identifier representing the message ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageDetails>
      *
@@ -116,7 +122,7 @@ final class MessagesRawService implements MessagesRawContract
      */
     public function cancel(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -133,6 +139,7 @@ final class MessagesRawService implements MessagesRawContract
      * Get message content
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageContentResponse>
      *
@@ -140,7 +147,7 @@ final class MessagesRawService implements MessagesRawContract
      */
     public function content(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -158,6 +165,7 @@ final class MessagesRawService implements MessagesRawContract
      *
      * @param string $messageID A unique identifier representing the message ID
      * @param array{type?: string|null}|MessageHistoryParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageHistoryResponse>
      *
@@ -166,7 +174,7 @@ final class MessagesRawService implements MessagesRawContract
     public function history(
         string $messageID,
         array|MessageHistoryParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = MessageHistoryParams::parseRequest(
             $params,

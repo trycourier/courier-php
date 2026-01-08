@@ -15,6 +15,9 @@ use Courier\Messages\MessageListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\MessagesContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class MessagesService implements MessagesContract
 {
     /**
@@ -36,12 +39,13 @@ final class MessagesService implements MessagesContract
      * Fetch the status of a message you've previously sent.
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageGetResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($messageID, requestOptions: $requestOptions);
@@ -68,6 +72,7 @@ final class MessagesService implements MessagesContract
      * @param string|null $tags A comma delimited list of 'tags'. Messages will be returned if they match any of the tags passed in.
      * @param string|null $tenantID Messages sent with the context of a Tenant
      * @param string|null $traceID The unique identifier used to trace the requests
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -86,7 +91,7 @@ final class MessagesService implements MessagesContract
         ?string $tags = null,
         ?string $tenantID = null,
         ?string $traceID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): MessageListResponse {
         $params = Util::removeNulls(
             [
@@ -119,12 +124,13 @@ final class MessagesService implements MessagesContract
      * Cancel a message that is currently in the process of being delivered. A well-formatted API call to the cancel message API will return either `200` status code for a successful cancellation or `409` status code for an unsuccessful cancellation. Both cases will include the actual message record in the response body (see details below).
      *
      * @param string $messageID A unique identifier representing the message ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function cancel(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageDetails {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->cancel($messageID, requestOptions: $requestOptions);
@@ -138,12 +144,13 @@ final class MessagesService implements MessagesContract
      * Get message content
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function content(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageContentResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->content($messageID, requestOptions: $requestOptions);
@@ -158,13 +165,14 @@ final class MessagesService implements MessagesContract
      *
      * @param string $messageID A unique identifier representing the message ID
      * @param string|null $type a supported Message History type that will filter the events returned
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function history(
         string $messageID,
         ?string $type = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): MessageHistoryResponse {
         $params = Util::removeNulls(['type' => $type]);
 

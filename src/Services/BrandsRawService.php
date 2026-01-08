@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Brands\Brand;
-use Courier\Brands\BrandColors;
 use Courier\Brands\BrandCreateParams;
 use Courier\Brands\BrandListParams;
 use Courier\Brands\BrandListResponse;
 use Courier\Brands\BrandSettings;
-use Courier\Brands\BrandSettingsEmail;
-use Courier\Brands\BrandSettingsInApp;
-use Courier\Brands\BrandSnippet;
 use Courier\Brands\BrandSnippets;
 use Courier\Brands\BrandUpdateParams;
 use Courier\Client;
@@ -21,6 +17,11 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsRawContract;
 
+/**
+ * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
+ * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class BrandsRawService implements BrandsRawContract
 {
     // @phpstan-ignore-next-line
@@ -37,15 +38,10 @@ final class BrandsRawService implements BrandsRawContract
      * @param array{
      *   name: string,
      *   id?: string|null,
-     *   settings?: array{
-     *     colors?: array<string,mixed>|BrandColors|null,
-     *     email?: array<string,mixed>|BrandSettingsEmail|null,
-     *     inapp?: array<string,mixed>|BrandSettingsInApp|null,
-     *   }|BrandSettings|null,
-     *   snippets?: array{
-     *     items?: list<array<string,mixed>|BrandSnippet>|null
-     *   }|BrandSnippets|null,
+     *   settings?: BrandSettings|BrandSettingsShape|null,
+     *   snippets?: BrandSnippets|BrandSnippetsShape|null,
      * }|BrandCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -53,7 +49,7 @@ final class BrandsRawService implements BrandsRawContract
      */
     public function create(
         array|BrandCreateParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BrandCreateParams::parseRequest(
             $params,
@@ -76,6 +72,7 @@ final class BrandsRawService implements BrandsRawContract
      * Fetch a specific brand by brand ID.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -83,7 +80,7 @@ final class BrandsRawService implements BrandsRawContract
      */
     public function retrieve(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -102,15 +99,10 @@ final class BrandsRawService implements BrandsRawContract
      * @param string $brandID a unique identifier associated with the brand you wish to update
      * @param array{
      *   name: string,
-     *   settings?: array{
-     *     colors?: array<string,mixed>|BrandColors|null,
-     *     email?: array<string,mixed>|BrandSettingsEmail|null,
-     *     inapp?: array<string,mixed>|BrandSettingsInApp|null,
-     *   }|BrandSettings|null,
-     *   snippets?: array{
-     *     items?: list<array<string,mixed>|BrandSnippet>|null
-     *   }|BrandSnippets|null,
+     *   settings?: BrandSettings|BrandSettingsShape|null,
+     *   snippets?: BrandSnippets|BrandSnippetsShape|null,
      * }|BrandUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Brand>
      *
@@ -119,7 +111,7 @@ final class BrandsRawService implements BrandsRawContract
     public function update(
         string $brandID,
         array|BrandUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BrandUpdateParams::parseRequest(
             $params,
@@ -142,6 +134,7 @@ final class BrandsRawService implements BrandsRawContract
      * Get the list of brands.
      *
      * @param array{cursor?: string|null}|BrandListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BrandListResponse>
      *
@@ -149,7 +142,7 @@ final class BrandsRawService implements BrandsRawContract
      */
     public function list(
         array|BrandListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = BrandListParams::parseRequest(
             $params,
@@ -172,6 +165,7 @@ final class BrandsRawService implements BrandsRawContract
      * Delete a brand by brand ID.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -179,7 +173,7 @@ final class BrandsRawService implements BrandsRawContract
      */
     public function delete(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

@@ -24,7 +24,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type AutomationFetchDataStepShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep
  * @phpstan-import-type AutomationInvokeStepShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep
  *
- * @phpstan-type StepShape = AutomationDelayStepShape|AutomationSendStepShape|AutomationSendListStepShape|AutomationUpdateProfileStepShape|AutomationCancelStepShape|AutomationFetchDataStepShape|AutomationInvokeStepShape
+ * @phpstan-type StepVariants = AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep
+ * @phpstan-type StepShape = StepVariants|AutomationDelayStepShape|AutomationSendStepShape|AutomationSendListStepShape|AutomationUpdateProfileStepShape|AutomationCancelStepShape|AutomationFetchDataStepShape|AutomationInvokeStepShape
  */
 final class Step implements ConverterSource
 {

@@ -11,12 +11,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface InvokeRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|InvokeInvokeAdHocParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AutomationInvokeResponse>
      *
@@ -24,7 +28,7 @@ interface InvokeRawContract
      */
     public function invokeAdHoc(
         array|InvokeInvokeAdHocParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -32,6 +36,7 @@ interface InvokeRawContract
      *
      * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
      * @param array<string,mixed>|InvokeInvokeByTemplateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AutomationInvokeResponse>
      *
@@ -40,6 +45,6 @@ interface InvokeRawContract
     public function invokeByTemplate(
         string $templateID,
         array|InvokeInvokeByTemplateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

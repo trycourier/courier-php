@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Courier\Services\Profiles;
 
-use Courier\ChannelClassification;
-use Courier\ChannelPreference;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
-use Courier\NotificationPreferenceDetails;
-use Courier\PreferenceStatus;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListSubscribeResponse;
-use Courier\RecipientPreferences;
+use Courier\Profiles\SubscribeToListsRequestItem;
 use Courier\RequestOptions;
-use Courier\Rule;
 use Courier\ServiceContracts\Profiles\ListsContract;
 
+/**
+ * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ListsService implements ListsContract
 {
     /**
@@ -41,13 +40,14 @@ final class ListsService implements ListsContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param string|null $cursor a unique identifier that allows for fetching the next set of message statuses
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
         ?string $cursor = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): ListGetResponse {
         $params = Util::removeNulls(['cursor' => $cursor]);
 
@@ -63,12 +63,13 @@ final class ListsService implements ListsContract
      * Removes all list subscriptions for given user.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): ListDeleteResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($userID, requestOptions: $requestOptions);
@@ -82,32 +83,15 @@ final class ListsService implements ListsContract
      * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param list<array{
-     *   listID: string,
-     *   preferences?: array{
-     *     categories?: array<string,array{
-     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *       channelPreferences?: list<array{
-     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *       }|ChannelPreference>|null,
-     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *     }|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array{
-     *       status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *       channelPreferences?: list<array{
-     *         channel: 'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification,
-     *       }|ChannelPreference>|null,
-     *       rules?: list<array{until: string, start?: string|null}|Rule>|null,
-     *     }|NotificationPreferenceDetails>|null,
-     *   }|RecipientPreferences|null,
-     * }> $lists
+     * @param list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape> $lists
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function subscribe(
         string $userID,
         array $lists,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): ListSubscribeResponse {
         $params = Util::removeNulls(['lists' => $lists]);
 

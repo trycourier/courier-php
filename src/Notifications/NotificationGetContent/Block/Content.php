@@ -12,7 +12,8 @@ use Courier\Notifications\NotificationGetContent\Block\Content\NotificationConte
 /**
  * @phpstan-import-type NotificationContentHierarchyShape from \Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy
  *
- * @phpstan-type ContentShape = string|NotificationContentHierarchyShape
+ * @phpstan-type ContentVariants = string|NotificationContentHierarchy
+ * @phpstan-type ContentShape = ContentVariants|NotificationContentHierarchyShape
  */
 final class Content implements ConverterSource
 {

@@ -14,7 +14,7 @@ use Courier\Paging;
  * @phpstan-import-type BrandShape from \Courier\Brands\Brand
  *
  * @phpstan-type BrandListResponseShape = array{
- *   paging: Paging|PagingShape, results: list<BrandShape>
+ *   paging: Paging|PagingShape, results: list<Brand|BrandShape>
  * }
  */
 final class BrandListResponse implements BaseModel
@@ -54,7 +54,7 @@ final class BrandListResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Paging|PagingShape $paging
-     * @param list<BrandShape> $results
+     * @param list<Brand|BrandShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -78,7 +78,7 @@ final class BrandListResponse implements BaseModel
     }
 
     /**
-     * @param list<BrandShape> $results
+     * @param list<Brand|BrandShape> $results
      */
     public function withResults(array $results): self
     {

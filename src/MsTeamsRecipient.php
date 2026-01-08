@@ -11,6 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Send via Microsoft Teams.
  *
+ * @phpstan-import-type MsTeamsVariants from \Courier\MsTeams
  * @phpstan-import-type MsTeamsShape from \Courier\MsTeams
  *
  * @phpstan-type MsTeamsRecipientShape = array{msTeams: MsTeamsShape}
@@ -20,6 +21,7 @@ final class MsTeamsRecipient implements BaseModel
     /** @use SdkModel<MsTeamsRecipientShape> */
     use SdkModel;
 
+    /** @var MsTeamsVariants $msTeams */
     #[Required('ms_teams')]
     public SendToMsTeamsUserID|SendToMsTeamsEmail|SendToMsTeamsChannelID|SendToMsTeamsConversationID|SendToMsTeamsChannelName $msTeams;
 

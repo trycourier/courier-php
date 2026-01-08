@@ -12,10 +12,14 @@ use Courier\Profiles\Lists\ListGetResponse;
 use Courier\Profiles\Lists\ListRetrieveParams;
 use Courier\Profiles\Lists\ListSubscribeParams;
 use Courier\Profiles\Lists\ListSubscribeResponse;
-use Courier\RecipientPreferences;
+use Courier\Profiles\SubscribeToListsRequestItem;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Profiles\ListsRawContract;
 
+/**
+ * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ListsRawService implements ListsRawContract
 {
     // @phpstan-ignore-next-line
@@ -31,6 +35,7 @@ final class ListsRawService implements ListsRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{cursor?: string|null}|ListRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListGetResponse>
      *
@@ -39,7 +44,7 @@ final class ListsRawService implements ListsRawContract
     public function retrieve(
         string $userID,
         array|ListRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ListRetrieveParams::parseRequest(
             $params,
@@ -62,6 +67,7 @@ final class ListsRawService implements ListsRawContract
      * Removes all list subscriptions for given user.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListDeleteResponse>
      *
@@ -69,7 +75,7 @@ final class ListsRawService implements ListsRawContract
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -87,10 +93,9 @@ final class ListsRawService implements ListsRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{
-     *   lists: list<array{
-     *     listID: string, preferences?: array<string,mixed>|RecipientPreferences|null
-     *   }>,
+     *   lists: list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape>
      * }|ListSubscribeParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListSubscribeResponse>
      *
@@ -99,7 +104,7 @@ final class ListsRawService implements ListsRawContract
     public function subscribe(
         string $userID,
         array|ListSubscribeParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ListSubscribeParams::parseRequest(
             $params,

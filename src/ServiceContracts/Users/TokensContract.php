@@ -6,10 +6,20 @@ namespace Courier\ServiceContracts\Users;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\Users\Tokens\TokenAddSingleParams\Device;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
+use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenListResponse;
+use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
+/**
+ * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
+ * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\TokenAddSingleParams\Device
+ * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate
+ * @phpstan-import-type TrackingShape from \Courier\Users\Tokens\TokenAddSingleParams\Tracking
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface TokensContract
 {
     /**
@@ -17,13 +27,14 @@ interface TokensContract
      *
      * @param string $token the full token string
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $token,
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): TokenGetResponse;
 
     /**
@@ -31,9 +42,8 @@ interface TokensContract
      *
      * @param string $token path param: The full token string
      * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
-     * @param list<array{
-     *   op: string, path: string, value?: string|null
-     * }> $patch Body param:
+     * @param list<Patch|PatchShape> $patch Body param:
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -41,19 +51,20 @@ interface TokensContract
         string $token,
         string $userID,
         array $patch,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function list(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): TokenListResponse;
 
     /**
@@ -61,25 +72,27 @@ interface TokensContract
      *
      * @param string $token the full token string
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $token,
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function addMultiple(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed;
 
     /**
@@ -88,23 +101,12 @@ interface TokensContract
      * @param string $token_ path param: The full token string
      * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
      * @param string $token Body param: Full body of the token. Must match token in URL path parameter.
-     * @param 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey $providerKey Body param:
-     * @param array{
-     *   adID?: string|null,
-     *   appID?: string|null,
-     *   deviceID?: string|null,
-     *   manufacturer?: string|null,
-     *   model?: string|null,
-     *   platform?: string|null,
-     * }|null $device Body param: Information about the device the token came from
-     * @param string|bool|null $expiryDate Body param: ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     * @param ProviderKey|value-of<ProviderKey> $providerKey Body param:
+     * @param Device|DeviceShape|null $device body param: Information about the device the token came from
+     * @param ExpiryDateShape|null $expiryDate Body param: ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
      * @param mixed $properties body param: Properties about the token
-     * @param array{
-     *   ip?: string|null,
-     *   lat?: string|null,
-     *   long?: string|null,
-     *   osVersion?: string|null,
-     * }|null $tracking Body param: Tracking information about the device the token came from
+     * @param Tracking|TrackingShape|null $tracking body param: Tracking information about the device the token came from
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -112,11 +114,11 @@ interface TokensContract
         string $token_,
         string $userID,
         string $token,
-        string|ProviderKey $providerKey,
-        ?array $device = null,
+        ProviderKey|string $providerKey,
+        Device|array|null $device = null,
         string|bool|null $expiryDate = null,
         mixed $properties = null,
-        ?array $tracking = null,
-        ?RequestOptions $requestOptions = null,
+        Tracking|array|null $tracking = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 }

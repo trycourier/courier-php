@@ -10,12 +10,16 @@ use Courier\RequestOptions;
 use Courier\Send\SendMessageParams;
 use Courier\Send\SendMessageResponse;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface SendRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|SendMessageParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<SendMessageResponse>
      *
@@ -23,6 +27,6 @@ interface SendRawContract
      */
     public function message(
         array|SendMessageParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

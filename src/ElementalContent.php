@@ -10,6 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type ElementalNodeVariants from \Courier\ElementalNode
  * @phpstan-import-type ElementalNodeShape from \Courier\ElementalNode
  *
  * @phpstan-type ElementalContentShape = array{
@@ -21,9 +22,7 @@ final class ElementalContent implements BaseModel
     /** @use SdkModel<ElementalContentShape> */
     use SdkModel;
 
-    /**
-     * @var list<ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType> $elements
-     */
+    /** @var list<ElementalNodeVariants> $elements */
     #[Required(list: ElementalNode::class)]
     public array $elements;
 

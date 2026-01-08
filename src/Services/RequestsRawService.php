@@ -10,6 +10,9 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\RequestsRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class RequestsRawService implements RequestsRawContract
 {
     // @phpstan-ignore-next-line
@@ -24,6 +27,7 @@ final class RequestsRawService implements RequestsRawContract
      * Archive message
      *
      * @param string $requestID A unique identifier representing the request ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -31,7 +35,7 @@ final class RequestsRawService implements RequestsRawContract
      */
     public function archive(
         string $requestID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

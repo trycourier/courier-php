@@ -13,6 +13,9 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class AuditEventsRawService implements AuditEventsRawContract
 {
     // @phpstan-ignore-next-line
@@ -27,6 +30,7 @@ final class AuditEventsRawService implements AuditEventsRawContract
      * Fetch a specific audit event by ID.
      *
      * @param string $auditEventID A unique identifier associated with the audit event you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuditEvent>
      *
@@ -34,7 +38,7 @@ final class AuditEventsRawService implements AuditEventsRawContract
      */
     public function retrieve(
         string $auditEventID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -51,6 +55,7 @@ final class AuditEventsRawService implements AuditEventsRawContract
      * Fetch the list of audit events
      *
      * @param array{cursor?: string|null}|AuditEventListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuditEventListResponse>
      *
@@ -58,7 +63,7 @@ final class AuditEventsRawService implements AuditEventsRawContract
      */
     public function list(
         array|AuditEventListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = AuditEventListParams::parseRequest(
             $params,

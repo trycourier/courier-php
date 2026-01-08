@@ -5,19 +5,13 @@ declare(strict_types=1);
 namespace Courier\Automations\Invoke\InvokeInvokeAdHocParams;
 
 use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationCancelStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationDelayStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationFetchDataStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationInvokeStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendListStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationSendStep;
-use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step\AutomationUpdateProfileStep;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type StepVariants from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step
  * @phpstan-import-type StepShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation\Step
  *
  * @phpstan-type AutomationShape = array{
@@ -29,9 +23,7 @@ final class Automation implements BaseModel
     /** @use SdkModel<AutomationShape> */
     use SdkModel;
 
-    /**
-     * @var list<AutomationDelayStep|AutomationSendStep|AutomationSendListStep|AutomationUpdateProfileStep|AutomationCancelStep|AutomationFetchDataStep|AutomationInvokeStep> $steps
-     */
+    /** @var list<StepVariants> $steps */
     #[Required(list: Step::class)]
     public array $steps;
 

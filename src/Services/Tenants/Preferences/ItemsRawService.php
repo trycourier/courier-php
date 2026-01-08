@@ -14,6 +14,9 @@ use Courier\Tenants\Preferences\Items\ItemDeleteParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ItemsRawService implements ItemsRawContract
 {
     // @phpstan-ignore-next-line
@@ -30,10 +33,11 @@ final class ItemsRawService implements ItemsRawContract
      * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
      * @param array{
      *   tenantID: string,
-     *   status: 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status,
-     *   customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
+     *   status: Status|value-of<Status>,
+     *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      *   hasCustomRouting?: bool|null,
      * }|ItemUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -42,7 +46,7 @@ final class ItemsRawService implements ItemsRawContract
     public function update(
         string $topicID,
         array|ItemUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ItemUpdateParams::parseRequest(
             $params,
@@ -70,6 +74,7 @@ final class ItemsRawService implements ItemsRawContract
      *
      * @param string $topicID id fo the susbcription topic you want to have a default preference for
      * @param array{tenantID: string}|ItemDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -78,7 +83,7 @@ final class ItemsRawService implements ItemsRawContract
     public function delete(
         string $topicID,
         array|ItemDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ItemDeleteParams::parseRequest(
             $params,

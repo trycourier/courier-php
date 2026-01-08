@@ -22,7 +22,7 @@ use Courier\Tenants\TenantAssociation;
  * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
  *
  * @phpstan-type TenantAddMultipleParamsShape = array{
- *   tenants: list<TenantAssociationShape>
+ *   tenants: list<TenantAssociation|TenantAssociationShape>
  * }
  */
 final class TenantAddMultipleParams implements BaseModel
@@ -59,7 +59,7 @@ final class TenantAddMultipleParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TenantAssociationShape> $tenants
+     * @param list<TenantAssociation|TenantAssociationShape> $tenants
      */
     public static function with(array $tenants): self
     {
@@ -71,7 +71,7 @@ final class TenantAddMultipleParams implements BaseModel
     }
 
     /**
-     * @param list<TenantAssociationShape> $tenants
+     * @param list<TenantAssociation|TenantAssociationShape> $tenants
      */
     public function withTenants(array $tenants): self
     {

@@ -17,7 +17,7 @@ use Courier\Profiles\ProfileUpdateParams\Patch;
  *
  * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
  *
- * @phpstan-type ProfileUpdateParamsShape = array{patch: list<PatchShape>}
+ * @phpstan-type ProfileUpdateParamsShape = array{patch: list<Patch|PatchShape>}
  */
 final class ProfileUpdateParams implements BaseModel
 {
@@ -57,7 +57,7 @@ final class ProfileUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<PatchShape> $patch
+     * @param list<Patch|PatchShape> $patch
      */
     public static function with(array $patch): self
     {
@@ -71,7 +71,7 @@ final class ProfileUpdateParams implements BaseModel
     /**
      * List of patch operations to apply to the profile.
      *
-     * @param list<PatchShape> $patch
+     * @param list<Patch|PatchShape> $patch
      */
     public function withPatch(array $patch): self
     {

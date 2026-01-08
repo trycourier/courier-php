@@ -14,6 +14,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\AudiencesService::update()
  *
+ * @phpstan-import-type FilterVariants from \Courier\Audiences\Filter
  * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
@@ -34,6 +35,8 @@ final class AudienceUpdateParams implements BaseModel
 
     /**
      * A single filter to use for filtering.
+     *
+     * @var FilterVariants|null $filter
      */
     #[Optional(nullable: true)]
     public SingleFilterConfig|NestedFilterConfig|null $filter;

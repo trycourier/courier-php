@@ -14,7 +14,7 @@ use Courier\Paging;
  * @phpstan-import-type MessageDetailsShape from \Courier\Messages\MessageDetails
  *
  * @phpstan-type MessageListResponseShape = array{
- *   paging: Paging|PagingShape, results: list<MessageDetailsShape>
+ *   paging: Paging|PagingShape, results: list<MessageDetails|MessageDetailsShape>
  * }
  */
 final class MessageListResponse implements BaseModel
@@ -61,7 +61,7 @@ final class MessageListResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Paging|PagingShape $paging
-     * @param list<MessageDetailsShape> $results
+     * @param list<MessageDetails|MessageDetailsShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -89,7 +89,7 @@ final class MessageListResponse implements BaseModel
     /**
      * An array of messages with their details.
      *
-     * @param list<MessageDetailsShape> $results
+     * @param list<MessageDetails|MessageDetailsShape> $results
      */
     public function withResults(array $results): self
     {
