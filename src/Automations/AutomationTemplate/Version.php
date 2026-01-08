@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Courier\Automations\AutomationTemplate;
+
+/**
+ * The version of the template published, draft.
+ */
+enum Version: string
+{
+    case PUBLISHED = 'published';
+
+    case DRAFT = 'draft';
+}
