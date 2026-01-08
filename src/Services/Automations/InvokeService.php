@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Courier\Services\Automations;
 
 use Courier\Automations\AutomationInvokeResponse;
+use Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeContract;
 
+/**
+ * @phpstan-import-type AutomationShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class InvokeService implements InvokeContract
 {
     /**
@@ -31,22 +36,21 @@ final class InvokeService implements InvokeContract
      *
      * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
      *
-     * @param array{
-     *   steps: list<array<string,mixed>>, cancelationToken?: string|null
-     * } $automation
+     * @param Automation|AutomationShape $automation
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function invokeAdHoc(
-        array $automation,
+        Automation|array $automation,
         ?string $brand = null,
         ?array $data = null,
         ?array $profile = null,
         ?string $recipient = null,
         ?string $template = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): AutomationInvokeResponse {
         $params = Util::removeNulls(
             [
@@ -73,6 +77,7 @@ final class InvokeService implements InvokeContract
      * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
      * @param array<string,mixed>|null $data
      * @param array<string,mixed>|null $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -83,7 +88,7 @@ final class InvokeService implements InvokeContract
         ?array $data = null,
         ?array $profile = null,
         ?string $template = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): AutomationInvokeResponse {
         $params = Util::removeNulls(
             [

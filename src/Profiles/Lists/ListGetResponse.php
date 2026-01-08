@@ -15,7 +15,7 @@ use Courier\Profiles\Lists\ListGetResponse\Result;
  * @phpstan-import-type ResultShape from \Courier\Profiles\Lists\ListGetResponse\Result
  *
  * @phpstan-type ListGetResponseShape = array{
- *   paging: Paging|PagingShape, results: list<ResultShape>
+ *   paging: Paging|PagingShape, results: list<Result|ResultShape>
  * }
  */
 final class ListGetResponse implements BaseModel
@@ -59,7 +59,7 @@ final class ListGetResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Paging|PagingShape $paging
-     * @param list<ResultShape> $results
+     * @param list<Result|ResultShape> $results
      */
     public static function with(Paging|array $paging, array $results): self
     {
@@ -85,7 +85,7 @@ final class ListGetResponse implements BaseModel
     /**
      * An array of lists.
      *
-     * @param list<ResultShape> $results
+     * @param list<Result|ResultShape> $results
      */
     public function withResults(array $results): self
     {

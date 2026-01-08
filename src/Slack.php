@@ -13,7 +13,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type SendToSlackEmailShape from \Courier\SendToSlackEmail
  * @phpstan-import-type SendToSlackUserIDShape from \Courier\SendToSlackUserID
  *
- * @phpstan-type SlackShape = SendToSlackChannelShape|SendToSlackEmailShape|SendToSlackUserIDShape
+ * @phpstan-type SlackVariants = SendToSlackChannel|SendToSlackEmail|SendToSlackUserID
+ * @phpstan-type SlackShape = SlackVariants|SendToSlackChannelShape|SendToSlackEmailShape|SendToSlackUserIDShape
  */
 final class Slack implements ConverterSource
 {

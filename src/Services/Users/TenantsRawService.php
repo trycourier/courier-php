@@ -10,13 +10,16 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TenantsRawContract;
 use Courier\Tenants\TenantAssociation;
-use Courier\Tenants\TenantAssociation\Type;
 use Courier\Users\Tenants\TenantAddMultipleParams;
 use Courier\Users\Tenants\TenantAddSingleParams;
 use Courier\Users\Tenants\TenantListParams;
 use Courier\Users\Tenants\TenantListResponse;
 use Courier\Users\Tenants\TenantRemoveSingleParams;
 
+/**
+ * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TenantsRawService implements TenantsRawContract
 {
     // @phpstan-ignore-next-line
@@ -32,6 +35,7 @@ final class TenantsRawService implements TenantsRawContract
      *
      * @param string $userID id of the user to retrieve all associated tenants for
      * @param array{cursor?: string|null, limit?: int|null}|TenantListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TenantListResponse>
      *
@@ -40,7 +44,7 @@ final class TenantsRawService implements TenantsRawContract
     public function list(
         string $userID,
         array|TenantListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantListParams::parseRequest(
             $params,
@@ -68,13 +72,9 @@ final class TenantsRawService implements TenantsRawContract
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
      * @param array{
-     *   tenants: list<array{
-     *     tenantID: string,
-     *     profile?: array<string,mixed>|null,
-     *     type?: 'user'|Type|null,
-     *     userID?: string|null,
-     *   }|TenantAssociation>,
+     *   tenants: list<TenantAssociation|TenantAssociationShape>
      * }|TenantAddMultipleParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -83,7 +83,7 @@ final class TenantsRawService implements TenantsRawContract
     public function addMultiple(
         string $userID,
         array|TenantAddMultipleParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantAddMultipleParams::parseRequest(
             $params,
@@ -113,6 +113,7 @@ final class TenantsRawService implements TenantsRawContract
      * @param array{
      *   userID: string, profile?: array<string,mixed>|null
      * }|TenantAddSingleParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -121,7 +122,7 @@ final class TenantsRawService implements TenantsRawContract
     public function addSingle(
         string $tenantID,
         array|TenantAddSingleParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantAddSingleParams::parseRequest(
             $params,
@@ -146,6 +147,7 @@ final class TenantsRawService implements TenantsRawContract
      * Removes a user from any tenants they may have been associated with.
      *
      * @param string $userID id of the user to be removed from the supplied tenant
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -153,7 +155,7 @@ final class TenantsRawService implements TenantsRawContract
      */
     public function removeAll(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -171,6 +173,7 @@ final class TenantsRawService implements TenantsRawContract
      *
      * @param string $tenantID id of the tenant the user should be removed from
      * @param array{userID: string}|TenantRemoveSingleParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -179,7 +182,7 @@ final class TenantsRawService implements TenantsRawContract
     public function removeSingle(
         string $tenantID,
         array|TenantRemoveSingleParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantRemoveSingleParams::parseRequest(
             $params,

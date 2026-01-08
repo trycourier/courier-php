@@ -9,6 +9,9 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ItemsContract
 {
     /**
@@ -16,19 +19,20 @@ interface ItemsContract
      *
      * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
      * @param string $tenantID path param: Id of the tenant to update the default preferences for
-     * @param 'OPTED_OUT'|'OPTED_IN'|'REQUIRED'|Status $status Body param:
-     * @param list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null $customRouting Body param: The default channels to send to this tenant when has_custom_routing is enabled
+     * @param Status|value-of<Status> $status Body param:
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting Body param: The default channels to send to this tenant when has_custom_routing is enabled
      * @param bool|null $hasCustomRouting Body param: Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function update(
         string $topicID,
         string $tenantID,
-        string|Status $status,
+        Status|string $status,
         ?array $customRouting = null,
         ?bool $hasCustomRouting = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 
     /**
@@ -36,12 +40,13 @@ interface ItemsContract
      *
      * @param string $topicID id fo the susbcription topic you want to have a default preference for
      * @param string $tenantID id of the tenant to update the default preferences for
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $topicID,
         string $tenantID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 }

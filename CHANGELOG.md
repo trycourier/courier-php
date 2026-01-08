@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.1.0 (2026-01-08)
+
+Full Changelog: [v4.0.0...v4.1.0](https://github.com/trycourier/courier-php/compare/v4.0.0...v4.1.0)
+
+### Features
+
+* simplify and make the phpstan types more consistent ([3956a7e](https://github.com/trycourier/courier-php/commit/3956a7ea3e6db25752e418fab92a5d24dacfdb49))
+
+
+### Chores
+
+* **api:** remove audit_events, automations, brands, bulk, inbound, translations endpoints ([5ba0410](https://github.com/trycourier/courier-php/commit/5ba04109024b938f57809bcce0f2bc33194b4e39))
+* **internal:** add a basic client test ([46cc7a1](https://github.com/trycourier/courier-php/commit/46cc7a16594cdb10d9465cac0ccc61772d64498e))
+* **internal:** refactor auth by moving concern from base client into client ([7aec734](https://github.com/trycourier/courier-php/commit/7aec734f4c8b9069d4a5398a9fe42f8ada095ac6))
+
 ## 4.0.0 (2025-12-29)
 
 Full Changelog: [v3.3.0...v4.0.0](https://github.com/trycourier/courier-php/compare/v3.3.0...v4.0.0)

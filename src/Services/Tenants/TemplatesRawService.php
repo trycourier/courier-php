@@ -14,6 +14,9 @@ use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplateRetrieveParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TemplatesRawService implements TemplatesRawContract
 {
     // @phpstan-ignore-next-line
@@ -29,6 +32,7 @@ final class TemplatesRawService implements TemplatesRawContract
      *
      * @param string $templateID id of the template to be retrieved
      * @param array{tenantID: string}|TemplateRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BaseTemplateTenantAssociation>
      *
@@ -37,7 +41,7 @@ final class TemplatesRawService implements TemplatesRawContract
     public function retrieve(
         string $templateID,
         array|TemplateRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TemplateRetrieveParams::parseRequest(
             $params,
@@ -62,6 +66,7 @@ final class TemplatesRawService implements TemplatesRawContract
      *
      * @param string $tenantID id of the tenant for which to retrieve the templates
      * @param array{cursor?: string|null, limit?: int|null}|TemplateListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TemplateListResponse>
      *
@@ -70,7 +75,7 @@ final class TemplatesRawService implements TemplatesRawContract
     public function list(
         string $tenantID,
         array|TemplateListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TemplateListParams::parseRequest(
             $params,

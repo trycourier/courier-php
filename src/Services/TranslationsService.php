@@ -10,6 +10,9 @@ use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\TranslationsContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TranslationsService implements TranslationsContract
 {
     /**
@@ -32,13 +35,14 @@ final class TranslationsService implements TranslationsContract
      *
      * @param string $locale The locale you want to retrieve the translations for
      * @param string $domain The domain you want to retrieve translations for. Only `default` is supported at the moment
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $locale,
         string $domain,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): string {
         $params = Util::removeNulls(['domain' => $domain]);
 
@@ -56,6 +60,7 @@ final class TranslationsService implements TranslationsContract
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param string $domain Path param: The domain you want to retrieve translations for. Only `default` is supported at the moment
      * @param string $body Body param:
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -63,7 +68,7 @@ final class TranslationsService implements TranslationsContract
         string $locale,
         string $domain,
         string $body,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(['domain' => $domain, 'body' => $body]);
 

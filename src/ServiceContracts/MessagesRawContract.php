@@ -15,12 +15,16 @@ use Courier\Messages\MessageListParams;
 use Courier\Messages\MessageListResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface MessagesRawContract
 {
     /**
      * @api
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageGetResponse>
      *
@@ -28,13 +32,14 @@ interface MessagesRawContract
      */
     public function retrieve(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|MessageListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageListResponse>
      *
@@ -42,13 +47,14 @@ interface MessagesRawContract
      */
     public function list(
         array|MessageListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $messageID A unique identifier representing the message ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageDetails>
      *
@@ -56,13 +62,14 @@ interface MessagesRawContract
      */
     public function cancel(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageContentResponse>
      *
@@ -70,7 +77,7 @@ interface MessagesRawContract
      */
     public function content(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -78,6 +85,7 @@ interface MessagesRawContract
      *
      * @param string $messageID A unique identifier representing the message ID
      * @param array<string,mixed>|MessageHistoryParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<MessageHistoryResponse>
      *
@@ -86,6 +94,6 @@ interface MessagesRawContract
     public function history(
         string $messageID,
         array|MessageHistoryParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

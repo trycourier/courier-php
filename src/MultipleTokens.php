@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-import-type TokenShape from \Courier\Token
  *
- * @phpstan-type MultipleTokensShape = array{tokens: list<TokenShape>}
+ * @phpstan-type MultipleTokensShape = array{tokens: list<Token|TokenShape>}
  */
 final class MultipleTokens implements BaseModel
 {
@@ -46,7 +46,7 @@ final class MultipleTokens implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TokenShape> $tokens
+     * @param list<Token|TokenShape> $tokens
      */
     public static function with(array $tokens): self
     {
@@ -58,7 +58,7 @@ final class MultipleTokens implements BaseModel
     }
 
     /**
-     * @param list<TokenShape> $tokens
+     * @param list<Token|TokenShape> $tokens
      */
     public function withTokens(array $tokens): self
     {

@@ -11,12 +11,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface AuditEventsRawContract
 {
     /**
      * @api
      *
      * @param string $auditEventID A unique identifier associated with the audit event you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuditEvent>
      *
@@ -24,13 +28,14 @@ interface AuditEventsRawContract
      */
     public function retrieve(
         string $auditEventID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|AuditEventListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuditEventListResponse>
      *
@@ -38,6 +43,6 @@ interface AuditEventsRawContract
      */
     public function list(
         array|AuditEventListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

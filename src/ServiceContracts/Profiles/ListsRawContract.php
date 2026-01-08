@@ -13,6 +13,9 @@ use Courier\Profiles\Lists\ListSubscribeParams;
 use Courier\Profiles\Lists\ListSubscribeResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ListsRawContract
 {
     /**
@@ -20,6 +23,7 @@ interface ListsRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed>|ListRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListGetResponse>
      *
@@ -28,13 +32,14 @@ interface ListsRawContract
     public function retrieve(
         string $userID,
         array|ListRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListDeleteResponse>
      *
@@ -42,7 +47,7 @@ interface ListsRawContract
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -50,6 +55,7 @@ interface ListsRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed>|ListSubscribeParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListSubscribeResponse>
      *
@@ -58,6 +64,6 @@ interface ListsRawContract
     public function subscribe(
         string $userID,
         array|ListSubscribeParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

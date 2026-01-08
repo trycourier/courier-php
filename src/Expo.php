@@ -12,7 +12,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type TokenShape from \Courier\Token
  * @phpstan-import-type MultipleTokensShape from \Courier\MultipleTokens
  *
- * @phpstan-type ExpoShape = TokenShape|MultipleTokensShape
+ * @phpstan-type ExpoVariants = Token|MultipleTokens
+ * @phpstan-type ExpoShape = ExpoVariants|TokenShape|MultipleTokensShape
  */
 final class Expo implements ConverterSource
 {

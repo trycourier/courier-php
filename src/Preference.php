@@ -16,8 +16,8 @@ use Courier\Preference\Source;
  *
  * @phpstan-type PreferenceShape = array{
  *   status: PreferenceStatus|value-of<PreferenceStatus>,
- *   channelPreferences?: list<ChannelPreferenceShape>|null,
- *   rules?: list<RuleShape>|null,
+ *   channelPreferences?: list<ChannelPreference|ChannelPreferenceShape>|null,
+ *   rules?: list<Rule|RuleShape>|null,
  *   source?: null|Source|value-of<Source>,
  * }
  */
@@ -71,8 +71,8 @@ final class Preference implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
-     * @param list<ChannelPreferenceShape>|null $channelPreferences
-     * @param list<RuleShape>|null $rules
+     * @param list<ChannelPreference|ChannelPreferenceShape>|null $channelPreferences
+     * @param list<Rule|RuleShape>|null $rules
      * @param Source|value-of<Source>|null $source
      */
     public static function with(
@@ -104,7 +104,7 @@ final class Preference implements BaseModel
     }
 
     /**
-     * @param list<ChannelPreferenceShape>|null $channelPreferences
+     * @param list<ChannelPreference|ChannelPreferenceShape>|null $channelPreferences
      */
     public function withChannelPreferences(?array $channelPreferences): self
     {
@@ -115,7 +115,7 @@ final class Preference implements BaseModel
     }
 
     /**
-     * @param list<RuleShape>|null $rules
+     * @param list<Rule|RuleShape>|null $rules
      */
     public function withRules(?array $rules): self
     {

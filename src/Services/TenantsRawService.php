@@ -18,6 +18,10 @@ use Courier\Tenants\TenantListUsersParams;
 use Courier\Tenants\TenantListUsersResponse;
 use Courier\Tenants\TenantUpdateParams;
 
+/**
+ * @phpstan-import-type DefaultPreferencesShape from \Courier\Tenants\DefaultPreferences
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TenantsRawService implements TenantsRawContract
 {
     // @phpstan-ignore-next-line
@@ -32,6 +36,7 @@ final class TenantsRawService implements TenantsRawContract
      * Get a Tenant
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Tenant>
      *
@@ -39,7 +44,7 @@ final class TenantsRawService implements TenantsRawContract
      */
     public function retrieve(
         string $tenantID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -59,13 +64,12 @@ final class TenantsRawService implements TenantsRawContract
      * @param array{
      *   name: string,
      *   brandID?: string|null,
-     *   defaultPreferences?: array{
-     *     items?: list<array<string,mixed>>|null
-     *   }|DefaultPreferences|null,
+     *   defaultPreferences?: DefaultPreferences|DefaultPreferencesShape|null,
      *   parentTenantID?: string|null,
      *   properties?: array<string,mixed>|null,
      *   userProfile?: array<string,mixed>|null,
      * }|TenantUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Tenant>
      *
@@ -74,7 +78,7 @@ final class TenantsRawService implements TenantsRawContract
     public function update(
         string $tenantID,
         array|TenantUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantUpdateParams::parseRequest(
             $params,
@@ -99,6 +103,7 @@ final class TenantsRawService implements TenantsRawContract
      * @param array{
      *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
      * }|TenantListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TenantListResponse>
      *
@@ -106,7 +111,7 @@ final class TenantsRawService implements TenantsRawContract
      */
     public function list(
         array|TenantListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantListParams::parseRequest(
             $params,
@@ -132,6 +137,7 @@ final class TenantsRawService implements TenantsRawContract
      * Delete a Tenant
      *
      * @param string $tenantID id of the tenant to be deleted
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -139,7 +145,7 @@ final class TenantsRawService implements TenantsRawContract
      */
     public function delete(
         string $tenantID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -159,6 +165,7 @@ final class TenantsRawService implements TenantsRawContract
      * @param array{
      *   cursor?: string|null, limit?: int|null
      * }|TenantListUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TenantListUsersResponse>
      *
@@ -167,7 +174,7 @@ final class TenantsRawService implements TenantsRawContract
     public function listUsers(
         string $tenantID,
         array|TenantListUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TenantListUsersParams::parseRequest(
             $params,

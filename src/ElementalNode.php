@@ -26,7 +26,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type ElementalDividerNodeWithTypeShape from \Courier\ElementalDividerNodeWithType
  * @phpstan-import-type ElementalQuoteNodeWithTypeShape from \Courier\ElementalQuoteNodeWithType
  *
- * @phpstan-type ElementalNodeShape = ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape
+ * @phpstan-type ElementalNodeVariants = ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType
+ * @phpstan-type ElementalNodeShape = ElementalNodeVariants|ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape
  */
 final class ElementalNode implements ConverterSource
 {

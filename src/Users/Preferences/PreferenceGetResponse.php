@@ -14,7 +14,7 @@ use Courier\Paging;
  * @phpstan-import-type PagingShape from \Courier\Paging
  *
  * @phpstan-type PreferenceGetResponseShape = array{
- *   items: list<TopicPreferenceShape>, paging: Paging|PagingShape
+ *   items: list<TopicPreference|TopicPreferenceShape>, paging: Paging|PagingShape
  * }
  */
 final class PreferenceGetResponse implements BaseModel
@@ -60,7 +60,7 @@ final class PreferenceGetResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TopicPreferenceShape> $items
+     * @param list<TopicPreference|TopicPreferenceShape> $items
      * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
@@ -76,7 +76,7 @@ final class PreferenceGetResponse implements BaseModel
     /**
      * The Preferences associated with the user_id.
      *
-     * @param list<TopicPreferenceShape> $items
+     * @param list<TopicPreference|TopicPreferenceShape> $items
      */
     public function withItems(array $items): self
     {

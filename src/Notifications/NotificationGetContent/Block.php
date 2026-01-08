@@ -8,11 +8,13 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Notifications\NotificationGetContent\Block\Content\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Locale;
-use Courier\Notifications\NotificationGetContent\Block\Locale\NotificationContentHierarchy;
 use Courier\Notifications\NotificationGetContent\Block\Type;
 
 /**
+ * @phpstan-import-type ContentVariants from \Courier\Notifications\NotificationGetContent\Block\Content
+ * @phpstan-import-type LocaleVariants from \Courier\Notifications\NotificationGetContent\Block\Locale
  * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationGetContent\Block\Content
  * @phpstan-import-type LocaleShape from \Courier\Notifications\NotificationGetContent\Block\Locale
  *
@@ -44,13 +46,14 @@ final class Block implements BaseModel
     #[Optional(nullable: true)]
     public ?string $checksum;
 
+    /** @var ContentVariants|null $content */
     #[Optional(nullable: true)]
-    public string|Block\Content\NotificationContentHierarchy|null $content;
+    public string|NotificationContentHierarchy|null $content;
 
     #[Optional(nullable: true)]
     public ?string $context;
 
-    /** @var array<string,string|NotificationContentHierarchy>|null $locales */
+    /** @var array<string,LocaleVariants>|null $locales */
     #[Optional(map: Locale::class, nullable: true)]
     public ?array $locales;
 
@@ -87,7 +90,7 @@ final class Block implements BaseModel
         Type|string $type,
         ?string $alias = null,
         ?string $checksum = null,
-        string|Block\Content\NotificationContentHierarchy|array|null $content = null,
+        string|NotificationContentHierarchy|array|null $content = null,
         ?string $context = null,
         ?array $locales = null,
     ): self {
@@ -144,7 +147,7 @@ final class Block implements BaseModel
      * @param ContentShape|null $content
      */
     public function withContent(
-        string|Block\Content\NotificationContentHierarchy|array|null $content,
+        string|NotificationContentHierarchy|array|null $content
     ): self {
         $self = clone $this;
         $self['content'] = $content;

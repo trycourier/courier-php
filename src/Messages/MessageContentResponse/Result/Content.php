@@ -15,7 +15,7 @@ use Courier\Messages\MessageContentResponse\Result\Content\Block;
  * @phpstan-import-type BlockShape from \Courier\Messages\MessageContentResponse\Result\Content\Block
  *
  * @phpstan-type ContentShape = array{
- *   blocks: list<BlockShape>,
+ *   blocks: list<Block|BlockShape>,
  *   body: string,
  *   html: string,
  *   subject: string,
@@ -98,7 +98,7 @@ final class Content implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BlockShape> $blocks
+     * @param list<Block|BlockShape> $blocks
      */
     public static function with(
         array $blocks,
@@ -123,7 +123,7 @@ final class Content implements BaseModel
     /**
      * The blocks of the rendered message.
      *
-     * @param list<BlockShape> $blocks
+     * @param list<Block|BlockShape> $blocks
      */
     public function withBlocks(array $blocks): self
     {

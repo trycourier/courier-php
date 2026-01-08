@@ -17,7 +17,8 @@ use Courier\ElementalContentSugar;
  * @phpstan-import-type ElementalContentSugarShape from \Courier\ElementalContentSugar
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
  *
- * @phpstan-type ContentShape = ElementalContentSugarShape|ElementalContentShape
+ * @phpstan-type ContentVariants = ElementalContentSugar|ElementalContent
+ * @phpstan-type ContentShape = ContentVariants|ElementalContentSugarShape|ElementalContentShape
  */
 final class Content implements ConverterSource
 {

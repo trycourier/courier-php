@@ -9,10 +9,15 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface DraftRawContract
 {
     /**
      * @api
+     *
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<NotificationGetContent>
      *
@@ -20,6 +25,6 @@ interface DraftRawContract
      */
     public function retrieveContent(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

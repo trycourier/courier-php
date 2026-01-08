@@ -11,6 +11,9 @@ use Courier\Notifications\NotificationGetContent;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\DraftRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class DraftRawService implements DraftRawContract
 {
     // @phpstan-ignore-next-line
@@ -22,13 +25,15 @@ final class DraftRawService implements DraftRawContract
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @return BaseResponse<NotificationGetContent>
      *
      * @throws APIException
      */
     public function retrieveContent(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

@@ -12,18 +12,22 @@ use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface MessagesContract
 {
     /**
      * @api
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageGetResponse;
 
     /**
@@ -43,6 +47,7 @@ interface MessagesContract
      * @param string|null $tags A comma delimited list of 'tags'. Messages will be returned if they match any of the tags passed in.
      * @param string|null $tenantID Messages sent with the context of a Tenant
      * @param string|null $traceID The unique identifier used to trace the requests
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -61,31 +66,33 @@ interface MessagesContract
         ?string $tags = null,
         ?string $tenantID = null,
         ?string $traceID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): MessageListResponse;
 
     /**
      * @api
      *
      * @param string $messageID A unique identifier representing the message ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function cancel(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageDetails;
 
     /**
      * @api
      *
      * @param string $messageID a unique identifier associated with the message you wish to retrieve (results from a send)
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function content(
         string $messageID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): MessageContentResponse;
 
     /**
@@ -93,12 +100,13 @@ interface MessagesContract
      *
      * @param string $messageID A unique identifier representing the message ID
      * @param string|null $type a supported Message History type that will filter the events returned
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function history(
         string $messageID,
         ?string $type = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): MessageHistoryResponse;
 }

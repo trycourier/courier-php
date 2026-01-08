@@ -12,12 +12,16 @@ use Courier\Lists\ListUpdateParams;
 use Courier\Lists\SubscriptionList;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ListsRawContract
 {
     /**
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<SubscriptionList>
      *
@@ -25,7 +29,7 @@ interface ListsRawContract
      */
     public function retrieve(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -33,6 +37,7 @@ interface ListsRawContract
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array<string,mixed>|ListUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -41,13 +46,14 @@ interface ListsRawContract
     public function update(
         string $listID,
         array|ListUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|ListListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListListResponse>
      *
@@ -55,13 +61,14 @@ interface ListsRawContract
      */
     public function list(
         array|ListListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -69,13 +76,14 @@ interface ListsRawContract
      */
     public function delete(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -83,6 +91,6 @@ interface ListsRawContract
      */
     public function restore(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

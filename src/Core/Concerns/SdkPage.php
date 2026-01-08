@@ -12,6 +12,8 @@ use Courier\Core\Exceptions\APIStatusException;
 use Courier\RequestOptions;
 
 /**
+ * @phpstan-import-type NormalizedRequest from \Courier\Core\BaseClient
+ *
  * @internal
  *
  * @template Item
@@ -94,7 +96,7 @@ trait SdkPage
     /**
      * @internal
      *
-     * @return array{normalized_request, RequestOptions}
+     * @return array{NormalizedRequest, RequestOptions}
      */
     abstract protected function nextRequest(): ?array;
 }

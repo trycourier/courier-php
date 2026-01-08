@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Courier\Services\Users;
 
-use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
-use Courier\PreferenceStatus;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesContract;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
+use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 
+/**
+ * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class PreferencesService implements PreferencesContract
 {
     /**
@@ -37,13 +40,14 @@ final class PreferencesService implements PreferencesContract
      *
      * @param string $userID a unique identifier associated with the user whose preferences you wish to retrieve
      * @param string|null $tenantID query the preferences of a user for this specific tenant context
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
         ?string $tenantID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): PreferenceGetResponse {
         $params = Util::removeNulls(['tenantID' => $tenantID]);
 
@@ -61,6 +65,7 @@ final class PreferencesService implements PreferencesContract
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
      * @param string|null $tenantID query param: Query the preferences of a user for this specific tenant context
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -68,7 +73,7 @@ final class PreferencesService implements PreferencesContract
         string $topicID,
         string $userID,
         ?string $tenantID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): PreferenceGetTopicResponse {
         $params = Util::removeNulls(['userID' => $userID, 'tenantID' => $tenantID]);
 
@@ -85,21 +90,18 @@ final class PreferencesService implements PreferencesContract
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
-     * @param array{
-     *   status: 'OPTED_IN'|'OPTED_OUT'|'REQUIRED'|PreferenceStatus,
-     *   customRouting?: list<'direct_message'|'email'|'push'|'sms'|'webhook'|'inbox'|ChannelClassification>|null,
-     *   hasCustomRouting?: bool|null,
-     * } $topic Body param:
+     * @param Topic|TopicShape $topic Body param:
      * @param string|null $tenantID query param: Update the preferences of a user for this specific tenant context
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function updateOrCreateTopic(
         string $topicID,
         string $userID,
-        array $topic,
+        Topic|array $topic,
         ?string $tenantID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): PreferenceUpdateOrNewTopicResponse {
         $params = Util::removeNulls(
             ['userID' => $userID, 'topic' => $topic, 'tenantID' => $tenantID]

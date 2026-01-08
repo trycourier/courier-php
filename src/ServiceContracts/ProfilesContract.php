@@ -8,8 +8,13 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
 use Courier\Profiles\ProfileReplaceResponse;
+use Courier\Profiles\ProfileUpdateParams\Patch;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ProfilesContract
 {
     /**
@@ -17,53 +22,55 @@ interface ProfilesContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param array<string,mixed> $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function create(
         string $userID,
         array $profile,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): ProfileNewResponse;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): ProfileGetResponse;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
-     * @param list<array{
-     *   op: string, path: string, value: string
-     * }> $patch List of patch operations to apply to the profile
+     * @param list<Patch|PatchShape> $patch list of patch operations to apply to the profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function update(
         string $userID,
         array $patch,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): mixed;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed;
 
     /**
@@ -71,12 +78,13 @@ interface ProfilesContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed> $profile
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function replace(
         string $userID,
         array $profile,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): ProfileReplaceResponse;
 }

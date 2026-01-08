@@ -10,12 +10,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface AuthRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|AuthIssueTokenParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AuthIssueTokenResponse>
      *
@@ -23,6 +27,6 @@ interface AuthRawContract
      */
     public function issueToken(
         array|AuthIssueTokenParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

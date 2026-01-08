@@ -12,6 +12,9 @@ use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class AuditEventsService implements AuditEventsContract
 {
     /**
@@ -33,12 +36,13 @@ final class AuditEventsService implements AuditEventsContract
      * Fetch a specific audit event by ID.
      *
      * @param string $auditEventID A unique identifier associated with the audit event you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $auditEventID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): AuditEvent {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($auditEventID, requestOptions: $requestOptions);
@@ -52,12 +56,13 @@ final class AuditEventsService implements AuditEventsContract
      * Fetch the list of audit events
      *
      * @param string|null $cursor a unique identifier that allows for fetching the next set of audit events
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function list(
         ?string $cursor = null,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): AuditEventListResponse {
         $params = Util::removeNulls(['cursor' => $cursor]);
 

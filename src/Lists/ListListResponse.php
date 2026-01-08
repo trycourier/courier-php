@@ -14,7 +14,8 @@ use Courier\Paging;
  * @phpstan-import-type PagingShape from \Courier\Paging
  *
  * @phpstan-type ListListResponseShape = array{
- *   items: list<SubscriptionListShape>, paging: Paging|PagingShape
+ *   items: list<SubscriptionList|SubscriptionListShape>,
+ *   paging: Paging|PagingShape,
  * }
  */
 final class ListListResponse implements BaseModel
@@ -53,7 +54,7 @@ final class ListListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscriptionListShape> $items
+     * @param list<SubscriptionList|SubscriptionListShape> $items
      * @param Paging|PagingShape $paging
      */
     public static function with(array $items, Paging|array $paging): self
@@ -67,7 +68,7 @@ final class ListListResponse implements BaseModel
     }
 
     /**
-     * @param list<SubscriptionListShape> $items
+     * @param list<SubscriptionList|SubscriptionListShape> $items
      */
     public function withItems(array $items): self
     {

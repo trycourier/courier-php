@@ -14,6 +14,9 @@ use Courier\Profiles\ProfileReplaceResponse;
 use Courier\Profiles\ProfileUpdateParams;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ProfilesRawContract
 {
     /**
@@ -21,6 +24,7 @@ interface ProfilesRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param array<string,mixed>|ProfileCreateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileNewResponse>
      *
@@ -29,13 +33,14 @@ interface ProfilesRawContract
     public function create(
         string $userID,
         array|ProfileCreateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileGetResponse>
      *
@@ -43,7 +48,7 @@ interface ProfilesRawContract
      */
     public function retrieve(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -51,6 +56,7 @@ interface ProfilesRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed>|ProfileUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -59,13 +65,14 @@ interface ProfilesRawContract
     public function update(
         string $userID,
         array|ProfileUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -73,7 +80,7 @@ interface ProfilesRawContract
      */
     public function delete(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -81,6 +88,7 @@ interface ProfilesRawContract
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed>|ProfileReplaceParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileReplaceResponse>
      *
@@ -89,6 +97,6 @@ interface ProfilesRawContract
     public function replace(
         string $userID,
         array|ProfileReplaceParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

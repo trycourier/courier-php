@@ -17,6 +17,7 @@ use Courier\ElementalContentSugar;
  * - V1 format: Requires `event` field (event ID or notification ID)
  * - V2 format: Optionally use `template` (notification ID) or `content` (Elemental content) in addition to `event`
  *
+ * @phpstan-import-type ContentVariants from \Courier\Bulk\InboundBulkMessage\Content
  * @phpstan-import-type ContentShape from \Courier\Bulk\InboundBulkMessage\Content
  *
  * @phpstan-type InboundBulkMessageShape = array{
@@ -48,6 +49,8 @@ final class InboundBulkMessage implements BaseModel
     /**
      * Elemental content (optional, for V2 format). When provided, this will be used
      * instead of the notification associated with the `event` field.
+     *
+     * @var ContentVariants|null $content
      */
     #[Optional(nullable: true)]
     public ElementalContentSugar|ElementalContent|null $content;

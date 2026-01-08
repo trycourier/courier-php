@@ -18,7 +18,7 @@ use Courier\Profiles\SubscribeToListsRequestItem;
  * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
  *
  * @phpstan-type ListSubscribeParamsShape = array{
- *   lists: list<SubscribeToListsRequestItemShape>
+ *   lists: list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape>
  * }
  */
 final class ListSubscribeParams implements BaseModel
@@ -55,7 +55,7 @@ final class ListSubscribeParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<SubscribeToListsRequestItemShape> $lists
+     * @param list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape> $lists
      */
     public static function with(array $lists): self
     {
@@ -67,7 +67,7 @@ final class ListSubscribeParams implements BaseModel
     }
 
     /**
-     * @param list<SubscribeToListsRequestItemShape> $lists
+     * @param list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape> $lists
      */
     public function withLists(array $lists): self
     {

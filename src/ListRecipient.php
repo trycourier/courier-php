@@ -15,7 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-type ListRecipientShape = array{
  *   data?: array<string,mixed>|null,
- *   filters?: list<ListFilterShape>|null,
+ *   filters?: list<ListFilter|ListFilterShape>|null,
  *   listID?: string|null,
  * }
  */
@@ -46,7 +46,7 @@ final class ListRecipient implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,mixed>|null $data
-     * @param list<ListFilterShape>|null $filters
+     * @param list<ListFilter|ListFilterShape>|null $filters
      */
     public static function with(
         ?array $data = null,
@@ -74,7 +74,7 @@ final class ListRecipient implements BaseModel
     }
 
     /**
-     * @param list<ListFilterShape>|null $filters
+     * @param list<ListFilter|ListFilterShape>|null $filters
      */
     public function withFilters(?array $filters): self
     {

@@ -14,6 +14,9 @@ use Courier\Users\Preferences\PreferenceRetrieveTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface PreferencesRawContract
 {
     /**
@@ -21,6 +24,7 @@ interface PreferencesRawContract
      *
      * @param string $userID a unique identifier associated with the user whose preferences you wish to retrieve
      * @param array<string,mixed>|PreferenceRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceGetResponse>
      *
@@ -29,7 +33,7 @@ interface PreferencesRawContract
     public function retrieve(
         string $userID,
         array|PreferenceRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -37,6 +41,7 @@ interface PreferencesRawContract
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param array<string,mixed>|PreferenceRetrieveTopicParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceGetTopicResponse>
      *
@@ -45,7 +50,7 @@ interface PreferencesRawContract
     public function retrieveTopic(
         string $topicID,
         array|PreferenceRetrieveTopicParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -53,6 +58,7 @@ interface PreferencesRawContract
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param array<string,mixed>|PreferenceUpdateOrCreateTopicParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PreferenceUpdateOrNewTopicResponse>
      *
@@ -61,6 +67,6 @@ interface PreferencesRawContract
     public function updateOrCreateTopic(
         string $topicID,
         array|PreferenceUpdateOrCreateTopicParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

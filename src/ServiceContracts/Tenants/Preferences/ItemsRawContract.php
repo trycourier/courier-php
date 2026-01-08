@@ -10,6 +10,9 @@ use Courier\RequestOptions;
 use Courier\Tenants\Preferences\Items\ItemDeleteParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ItemsRawContract
 {
     /**
@@ -17,6 +20,7 @@ interface ItemsRawContract
      *
      * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
      * @param array<string,mixed>|ItemUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -25,7 +29,7 @@ interface ItemsRawContract
     public function update(
         string $topicID,
         array|ItemUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -33,6 +37,7 @@ interface ItemsRawContract
      *
      * @param string $topicID id fo the susbcription topic you want to have a default preference for
      * @param array<string,mixed>|ItemDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -41,6 +46,6 @@ interface ItemsRawContract
     public function delete(
         string $topicID,
         array|ItemDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }
