@@ -12,7 +12,7 @@ use Courier\Tenants\DefaultPreferences\Item;
 /**
  * @phpstan-import-type ItemShape from \Courier\Tenants\DefaultPreferences\Item
  *
- * @phpstan-type DefaultPreferencesShape = array{items?: list<ItemShape>|null}
+ * @phpstan-type DefaultPreferencesShape = array{items?: list<Item|ItemShape>|null}
  */
 final class DefaultPreferences implements BaseModel
 {
@@ -33,7 +33,7 @@ final class DefaultPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<ItemShape>|null $items
+     * @param list<Item|ItemShape>|null $items
      */
     public static function with(?array $items = null): self
     {
@@ -45,7 +45,7 @@ final class DefaultPreferences implements BaseModel
     }
 
     /**
-     * @param list<ItemShape>|null $items
+     * @param list<Item|ItemShape>|null $items
      */
     public function withItems(?array $items): self
     {

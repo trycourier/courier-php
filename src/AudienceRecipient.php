@@ -17,7 +17,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type AudienceRecipientShape = array{
  *   audienceID: string,
  *   data?: array<string,mixed>|null,
- *   filters?: list<AudienceFilterShape>|null,
+ *   filters?: list<AudienceFilter|AudienceFilterShape>|null,
  * }
  */
 final class AudienceRecipient implements BaseModel
@@ -64,7 +64,7 @@ final class AudienceRecipient implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param array<string,mixed>|null $data
-     * @param list<AudienceFilterShape>|null $filters
+     * @param list<AudienceFilter|AudienceFilterShape>|null $filters
      */
     public static function with(
         string $audienceID,
@@ -104,7 +104,7 @@ final class AudienceRecipient implements BaseModel
     }
 
     /**
-     * @param list<AudienceFilterShape>|null $filters
+     * @param list<AudienceFilter|AudienceFilterShape>|null $filters
      */
     public function withFilters(?array $filters): self
     {

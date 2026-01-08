@@ -18,7 +18,7 @@ use Courier\Lists\PutSubscriptionsRecipient;
  * @phpstan-import-type PutSubscriptionsRecipientShape from \Courier\Lists\PutSubscriptionsRecipient
  *
  * @phpstan-type SubscriptionAddParamsShape = array{
- *   recipients: list<PutSubscriptionsRecipientShape>
+ *   recipients: list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape>
  * }
  */
 final class SubscriptionAddParams implements BaseModel
@@ -55,7 +55,7 @@ final class SubscriptionAddParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<PutSubscriptionsRecipientShape> $recipients
+     * @param list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape> $recipients
      */
     public static function with(array $recipients): self
     {
@@ -67,7 +67,7 @@ final class SubscriptionAddParams implements BaseModel
     }
 
     /**
-     * @param list<PutSubscriptionsRecipientShape> $recipients
+     * @param list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape> $recipients
      */
     public function withRecipients(array $recipients): self
     {

@@ -13,6 +13,9 @@ use Courier\Notifications\Checks\CheckUpdateParams;
 use Courier\Notifications\Checks\CheckUpdateResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface ChecksRawContract
 {
     /**
@@ -20,6 +23,7 @@ interface ChecksRawContract
      *
      * @param string $submissionID Path param:
      * @param array<string,mixed>|CheckUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<CheckUpdateResponse>
      *
@@ -28,13 +32,14 @@ interface ChecksRawContract
     public function update(
         string $submissionID,
         array|CheckUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|CheckListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<CheckListResponse>
      *
@@ -43,13 +48,14 @@ interface ChecksRawContract
     public function list(
         string $submissionID,
         array|CheckListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|CheckDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -58,6 +64,6 @@ interface ChecksRawContract
     public function delete(
         string $submissionID,
         array|CheckDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

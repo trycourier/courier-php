@@ -14,6 +14,9 @@ use Courier\Users\Tokens\TokenListResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface TokensRawContract
 {
     /**
@@ -21,6 +24,7 @@ interface TokensRawContract
      *
      * @param string $token the full token string
      * @param array<string,mixed>|TokenRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TokenGetResponse>
      *
@@ -29,7 +33,7 @@ interface TokensRawContract
     public function retrieve(
         string $token,
         array|TokenRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -37,6 +41,7 @@ interface TokensRawContract
      *
      * @param string $token path param: The full token string
      * @param array<string,mixed>|TokenUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -45,13 +50,14 @@ interface TokensRawContract
     public function update(
         string $token,
         array|TokenUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TokenListResponse>
      *
@@ -59,7 +65,7 @@ interface TokensRawContract
      */
     public function list(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -67,6 +73,7 @@ interface TokensRawContract
      *
      * @param string $token the full token string
      * @param array<string,mixed>|TokenDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -75,13 +82,14 @@ interface TokensRawContract
     public function delete(
         string $token,
         array|TokenDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -89,7 +97,7 @@ interface TokensRawContract
      */
     public function addMultiple(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -97,6 +105,7 @@ interface TokensRawContract
      *
      * @param string $token_ path param: The full token string
      * @param array<string,mixed>|TokenAddSingleParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -105,6 +114,6 @@ interface TokensRawContract
     public function addSingle(
         string $token_,
         array|TokenAddSingleParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

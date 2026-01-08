@@ -12,8 +12,8 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-import-type NotificationPreferenceDetailsShape from \Courier\NotificationPreferenceDetails
  *
  * @phpstan-type RecipientPreferencesShape = array{
- *   categories?: array<string,NotificationPreferenceDetailsShape>|null,
- *   notifications?: array<string,NotificationPreferenceDetailsShape>|null,
+ *   categories?: array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null,
+ *   notifications?: array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null,
  * }
  */
 final class RecipientPreferences implements BaseModel
@@ -39,8 +39,8 @@ final class RecipientPreferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
-     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
+     * @param array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null $categories
+     * @param array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null $notifications
      */
     public static function with(
         ?array $categories = null,
@@ -55,7 +55,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetailsShape>|null $categories
+     * @param array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null $categories
      */
     public function withCategories(?array $categories): self
     {
@@ -66,7 +66,7 @@ final class RecipientPreferences implements BaseModel
     }
 
     /**
-     * @param array<string,NotificationPreferenceDetailsShape>|null $notifications
+     * @param array<string,NotificationPreferenceDetails|NotificationPreferenceDetailsShape>|null $notifications
      */
     public function withNotifications(?array $notifications): self
     {

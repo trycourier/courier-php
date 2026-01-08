@@ -13,6 +13,7 @@ use Courier\Users\Tokens\UserToken\ProviderKey;
 use Courier\Users\Tokens\UserToken\Tracking;
 
 /**
+ * @phpstan-import-type ExpiryDateVariants from \Courier\Users\Tokens\UserToken\ExpiryDate
  * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\UserToken\Device
  * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\UserToken\ExpiryDate
  * @phpstan-import-type TrackingShape from \Courier\Users\Tokens\UserToken\Tracking
@@ -49,6 +50,8 @@ final class UserToken implements BaseModel
 
     /**
      * ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
+     *
+     * @var ExpiryDateVariants|null $expiryDate
      */
     #[Optional('expiry_date', nullable: true)]
     public string|bool|null $expiryDate;

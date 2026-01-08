@@ -30,6 +30,8 @@ use Courier\WebhookRecipient;
 /**
  * The message property has the following primary top-level properties. They define the destination and content of the message.
  *
+ * @phpstan-import-type ContentVariants from \Courier\Send\SendMessageParams\Message\Content
+ * @phpstan-import-type ToVariants from \Courier\Send\SendMessageParams\Message\To
  * @phpstan-import-type ChannelShape from \Courier\Send\SendMessageParams\Message\Channel
  * @phpstan-import-type ContentShape from \Courier\Send\SendMessageParams\Message\Content
  * @phpstan-import-type MessageContextShape from \Courier\MessageContext
@@ -44,7 +46,7 @@ use Courier\WebhookRecipient;
  *
  * @phpstan-type MessageShape = array{
  *   brandID?: string|null,
- *   channels?: array<string,ChannelShape>|null,
+ *   channels?: array<string,Channel|ChannelShape>|null,
  *   content?: ContentShape|null,
  *   context?: null|MessageContext|MessageContextShape,
  *   data?: array<string,mixed>|null,
@@ -52,7 +54,7 @@ use Courier\WebhookRecipient;
  *   expiry?: null|Expiry|ExpiryShape,
  *   metadata?: null|Metadata|MetadataShape,
  *   preferences?: null|Preferences|PreferencesShape,
- *   providers?: array<string,ProviderShape>|null,
+ *   providers?: array<string,Provider|ProviderShape>|null,
  *   routing?: null|Routing|RoutingShape,
  *   template?: string|null,
  *   timeout?: null|Timeout|TimeoutShape,
@@ -77,6 +79,8 @@ final class Message implements BaseModel
 
     /**
      * Describes content that will work for email, inbox, push, chat, or any channel id.
+     *
+     * @var ContentVariants|null $content
      */
     #[Optional]
     public ElementalContentSugar|ElementalContent|null $content;
@@ -118,6 +122,8 @@ final class Message implements BaseModel
 
     /**
      * The recipient or a list of recipients of the message.
+     *
+     * @var ToVariants|null $to
      */
     #[Optional(nullable: true)]
     public UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|null $to;
@@ -132,7 +138,7 @@ final class Message implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,ChannelShape>|null $channels
+     * @param array<string,Channel|ChannelShape>|null $channels
      * @param ContentShape|null $content
      * @param MessageContext|MessageContextShape|null $context
      * @param array<string,mixed>|null $data
@@ -140,7 +146,7 @@ final class Message implements BaseModel
      * @param Expiry|ExpiryShape|null $expiry
      * @param Metadata|MetadataShape|null $metadata
      * @param Preferences|PreferencesShape|null $preferences
-     * @param array<string,ProviderShape>|null $providers
+     * @param array<string,Provider|ProviderShape>|null $providers
      * @param Routing|RoutingShape|null $routing
      * @param Timeout|TimeoutShape|null $timeout
      * @param ToShape|null $to
@@ -192,7 +198,7 @@ final class Message implements BaseModel
     /**
      * Define run-time configuration for channels. Valid ChannelId's: email, sms, push, inbox, direct_message, banner, webhook.
      *
-     * @param array<string,ChannelShape>|null $channels
+     * @param array<string,Channel|ChannelShape>|null $channels
      */
     public function withChannels(?array $channels): self
     {
@@ -283,7 +289,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param array<string,ProviderShape>|null $providers
+     * @param array<string,Provider|ProviderShape>|null $providers
      */
     public function withProviders(?array $providers): self
     {

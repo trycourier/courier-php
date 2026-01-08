@@ -15,7 +15,7 @@ use Courier\Tenants\TenantListResponse\Type;
  *
  * @phpstan-type TenantListResponseShape = array{
  *   hasMore: bool,
- *   items: list<TenantShape>,
+ *   items: list<Tenant|TenantShape>,
  *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
@@ -96,7 +96,7 @@ final class TenantListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<TenantShape> $items
+     * @param list<Tenant|TenantShape> $items
      * @param Type|value-of<Type> $type
      */
     public static function with(
@@ -134,7 +134,7 @@ final class TenantListResponse implements BaseModel
     /**
      * An array of Tenants.
      *
-     * @param list<TenantShape> $items
+     * @param list<Tenant|TenantShape> $items
      */
     public function withItems(array $items): self
     {

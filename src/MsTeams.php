@@ -15,7 +15,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type SendToMsTeamsConversationIDShape from \Courier\SendToMsTeamsConversationID
  * @phpstan-import-type SendToMsTeamsChannelNameShape from \Courier\SendToMsTeamsChannelName
  *
- * @phpstan-type MsTeamsShape = SendToMsTeamsUserIDShape|SendToMsTeamsEmailShape|SendToMsTeamsChannelIDShape|SendToMsTeamsConversationIDShape|SendToMsTeamsChannelNameShape
+ * @phpstan-type MsTeamsVariants = SendToMsTeamsUserID|SendToMsTeamsEmail|SendToMsTeamsChannelID|SendToMsTeamsConversationID|SendToMsTeamsChannelName
+ * @phpstan-type MsTeamsShape = MsTeamsVariants|SendToMsTeamsUserIDShape|SendToMsTeamsEmailShape|SendToMsTeamsChannelIDShape|SendToMsTeamsConversationIDShape|SendToMsTeamsChannelNameShape
  */
 final class MsTeams implements ConverterSource
 {

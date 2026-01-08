@@ -11,7 +11,9 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * @phpstan-import-type BrandSnippetShape from \Courier\Brands\BrandSnippet
  *
- * @phpstan-type BrandSnippetsShape = array{items?: list<BrandSnippetShape>|null}
+ * @phpstan-type BrandSnippetsShape = array{
+ *   items?: list<BrandSnippet|BrandSnippetShape>|null
+ * }
  */
 final class BrandSnippets implements BaseModel
 {
@@ -32,7 +34,7 @@ final class BrandSnippets implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BrandSnippetShape>|null $items
+     * @param list<BrandSnippet|BrandSnippetShape>|null $items
      */
     public static function with(?array $items = null): self
     {
@@ -44,7 +46,7 @@ final class BrandSnippets implements BaseModel
     }
 
     /**
-     * @param list<BrandSnippetShape>|null $items
+     * @param list<BrandSnippet|BrandSnippetShape>|null $items
      */
     public function withItems(?array $items): self
     {

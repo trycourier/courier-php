@@ -13,6 +13,9 @@ use Courier\Inbound\InboundTrackEventResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\InboundRawContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class InboundRawService implements InboundRawContract
 {
     // @phpstan-ignore-next-line
@@ -30,9 +33,10 @@ final class InboundRawService implements InboundRawContract
      *   event: string,
      *   messageID: string,
      *   properties: array<string,mixed>,
-     *   type: 'track'|Type,
+     *   type: Type|value-of<Type>,
      *   userID?: string|null,
      * }|InboundTrackEventParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<InboundTrackEventResponse>
      *
@@ -40,7 +44,7 @@ final class InboundRawService implements InboundRawContract
      */
     public function trackEvent(
         array|InboundTrackEventParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = InboundTrackEventParams::parseRequest(
             $params,

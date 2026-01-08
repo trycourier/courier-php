@@ -9,7 +9,10 @@ use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
- * @phpstan-type MessageRoutingChannelShape = string|MessageRouting
+ * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
+ *
+ * @phpstan-type MessageRoutingChannelVariants = mixed|string
+ * @phpstan-type MessageRoutingChannelShape = MessageRoutingChannelVariants|MessageRoutingShape
  */
 final class MessageRoutingChannel implements ConverterSource
 {

@@ -11,6 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * Send via Slack (channel, email, or user_id).
  *
+ * @phpstan-import-type SlackVariants from \Courier\Slack
  * @phpstan-import-type SlackShape from \Courier\Slack
  *
  * @phpstan-type SlackRecipientShape = array{slack: SlackShape}
@@ -20,6 +21,7 @@ final class SlackRecipient implements BaseModel
     /** @use SdkModel<SlackRecipientShape> */
     use SdkModel;
 
+    /** @var SlackVariants $slack */
     #[Required]
     public SendToSlackChannel|SendToSlackEmail|SendToSlackUserID $slack;
 

@@ -5,27 +5,20 @@ declare(strict_types=1);
 namespace Courier\Services;
 
 use Courier\Brands\Brand;
-use Courier\Brands\BrandColors;
 use Courier\Brands\BrandListResponse;
 use Courier\Brands\BrandSettings;
-use Courier\Brands\BrandSettingsEmail;
-use Courier\Brands\BrandSettingsInApp;
-use Courier\Brands\BrandSettingsInApp\Placement;
-use Courier\Brands\BrandSnippet;
 use Courier\Brands\BrandSnippets;
-use Courier\Brands\BrandTemplate;
-use Courier\Brands\EmailFooter;
-use Courier\Brands\EmailHead;
-use Courier\Brands\EmailHeader;
-use Courier\Brands\Icons;
-use Courier\Brands\Logo;
-use Courier\Brands\WidgetBackground;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsContract;
 
+/**
+ * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
+ * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class BrandsService implements BrandsContract
 {
     /**
@@ -46,63 +39,18 @@ final class BrandsService implements BrandsContract
      *
      * Create a new brand
      *
-     * @param array{
-     *   colors?: array{primary?: string, secondary?: string}|BrandColors|null,
-     *   email?: array{
-     *     footer?: array{
-     *       content?: string|null, inheritDefault?: bool|null
-     *     }|EmailFooter|null,
-     *     head?: array{inheritDefault: bool, content?: string|null}|EmailHead|null,
-     *     header?: array{
-     *       logo: array{href?: string|null, image?: string|null}|Logo,
-     *       barColor?: string|null,
-     *       inheritDefault?: bool|null,
-     *     }|EmailHeader|null,
-     *     templateOverride?: array{
-     *       enabled: bool,
-     *       backgroundColor?: string|null,
-     *       blocksBackgroundColor?: string|null,
-     *       footer?: string|null,
-     *       head?: string|null,
-     *       header?: string|null,
-     *       width?: string|null,
-     *       mjml: array{
-     *         enabled: bool,
-     *         backgroundColor?: string|null,
-     *         blocksBackgroundColor?: string|null,
-     *         footer?: string|null,
-     *         head?: string|null,
-     *         header?: string|null,
-     *         width?: string|null,
-     *       }|BrandTemplate,
-     *       footerBackgroundColor?: string|null,
-     *       footerFullWidth?: bool|null,
-     *     }|null,
-     *   }|BrandSettingsEmail|null,
-     *   inapp?: array{
-     *     colors: array{primary?: string, secondary?: string}|BrandColors,
-     *     icons: array{bell?: string|null, message?: string|null}|Icons,
-     *     widgetBackground: array{
-     *       bottomColor?: string|null, topColor?: string|null
-     *     }|WidgetBackground,
-     *     borderRadius?: string|null,
-     *     disableMessageIcon?: bool|null,
-     *     fontFamily?: string|null,
-     *     placement?: 'top'|'bottom'|'left'|'right'|Placement|null,
-     *   }|BrandSettingsInApp|null,
-     * }|BrandSettings|null $settings
-     * @param array{
-     *   items?: list<array{name: string, value: string}|BrandSnippet>|null
-     * }|BrandSnippets|null $snippets
+     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function create(
         string $name,
         ?string $id = null,
-        array|BrandSettings|null $settings = null,
-        array|BrandSnippets|null $snippets = null,
-        ?RequestOptions $requestOptions = null,
+        BrandSettings|array|null $settings = null,
+        BrandSnippets|array|null $snippets = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Brand {
         $params = Util::removeNulls(
             [
@@ -125,12 +73,13 @@ final class BrandsService implements BrandsContract
      * Fetch a specific brand by brand ID.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function retrieve(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): Brand {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieve($brandID, requestOptions: $requestOptions);
@@ -145,63 +94,18 @@ final class BrandsService implements BrandsContract
      *
      * @param string $brandID a unique identifier associated with the brand you wish to update
      * @param string $name the name of the brand
-     * @param array{
-     *   colors?: array{primary?: string, secondary?: string}|BrandColors|null,
-     *   email?: array{
-     *     footer?: array{
-     *       content?: string|null, inheritDefault?: bool|null
-     *     }|EmailFooter|null,
-     *     head?: array{inheritDefault: bool, content?: string|null}|EmailHead|null,
-     *     header?: array{
-     *       logo: array{href?: string|null, image?: string|null}|Logo,
-     *       barColor?: string|null,
-     *       inheritDefault?: bool|null,
-     *     }|EmailHeader|null,
-     *     templateOverride?: array{
-     *       enabled: bool,
-     *       backgroundColor?: string|null,
-     *       blocksBackgroundColor?: string|null,
-     *       footer?: string|null,
-     *       head?: string|null,
-     *       header?: string|null,
-     *       width?: string|null,
-     *       mjml: array{
-     *         enabled: bool,
-     *         backgroundColor?: string|null,
-     *         blocksBackgroundColor?: string|null,
-     *         footer?: string|null,
-     *         head?: string|null,
-     *         header?: string|null,
-     *         width?: string|null,
-     *       }|BrandTemplate,
-     *       footerBackgroundColor?: string|null,
-     *       footerFullWidth?: bool|null,
-     *     }|null,
-     *   }|BrandSettingsEmail|null,
-     *   inapp?: array{
-     *     colors: array{primary?: string, secondary?: string}|BrandColors,
-     *     icons: array{bell?: string|null, message?: string|null}|Icons,
-     *     widgetBackground: array{
-     *       bottomColor?: string|null, topColor?: string|null
-     *     }|WidgetBackground,
-     *     borderRadius?: string|null,
-     *     disableMessageIcon?: bool|null,
-     *     fontFamily?: string|null,
-     *     placement?: 'top'|'bottom'|'left'|'right'|Placement|null,
-     *   }|BrandSettingsInApp|null,
-     * }|BrandSettings|null $settings
-     * @param array{
-     *   items?: list<array{name: string, value: string}|BrandSnippet>|null
-     * }|BrandSnippets|null $snippets
+     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function update(
         string $brandID,
         string $name,
-        array|BrandSettings|null $settings = null,
-        array|BrandSnippets|null $snippets = null,
-        ?RequestOptions $requestOptions = null,
+        BrandSettings|array|null $settings = null,
+        BrandSnippets|array|null $snippets = null,
+        RequestOptions|array|null $requestOptions = null,
     ): Brand {
         $params = Util::removeNulls(
             ['name' => $name, 'settings' => $settings, 'snippets' => $snippets]
@@ -219,12 +123,13 @@ final class BrandsService implements BrandsContract
      * Get the list of brands.
      *
      * @param string|null $cursor a unique identifier that allows for fetching the next set of brands
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function list(
         ?string $cursor = null,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BrandListResponse {
         $params = Util::removeNulls(['cursor' => $cursor]);
 
@@ -240,12 +145,13 @@ final class BrandsService implements BrandsContract
      * Delete a brand by brand ID.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function delete(
         string $brandID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->delete($brandID, requestOptions: $requestOptions);

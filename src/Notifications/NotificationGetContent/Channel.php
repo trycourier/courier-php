@@ -19,7 +19,7 @@ use Courier\Notifications\NotificationGetContent\Channel\Locale;
  *   id: string,
  *   checksum?: string|null,
  *   content?: null|Content|ContentShape,
- *   locales?: array<string,LocaleShape>|null,
+ *   locales?: array<string,Locale|LocaleShape>|null,
  *   type?: string|null,
  * }
  */
@@ -69,7 +69,7 @@ final class Channel implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Content|ContentShape|null $content
-     * @param array<string,LocaleShape>|null $locales
+     * @param array<string,Locale|LocaleShape>|null $locales
      */
     public static function with(
         string $id,
@@ -118,7 +118,7 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param array<string,LocaleShape>|null $locales
+     * @param array<string,Locale|LocaleShape>|null $locales
      */
     public function withLocales(?array $locales): self
     {

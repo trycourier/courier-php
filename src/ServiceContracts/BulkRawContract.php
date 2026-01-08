@@ -14,6 +14,9 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface BulkRawContract
 {
     /**
@@ -21,6 +24,7 @@ interface BulkRawContract
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param array<string,mixed>|BulkAddUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -29,13 +33,14 @@ interface BulkRawContract
     public function addUsers(
         string $jobID,
         array|BulkAddUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|BulkCreateJobParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkNewJobResponse>
      *
@@ -43,7 +48,7 @@ interface BulkRawContract
      */
     public function createJob(
         array|BulkCreateJobParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -51,6 +56,7 @@ interface BulkRawContract
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param array<string,mixed>|BulkListUsersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkListUsersResponse>
      *
@@ -59,13 +65,14 @@ interface BulkRawContract
     public function listUsers(
         string $jobID,
         array|BulkListUsersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $jobID A unique identifier representing the bulk job
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BulkGetJobResponse>
      *
@@ -73,13 +80,14 @@ interface BulkRawContract
      */
     public function retrieveJob(
         string $jobID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $jobID A unique identifier representing the bulk job
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -87,6 +95,6 @@ interface BulkRawContract
      */
     public function runJob(
         string $jobID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

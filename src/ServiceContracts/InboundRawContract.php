@@ -10,12 +10,16 @@ use Courier\Inbound\InboundTrackEventParams;
 use Courier\Inbound\InboundTrackEventResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface InboundRawContract
 {
     /**
      * @api
      *
      * @param array<string,mixed>|InboundTrackEventParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<InboundTrackEventResponse>
      *
@@ -23,6 +27,6 @@ interface InboundRawContract
      */
     public function trackEvent(
         array|InboundTrackEventParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

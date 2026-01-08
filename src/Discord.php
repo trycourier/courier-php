@@ -12,7 +12,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type SendToChannelShape from \Courier\SendToChannel
  * @phpstan-import-type SendDirectMessageShape from \Courier\SendDirectMessage
  *
- * @phpstan-type DiscordShape = SendToChannelShape|SendDirectMessageShape
+ * @phpstan-type DiscordVariants = SendToChannel|SendDirectMessage
+ * @phpstan-type DiscordShape = DiscordVariants|SendToChannelShape|SendDirectMessageShape
  */
 final class Discord implements ConverterSource
 {

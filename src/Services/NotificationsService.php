@@ -14,6 +14,9 @@ use Courier\ServiceContracts\NotificationsContract;
 use Courier\Services\Notifications\ChecksService;
 use Courier\Services\Notifications\DraftService;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class NotificationsService implements NotificationsContract
 {
     /**
@@ -45,13 +48,14 @@ final class NotificationsService implements NotificationsContract
      * @api
      *
      * @param bool|null $notes retrieve the notes from the Notification template settings
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function list(
         ?string $cursor = null,
         ?bool $notes = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): NotificationListResponse {
         $params = Util::removeNulls(['cursor' => $cursor, 'notes' => $notes]);
 
@@ -64,11 +68,13 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
+     * @param RequestOpts|null $requestOptions
+     *
      * @throws APIException
      */
     public function retrieveContent(
         string $id,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): NotificationGetContent {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieveContent($id, requestOptions: $requestOptions);

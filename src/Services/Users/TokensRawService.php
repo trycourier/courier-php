@@ -10,13 +10,23 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\TokensRawContract;
 use Courier\Users\Tokens\TokenAddSingleParams;
+use Courier\Users\Tokens\TokenAddSingleParams\Device;
 use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
+use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 use Courier\Users\Tokens\TokenDeleteParams;
 use Courier\Users\Tokens\TokenGetResponse;
 use Courier\Users\Tokens\TokenListResponse;
 use Courier\Users\Tokens\TokenRetrieveParams;
 use Courier\Users\Tokens\TokenUpdateParams;
+use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
+/**
+ * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
+ * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\TokenAddSingleParams\Device
+ * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate
+ * @phpstan-import-type TrackingShape from \Courier\Users\Tokens\TokenAddSingleParams\Tracking
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class TokensRawService implements TokensRawContract
 {
     // @phpstan-ignore-next-line
@@ -32,6 +42,7 @@ final class TokensRawService implements TokensRawContract
      *
      * @param string $token the full token string
      * @param array{userID: string}|TokenRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TokenGetResponse>
      *
@@ -40,7 +51,7 @@ final class TokensRawService implements TokensRawContract
     public function retrieve(
         string $token,
         array|TokenRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TokenRetrieveParams::parseRequest(
             $params,
@@ -65,9 +76,9 @@ final class TokensRawService implements TokensRawContract
      *
      * @param string $token path param: The full token string
      * @param array{
-     *   userID: string,
-     *   patch: list<array{op: string, path: string, value?: string|null}>,
+     *   userID: string, patch: list<Patch|PatchShape>
      * }|TokenUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -76,7 +87,7 @@ final class TokensRawService implements TokensRawContract
     public function update(
         string $token,
         array|TokenUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TokenUpdateParams::parseRequest(
             $params,
@@ -101,6 +112,7 @@ final class TokensRawService implements TokensRawContract
      * Gets all tokens available for a :user_id
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TokenListResponse>
      *
@@ -108,7 +120,7 @@ final class TokensRawService implements TokensRawContract
      */
     public function list(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -126,6 +138,7 @@ final class TokensRawService implements TokensRawContract
      *
      * @param string $token the full token string
      * @param array{userID: string}|TokenDeleteParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -134,7 +147,7 @@ final class TokensRawService implements TokensRawContract
     public function delete(
         string $token,
         array|TokenDeleteParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TokenDeleteParams::parseRequest(
             $params,
@@ -158,6 +171,7 @@ final class TokensRawService implements TokensRawContract
      * Adds multiple tokens to a user and overwrites matching existing tokens.
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -165,7 +179,7 @@ final class TokensRawService implements TokensRawContract
      */
     public function addMultiple(
         string $userID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -185,24 +199,13 @@ final class TokensRawService implements TokensRawContract
      * @param array{
      *   userID: string,
      *   token: string,
-     *   providerKey: 'firebase-fcm'|'apn'|'expo'|'onesignal'|ProviderKey,
-     *   device?: array{
-     *     adID?: string|null,
-     *     appID?: string|null,
-     *     deviceID?: string|null,
-     *     manufacturer?: string|null,
-     *     model?: string|null,
-     *     platform?: string|null,
-     *   }|null,
-     *   expiryDate?: string|bool|null,
+     *   providerKey: ProviderKey|value-of<ProviderKey>,
+     *   device?: Device|DeviceShape|null,
+     *   expiryDate?: ExpiryDateShape|null,
      *   properties?: mixed,
-     *   tracking?: array{
-     *     ip?: string|null,
-     *     lat?: string|null,
-     *     long?: string|null,
-     *     osVersion?: string|null,
-     *   }|null,
+     *   tracking?: Tracking|TrackingShape|null,
      * }|TokenAddSingleParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -211,7 +214,7 @@ final class TokensRawService implements TokensRawContract
     public function addSingle(
         string $token_,
         array|TokenAddSingleParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = TokenAddSingleParams::parseRequest(
             $params,

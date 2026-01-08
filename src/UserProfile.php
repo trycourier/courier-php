@@ -10,6 +10,11 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\UserProfile\Address;
 
 /**
+ * @phpstan-import-type DiscordVariants from \Courier\Discord
+ * @phpstan-import-type ExpoVariants from \Courier\Expo
+ * @phpstan-import-type UserProfileFirebaseTokenVariants from \Courier\UserProfileFirebaseToken
+ * @phpstan-import-type MsTeamsVariants from \Courier\MsTeams
+ * @phpstan-import-type SlackVariants from \Courier\Slack
  * @phpstan-import-type AddressShape from \Courier\UserProfile\Address
  * @phpstan-import-type AirshipProfileShape from \Courier\AirshipProfile
  * @phpstan-import-type DiscordShape from \Courier\Discord
@@ -78,6 +83,7 @@ final class UserProfile implements BaseModel
     #[Optional(map: 'mixed', nullable: true)]
     public ?array $custom;
 
+    /** @var DiscordVariants|null $discord */
     #[Optional(nullable: true)]
     public SendToChannel|SendDirectMessage|null $discord;
 
@@ -87,6 +93,7 @@ final class UserProfile implements BaseModel
     #[Optional('email_verified', nullable: true)]
     public ?bool $emailVerified;
 
+    /** @var ExpoVariants|null $expo */
     #[Optional(nullable: true)]
     public Token|MultipleTokens|null $expo;
 
@@ -96,7 +103,7 @@ final class UserProfile implements BaseModel
     #[Optional('family_name', nullable: true)]
     public ?string $familyName;
 
-    /** @var string|list<string>|null $firebaseToken */
+    /** @var UserProfileFirebaseTokenVariants|null $firebaseToken */
     #[Optional(union: UserProfileFirebaseToken::class, nullable: true)]
     public string|array|null $firebaseToken;
 
@@ -115,6 +122,7 @@ final class UserProfile implements BaseModel
     #[Optional('middle_name', nullable: true)]
     public ?string $middleName;
 
+    /** @var MsTeamsVariants|null $msTeams */
     #[Optional('ms_teams', nullable: true)]
     public SendToMsTeamsUserID|SendToMsTeamsEmail|SendToMsTeamsChannelID|SendToMsTeamsConversationID|SendToMsTeamsChannelName|null $msTeams;
 
@@ -139,6 +147,7 @@ final class UserProfile implements BaseModel
     #[Optional(nullable: true)]
     public ?string $profile;
 
+    /** @var SlackVariants|null $slack */
     #[Optional(nullable: true)]
     public SendToSlackChannel|SendToSlackEmail|SendToSlackUserID|null $slack;
 

@@ -13,7 +13,9 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-import-type UserTokenShape from \Courier\Users\Tokens\UserToken
  *
- * @phpstan-type TokenListResponseShape = array{tokens: list<UserTokenShape>}
+ * @phpstan-type TokenListResponseShape = array{
+ *   tokens: list<UserToken|UserTokenShape>
+ * }
  */
 final class TokenListResponse implements BaseModel
 {
@@ -48,7 +50,7 @@ final class TokenListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<UserTokenShape> $tokens
+     * @param list<UserToken|UserTokenShape> $tokens
      */
     public static function with(array $tokens): self
     {
@@ -60,7 +62,7 @@ final class TokenListResponse implements BaseModel
     }
 
     /**
-     * @param list<UserTokenShape> $tokens
+     * @param list<UserToken|UserTokenShape> $tokens
      */
     public function withTokens(array $tokens): self
     {

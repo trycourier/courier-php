@@ -28,7 +28,8 @@ use Courier\WebhookRecipient;
  * @phpstan-import-type PagerdutyRecipientShape from \Courier\PagerdutyRecipient
  * @phpstan-import-type WebhookRecipientShape from \Courier\WebhookRecipient
  *
- * @phpstan-type ToShape = UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape
+ * @phpstan-type ToVariants = UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient
+ * @phpstan-type ToShape = ToVariants|UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape
  */
 final class To implements ConverterSource
 {

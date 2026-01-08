@@ -14,8 +14,8 @@ use Courier\Preference;
  * @phpstan-import-type PreferenceShape from \Courier\Preference
  *
  * @phpstan-type PreferencesShape = array{
- *   notifications: array<string,PreferenceShape>,
- *   categories?: array<string,PreferenceShape>|null,
+ *   notifications: array<string,Preference|PreferenceShape>,
+ *   categories?: array<string,Preference|PreferenceShape>|null,
  *   templateID?: string|null,
  * }
  */
@@ -59,8 +59,8 @@ final class Preferences implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,PreferenceShape> $notifications
-     * @param array<string,PreferenceShape>|null $categories
+     * @param array<string,Preference|PreferenceShape> $notifications
+     * @param array<string,Preference|PreferenceShape>|null $categories
      */
     public static function with(
         array $notifications,
@@ -78,7 +78,7 @@ final class Preferences implements BaseModel
     }
 
     /**
-     * @param array<string,PreferenceShape> $notifications
+     * @param array<string,Preference|PreferenceShape> $notifications
      */
     public function withNotifications(array $notifications): self
     {
@@ -89,7 +89,7 @@ final class Preferences implements BaseModel
     }
 
     /**
-     * @param array<string,PreferenceShape>|null $categories
+     * @param array<string,Preference|PreferenceShape>|null $categories
      */
     public function withCategories(?array $categories): self
     {

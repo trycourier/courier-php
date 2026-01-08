@@ -9,6 +9,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * @phpstan-import-type FilterVariants from \Courier\Audiences\Filter
  * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
  *
  * @phpstan-type AudienceShape = array{
@@ -42,6 +43,8 @@ final class Audience implements BaseModel
 
     /**
      * A single filter to use for filtering.
+     *
+     * @var FilterVariants $filter
      */
     #[Required]
     public SingleFilterConfig|NestedFilterConfig $filter;

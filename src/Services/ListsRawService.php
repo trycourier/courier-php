@@ -11,11 +11,14 @@ use Courier\Lists\ListListParams;
 use Courier\Lists\ListListResponse;
 use Courier\Lists\ListUpdateParams;
 use Courier\Lists\SubscriptionList;
-use Courier\NotificationPreferenceDetails;
 use Courier\RecipientPreferences;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ListsRawContract;
 
+/**
+ * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class ListsRawService implements ListsRawContract
 {
     // @phpstan-ignore-next-line
@@ -30,6 +33,7 @@ final class ListsRawService implements ListsRawContract
      * Returns a list based on the list ID provided.
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<SubscriptionList>
      *
@@ -37,7 +41,7 @@ final class ListsRawService implements ListsRawContract
      */
     public function retrieve(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -56,11 +60,9 @@ final class ListsRawService implements ListsRawContract
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array{
      *   name: string,
-     *   preferences?: array{
-     *     categories?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
-     *     notifications?: array<string,array<string,mixed>|NotificationPreferenceDetails>|null,
-     *   }|RecipientPreferences|null,
+     *   preferences?: RecipientPreferences|RecipientPreferencesShape|null,
      * }|ListUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -69,7 +71,7 @@ final class ListsRawService implements ListsRawContract
     public function update(
         string $listID,
         array|ListUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ListUpdateParams::parseRequest(
             $params,
@@ -92,6 +94,7 @@ final class ListsRawService implements ListsRawContract
      * Returns all of the lists, with the ability to filter based on a pattern.
      *
      * @param array{cursor?: string|null, pattern?: string|null}|ListListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ListListResponse>
      *
@@ -99,7 +102,7 @@ final class ListsRawService implements ListsRawContract
      */
     public function list(
         array|ListListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
         [$parsed, $options] = ListListParams::parseRequest(
             $params,
@@ -122,6 +125,7 @@ final class ListsRawService implements ListsRawContract
      * Delete a list by list ID.
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -129,7 +133,7 @@ final class ListsRawService implements ListsRawContract
      */
     public function delete(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -146,6 +150,7 @@ final class ListsRawService implements ListsRawContract
      * Restore a previously deleted list.
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -153,7 +158,7 @@ final class ListsRawService implements ListsRawContract
      */
     public function restore(
         string $listID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse {
         // @phpstan-ignore-next-line return.type
         return $this->client->request(

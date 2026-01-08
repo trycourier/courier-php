@@ -12,7 +12,7 @@ use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
 /**
  * @phpstan-import-type DataShape from \Courier\Notifications\NotificationListResponse\Result\Tags\Data
  *
- * @phpstan-type TagsShape = array{data: list<DataShape>}
+ * @phpstan-type TagsShape = array{data: list<Data|DataShape>}
  */
 final class Tags implements BaseModel
 {
@@ -47,7 +47,7 @@ final class Tags implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<DataShape> $data
+     * @param list<Data|DataShape> $data
      */
     public static function with(array $data): self
     {
@@ -59,7 +59,7 @@ final class Tags implements BaseModel
     }
 
     /**
-     * @param list<DataShape> $data
+     * @param list<Data|DataShape> $data
      */
     public function withData(array $data): self
     {

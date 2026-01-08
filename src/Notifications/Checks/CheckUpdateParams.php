@@ -16,7 +16,7 @@ use Courier\Notifications\BaseCheck;
  * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck
  *
  * @phpstan-type CheckUpdateParamsShape = array{
- *   id: string, checks: list<BaseCheckShape>
+ *   id: string, checks: list<BaseCheck|BaseCheckShape>
  * }
  */
 final class CheckUpdateParams implements BaseModel
@@ -56,7 +56,7 @@ final class CheckUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BaseCheckShape> $checks
+     * @param list<BaseCheck|BaseCheckShape> $checks
      */
     public static function with(string $id, array $checks): self
     {
@@ -77,7 +77,7 @@ final class CheckUpdateParams implements BaseModel
     }
 
     /**
-     * @param list<BaseCheckShape> $checks
+     * @param list<BaseCheck|BaseCheckShape> $checks
      */
     public function withChecks(array $checks): self
     {

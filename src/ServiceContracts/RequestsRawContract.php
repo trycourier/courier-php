@@ -8,12 +8,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface RequestsRawContract
 {
     /**
      * @api
      *
      * @param string $requestID A unique identifier representing the request ID
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -21,6 +25,6 @@ interface RequestsRawContract
      */
     public function archive(
         string $requestID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

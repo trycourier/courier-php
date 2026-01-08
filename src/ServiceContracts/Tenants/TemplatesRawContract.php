@@ -12,6 +12,9 @@ use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplateRetrieveParams;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface TemplatesRawContract
 {
     /**
@@ -19,6 +22,7 @@ interface TemplatesRawContract
      *
      * @param string $templateID id of the template to be retrieved
      * @param array<string,mixed>|TemplateRetrieveParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<BaseTemplateTenantAssociation>
      *
@@ -27,7 +31,7 @@ interface TemplatesRawContract
     public function retrieve(
         string $templateID,
         array|TemplateRetrieveParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
@@ -35,6 +39,7 @@ interface TemplatesRawContract
      *
      * @param string $tenantID id of the tenant for which to retrieve the templates
      * @param array<string,mixed>|TemplateListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<TemplateListResponse>
      *
@@ -43,6 +48,6 @@ interface TemplatesRawContract
     public function list(
         string $tenantID,
         array|TemplateListParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

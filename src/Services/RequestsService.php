@@ -9,6 +9,9 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\RequestsContract;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 final class RequestsService implements RequestsContract
 {
     /**
@@ -30,12 +33,13 @@ final class RequestsService implements RequestsContract
      * Archive message
      *
      * @param string $requestID A unique identifier representing the request ID
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function archive(
         string $requestID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->archive($requestID, requestOptions: $requestOptions);

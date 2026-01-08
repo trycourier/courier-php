@@ -9,6 +9,9 @@ use Courier\Inbound\InboundTrackEventParams\Type;
 use Courier\Inbound\InboundTrackEventResponse;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface InboundContract
 {
     /**
@@ -17,8 +20,9 @@ interface InboundContract
      * @param string $event A descriptive name of the event. This name will appear as a trigger in the Courier Automation Trigger node.
      * @param string $messageID A required unique identifier that will be used to de-duplicate requests. If not unique, will respond with 409 Conflict status
      * @param array<string,mixed> $properties
-     * @param 'track'|Type $type
+     * @param Type|value-of<Type> $type
      * @param string|null $userID The user id associatiated with the track
+     * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
@@ -26,8 +30,8 @@ interface InboundContract
         string $event,
         string $messageID,
         array $properties,
-        string|Type $type,
+        Type|string $type,
         ?string $userID = null,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): InboundTrackEventResponse;
 }

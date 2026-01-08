@@ -15,12 +15,16 @@ use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 
+/**
+ * @phpstan-import-type RequestOpts from \Courier\RequestOptions
+ */
 interface AudiencesRawContract
 {
     /**
      * @api
      *
      * @param string $audienceID A unique identifier representing the audience_id
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Audience>
      *
@@ -28,7 +32,7 @@ interface AudiencesRawContract
      */
     public function retrieve(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -36,6 +40,7 @@ interface AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array<string,mixed>|AudienceUpdateParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceUpdateResponse>
      *
@@ -44,13 +49,14 @@ interface AudiencesRawContract
     public function update(
         string $audienceID,
         array|AudienceUpdateParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param array<string,mixed>|AudienceListParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceListResponse>
      *
@@ -58,13 +64,14 @@ interface AudiencesRawContract
      */
     public function list(
         array|AudienceListParams $params,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
      * @api
      *
      * @param string $audienceID A unique identifier representing the audience id
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
      *
@@ -72,7 +79,7 @@ interface AudiencesRawContract
      */
     public function delete(
         string $audienceID,
-        ?RequestOptions $requestOptions = null
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -80,6 +87,7 @@ interface AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array<string,mixed>|AudienceListMembersParams $params
+     * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<AudienceListMembersResponse>
      *
@@ -88,6 +96,6 @@ interface AudiencesRawContract
     public function listMembers(
         string $audienceID,
         array|AudienceListMembersParams $params,
-        ?RequestOptions $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

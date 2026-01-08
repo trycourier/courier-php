@@ -18,7 +18,7 @@ use Courier\Tenants\TenantListUsersResponse\Type;
  *   type: Type|value-of<Type>,
  *   url: string,
  *   cursor?: string|null,
- *   items?: list<TenantAssociationShape>|null,
+ *   items?: list<TenantAssociation|TenantAssociationShape>|null,
  *   nextURL?: string|null,
  * }
  */
@@ -90,7 +90,7 @@ final class TenantListUsersResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Type|value-of<Type> $type
-     * @param list<TenantAssociationShape>|null $items
+     * @param list<TenantAssociation|TenantAssociationShape>|null $items
      */
     public static function with(
         bool $hasMore,
@@ -161,7 +161,7 @@ final class TenantListUsersResponse implements BaseModel
     }
 
     /**
-     * @param list<TenantAssociationShape>|null $items
+     * @param list<TenantAssociation|TenantAssociationShape>|null $items
      */
     public function withItems(?array $items): self
     {

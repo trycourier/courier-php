@@ -10,7 +10,8 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Core\Conversion\ListOf;
 
 /**
- * @phpstan-type UserProfileFirebaseTokenShape = string|list<string>
+ * @phpstan-type UserProfileFirebaseTokenVariants = string|list<string>
+ * @phpstan-type UserProfileFirebaseTokenShape = UserProfileFirebaseTokenVariants
  */
 final class UserProfileFirebaseToken implements ConverterSource
 {
