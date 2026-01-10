@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.0.0 (2026-01-10)
+
+Full Changelog: [v4.1.0...v5.0.0](https://github.com/trycourier/courier-php/compare/v4.1.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* replace special flag type `omittable` with just `null`
+
+### Features
+
+* replace special flag type `omittable` with just `null` ([dc732bd](https://github.com/trycourier/courier-php/commit/dc732bd167c823597119f44e357f64b814b7c0b2))
+
+
+### Chores
+
+* add git attributes and composer lock file ([f4733cc](https://github.com/trycourier/courier-php/commit/f4733ccba9daedee0078bbce67c4eea2699558f1))
+
 ## 4.1.0 (2026-01-08)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/trycourier/courier-php/compare/v4.0.0...v4.1.0)

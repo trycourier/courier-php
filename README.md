@@ -123,10 +123,9 @@ You can use the `maxRetries` option to configure or disable this:
 <?php
 
 use Courier\Client;
-use Courier\RequestOptions;
 
 // Configure the default for all requests:
-$client = new Client(maxRetries: 0);
+$client = new Client(requestOptions: ['maxRetries' => 0]);
 
 // Or, configure per-request:
 $result = $client->send->message(
@@ -135,7 +134,7 @@ $result = $client->send->message(
     'template' => 'your_template_id',
     'data' => ['foo' => 'bar'],
   ],
-  requestOptions: RequestOptions::with(maxRetries: 5),
+  requestOptions: ['maxRetries' => 5],
 );
 ```
 
@@ -152,19 +151,17 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 ```php
 <?php
 
-use Courier\RequestOptions;
-
 $response = $client->send->message(
   message: [
     'to' => ['userID' => 'your_user_id'],
     'template' => 'your_template_id',
     'data' => ['foo' => 'bar'],
   ],
-  requestOptions: RequestOptions::with(
-    extraQueryParams: ['my_query_parameter' => 'value'],
-    extraBodyParams: ['my_body_parameter' => 'value'],
-    extraHeaders: ['my-header' => 'value'],
-  ),
+  requestOptions: [
+    'extraQueryParams' => ['my_query_parameter' => 'value'],
+    'extraBodyParams' => ['my_body_parameter' => 'value'],
+    'extraHeaders' => ['my-header' => 'value'],
+  ],
 );
 ```
 
