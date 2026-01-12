@@ -28,7 +28,7 @@ final class NestedFilterConfig implements BaseModel
     public string $operator;
 
     /** @var list<mixed> $rules */
-    #[Required(list: FilterConfig::class)]
+    #[Required(list: Filter::class)]
     public array $rules;
 
     /**

@@ -1,5 +1,30 @@
 # Changelog
 
+## 5.0.0 (2026-01-12)
+
+Full Changelog: [v4.1.0...v5.0.0](https://github.com/trycourier/courier-php/compare/v4.1.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* replace special flag type `omittable` with just `null`
+
+### Features
+
+* replace special flag type `omittable` with just `null` ([dc732bd](https://github.com/trycourier/courier-php/commit/dc732bd167c823597119f44e357f64b814b7c0b2))
+
+
+### Bug Fixes
+
+* **types:** correct variants and list types in audiences filters ([65348ef](https://github.com/trycourier/courier-php/commit/65348efeefd976112df533fbecdd4cbbbbceefcc))
+
+
+### Chores
+
+* add git attributes and composer lock file ([f4733cc](https://github.com/trycourier/courier-php/commit/f4733ccba9daedee0078bbce67c4eea2699558f1))
+* **internal:** codegen related update ([c3441ed](https://github.com/trycourier/courier-php/commit/c3441edf886f03302f063c7489f0745e1927a533))
+* **internal:** codegen related update ([39c23af](https://github.com/trycourier/courier-php/commit/39c23af782e97f7e539a526e6a5b9530f76927d6))
+* **internal:** regenerate SDK with no functional changes ([edd567c](https://github.com/trycourier/courier-php/commit/edd567c6c169ff02b52cc706f157c2fca7456675))
+
 ## 4.1.0 (2026-01-08)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/trycourier/courier-php/compare/v4.0.0...v4.1.0)

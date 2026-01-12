@@ -30,7 +30,7 @@ final class ItemsRawService implements ItemsRawContract
      *
      * Create or Replace Default Preferences For Topic
      *
-     * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
+     * @param string $topicID path param: Id of the subscription topic you want to have a default preference for
      * @param array{
      *   tenantID: string,
      *   status: Status|value-of<Status>,
@@ -72,7 +72,7 @@ final class ItemsRawService implements ItemsRawContract
      *
      * Remove Default Preferences For Topic
      *
-     * @param string $topicID id fo the susbcription topic you want to have a default preference for
+     * @param string $topicID id of the subscription topic you want to have a default preference for
      * @param array{tenantID: string}|ItemDeleteParams $params
      * @param RequestOpts|null $requestOptions
      *
