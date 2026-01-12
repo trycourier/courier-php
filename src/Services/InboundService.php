@@ -39,7 +39,7 @@ final class InboundService implements InboundContract
      * @param string $messageID A required unique identifier that will be used to de-duplicate requests. If not unique, will respond with 409 Conflict status
      * @param array<string,mixed> $properties
      * @param Type|value-of<Type> $type
-     * @param string|null $userID The user id associatiated with the track
+     * @param string|null $userID The user id associated with the track
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

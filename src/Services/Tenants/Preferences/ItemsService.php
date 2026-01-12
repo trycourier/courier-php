@@ -35,11 +35,11 @@ final class ItemsService implements ItemsContract
      *
      * Create or Replace Default Preferences For Topic
      *
-     * @param string $topicID path param: Id fo the susbcription topic you want to have a default preference for
+     * @param string $topicID path param: Id of the subscription topic you want to have a default preference for
      * @param string $tenantID path param: Id of the tenant to update the default preferences for
      * @param Status|value-of<Status> $status Body param:
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting Body param: The default channels to send to this tenant when has_custom_routing is enabled
-     * @param bool|null $hasCustomRouting Body param: Override channel routing with custom preferences. This will override any template prefernces that are set, but a user can still customize their preferences
+     * @param bool|null $hasCustomRouting Body param: Override channel routing with custom preferences. This will override any template preferences that are set, but a user can still customize their preferences
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -72,7 +72,7 @@ final class ItemsService implements ItemsContract
      *
      * Remove Default Preferences For Topic
      *
-     * @param string $topicID id fo the susbcription topic you want to have a default preference for
+     * @param string $topicID id of the subscription topic you want to have a default preference for
      * @param string $tenantID id of the tenant to update the default preferences for
      * @param RequestOpts|null $requestOptions
      *
