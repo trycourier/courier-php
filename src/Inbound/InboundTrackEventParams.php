@@ -51,7 +51,7 @@ final class InboundTrackEventParams implements BaseModel
     public string $type;
 
     /**
-     * The user id associatiated with the track.
+     * The user id associated with the track.
      */
     #[Optional('userId', nullable: true)]
     public ?string $userID;
@@ -153,7 +153,7 @@ final class InboundTrackEventParams implements BaseModel
     }
 
     /**
-     * The user id associatiated with the track.
+     * The user id associated with the track.
      */
     public function withUserID(?string $userID): self
     {

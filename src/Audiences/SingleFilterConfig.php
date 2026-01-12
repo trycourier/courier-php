@@ -28,7 +28,7 @@ final class SingleFilterConfig implements BaseModel
     public string $operator;
 
     /**
-     * The attribe name from profile whose value will be operated against the filter value.
+     * The attribute name from profile whose value will be operated against the filter value.
      */
     #[Required]
     public string $path;
@@ -93,7 +93,7 @@ final class SingleFilterConfig implements BaseModel
     }
 
     /**
-     * The attribe name from profile whose value will be operated against the filter value.
+     * The attribute name from profile whose value will be operated against the filter value.
      */
     public function withPath(string $path): self
     {
