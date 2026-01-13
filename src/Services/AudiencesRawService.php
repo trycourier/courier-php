@@ -10,7 +10,9 @@ use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
+use Courier\Audiences\AudienceUpdateParams\Operator;
 use Courier\Audiences\AudienceUpdateResponse;
+use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
@@ -61,7 +63,10 @@ final class AudiencesRawService implements AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{
-     *   description?: string|null, filter?: FilterShape|null, name?: string|null
+     *   description?: string|null,
+     *   filter?: Filter|FilterShape|null,
+     *   name?: string|null,
+     *   operator?: Operator|value-of<Operator>|null,
      * }|AudienceUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *

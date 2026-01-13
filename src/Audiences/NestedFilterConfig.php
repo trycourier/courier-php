@@ -11,13 +11,17 @@ use Courier\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type NestedFilterConfigShape = array{
- *   operator: Operator|value-of<Operator>, rules: list<mixed>
+ *   filters: list<mixed>, operator: Operator|value-of<Operator>
  * }
  */
 final class NestedFilterConfig implements BaseModel
 {
     /** @use SdkModel<NestedFilterConfigShape> */
     use SdkModel;
+
+    /** @var list<mixed> $filters */
+    #[Required(list: FilterConfig::class)]
+    public array $filters;
 
     /**
      * The operator to use for filtering.
@@ -27,22 +31,18 @@ final class NestedFilterConfig implements BaseModel
     #[Required(enum: Operator::class)]
     public string $operator;
 
-    /** @var list<mixed> $rules */
-    #[Required(list: Filter::class)]
-    public array $rules;
-
     /**
      * `new NestedFilterConfig()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * NestedFilterConfig::with(operator: ..., rules: ...)
+     * NestedFilterConfig::with(filters: ..., operator: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new NestedFilterConfig)->withOperator(...)->withRules(...)
+     * (new NestedFilterConfig)->withFilters(...)->withOperator(...)
      * ```
      */
     public function __construct()
@@ -55,15 +55,26 @@ final class NestedFilterConfig implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
+     * @param list<mixed> $filters
      * @param Operator|value-of<Operator> $operator
-     * @param list<mixed> $rules
      */
-    public static function with(Operator|string $operator, array $rules): self
+    public static function with(array $filters, Operator|string $operator): self
     {
         $self = new self;
 
+        $self['filters'] = $filters;
         $self['operator'] = $operator;
-        $self['rules'] = $rules;
+
+        return $self;
+    }
+
+    /**
+     * @param list<mixed> $filters
+     */
+    public function withFilters(array $filters): self
+    {
+        $self = clone $this;
+        $self['filters'] = $filters;
 
         return $self;
     }
@@ -77,17 +88,6 @@ final class NestedFilterConfig implements BaseModel
     {
         $self = clone $this;
         $self['operator'] = $operator;
-
-        return $self;
-    }
-
-    /**
-     * @param list<mixed> $rules
-     */
-    public function withRules(array $rules): self
-    {
-        $self = clone $this;
-        $self['rules'] = $rules;
 
         return $self;
     }
