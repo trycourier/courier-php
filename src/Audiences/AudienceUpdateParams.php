@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\Audiences\AudienceUpdateParams\Operator;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -14,11 +15,13 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\AudiencesService::update()
  *
- * @phpstan-import-type FilterVariants from \Courier\Audiences\Filter
  * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
- *   description?: string|null, filter?: FilterShape|null, name?: string|null
+ *   description?: string|null,
+ *   filter?: null|Filter|FilterShape,
+ *   name?: string|null,
+ *   operator?: null|Operator|value-of<Operator>,
  * }
  */
 final class AudienceUpdateParams implements BaseModel
@@ -34,18 +37,24 @@ final class AudienceUpdateParams implements BaseModel
     public ?string $description;
 
     /**
-     * A single filter to use for filtering.
-     *
-     * @var FilterVariants|null $filter
+     * Filter that contains an array of FilterConfig items.
      */
     #[Optional(nullable: true)]
-    public SingleFilterConfig|NestedFilterConfig|null $filter;
+    public ?Filter $filter;
 
     /**
      * The name of the audience.
      */
     #[Optional(nullable: true)]
     public ?string $name;
+
+    /**
+     * The logical operator (AND/OR) for the top-level filter.
+     *
+     * @var value-of<Operator>|null $operator
+     */
+    #[Optional(enum: Operator::class, nullable: true)]
+    public ?string $operator;
 
     public function __construct()
     {
@@ -57,18 +66,21 @@ final class AudienceUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param FilterShape|null $filter
+     * @param Filter|FilterShape|null $filter
+     * @param Operator|value-of<Operator>|null $operator
      */
     public static function with(
         ?string $description = null,
-        SingleFilterConfig|array|NestedFilterConfig|null $filter = null,
+        Filter|array|null $filter = null,
         ?string $name = null,
+        Operator|string|null $operator = null,
     ): self {
         $self = new self;
 
         null !== $description && $self['description'] = $description;
         null !== $filter && $self['filter'] = $filter;
         null !== $name && $self['name'] = $name;
+        null !== $operator && $self['operator'] = $operator;
 
         return $self;
     }
@@ -85,13 +97,12 @@ final class AudienceUpdateParams implements BaseModel
     }
 
     /**
-     * A single filter to use for filtering.
+     * Filter that contains an array of FilterConfig items.
      *
-     * @param FilterShape|null $filter
+     * @param Filter|FilterShape|null $filter
      */
-    public function withFilter(
-        SingleFilterConfig|array|NestedFilterConfig|null $filter
-    ): self {
+    public function withFilter(Filter|array|null $filter): self
+    {
         $self = clone $this;
         $self['filter'] = $filter;
 
@@ -105,6 +116,19 @@ final class AudienceUpdateParams implements BaseModel
     {
         $self = clone $this;
         $self['name'] = $name;
+
+        return $self;
+    }
+
+    /**
+     * The logical operator (AND/OR) for the top-level filter.
+     *
+     * @param Operator|value-of<Operator>|null $operator
+     */
+    public function withOperator(Operator|string|null $operator): self
+    {
+        $self = clone $this;
+        $self['operator'] = $operator;
 
         return $self;
     }
