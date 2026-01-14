@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
+use Courier\AudienceFilterConfig;
 use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams\Operator;
 use Courier\Audiences\AudienceUpdateResponse;
-use Courier\Audiences\Filter;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
@@ -17,7 +17,7 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesContract;
 
 /**
- * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AudiencesService implements AudiencesContract
@@ -62,7 +62,7 @@ final class AudiencesService implements AudiencesContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $description A description of the audience
-     * @param Filter|FilterShape|null $filter Filter that contains an array of FilterConfig items
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter Filter configuration for audience membership containing an array of filter rules
      * @param string|null $name The name of the audience
      * @param Operator|value-of<Operator>|null $operator The logical operator (AND/OR) for the top-level filter
      * @param RequestOpts|null $requestOptions
@@ -72,7 +72,7 @@ final class AudiencesService implements AudiencesContract
     public function update(
         string $audienceID,
         ?string $description = null,
-        Filter|array|null $filter = null,
+        AudienceFilterConfig|array|null $filter = null,
         ?string $name = null,
         Operator|string|null $operator = null,
         RequestOptions|array|null $requestOptions = null,

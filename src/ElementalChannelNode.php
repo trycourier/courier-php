@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Courier;
 
 use Courier\Core\Attributes\Optional;
-use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
@@ -24,7 +23,7 @@ use Courier\Core\Contracts\BaseModel;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   channel: string,
+ *   channel?: string|null,
  *   raw?: array<string,mixed>|null,
  * }
  */
@@ -50,8 +49,8 @@ final class ElementalChannelNode implements BaseModel
      * The channel the contents of this element should be applied to. Can be `email`,
      * `push`, `direct_message`, `sms` or a provider such as slack.
      */
-    #[Required]
-    public string $channel;
+    #[Optional]
+    public ?string $channel;
 
     /**
      * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
@@ -61,20 +60,6 @@ final class ElementalChannelNode implements BaseModel
     #[Optional(map: 'mixed', nullable: true)]
     public ?array $raw;
 
-    /**
-     * `new ElementalChannelNode()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * ElementalChannelNode::with(channel: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new ElementalChannelNode)->withChannel(...)
-     * ```
-     */
     public function __construct()
     {
         $this->initialize();
@@ -89,21 +74,20 @@ final class ElementalChannelNode implements BaseModel
      * @param array<string,mixed>|null $raw
      */
     public static function with(
-        string $channel,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
+        ?string $channel = null,
         ?array $raw = null,
     ): self {
         $self = new self;
-
-        $self['channel'] = $channel;
 
         null !== $channels && $self['channels'] = $channels;
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
+        null !== $channel && $self['channel'] = $channel;
         null !== $raw && $self['raw'] = $raw;
 
         return $self;

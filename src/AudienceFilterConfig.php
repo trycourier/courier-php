@@ -2,38 +2,42 @@
 
 declare(strict_types=1);
 
-namespace Courier\Audiences;
+namespace Courier;
 
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Filter that contains an array of FilterConfig items.
+ * Filter configuration for audience membership containing an array of filter rules.
  *
- * @phpstan-type FilterShape = array{filters: list<mixed>}
+ * @phpstan-type AudienceFilterConfigShape = array{filters: list<mixed>}
  */
-final class Filter implements BaseModel
+final class AudienceFilterConfig implements BaseModel
 {
-    /** @use SdkModel<FilterShape> */
+    /** @use SdkModel<AudienceFilterConfigShape> */
     use SdkModel;
 
-    /** @var list<mixed> $filters */
+    /**
+     * Array of filter rules (single conditions or nested groups).
+     *
+     * @var list<mixed> $filters
+     */
     #[Required(list: FilterConfig::class)]
     public array $filters;
 
     /**
-     * `new Filter()` is missing required properties by the API.
+     * `new AudienceFilterConfig()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Filter::with(filters: ...)
+     * AudienceFilterConfig::with(filters: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Filter)->withFilters(...)
+     * (new AudienceFilterConfig)->withFilters(...)
      * ```
      */
     public function __construct()
@@ -58,6 +62,8 @@ final class Filter implements BaseModel
     }
 
     /**
+     * Array of filter rules (single conditions or nested groups).
+     *
      * @param list<mixed> $filters
      */
     public function withFilters(array $filters): self

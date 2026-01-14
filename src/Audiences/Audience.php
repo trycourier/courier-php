@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\AudienceFilterConfig;
 use Courier\Audiences\Audience\Operator;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
@@ -11,7 +12,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  *
  * @phpstan-type AudienceShape = array{
  *   id: string,
@@ -19,7 +20,7 @@ use Courier\Core\Contracts\BaseModel;
  *   description: string,
  *   name: string,
  *   updatedAt: string,
- *   filter?: null|Filter|FilterShape,
+ *   filter?: null|AudienceFilterConfig|AudienceFilterConfigShape,
  *   operator?: null|Operator|value-of<Operator>,
  * }
  */
@@ -53,10 +54,10 @@ final class Audience implements BaseModel
     public string $updatedAt;
 
     /**
-     * Filter that contains an array of FilterConfig items.
+     * Filter configuration for audience membership containing an array of filter rules.
      */
     #[Optional(nullable: true)]
-    public ?Filter $filter;
+    public ?AudienceFilterConfig $filter;
 
     /**
      * The logical operator (AND/OR) for the top-level filter.
@@ -97,7 +98,7 @@ final class Audience implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|FilterShape|null $filter
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
      * @param Operator|value-of<Operator>|null $operator
      */
     public static function with(
@@ -106,7 +107,7 @@ final class Audience implements BaseModel
         string $description,
         string $name,
         string $updatedAt,
-        Filter|array|null $filter = null,
+        AudienceFilterConfig|array|null $filter = null,
         Operator|string|null $operator = null,
     ): self {
         $self = new self;
@@ -173,11 +174,11 @@ final class Audience implements BaseModel
     }
 
     /**
-     * Filter that contains an array of FilterConfig items.
+     * Filter configuration for audience membership containing an array of filter rules.
      *
-     * @param Filter|FilterShape|null $filter
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
      */
-    public function withFilter(Filter|array|null $filter): self
+    public function withFilter(AudienceFilterConfig|array|null $filter): self
     {
         $self = clone $this;
         $self['filter'] = $filter;
