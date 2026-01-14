@@ -97,7 +97,7 @@ final class TenantsService implements TenantsContract
      *
      * @param string $tenantID path param: Id of the tenant the user should be added to
      * @param string $userID path param: Id of the user to be added to the supplied tenant
-     * @param array<string,mixed>|null $profile Body param:
+     * @param array<string,mixed>|null $profile Body param
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
