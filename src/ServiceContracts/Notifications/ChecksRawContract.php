@@ -21,7 +21,7 @@ interface ChecksRawContract
     /**
      * @api
      *
-     * @param string $submissionID Path param:
+     * @param string $submissionID Path param
      * @param array<string,mixed>|CheckUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *
