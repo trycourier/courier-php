@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\AudienceFilterConfig;
 use Courier\Audiences\AudienceUpdateParams\Operator;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
@@ -15,11 +16,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\AudiencesService::update()
  *
- * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  *
  * @phpstan-type AudienceUpdateParamsShape = array{
  *   description?: string|null,
- *   filter?: null|Filter|FilterShape,
+ *   filter?: null|AudienceFilterConfig|AudienceFilterConfigShape,
  *   name?: string|null,
  *   operator?: null|Operator|value-of<Operator>,
  * }
@@ -37,10 +38,10 @@ final class AudienceUpdateParams implements BaseModel
     public ?string $description;
 
     /**
-     * Filter that contains an array of FilterConfig items.
+     * Filter configuration for audience membership containing an array of filter rules.
      */
     #[Optional(nullable: true)]
-    public ?Filter $filter;
+    public ?AudienceFilterConfig $filter;
 
     /**
      * The name of the audience.
@@ -66,12 +67,12 @@ final class AudienceUpdateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Filter|FilterShape|null $filter
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
      * @param Operator|value-of<Operator>|null $operator
      */
     public static function with(
         ?string $description = null,
-        Filter|array|null $filter = null,
+        AudienceFilterConfig|array|null $filter = null,
         ?string $name = null,
         Operator|string|null $operator = null,
     ): self {
@@ -97,11 +98,11 @@ final class AudienceUpdateParams implements BaseModel
     }
 
     /**
-     * Filter that contains an array of FilterConfig items.
+     * Filter configuration for audience membership containing an array of filter rules.
      *
-     * @param Filter|FilterShape|null $filter
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
      */
-    public function withFilter(Filter|array|null $filter): self
+    public function withFilter(AudienceFilterConfig|array|null $filter): self
     {
         $self = clone $this;
         $self['filter'] = $filter;
