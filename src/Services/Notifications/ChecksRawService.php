@@ -31,7 +31,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * @param string $submissionID Path param:
+     * @param string $submissionID Path param
      * @param array{
      *   id: string, checks: list<BaseCheck|BaseCheckShape>
      * }|CheckUpdateParams $params

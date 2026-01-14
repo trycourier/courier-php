@@ -112,7 +112,7 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * @param string $userID Path param: A unique identifier representing the recipient associated with the list
      * @param string $listID path param: A unique identifier representing the list you wish to retrieve
-     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences Body param:
+     * @param RecipientPreferences|RecipientPreferencesShape|null $preferences Body param
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

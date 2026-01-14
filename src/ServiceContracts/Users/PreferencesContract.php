@@ -54,7 +54,7 @@ interface PreferencesContract
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
-     * @param Topic|TopicShape $topic Body param:
+     * @param Topic|TopicShape $topic Body param
      * @param string|null $tenantID query param: Update the preferences of a user for this specific tenant context
      * @param RequestOpts|null $requestOptions
      *

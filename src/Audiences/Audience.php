@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace Courier\Audiences;
 
+use Courier\AudienceFilterConfig;
+use Courier\Audiences\Audience\Operator;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-import-type FilterVariants from \Courier\Audiences\Filter
- * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  *
  * @phpstan-type AudienceShape = array{
  *   id: string,
  *   createdAt: string,
  *   description: string,
- *   filter: FilterShape,
  *   name: string,
  *   updatedAt: string,
+ *   filter?: null|AudienceFilterConfig|AudienceFilterConfigShape,
+ *   operator?: null|Operator|value-of<Operator>,
  * }
  */
 final class Audience implements BaseModel
@@ -42,14 +45,6 @@ final class Audience implements BaseModel
     public string $description;
 
     /**
-     * A single filter to use for filtering.
-     *
-     * @var FilterVariants $filter
-     */
-    #[Required]
-    public SingleFilterConfig|NestedFilterConfig $filter;
-
-    /**
      * The name of the audience.
      */
     #[Required]
@@ -59,17 +54,26 @@ final class Audience implements BaseModel
     public string $updatedAt;
 
     /**
+     * Filter configuration for audience membership containing an array of filter rules.
+     */
+    #[Optional(nullable: true)]
+    public ?AudienceFilterConfig $filter;
+
+    /**
+     * The logical operator (AND/OR) for the top-level filter.
+     *
+     * @var value-of<Operator>|null $operator
+     */
+    #[Optional(enum: Operator::class)]
+    public ?string $operator;
+
+    /**
      * `new Audience()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
      * Audience::with(
-     *   id: ...,
-     *   createdAt: ...,
-     *   description: ...,
-     *   filter: ...,
-     *   name: ...,
-     *   updatedAt: ...,
+     *   id: ..., createdAt: ..., description: ..., name: ..., updatedAt: ...
      * )
      * ```
      *
@@ -80,7 +84,6 @@ final class Audience implements BaseModel
      *   ->withID(...)
      *   ->withCreatedAt(...)
      *   ->withDescription(...)
-     *   ->withFilter(...)
      *   ->withName(...)
      *   ->withUpdatedAt(...)
      * ```
@@ -95,24 +98,28 @@ final class Audience implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param FilterShape $filter
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
+     * @param Operator|value-of<Operator>|null $operator
      */
     public static function with(
         string $id,
         string $createdAt,
         string $description,
-        SingleFilterConfig|array|NestedFilterConfig $filter,
         string $name,
         string $updatedAt,
+        AudienceFilterConfig|array|null $filter = null,
+        Operator|string|null $operator = null,
     ): self {
         $self = new self;
 
         $self['id'] = $id;
         $self['createdAt'] = $createdAt;
         $self['description'] = $description;
-        $self['filter'] = $filter;
         $self['name'] = $name;
         $self['updatedAt'] = $updatedAt;
+
+        null !== $filter && $self['filter'] = $filter;
+        null !== $operator && $self['operator'] = $operator;
 
         return $self;
     }
@@ -148,20 +155,6 @@ final class Audience implements BaseModel
     }
 
     /**
-     * A single filter to use for filtering.
-     *
-     * @param FilterShape $filter
-     */
-    public function withFilter(
-        SingleFilterConfig|array|NestedFilterConfig $filter
-    ): self {
-        $self = clone $this;
-        $self['filter'] = $filter;
-
-        return $self;
-    }
-
-    /**
      * The name of the audience.
      */
     public function withName(string $name): self
@@ -176,6 +169,32 @@ final class Audience implements BaseModel
     {
         $self = clone $this;
         $self['updatedAt'] = $updatedAt;
+
+        return $self;
+    }
+
+    /**
+     * Filter configuration for audience membership containing an array of filter rules.
+     *
+     * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter
+     */
+    public function withFilter(AudienceFilterConfig|array|null $filter): self
+    {
+        $self = clone $this;
+        $self['filter'] = $filter;
+
+        return $self;
+    }
+
+    /**
+     * The logical operator (AND/OR) for the top-level filter.
+     *
+     * @param Operator|value-of<Operator> $operator
+     */
+    public function withOperator(Operator|string $operator): self
+    {
+        $self = clone $this;
+        $self['operator'] = $operator;
 
         return $self;
     }

@@ -1,12 +1,5 @@
 # Courier PHP API library
 
-> [!NOTE]
-> The Courier PHP API Library is currently in **beta** and we're excited for you to experiment with it!
->
-> This library has not yet been exhaustively tested in production environments and may be missing some features you'd expect in a stable release. As we continue development, there may be breaking changes that require updates to your code.
->
-> **We'd love your feedback!** Please share any suggestions, bug reports, feature requests, or general thoughts by [filing an issue](https://www.github.com/trycourier/courier-php/issues/new).
-
 The Courier PHP library provides convenient access to the Courier REST API from any PHP 8.1.0+ application.
 
 It is generated with [Stainless](https://www.stainless.com/).
@@ -75,6 +68,8 @@ When the library is unable to connect to the API, or if the API returns a non-su
 <?php
 
 use Courier\Core\Exceptions\APIConnectionException;
+use Courier\Core\Exceptions\RateLimitException;
+use Courier\Core\Exceptions\APIStatusException;
 
 try {
   $response = $client->send->message(
@@ -87,9 +82,9 @@ try {
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
   var_dump($e->getPrevious());
-} catch (RateLimitError $e) {
+} catch (RateLimitException $e) {
   echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
-} catch (APIStatusError $e) {
+} catch (APIStatusException $e) {
   echo "Another non-200-range status code was received", PHP_EOL;
   echo $e->getMessage();
 }

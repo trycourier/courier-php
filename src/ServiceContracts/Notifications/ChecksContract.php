@@ -19,9 +19,9 @@ interface ChecksContract
     /**
      * @api
      *
-     * @param string $submissionID Path param:
-     * @param string $id Path param:
-     * @param list<BaseCheck|BaseCheckShape> $checks Body param:
+     * @param string $submissionID Path param
+     * @param string $id Path param
+     * @param list<BaseCheck|BaseCheckShape> $checks Body param
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

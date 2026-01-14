@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Courier\Services;
 
+use Courier\AudienceFilterConfig;
 use Courier\Audiences\Audience;
 use Courier\Audiences\AudienceListMembersParams;
 use Courier\Audiences\AudienceListMembersResponse;
 use Courier\Audiences\AudienceListParams;
 use Courier\Audiences\AudienceListResponse;
 use Courier\Audiences\AudienceUpdateParams;
+use Courier\Audiences\AudienceUpdateParams\Operator;
 use Courier\Audiences\AudienceUpdateResponse;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
@@ -18,7 +20,7 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesRawContract;
 
 /**
- * @phpstan-import-type FilterShape from \Courier\Audiences\Filter
+ * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AudiencesRawService implements AudiencesRawContract
@@ -61,7 +63,10 @@ final class AudiencesRawService implements AudiencesRawContract
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{
-     *   description?: string|null, filter?: FilterShape|null, name?: string|null
+     *   description?: string|null,
+     *   filter?: AudienceFilterConfig|AudienceFilterConfigShape|null,
+     *   name?: string|null,
+     *   operator?: Operator|value-of<Operator>|null,
      * }|AudienceUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *

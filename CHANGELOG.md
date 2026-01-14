@@ -1,5 +1,24 @@
 # Changelog
 
+## 5.0.1 (2026-01-14)
+
+Full Changelog: [v5.0.0...v5.0.1](https://github.com/trycourier/courier-php/compare/v5.0.0...v5.0.1)
+
+### Bug Fixes
+
+* typos in README.md ([f1a033c](https://github.com/trycourier/courier-php/commit/f1a033c8c70d2a48f5fea41af512766957d97923))
+
+
+### Chores
+
+* fix typo in descriptions ([f46d067](https://github.com/trycourier/courier-php/commit/f46d067a4a66d5a94dde8f4c02621e917c665c32))
+* **internal:** codegen related update ([7b4fa3b](https://github.com/trycourier/courier-php/commit/7b4fa3ba45681760ac59e758fa94756246e343ae))
+* **internal:** codegen related update ([89591b8](https://github.com/trycourier/courier-php/commit/89591b8dd16a7b9c3f55abac64ad65fef05fb94e))
+* **internal:** regenerate SDK with no functional changes ([eb51446](https://github.com/trycourier/courier-php/commit/eb51446e6b4e8368d8e27053d3605d1b089fcac4))
+* **internal:** regenerate SDK with no functional changes ([bd1ea2c](https://github.com/trycourier/courier-php/commit/bd1ea2c50e9c8ddee9d51c7ed6e18e30e2dc5e27))
+* **readme:** remove beta warning now that we're in ga ([c3d5ef7](https://github.com/trycourier/courier-php/commit/c3d5ef7b9481b5c2762f28cff97610277eb2880f))
+* remove custom code ([5b4f359](https://github.com/trycourier/courier-php/commit/5b4f359ac6c2664b81c080dba20e8f6b54629ded))
+
 ## 5.0.0 (2026-01-12)
 
 Full Changelog: [v4.1.0...v5.0.0](https://github.com/trycourier/courier-php/compare/v4.1.0...v5.0.0)

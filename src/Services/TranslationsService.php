@@ -59,7 +59,7 @@ final class TranslationsService implements TranslationsContract
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param string $domain Path param: The domain you want to retrieve translations for. Only `default` is supported at the moment
-     * @param string $body Body param:
+     * @param string $body Body param
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
