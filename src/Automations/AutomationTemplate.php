@@ -37,7 +37,7 @@ final class AutomationTemplate implements BaseModel
     public string $name;
 
     /**
-     * The version of the template published, draft.
+     * The version of the template published or drafted.
      *
      * @var value-of<Version> $version
      */
@@ -124,7 +124,7 @@ final class AutomationTemplate implements BaseModel
     }
 
     /**
-     * The version of the template published, draft.
+     * The version of the template published or drafted.
      *
      * @param Version|value-of<Version> $version
      */
