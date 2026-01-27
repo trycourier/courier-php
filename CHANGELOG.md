@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.0.2 (2026-01-27)
+
+Full Changelog: [v5.0.1...v5.0.2](https://github.com/trycourier/courier-php/compare/v5.0.1...v5.0.2)
+
+### Chores
+
+* **internal:** minor test script reformatting ([a7ded5b](https://github.com/trycourier/courier-php/commit/a7ded5bbc239a2e3eb7a9a9b7b49f01996c659f3))
+* **internal:** update `actions/checkout` version ([e417ad9](https://github.com/trycourier/courier-php/commit/e417ad92a02078ad8469ad96f05a3e7601a3721e))
+* **internal:** update phpstan comments ([08a8d38](https://github.com/trycourier/courier-php/commit/08a8d38d8219522f414df3e9610891e524ae3328))
+
+
+### Documentation
+
+* **types:** clarify version field description in AutomationTemplate ([6e8ead0](https://github.com/trycourier/courier-php/commit/6e8ead0701273373081f382108b6af879ed462ea))
+
 ## 5.0.1 (2026-01-14)
 
 Full Changelog: [v5.0.0...v5.0.1](https://github.com/trycourier/courier-php/compare/v5.0.0...v5.0.1)
