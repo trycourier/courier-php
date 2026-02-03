@@ -4,6 +4,7 @@ namespace Tests\Services\Profiles;
 
 use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\Core\Util;
 use Courier\PreferenceStatus;
 use Courier\Profiles\Lists\ListDeleteResponse;
 use Courier\Profiles\Lists\ListGetResponse;
@@ -25,7 +26,7 @@ final class ListsTest extends TestCase
     {
         parent::setUp();
 
-        $testUrl = getenv('TEST_API_BASE_URL') ?: 'http://127.0.0.1:4010';
+        $testUrl = Util::getenv('TEST_API_BASE_URL') ?: 'http://127.0.0.1:4010';
         $client = new Client(apiKey: 'My API Key', baseUrl: $testUrl);
 
         $this->client = $client;
