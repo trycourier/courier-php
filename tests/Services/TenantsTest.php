@@ -4,6 +4,7 @@ namespace Tests\Services;
 
 use Courier\ChannelClassification;
 use Courier\Client;
+use Courier\Core\Util;
 use Courier\Tenants\Tenant;
 use Courier\Tenants\TenantListResponse;
 use Courier\Tenants\TenantListUsersResponse;
@@ -24,7 +25,7 @@ final class TenantsTest extends TestCase
     {
         parent::setUp();
 
-        $testUrl = getenv('TEST_API_BASE_URL') ?: 'http://127.0.0.1:4010';
+        $testUrl = Util::getenv('TEST_API_BASE_URL') ?: 'http://127.0.0.1:4010';
         $client = new Client(apiKey: 'My API Key', baseUrl: $testUrl);
 
         $this->client = $client;
