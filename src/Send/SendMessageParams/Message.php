@@ -23,6 +23,7 @@ use Courier\Send\SendMessageParams\Message\Preferences;
 use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
+use Courier\Send\SendMessageParams\Message\To;
 use Courier\SlackRecipient;
 use Courier\UserRecipient;
 use Courier\WebhookRecipient;
@@ -125,8 +126,8 @@ final class Message implements BaseModel
      *
      * @var ToVariants|null $to
      */
-    #[Optional(nullable: true)]
-    public UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|null $to;
+    #[Optional(union: To::class, nullable: true)]
+    public UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|array|null $to;
 
     public function __construct()
     {
