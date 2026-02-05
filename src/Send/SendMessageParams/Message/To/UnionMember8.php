@@ -2,24 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message;
+namespace Courier\Send\SendMessageParams\Message\To;
 
 use Courier\AudienceRecipient;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\Core\Conversion\ListOf;
 use Courier\ListPatternRecipient;
 use Courier\ListRecipient;
 use Courier\MsTeamsRecipient;
 use Courier\PagerdutyRecipient;
-use Courier\Send\SendMessageParams\Message\To\UnionMember8;
 use Courier\SlackRecipient;
 use Courier\UserRecipient;
 use Courier\WebhookRecipient;
 
 /**
- * The recipient or a list of recipients of the message.
+ * A single recipient of the message. Choose one of the following types based on how you want to identify the recipient: - **User**: Send to a specific user by user_id, email, or phone number - **Audience**: Send to all users in an audience - **List**: Send to all users in a list - **List Pattern**: Send to users in lists matching a pattern - **Slack**: Send via Slack (channel, email, or user_id) - **MS Teams**: Send via Microsoft Teams - **PagerDuty**: Send via PagerDuty - **Webhook**: Send via webhook.
  *
  * @phpstan-import-type UserRecipientShape from \Courier\UserRecipient
  * @phpstan-import-type AudienceRecipientShape from \Courier\AudienceRecipient
@@ -29,12 +27,11 @@ use Courier\WebhookRecipient;
  * @phpstan-import-type MsTeamsRecipientShape from \Courier\MsTeamsRecipient
  * @phpstan-import-type PagerdutyRecipientShape from \Courier\PagerdutyRecipient
  * @phpstan-import-type WebhookRecipientShape from \Courier\WebhookRecipient
- * @phpstan-import-type UnionMember8Shape from \Courier\Send\SendMessageParams\Message\To\UnionMember8
  *
- * @phpstan-type ToVariants = UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient>
- * @phpstan-type ToShape = ToVariants|UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape|list<UnionMember8Shape>
+ * @phpstan-type UnionMember8Variants = UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient
+ * @phpstan-type UnionMember8Shape = UnionMember8Variants|UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape
  */
-final class To implements ConverterSource
+final class UnionMember8 implements ConverterSource
 {
     use SdkUnion;
 
@@ -52,7 +49,6 @@ final class To implements ConverterSource
             MsTeamsRecipient::class,
             PagerdutyRecipient::class,
             WebhookRecipient::class,
-            new ListOf(UnionMember8::class),
         ];
     }
 }
