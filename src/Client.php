@@ -121,9 +121,9 @@ class Client extends BaseClient
         ?string $baseUrl = null,
         RequestOptions|array|null $requestOptions = null,
     ) {
-        $this->apiKey = (string) ($apiKey ?? getenv('COURIER_API_KEY'));
+        $this->apiKey = (string) ($apiKey ?? Util::getenv('COURIER_API_KEY'));
 
-        $baseUrl ??= getenv('COURIER_BASE_URL') ?: 'https://api.courier.com';
+        $baseUrl ??= Util::getenv('COURIER_BASE_URL') ?: 'https://api.courier.com';
 
         $options = RequestOptions::parse(
             RequestOptions::with(

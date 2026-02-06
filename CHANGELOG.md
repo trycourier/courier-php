@@ -1,5 +1,26 @@
 # Changelog
 
+## 5.1.0 (2026-02-06)
+
+Full Changelog: [v5.0.2...v5.1.0](https://github.com/trycourier/courier-php/compare/v5.0.2...v5.1.0)
+
+### Features
+
+* **api:** add array of recipients support to send message to parameter ([e8c0d00](https://github.com/trycourier/courier-php/commit/e8c0d00e25e58fcfa78da330b66ea39dbd1d036d))
+* **api:** add publish, replace, versions.retrieve to tenants templates ([a99cfa0](https://github.com/trycourier/courier-php/commit/a99cfa0b711797984748c24b4921569482e844c8))
+* use `$_ENV` aware getenv helper ([49c8eb5](https://github.com/trycourier/courier-php/commit/49c8eb59701ba147483743f02d4c7b603a08d582))
+
+
+### Bug Fixes
+
+* used redirect count instead of retry count in base client ([b9ce45b](https://github.com/trycourier/courier-php/commit/b9ce45b96cbe4e4ea5adaf1f0b4342cd89e49eea))
+
+
+### Chores
+
+* **internal:** ignore stainless-internal artifacts ([b1a2935](https://github.com/trycourier/courier-php/commit/b1a29351f9511a1b11de8a1f853d14ef62747f6b))
+* **internal:** php cs fixer should not be memory limited ([210fd4b](https://github.com/trycourier/courier-php/commit/210fd4be83c5da17601c61ac1c395fdf7b504e2b))
+
 ## 5.0.2 (2026-01-27)
 
 Full Changelog: [v5.0.1...v5.0.2](https://github.com/trycourier/courier-php/compare/v5.0.1...v5.0.2)

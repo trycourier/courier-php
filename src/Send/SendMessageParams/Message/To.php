@@ -8,10 +8,12 @@ use Courier\AudienceRecipient;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\Core\Conversion\ListOf;
 use Courier\ListPatternRecipient;
 use Courier\ListRecipient;
 use Courier\MsTeamsRecipient;
 use Courier\PagerdutyRecipient;
+use Courier\Send\SendMessageParams\Message\To\UnionMember8;
 use Courier\SlackRecipient;
 use Courier\UserRecipient;
 use Courier\WebhookRecipient;
@@ -27,9 +29,10 @@ use Courier\WebhookRecipient;
  * @phpstan-import-type MsTeamsRecipientShape from \Courier\MsTeamsRecipient
  * @phpstan-import-type PagerdutyRecipientShape from \Courier\PagerdutyRecipient
  * @phpstan-import-type WebhookRecipientShape from \Courier\WebhookRecipient
+ * @phpstan-import-type UnionMember8Shape from \Courier\Send\SendMessageParams\Message\To\UnionMember8
  *
- * @phpstan-type ToVariants = UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient
- * @phpstan-type ToShape = ToVariants|UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape
+ * @phpstan-type ToVariants = UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient|list<UserRecipient|AudienceRecipient|ListRecipient|ListPatternRecipient|SlackRecipient|MsTeamsRecipient|PagerdutyRecipient|WebhookRecipient>
+ * @phpstan-type ToShape = ToVariants|UserRecipientShape|AudienceRecipientShape|ListRecipientShape|ListPatternRecipientShape|SlackRecipientShape|MsTeamsRecipientShape|PagerdutyRecipientShape|WebhookRecipientShape|list<UnionMember8Shape>
  */
 final class To implements ConverterSource
 {
@@ -49,6 +52,7 @@ final class To implements ConverterSource
             MsTeamsRecipient::class,
             PagerdutyRecipient::class,
             WebhookRecipient::class,
+            new ListOf(UnionMember8::class),
         ];
     }
 }
