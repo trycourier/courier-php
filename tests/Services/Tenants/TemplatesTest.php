@@ -148,7 +148,6 @@ final class TemplatesTest extends TestCase
                         ],
                     ],
                     'version' => 'version',
-                    'brand' => 'brand',
                 ],
                 'channels' => [
                     'foo' => [

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -14,7 +13,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-import-type ElementalNodeShape from \Courier\ElementalNode
  *
  * @phpstan-type ElementalContentShape = array{
- *   elements: list<ElementalNodeShape>, version: string, brand?: string|null
+ *   elements: list<ElementalNodeShape>, version: string
  * }
  */
 final class ElementalContent implements BaseModel
@@ -31,9 +30,6 @@ final class ElementalContent implements BaseModel
      */
     #[Required]
     public string $version;
-
-    #[Optional(nullable: true)]
-    public ?string $brand;
 
     /**
      * `new ElementalContent()` is missing required properties by the API.
@@ -61,17 +57,12 @@ final class ElementalContent implements BaseModel
      *
      * @param list<ElementalNodeShape> $elements
      */
-    public static function with(
-        array $elements,
-        string $version,
-        ?string $brand = null
-    ): self {
+    public static function with(array $elements, string $version): self
+    {
         $self = new self;
 
         $self['elements'] = $elements;
         $self['version'] = $version;
-
-        null !== $brand && $self['brand'] = $brand;
 
         return $self;
     }
@@ -94,14 +85,6 @@ final class ElementalContent implements BaseModel
     {
         $self = clone $this;
         $self['version'] = $version;
-
-        return $self;
-    }
-
-    public function withBrand(?string $brand): self
-    {
-        $self = clone $this;
-        $self['brand'] = $brand;
 
         return $self;
     }
