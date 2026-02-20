@@ -1,5 +1,26 @@
 # Changelog
 
+## 5.1.1 (2026-02-20)
+
+Full Changelog: [v5.1.0...v5.1.1](https://github.com/trycourier/courier-php/compare/v5.1.0...v5.1.1)
+
+### Bug Fixes
+
+* **api:** remove brand field from ElementalContent ([e7b32eb](https://github.com/trycourier/courier-php/commit/e7b32ebc7928583bcc92a33d83056b31d465652e))
+
+
+### Chores
+
+* **internal:** remove mock server code ([0e4932e](https://github.com/trycourier/courier-php/commit/0e4932ea8282a21d9fe88f582aee42088b7cec6f))
+* update mock server docs ([6541bd1](https://github.com/trycourier/courier-php/commit/6541bd14ef424dec7fb51f9d0acc5ab70b64618d))
+
+
+### Documentation
+
+* add AUTO-GENERATED-OVERVIEW markers for README sync ([97bfbe3](https://github.com/trycourier/courier-php/commit/97bfbe3ce0efbcf14d6f0c54b1cfbd809a5f6eab))
+* sync README from mintlify-docs (2026-02-20 18:11 UTC) ([9e9e06f](https://github.com/trycourier/courier-php/commit/9e9e06fdb360f1a42ded040073a4363754bbab5e))
+* sync README from mintlify-docs (2026-02-20 18:36 UTC) ([af795ee](https://github.com/trycourier/courier-php/commit/af795ee277e7abce3c4b764d45e31badbf98d7dc))
+
 ## 5.1.0 (2026-02-06)
 
 Full Changelog: [v5.0.2...v5.1.0](https://github.com/trycourier/courier-php/compare/v5.0.2...v5.1.0)
