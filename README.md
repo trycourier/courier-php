@@ -30,7 +30,7 @@ Then run `composer install`.
 ```php
 <?php
 
-use CourierClient;
+use Courier\Client;
 
 $client = new Client(apiKey: getenv('COURIER_API_KEY'));
 
