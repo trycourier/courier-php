@@ -34,7 +34,7 @@ final class SendTest extends TestCase
     public function testMessage(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->send->message(message: []);
@@ -47,7 +47,7 @@ final class SendTest extends TestCase
     public function testMessageWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->send->message(

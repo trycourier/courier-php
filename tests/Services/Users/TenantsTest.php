@@ -32,7 +32,7 @@ final class TenantsTest extends TestCase
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->list('user_id');
@@ -45,7 +45,7 @@ final class TenantsTest extends TestCase
     public function testAddMultiple(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->addMultiple(
@@ -61,7 +61,7 @@ final class TenantsTest extends TestCase
     public function testAddMultipleWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->addMultiple(
@@ -84,7 +84,7 @@ final class TenantsTest extends TestCase
     public function testAddSingle(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->addSingle(
@@ -100,7 +100,7 @@ final class TenantsTest extends TestCase
     public function testAddSingleWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->addSingle(
@@ -117,7 +117,7 @@ final class TenantsTest extends TestCase
     public function testRemoveAll(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->removeAll('user_id');
@@ -130,7 +130,7 @@ final class TenantsTest extends TestCase
     public function testRemoveSingle(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->removeSingle(
@@ -146,7 +146,7 @@ final class TenantsTest extends TestCase
     public function testRemoveSingleWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tenants->removeSingle(
