@@ -35,7 +35,7 @@ final class TemplatesTest extends TestCase
     public function testRetrieve(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->retrieve(
@@ -51,7 +51,7 @@ final class TemplatesTest extends TestCase
     public function testRetrieveWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->retrieve(
@@ -67,7 +67,7 @@ final class TemplatesTest extends TestCase
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->list('tenant_id');
@@ -80,7 +80,7 @@ final class TemplatesTest extends TestCase
     public function testPublish(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->publish(
@@ -96,7 +96,7 @@ final class TemplatesTest extends TestCase
     public function testPublishWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->publish(
@@ -113,7 +113,7 @@ final class TemplatesTest extends TestCase
     public function testReplace(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->replace(
@@ -130,7 +130,7 @@ final class TemplatesTest extends TestCase
     public function testReplaceWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->tenants->templates->replace(

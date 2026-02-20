@@ -32,7 +32,7 @@ final class DraftTest extends TestCase
     public function testRetrieveContent(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->notifications->draft->retrieveContent('id');
