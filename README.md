@@ -1,3 +1,4 @@
+<!-- AUTO-GENERATED-OVERVIEW:START — Do not edit this section. It is synced from mintlify-docs. -->
 # Courier PHP API library
 
 The Courier PHP library provides convenient access to the Courier REST API from any PHP 8.1.0+ application.
@@ -193,3 +194,4 @@ PHP 8.1.0 or higher.
 ## Contributing
 
 See [the contributing documentation](https://github.com/trycourier/courier-php/tree/main/CONTRIBUTING.md).
+<!-- AUTO-GENERATED-OVERVIEW:END -->
