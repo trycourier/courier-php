@@ -32,7 +32,7 @@ final class AuthTest extends TestCase
     public function testIssueToken(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->auth->issueToken(
@@ -48,7 +48,7 @@ final class AuthTest extends TestCase
     public function testIssueTokenWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->auth->issueToken(

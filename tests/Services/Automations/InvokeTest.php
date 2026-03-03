@@ -32,7 +32,7 @@ final class InvokeTest extends TestCase
     public function testInvokeAdHoc(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->automations->invoke->invokeAdHoc(
@@ -47,7 +47,7 @@ final class InvokeTest extends TestCase
     public function testInvokeAdHocWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->automations->invoke->invokeAdHoc(
@@ -84,7 +84,7 @@ final class InvokeTest extends TestCase
     public function testInvokeByTemplate(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->automations->invoke->invokeByTemplate(
@@ -100,7 +100,7 @@ final class InvokeTest extends TestCase
     public function testInvokeByTemplateWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->automations->invoke->invokeByTemplate(

@@ -32,7 +32,7 @@ final class InboundTest extends TestCase
     public function testTrackEvent(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->inbound->trackEvent(
@@ -52,7 +52,7 @@ final class InboundTest extends TestCase
     public function testTrackEventWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->inbound->trackEvent(

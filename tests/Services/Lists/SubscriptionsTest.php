@@ -34,7 +34,7 @@ final class SubscriptionsTest extends TestCase
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->list('list_id');
@@ -47,7 +47,7 @@ final class SubscriptionsTest extends TestCase
     public function testAdd(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->add(
@@ -63,7 +63,7 @@ final class SubscriptionsTest extends TestCase
     public function testAddWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->add(
@@ -103,7 +103,7 @@ final class SubscriptionsTest extends TestCase
     public function testSubscribe(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->subscribe(
@@ -119,7 +119,7 @@ final class SubscriptionsTest extends TestCase
     public function testSubscribeWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->subscribe(
@@ -159,7 +159,7 @@ final class SubscriptionsTest extends TestCase
     public function testSubscribeUser(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->subscribeUser(
@@ -175,7 +175,7 @@ final class SubscriptionsTest extends TestCase
     public function testSubscribeUserWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->subscribeUser(
@@ -211,7 +211,7 @@ final class SubscriptionsTest extends TestCase
     public function testUnsubscribeUser(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(
@@ -227,7 +227,7 @@ final class SubscriptionsTest extends TestCase
     public function testUnsubscribeUserWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->lists->subscriptions->unsubscribeUser(

@@ -98,9 +98,8 @@ interface TokensContract
     /**
      * @api
      *
-     * @param string $token_ path param: The full token string
+     * @param string $token path param: The full token string
      * @param string $userID Path param: The user's ID. This can be any uniquely identifiable string.
-     * @param string $token Body param: Full body of the token. Must match token in URL path parameter.
      * @param ProviderKey|value-of<ProviderKey> $providerKey Body param
      * @param Device|DeviceShape|null $device body param: Information about the device the token came from
      * @param ExpiryDateShape|null $expiryDate Body param: ISO 8601 formatted date the token expires. Defaults to 2 months. Set to false to disable expiration.
@@ -111,9 +110,8 @@ interface TokensContract
      * @throws APIException
      */
     public function addSingle(
-        string $token_,
-        string $userID,
         string $token,
+        string $userID,
         ProviderKey|string $providerKey,
         Device|array|null $device = null,
         string|bool|null $expiryDate = null,

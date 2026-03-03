@@ -33,7 +33,7 @@ final class NotificationsTest extends TestCase
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->notifications->list();
@@ -46,7 +46,7 @@ final class NotificationsTest extends TestCase
     public function testRetrieveContent(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->notifications->retrieveContent('id');

@@ -36,7 +36,7 @@ final class PreferencesTest extends TestCase
     public function testRetrieve(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->preferences->retrieve('user_id');
@@ -49,7 +49,7 @@ final class PreferencesTest extends TestCase
     public function testRetrieveTopic(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->preferences->retrieveTopic(
@@ -65,7 +65,7 @@ final class PreferencesTest extends TestCase
     public function testRetrieveTopicWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->preferences->retrieveTopic(
@@ -82,7 +82,7 @@ final class PreferencesTest extends TestCase
     public function testUpdateOrCreateTopic(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
@@ -99,7 +99,7 @@ final class PreferencesTest extends TestCase
     public function testUpdateOrCreateTopicWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->preferences->updateOrCreateTopic(
