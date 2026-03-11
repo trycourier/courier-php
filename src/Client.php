@@ -13,6 +13,7 @@ use Courier\Services\AutomationsService;
 use Courier\Services\BrandsService;
 use Courier\Services\BulkService;
 use Courier\Services\InboundService;
+use Courier\Services\JourneysService;
 use Courier\Services\ListsService;
 use Courier\Services\MessagesService;
 use Courier\Services\NotificationsService;
@@ -57,6 +58,11 @@ class Client extends BaseClient
      * @api
      */
     public AutomationsService $automations;
+
+    /**
+     * @api
+     */
+    public JourneysService $journeys;
 
     /**
      * @api
@@ -156,6 +162,7 @@ class Client extends BaseClient
         $this->auditEvents = new AuditEventsService($this);
         $this->auth = new AuthService($this);
         $this->automations = new AutomationsService($this);
+        $this->journeys = new JourneysService($this);
         $this->brands = new BrandsService($this);
         $this->bulk = new BulkService($this);
         $this->inbound = new InboundService($this);
