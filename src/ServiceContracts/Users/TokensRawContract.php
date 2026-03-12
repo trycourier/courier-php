@@ -103,7 +103,7 @@ interface TokensRawContract
     /**
      * @api
      *
-     * @param string $token_ path param: The full token string
+     * @param string $token path param: The full token string
      * @param array<string,mixed>|TokenAddSingleParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -112,7 +112,7 @@ interface TokensRawContract
      * @throws APIException
      */
     public function addSingle(
-        string $token_,
+        string $token,
         array|TokenAddSingleParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;

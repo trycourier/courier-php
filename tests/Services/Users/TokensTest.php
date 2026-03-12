@@ -33,7 +33,7 @@ final class TokensTest extends TestCase
     public function testRetrieve(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->retrieve(
@@ -49,7 +49,7 @@ final class TokensTest extends TestCase
     public function testRetrieveWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->retrieve(
@@ -65,7 +65,7 @@ final class TokensTest extends TestCase
     public function testUpdate(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->update(
@@ -82,7 +82,7 @@ final class TokensTest extends TestCase
     public function testUpdateWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->update(
@@ -99,7 +99,7 @@ final class TokensTest extends TestCase
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->list('user_id');
@@ -112,7 +112,7 @@ final class TokensTest extends TestCase
     public function testDelete(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->delete('token', userID: 'user_id');
@@ -125,7 +125,7 @@ final class TokensTest extends TestCase
     public function testDeleteWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->delete('token', userID: 'user_id');
@@ -138,7 +138,7 @@ final class TokensTest extends TestCase
     public function testAddMultiple(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->addMultiple('user_id');
@@ -151,13 +151,12 @@ final class TokensTest extends TestCase
     public function testAddSingle(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->addSingle(
             'token',
             userID: 'user_id',
-            token: 'token',
             providerKey: 'firebase-fcm'
         );
 
@@ -169,13 +168,12 @@ final class TokensTest extends TestCase
     public function testAddSingleWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->users->tokens->addSingle(
             'token',
             userID: 'user_id',
-            token: 'token',
             providerKey: 'firebase-fcm',
             device: [
                 'adID' => 'ad_id',

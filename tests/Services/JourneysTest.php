@@ -2,9 +2,10 @@
 
 namespace Tests\Services;
 
-use Courier\Auth\AuthIssueTokenResponse;
 use Courier\Client;
 use Courier\Core\Util;
+use Courier\Journeys\JourneysInvokeResponse;
+use Courier\Journeys\JourneysListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,7 @@ use Tests\UnsupportedMockTests;
  * @internal
  */
 #[CoversNothing]
-final class AuthTest extends TestCase
+final class JourneysTest extends TestCase
 {
     protected Client $client;
 
@@ -29,34 +30,28 @@ final class AuthTest extends TestCase
     }
 
     #[Test]
-    public function testIssueToken(): void
+    public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken(
-            expiresIn: '$YOUR_NUMBER days',
-            scope: 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
-        );
+        $result = $this->client->journeys->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);
+        $this->assertInstanceOf(JourneysListResponse::class, $result);
     }
 
     #[Test]
-    public function testIssueTokenWithOptionalParams(): void
+    public function testInvoke(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->auth->issueToken(
-            expiresIn: '$YOUR_NUMBER days',
-            scope: 'user_id:$YOUR_USER_ID write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands',
-        );
+        $result = $this->client->journeys->invoke('templateId');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(AuthIssueTokenResponse::class, $result);
+        $this->assertInstanceOf(JourneysInvokeResponse::class, $result);
     }
 }

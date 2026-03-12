@@ -36,7 +36,7 @@ final class BulkTest extends TestCase
     public function testAddUsers(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->addUsers('job_id', users: [[]]);
@@ -49,7 +49,7 @@ final class BulkTest extends TestCase
     public function testAddUsersWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->addUsers(
@@ -125,7 +125,7 @@ final class BulkTest extends TestCase
     public function testCreateJob(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->createJob(message: ['event' => 'event']);
@@ -138,7 +138,7 @@ final class BulkTest extends TestCase
     public function testCreateJobWithOptionalParams(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->createJob(
@@ -161,7 +161,7 @@ final class BulkTest extends TestCase
     public function testListUsers(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->listUsers('job_id');
@@ -174,7 +174,7 @@ final class BulkTest extends TestCase
     public function testRetrieveJob(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->retrieveJob('job_id');
@@ -187,7 +187,7 @@ final class BulkTest extends TestCase
     public function testRunJob(): void
     {
         if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Prism tests are disabled');
+            $this->markTestSkipped('Mock server tests are disabled');
         }
 
         $result = $this->client->bulk->runJob('job_id');

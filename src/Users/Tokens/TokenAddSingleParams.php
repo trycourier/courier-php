@@ -25,7 +25,6 @@ use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
  *
  * @phpstan-type TokenAddSingleParamsShape = array{
  *   userID: string,
- *   token: string,
  *   providerKey: ProviderKey|value-of<ProviderKey>,
  *   device?: null|Device|DeviceShape,
  *   expiryDate?: ExpiryDateShape|null,
@@ -41,12 +40,6 @@ final class TokenAddSingleParams implements BaseModel
 
     #[Required]
     public string $userID;
-
-    /**
-     * Full body of the token. Must match token in URL path parameter.
-     */
-    #[Required]
-    public string $token;
 
     /** @var value-of<ProviderKey> $providerKey */
     #[Required('provider_key', enum: ProviderKey::class)]
@@ -83,16 +76,13 @@ final class TokenAddSingleParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * TokenAddSingleParams::with(userID: ..., token: ..., providerKey: ...)
+     * TokenAddSingleParams::with(userID: ..., providerKey: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new TokenAddSingleParams)
-     *   ->withUserID(...)
-     *   ->withToken(...)
-     *   ->withProviderKey(...)
+     * (new TokenAddSingleParams)->withUserID(...)->withProviderKey(...)
      * ```
      */
     public function __construct()
@@ -112,7 +102,6 @@ final class TokenAddSingleParams implements BaseModel
      */
     public static function with(
         string $userID,
-        string $token,
         ProviderKey|string $providerKey,
         Device|array|null $device = null,
         string|bool|null $expiryDate = null,
@@ -122,7 +111,6 @@ final class TokenAddSingleParams implements BaseModel
         $self = new self;
 
         $self['userID'] = $userID;
-        $self['token'] = $token;
         $self['providerKey'] = $providerKey;
 
         null !== $device && $self['device'] = $device;
@@ -137,17 +125,6 @@ final class TokenAddSingleParams implements BaseModel
     {
         $self = clone $this;
         $self['userID'] = $userID;
-
-        return $self;
-    }
-
-    /**
-     * Full body of the token. Must match token in URL path parameter.
-     */
-    public function withToken(string $token): self
-    {
-        $self = clone $this;
-        $self['token'] = $token;
 
         return $self;
     }
