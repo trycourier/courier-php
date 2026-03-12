@@ -14,17 +14,17 @@ use Courier\Messages\MessageDetails\Status;
 /**
  * @phpstan-type MessageDetailsShape = array{
  *   id: string,
- *   clicked: int,
- *   delivered: int,
  *   enqueued: int,
  *   event: string,
  *   notification: string,
- *   opened: int,
  *   recipient: string,
- *   sent: int,
  *   status: Status|value-of<Status>,
+ *   clicked?: int|null,
+ *   delivered?: int|null,
  *   error?: string|null,
+ *   opened?: int|null,
  *   reason?: null|Reason|value-of<Reason>,
+ *   sent?: int|null,
  * }
  */
 final class MessageDetails implements BaseModel
@@ -37,18 +37,6 @@ final class MessageDetails implements BaseModel
      */
     #[Required]
     public string $id;
-
-    /**
-     * A UTC timestamp at which the recipient clicked on a tracked link for the first time. Stored as a millisecond representation of the Unix epoch.
-     */
-    #[Required]
-    public int $clicked;
-
-    /**
-     * A UTC timestamp at which the Integration provider delivered the message. Stored as a millisecond representation of the Unix epoch.
-     */
-    #[Required]
-    public int $delivered;
 
     /**
      * A UTC timestamp at which Courier received the message request. Stored as a millisecond representation of the Unix epoch.
@@ -69,22 +57,10 @@ final class MessageDetails implements BaseModel
     public string $notification;
 
     /**
-     * A UTC timestamp at which the recipient opened a message for the first time. Stored as a millisecond representation of the Unix epoch.
-     */
-    #[Required]
-    public int $opened;
-
-    /**
      * A unique identifier associated with the recipient of the delivered message.
      */
     #[Required]
     public string $recipient;
-
-    /**
-     * A UTC timestamp at which Courier passed the message to the Integration provider. Stored as a millisecond representation of the Unix epoch.
-     */
-    #[Required]
-    public int $sent;
 
     /**
      * The current status of the message.
@@ -95,10 +71,28 @@ final class MessageDetails implements BaseModel
     public string $status;
 
     /**
+     * A UTC timestamp at which the recipient clicked on a tracked link for the first time. Stored as a millisecond representation of the Unix epoch.
+     */
+    #[Optional]
+    public ?int $clicked;
+
+    /**
+     * A UTC timestamp at which the Integration provider delivered the message. Stored as a millisecond representation of the Unix epoch.
+     */
+    #[Optional]
+    public ?int $delivered;
+
+    /**
      * A message describing the error that occurred.
      */
     #[Optional(nullable: true)]
     public ?string $error;
+
+    /**
+     * A UTC timestamp at which the recipient opened a message for the first time. Stored as a millisecond representation of the Unix epoch.
+     */
+    #[Optional]
+    public ?int $opened;
 
     /**
      * The reason for the current status of the message.
@@ -109,20 +103,22 @@ final class MessageDetails implements BaseModel
     public ?string $reason;
 
     /**
+     * A UTC timestamp at which Courier passed the message to the Integration provider. Stored as a millisecond representation of the Unix epoch.
+     */
+    #[Optional]
+    public ?int $sent;
+
+    /**
      * `new MessageDetails()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
      * MessageDetails::with(
      *   id: ...,
-     *   clicked: ...,
-     *   delivered: ...,
      *   enqueued: ...,
      *   event: ...,
      *   notification: ...,
-     *   opened: ...,
      *   recipient: ...,
-     *   sent: ...,
      *   status: ...,
      * )
      * ```
@@ -132,14 +128,10 @@ final class MessageDetails implements BaseModel
      * ```
      * (new MessageDetails)
      *   ->withID(...)
-     *   ->withClicked(...)
-     *   ->withDelivered(...)
      *   ->withEnqueued(...)
      *   ->withEvent(...)
      *   ->withNotification(...)
-     *   ->withOpened(...)
      *   ->withRecipient(...)
-     *   ->withSent(...)
      *   ->withStatus(...)
      * ```
      */
@@ -158,33 +150,33 @@ final class MessageDetails implements BaseModel
      */
     public static function with(
         string $id,
-        int $clicked,
-        int $delivered,
         int $enqueued,
         string $event,
         string $notification,
-        int $opened,
         string $recipient,
-        int $sent,
         Status|string $status,
+        ?int $clicked = null,
+        ?int $delivered = null,
         ?string $error = null,
+        ?int $opened = null,
         Reason|string|null $reason = null,
+        ?int $sent = null,
     ): self {
         $self = new self;
 
         $self['id'] = $id;
-        $self['clicked'] = $clicked;
-        $self['delivered'] = $delivered;
         $self['enqueued'] = $enqueued;
         $self['event'] = $event;
         $self['notification'] = $notification;
-        $self['opened'] = $opened;
         $self['recipient'] = $recipient;
-        $self['sent'] = $sent;
         $self['status'] = $status;
 
+        null !== $clicked && $self['clicked'] = $clicked;
+        null !== $delivered && $self['delivered'] = $delivered;
         null !== $error && $self['error'] = $error;
+        null !== $opened && $self['opened'] = $opened;
         null !== $reason && $self['reason'] = $reason;
+        null !== $sent && $self['sent'] = $sent;
 
         return $self;
     }
@@ -196,28 +188,6 @@ final class MessageDetails implements BaseModel
     {
         $self = clone $this;
         $self['id'] = $id;
-
-        return $self;
-    }
-
-    /**
-     * A UTC timestamp at which the recipient clicked on a tracked link for the first time. Stored as a millisecond representation of the Unix epoch.
-     */
-    public function withClicked(int $clicked): self
-    {
-        $self = clone $this;
-        $self['clicked'] = $clicked;
-
-        return $self;
-    }
-
-    /**
-     * A UTC timestamp at which the Integration provider delivered the message. Stored as a millisecond representation of the Unix epoch.
-     */
-    public function withDelivered(int $delivered): self
-    {
-        $self = clone $this;
-        $self['delivered'] = $delivered;
 
         return $self;
     }
@@ -256,34 +226,12 @@ final class MessageDetails implements BaseModel
     }
 
     /**
-     * A UTC timestamp at which the recipient opened a message for the first time. Stored as a millisecond representation of the Unix epoch.
-     */
-    public function withOpened(int $opened): self
-    {
-        $self = clone $this;
-        $self['opened'] = $opened;
-
-        return $self;
-    }
-
-    /**
      * A unique identifier associated with the recipient of the delivered message.
      */
     public function withRecipient(string $recipient): self
     {
         $self = clone $this;
         $self['recipient'] = $recipient;
-
-        return $self;
-    }
-
-    /**
-     * A UTC timestamp at which Courier passed the message to the Integration provider. Stored as a millisecond representation of the Unix epoch.
-     */
-    public function withSent(int $sent): self
-    {
-        $self = clone $this;
-        $self['sent'] = $sent;
 
         return $self;
     }
@@ -302,12 +250,45 @@ final class MessageDetails implements BaseModel
     }
 
     /**
+     * A UTC timestamp at which the recipient clicked on a tracked link for the first time. Stored as a millisecond representation of the Unix epoch.
+     */
+    public function withClicked(int $clicked): self
+    {
+        $self = clone $this;
+        $self['clicked'] = $clicked;
+
+        return $self;
+    }
+
+    /**
+     * A UTC timestamp at which the Integration provider delivered the message. Stored as a millisecond representation of the Unix epoch.
+     */
+    public function withDelivered(int $delivered): self
+    {
+        $self = clone $this;
+        $self['delivered'] = $delivered;
+
+        return $self;
+    }
+
+    /**
      * A message describing the error that occurred.
      */
     public function withError(?string $error): self
     {
         $self = clone $this;
         $self['error'] = $error;
+
+        return $self;
+    }
+
+    /**
+     * A UTC timestamp at which the recipient opened a message for the first time. Stored as a millisecond representation of the Unix epoch.
+     */
+    public function withOpened(int $opened): self
+    {
+        $self = clone $this;
+        $self['opened'] = $opened;
 
         return $self;
     }
@@ -321,6 +302,17 @@ final class MessageDetails implements BaseModel
     {
         $self = clone $this;
         $self['reason'] = $reason;
+
+        return $self;
+    }
+
+    /**
+     * A UTC timestamp at which Courier passed the message to the Integration provider. Stored as a millisecond representation of the Unix epoch.
+     */
+    public function withSent(int $sent): self
+    {
+        $self = clone $this;
+        $self['sent'] = $sent;
 
         return $self;
     }
