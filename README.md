@@ -7,7 +7,7 @@ The Courier PHP SDK provides typed access to the Courier REST API from any PHP 8
 
 ## Installation
 
-Add to your `composer.json`:
+Add the Courier repository and package to your `composer.json`:
 
 ```json
 {
@@ -18,12 +18,12 @@ Add to your `composer.json`:
     }
   ],
   "require": {
-    "trycourier/courier": "dev-main"
+    "trycourier/courier": "^5.0"
   }
 }
 ```
 
-Then run `composer install`.
+Then run `composer install`. Find the latest version on [GitHub Releases](https://github.com/trycourier/courier-php/releases).
 
 ## Quick Start
 
