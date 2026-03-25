@@ -10,10 +10,12 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * List notification templates in your workspace.
+ *
  * @see Courier\Services\NotificationsService::list()
  *
  * @phpstan-type NotificationListParamsShape = array{
- *   cursor?: string|null, notes?: bool|null
+ *   cursor?: string|null, eventID?: string|null, notes?: bool|null
  * }
  */
 final class NotificationListParams implements BaseModel
@@ -22,11 +24,20 @@ final class NotificationListParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
+    /**
+     * Opaque pagination cursor from a previous response. Omit for the first page.
+     */
     #[Optional(nullable: true)]
     public ?string $cursor;
 
     /**
-     * Retrieve the notes from the Notification template settings.
+     * Filter to templates linked to this event map ID.
+     */
+    #[Optional]
+    public ?string $eventID;
+
+    /**
+     * Include template notes in the response. Only applies to legacy templates.
      */
     #[Optional(nullable: true)]
     public ?bool $notes;
@@ -43,16 +54,21 @@ final class NotificationListParams implements BaseModel
      */
     public static function with(
         ?string $cursor = null,
+        ?string $eventID = null,
         ?bool $notes = null
     ): self {
         $self = new self;
 
         null !== $cursor && $self['cursor'] = $cursor;
+        null !== $eventID && $self['eventID'] = $eventID;
         null !== $notes && $self['notes'] = $notes;
 
         return $self;
     }
 
+    /**
+     * Opaque pagination cursor from a previous response. Omit for the first page.
+     */
     public function withCursor(?string $cursor): self
     {
         $self = clone $this;
@@ -62,7 +78,18 @@ final class NotificationListParams implements BaseModel
     }
 
     /**
-     * Retrieve the notes from the Notification template settings.
+     * Filter to templates linked to this event map ID.
+     */
+    public function withEventID(string $eventID): self
+    {
+        $self = clone $this;
+        $self['eventID'] = $eventID;
+
+        return $self;
+    }
+
+    /**
+     * Include template notes in the response. Only applies to legacy templates.
      */
     public function withNotes(?bool $notes): self
     {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Courier\Notifications\NotificationListResponse\Result;
+namespace Courier\Notifications\NotificationListResponse\Result\Notification;
 
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Notifications\NotificationListResponse\Result\Tags\Data;
+use Courier\Notifications\NotificationListResponse\Result\Notification\Tags\Data;
 
 /**
- * @phpstan-import-type DataShape from \Courier\Notifications\NotificationListResponse\Result\Tags\Data
+ * @phpstan-import-type DataShape from \Courier\Notifications\NotificationListResponse\Result\Notification\Tags\Data
  *
  * @phpstan-type TagsShape = array{data: list<Data|DataShape>}
  */

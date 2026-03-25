@@ -25,7 +25,11 @@ final class NotificationListResponse implements BaseModel
     #[Required]
     public Paging $paging;
 
-    /** @var list<mixed> $results */
+    /**
+     * Notification templates in this workspace.
+     *
+     * @var list<mixed> $results
+     */
     #[Required(list: Result::class)]
     public array $results;
 
@@ -78,6 +82,8 @@ final class NotificationListResponse implements BaseModel
     }
 
     /**
+     * Notification templates in this workspace.
+     *
      * @param list<mixed> $results
      */
     public function withResults(array $results): self
