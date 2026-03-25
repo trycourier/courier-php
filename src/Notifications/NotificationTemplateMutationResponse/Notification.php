@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Courier\Notifications\NotificationListResponse\Result\Tags;
+namespace Courier\Notifications\NotificationTemplateMutationResponse;
 
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type DataShape = array{id: string, name: string}
+ * @phpstan-type NotificationShape = array{id: string}
  */
-final class Data implements BaseModel
+final class Notification implements BaseModel
 {
-    /** @use SdkModel<DataShape> */
+    /** @use SdkModel<NotificationShape> */
     use SdkModel;
 
+    /**
+     * The ID of the created or updated template.
+     */
     #[Required]
     public string $id;
 
-    #[Required]
-    public string $name;
-
     /**
-     * `new Data()` is missing required properties by the API.
+     * `new Notification()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Data::with(id: ..., name: ...)
+     * Notification::with(id: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Data)->withID(...)->withName(...)
+     * (new Notification)->withID(...)
      * ```
      */
     public function __construct()
@@ -46,28 +46,22 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $id, string $name): self
+    public static function with(string $id): self
     {
         $self = new self;
 
         $self['id'] = $id;
-        $self['name'] = $name;
 
         return $self;
     }
 
+    /**
+     * The ID of the created or updated template.
+     */
     public function withID(string $id): self
     {
         $self = clone $this;
         $self['id'] = $id;
-
-        return $self;
-    }
-
-    public function withName(string $name): self
-    {
-        $self = clone $this;
-        $self['name'] = $name;
 
         return $self;
     }
