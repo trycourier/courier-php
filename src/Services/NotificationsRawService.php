@@ -13,11 +13,14 @@ use Courier\Notifications\NotificationCreateParams\State;
 use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
+use Courier\Notifications\NotificationListVersionsParams;
+use Courier\Notifications\NotificationPublishParams;
 use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveParams;
 use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplatePayload;
+use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsRawContract;
 
@@ -161,9 +164,45 @@ final class NotificationsRawService implements NotificationsRawContract
     /**
      * @api
      *
-     * Publish the current draft of a notification template.
+     * List versions of a notification template.
      *
      * @param string $id template ID (nt_ prefix)
+     * @param array{
+     *   cursor?: string, limit?: int
+     * }|NotificationListVersionsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationTemplateVersionListResponse>
+     *
+     * @throws APIException
+     */
+    public function listVersions(
+        string $id,
+        array|NotificationListVersionsParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = NotificationListVersionsParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: ['notifications/%1$s/versions', $id],
+            query: $parsed,
+            options: $options,
+            convert: NotificationTemplateVersionListResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Publish a notification template. Publishes the current draft by default. Pass a version in the request body to publish a specific historical version.
+     *
+     * @param string $id template ID (nt_ prefix)
+     * @param array{version?: string}|NotificationPublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
@@ -172,13 +211,20 @@ final class NotificationsRawService implements NotificationsRawContract
      */
     public function publish(
         string $id,
-        RequestOptions|array|null $requestOptions = null
+        array|NotificationPublishParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
+        [$parsed, $options] = NotificationPublishParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['notifications/%1$s/publish', $id],
-            options: $requestOptions,
+            body: (object) $parsed,
+            options: $options,
             convert: null,
         );
     }

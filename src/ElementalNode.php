@@ -7,6 +7,7 @@ namespace Courier;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\ElementalNode\UnionMember7;
 
 /**
  * The channel element allows a notification to be customized based on which channel it is sent through.
@@ -25,9 +26,10 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
  * @phpstan-import-type ElementalActionNodeWithTypeShape from \Courier\ElementalActionNodeWithType
  * @phpstan-import-type ElementalDividerNodeWithTypeShape from \Courier\ElementalDividerNodeWithType
  * @phpstan-import-type ElementalQuoteNodeWithTypeShape from \Courier\ElementalQuoteNodeWithType
+ * @phpstan-import-type UnionMember7Shape from \Courier\ElementalNode\UnionMember7
  *
- * @phpstan-type ElementalNodeVariants = ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType
- * @phpstan-type ElementalNodeShape = ElementalNodeVariants|ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape
+ * @phpstan-type ElementalNodeVariants = ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType|UnionMember7
+ * @phpstan-type ElementalNodeShape = ElementalNodeVariants|ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape|UnionMember7Shape
  */
 final class ElementalNode implements ConverterSource
 {
@@ -46,6 +48,7 @@ final class ElementalNode implements ConverterSource
             ElementalActionNodeWithType::class,
             ElementalDividerNodeWithType::class,
             ElementalQuoteNodeWithType::class,
+            UnionMember7::class,
         ];
     }
 }

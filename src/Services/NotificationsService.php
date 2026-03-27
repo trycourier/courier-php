@@ -13,6 +13,7 @@ use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplatePayload;
+use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsContract;
 use Courier\Services\Notifications\ChecksService;
@@ -150,19 +151,49 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Publish the current draft of a notification template.
+     * List versions of a notification template.
      *
      * @param string $id template ID (nt_ prefix)
+     * @param string $cursor Opaque pagination cursor from a previous response. Omit for the first page.
+     * @param int $limit Maximum number of versions to return per page. Default 10, max 10.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listVersions(
+        string $id,
+        ?string $cursor = null,
+        int $limit = 10,
+        RequestOptions|array|null $requestOptions = null,
+    ): NotificationTemplateVersionListResponse {
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listVersions($id, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Publish a notification template. Publishes the current draft by default. Pass a version in the request body to publish a specific historical version.
+     *
+     * @param string $id template ID (nt_ prefix)
+     * @param string $version Historical version to publish (e.g. "v001"). Omit to publish the current draft.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function publish(
         string $id,
-        RequestOptions|array|null $requestOptions = null
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
     ): mixed {
+        $params = Util::removeNulls(['version' => $version]);
+
         // @phpstan-ignore-next-line argument.type
-        $response = $this->raw->publish($id, requestOptions: $requestOptions);
+        $response = $this->raw->publish($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
