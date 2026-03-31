@@ -7,7 +7,6 @@ namespace Courier;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
-use Courier\ElementalNode\UnionMember7;
 
 /**
  * The channel element allows a notification to be customized based on which channel it is sent through.
@@ -26,10 +25,10 @@ use Courier\ElementalNode\UnionMember7;
  * @phpstan-import-type ElementalActionNodeWithTypeShape from \Courier\ElementalActionNodeWithType
  * @phpstan-import-type ElementalDividerNodeWithTypeShape from \Courier\ElementalDividerNodeWithType
  * @phpstan-import-type ElementalQuoteNodeWithTypeShape from \Courier\ElementalQuoteNodeWithType
- * @phpstan-import-type UnionMember7Shape from \Courier\ElementalNode\UnionMember7
+ * @phpstan-import-type ElementalHTMLNodeWithTypeShape from \Courier\ElementalHTMLNodeWithType
  *
- * @phpstan-type ElementalNodeVariants = ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType|UnionMember7
- * @phpstan-type ElementalNodeShape = ElementalNodeVariants|ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape|UnionMember7Shape
+ * @phpstan-type ElementalNodeVariants = ElementalTextNodeWithType|ElementalMetaNodeWithType|ElementalChannelNodeWithType|ElementalImageNodeWithType|ElementalActionNodeWithType|ElementalDividerNodeWithType|ElementalQuoteNodeWithType|ElementalHTMLNodeWithType
+ * @phpstan-type ElementalNodeShape = ElementalNodeVariants|ElementalTextNodeWithTypeShape|ElementalMetaNodeWithTypeShape|ElementalChannelNodeWithTypeShape|ElementalImageNodeWithTypeShape|ElementalActionNodeWithTypeShape|ElementalDividerNodeWithTypeShape|ElementalQuoteNodeWithTypeShape|ElementalHTMLNodeWithTypeShape
  */
 final class ElementalNode implements ConverterSource
 {
@@ -48,7 +47,7 @@ final class ElementalNode implements ConverterSource
             ElementalActionNodeWithType::class,
             ElementalDividerNodeWithType::class,
             ElementalQuoteNodeWithType::class,
-            UnionMember7::class,
+            ElementalHTMLNodeWithType::class,
         ];
     }
 }
