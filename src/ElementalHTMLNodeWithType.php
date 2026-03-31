@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Courier\ElementalNode;
+namespace Courier;
 
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalNode\UnionMember7\Type;
+use Courier\ElementalHTMLNodeWithType\Type;
 
 /**
- * @phpstan-type UnionMember7Shape = array{
+ * @phpstan-type ElementalHTMLNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -18,9 +18,9 @@ use Courier\ElementalNode\UnionMember7\Type;
  *   type?: null|Type|value-of<Type>,
  * }
  */
-final class UnionMember7 implements BaseModel
+final class ElementalHTMLNodeWithType implements BaseModel
 {
-    /** @use SdkModel<UnionMember7Shape> */
+    /** @use SdkModel<ElementalHTMLNodeWithTypeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
