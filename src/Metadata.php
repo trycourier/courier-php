@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\Provider;
+namespace Courier;
 
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Utm;
 
 /**
  * @phpstan-import-type UtmShape from \Courier\Utm

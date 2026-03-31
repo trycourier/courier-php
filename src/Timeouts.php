@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\TenantTemplateInput\Channel;
+namespace Courier;
 
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
