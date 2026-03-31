@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message\Channel;
+namespace Courier;
 
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Utm;
 
 /**
  * @phpstan-import-type UtmShape from \Courier\Utm
  *
- * @phpstan-type MetadataShape = array{utm?: null|Utm|UtmShape}
+ * @phpstan-type ChannelMetadataShape = array{utm?: null|Utm|UtmShape}
  */
-final class Metadata implements BaseModel
+final class ChannelMetadata implements BaseModel
 {
-    /** @use SdkModel<MetadataShape> */
+    /** @use SdkModel<ChannelMetadataShape> */
     use SdkModel;
 
     #[Optional(nullable: true)]

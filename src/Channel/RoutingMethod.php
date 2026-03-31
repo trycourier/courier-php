@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\TenantTemplateInput\Channel;
+namespace Courier\Channel;
 
 /**
  * Defaults to `single`.

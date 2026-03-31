@@ -2,26 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Courier\Send\SendMessageParams\Message;
+namespace Courier;
 
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Send\SendMessageParams\Message\Provider\Metadata;
 
 /**
- * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Provider\Metadata
+ * @phpstan-import-type MetadataShape from \Courier\Metadata
  *
- * @phpstan-type ProviderShape = array{
+ * @phpstan-type MessageProvidersTypeShape = array{
  *   if?: string|null,
- *   metadata?: null|\Courier\Send\SendMessageParams\Message\Provider\Metadata|MetadataShape,
+ *   metadata?: null|Metadata|MetadataShape,
  *   override?: array<string,mixed>|null,
  *   timeouts?: int|null,
  * }
  */
-final class Provider implements BaseModel
+final class MessageProvidersType implements BaseModel
 {
-    /** @use SdkModel<ProviderShape> */
+    /** @use SdkModel<MessageProvidersTypeShape> */
     use SdkModel;
 
     /**
@@ -87,9 +86,8 @@ final class Provider implements BaseModel
     /**
      * @param Metadata|MetadataShape|null $metadata
      */
-    public function withMetadata(
-        Metadata|array|null $metadata,
-    ): self {
+    public function withMetadata(Metadata|array|null $metadata): self
+    {
         $self = clone $this;
         $self['metadata'] = $metadata;
 

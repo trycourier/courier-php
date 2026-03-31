@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Courier\Tenants;
 
+use Courier\Channel;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalContent;
+use Courier\MessageProvidersType;
 use Courier\MessageRouting;
-use Courier\Tenants\TenantTemplateInput\Channel;
-use Courier\Tenants\TenantTemplateInput\Provider;
 
 /**
  * Template configuration for creating or updating a tenant notification template.
  *
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
- * @phpstan-import-type ChannelShape from \Courier\Tenants\TenantTemplateInput\Channel
- * @phpstan-import-type ProviderShape from \Courier\Tenants\TenantTemplateInput\Provider
+ * @phpstan-import-type ChannelShape from \Courier\Channel
+ * @phpstan-import-type MessageProvidersTypeShape from \Courier\MessageProvidersType
  * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
  *
  * @phpstan-type TenantTemplateInputShape = array{
  *   content: ElementalContent|ElementalContentShape,
  *   channels?: array<string,Channel|ChannelShape>|null,
- *   providers?: array<string,Provider|ProviderShape>|null,
+ *   providers?: array<string,MessageProvidersType|MessageProvidersTypeShape>|null,
  *   routing?: null|MessageRouting|MessageRoutingShape,
  * }
  */
@@ -50,9 +50,9 @@ final class TenantTemplateInput implements BaseModel
     /**
      * Provider-specific delivery configuration for routing to specific email/SMS providers.
      *
-     * @var array<string,Provider>|null $providers
+     * @var array<string,MessageProvidersType>|null $providers
      */
-    #[Optional(map: Provider::class)]
+    #[Optional(map: MessageProvidersType::class)]
     public ?array $providers;
 
     /**
@@ -87,7 +87,7 @@ final class TenantTemplateInput implements BaseModel
      *
      * @param ElementalContent|ElementalContentShape $content
      * @param array<string,Channel|ChannelShape>|null $channels
-     * @param array<string,Provider|ProviderShape>|null $providers
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers
      * @param MessageRouting|MessageRoutingShape|null $routing
      */
     public static function with(
@@ -136,7 +136,7 @@ final class TenantTemplateInput implements BaseModel
     /**
      * Provider-specific delivery configuration for routing to specific email/SMS providers.
      *
-     * @param array<string,Provider|ProviderShape> $providers
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape> $providers
      */
     public function withProviders(array $providers): self
     {

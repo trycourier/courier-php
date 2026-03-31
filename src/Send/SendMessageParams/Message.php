@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier\Send\SendMessageParams;
 
 use Courier\AudienceRecipient;
+use Courier\Channel;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -13,14 +14,13 @@ use Courier\ElementalContentSugar;
 use Courier\ListPatternRecipient;
 use Courier\ListRecipient;
 use Courier\MessageContext;
+use Courier\MessageProvidersType;
 use Courier\MsTeamsRecipient;
 use Courier\PagerdutyRecipient;
-use Courier\Send\SendMessageParams\Message\Channel;
 use Courier\Send\SendMessageParams\Message\Delay;
 use Courier\Send\SendMessageParams\Message\Expiry;
 use Courier\Send\SendMessageParams\Message\Metadata;
 use Courier\Send\SendMessageParams\Message\Preferences;
-use Courier\Send\SendMessageParams\Message\Provider;
 use Courier\Send\SendMessageParams\Message\Routing;
 use Courier\Send\SendMessageParams\Message\Timeout;
 use Courier\Send\SendMessageParams\Message\To;
@@ -33,14 +33,14 @@ use Courier\WebhookRecipient;
  *
  * @phpstan-import-type ContentVariants from \Courier\Send\SendMessageParams\Message\Content
  * @phpstan-import-type ToVariants from \Courier\Send\SendMessageParams\Message\To
- * @phpstan-import-type ChannelShape from \Courier\Send\SendMessageParams\Message\Channel
+ * @phpstan-import-type ChannelShape from \Courier\Channel
  * @phpstan-import-type ContentShape from \Courier\Send\SendMessageParams\Message\Content
  * @phpstan-import-type MessageContextShape from \Courier\MessageContext
  * @phpstan-import-type DelayShape from \Courier\Send\SendMessageParams\Message\Delay
  * @phpstan-import-type ExpiryShape from \Courier\Send\SendMessageParams\Message\Expiry
  * @phpstan-import-type MetadataShape from \Courier\Send\SendMessageParams\Message\Metadata
  * @phpstan-import-type PreferencesShape from \Courier\Send\SendMessageParams\Message\Preferences
- * @phpstan-import-type ProviderShape from \Courier\Send\SendMessageParams\Message\Provider
+ * @phpstan-import-type MessageProvidersTypeShape from \Courier\MessageProvidersType
  * @phpstan-import-type RoutingShape from \Courier\Send\SendMessageParams\Message\Routing
  * @phpstan-import-type TimeoutShape from \Courier\Send\SendMessageParams\Message\Timeout
  * @phpstan-import-type ToShape from \Courier\Send\SendMessageParams\Message\To
@@ -55,7 +55,7 @@ use Courier\WebhookRecipient;
  *   expiry?: null|Expiry|ExpiryShape,
  *   metadata?: null|Metadata|MetadataShape,
  *   preferences?: null|Preferences|PreferencesShape,
- *   providers?: array<string,Provider|ProviderShape>|null,
+ *   providers?: array<string,MessageProvidersType|MessageProvidersTypeShape>|null,
  *   routing?: null|Routing|RoutingShape,
  *   template?: string|null,
  *   timeout?: null|Timeout|TimeoutShape,
@@ -105,8 +105,8 @@ final class Message implements BaseModel
     #[Optional(nullable: true)]
     public ?Preferences $preferences;
 
-    /** @var array<string,Provider>|null $providers */
-    #[Optional(map: Provider::class, nullable: true)]
+    /** @var array<string,MessageProvidersType>|null $providers */
+    #[Optional(map: MessageProvidersType::class, nullable: true)]
     public ?array $providers;
 
     /**
@@ -147,7 +147,7 @@ final class Message implements BaseModel
      * @param Expiry|ExpiryShape|null $expiry
      * @param Metadata|MetadataShape|null $metadata
      * @param Preferences|PreferencesShape|null $preferences
-     * @param array<string,Provider|ProviderShape>|null $providers
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers
      * @param Routing|RoutingShape|null $routing
      * @param Timeout|TimeoutShape|null $timeout
      * @param ToShape|null $to
@@ -290,7 +290,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param array<string,Provider|ProviderShape>|null $providers
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers
      */
     public function withProviders(?array $providers): self
     {

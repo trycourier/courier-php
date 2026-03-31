@@ -2,23 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Courier\Tenants\TenantTemplateInput;
+namespace Courier;
 
+use Courier\Channel\RoutingMethod;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Tenants\TenantTemplateInput\Channel\Metadata;
-use Courier\Tenants\TenantTemplateInput\Channel\RoutingMethod;
-use Courier\Tenants\TenantTemplateInput\Channel\Timeouts;
 
 /**
- * @phpstan-import-type MetadataShape from \Courier\Tenants\TenantTemplateInput\Channel\Metadata
- * @phpstan-import-type TimeoutsShape from \Courier\Tenants\TenantTemplateInput\Channel\Timeouts
+ * @phpstan-import-type ChannelMetadataShape from \Courier\ChannelMetadata
+ * @phpstan-import-type TimeoutsShape from \Courier\Timeouts
  *
  * @phpstan-type ChannelShape = array{
  *   brandID?: string|null,
  *   if?: string|null,
- *   metadata?: null|Metadata|MetadataShape,
+ *   metadata?: null|ChannelMetadata|ChannelMetadataShape,
  *   override?: array<string,mixed>|null,
  *   providers?: list<string>|null,
  *   routingMethod?: null|RoutingMethod|value-of<RoutingMethod>,
@@ -43,7 +41,7 @@ final class Channel implements BaseModel
     public ?string $if;
 
     #[Optional(nullable: true)]
-    public ?Metadata $metadata;
+    public ?ChannelMetadata $metadata;
 
     /**
      * Channel specific overrides.
@@ -82,7 +80,7 @@ final class Channel implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Metadata|MetadataShape|null $metadata
+     * @param ChannelMetadata|ChannelMetadataShape|null $metadata
      * @param array<string,mixed>|null $override
      * @param list<string>|null $providers
      * @param RoutingMethod|value-of<RoutingMethod>|null $routingMethod
@@ -91,7 +89,7 @@ final class Channel implements BaseModel
     public static function with(
         ?string $brandID = null,
         ?string $if = null,
-        Metadata|array|null $metadata = null,
+        ChannelMetadata|array|null $metadata = null,
         ?array $override = null,
         ?array $providers = null,
         RoutingMethod|string|null $routingMethod = null,
@@ -133,9 +131,9 @@ final class Channel implements BaseModel
     }
 
     /**
-     * @param Metadata|MetadataShape|null $metadata
+     * @param ChannelMetadata|ChannelMetadataShape|null $metadata
      */
-    public function withMetadata(Metadata|array|null $metadata): self
+    public function withMetadata(ChannelMetadata|array|null $metadata): self
     {
         $self = clone $this;
         $self['metadata'] = $metadata;
