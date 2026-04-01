@@ -18,6 +18,7 @@ use Courier\Services\ListsService;
 use Courier\Services\MessagesService;
 use Courier\Services\NotificationsService;
 use Courier\Services\ProfilesService;
+use Courier\Services\ProvidersService;
 use Courier\Services\RequestsService;
 use Courier\Services\RoutingStrategiesService;
 use Courier\Services\SendService;
@@ -44,6 +45,11 @@ class Client extends BaseClient
      * @api
      */
     public AudiencesService $audiences;
+
+    /**
+     * @api
+     */
+    public ProvidersService $providers;
 
     /**
      * @api
@@ -165,6 +171,7 @@ class Client extends BaseClient
 
         $this->send = new SendService($this);
         $this->audiences = new AudiencesService($this);
+        $this->providers = new ProvidersService($this);
         $this->auditEvents = new AuditEventsService($this);
         $this->auth = new AuthService($this);
         $this->automations = new AutomationsService($this);
