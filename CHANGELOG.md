@@ -1,5 +1,32 @@
 # Changelog
 
+## 5.3.0 (2026-04-01)
+
+Full Changelog: [v5.2.0...v5.3.0](https://github.com/trycourier/courier-php/compare/v5.2.0...v5.3.0)
+
+### Features
+
+* **api:** add create/retrieve/archive/publish/replace to notifications, eventID to list ([58063be](https://github.com/trycourier/courier-php/commit/58063bea626f2afc1a99bbc940176f9da5d98359))
+* **api:** add HTML node variant to ElementalNode union ([4f0cbf2](https://github.com/trycourier/courier-php/commit/4f0cbf28620be26ae444e756ea0a6baadd4b98c7))
+* **api:** add providers resource with CRUD operations and catalog endpoint ([68ce279](https://github.com/trycourier/courier-php/commit/68ce2797ed05292d8609aab23977aa434eed00f4))
+* **api:** add routing_strategies create/retrieve/list/archive/replace methods ([eb26697](https://github.com/trycourier/courier-php/commit/eb266977d1bb03895711abc942ca87732a73dae1))
+
+
+### Bug Fixes
+
+* **types:** rename UnionMember7 to ElementalHTMLNodeWithType ([dd75f87](https://github.com/trycourier/courier-php/commit/dd75f87d701918fd865ea85eca5e8559e3551fa6))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([9f965b2](https://github.com/trycourier/courier-php/commit/9f965b25bb6e9b30d5d8923a32ffdee52730293a))
+
+
+### Documentation
+
+* add AGENTS.md for AI coding assistants ([1192d6d](https://github.com/trycourier/courier-php/commit/1192d6df360e9d44e96a5f1700e24f041dd72111))
+* sync README from mintlify-docs (2026-03-23 19:54 UTC) ([0160fe7](https://github.com/trycourier/courier-php/commit/0160fe7c0bd4af14cefaea22a1e9a35100e74d5f))
+
 ## 5.2.0 (2026-03-12)
 
 Full Changelog: [v5.1.0...v5.2.0](https://github.com/trycourier/courier-php/compare/v5.1.0...v5.2.0)
