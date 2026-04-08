@@ -9,6 +9,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\MessageProvidersType;
 use Courier\MessageRouting;
 use Courier\RequestOptions;
+use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
@@ -84,6 +85,23 @@ interface RoutingStrategiesContract
         string $id,
         RequestOptions|array|null $requestOptions = null
     ): mixed;
+
+    /**
+     * @api
+     *
+     * @param string $id routing strategy ID (`rs_` prefix)
+     * @param string|null $cursor Opaque pagination cursor from a previous response. Omit for the first page.
+     * @param int $limit Maximum number of results per page. Default 20, max 100.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listNotifications(
+        string $id,
+        ?string $cursor = null,
+        int $limit = 20,
+        RequestOptions|array|null $requestOptions = null,
+    ): AssociatedNotificationListResponse;
 
     /**
      * @api

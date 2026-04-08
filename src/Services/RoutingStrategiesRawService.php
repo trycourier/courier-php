@@ -11,8 +11,10 @@ use Courier\Core\Exceptions\APIException;
 use Courier\MessageProvidersType;
 use Courier\MessageRouting;
 use Courier\RequestOptions;
+use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyCreateParams;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
+use Courier\RoutingStrategies\RoutingStrategyListNotificationsParams;
 use Courier\RoutingStrategies\RoutingStrategyListParams;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
@@ -151,6 +153,41 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
             path: ['routing-strategies/%1$s', $id],
             options: $requestOptions,
             convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+     *
+     * @param string $id routing strategy ID (`rs_` prefix)
+     * @param array{
+     *   cursor?: string|null, limit?: int
+     * }|RoutingStrategyListNotificationsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<AssociatedNotificationListResponse>
+     *
+     * @throws APIException
+     */
+    public function listNotifications(
+        string $id,
+        array|RoutingStrategyListNotificationsParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = RoutingStrategyListNotificationsParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: ['routing-strategies/%1$s/notifications', $id],
+            query: $parsed,
+            options: $options,
+            convert: AssociatedNotificationListResponse::class,
         );
     }
 
