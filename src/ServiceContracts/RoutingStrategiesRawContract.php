@@ -7,8 +7,10 @@ namespace Courier\ServiceContracts;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyCreateParams;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
+use Courier\RoutingStrategies\RoutingStrategyListNotificationsParams;
 use Courier\RoutingStrategies\RoutingStrategyListParams;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
@@ -77,6 +79,23 @@ interface RoutingStrategiesRawContract
     public function archive(
         string $id,
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $id routing strategy ID (`rs_` prefix)
+     * @param array<string,mixed>|RoutingStrategyListNotificationsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<AssociatedNotificationListResponse>
+     *
+     * @throws APIException
+     */
+    public function listNotifications(
+        string $id,
+        array|RoutingStrategyListNotificationsParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**

@@ -4,6 +4,7 @@ namespace Tests\Services;
 
 use Courier\Client;
 use Courier\Core\Util;
+use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
@@ -136,6 +137,19 @@ final class RoutingStrategiesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testListNotifications(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->routingStrategies->listNotifications('id');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(AssociatedNotificationListResponse::class, $result);
     }
 
     #[Test]

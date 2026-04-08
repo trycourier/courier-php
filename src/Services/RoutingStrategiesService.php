@@ -11,6 +11,7 @@ use Courier\Core\Util;
 use Courier\MessageProvidersType;
 use Courier\MessageRouting;
 use Courier\RequestOptions;
+use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
@@ -138,6 +139,32 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->archive($id, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+     *
+     * @param string $id routing strategy ID (`rs_` prefix)
+     * @param string|null $cursor Opaque pagination cursor from a previous response. Omit for the first page.
+     * @param int $limit Maximum number of results per page. Default 20, max 100.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listNotifications(
+        string $id,
+        ?string $cursor = null,
+        int $limit = 20,
+        RequestOptions|array|null $requestOptions = null,
+    ): AssociatedNotificationListResponse {
+        $params = Util::removeNulls(['cursor' => $cursor, 'limit' => $limit]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listNotifications($id, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
