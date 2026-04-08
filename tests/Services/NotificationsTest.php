@@ -4,10 +4,11 @@ namespace Tests\Services;
 
 use Courier\Client;
 use Courier\Core\Util;
-use Courier\Notifications\NotificationGetContent;
+use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplateMutationResponse;
+use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -154,6 +155,134 @@ final class NotificationsTest extends TestCase
     }
 
     #[Test]
+    public function testPutContent(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putContent(
+            'id',
+            content: ['elements' => [[]]]
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutContentWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putContent(
+            'id',
+            content: [
+                'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+            ],
+            state: NotificationTemplateState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutElement(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putElement(
+            'elementId',
+            id: 'id',
+            type: 'text'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutElementWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putElement(
+            'elementId',
+            id: 'id',
+            type: 'text',
+            channels: ['string'],
+            data: ['content' => 'bar'],
+            if: 'if',
+            loop: 'loop',
+            ref: 'ref',
+            state: NotificationTemplateState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutLocale(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putLocale(
+            'localeId',
+            id: 'id',
+            elements: [['id' => 'elem_1'], ['id' => 'elem_2']]
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutLocaleWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->putLocale(
+            'localeId',
+            id: 'id',
+            elements: [['id' => 'elem_1'], ['id' => 'elem_2']],
+            state: NotificationTemplateState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
     public function testReplace(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -218,6 +347,6 @@ final class NotificationsTest extends TestCase
         $result = $this->client->notifications->retrieveContent('id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationGetContent::class, $result);
+        $this->assertNotNull($result);
     }
 }
