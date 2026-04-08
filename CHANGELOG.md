@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.4.0 (2026-04-08)
+
+Full Changelog: [v5.3.0...v5.4.0](https://github.com/trycourier/courier-php/compare/v5.3.0...v5.4.0)
+
+### Features
+
+* **api:** add listNotifications method to routing_strategies ([5567b9e](https://github.com/trycourier/courier-php/commit/5567b9e7b905b979a6d19ec6cf5830f16d35f632))
+* **api:** add putContent/putElement/putLocale, remove draft service, update types ([68f068e](https://github.com/trycourier/courier-php/commit/68f068e8a46edb908ce1ed1133bf0ec62afcd43d))
+
 ## 5.3.0 (2026-04-01)
 
 Full Changelog: [v5.2.0...v5.3.0](https://github.com/trycourier/courier-php/compare/v5.2.0...v5.3.0)
