@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Update an existing provider configuration. The `provider` key is required. All other fields are optional — omitted fields are cleared from the stored configuration (this is a full replacement, not a partial merge).
+ * Replace an existing provider configuration. The `provider` key is required and determines which provider-specific settings schema is applied. All other fields are optional — omitted fields are cleared from the stored configuration (this is a full replacement, not a partial merge). Changing the provider type for an existing configuration is not supported.
  *
  * @see Courier\Services\ProvidersService::update()
  *
@@ -29,7 +29,7 @@ final class ProviderUpdateParams implements BaseModel
     use SdkParams;
 
     /**
-     * The provider key identifying the type.
+     * The provider key identifying the type. Required on every request because it selects the provider-specific settings schema for validation.
      */
     #[Required]
     public string $provider;
@@ -98,7 +98,7 @@ final class ProviderUpdateParams implements BaseModel
     }
 
     /**
-     * The provider key identifying the type.
+     * The provider key identifying the type. Required on every request because it selects the provider-specific settings schema for validation.
      */
     public function withProvider(string $provider): self
     {

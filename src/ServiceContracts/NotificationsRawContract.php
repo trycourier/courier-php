@@ -21,7 +21,6 @@ use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveContentParams;
 use Courier\Notifications\NotificationRetrieveParams;
 use Courier\Notifications\NotificationTemplateGetResponse;
-use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 
@@ -36,7 +35,7 @@ interface NotificationsRawContract
      * @param array<string,mixed>|NotificationCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateMutationResponse>
+     * @return BaseResponse<NotificationTemplateGetResponse>
      *
      * @throws APIException
      */
@@ -184,7 +183,7 @@ interface NotificationsRawContract
      * @param array<string,mixed>|NotificationReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateMutationResponse>
+     * @return BaseResponse<NotificationTemplateGetResponse>
      *
      * @throws APIException
      */

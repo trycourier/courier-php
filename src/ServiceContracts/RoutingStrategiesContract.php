@@ -12,7 +12,6 @@ use Courier\RequestOptions;
 use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
-use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
 
 /**
  * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
@@ -43,7 +42,7 @@ interface RoutingStrategiesContract
         ?array $providers = null,
         ?array $tags = null,
         RequestOptions|array|null $requestOptions = null,
-    ): RoutingStrategyMutationResponse;
+    ): RoutingStrategyGetResponse;
 
     /**
      * @api
@@ -126,5 +125,5 @@ interface RoutingStrategiesContract
         ?array $providers = null,
         ?array $tags = null,
         RequestOptions|array|null $requestOptions = null,
-    ): RoutingStrategyMutationResponse;
+    ): RoutingStrategyGetResponse;
 }

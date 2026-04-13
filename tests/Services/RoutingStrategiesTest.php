@@ -7,7 +7,6 @@ use Courier\Core\Util;
 use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
-use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -44,7 +43,7 @@ final class RoutingStrategiesTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(RoutingStrategyMutationResponse::class, $result);
+        $this->assertInstanceOf(RoutingStrategyGetResponse::class, $result);
     }
 
     #[Test]
@@ -97,7 +96,7 @@ final class RoutingStrategiesTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(RoutingStrategyMutationResponse::class, $result);
+        $this->assertInstanceOf(RoutingStrategyGetResponse::class, $result);
     }
 
     #[Test]
@@ -166,7 +165,7 @@ final class RoutingStrategiesTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(RoutingStrategyMutationResponse::class, $result);
+        $this->assertInstanceOf(RoutingStrategyGetResponse::class, $result);
     }
 
     #[Test]
@@ -220,6 +219,6 @@ final class RoutingStrategiesTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(RoutingStrategyMutationResponse::class, $result);
+        $this->assertInstanceOf(RoutingStrategyGetResponse::class, $result);
     }
 }

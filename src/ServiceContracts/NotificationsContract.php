@@ -13,7 +13,6 @@ use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
 use Courier\Notifications\NotificationTemplateGetResponse;
-use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplatePayload;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
@@ -40,7 +39,7 @@ interface NotificationsContract
         NotificationTemplatePayload|array $notification,
         State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateMutationResponse;
+    ): NotificationTemplateGetResponse;
 
     /**
      * @api
@@ -199,7 +198,7 @@ interface NotificationsContract
         NotificationTemplatePayload|array $notification,
         \Courier\Notifications\NotificationReplaceParams\State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateMutationResponse;
+    ): NotificationTemplateGetResponse;
 
     /**
      * @api

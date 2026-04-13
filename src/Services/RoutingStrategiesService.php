@@ -14,7 +14,6 @@ use Courier\RequestOptions;
 use Courier\RoutingStrategies\AssociatedNotificationListResponse;
 use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
-use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
 use Courier\ServiceContracts\RoutingStrategiesContract;
 
 /**
@@ -61,7 +60,7 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
         ?array $providers = null,
         ?array $tags = null,
         RequestOptions|array|null $requestOptions = null,
-    ): RoutingStrategyMutationResponse {
+    ): RoutingStrategyGetResponse {
         $params = Util::removeNulls(
             [
                 'name' => $name,
@@ -194,7 +193,7 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
         ?array $providers = null,
         ?array $tags = null,
         RequestOptions|array|null $requestOptions = null,
-    ): RoutingStrategyMutationResponse {
+    ): RoutingStrategyGetResponse {
         $params = Util::removeNulls(
             [
                 'name' => $name,
