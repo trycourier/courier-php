@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.4.1 (2026-04-13)
+
+Full Changelog: [v5.4.0...v5.4.1](https://github.com/trycourier/courier-php/compare/v5.4.0...v5.4.1)
+
+### Bug Fixes
+
+* **api:** update notifications/routing_strategies return types, fix providers update method ([5983a88](https://github.com/trycourier/courier-php/commit/5983a88ec5e24a70ee010f094a7e031cac6041b6))
+* **client:** properly generate file params ([24f72fd](https://github.com/trycourier/courier-php/commit/24f72fd14e25e633799a05074e29241c4e8c912c))
+
 ## 5.4.0 (2026-04-08)
 
 Full Changelog: [v5.3.0...v5.4.0](https://github.com/trycourier/courier-php/compare/v5.3.0...v5.4.0)
