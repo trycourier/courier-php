@@ -15,7 +15,6 @@ use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
 use Courier\Notifications\NotificationTemplateGetResponse;
-use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplatePayload;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
@@ -65,7 +64,7 @@ final class NotificationsService implements NotificationsContract
         NotificationTemplatePayload|array $notification,
         State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateMutationResponse {
+    ): NotificationTemplateGetResponse {
         $params = Util::removeNulls(
             ['notification' => $notification, 'state' => $state]
         );
@@ -320,7 +319,7 @@ final class NotificationsService implements NotificationsContract
         NotificationTemplatePayload|array $notification,
         \Courier\Notifications\NotificationReplaceParams\State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateMutationResponse {
+    ): NotificationTemplateGetResponse {
         $params = Util::removeNulls(
             ['notification' => $notification, 'state' => $state]
         );

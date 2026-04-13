@@ -13,7 +13,6 @@ use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListNotificationsParams;
 use Courier\RoutingStrategies\RoutingStrategyListParams;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
-use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
 use Courier\RoutingStrategies\RoutingStrategyReplaceParams;
 
 /**
@@ -27,7 +26,7 @@ interface RoutingStrategiesRawContract
      * @param array<string,mixed>|RoutingStrategyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<RoutingStrategyMutationResponse>
+     * @return BaseResponse<RoutingStrategyGetResponse>
      *
      * @throws APIException
      */
@@ -105,7 +104,7 @@ interface RoutingStrategiesRawContract
      * @param array<string,mixed>|RoutingStrategyReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<RoutingStrategyMutationResponse>
+     * @return BaseResponse<RoutingStrategyGetResponse>
      *
      * @throws APIException
      */

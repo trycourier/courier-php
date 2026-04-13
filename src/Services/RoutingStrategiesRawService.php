@@ -17,7 +17,6 @@ use Courier\RoutingStrategies\RoutingStrategyGetResponse;
 use Courier\RoutingStrategies\RoutingStrategyListNotificationsParams;
 use Courier\RoutingStrategies\RoutingStrategyListParams;
 use Courier\RoutingStrategies\RoutingStrategyListResponse;
-use Courier\RoutingStrategies\RoutingStrategyMutationResponse;
 use Courier\RoutingStrategies\RoutingStrategyReplaceParams;
 use Courier\ServiceContracts\RoutingStrategiesRawContract;
 
@@ -50,7 +49,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
      * }|RoutingStrategyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<RoutingStrategyMutationResponse>
+     * @return BaseResponse<RoutingStrategyGetResponse>
      *
      * @throws APIException
      */
@@ -69,7 +68,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
             path: 'routing-strategies',
             body: (object) $parsed,
             options: $options,
-            convert: RoutingStrategyMutationResponse::class,
+            convert: RoutingStrategyGetResponse::class,
         );
     }
 
@@ -207,7 +206,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
      * }|RoutingStrategyReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<RoutingStrategyMutationResponse>
+     * @return BaseResponse<RoutingStrategyGetResponse>
      *
      * @throws APIException
      */
@@ -227,7 +226,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
             path: ['routing-strategies/%1$s', $id],
             body: (object) $parsed,
             options: $options,
-            convert: RoutingStrategyMutationResponse::class,
+            convert: RoutingStrategyGetResponse::class,
         );
     }
 }
