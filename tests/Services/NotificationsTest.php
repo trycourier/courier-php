@@ -7,7 +7,6 @@ use Courier\Core\Util;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationTemplateGetResponse;
-use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -52,10 +51,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(
-            NotificationTemplateMutationResponse::class,
-            $result
-        );
+        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
     }
 
     #[Test]
@@ -80,10 +76,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(
-            NotificationTemplateMutationResponse::class,
-            $result
-        );
+        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
     }
 
     #[Test]
@@ -302,10 +295,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(
-            NotificationTemplateMutationResponse::class,
-            $result
-        );
+        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
     }
 
     #[Test]
@@ -331,10 +321,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(
-            NotificationTemplateMutationResponse::class,
-            $result
-        );
+        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
     }
 
     #[Test]

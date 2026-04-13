@@ -50,7 +50,7 @@ interface ProvidersContract
      * @api
      *
      * @param string $id a unique identifier of the provider configuration to update
-     * @param string $provider the provider key identifying the type
+     * @param string $provider The provider key identifying the type. Required on every request because it selects the provider-specific settings schema for validation.
      * @param string $alias Updated alias. Omit to clear.
      * @param array<string,mixed> $settings Provider-specific settings (snake_case keys). Replaces the full settings object — omitted settings fields are removed. Use the catalog endpoint to check required fields.
      * @param string $title updated display title

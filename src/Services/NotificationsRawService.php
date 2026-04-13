@@ -27,7 +27,6 @@ use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveContentParams;
 use Courier\Notifications\NotificationRetrieveParams;
 use Courier\Notifications\NotificationTemplateGetResponse;
-use Courier\Notifications\NotificationTemplateMutationResponse;
 use Courier\Notifications\NotificationTemplatePayload;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
@@ -59,7 +58,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * }|NotificationCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateMutationResponse>
+     * @return BaseResponse<NotificationTemplateGetResponse>
      *
      * @throws APIException
      */
@@ -78,7 +77,7 @@ final class NotificationsRawService implements NotificationsRawContract
             path: 'notifications',
             body: (object) $parsed,
             options: $options,
-            convert: NotificationTemplateMutationResponse::class,
+            convert: NotificationTemplateGetResponse::class,
         );
     }
 
@@ -372,7 +371,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * }|NotificationReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateMutationResponse>
+     * @return BaseResponse<NotificationTemplateGetResponse>
      *
      * @throws APIException
      */
@@ -392,7 +391,7 @@ final class NotificationsRawService implements NotificationsRawContract
             path: ['notifications/%1$s', $id],
             body: (object) $parsed,
             options: $options,
-            convert: NotificationTemplateMutationResponse::class,
+            convert: NotificationTemplateGetResponse::class,
         );
     }
 
