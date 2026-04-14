@@ -26,7 +26,7 @@ final class NotificationTemplateCreateRequest implements BaseModel
     use SdkModel;
 
     /**
-     * Full document shape used in POST and PUT request bodies, and returned inside the GET response envelope.
+     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
      */
     #[Required]
     public NotificationTemplatePayload $notification;
@@ -80,7 +80,7 @@ final class NotificationTemplateCreateRequest implements BaseModel
     }
 
     /**
-     * Full document shape used in POST and PUT request bodies, and returned inside the GET response envelope.
+     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
      *
      * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification
      */
