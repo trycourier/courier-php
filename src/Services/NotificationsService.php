@@ -14,8 +14,8 @@ use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
-use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplatePayload;
+use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
@@ -64,7 +64,7 @@ final class NotificationsService implements NotificationsContract
         NotificationTemplatePayload|array $notification,
         State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse {
+    ): NotificationTemplateResponse {
         $params = Util::removeNulls(
             ['notification' => $notification, 'state' => $state]
         );
@@ -90,7 +90,7 @@ final class NotificationsService implements NotificationsContract
         string $id,
         ?string $version = null,
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse {
+    ): NotificationTemplateResponse {
         $params = Util::removeNulls(['version' => $version]);
 
         // @phpstan-ignore-next-line argument.type
@@ -319,7 +319,7 @@ final class NotificationsService implements NotificationsContract
         NotificationTemplatePayload|array $notification,
         \Courier\Notifications\NotificationReplaceParams\State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse {
+    ): NotificationTemplateResponse {
         $params = Util::removeNulls(
             ['notification' => $notification, 'state' => $state]
         );

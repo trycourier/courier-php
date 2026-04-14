@@ -6,7 +6,7 @@ use Courier\Client;
 use Courier\Core\Util;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationListResponse;
-use Courier\Notifications\NotificationTemplateGetResponse;
+use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -51,7 +51,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
     }
 
     #[Test]
@@ -76,7 +76,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
     }
 
     #[Test]
@@ -89,7 +89,7 @@ final class NotificationsTest extends TestCase
         $result = $this->client->notifications->retrieve('id');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
     }
 
     #[Test]
@@ -295,7 +295,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
     }
 
     #[Test]
@@ -321,7 +321,7 @@ final class NotificationsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(NotificationTemplateGetResponse::class, $result);
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
     }
 
     #[Test]

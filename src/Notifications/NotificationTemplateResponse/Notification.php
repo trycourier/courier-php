@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Notifications\NotificationTemplateGetResponse;
+namespace Courier\Notifications\NotificationTemplateResponse;
 
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;

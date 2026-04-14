@@ -19,8 +19,8 @@ interface ChecksContract
     /**
      * @api
      *
-     * @param string $submissionID Path param
-     * @param string $id Path param
+     * @param string $submissionID path param: Submission ID
+     * @param string $id path param: Notification template ID
      * @param list<BaseCheck|BaseCheckShape> $checks Body param
      * @param RequestOpts|null $requestOptions
      *
@@ -36,6 +36,8 @@ interface ChecksContract
     /**
      * @api
      *
+     * @param string $submissionID submission ID
+     * @param string $id notification template ID
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -49,6 +51,8 @@ interface ChecksContract
     /**
      * @api
      *
+     * @param string $submissionID submission ID
+     * @param string $id notification template ID
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

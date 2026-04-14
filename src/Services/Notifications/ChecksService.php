@@ -35,8 +35,10 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * @param string $submissionID Path param
-     * @param string $id Path param
+     * Replace the checks for a notification template submission.
+     *
+     * @param string $submissionID path param: Submission ID
+     * @param string $id path param: Notification template ID
      * @param list<BaseCheck|BaseCheckShape> $checks Body param
      * @param RequestOpts|null $requestOptions
      *
@@ -59,6 +61,10 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
+     * Retrieve the checks for a notification template submission.
+     *
+     * @param string $submissionID submission ID
+     * @param string $id notification template ID
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -79,6 +85,10 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
+     * Cancel a notification template submission.
+     *
+     * @param string $submissionID submission ID
+     * @param string $id notification template ID
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
