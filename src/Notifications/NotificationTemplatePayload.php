@@ -13,7 +13,7 @@ use Courier\Notifications\NotificationTemplatePayload\Routing;
 use Courier\Notifications\NotificationTemplatePayload\Subscription;
 
 /**
- * Full document shape used in POST and PUT request bodies, and returned inside the GET response envelope.
+ * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
  *
  * @phpstan-import-type BrandShape from \Courier\Notifications\NotificationTemplatePayload\Brand
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
