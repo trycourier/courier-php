@@ -21,7 +21,7 @@ interface ChecksRawContract
     /**
      * @api
      *
-     * @param string $submissionID Path param
+     * @param string $submissionID path param: Submission ID
      * @param array<string,mixed>|CheckUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -38,6 +38,7 @@ interface ChecksRawContract
     /**
      * @api
      *
+     * @param string $submissionID submission ID
      * @param array<string,mixed>|CheckListParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -54,6 +55,7 @@ interface ChecksRawContract
     /**
      * @api
      *
+     * @param string $submissionID submission ID
      * @param array<string,mixed>|CheckDeleteParams $params
      * @param RequestOpts|null $requestOptions
      *

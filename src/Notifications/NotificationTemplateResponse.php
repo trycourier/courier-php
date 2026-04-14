@@ -8,15 +8,15 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Notifications\NotificationTemplateGetResponse\Notification;
-use Courier\Notifications\NotificationTemplateGetResponse\State;
+use Courier\Notifications\NotificationTemplateResponse\Notification;
+use Courier\Notifications\NotificationTemplateResponse\State;
 
 /**
- * Envelope response for GET /notifications/{id}. The notification object mirrors the POST/PUT input shape. Nullable fields return null when unset.
+ * Response for GET /notifications/{id}, POST /notifications, and PUT /notifications/{id}. Wraps the template payload inside a `notification` key alongside metadata.
  *
- * @phpstan-import-type NotificationShape from \Courier\Notifications\NotificationTemplateGetResponse\Notification
+ * @phpstan-import-type NotificationShape from \Courier\Notifications\NotificationTemplateResponse\Notification
  *
- * @phpstan-type NotificationTemplateGetResponseShape = array{
+ * @phpstan-type NotificationTemplateResponseShape = array{
  *   created: int,
  *   creator: string,
  *   notification: Notification|NotificationShape,
@@ -25,9 +25,9 @@ use Courier\Notifications\NotificationTemplateGetResponse\State;
  *   updater?: string|null,
  * }
  */
-final class NotificationTemplateGetResponse implements BaseModel
+final class NotificationTemplateResponse implements BaseModel
 {
-    /** @use SdkModel<NotificationTemplateGetResponseShape> */
+    /** @use SdkModel<NotificationTemplateResponseShape> */
     use SdkModel;
 
     /**
@@ -69,11 +69,11 @@ final class NotificationTemplateGetResponse implements BaseModel
     public ?string $updater;
 
     /**
-     * `new NotificationTemplateGetResponse()` is missing required properties by the API.
+     * `new NotificationTemplateResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * NotificationTemplateGetResponse::with(
+     * NotificationTemplateResponse::with(
      *   created: ..., creator: ..., notification: ..., state: ...
      * )
      * ```
@@ -81,7 +81,7 @@ final class NotificationTemplateGetResponse implements BaseModel
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new NotificationTemplateGetResponse)
+     * (new NotificationTemplateResponse)
      *   ->withCreated(...)
      *   ->withCreator(...)
      *   ->withNotification(...)

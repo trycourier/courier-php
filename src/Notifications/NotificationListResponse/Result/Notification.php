@@ -19,10 +19,10 @@ use Courier\Notifications\NotificationListResponse\Result\Notification\Tags;
  *   id: string,
  *   createdAt: int,
  *   eventIDs: list<string>,
- *   note: string,
  *   routing: MessageRouting|MessageRoutingShape,
  *   topicID: string,
  *   updatedAt: int,
+ *   note?: string|null,
  *   tags?: null|Tags|TagsShape,
  *   title?: string|null,
  * }
@@ -47,9 +47,6 @@ final class Notification implements BaseModel
     public array $eventIDs;
 
     #[Required]
-    public string $note;
-
-    #[Required]
     public MessageRouting $routing;
 
     #[Required('topic_id')]
@@ -57,6 +54,9 @@ final class Notification implements BaseModel
 
     #[Required('updated_at')]
     public int $updatedAt;
+
+    #[Optional]
+    public ?string $note;
 
     #[Optional(nullable: true)]
     public ?Tags $tags;
@@ -73,7 +73,6 @@ final class Notification implements BaseModel
      *   id: ...,
      *   createdAt: ...,
      *   eventIDs: ...,
-     *   note: ...,
      *   routing: ...,
      *   topicID: ...,
      *   updatedAt: ...,
@@ -87,7 +86,6 @@ final class Notification implements BaseModel
      *   ->withID(...)
      *   ->withCreatedAt(...)
      *   ->withEventIDs(...)
-     *   ->withNote(...)
      *   ->withRouting(...)
      *   ->withTopicID(...)
      *   ->withUpdatedAt(...)
@@ -111,10 +109,10 @@ final class Notification implements BaseModel
         string $id,
         int $createdAt,
         array $eventIDs,
-        string $note,
         MessageRouting|array $routing,
         string $topicID,
         int $updatedAt,
+        ?string $note = null,
         Tags|array|null $tags = null,
         ?string $title = null,
     ): self {
@@ -123,11 +121,11 @@ final class Notification implements BaseModel
         $self['id'] = $id;
         $self['createdAt'] = $createdAt;
         $self['eventIDs'] = $eventIDs;
-        $self['note'] = $note;
         $self['routing'] = $routing;
         $self['topicID'] = $topicID;
         $self['updatedAt'] = $updatedAt;
 
+        null !== $note && $self['note'] = $note;
         null !== $tags && $self['tags'] = $tags;
         null !== $title && $self['title'] = $title;
 
@@ -163,14 +161,6 @@ final class Notification implements BaseModel
         return $self;
     }
 
-    public function withNote(string $note): self
-    {
-        $self = clone $this;
-        $self['note'] = $note;
-
-        return $self;
-    }
-
     /**
      * @param MessageRouting|MessageRoutingShape $routing
      */
@@ -194,6 +184,14 @@ final class Notification implements BaseModel
     {
         $self = clone $this;
         $self['updatedAt'] = $updatedAt;
+
+        return $self;
+    }
+
+    public function withNote(string $note): self
+    {
+        $self = clone $this;
+        $self['note'] = $note;
 
         return $self;
     }

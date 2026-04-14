@@ -20,7 +20,7 @@ use Courier\Notifications\NotificationPutLocaleParams;
 use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveContentParams;
 use Courier\Notifications\NotificationRetrieveParams;
-use Courier\Notifications\NotificationTemplateGetResponse;
+use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 
@@ -35,7 +35,7 @@ interface NotificationsRawContract
      * @param array<string,mixed>|NotificationCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */
@@ -51,7 +51,7 @@ interface NotificationsRawContract
      * @param array<string,mixed>|NotificationRetrieveParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */
@@ -183,7 +183,7 @@ interface NotificationsRawContract
      * @param array<string,mixed>|NotificationReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */

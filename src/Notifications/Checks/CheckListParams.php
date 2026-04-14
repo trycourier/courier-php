@@ -10,6 +10,8 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Retrieve the checks for a notification template submission.
+ *
  * @see Courier\Services\Notifications\ChecksService::list()
  *
  * @phpstan-type CheckListParamsShape = array{id: string}
