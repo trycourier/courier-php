@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Courier\Notifications\NotificationTemplateGetResponse;
+namespace Courier\Notifications;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -11,16 +12,17 @@ use Courier\ElementalContent;
 use Courier\Notifications\NotificationTemplatePayload\Brand;
 use Courier\Notifications\NotificationTemplatePayload\Routing;
 use Courier\Notifications\NotificationTemplatePayload\Subscription;
+use Courier\Notifications\NotificationTemplateResponse\State;
 
 /**
- * Full document shape used in POST and PUT request bodies, and returned inside the GET response envelope.
+ * Response for GET /notifications/{id}, POST /notifications, and PUT /notifications/{id}. Returns all template fields at the top level.
  *
  * @phpstan-import-type BrandShape from \Courier\Notifications\NotificationTemplatePayload\Brand
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
  * @phpstan-import-type RoutingShape from \Courier\Notifications\NotificationTemplatePayload\Routing
  * @phpstan-import-type SubscriptionShape from \Courier\Notifications\NotificationTemplatePayload\Subscription
  *
- * @phpstan-type NotificationShape = array{
+ * @phpstan-type NotificationTemplateResponseShape = array{
  *   brand: null|Brand|BrandShape,
  *   content: ElementalContent|ElementalContentShape,
  *   name: string,
@@ -28,11 +30,16 @@ use Courier\Notifications\NotificationTemplatePayload\Subscription;
  *   subscription: null|Subscription|SubscriptionShape,
  *   tags: list<string>,
  *   id: string,
+ *   created: int,
+ *   creator: string,
+ *   state: State|value-of<State>,
+ *   updated?: int|null,
+ *   updater?: string|null,
  * }
  */
-final class Notification implements BaseModel
+final class NotificationTemplateResponse implements BaseModel
 {
-    /** @use SdkModel<NotificationShape> */
+    /** @use SdkModel<NotificationTemplateResponseShape> */
     use SdkModel;
 
     /**
@@ -77,11 +84,43 @@ final class Notification implements BaseModel
     public string $id;
 
     /**
-     * `new Notification()` is missing required properties by the API.
+     * Epoch milliseconds when the template was created.
+     */
+    #[Required]
+    public int $created;
+
+    /**
+     * User ID of the creator.
+     */
+    #[Required]
+    public string $creator;
+
+    /**
+     * The template state. Always uppercase.
+     *
+     * @var value-of<State> $state
+     */
+    #[Required(enum: State::class)]
+    public string $state;
+
+    /**
+     * Epoch milliseconds of last update.
+     */
+    #[Optional]
+    public ?int $updated;
+
+    /**
+     * User ID of the last updater.
+     */
+    #[Optional]
+    public ?string $updater;
+
+    /**
+     * `new NotificationTemplateResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Notification::with(
+     * NotificationTemplateResponse::with(
      *   brand: ...,
      *   content: ...,
      *   name: ...,
@@ -89,13 +128,16 @@ final class Notification implements BaseModel
      *   subscription: ...,
      *   tags: ...,
      *   id: ...,
+     *   created: ...,
+     *   creator: ...,
+     *   state: ...,
      * )
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Notification)
+     * (new NotificationTemplateResponse)
      *   ->withBrand(...)
      *   ->withContent(...)
      *   ->withName(...)
@@ -103,6 +145,9 @@ final class Notification implements BaseModel
      *   ->withSubscription(...)
      *   ->withTags(...)
      *   ->withID(...)
+     *   ->withCreated(...)
+     *   ->withCreator(...)
+     *   ->withState(...)
      * ```
      */
     public function __construct()
@@ -120,6 +165,7 @@ final class Notification implements BaseModel
      * @param Routing|RoutingShape|null $routing
      * @param Subscription|SubscriptionShape|null $subscription
      * @param list<string> $tags
+     * @param State|value-of<State> $state
      */
     public static function with(
         Brand|array|null $brand,
@@ -129,6 +175,11 @@ final class Notification implements BaseModel
         Subscription|array|null $subscription,
         array $tags,
         string $id,
+        int $created,
+        string $creator,
+        State|string $state,
+        ?int $updated = null,
+        ?string $updater = null,
     ): self {
         $self = new self;
 
@@ -139,6 +190,12 @@ final class Notification implements BaseModel
         $self['subscription'] = $subscription;
         $self['tags'] = $tags;
         $self['id'] = $id;
+        $self['created'] = $created;
+        $self['creator'] = $creator;
+        $self['state'] = $state;
+
+        null !== $updated && $self['updated'] = $updated;
+        null !== $updater && $self['updater'] = $updater;
 
         return $self;
     }
@@ -225,6 +282,63 @@ final class Notification implements BaseModel
     {
         $self = clone $this;
         $self['id'] = $id;
+
+        return $self;
+    }
+
+    /**
+     * Epoch milliseconds when the template was created.
+     */
+    public function withCreated(int $created): self
+    {
+        $self = clone $this;
+        $self['created'] = $created;
+
+        return $self;
+    }
+
+    /**
+     * User ID of the creator.
+     */
+    public function withCreator(string $creator): self
+    {
+        $self = clone $this;
+        $self['creator'] = $creator;
+
+        return $self;
+    }
+
+    /**
+     * The template state. Always uppercase.
+     *
+     * @param State|value-of<State> $state
+     */
+    public function withState(State|string $state): self
+    {
+        $self = clone $this;
+        $self['state'] = $state;
+
+        return $self;
+    }
+
+    /**
+     * Epoch milliseconds of last update.
+     */
+    public function withUpdated(int $updated): self
+    {
+        $self = clone $this;
+        $self['updated'] = $updated;
+
+        return $self;
+    }
+
+    /**
+     * User ID of the last updater.
+     */
+    public function withUpdater(string $updater): self
+    {
+        $self = clone $this;
+        $self['updater'] = $updater;
 
         return $self;
     }

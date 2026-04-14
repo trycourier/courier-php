@@ -11,6 +11,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck;
 
 /**
+ * Replace the checks for a notification template submission.
+ *
  * @see Courier\Services\Notifications\ChecksService::update()
  *
  * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck

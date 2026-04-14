@@ -12,8 +12,8 @@ use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
-use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplatePayload;
+use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
@@ -29,7 +29,7 @@ interface NotificationsContract
     /**
      * @api
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification full document shape used in POST and PUT request bodies, and returned inside the GET response envelope
+     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
      * @param State|value-of<State> $state Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
      * @param RequestOpts|null $requestOptions
      *
@@ -39,7 +39,7 @@ interface NotificationsContract
         NotificationTemplatePayload|array $notification,
         State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse;
+    ): NotificationTemplateResponse;
 
     /**
      * @api
@@ -54,7 +54,7 @@ interface NotificationsContract
         string $id,
         ?string $version = null,
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse;
+    ): NotificationTemplateResponse;
 
     /**
      * @api
@@ -187,7 +187,7 @@ interface NotificationsContract
      * @api
      *
      * @param string $id template ID (nt_ prefix)
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification full document shape used in POST and PUT request bodies, and returned inside the GET response envelope
+     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
      * @param \Courier\Notifications\NotificationReplaceParams\State|value-of<\Courier\Notifications\NotificationReplaceParams\State> $state Template state after update. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
      * @param RequestOpts|null $requestOptions
      *
@@ -198,7 +198,7 @@ interface NotificationsContract
         NotificationTemplatePayload|array $notification,
         \Courier\Notifications\NotificationReplaceParams\State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
-    ): NotificationTemplateGetResponse;
+    ): NotificationTemplateResponse;
 
     /**
      * @api

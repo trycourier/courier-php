@@ -31,7 +31,9 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * @param string $submissionID Path param
+     * Replace the checks for a notification template submission.
+     *
+     * @param string $submissionID path param: Submission ID
      * @param array{
      *   id: string, checks: list<BaseCheck|BaseCheckShape>
      * }|CheckUpdateParams $params
@@ -66,6 +68,9 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
+     * Retrieve the checks for a notification template submission.
+     *
+     * @param string $submissionID submission ID
      * @param array{id: string}|CheckListParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -97,6 +102,9 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
+     * Cancel a notification template submission.
+     *
+     * @param string $submissionID submission ID
      * @param array{id: string}|CheckDeleteParams $params
      * @param RequestOpts|null $requestOptions
      *

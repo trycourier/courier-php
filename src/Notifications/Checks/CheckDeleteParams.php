@@ -10,6 +10,8 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Cancel a notification template submission.
+ *
  * @see Courier\Services\Notifications\ChecksService::delete()
  *
  * @phpstan-type CheckDeleteParamsShape = array{id: string}

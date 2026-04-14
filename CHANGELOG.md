@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.4.2 (2026-04-14)
+
+Full Changelog: [v5.4.1...v5.4.2](https://github.com/trycourier/courier-php/compare/v5.4.1...v5.4.2)
+
+### Bug Fixes
+
+* **types:** flatten NotificationTemplateResponse, removing nested notification field ([d10311d](https://github.com/trycourier/courier-php/commit/d10311d3d2db5381e3de2c1de6d3228a585bf302))
+* **types:** make note optional, flatten NotificationTemplateGetResponse ([367a7f9](https://github.com/trycourier/courier-php/commit/367a7f94d26df68dd169ab1aded05e6d325ee965))
+
 ## 5.4.1 (2026-04-13)
 
 Full Changelog: [v5.4.0...v5.4.1](https://github.com/trycourier/courier-php/compare/v5.4.0...v5.4.1)

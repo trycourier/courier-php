@@ -26,8 +26,8 @@ use Courier\Notifications\NotificationPutLocaleParams\Element;
 use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveContentParams;
 use Courier\Notifications\NotificationRetrieveParams;
-use Courier\Notifications\NotificationTemplateGetResponse;
 use Courier\Notifications\NotificationTemplatePayload;
+use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
@@ -58,7 +58,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * }|NotificationCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */
@@ -77,7 +77,7 @@ final class NotificationsRawService implements NotificationsRawContract
             path: 'notifications',
             body: (object) $parsed,
             options: $options,
-            convert: NotificationTemplateGetResponse::class,
+            convert: NotificationTemplateResponse::class,
         );
     }
 
@@ -90,7 +90,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * @param array{version?: string}|NotificationRetrieveParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */
@@ -110,7 +110,7 @@ final class NotificationsRawService implements NotificationsRawContract
             path: ['notifications/%1$s', $id],
             query: $parsed,
             options: $options,
-            convert: NotificationTemplateGetResponse::class,
+            convert: NotificationTemplateResponse::class,
         );
     }
 
@@ -371,7 +371,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * }|NotificationReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<NotificationTemplateGetResponse>
+     * @return BaseResponse<NotificationTemplateResponse>
      *
      * @throws APIException
      */
@@ -391,7 +391,7 @@ final class NotificationsRawService implements NotificationsRawContract
             path: ['notifications/%1$s', $id],
             body: (object) $parsed,
             options: $options,
-            convert: NotificationTemplateGetResponse::class,
+            convert: NotificationTemplateResponse::class,
         );
     }
 
