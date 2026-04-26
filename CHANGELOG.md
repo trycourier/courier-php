@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.4.3 (2026-04-26)
+
+Full Changelog: [v5.4.2...v5.4.3](https://github.com/trycourier/courier-php/compare/v5.4.2...v5.4.3)
+
+### Bug Fixes
+
+* **client:** resolve serialization issue with unions and enums ([6334db6](https://github.com/trycourier/courier-php/commit/6334db68df2b0262ecf2fb125fe112c07dec827e))
+* populate enum-typed properties with enum instances ([021ee66](https://github.com/trycourier/courier-php/commit/021ee66cad4486cbaaab52f8edea47385f0d94ff))
+* revert enum parsing change that lead to unconditional failure ([56d6446](https://github.com/trycourier/courier-php/commit/56d6446bf80a5ac9db1534db65428fad7083326b))
+
 ## 5.4.2 (2026-04-14)
 
 Full Changelog: [v5.4.1...v5.4.2](https://github.com/trycourier/courier-php/compare/v5.4.1...v5.4.2)
