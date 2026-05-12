@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Courier;
 
 use Courier\Core\BaseClient;
+use Courier\Core\Implementation\StreamingHttpClient;
 use Courier\Core\Util;
 use Courier\Services\AudiencesService;
 use Courier\Services\AuditEventsService;
@@ -152,6 +153,11 @@ class Client extends BaseClient
             ),
             $requestOptions,
         );
+
+        if (is_null($options->streamingTransporter)) {
+            assert(!is_null($options->transporter));
+            $options->streamingTransporter = new StreamingHttpClient($options->transporter);
+        }
 
         /** @var array<string, string|null> $headers */
         $headers = [
