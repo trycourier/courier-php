@@ -6,8 +6,11 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\Journeys\JourneyListParams\Version;
+use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
 use Courier\Journeys\JourneysListResponse;
+use Courier\Journeys\JourneyState;
+use Courier\Journeys\JourneyVersionsListResponse;
 use Courier\RequestOptions;
 
 /**
@@ -15,6 +18,37 @@ use Courier\RequestOptions;
  */
 interface JourneysContract
 {
+    /**
+     * @api
+     *
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function create(
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
     /**
      * @api
      *
@@ -29,6 +63,19 @@ interface JourneysContract
         Version|string $version = 'published',
         RequestOptions|array|null $requestOptions = null,
     ): JourneysListResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function archive(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): mixed;
 
     /**
      * @api
@@ -48,4 +95,50 @@ interface JourneysContract
         ?string $userID = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneysInvokeResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listVersions(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): JourneyVersionsListResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function publish(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function replace(
+        string $templateID,
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
 }

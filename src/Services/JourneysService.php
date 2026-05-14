@@ -8,10 +8,14 @@ use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\Journeys\JourneyListParams\Version;
+use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
 use Courier\Journeys\JourneysListResponse;
+use Courier\Journeys\JourneyState;
+use Courier\Journeys\JourneyVersionsListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\JourneysContract;
+use Courier\Services\Journeys\TemplatesService;
 
 /**
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
@@ -24,11 +28,73 @@ final class JourneysService implements JourneysContract
     public JourneysRawService $raw;
 
     /**
+     * @api
+     */
+    public TemplatesService $templates;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->raw = new JourneysRawService($client);
+        $this->templates = new TemplatesService($client);
+    }
+
+    /**
+     * @api
+     *
+     * Create a new journey. The journey is created in DRAFT state. Use POST /journeys/{templateId}/publish to make it live.
+     *
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function create(
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse {
+        $params = Util::removeNulls(
+            [
+                'name' => $name,
+                'nodes' => $nodes,
+                'enabled' => $enabled,
+                'state' => $state,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->create(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Fetch a journey by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` to retrieve a historical version.
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse {
+        $params = Util::removeNulls(['version' => $version]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($templateID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
@@ -51,6 +117,26 @@ final class JourneysService implements JourneysContract
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Archive a journey. Archived journeys cannot be invoked. Existing journey runs continue to completion.
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function archive(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): mixed {
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->archive($templateID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -81,6 +167,84 @@ final class JourneysService implements JourneysContract
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->invoke($templateID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * List published versions of a journey, ordered most recent first.
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listVersions(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): JourneyVersionsListResponse {
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listVersions($templateID, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Publish the current draft as a new version. Optionally rollback to a prior version by passing `{ version: 'vN' }`.
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function publish(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse {
+        $params = Util::removeNulls(['version' => $version]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->publish($templateID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Replace the journey draft. Updates the working draft only; call POST /journeys/{templateId}/publish to make it live.
+     *
+     * @param string $templateID Journey id
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function replace(
+        string $templateID,
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse {
+        $params = Util::removeNulls(
+            [
+                'name' => $name,
+                'nodes' => $nodes,
+                'enabled' => $enabled,
+                'state' => $state,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->replace($templateID, params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
