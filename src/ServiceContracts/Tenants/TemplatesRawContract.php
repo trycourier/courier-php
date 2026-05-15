@@ -10,6 +10,7 @@ use Courier\RequestOptions;
 use Courier\Tenants\BaseTemplateTenantAssociation;
 use Courier\Tenants\PostTenantTemplatePublishResponse;
 use Courier\Tenants\PutTenantTemplateResponse;
+use Courier\Tenants\Templates\TemplateDeleteParams;
 use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplatePublishParams;
@@ -52,6 +53,23 @@ interface TemplatesRawContract
     public function list(
         string $tenantID,
         array|TemplateListParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID id of the template to remove from the tenant
+     * @param array<string,mixed>|TemplateDeleteParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function delete(
+        string $templateID,
+        array|TemplateDeleteParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 

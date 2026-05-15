@@ -77,6 +77,38 @@ final class TemplatesTest extends TestCase
     }
 
     #[Test]
+    public function testDelete(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->tenants->templates->delete(
+            'template_id',
+            tenantID: 'tenant_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testDeleteWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->tenants->templates->delete(
+            'template_id',
+            tenantID: 'tenant_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
     public function testPublish(): void
     {
         if (UnsupportedMockTests::$skip) {

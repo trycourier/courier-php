@@ -12,6 +12,7 @@ use Courier\ServiceContracts\Tenants\TemplatesRawContract;
 use Courier\Tenants\BaseTemplateTenantAssociation;
 use Courier\Tenants\PostTenantTemplatePublishResponse;
 use Courier\Tenants\PutTenantTemplateResponse;
+use Courier\Tenants\Templates\TemplateDeleteParams;
 use Courier\Tenants\Templates\TemplateListParams;
 use Courier\Tenants\Templates\TemplateListResponse;
 use Courier\Tenants\Templates\TemplatePublishParams;
@@ -95,6 +96,45 @@ final class TemplatesRawService implements TemplatesRawContract
             query: $parsed,
             options: $options,
             convert: TemplateListResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Deletes the tenant's notification template with the given `template_id`.
+     *
+     * Returns **204 No Content** with an empty body on success.
+     *
+     * Returns **404** if there is no template with this ID for the tenant,
+     * including a second `DELETE` after a successful removal.
+     *
+     * @param string $templateID id of the template to remove from the tenant
+     * @param array{tenantID: string}|TemplateDeleteParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function delete(
+        string $templateID,
+        array|TemplateDeleteParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TemplateDeleteParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $tenantID = $parsed['tenantID'];
+        unset($parsed['tenantID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'delete',
+            path: ['tenants/%1$s/templates/%2$s', $tenantID, $templateID],
+            options: $options,
+            convert: null,
         );
     }
 
