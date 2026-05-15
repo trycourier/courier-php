@@ -53,6 +53,21 @@ interface TemplatesContract
     /**
      * @api
      *
+     * @param string $templateID id of the template to remove from the tenant
+     * @param string $tenantID id of the tenant that owns the template
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function delete(
+        string $templateID,
+        string $tenantID,
+        RequestOptions|array|null $requestOptions = null,
+    ): mixed;
+
+    /**
+     * @api
+     *
      * @param string $templateID path param: Id of the template to be published
      * @param string $tenantID path param: Id of the tenant that owns the template
      * @param string $version Body param: The version of the template to publish (e.g., "v1", "v2", "latest"). If not provided, defaults to "latest".
