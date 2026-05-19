@@ -37,7 +37,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Create a notification template scoped to this journey. The template is created in DRAFT state.
+     * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
      *
      * @param string $templateID Journey id
      * @param array{
@@ -77,7 +77,7 @@ final class TemplatesRawService implements TemplatesRawContract
      *
      * Fetch a journey-scoped notification template by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateRetrieveParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -109,7 +109,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * List notification templates scoped to this journey. Templates scoped to a journey can only be referenced from `send` nodes of the same journey.
+     * List notification templates scoped to this journey. Journey-scoped notification templates can only be referenced from `send` nodes within the same journey.
      *
      * @param string $templateID Journey id
      * @param array{cursor?: string, limit?: int}|TemplateListParams $params
@@ -142,9 +142,9 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Archive a journey-scoped notification template. Archived templates cannot be sent.
+     * Archive the journey-scoped notification template. Archived templates cannot be sent.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateArchiveParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -176,9 +176,9 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * List published versions of a journey-scoped notification template, ordered most recent first.
+     * List published versions of the journey-scoped notification template, ordered most recent first.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateListVersionsParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -212,9 +212,9 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Publish the current draft of a journey-scoped notification template.
+     * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param array{templateID: string, version?: string}|TemplatePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -249,9 +249,9 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Replace a journey-scoped notification template draft.
+     * Replace the journey-scoped notification template draft.
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param array{
      *   templateID: string,
      *   notification: TemplateReplaceParams\Notification|NotificationShape1,

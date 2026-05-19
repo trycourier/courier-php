@@ -11,6 +11,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\JourneyTemplateCreateRequest\Notification;
 
 /**
+ * Request body for creating a notification template scoped to a journey.
+ *
  * @phpstan-import-type NotificationShape from \Courier\Journeys\JourneyTemplateCreateRequest\Notification
  *
  * @phpstan-type JourneyTemplateCreateRequestShape = array{

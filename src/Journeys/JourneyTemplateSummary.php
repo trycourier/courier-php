@@ -10,6 +10,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Summary fields of a journey-scoped notification template returned in list responses.
+ *
  * @phpstan-type JourneyTemplateSummaryShape = array{
  *   id: string,
  *   created: int,

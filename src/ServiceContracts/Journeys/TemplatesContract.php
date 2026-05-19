@@ -39,7 +39,7 @@ interface TemplatesContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -55,6 +55,8 @@ interface TemplatesContract
      * @api
      *
      * @param string $templateID Journey id
+     * @param string $cursor pagination cursor from a prior response
+     * @param int $limit Page size. Minimum 1, maximum 100.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -69,7 +71,7 @@ interface TemplatesContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -84,7 +86,7 @@ interface TemplatesContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -99,7 +101,7 @@ interface TemplatesContract
     /**
      * @api
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
      * @param string $version Body param
      * @param RequestOpts|null $requestOptions
@@ -116,7 +118,7 @@ interface TemplatesContract
     /**
      * @api
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
      * @param \Courier\Journeys\Templates\TemplateReplaceParams\Notification|NotificationShape1 $notification Body param
      * @param string $state Body param

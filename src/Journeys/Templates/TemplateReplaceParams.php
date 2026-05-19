@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\Templates\TemplateReplaceParams\Notification;
 
 /**
- * Replace a journey-scoped notification template draft.
+ * Replace the journey-scoped notification template draft.
  *
  * @see Courier\Services\Journeys\TemplatesService::replace()
  *

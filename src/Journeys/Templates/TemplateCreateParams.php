@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\Templates\TemplateCreateParams\Notification;
 
 /**
- * Create a notification template scoped to this journey. The template is created in DRAFT state.
+ * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
  *
  * @see Courier\Services\Journeys\TemplatesService::create()
  *

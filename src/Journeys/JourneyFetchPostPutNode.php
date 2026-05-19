@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyFetchPostPutNode\Method;
 use Courier\Journeys\JourneyFetchPostPutNode\Type;
 
 /**
+ * Issue an HTTP POST or PUT request with a `body` and merge the response into the journey state per `merge_strategy`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *
@@ -33,7 +35,11 @@ final class JourneyFetchPostPutNode implements BaseModel
     /** @use SdkModel<JourneyFetchPostPutNodeShape> */
     use SdkModel;
 
-    /** @var value-of<JourneyMergeStrategy> $mergeStrategy */
+    /**
+     * Strategy for merging a fetch response into the journey run state.
+     *
+     * @var value-of<JourneyMergeStrategy> $mergeStrategy
+     */
     #[Required('merge_strategy', enum: JourneyMergeStrategy::class)]
     public string $mergeStrategy;
 
@@ -146,6 +152,8 @@ final class JourneyFetchPostPutNode implements BaseModel
     }
 
     /**
+     * Strategy for merging a fetch response into the journey run state.
+     *
      * @param JourneyMergeStrategy|value-of<JourneyMergeStrategy> $mergeStrategy
      */
     public function withMergeStrategy(

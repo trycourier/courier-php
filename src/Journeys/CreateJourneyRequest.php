@@ -10,6 +10,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Request body for creating a journey.
+ *
  * @phpstan-type CreateJourneyRequestShape = array{
  *   name: string,
  *   nodes: list<mixed>,
@@ -32,7 +34,11 @@ final class CreateJourneyRequest implements BaseModel
     #[Optional]
     public ?bool $enabled;
 
-    /** @var value-of<JourneyState>|null $state */
+    /**
+     * Lifecycle state of a journey.
+     *
+     * @var value-of<JourneyState>|null $state
+     */
     #[Optional(enum: JourneyState::class)]
     public ?string $state;
 
@@ -108,6 +114,8 @@ final class CreateJourneyRequest implements BaseModel
     }
 
     /**
+     * Lifecycle state of a journey.
+     *
      * @param JourneyState|value-of<JourneyState> $state
      */
     public function withState(JourneyState|string $state): self

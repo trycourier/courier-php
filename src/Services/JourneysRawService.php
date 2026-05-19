@@ -36,7 +36,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Create a new journey. The journey is created in DRAFT state. Use POST /journeys/{templateId}/publish to make it live.
+     * Create a journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create. Send nodes are not allowed on `POST`. The standard flow is: create the journey shell here, add notification templates with `POST /journeys/{templateId}/templates`, then wire them into the journey with `PUT /journeys/{templateId}`. Call `POST /journeys/{templateId}/publish` to publish a draft after the fact.
      *
      * @param array{
      *   name: string,
@@ -163,9 +163,9 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Invoke a journey run from a journey template.
+     * Invoke a journey by id or alias to start a new run. The response includes a `runId` identifying the run.
      *
-     * @param string $templateID A unique identifier representing the journey template to be invoked. This could be the Journey Template ID or the Journey Template Alias.
+     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array{
      *   data?: array<string,mixed>, profile?: array<string,mixed>, userID?: string
      * }|JourneyInvokeParams $params
@@ -223,7 +223,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Publish the current draft as a new version. Optionally rollback to a prior version by passing `{ version: 'vN' }`.
+     * Publish the current draft as a new version. Body is optional; pass `{ "version": "vN" }` to roll back to a prior version instead. Returns 404 if the journey has no draft to publish.
      *
      * @param string $templateID Journey id
      * @param array{version?: string}|JourneyPublishParams $params
@@ -256,7 +256,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Replace the journey draft. Updates the working draft only; call POST /journeys/{templateId}/publish to make it live.
+     * Replace the journey draft. Updates the working draft only; call `POST /journeys/{templateId}/publish` to make it live, or pass `state: "PUBLISHED"` in this request to publish immediately. Send-node `template` ids must already exist and be scoped to this journey, and node ids must not be claimed by another journey.
      *
      * @param string $templateID Journey id
      * @param array{

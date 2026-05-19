@@ -14,6 +14,8 @@ use Courier\Journeys\JourneyTemplateGetResponse\State;
 use Courier\Journeys\JourneyTemplateGetResponse\Subscription;
 
 /**
+ * A journey-scoped notification template.
+ *
  * @phpstan-import-type BrandShape from \Courier\Journeys\JourneyTemplateGetResponse\Brand
  * @phpstan-import-type ContentShape from \Courier\Journeys\JourneyTemplateGetResponse\Content
  * @phpstan-import-type SubscriptionShape from \Courier\Journeys\JourneyTemplateGetResponse\Subscription

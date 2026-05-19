@@ -13,7 +13,7 @@ use Courier\Journeys\JourneyNode\JourneyBranchNode\Path;
 use Courier\Journeys\JourneyNode\JourneyBranchNode\Type;
 
 /**
- * Branch node. Routes to one of `paths[]` whose `conditions` match, else falls through to `default.nodes`. Inlined rather than referenced so the recursive `nodes: JourneyNode[]` cycle stays within a single generated module (Stainless Python forward-ref resolution does not span modules well for this recursion shape).
+ * Branch node. Routes to the first entry in `paths[]` whose `conditions` match, else falls through to `default.nodes`.
  *
  * @phpstan-import-type DefaultShape from \Courier\Journeys\JourneyNode\JourneyBranchNode\Default_
  *

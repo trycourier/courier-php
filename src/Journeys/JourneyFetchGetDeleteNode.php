@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyFetchGetDeleteNode\Method;
 use Courier\Journeys\JourneyFetchGetDeleteNode\Type;
 
 /**
+ * Issue an HTTP GET or DELETE request and merge the response into the journey state per `merge_strategy`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *
@@ -32,7 +34,11 @@ final class JourneyFetchGetDeleteNode implements BaseModel
     /** @use SdkModel<JourneyFetchGetDeleteNodeShape> */
     use SdkModel;
 
-    /** @var value-of<JourneyMergeStrategy> $mergeStrategy */
+    /**
+     * Strategy for merging a fetch response into the journey run state.
+     *
+     * @var value-of<JourneyMergeStrategy> $mergeStrategy
+     */
     #[Required('merge_strategy', enum: JourneyMergeStrategy::class)]
     public string $mergeStrategy;
 
@@ -140,6 +146,8 @@ final class JourneyFetchGetDeleteNode implements BaseModel
     }
 
     /**
+     * Strategy for merging a fetch response into the journey run state.
+     *
      * @param JourneyMergeStrategy|value-of<JourneyMergeStrategy> $mergeStrategy
      */
     public function withMergeStrategy(

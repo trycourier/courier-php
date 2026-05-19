@@ -10,6 +10,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * Paged list of journey-scoped notification templates.
+ *
  * @phpstan-import-type PagingShape from \Courier\Paging
  * @phpstan-import-type JourneyTemplateSummaryShape from \Courier\Journeys\JourneyTemplateSummary
  *

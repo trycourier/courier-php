@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyThrottleDynamicNode\Scope;
 use Courier\Journeys\JourneyThrottleDynamicNode\Type;
 
 /**
+ * Throttle the journey by a dynamic `throttle_key`, allowing at most `max_allowed` invocations per `period`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *

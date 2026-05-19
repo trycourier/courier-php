@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Replace the journey draft. Updates the working draft only; call POST /journeys/{templateId}/publish to make it live.
+ * Replace the journey draft. Updates the working draft only; call `POST /journeys/{templateId}/publish` to make it live, or pass `state: "PUBLISHED"` in this request to publish immediately. Send-node `template` ids must already exist and be scoped to this journey, and node ids must not be claimed by another journey.
  *
  * @see Courier\Services\JourneysService::replace()
  *
@@ -38,7 +38,11 @@ final class JourneyReplaceParams implements BaseModel
     #[Optional]
     public ?bool $enabled;
 
-    /** @var value-of<JourneyState>|null $state */
+    /**
+     * Lifecycle state of a journey.
+     *
+     * @var value-of<JourneyState>|null $state
+     */
     #[Optional(enum: JourneyState::class)]
     public ?string $state;
 
@@ -114,6 +118,8 @@ final class JourneyReplaceParams implements BaseModel
     }
 
     /**
+     * Lifecycle state of a journey.
+     *
      * @param JourneyState|value-of<JourneyState> $state
      */
     public function withState(JourneyState|string $state): self

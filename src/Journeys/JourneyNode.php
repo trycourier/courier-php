@@ -10,7 +10,7 @@ use Courier\Core\Conversion\Contracts\ConverterSource;
 use Courier\Journeys\JourneyNode\JourneyBranchNode;
 
 /**
- * A single node in a journey DAG. Discriminated by `type` plus a secondary discriminator on some variants (`trigger_type` for trigger, `mode` for delay, `method` for fetch, `scope` for throttle). Each variant is exported as a separate schema for SDK type quality.
+ * A single node in a journey DAG. Discriminated by `type`, with a secondary discriminator on some variants (`trigger_type` for trigger, `mode` for delay, `method` for fetch, `scope` for throttle).
  *
  * @phpstan-import-type JourneyAPIInvokeTriggerNodeShape from \Courier\Journeys\JourneyAPIInvokeTriggerNode
  * @phpstan-import-type JourneySegmentTriggerNodeShape from \Courier\Journeys\JourneySegmentTriggerNode

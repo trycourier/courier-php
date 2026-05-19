@@ -22,6 +22,9 @@ final class JourneyRetrieveParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
+    /**
+     * Version selector: `draft`, `published` (default), or `vN`.
+     */
     #[Optional]
     public ?string $version;
 
@@ -44,6 +47,9 @@ final class JourneyRetrieveParams implements BaseModel
         return $self;
     }
 
+    /**
+     * Version selector: `draft`, `published` (default), or `vN`.
+     */
     public function withVersion(string $version): self
     {
         $self = clone $this;
