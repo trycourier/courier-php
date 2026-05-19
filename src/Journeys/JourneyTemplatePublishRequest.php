@@ -9,6 +9,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Request body for publishing a journey-scoped notification template. Pass `version` to roll back to a prior version; omit to publish the current draft.
+ *
  * @phpstan-type JourneyTemplatePublishRequestShape = array{version?: string|null}
  */
 final class JourneyTemplatePublishRequest implements BaseModel

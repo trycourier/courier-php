@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyThrottleStaticNode\Scope;
 use Courier\Journeys\JourneyThrottleStaticNode\Type;
 
 /**
+ * Throttle the journey by a static `scope` (`user` or `global`), allowing at most `max_allowed` invocations per `period`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *

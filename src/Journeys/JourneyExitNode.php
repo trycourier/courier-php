@@ -11,6 +11,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\JourneyExitNode\Type;
 
 /**
+ * Terminate the journey run.
+ *
  * @phpstan-type JourneyExitNodeShape = array{
  *   type: Type|value-of<Type>, id?: string|null
  * }

@@ -37,7 +37,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Create a notification template scoped to this journey. The template is created in DRAFT state.
+     * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
      *
      * @param string $templateID Journey id
      * @param Notification|NotificationShape $notification
@@ -73,7 +73,7 @@ final class TemplatesService implements TemplatesContract
      *
      * Fetch a journey-scoped notification template by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -95,9 +95,11 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * List notification templates scoped to this journey. Templates scoped to a journey can only be referenced from `send` nodes of the same journey.
+     * List notification templates scoped to this journey. Journey-scoped notification templates can only be referenced from `send` nodes within the same journey.
      *
      * @param string $templateID Journey id
+     * @param string $cursor pagination cursor from a prior response
+     * @param int $limit Page size. Minimum 1, maximum 100.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -119,9 +121,9 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Archive a journey-scoped notification template. Archived templates cannot be sent.
+     * Archive the journey-scoped notification template. Archived templates cannot be sent.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -143,9 +145,9 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * List published versions of a journey-scoped notification template, ordered most recent first.
+     * List published versions of the journey-scoped notification template, ordered most recent first.
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
      *
@@ -167,9 +169,9 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Publish the current draft of a journey-scoped notification template.
+     * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
      * @param string $version Body param
      * @param RequestOpts|null $requestOptions
@@ -195,9 +197,9 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Replace a journey-scoped notification template draft.
+     * Replace the journey-scoped notification template draft.
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
      * @param \Courier\Journeys\Templates\TemplateReplaceParams\Notification|NotificationShape1 $notification Body param
      * @param string $state Body param

@@ -43,7 +43,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array<string,mixed>|TemplateRetrieveParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -77,7 +77,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array<string,mixed>|TemplateArchiveParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -94,7 +94,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $notificationID Journey template id
+     * @param string $notificationID Notification template id
      * @param array<string,mixed>|TemplateListVersionsParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -111,7 +111,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param array<string,mixed>|TemplatePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -128,7 +128,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $notificationID Path param: Journey template id
+     * @param string $notificationID Path param: Notification template id
      * @param array<string,mixed>|TemplateReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *

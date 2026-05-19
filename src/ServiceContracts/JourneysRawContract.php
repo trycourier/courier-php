@@ -88,7 +88,7 @@ interface JourneysRawContract
     /**
      * @api
      *
-     * @param string $templateID A unique identifier representing the journey template to be invoked. This could be the Journey Template ID or the Journey Template Alias.
+     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array<string,mixed>|JourneyInvokeParams $params
      * @param RequestOpts|null $requestOptions
      *

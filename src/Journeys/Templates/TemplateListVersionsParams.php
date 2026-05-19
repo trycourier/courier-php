@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List published versions of a journey-scoped notification template, ordered most recent first.
+ * List published versions of the journey-scoped notification template, ordered most recent first.
  *
  * @see Courier\Services\Journeys\TemplatesService::listVersions()
  *

@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyDelayUntilNode\Mode;
 use Courier\Journeys\JourneyDelayUntilNode\Type;
 
 /**
+ * Pause the journey run `until` a specific time.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *

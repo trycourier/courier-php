@@ -11,6 +11,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\JourneyAINode\Type;
 
 /**
+ * Invoke an AI step with `user_prompt` and optional `web_search`. Returns a structured response conforming to `output_schema`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *

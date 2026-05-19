@@ -9,6 +9,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * A journey, with its current draft or published nodes and metadata.
+ *
  * @phpstan-type JourneyResponseShape = array{
  *   id: string,
  *   created: int|null,
@@ -49,7 +51,11 @@ final class JourneyResponse implements BaseModel
     #[Required]
     public ?int $published;
 
-    /** @var value-of<JourneyState> $state */
+    /**
+     * Lifecycle state of a journey.
+     *
+     * @var value-of<JourneyState> $state
+     */
     #[Required(enum: JourneyState::class)]
     public string $state;
 
@@ -195,6 +201,8 @@ final class JourneyResponse implements BaseModel
     }
 
     /**
+     * Lifecycle state of a journey.
+     *
      * @param JourneyState|value-of<JourneyState> $state
      */
     public function withState(JourneyState|string $state): self

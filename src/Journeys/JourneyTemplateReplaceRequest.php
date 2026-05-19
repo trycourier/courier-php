@@ -11,6 +11,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\JourneyTemplateReplaceRequest\Notification;
 
 /**
+ * Request body for replacing a journey-scoped notification template draft.
+ *
  * @phpstan-import-type NotificationShape from \Courier\Journeys\JourneyTemplateReplaceRequest\Notification
  *
  * @phpstan-type JourneyTemplateReplaceRequestShape = array{

@@ -12,6 +12,8 @@ use Courier\Journeys\JourneyAPIInvokeTriggerNode\TriggerType;
 use Courier\Journeys\JourneyAPIInvokeTriggerNode\Type;
 
 /**
+ * Trigger fired when the journey is invoked via the API. The optional `schema` field is a JSON Schema that validates the invocation payload.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *

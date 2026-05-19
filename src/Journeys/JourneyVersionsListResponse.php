@@ -10,6 +10,8 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Paging;
 
 /**
+ * Paged list of published journey versions, most recent first.
+ *
  * @phpstan-import-type PagingShape from \Courier\Paging
  * @phpstan-import-type JourneyVersionItemShape from \Courier\Journeys\JourneyVersionItem
  *

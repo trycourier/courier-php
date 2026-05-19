@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List notification templates scoped to this journey. Templates scoped to a journey can only be referenced from `send` nodes of the same journey.
+ * List notification templates scoped to this journey. Journey-scoped notification templates can only be referenced from `send` nodes within the same journey.
  *
  * @see Courier\Services\Journeys\TemplatesService::list()
  *
@@ -24,9 +24,15 @@ final class TemplateListParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
+    /**
+     * Pagination cursor from a prior response.
+     */
     #[Optional]
     public ?string $cursor;
 
+    /**
+     * Page size. Minimum 1, maximum 100.
+     */
     #[Optional]
     public ?int $limit;
 
@@ -50,6 +56,9 @@ final class TemplateListParams implements BaseModel
         return $self;
     }
 
+    /**
+     * Pagination cursor from a prior response.
+     */
     public function withCursor(string $cursor): self
     {
         $self = clone $this;
@@ -58,6 +67,9 @@ final class TemplateListParams implements BaseModel
         return $self;
     }
 
+    /**
+     * Page size. Minimum 1, maximum 100.
+     */
     public function withLimit(int $limit): self
     {
         $self = clone $this;

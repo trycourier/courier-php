@@ -12,6 +12,8 @@ use Courier\Journeys\JourneySendNode\Message;
 use Courier\Journeys\JourneySendNode\Type;
 
 /**
+ * Send a notification template to the recipient. Optionally override the recipient address, delay the send, or attach `data`.
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type MessageShape from \Courier\Journeys\JourneySendNode\Message
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField

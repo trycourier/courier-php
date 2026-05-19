@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create a new journey. The journey is created in DRAFT state. Use POST /journeys/{templateId}/publish to make it live.
+ * Create a journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create. Send nodes are not allowed on `POST`. The standard flow is: create the journey shell here, add notification templates with `POST /journeys/{templateId}/templates`, then wire them into the journey with `PUT /journeys/{templateId}`. Call `POST /journeys/{templateId}/publish` to publish a draft after the fact.
  *
  * @see Courier\Services\JourneysService::create()
  *
@@ -38,7 +38,11 @@ final class JourneyCreateParams implements BaseModel
     #[Optional]
     public ?bool $enabled;
 
-    /** @var value-of<JourneyState>|null $state */
+    /**
+     * Lifecycle state of a journey.
+     *
+     * @var value-of<JourneyState>|null $state
+     */
     #[Optional(enum: JourneyState::class)]
     public ?string $state;
 
@@ -114,6 +118,8 @@ final class JourneyCreateParams implements BaseModel
     }
 
     /**
+     * Lifecycle state of a journey.
+     *
      * @param JourneyState|value-of<JourneyState> $state
      */
     public function withState(JourneyState|string $state): self

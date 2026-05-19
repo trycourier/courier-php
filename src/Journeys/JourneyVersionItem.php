@@ -9,6 +9,8 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * A published version of a journey.
+ *
  * @phpstan-type JourneyVersionItemShape = array{
  *   created: int|null,
  *   creator: string|null,

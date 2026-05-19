@@ -13,6 +13,8 @@ use Courier\Journeys\JourneySegmentTriggerNode\TriggerType;
 use Courier\Journeys\JourneySegmentTriggerNode\Type;
 
 /**
+ * Trigger fired by a segment event (`identify`, `group`, or `track`).
+ *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *
