@@ -21,7 +21,7 @@ interface BrandsContract
     /**
      * @api
      *
-     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSettings|BrandSettingsShape $settings
      * @param BrandSnippets|BrandSnippetsShape|null $snippets
      * @param RequestOpts|null $requestOptions
      *
@@ -29,8 +29,8 @@ interface BrandsContract
      */
     public function create(
         string $name,
+        BrandSettings|array $settings,
         ?string $id = null,
-        BrandSettings|array|null $settings = null,
         BrandSnippets|array|null $snippets = null,
         RequestOptions|array|null $requestOptions = null,
     ): Brand;

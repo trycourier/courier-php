@@ -37,9 +37,9 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Create a new brand
+     * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
      *
-     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSettings|BrandSettingsShape $settings
      * @param BrandSnippets|BrandSnippetsShape|null $snippets
      * @param RequestOpts|null $requestOptions
      *
@@ -47,16 +47,16 @@ final class BrandsService implements BrandsContract
      */
     public function create(
         string $name,
+        BrandSettings|array $settings,
         ?string $id = null,
-        BrandSettings|array|null $settings = null,
         BrandSnippets|array|null $snippets = null,
         RequestOptions|array|null $requestOptions = null,
     ): Brand {
         $params = Util::removeNulls(
             [
                 'name' => $name,
-                'id' => $id,
                 'settings' => $settings,
+                'id' => $id,
                 'snippets' => $snippets,
             ],
         );
