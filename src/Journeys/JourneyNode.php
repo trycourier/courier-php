@@ -7,6 +7,7 @@ namespace Courier\Journeys;
 use Courier\Core\Concerns\SdkUnion;
 use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
+use Courier\Journeys\JourneyNode\JourneyBatchNode;
 use Courier\Journeys\JourneyNode\JourneyBranchNode;
 
 /**
@@ -22,11 +23,12 @@ use Courier\Journeys\JourneyNode\JourneyBranchNode;
  * @phpstan-import-type JourneyAINodeShape from \Courier\Journeys\JourneyAINode
  * @phpstan-import-type JourneyThrottleStaticNodeShape from \Courier\Journeys\JourneyThrottleStaticNode
  * @phpstan-import-type JourneyThrottleDynamicNodeShape from \Courier\Journeys\JourneyThrottleDynamicNode
+ * @phpstan-import-type JourneyBatchNodeShape from \Courier\Journeys\JourneyNode\JourneyBatchNode
  * @phpstan-import-type JourneyExitNodeShape from \Courier\Journeys\JourneyExitNode
  * @phpstan-import-type JourneyBranchNodeShape from \Courier\Journeys\JourneyNode\JourneyBranchNode
  *
- * @phpstan-type JourneyNodeVariants = JourneyAPIInvokeTriggerNode|JourneySegmentTriggerNode|JourneySendNode|JourneyDelayDurationNode|JourneyDelayUntilNode|JourneyFetchGetDeleteNode|JourneyFetchPostPutNode|JourneyAINode|JourneyThrottleStaticNode|JourneyThrottleDynamicNode|JourneyExitNode|JourneyBranchNode
- * @phpstan-type JourneyNodeShape = JourneyNodeVariants|JourneyAPIInvokeTriggerNodeShape|JourneySegmentTriggerNodeShape|JourneySendNodeShape|JourneyDelayDurationNodeShape|JourneyDelayUntilNodeShape|JourneyFetchGetDeleteNodeShape|JourneyFetchPostPutNodeShape|JourneyAINodeShape|JourneyThrottleStaticNodeShape|JourneyThrottleDynamicNodeShape|JourneyExitNodeShape|JourneyBranchNodeShape
+ * @phpstan-type JourneyNodeVariants = JourneyAPIInvokeTriggerNode|JourneySegmentTriggerNode|JourneySendNode|JourneyDelayDurationNode|JourneyDelayUntilNode|JourneyFetchGetDeleteNode|JourneyFetchPostPutNode|JourneyAINode|JourneyThrottleStaticNode|JourneyThrottleDynamicNode|JourneyBatchNode|JourneyExitNode|JourneyBranchNode
+ * @phpstan-type JourneyNodeShape = JourneyNodeVariants|JourneyAPIInvokeTriggerNodeShape|JourneySegmentTriggerNodeShape|JourneySendNodeShape|JourneyDelayDurationNodeShape|JourneyDelayUntilNodeShape|JourneyFetchGetDeleteNodeShape|JourneyFetchPostPutNodeShape|JourneyAINodeShape|JourneyThrottleStaticNodeShape|JourneyThrottleDynamicNodeShape|JourneyBatchNodeShape|JourneyExitNodeShape|JourneyBranchNodeShape
  */
 final class JourneyNode implements ConverterSource
 {
@@ -48,6 +50,7 @@ final class JourneyNode implements ConverterSource
             JourneyAINode::class,
             JourneyThrottleStaticNode::class,
             JourneyThrottleDynamicNode::class,
+            JourneyBatchNode::class,
             JourneyExitNode::class,
             JourneyBranchNode::class,
         ];
