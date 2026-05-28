@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create a new brand.
+ * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
  *
  * @see Courier\Services\BrandsService::create()
  *
@@ -20,8 +20,8 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-type BrandCreateParamsShape = array{
  *   name: string,
+ *   settings: BrandSettings|BrandSettingsShape,
  *   id?: string|null,
- *   settings?: null|BrandSettings|BrandSettingsShape,
  *   snippets?: null|BrandSnippets|BrandSnippetsShape,
  * }
  */
@@ -34,11 +34,11 @@ final class BrandCreateParams implements BaseModel
     #[Required]
     public string $name;
 
-    #[Optional(nullable: true)]
-    public ?string $id;
+    #[Required]
+    public BrandSettings $settings;
 
     #[Optional(nullable: true)]
-    public ?BrandSettings $settings;
+    public ?string $id;
 
     #[Optional(nullable: true)]
     public ?BrandSnippets $snippets;
@@ -48,13 +48,13 @@ final class BrandCreateParams implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * BrandCreateParams::with(name: ...)
+     * BrandCreateParams::with(name: ..., settings: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BrandCreateParams)->withName(...)
+     * (new BrandCreateParams)->withName(...)->withSettings(...)
      * ```
      */
     public function __construct()
@@ -67,21 +67,21 @@ final class BrandCreateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BrandSettings|BrandSettingsShape|null $settings
+     * @param BrandSettings|BrandSettingsShape $settings
      * @param BrandSnippets|BrandSnippetsShape|null $snippets
      */
     public static function with(
         string $name,
+        BrandSettings|array $settings,
         ?string $id = null,
-        BrandSettings|array|null $settings = null,
         BrandSnippets|array|null $snippets = null,
     ): self {
         $self = new self;
 
         $self['name'] = $name;
+        $self['settings'] = $settings;
 
         null !== $id && $self['id'] = $id;
-        null !== $settings && $self['settings'] = $settings;
         null !== $snippets && $self['snippets'] = $snippets;
 
         return $self;
@@ -95,21 +95,21 @@ final class BrandCreateParams implements BaseModel
         return $self;
     }
 
-    public function withID(?string $id): self
+    /**
+     * @param BrandSettings|BrandSettingsShape $settings
+     */
+    public function withSettings(BrandSettings|array $settings): self
     {
         $self = clone $this;
-        $self['id'] = $id;
+        $self['settings'] = $settings;
 
         return $self;
     }
 
-    /**
-     * @param BrandSettings|BrandSettingsShape|null $settings
-     */
-    public function withSettings(BrandSettings|array|null $settings): self
+    public function withID(?string $id): self
     {
         $self = clone $this;
-        $self['settings'] = $settings;
+        $self['id'] = $id;
 
         return $self;
     }

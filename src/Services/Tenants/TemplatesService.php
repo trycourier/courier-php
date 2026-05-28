@@ -94,6 +94,35 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
+     * Deletes the tenant's notification template with the given `template_id`.
+     *
+     * Returns **204 No Content** with an empty body on success.
+     *
+     * Returns **404** if there is no template with this ID for the tenant,
+     * including a second `DELETE` after a successful removal.
+     *
+     * @param string $templateID id of the template to remove from the tenant
+     * @param string $tenantID id of the tenant that owns the template
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function delete(
+        string $templateID,
+        string $tenantID,
+        RequestOptions|array|null $requestOptions = null,
+    ): mixed {
+        $params = Util::removeNulls(['tenantID' => $tenantID]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->delete($templateID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
      * Publishes a specific version of a notification template for a tenant.
      *
      * The template must already exist in the tenant's notification map.

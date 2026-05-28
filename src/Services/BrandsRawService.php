@@ -33,12 +33,12 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Create a new brand
+     * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
      *
      * @param array{
      *   name: string,
+     *   settings: BrandSettings|BrandSettingsShape,
      *   id?: string|null,
-     *   settings?: BrandSettings|BrandSettingsShape|null,
      *   snippets?: BrandSnippets|BrandSnippetsShape|null,
      * }|BrandCreateParams $params
      * @param RequestOpts|null $requestOptions

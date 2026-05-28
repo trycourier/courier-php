@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke a journey run from a journey template.
+ * Invoke a journey by id or alias to start a new run. The response includes a `runId` identifying the run.
  *
  * @see Courier\Services\JourneysService::invoke()
  *

@@ -4,8 +4,11 @@ namespace Tests\Services;
 
 use Courier\Client;
 use Courier\Core\Util;
+use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
 use Courier\Journeys\JourneysListResponse;
+use Courier\Journeys\JourneyState;
+use Courier\Journeys\JourneyVersionsListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -30,6 +33,71 @@ final class JourneysTest extends TestCase
     }
 
     #[Test]
+    public function testCreate(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->create(
+            name: 'Welcome Journey',
+            nodes: [
+                ['triggerType' => 'api-invoke', 'type' => 'trigger'],
+                ['triggerType' => 'api-invoke', 'type' => 'trigger'],
+            ],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
+    }
+
+    #[Test]
+    public function testCreateWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->create(
+            name: 'Welcome Journey',
+            nodes: [
+                [
+                    'triggerType' => 'api-invoke',
+                    'type' => 'trigger',
+                    'id' => 'trigger-1',
+                    'conditions' => ['string', 'string'],
+                    'schema' => ['foo' => 'bar'],
+                ],
+                [
+                    'triggerType' => 'api-invoke',
+                    'type' => 'trigger',
+                    'id' => 'send-1',
+                    'conditions' => ['string', 'string'],
+                    'schema' => ['foo' => 'bar'],
+                ],
+            ],
+            enabled: true,
+            state: JourneyState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
+    }
+
+    #[Test]
+    public function testRetrieve(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->retrieve('x');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
+    }
+
+    #[Test]
     public function testList(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -43,6 +111,19 @@ final class JourneysTest extends TestCase
     }
 
     #[Test]
+    public function testArchive(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->archive('x');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
     public function testInvoke(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -53,5 +134,75 @@ final class JourneysTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(JourneysInvokeResponse::class, $result);
+    }
+
+    #[Test]
+    public function testListVersions(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->listVersions('x');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyVersionsListResponse::class, $result);
+    }
+
+    #[Test]
+    public function testPublish(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->publish('x');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
+    }
+
+    #[Test]
+    public function testReplace(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->replace(
+            'x',
+            name: 'Welcome Journey v2',
+            nodes: [['triggerType' => 'api-invoke', 'type' => 'trigger']],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
+    }
+
+    #[Test]
+    public function testReplaceWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->replace(
+            'x',
+            name: 'Welcome Journey v2',
+            nodes: [
+                [
+                    'triggerType' => 'api-invoke',
+                    'type' => 'trigger',
+                    'id' => 'x',
+                    'conditions' => ['string', 'string'],
+                    'schema' => ['foo' => 'bar'],
+                ],
+            ],
+            enabled: true,
+            state: JourneyState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(JourneyResponse::class, $result);
     }
 }

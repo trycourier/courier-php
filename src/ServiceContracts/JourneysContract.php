@@ -6,8 +6,11 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
 use Courier\Journeys\JourneyListParams\Version;
+use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
 use Courier\Journeys\JourneysListResponse;
+use Courier\Journeys\JourneyState;
+use Courier\Journeys\JourneyVersionsListResponse;
 use Courier\RequestOptions;
 
 /**
@@ -15,6 +18,38 @@ use Courier\RequestOptions;
  */
 interface JourneysContract
 {
+    /**
+     * @api
+     *
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state lifecycle state of a journey
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function create(
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param string $version version selector: `draft`, `published` (default), or `vN`
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
     /**
      * @api
      *
@@ -33,7 +68,20 @@ interface JourneysContract
     /**
      * @api
      *
-     * @param string $templateID A unique identifier representing the journey template to be invoked. This could be the Journey Template ID or the Journey Template Alias.
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function archive(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): mixed;
+
+    /**
+     * @api
+     *
+     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array<string,mixed> $data Data payload passed to the journey. The expected shape can be predefined using the schema builder in the journey editor. This data is available in journey steps for condition evaluation and template variable interpolation. Can also contain user identifiers (user_id, userId, anonymousId) if not provided elsewhere.
      * @param array<string,mixed> $profile Profile data for the user. Can contain contact information (email, phone_number), user identifiers (user_id, userId, anonymousId), or any custom profile fields. Profile fields are merged with any existing stored profile for the user. Include context.tenant_id to load a tenant-scoped profile for multi-tenant scenarios.
      * @param string $userID A unique identifier for the user. If not provided, the system will attempt to resolve the user identifier from profile or data objects.
@@ -48,4 +96,50 @@ interface JourneysContract
         ?string $userID = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneysInvokeResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listVersions(
+        string $templateID,
+        RequestOptions|array|null $requestOptions = null
+    ): JourneyVersionsListResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function publish(
+        string $templateID,
+        ?string $version = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
+
+    /**
+     * @api
+     *
+     * @param string $templateID Journey id
+     * @param list<mixed> $nodes
+     * @param JourneyState|value-of<JourneyState> $state lifecycle state of a journey
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function replace(
+        string $templateID,
+        string $name,
+        array $nodes,
+        ?bool $enabled = null,
+        JourneyState|string|null $state = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): JourneyResponse;
 }

@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.5.0 (2026-05-28)
+
+Full Changelog: [v5.4.3...v5.5.0](https://github.com/trycourier/courier-php/compare/v5.4.3...v5.5.0)
+
+### Features
+
+* [C-18380] Journeys API reference: copy + naming cleanup ([f9e70b3](https://github.com/trycourier/courier-php/commit/f9e70b3e11da2abfa6e2c4609904187910392bdc))
+* [SUP-607] Add DELETE endpoint for Courier Create tenant templates ([bcbbf52](https://github.com/trycourier/courier-php/commit/bcbbf523eeeb45fca29df8762e3f5383b04dfaf0))
+* **api:** add journeys CRUD, templates subresource, journey node types ([8129a82](https://github.com/trycourier/courier-php/commit/8129a82accd8683d11d3670cd26bbf9f1610701f))
+* C-18612 Add Journeys `batch` node variant to OpenAPI spec ([41bbe4f](https://github.com/trycourier/courier-php/commit/41bbe4fadac4f4d63571e54e22982cb8312c0995))
+* Mark `settings` as required on POST /brands ([f244455](https://github.com/trycourier/courier-php/commit/f2444554869dfda572f963c5be02e43448605f14))
+* support setting headers via env ([8bdab3e](https://github.com/trycourier/courier-php/commit/8bdab3ee438fc93c58bd6831575863fc8c04a4ec))
+
+
+### Bug Fixes
+
+* guzzle requires special handling to enable streaming ([414421b](https://github.com/trycourier/courier-php/commit/414421b95017d6cc77ad4aa8db10551de74ae2f0))
+
 ## 5.4.3 (2026-04-26)
 
 Full Changelog: [v5.4.2...v5.4.3](https://github.com/trycourier/courier-php/compare/v5.4.2...v5.4.3)
