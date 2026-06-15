@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.6.0 (2026-06-12)
+
+Full Changelog: [v5.5.0...v5.6.0](https://github.com/trycourier/courier-php/compare/v5.5.0...v5.6.0)
+
+### Features
+
+* **digests:** document digest REST endpoints in OpenAPI spec ([369e6af](https://github.com/trycourier/courier-php/commit/369e6afeeda98b21b381844399d7d6222155f292))
+
 ## 5.5.0 (2026-05-28)
 
 Full Changelog: [v5.4.3...v5.5.0](https://github.com/trycourier/courier-php/compare/v5.4.3...v5.5.0)
