@@ -7,6 +7,7 @@ namespace Courier\ServiceContracts\Users;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\Users\Preferences\PreferenceDeleteTopicParams;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceRetrieveParams;
@@ -33,6 +34,23 @@ interface PreferencesRawContract
     public function retrieve(
         string $userID,
         array|PreferenceRetrieveParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param array<string,mixed>|PreferenceDeleteTopicParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function deleteTopic(
+        string $topicID,
+        array|PreferenceDeleteTopicParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 

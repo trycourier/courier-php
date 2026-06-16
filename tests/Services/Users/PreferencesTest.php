@@ -46,6 +46,39 @@ final class PreferencesTest extends TestCase
     }
 
     #[Test]
+    public function testDeleteTopic(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->deleteTopic(
+            'topic_id',
+            userID: 'user_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testDeleteTopicWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->deleteTopic(
+            'topic_id',
+            userID: 'user_id',
+            tenantID: 'tenant_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
     public function testRetrieveTopic(): void
     {
         if (UnsupportedMockTests::$skip) {
