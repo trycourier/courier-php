@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.7.0 (2026-06-17)
+
+Full Changelog: [v5.6.0...v5.7.0](https://github.com/trycourier/courier-php/compare/v5.6.0...v5.7.0)
+
+### Features
+
+* **openapi:** add add-to-digest JourneyNode variant ([e513269](https://github.com/trycourier/courier-php/commit/e51326909c6d7c7b6ac94f165c28a97ac74fe556))
+* **openapi:** add DELETE /users/{id}/preferences/{topicId} ([aee7e83](https://github.com/trycourier/courier-php/commit/aee7e8367f5cdd12e8455c53da9ec521e83ed46d))
+
 ## 5.6.0 (2026-06-12)
 
 Full Changelog: [v5.5.0...v5.6.0](https://github.com/trycourier/courier-php/compare/v5.5.0...v5.6.0)

@@ -36,6 +36,23 @@ interface PreferencesContract
      * @api
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to delete
+     * @param string|null $tenantID query param: Delete the preferences of a user for this specific tenant context
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function deleteTopic(
+        string $topicID,
+        string $userID,
+        ?string $tenantID = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): mixed;
+
+    /**
+     * @api
+     *
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to retrieve
      * @param string|null $tenantID query param: Query the preferences of a user for this specific tenant context
      * @param RequestOpts|null $requestOptions

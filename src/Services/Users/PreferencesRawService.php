@@ -10,6 +10,7 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Users\PreferencesRawContract;
+use Courier\Users\Preferences\PreferenceDeleteTopicParams;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceRetrieveParams;
@@ -60,6 +61,43 @@ final class PreferencesRawService implements PreferencesRawContract
             query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
             options: $options,
             convert: PreferenceGetResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Remove a user's preferences for a specific subscription topic, resetting the topic to its effective default. This operation is idempotent: deleting a preference that does not exist succeeds with no error.
+     *
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param array{
+     *   userID: string, tenantID?: string|null
+     * }|PreferenceDeleteTopicParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function deleteTopic(
+        string $topicID,
+        array|PreferenceDeleteTopicParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = PreferenceDeleteTopicParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $userID = $parsed['userID'];
+        unset($parsed['userID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'delete',
+            path: ['users/%1$s/preferences/%2$s', $userID, $topicID],
+            query: Util::array_transform_keys($parsed, ['tenantID' => 'tenant_id']),
+            options: $options,
+            convert: null,
         );
     }
 

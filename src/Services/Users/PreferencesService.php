@@ -60,6 +60,32 @@ final class PreferencesService implements PreferencesContract
     /**
      * @api
      *
+     * Remove a user's preferences for a specific subscription topic, resetting the topic to its effective default. This operation is idempotent: deleting a preference that does not exist succeeds with no error.
+     *
+     * @param string $topicID path param: A unique identifier associated with a subscription topic
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to delete
+     * @param string|null $tenantID query param: Delete the preferences of a user for this specific tenant context
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function deleteTopic(
+        string $topicID,
+        string $userID,
+        ?string $tenantID = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): mixed {
+        $params = Util::removeNulls(['userID' => $userID, 'tenantID' => $tenantID]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->deleteTopic($topicID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
      * Fetch user preferences for a specific subscription topic.
      *
      * @param string $topicID path param: A unique identifier associated with a subscription topic
