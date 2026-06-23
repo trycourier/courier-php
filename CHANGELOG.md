@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.8.0 (2026-06-23)
+
+Full Changelog: [v5.7.0...v5.8.0](https://github.com/trycourier/courier-php/compare/v5.7.0...v5.8.0)
+
+### Features
+
+* **journeys:** add content + locale endpoints to journey-scoped templates ([413d0bb](https://github.com/trycourier/courier-php/commit/413d0bb03f2ca09617e53f3959ae31727daf513c))
+
+
+### Documentation
+
+* **journeys:** clarify checksum usage + re-trigger docs sync for journey content endpoints ([12983b5](https://github.com/trycourier/courier-php/commit/12983b58356cc3414aa4d21bd2513ddea3ecacb3))
+
 ## 5.7.0 (2026-06-17)
 
 Full Changelog: [v5.6.0...v5.7.0](https://github.com/trycourier/courier-php/compare/v5.6.0...v5.7.0)
