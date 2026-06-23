@@ -15,14 +15,24 @@ use Courier\Journeys\Templates\TemplateCreateParams\Notification;
 use Courier\Journeys\Templates\TemplateListParams;
 use Courier\Journeys\Templates\TemplateListVersionsParams;
 use Courier\Journeys\Templates\TemplatePublishParams;
+use Courier\Journeys\Templates\TemplatePutContentParams;
+use Courier\Journeys\Templates\TemplatePutContentParams\Content;
+use Courier\Journeys\Templates\TemplatePutLocaleParams;
+use Courier\Journeys\Templates\TemplatePutLocaleParams\Element;
 use Courier\Journeys\Templates\TemplateReplaceParams;
+use Courier\Journeys\Templates\TemplateRetrieveContentParams;
 use Courier\Journeys\Templates\TemplateRetrieveParams;
+use Courier\Notifications\NotificationContentGetResponse;
+use Courier\Notifications\NotificationContentMutationResponse;
+use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Journeys\TemplatesRawContract;
 
 /**
  * @phpstan-import-type NotificationShape from \Courier\Journeys\Templates\TemplateCreateParams\Notification
+ * @phpstan-import-type ContentShape from \Courier\Journeys\Templates\TemplatePutContentParams\Content
+ * @phpstan-import-type ElementShape from \Courier\Journeys\Templates\TemplatePutLocaleParams\Element
  * @phpstan-import-type NotificationShape from \Courier\Journeys\Templates\TemplateReplaceParams\Notification as NotificationShape1
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -249,6 +259,97 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
+     * Replace the elemental content of a journey-scoped notification template. Overwrites all elements in the template draft with the provided content.
+     *
+     * @param string $notificationID Path param: Notification template id
+     * @param array{
+     *   templateID: string,
+     *   content: Content|ContentShape,
+     *   state?: NotificationTemplateState|value-of<NotificationTemplateState>,
+     * }|TemplatePutContentParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentMutationResponse>
+     *
+     * @throws APIException
+     */
+    public function putContent(
+        string $notificationID,
+        array|TemplatePutContentParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TemplatePutContentParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $templateID = $parsed['templateID'];
+        unset($parsed['templateID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'put',
+            path: [
+                'journeys/%1$s/templates/%2$s/content', $templateID, $notificationID,
+            ],
+            body: (object) array_diff_key($parsed, array_flip(['templateID'])),
+            options: $options,
+            convert: NotificationContentMutationResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Set locale-specific content overrides for a journey-scoped notification template. Each element override must reference an existing element by ID.
+     *
+     * @param string $localeID Path param: Locale code (e.g., `es`, `fr`, `pt-BR`).
+     * @param array{
+     *   templateID: string,
+     *   notificationID: string,
+     *   elements: list<Element|ElementShape>,
+     *   state?: NotificationTemplateState|value-of<NotificationTemplateState>,
+     * }|TemplatePutLocaleParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentMutationResponse>
+     *
+     * @throws APIException
+     */
+    public function putLocale(
+        string $localeID,
+        array|TemplatePutLocaleParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TemplatePutLocaleParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $templateID = $parsed['templateID'];
+        unset($parsed['templateID']);
+        $notificationID = $parsed['notificationID'];
+        unset($parsed['notificationID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'put',
+            path: [
+                'journeys/%1$s/templates/%2$s/locales/%3$s',
+                $templateID,
+                $notificationID,
+                $localeID,
+            ],
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(['templateID', 'notificationID'])
+            ),
+            options: $options,
+            convert: NotificationContentMutationResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
      * Replace the journey-scoped notification template draft.
      *
      * @param string $notificationID Path param: Notification template id
@@ -282,6 +383,45 @@ final class TemplatesRawService implements TemplatesRawContract
             body: (object) array_diff_key($parsed, array_flip(['templateID'])),
             options: $options,
             convert: JourneyTemplateGetResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Retrieve the elemental content of a journey-scoped notification template. The response contains the versioned elements with their content checksums. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     *
+     * @param string $notificationID Path param: Notification template id
+     * @param array{
+     *   templateID: string, version?: string
+     * }|TemplateRetrieveContentParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentGetResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieveContent(
+        string $notificationID,
+        array|TemplateRetrieveContentParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TemplateRetrieveContentParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $templateID = $parsed['templateID'];
+        unset($parsed['templateID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: [
+                'journeys/%1$s/templates/%2$s/content', $templateID, $notificationID,
+            ],
+            query: $parsed,
+            options: $options,
+            convert: NotificationContentGetResponse::class,
         );
     }
 }
