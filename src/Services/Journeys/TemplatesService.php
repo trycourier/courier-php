@@ -305,7 +305,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Retrieve the elemental content of a journey-scoped notification template. The response contains the versioned elements with their content checksums. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     * Retrieve the elemental content of a journey-scoped notification template. The response contains the versioned elements along with their content checksums, which can be used to detect changes between versions. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
      *
      * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
