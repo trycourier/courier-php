@@ -13,8 +13,13 @@ use Courier\Journeys\Templates\TemplateCreateParams;
 use Courier\Journeys\Templates\TemplateListParams;
 use Courier\Journeys\Templates\TemplateListVersionsParams;
 use Courier\Journeys\Templates\TemplatePublishParams;
+use Courier\Journeys\Templates\TemplatePutContentParams;
+use Courier\Journeys\Templates\TemplatePutLocaleParams;
 use Courier\Journeys\Templates\TemplateReplaceParams;
+use Courier\Journeys\Templates\TemplateRetrieveContentParams;
 use Courier\Journeys\Templates\TemplateRetrieveParams;
+use Courier\Notifications\NotificationContentGetResponse;
+use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use Courier\RequestOptions;
 
@@ -129,6 +134,40 @@ interface TemplatesRawContract
      * @api
      *
      * @param string $notificationID Path param: Notification template id
+     * @param array<string,mixed>|TemplatePutContentParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentMutationResponse>
+     *
+     * @throws APIException
+     */
+    public function putContent(
+        string $notificationID,
+        array|TemplatePutContentParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $localeID Path param: Locale code (e.g., `es`, `fr`, `pt-BR`).
+     * @param array<string,mixed>|TemplatePutLocaleParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentMutationResponse>
+     *
+     * @throws APIException
+     */
+    public function putLocale(
+        string $localeID,
+        array|TemplatePutLocaleParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $notificationID Path param: Notification template id
      * @param array<string,mixed>|TemplateReplaceParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -139,6 +178,23 @@ interface TemplatesRawContract
     public function replace(
         string $notificationID,
         array|TemplateReplaceParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $notificationID Path param: Notification template id
+     * @param array<string,mixed>|TemplateRetrieveContentParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationContentGetResponse>
+     *
+     * @throws APIException
+     */
+    public function retrieveContent(
+        string $notificationID,
+        array|TemplateRetrieveContentParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

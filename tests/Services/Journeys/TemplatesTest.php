@@ -6,6 +6,9 @@ use Courier\Client;
 use Courier\Core\Util;
 use Courier\Journeys\JourneyTemplateGetResponse;
 use Courier\Journeys\JourneyTemplateListResponse;
+use Courier\Notifications\NotificationContentGetResponse;
+use Courier\Notifications\NotificationContentMutationResponse;
+use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -230,6 +233,92 @@ final class TemplatesTest extends TestCase
     }
 
     #[Test]
+    public function testPutContent(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->putContent(
+            'x',
+            templateID: 'x',
+            content: ['elements' => [[]]]
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutContentWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->putContent(
+            'x',
+            templateID: 'x',
+            content: [
+                'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+            ],
+            state: NotificationTemplateState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutLocale(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->putLocale(
+            'x',
+            templateID: 'x',
+            notificationID: 'x',
+            elements: [['id' => 'elem_1'], ['id' => 'elem_2']],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
+    public function testPutLocaleWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->putLocale(
+            'x',
+            templateID: 'x',
+            notificationID: 'x',
+            elements: [['id' => 'elem_1'], ['id' => 'elem_2']],
+            state: NotificationTemplateState::DRAFT,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(
+            NotificationContentMutationResponse::class,
+            $result
+        );
+    }
+
+    #[Test]
     public function testReplace(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -286,5 +375,38 @@ final class TemplatesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(JourneyTemplateGetResponse::class, $result);
+    }
+
+    #[Test]
+    public function testRetrieveContent(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->retrieveContent(
+            'x',
+            templateID: 'x'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationContentGetResponse::class, $result);
+    }
+
+    #[Test]
+    public function testRetrieveContentWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->templates->retrieveContent(
+            'x',
+            templateID: 'x',
+            version: 'version'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationContentGetResponse::class, $result);
     }
 }
