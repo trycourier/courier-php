@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.9.0 (2026-06-24)
+
+Full Changelog: [v5.8.0...v5.9.0](https://github.com/trycourier/courier-php/compare/v5.8.0...v5.9.0)
+
+### Features
+
+* **preferences:** workspace preference sections & nested topics endpoints ([729d312](https://github.com/trycourier/courier-php/commit/729d3125e1673b171d6dd05a8e589d68f8eada3e))
+
 ## 5.8.0 (2026-06-23)
 
 Full Changelog: [v5.7.0...v5.8.0](https://github.com/trycourier/courier-php/compare/v5.7.0...v5.8.0)
