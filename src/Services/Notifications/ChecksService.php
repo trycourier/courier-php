@@ -35,7 +35,7 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * Replace the checks for a notification template submission.
+     * Replace the submission checks for a notification template.
      *
      * @param string $submissionID path param: Submission ID
      * @param string $id path param: Notification template ID
