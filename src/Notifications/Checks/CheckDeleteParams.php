@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Cancel a notification template submission.
+ * Cancel a submission for a notification template.
  *
  * @see Courier\Services\Notifications\ChecksService::delete()
  *
