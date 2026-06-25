@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.9.1 (2026-06-25)
+
+Full Changelog: [v5.9.0...v5.9.1](https://github.com/trycourier/courier-php/compare/v5.9.0...v5.9.1)
+
+### Documentation
+
+* **openapi:** add full response examples to every endpoint ([2156650](https://github.com/trycourier/courier-php/commit/21566505bdc7cec0b9e2201a9bde234383d2ab34))
+* **openapi:** reword Cancel Submission description ([24af1ac](https://github.com/trycourier/courier-php/commit/24af1acdc52ed107ebbcce4d1aa7f61d1aa9634a))
+* **openapi:** reword Get Submission Checks description ([a65c14f](https://github.com/trycourier/courier-php/commit/a65c14f472849898f7b4e178d48df4f2863bdba0))
+* **openapi:** reword Replace Submission Checks description ([80961e9](https://github.com/trycourier/courier-php/commit/80961e9d6efa219b334c12c033eee40e5c4e6143))
+
 ## 5.9.0 (2026-06-24)
 
 Full Changelog: [v5.8.0...v5.9.0](https://github.com/trycourier/courier-php/compare/v5.8.0...v5.9.0)
