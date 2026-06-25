@@ -68,7 +68,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * Retrieve the checks for a notification template submission.
+     * Retrieve the submission checks for a notification template.
      *
      * @param string $submissionID submission ID
      * @param array{id: string}|CheckListParams $params

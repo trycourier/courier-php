@@ -61,7 +61,7 @@ final class ChecksService implements ChecksContract
     /**
      * @api
      *
-     * Retrieve the checks for a notification template submission.
+     * Retrieve the submission checks for a notification template.
      *
      * @param string $submissionID submission ID
      * @param string $id notification template ID
