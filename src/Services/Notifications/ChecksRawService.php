@@ -102,7 +102,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * Cancel a notification template submission.
+     * Cancel a submission for a notification template.
      *
      * @param string $submissionID submission ID
      * @param array{id: string}|CheckDeleteParams $params
