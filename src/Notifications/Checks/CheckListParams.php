@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Retrieve the checks for a notification template submission.
+ * Retrieve the submission checks for a notification template.
  *
  * @see Courier\Services\Notifications\ChecksService::list()
  *
