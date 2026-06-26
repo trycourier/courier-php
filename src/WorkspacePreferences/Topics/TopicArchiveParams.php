@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Courier\Notifications\Checks;
+namespace Courier\WorkspacePreferences\Topics;
 
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
@@ -10,33 +10,33 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Retrieve the submission checks for a notification template.
+ * Archive a topic and remove it from its workspace preference. Same 404 rules as GET.
  *
- * @see Courier\Services\Notifications\ChecksService::list()
+ * @see Courier\Services\WorkspacePreferences\TopicsService::archive()
  *
- * @phpstan-type CheckListParamsShape = array{id: string}
+ * @phpstan-type TopicArchiveParamsShape = array{sectionID: string}
  */
-final class CheckListParams implements BaseModel
+final class TopicArchiveParams implements BaseModel
 {
-    /** @use SdkModel<CheckListParamsShape> */
+    /** @use SdkModel<TopicArchiveParamsShape> */
     use SdkModel;
     use SdkParams;
 
     #[Required]
-    public string $id;
+    public string $sectionID;
 
     /**
-     * `new CheckListParams()` is missing required properties by the API.
+     * `new TopicArchiveParams()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * CheckListParams::with(id: ...)
+     * TopicArchiveParams::with(sectionID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new CheckListParams)->withID(...)
+     * (new TopicArchiveParams)->withSectionID(...)
      * ```
      */
     public function __construct()
@@ -49,19 +49,19 @@ final class CheckListParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $id): self
+    public static function with(string $sectionID): self
     {
         $self = new self;
 
-        $self['id'] = $id;
+        $self['sectionID'] = $sectionID;
 
         return $self;
     }
 
-    public function withID(string $id): self
+    public function withSectionID(string $sectionID): self
     {
         $self = clone $this;
-        $self['id'] = $id;
+        $self['sectionID'] = $sectionID;
 
         return $self;
     }

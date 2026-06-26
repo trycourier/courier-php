@@ -19,7 +19,6 @@ use Courier\Services\JourneysService;
 use Courier\Services\ListsService;
 use Courier\Services\MessagesService;
 use Courier\Services\NotificationsService;
-use Courier\Services\PreferenceSectionsService;
 use Courier\Services\ProfilesService;
 use Courier\Services\ProvidersService;
 use Courier\Services\RequestsService;
@@ -28,6 +27,7 @@ use Courier\Services\SendService;
 use Courier\Services\TenantsService;
 use Courier\Services\TranslationsService;
 use Courier\Services\UsersService;
+use Courier\Services\WorkspacePreferencesService;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 
@@ -122,7 +122,7 @@ class Client extends BaseClient
     /**
      * @api
      */
-    public PreferenceSectionsService $preferenceSections;
+    public WorkspacePreferencesService $workspacePreferences;
 
     /**
      * @api
@@ -216,7 +216,7 @@ class Client extends BaseClient
         $this->requests = new RequestsService($this);
         $this->notifications = new NotificationsService($this);
         $this->routingStrategies = new RoutingStrategiesService($this);
-        $this->preferenceSections = new PreferenceSectionsService($this);
+        $this->workspacePreferences = new WorkspacePreferencesService($this);
         $this->profiles = new ProfilesService($this);
         $this->tenants = new TenantsService($this);
         $this->translations = new TranslationsService($this);
