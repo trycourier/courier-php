@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.10.0 (2026-06-29)
+
+Full Changelog: [v5.9.1...v5.10.0](https://github.com/trycourier/courier-php/compare/v5.9.1...v5.10.0)
+
+### Features
+
+* **openapi:** Journeys cancel-by-token endpoint + send-node experiments (C-18986) ([c542e49](https://github.com/trycourier/courier-php/commit/c542e49d94029803280cdbf7e9237394f073bc7f))
+
 ## 5.9.1 (2026-06-25)
 
 Full Changelog: [v5.9.0...v5.9.1](https://github.com/trycourier/courier-php/compare/v5.9.0...v5.9.1)
