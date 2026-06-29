@@ -6,6 +6,9 @@ namespace Courier\ServiceContracts;
 
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
+use Courier\Journeys\CancelJourneyResponse\TokenBranch;
+use Courier\Journeys\JourneyCancelParams;
 use Courier\Journeys\JourneyCreateParams;
 use Courier\Journeys\JourneyInvokeParams;
 use Courier\Journeys\JourneyListParams;
@@ -83,6 +86,21 @@ interface JourneysRawContract
     public function archive(
         string $templateID,
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param array<string,mixed>|JourneyCancelParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<TokenBranch|RunIDBranch>
+     *
+     * @throws APIException
+     */
+    public function cancel(
+        array|JourneyCancelParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
