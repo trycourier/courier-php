@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Courier\ServiceContracts;
 
 use Courier\Core\Exceptions\APIException;
+use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
+use Courier\Journeys\CancelJourneyResponse\TokenBranch;
 use Courier\Journeys\JourneyListParams\Version;
 use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
@@ -77,6 +79,19 @@ interface JourneysContract
         string $templateID,
         RequestOptions|array|null $requestOptions = null
     ): mixed;
+
+    /**
+     * @api
+     *
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function cancel(
+        string $cancelationToken,
+        string $runID,
+        RequestOptions|array|null $requestOptions = null,
+    ): TokenBranch|RunIDBranch;
 
     /**
      * @api
