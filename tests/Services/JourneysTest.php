@@ -124,6 +124,38 @@ final class JourneysTest extends TestCase
     }
 
     #[Test]
+    public function testCancel(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->cancel(
+            cancelationToken: 'x',
+            runID: 'x'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNotNull($result);
+    }
+
+    #[Test]
+    public function testCancelWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->journeys->cancel(
+            cancelationToken: 'x',
+            runID: 'x'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNotNull($result);
+    }
+
+    #[Test]
     public function testInvoke(): void
     {
         if (UnsupportedMockTests::$skip) {

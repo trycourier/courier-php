@@ -7,6 +7,8 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
+use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
+use Courier\Journeys\CancelJourneyResponse\TokenBranch;
 use Courier\Journeys\JourneyListParams\Version;
 use Courier\Journeys\JourneyResponse;
 use Courier\Journeys\JourneysInvokeResponse;
@@ -138,6 +140,30 @@ final class JourneysService implements JourneysContract
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->archive($templateID, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Cancel journey runs. The request body must include EXACTLY ONE of `cancelation_token` (cancels every run associated with the token) or `run_id` (cancels a single tenant-scoped run). Supplying both or neither returns a `400`. A `run_id` that does not match a run for the tenant returns `404`. Cancelation is idempotent: a run that has already finished (`PROCESSED`/`ERROR`) or was already `CANCELED` is left unchanged and its current status is returned.
+     *
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function cancel(
+        string $cancelationToken,
+        string $runID,
+        RequestOptions|array|null $requestOptions = null,
+    ): TokenBranch|RunIDBranch {
+        $params = Util::removeNulls(
+            ['cancelationToken' => $cancelationToken, 'runID' => $runID]
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->cancel(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

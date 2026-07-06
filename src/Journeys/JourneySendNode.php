@@ -12,17 +12,19 @@ use Courier\Journeys\JourneySendNode\Message;
 use Courier\Journeys\JourneySendNode\Type;
 
 /**
- * Send a notification template to the recipient. Optionally override the recipient address, delay the send, or attach `data`.
+ * Send to the recipient. A send node sources its content from EXACTLY ONE of `message.template` (a single notification template) or `experiment` (an A/B split across weighted template variants) — supplying both, or neither, is rejected. Optionally override the recipient address, delay the send, or attach `data`.
  *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type MessageShape from \Courier\Journeys\JourneySendNode\Message
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
+ * @phpstan-import-type JourneyExperimentShape from \Courier\Journeys\JourneyExperiment
  *
  * @phpstan-type JourneySendNodeShape = array{
  *   message: Message|MessageShape,
  *   type: Type|value-of<Type>,
  *   id?: string|null,
  *   conditions?: JourneyConditionsFieldShape|null,
+ *   experiment?: null|JourneyExperiment|JourneyExperimentShape,
  * }
  */
 final class JourneySendNode implements BaseModel
@@ -47,6 +49,12 @@ final class JourneySendNode implements BaseModel
      */
     #[Optional(union: JourneyConditionsField::class)]
     public array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions;
+
+    /**
+     * A/B experiment config for a send node. The recipient is deterministically bucketed by `bucketingKey` and routed to one of the `variants` in proportion to its `weight`. Present on a send node INSTEAD OF `message.template`.
+     */
+    #[Optional]
+    public ?JourneyExperiment $experiment;
 
     /**
      * `new JourneySendNode()` is missing required properties by the API.
@@ -75,12 +83,14 @@ final class JourneySendNode implements BaseModel
      * @param Message|MessageShape $message
      * @param Type|value-of<Type> $type
      * @param JourneyConditionsFieldShape|null $conditions
+     * @param JourneyExperiment|JourneyExperimentShape|null $experiment
      */
     public static function with(
         Message|array $message,
         Type|string $type,
         ?string $id = null,
         array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions = null,
+        JourneyExperiment|array|null $experiment = null,
     ): self {
         $self = new self;
 
@@ -89,6 +99,7 @@ final class JourneySendNode implements BaseModel
 
         null !== $id && $self['id'] = $id;
         null !== $conditions && $self['conditions'] = $conditions;
+        null !== $experiment && $self['experiment'] = $experiment;
 
         return $self;
     }
@@ -133,6 +144,19 @@ final class JourneySendNode implements BaseModel
     ): self {
         $self = clone $this;
         $self['conditions'] = $conditions;
+
+        return $self;
+    }
+
+    /**
+     * A/B experiment config for a send node. The recipient is deterministically bucketed by `bucketingKey` and routed to one of the `variants` in proportion to its `weight`. Present on a send node INSTEAD OF `message.template`.
+     *
+     * @param JourneyExperiment|JourneyExperimentShape $experiment
+     */
+    public function withExperiment(JourneyExperiment|array $experiment): self
+    {
+        $self = clone $this;
+        $self['experiment'] = $experiment;
 
         return $self;
     }
