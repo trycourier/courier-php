@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.10.0 (2026-07-06)
+
+Full Changelog: [v5.9.1...v5.10.0](https://github.com/trycourier/courier-php/compare/v5.9.1...v5.10.0)
+
+### Features
+
+* **openapi:** Journeys cancel-by-token endpoint + send-node experiments (C-18986) ([c542e49](https://github.com/trycourier/courier-php/commit/c542e49d94029803280cdbf7e9237394f073bc7f))
+
+
+### Documentation
+
+* **openapi:** reword Cancel journey runs 400 description (re-trigger deploy) ([84eaee5](https://github.com/trycourier/courier-php/commit/84eaee50a95b46ad1cf8a87766672398996773fb))
+* **openapi:** reword Cancel journey runs description (re-trigger deploy) ([bbc557c](https://github.com/trycourier/courier-php/commit/bbc557c64465c30c76976f7be1bb96105162c2bb))
+* **openapi:** tighten Journeys cancel/experiment copy (C-19177) ([4756186](https://github.com/trycourier/courier-php/commit/47561864a0c1d9c1ed4eb4adf75fdcdd8425aa59))
+
 ## 5.9.1 (2026-06-25)
 
 Full Changelog: [v5.9.0...v5.9.1](https://github.com/trycourier/courier-php/compare/v5.9.0...v5.9.1)
