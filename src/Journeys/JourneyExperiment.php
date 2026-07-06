@@ -41,13 +41,13 @@ final class JourneyExperiment implements BaseModel
     public array $variants;
 
     /**
-     * Server-authoritative experiment id (prefixed `exp_`). Omit to have the server mint one; when supplied it must be a valid `exp_` id.
+     * Unique experiment id (prefixed `exp_`). Omit to have one generated automatically; when supplied it must be a valid `exp_` id.
      */
     #[Optional]
     public ?string $id;
 
     /**
-     * Optional, cosmetic display name for the experiment.
+     * Optional display name for the experiment.
      */
     #[Optional]
     public ?string $name;
@@ -120,7 +120,7 @@ final class JourneyExperiment implements BaseModel
     }
 
     /**
-     * Server-authoritative experiment id (prefixed `exp_`). Omit to have the server mint one; when supplied it must be a valid `exp_` id.
+     * Unique experiment id (prefixed `exp_`). Omit to have one generated automatically; when supplied it must be a valid `exp_` id.
      */
     public function withID(string $id): self
     {
@@ -131,7 +131,7 @@ final class JourneyExperiment implements BaseModel
     }
 
     /**
-     * Optional, cosmetic display name for the experiment.
+     * Optional display name for the experiment.
      */
     public function withName(string $name): self
     {

@@ -11,7 +11,7 @@ use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
 use Courier\Journeys\CancelJourneyResponse\TokenBranch;
 
 /**
- * `202 Accepted` body for `POST /journeys/cancel`, echoing the submitted identifier. The token branch returns `{ cancelation_token }`; the run_id branch returns `{ run_id, status }`.
+ * `202 Accepted` body for `POST /journeys/cancel`, returning the submitted identifier. When called with `cancelation_token`, returns `{ cancelation_token }`; when called with `run_id`, returns `{ run_id, status }`.
  *
  * @phpstan-import-type TokenBranchShape from \Courier\Journeys\CancelJourneyResponse\TokenBranch
  * @phpstan-import-type RunIDBranchShape from \Courier\Journeys\CancelJourneyResponse\RunIDBranch
