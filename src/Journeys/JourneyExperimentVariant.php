@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * A single weighted arm of an experiment. Variant ids must be unique within the experiment and the sum of all variant weights must be greater than 0. Weights are relative (no sum-to-100 requirement) — routing normalizes them proportionally.
+ * A single weighted variant of an experiment. Variant ids must be unique within the experiment and the sum of all variant weights must be greater than 0. Weights are relative (no sum-to-100 requirement) — routing normalizes them proportionally.
  *
  * @phpstan-type JourneyExperimentVariantShape = array{
  *   id: string, templateID: string, weight: float, name?: string|null
@@ -37,7 +37,7 @@ final class JourneyExperimentVariant implements BaseModel
     public float $weight;
 
     /**
-     * Optional, cosmetic display name for the variant.
+     * Optional display name for the variant.
      */
     #[Optional]
     public ?string $name;
@@ -117,7 +117,7 @@ final class JourneyExperimentVariant implements BaseModel
     }
 
     /**
-     * Optional, cosmetic display name for the variant.
+     * Optional display name for the variant.
      */
     public function withName(string $name): self
     {

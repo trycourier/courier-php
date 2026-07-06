@@ -20,7 +20,7 @@ final class RunIDBranch implements BaseModel
     public string $runID;
 
     /**
-     * The run's resulting status. `CANCELED` when the run was active and we canceled it; `PROCESSED` or `ERROR` when the run had already finished and was left untouched; `CANCELED` for an already-canceled run.
+     * The run's resulting status. `CANCELED` when the run was active and has been canceled; `PROCESSED` or `ERROR` when the run had already finished and was left unchanged; `CANCELED` for an already-canceled run.
      */
     #[Required]
     public string $status;
@@ -68,7 +68,7 @@ final class RunIDBranch implements BaseModel
     }
 
     /**
-     * The run's resulting status. `CANCELED` when the run was active and we canceled it; `PROCESSED` or `ERROR` when the run had already finished and was left untouched; `CANCELED` for an already-canceled run.
+     * The run's resulting status. `CANCELED` when the run was active and has been canceled; `PROCESSED` or `ERROR` when the run had already finished and was left unchanged; `CANCELED` for an already-canceled run.
      */
     public function withStatus(string $status): self
     {
