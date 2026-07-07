@@ -64,7 +64,7 @@ final class AudiencesService implements AudiencesContract
      * @param string|null $description A description of the audience
      * @param AudienceFilterConfig|AudienceFilterConfigShape|null $filter Filter configuration for audience membership containing an array of filter rules
      * @param string|null $name The name of the audience
-     * @param Operator|value-of<Operator>|null $operator The logical operator (AND/OR) for the top-level filter
+     * @param Operator|value-of<Operator>|null $operator The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`: if set, it is applied to the top-level filter group. Prefer setting `operator` directly inside `filter`.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
