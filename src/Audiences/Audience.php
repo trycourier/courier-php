@@ -60,7 +60,7 @@ final class Audience implements BaseModel
     public ?AudienceFilterConfig $filter;
 
     /**
-     * The logical operator (AND/OR) for the top-level filter.
+     * The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`.
      *
      * @var value-of<Operator>|null $operator
      */
@@ -187,7 +187,7 @@ final class Audience implements BaseModel
     }
 
     /**
-     * The logical operator (AND/OR) for the top-level filter.
+     * The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`.
      *
      * @param Operator|value-of<Operator> $operator
      */

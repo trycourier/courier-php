@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Courier\Audiences\Audience;
 
 /**
- * The logical operator (AND/OR) for the top-level filter.
+ * The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`.
  */
 enum Operator: string
 {

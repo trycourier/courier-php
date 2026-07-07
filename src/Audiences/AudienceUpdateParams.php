@@ -50,7 +50,7 @@ final class AudienceUpdateParams implements BaseModel
     public ?string $name;
 
     /**
-     * The logical operator (AND/OR) for the top-level filter.
+     * The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`: if set, it is applied to the top-level filter group. Prefer setting `operator` directly inside `filter`.
      *
      * @var value-of<Operator>|null $operator
      */
@@ -122,7 +122,7 @@ final class AudienceUpdateParams implements BaseModel
     }
 
     /**
-     * The logical operator (AND/OR) for the top-level filter.
+     * The logical operator (AND/OR) combining the top-level `filter.filters`. Convenience alias for `filter.operator`: if set, it is applied to the top-level filter group. Prefer setting `operator` directly inside `filter`.
      *
      * @param Operator|value-of<Operator>|null $operator
      */
