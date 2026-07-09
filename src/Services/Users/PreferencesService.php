@@ -72,7 +72,7 @@ final class PreferencesService implements PreferencesContract
      *
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to update
      * @param list<\Courier\Users\Preferences\PreferenceBulkReplaceParams\Topic|TopicShape1> $topics Body param: The complete set of topic overrides for the user. Up to 50 topics may be provided. Any existing override not listed here is reset to its topic default; an empty array resets every existing override.
-     * @param string|null $tenantID query param: Update the preferences of a user for this specific tenant context
+     * @param string|null $tenantID query param: Replace the preferences of a user for this specific tenant context
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
