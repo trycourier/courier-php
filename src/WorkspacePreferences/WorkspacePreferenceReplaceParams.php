@@ -18,6 +18,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-type WorkspacePreferenceReplaceParamsShape = array{
  *   name: string,
+ *   description?: string|null,
  *   hasCustomRouting?: bool|null,
  *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  * }
@@ -33,6 +34,12 @@ final class WorkspacePreferenceReplaceParams implements BaseModel
      */
     #[Required]
     public string $name;
+
+    /**
+     * Optional description shown under the section on the hosted preferences page. Omit to clear.
+     */
+    #[Optional(nullable: true)]
+    public ?string $description;
 
     /**
      * Whether the workspace preference defines custom routing for its topics.
@@ -80,13 +87,15 @@ final class WorkspacePreferenceReplaceParams implements BaseModel
      */
     public static function with(
         string $name,
+        ?string $description = null,
         ?bool $hasCustomRouting = null,
-        ?array $routingOptions = null
+        ?array $routingOptions = null,
     ): self {
         $self = new self;
 
         $self['name'] = $name;
 
+        null !== $description && $self['description'] = $description;
         null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
         null !== $routingOptions && $self['routingOptions'] = $routingOptions;
 
@@ -100,6 +109,17 @@ final class WorkspacePreferenceReplaceParams implements BaseModel
     {
         $self = clone $this;
         $self['name'] = $name;
+
+        return $self;
+    }
+
+    /**
+     * Optional description shown under the section on the hosted preferences page. Omit to clear.
+     */
+    public function withDescription(?string $description): self
+    {
+        $self = clone $this;
+        $self['description'] = $description;
 
         return $self;
     }

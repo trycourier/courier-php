@@ -19,6 +19,7 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicReplaceRequest\DefaultS
  *   defaultStatus: DefaultStatus|value-of<DefaultStatus>,
  *   name: string,
  *   allowedPreferences?: list<AllowedPreference|value-of<AllowedPreference>>|null,
+ *   description?: string|null,
  *   includeUnsubscribeHeader?: bool|null,
  *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   topicData?: array<string,mixed>|null,
@@ -54,6 +55,12 @@ final class WorkspacePreferenceTopicReplaceRequest implements BaseModel
         nullable: true
     )]
     public ?array $allowedPreferences;
+
+    /**
+     * Optional description shown under the topic on the hosted preferences page. Omit to clear.
+     */
+    #[Optional(nullable: true)]
+    public ?string $description;
 
     /**
      * Whether to include a list-unsubscribe header on emails for this topic.
@@ -116,6 +123,7 @@ final class WorkspacePreferenceTopicReplaceRequest implements BaseModel
         DefaultStatus|string $defaultStatus,
         string $name,
         ?array $allowedPreferences = null,
+        ?string $description = null,
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
@@ -126,6 +134,7 @@ final class WorkspacePreferenceTopicReplaceRequest implements BaseModel
         $self['name'] = $name;
 
         null !== $allowedPreferences && $self['allowedPreferences'] = $allowedPreferences;
+        null !== $description && $self['description'] = $description;
         null !== $includeUnsubscribeHeader && $self['includeUnsubscribeHeader'] = $includeUnsubscribeHeader;
         null !== $routingOptions && $self['routingOptions'] = $routingOptions;
         null !== $topicData && $self['topicData'] = $topicData;
@@ -166,6 +175,17 @@ final class WorkspacePreferenceTopicReplaceRequest implements BaseModel
     {
         $self = clone $this;
         $self['allowedPreferences'] = $allowedPreferences;
+
+        return $self;
+    }
+
+    /**
+     * Optional description shown under the topic on the hosted preferences page. Omit to clear.
+     */
+    public function withDescription(?string $description): self
+    {
+        $self = clone $this;
+        $self['description'] = $description;
 
         return $self;
     }

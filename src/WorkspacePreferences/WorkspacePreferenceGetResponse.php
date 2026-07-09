@@ -23,6 +23,7 @@ use Courier\Core\Contracts\BaseModel;
  *   routingOptions: list<ChannelClassification|value-of<ChannelClassification>>,
  *   topics: list<WorkspacePreferenceTopicGetResponse|WorkspacePreferenceTopicGetResponseShape>,
  *   creator?: string|null,
+ *   description?: string|null,
  *   updated?: string|null,
  *   updater?: string|null,
  * }
@@ -77,6 +78,12 @@ final class WorkspacePreferenceGetResponse implements BaseModel
      */
     #[Optional(nullable: true)]
     public ?string $creator;
+
+    /**
+     * Optional description shown under the section on the hosted preferences page.
+     */
+    #[Optional(nullable: true)]
+    public ?string $description;
 
     /**
      * ISO-8601 timestamp of the last update.
@@ -138,6 +145,7 @@ final class WorkspacePreferenceGetResponse implements BaseModel
         array $routingOptions,
         array $topics,
         ?string $creator = null,
+        ?string $description = null,
         ?string $updated = null,
         ?string $updater = null,
     ): self {
@@ -151,6 +159,7 @@ final class WorkspacePreferenceGetResponse implements BaseModel
         $self['topics'] = $topics;
 
         null !== $creator && $self['creator'] = $creator;
+        null !== $description && $self['description'] = $description;
         null !== $updated && $self['updated'] = $updated;
         null !== $updater && $self['updater'] = $updater;
 
@@ -234,6 +243,17 @@ final class WorkspacePreferenceGetResponse implements BaseModel
     {
         $self = clone $this;
         $self['creator'] = $creator;
+
+        return $self;
+    }
+
+    /**
+     * Optional description shown under the section on the hosted preferences page.
+     */
+    public function withDescription(?string $description): self
+    {
+        $self = clone $this;
+        $self['description'] = $description;
 
         return $self;
     }

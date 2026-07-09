@@ -45,6 +45,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
      * Create a workspace preference. The workspace preference id is generated and returned. Topics are created inside a workspace preference via POST /preferences/sections/{section_id}/topics.
      *
      * @param string $name human-readable name for the workspace preference
+     * @param string|null $description optional description shown under the section on the hosted preferences page
      * @param bool|null $hasCustomRouting whether the workspace preference defines custom routing for its topics
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Default channels for the workspace preference. Defaults to empty if omitted.
      * @param RequestOpts|null $requestOptions
@@ -53,6 +54,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
      */
     public function create(
         string $name,
+        ?string $description = null,
         ?bool $hasCustomRouting = null,
         ?array $routingOptions = null,
         RequestOptions|array|null $requestOptions = null,
@@ -60,6 +62,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
         $params = Util::removeNulls(
             [
                 'name' => $name,
+                'description' => $description,
                 'hasCustomRouting' => $hasCustomRouting,
                 'routingOptions' => $routingOptions,
             ],
@@ -134,15 +137,29 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
      *
      * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
      *
+     * @param string|null $brandID Brand for the hosted page - "default" (workspace default brand), "none" (no brand), or a specific brand id. Defaults to "default".
+     * @param string|null $description description shown under the heading on the hosted preferences page
+     * @param string|null $heading heading shown at the top of the hosted preferences page
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function publish(
-        RequestOptions|array|null $requestOptions = null
+        ?string $brandID = null,
+        ?string $description = null,
+        ?string $heading = null,
+        RequestOptions|array|null $requestOptions = null,
     ): PublishPreferencesResponse {
+        $params = Util::removeNulls(
+            [
+                'brandID' => $brandID,
+                'description' => $description,
+                'heading' => $heading,
+            ],
+        );
+
         // @phpstan-ignore-next-line argument.type
-        $response = $this->raw->publish(requestOptions: $requestOptions);
+        $response = $this->raw->publish(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
@@ -154,6 +171,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
      *
      * @param string $sectionID id of the workspace preference
      * @param string $name human-readable name for the workspace preference
+     * @param string|null $description Optional description shown under the section on the hosted preferences page. Omit to clear.
      * @param bool|null $hasCustomRouting whether the workspace preference defines custom routing for its topics
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Default channels for the workspace preference. Omit to clear.
      * @param RequestOpts|null $requestOptions
@@ -163,6 +181,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     public function replace(
         string $sectionID,
         string $name,
+        ?string $description = null,
         ?bool $hasCustomRouting = null,
         ?array $routingOptions = null,
         RequestOptions|array|null $requestOptions = null,
@@ -170,6 +189,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
         $params = Util::removeNulls(
             [
                 'name' => $name,
+                'description' => $description,
                 'hasCustomRouting' => $hasCustomRouting,
                 'routingOptions' => $routingOptions,
             ],
