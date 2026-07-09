@@ -9,6 +9,7 @@ use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListResponse;
+use Courier\Messages\MessageResendResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -95,5 +96,18 @@ final class MessagesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(MessageHistoryResponse::class, $result);
+    }
+
+    #[Test]
+    public function testResend(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->messages->resend('message_id');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(MessageResendResponse::class, $result);
     }
 }

@@ -12,6 +12,7 @@ use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListResponse;
+use Courier\Messages\MessageResendResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\MessagesContract;
 
@@ -178,6 +179,27 @@ final class MessagesService implements MessagesContract
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->history($messageID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Resend a previously sent message. The original send request is loaded from storage and a brand-new send is enqueued for the same recipient and content, producing a **new** `messageId` — the original message is not modified.
+     * Throttled by a per-message rate limit; a repeat inside the limit window returns `429 Too Many Requests`.
+     *
+     * @param string $messageID a unique identifier representing the message ID of the original message to resend
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function resend(
+        string $messageID,
+        RequestOptions|array|null $requestOptions = null
+    ): MessageResendResponse {
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->resend($messageID, requestOptions: $requestOptions);
 
         return $response->parse();
     }
