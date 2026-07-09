@@ -6,6 +6,8 @@ use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Util;
 use Courier\PreferenceStatus;
+use Courier\Users\Preferences\PreferenceBulkReplaceResponse;
+use Courier\Users\Preferences\PreferenceBulkUpdateResponse;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
@@ -43,6 +45,101 @@ final class PreferencesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(PreferenceGetResponse::class, $result);
+    }
+
+    #[Test]
+    public function testBulkReplace(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->bulkReplace(
+            'user_id',
+            topics: [
+                ['status' => 'OPTED_IN', 'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT'],
+            ],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceBulkReplaceResponse::class, $result);
+    }
+
+    #[Test]
+    public function testBulkReplaceWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->bulkReplace(
+            'user_id',
+            topics: [
+                [
+                    'status' => 'OPTED_IN',
+                    'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT',
+                    'customRouting' => [
+                        ChannelClassification::INBOX, ChannelClassification::EMAIL,
+                    ],
+                    'hasCustomRouting' => true,
+                ],
+            ],
+            tenantID: 'tenant_id',
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceBulkReplaceResponse::class, $result);
+    }
+
+    #[Test]
+    public function testBulkUpdate(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->bulkUpdate(
+            'user_id',
+            topics: [
+                ['status' => 'OPTED_IN', 'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT'],
+                ['status' => 'OPTED_OUT', 'topicID' => '5Q4QGFBEX481DP6JRPMV751H4YU'],
+            ],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceBulkUpdateResponse::class, $result);
+    }
+
+    #[Test]
+    public function testBulkUpdateWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->users->preferences->bulkUpdate(
+            'user_id',
+            topics: [
+                [
+                    'status' => 'OPTED_IN',
+                    'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT',
+                    'customRouting' => [
+                        ChannelClassification::INBOX, ChannelClassification::EMAIL,
+                    ],
+                    'hasCustomRouting' => true,
+                ],
+                [
+                    'status' => 'OPTED_OUT',
+                    'topicID' => '5Q4QGFBEX481DP6JRPMV751H4YU',
+                    'customRouting' => [ChannelClassification::DIRECT_MESSAGE],
+                    'hasCustomRouting' => true,
+                ],
+            ],
+            tenantID: 'tenant_id',
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceBulkUpdateResponse::class, $result);
     }
 
     #[Test]
