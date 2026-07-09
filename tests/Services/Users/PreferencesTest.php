@@ -57,7 +57,7 @@ final class PreferencesTest extends TestCase
         $result = $this->client->users->preferences->bulkReplace(
             'user_id',
             topics: [
-                ['status' => 'OPTED_IN', 'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT'],
+                ['status' => 'OPTED_IN', 'topicID' => 'pt_01kx4h2jdafq8bk996nn92357r'],
             ],
         );
 
@@ -77,7 +77,7 @@ final class PreferencesTest extends TestCase
             topics: [
                 [
                     'status' => 'OPTED_IN',
-                    'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT',
+                    'topicID' => 'pt_01kx4h2jdafq8bk996nn92357r',
                     'customRouting' => [
                         ChannelClassification::INBOX, ChannelClassification::EMAIL,
                     ],
@@ -101,8 +101,8 @@ final class PreferencesTest extends TestCase
         $result = $this->client->users->preferences->bulkUpdate(
             'user_id',
             topics: [
-                ['status' => 'OPTED_IN', 'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT'],
-                ['status' => 'OPTED_OUT', 'topicID' => '5Q4QGFBEX481DP6JRPMV751H4YU'],
+                ['status' => 'OPTED_IN', 'topicID' => 'pt_01kx4h2jdafq8bk996nn92357r'],
+                ['status' => 'OPTED_OUT', 'topicID' => 'pt_01kx4h2jdafq8bk99eyt3dx43x'],
             ],
         );
 
@@ -122,7 +122,7 @@ final class PreferencesTest extends TestCase
             topics: [
                 [
                     'status' => 'OPTED_IN',
-                    'topicID' => '74Q4QGFBEX481DP6JRPMV751H4XT',
+                    'topicID' => 'pt_01kx4h2jdafq8bk996nn92357r',
                     'customRouting' => [
                         ChannelClassification::INBOX, ChannelClassification::EMAIL,
                     ],
@@ -130,7 +130,7 @@ final class PreferencesTest extends TestCase
                 ],
                 [
                     'status' => 'OPTED_OUT',
-                    'topicID' => '5Q4QGFBEX481DP6JRPMV751H4YU',
+                    'topicID' => 'pt_01kx4h2jdafq8bk99eyt3dx43x',
                     'customRouting' => [ChannelClassification::DIRECT_MESSAGE],
                     'hasCustomRouting' => true,
                 ],

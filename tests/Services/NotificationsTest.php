@@ -45,7 +45,7 @@ final class NotificationsTest extends TestCase
                 'content' => ['elements' => [[]], 'version' => '2022-01-01'],
                 'name' => 'Welcome Email',
                 'routing' => ['strategyID' => 'rs_123'],
-                'subscription' => ['topicID' => 'marketing'],
+                'subscription' => ['topicID' => 'pt_01kx4h2jdafq8bk9a26x0kvd1t'],
                 'tags' => ['onboarding', 'welcome'],
             ],
         );
@@ -69,7 +69,7 @@ final class NotificationsTest extends TestCase
                 ],
                 'name' => 'Welcome Email',
                 'routing' => ['strategyID' => 'rs_123'],
-                'subscription' => ['topicID' => 'marketing'],
+                'subscription' => ['topicID' => 'pt_01kx4h2jdafq8bk9a26x0kvd1t'],
                 'tags' => ['onboarding', 'welcome'],
             ],
             state: 'DRAFT',
