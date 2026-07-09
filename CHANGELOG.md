@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.11.0 (2026-07-09)
+
+Full Changelog: [v5.10.1...v5.11.0](https://github.com/trycourier/courier-php/compare/v5.10.1...v5.11.0)
+
+### Features
+
+* Add bulk user preference upsert and replace endpoints ([d4b4f02](https://github.com/trycourier/courier-php/commit/d4b4f02c00bffa46c3aafaf7bb040d421ee798b1))
+* Preferences v3 REST fields: section/topic description + publish body ([b1fd181](https://github.com/trycourier/courier-php/commit/b1fd1815f8091c15b9827bd2e54a83ba74c61284))
+
 ## 5.10.1 (2026-07-09)
 
 Full Changelog: [v5.10.0...v5.10.1](https://github.com/trycourier/courier-php/compare/v5.10.0...v5.10.1)

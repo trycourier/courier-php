@@ -11,6 +11,7 @@ use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceCreateParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
+use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
 
 /**
@@ -79,6 +80,7 @@ interface WorkspacePreferencesRawContract
     /**
      * @api
      *
+     * @param array<string,mixed>|WorkspacePreferencePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PublishPreferencesResponse>
@@ -86,7 +88,8 @@ interface WorkspacePreferencesRawContract
      * @throws APIException
      */
     public function publish(
-        RequestOptions|array|null $requestOptions = null
+        array|WorkspacePreferencePublishParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**

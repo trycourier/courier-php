@@ -14,6 +14,7 @@ use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceCreateParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
+use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
 
 /**
@@ -34,6 +35,7 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      *
      * @param array{
      *   name: string,
+     *   description?: string|null,
      *   hasCustomRouting?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      * }|WorkspacePreferenceCreateParams $params
@@ -140,6 +142,9 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      *
      * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
      *
+     * @param array{
+     *   brandID?: string|null, description?: string|null, heading?: string|null
+     * }|WorkspacePreferencePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<PublishPreferencesResponse>
@@ -147,13 +152,20 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      * @throws APIException
      */
     public function publish(
-        RequestOptions|array|null $requestOptions = null
+        array|WorkspacePreferencePublishParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse {
+        [$parsed, $options] = WorkspacePreferencePublishParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'preferences/publish',
-            options: $requestOptions,
+            body: (object) $parsed,
+            options: $options,
             convert: PublishPreferencesResponse::class,
         );
     }
@@ -166,6 +178,7 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      * @param string $sectionID id of the workspace preference
      * @param array{
      *   name: string,
+     *   description?: string|null,
      *   hasCustomRouting?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      * }|WorkspacePreferenceReplaceParams $params

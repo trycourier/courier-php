@@ -7,6 +7,10 @@ namespace Courier\ServiceContracts\Users;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\Users\Preferences\PreferenceBulkReplaceParams;
+use Courier\Users\Preferences\PreferenceBulkReplaceResponse;
+use Courier\Users\Preferences\PreferenceBulkUpdateParams;
+use Courier\Users\Preferences\PreferenceBulkUpdateResponse;
 use Courier\Users\Preferences\PreferenceDeleteTopicParams;
 use Courier\Users\Preferences\PreferenceGetResponse;
 use Courier\Users\Preferences\PreferenceGetTopicResponse;
@@ -34,6 +38,40 @@ interface PreferencesRawContract
     public function retrieve(
         string $userID,
         array|PreferenceRetrieveParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to update
+     * @param array<string,mixed>|PreferenceBulkReplaceParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<PreferenceBulkReplaceResponse>
+     *
+     * @throws APIException
+     */
+    public function bulkReplace(
+        string $userID,
+        array|PreferenceBulkReplaceParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to update
+     * @param array<string,mixed>|PreferenceBulkUpdateParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<PreferenceBulkUpdateResponse>
+     *
+     * @throws APIException
+     */
+    public function bulkUpdate(
+        string $userID,
+        array|PreferenceBulkUpdateParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
