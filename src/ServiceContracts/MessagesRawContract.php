@@ -13,6 +13,7 @@ use Courier\Messages\MessageHistoryParams;
 use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListParams;
 use Courier\Messages\MessageListResponse;
+use Courier\Messages\MessageResendResponse;
 use Courier\RequestOptions;
 
 /**
@@ -95,5 +96,20 @@ interface MessagesRawContract
         string $messageID,
         array|MessageHistoryParams $params,
         RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $messageID a unique identifier representing the message ID of the original message to resend
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<MessageResendResponse>
+     *
+     * @throws APIException
+     */
+    public function resend(
+        string $messageID,
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

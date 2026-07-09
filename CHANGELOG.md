@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.10.1 (2026-07-09)
+
+Full Changelog: [v5.10.0...v5.10.1](https://github.com/trycourier/courier-php/compare/v5.10.0...v5.10.1)
+
+### Chores
+
+* update api-spec with new message resend endpoint ([34ba45f](https://github.com/trycourier/courier-php/commit/34ba45f86dca27a7032199f7a79febf1011d9c12))
+
+
+### Documentation
+
+* **openapi:** document audiences filter combinator (SUP-686) ([48e29ab](https://github.com/trycourier/courier-php/commit/48e29abcd19d53c5d07cec757eb9c2a52f80e1b3))
+
 ## 5.10.0 (2026-07-06)
 
 Full Changelog: [v5.9.1...v5.10.0](https://github.com/trycourier/courier-php/compare/v5.9.1...v5.10.0)

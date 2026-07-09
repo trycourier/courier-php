@@ -10,6 +10,7 @@ use Courier\Messages\MessageDetails;
 use Courier\Messages\MessageGetResponse;
 use Courier\Messages\MessageHistoryResponse;
 use Courier\Messages\MessageListResponse;
+use Courier\Messages\MessageResendResponse;
 use Courier\RequestOptions;
 
 /**
@@ -109,4 +110,17 @@ interface MessagesContract
         ?string $type = null,
         RequestOptions|array|null $requestOptions = null,
     ): MessageHistoryResponse;
+
+    /**
+     * @api
+     *
+     * @param string $messageID a unique identifier representing the message ID of the original message to resend
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function resend(
+        string $messageID,
+        RequestOptions|array|null $requestOptions = null
+    ): MessageResendResponse;
 }
