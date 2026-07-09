@@ -42,6 +42,7 @@ final class TopicsService implements TopicsContract
      * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus the default subscription status applied when a recipient has not set their own
      * @param string $name human-readable name for the preference topic
      * @param list<AllowedPreference|value-of<AllowedPreference>>|null $allowedPreferences Preference controls a recipient may customize for this topic. Defaults to empty if omitted.
+     * @param string|null $description optional description shown under the topic on the hosted preferences page
      * @param bool|null $includeUnsubscribeHeader whether to include a list-unsubscribe header on emails for this topic
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Default channels delivered for this topic. Defaults to empty if omitted.
      * @param array<string,mixed>|null $topicData arbitrary metadata associated with the topic
@@ -54,6 +55,7 @@ final class TopicsService implements TopicsContract
         DefaultStatus|string $defaultStatus,
         string $name,
         ?array $allowedPreferences = null,
+        ?string $description = null,
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
@@ -64,6 +66,7 @@ final class TopicsService implements TopicsContract
                 'defaultStatus' => $defaultStatus,
                 'name' => $name,
                 'allowedPreferences' => $allowedPreferences,
+                'description' => $description,
                 'includeUnsubscribeHeader' => $includeUnsubscribeHeader,
                 'routingOptions' => $routingOptions,
                 'topicData' => $topicData,
@@ -154,6 +157,7 @@ final class TopicsService implements TopicsContract
      * @param \Courier\WorkspacePreferences\Topics\TopicReplaceParams\DefaultStatus|value-of<\Courier\WorkspacePreferences\Topics\TopicReplaceParams\DefaultStatus> $defaultStatus body param: The default subscription status applied when a recipient has not set their own
      * @param string $name body param: Human-readable name for the preference topic
      * @param list<\Courier\WorkspacePreferences\Topics\TopicReplaceParams\AllowedPreference|value-of<\Courier\WorkspacePreferences\Topics\TopicReplaceParams\AllowedPreference>>|null $allowedPreferences Body param: Preference controls a recipient may customize. Omit to clear.
+     * @param string|null $description Body param: Optional description shown under the topic on the hosted preferences page. Omit to clear.
      * @param bool|null $includeUnsubscribeHeader body param: Whether to include a list-unsubscribe header on emails for this topic
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Body param: Default channels delivered for this topic. Omit to clear.
      * @param array<string,mixed>|null $topicData Body param: Arbitrary metadata associated with the topic. Omit to clear.
@@ -167,6 +171,7 @@ final class TopicsService implements TopicsContract
         \Courier\WorkspacePreferences\Topics\TopicReplaceParams\DefaultStatus|string $defaultStatus,
         string $name,
         ?array $allowedPreferences = null,
+        ?string $description = null,
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
@@ -178,6 +183,7 @@ final class TopicsService implements TopicsContract
                 'defaultStatus' => $defaultStatus,
                 'name' => $name,
                 'allowedPreferences' => $allowedPreferences,
+                'description' => $description,
                 'includeUnsubscribeHeader' => $includeUnsubscribeHeader,
                 'routingOptions' => $routingOptions,
                 'topicData' => $topicData,

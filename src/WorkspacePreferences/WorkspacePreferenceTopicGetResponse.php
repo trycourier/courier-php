@@ -26,6 +26,7 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse\DefaultStat
  *   topicData: array<string,mixed>,
  *   updated: string,
  *   creator?: string|null,
+ *   description?: string|null,
  *   updater?: string|null,
  * }
  */
@@ -103,6 +104,12 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
     public ?string $creator;
 
     /**
+     * Optional description shown under the topic on the hosted preferences page.
+     */
+    #[Optional(nullable: true)]
+    public ?string $description;
+
+    /**
      * Id of the last updater.
      */
     #[Optional(nullable: true)]
@@ -167,6 +174,7 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
         array $topicData,
         string $updated,
         ?string $creator = null,
+        ?string $description = null,
         ?string $updater = null,
     ): self {
         $self = new self;
@@ -182,6 +190,7 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
         $self['updated'] = $updated;
 
         null !== $creator && $self['creator'] = $creator;
+        null !== $description && $self['description'] = $description;
         null !== $updater && $self['updater'] = $updater;
 
         return $self;
@@ -302,6 +311,17 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
     {
         $self = clone $this;
         $self['creator'] = $creator;
+
+        return $self;
+    }
+
+    /**
+     * Optional description shown under the topic on the hosted preferences page.
+     */
+    public function withDescription(?string $description): self
+    {
+        $self = clone $this;
+        $self['description'] = $description;
 
         return $self;
     }

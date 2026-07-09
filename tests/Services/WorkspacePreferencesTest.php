@@ -55,6 +55,7 @@ final class WorkspacePreferencesTest extends TestCase
 
         $result = $this->client->workspacePreferences->create(
             name: 'Account Notifications',
+            description: 'description',
             hasCustomRouting: true,
             routingOptions: [ChannelClassification::DIRECT_MESSAGE],
         );
@@ -141,6 +142,7 @@ final class WorkspacePreferencesTest extends TestCase
         $result = $this->client->workspacePreferences->replace(
             'section_id',
             name: 'name',
+            description: 'description',
             hasCustomRouting: true,
             routingOptions: [ChannelClassification::DIRECT_MESSAGE],
         );
