@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.11.1 (2026-07-09)
+
+Full Changelog: [v5.11.0...v5.11.1](https://github.com/trycourier/courier-php/compare/v5.11.0...v5.11.1)
+
 ## 5.11.0 (2026-07-09)
 
 Full Changelog: [v5.10.1...v5.11.0](https://github.com/trycourier/courier-php/compare/v5.10.1...v5.11.0)
