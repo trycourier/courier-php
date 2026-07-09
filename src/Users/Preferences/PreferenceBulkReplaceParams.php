@@ -41,7 +41,7 @@ final class PreferenceBulkReplaceParams implements BaseModel
     public array $topics;
 
     /**
-     * Update the preferences of a user for this specific tenant context.
+     * Replace the preferences of a user for this specific tenant context.
      */
     #[Optional(nullable: true)]
     public ?string $tenantID;
@@ -97,7 +97,7 @@ final class PreferenceBulkReplaceParams implements BaseModel
     }
 
     /**
-     * Update the preferences of a user for this specific tenant context.
+     * Replace the preferences of a user for this specific tenant context.
      */
     public function withTenantID(?string $tenantID): self
     {
