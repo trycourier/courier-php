@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.11.2 (2026-07-10)
+
+Full Changelog: [v5.11.1...v5.11.2](https://github.com/trycourier/courier-php/compare/v5.11.1...v5.11.2)
+
+### Documentation
+
+* **openapi:** canonical type-id prefixes across all examples ([#162](https://github.com/trycourier/courier-php/issues/162)) ([1f883cb](https://github.com/trycourier/courier-php/commit/1f883cb20d6675abf337f0eb18b84d90472e5f4b))
+* **openapi:** use canonical type-id prefixes in id examples ([#160](https://github.com/trycourier/courier-php/issues/160)) ([e400881](https://github.com/trycourier/courier-php/commit/e4008818317bdee7b7c2f65b64d3f155bf3458a8))
+
 ## 5.11.1 (2026-07-09)
 
 Full Changelog: [v5.11.0...v5.11.1](https://github.com/trycourier/courier-php/compare/v5.11.0...v5.11.1)
