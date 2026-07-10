@@ -41,11 +41,11 @@ final class NotificationsTest extends TestCase
 
         $result = $this->client->notifications->create(
             notification: [
-                'brand' => ['id' => 'brand_abc'],
+                'brand' => ['id' => 'bnd_01kx4mrd0pfzw8wt7pn7p2fzag'],
                 'content' => ['elements' => [[]], 'version' => '2022-01-01'],
                 'name' => 'Welcome Email',
-                'routing' => ['strategyID' => 'rs_123'],
-                'subscription' => ['topicID' => 'marketing'],
+                'routing' => ['strategyID' => 'rs_01kx4h2jdafq8bk9amzvy6hbv0'],
+                'subscription' => ['topicID' => 'pt_01kx4h2jdafq8bk9a26x0kvd1t'],
                 'tags' => ['onboarding', 'welcome'],
             ],
         );
@@ -63,13 +63,13 @@ final class NotificationsTest extends TestCase
 
         $result = $this->client->notifications->create(
             notification: [
-                'brand' => ['id' => 'brand_abc'],
+                'brand' => ['id' => 'bnd_01kx4mrd0pfzw8wt7pn7p2fzag'],
                 'content' => [
                     'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
                 ],
                 'name' => 'Welcome Email',
-                'routing' => ['strategyID' => 'rs_123'],
-                'subscription' => ['topicID' => 'marketing'],
+                'routing' => ['strategyID' => 'rs_01kx4h2jdafq8bk9amzvy6hbv0'],
+                'subscription' => ['topicID' => 'pt_01kx4h2jdafq8bk9a26x0kvd1t'],
                 'tags' => ['onboarding', 'welcome'],
             ],
             state: 'DRAFT',
