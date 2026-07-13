@@ -20,6 +20,7 @@ use Courier\Notifications\NotificationTemplateSummary\State;
  *   name: string,
  *   state: State|value-of<State>,
  *   tags: list<string>,
+ *   subscriptionTopicID?: string|null,
  *   updated?: int|null,
  *   updater?: string|null,
  * }
@@ -54,6 +55,12 @@ final class NotificationTemplateSummary implements BaseModel
     /** @var list<string> $tags */
     #[Required(list: 'string')]
     public array $tags;
+
+    /**
+     * The linked subscription (preference) topic of the published version. Omitted when no topic is linked or the template has never been published.
+     */
+    #[Optional('subscription_topic_id')]
+    public ?string $subscriptionTopicID;
 
     /**
      * Epoch milliseconds of last update.
@@ -109,6 +116,7 @@ final class NotificationTemplateSummary implements BaseModel
         string $name,
         State|string $state,
         array $tags,
+        ?string $subscriptionTopicID = null,
         ?int $updated = null,
         ?string $updater = null,
     ): self {
@@ -121,6 +129,7 @@ final class NotificationTemplateSummary implements BaseModel
         $self['state'] = $state;
         $self['tags'] = $tags;
 
+        null !== $subscriptionTopicID && $self['subscriptionTopicID'] = $subscriptionTopicID;
         null !== $updated && $self['updated'] = $updated;
         null !== $updater && $self['updater'] = $updater;
 
@@ -183,6 +192,17 @@ final class NotificationTemplateSummary implements BaseModel
     {
         $self = clone $this;
         $self['tags'] = $tags;
+
+        return $self;
+    }
+
+    /**
+     * The linked subscription (preference) topic of the published version. Omitted when no topic is linked or the template has never been published.
+     */
+    public function withSubscriptionTopicID(string $subscriptionTopicID): self
+    {
+        $self = clone $this;
+        $self['subscriptionTopicID'] = $subscriptionTopicID;
 
         return $self;
     }
