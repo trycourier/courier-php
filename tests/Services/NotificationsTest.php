@@ -119,6 +119,19 @@ final class NotificationsTest extends TestCase
     }
 
     #[Test]
+    public function testDuplicate(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->duplicate('id');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationTemplateResponse::class, $result);
+    }
+
+    #[Test]
     public function testListVersions(): void
     {
         if (UnsupportedMockTests::$skip) {

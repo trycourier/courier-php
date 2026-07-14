@@ -95,6 +95,21 @@ interface NotificationsRawContract
      * @api
      *
      * @param string $id template ID (nt_ prefix)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationTemplateResponse>
+     *
+     * @throws APIException
+     */
+    public function duplicate(
+        string $id,
+        RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $id template ID (nt_ prefix)
      * @param array<string,mixed>|NotificationListVersionsParams $params
      * @param RequestOpts|null $requestOptions
      *
