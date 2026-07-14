@@ -90,6 +90,19 @@ interface NotificationsContract
      * @api
      *
      * @param string $id template ID (nt_ prefix)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function duplicate(
+        string $id,
+        RequestOptions|array|null $requestOptions = null
+    ): NotificationTemplateResponse;
+
+    /**
+     * @api
+     *
+     * @param string $id template ID (nt_ prefix)
      * @param string $cursor Opaque pagination cursor from a previous response. Omit for the first page.
      * @param int $limit Maximum number of versions to return per page. Default 10, max 10.
      * @param RequestOpts|null $requestOptions
