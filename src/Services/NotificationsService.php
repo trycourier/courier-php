@@ -150,6 +150,26 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
+     * Duplicate a notification template. Creates a standalone copy within the same workspace and environment, with " COPY" appended to the title. The copy clones the source draft's tags, brand, subscription topic, routing strategy, channels, and content, and is always created as a standalone template (it is not linked to any journey or broadcast, even if the source was). Templates that are scoped to a journey or a broadcast cannot be duplicated through this endpoint.
+     *
+     * @param string $id template ID (nt_ prefix)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function duplicate(
+        string $id,
+        RequestOptions|array|null $requestOptions = null
+    ): NotificationTemplateResponse {
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->duplicate($id, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
      * List versions of a notification template.
      *
      * @param string $id template ID (nt_ prefix)

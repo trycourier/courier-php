@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.12.0 (2026-07-20)
+
+Full Changelog: [v5.11.2...v5.12.0](https://github.com/trycourier/courier-php/compare/v5.11.2...v5.12.0)
+
+### Features
+
+* Document POST /notifications/{id}/duplicate [C-18607] ([#165](https://github.com/trycourier/courier-php/issues/165)) ([be965ad](https://github.com/trycourier/courier-php/commit/be965adeb3c022bd988e03a976d2842634726a5c))
+* Merge pull request [#149](https://github.com/trycourier/courier-php/issues/149) from trycourier/geraldosilva/c-19201-notification-template-subscription-topic-id ([622c65e](https://github.com/trycourier/courier-php/commit/622c65e6334f628d60e5c3aa433bc37b38eb3619))
+* Merge pull request [#168](https://github.com/trycourier/courier-php/issues/168) from trycourier/geraldosilva/c-19419-topic-id-notification-template-summary ([9f7f082](https://github.com/trycourier/courier-php/commit/9f7f082b3f2f87033f9d1242aed96ebcdf141485))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([69bfa6b](https://github.com/trycourier/courier-php/commit/69bfa6b0e807f5120d48dcc1cc7aa1f532ec0a9c))
+
+
+### Bug Fixes
+
+* **ci:** drop Packagist secret requirement from release doctor ([#90](https://github.com/trycourier/courier-php/issues/90)) ([e0b992d](https://github.com/trycourier/courier-php/commit/e0b992df2ac46603779dc3c566dd178c558f42c4))
+
 ## 5.11.2 (2026-07-10)
 
 Full Changelog: [v5.11.1...v5.11.2](https://github.com/trycourier/courier-php/compare/v5.11.1...v5.11.2)

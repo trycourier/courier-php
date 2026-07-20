@@ -175,6 +175,31 @@ final class NotificationsRawService implements NotificationsRawContract
     /**
      * @api
      *
+     * Duplicate a notification template. Creates a standalone copy within the same workspace and environment, with " COPY" appended to the title. The copy clones the source draft's tags, brand, subscription topic, routing strategy, channels, and content, and is always created as a standalone template (it is not linked to any journey or broadcast, even if the source was). Templates that are scoped to a journey or a broadcast cannot be duplicated through this endpoint.
+     *
+     * @param string $id template ID (nt_ prefix)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationTemplateResponse>
+     *
+     * @throws APIException
+     */
+    public function duplicate(
+        string $id,
+        RequestOptions|array|null $requestOptions = null
+    ): BaseResponse {
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'post',
+            path: ['notifications/%1$s/duplicate', $id],
+            options: $requestOptions,
+            convert: NotificationTemplateResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
      * List versions of a notification template.
      *
      * @param string $id template ID (nt_ prefix)
