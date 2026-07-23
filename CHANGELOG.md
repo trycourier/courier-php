@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.13.0 (2026-07-23)
+
+Full Changelog: [v5.12.0...v5.13.0](https://github.com/trycourier/courier-php/compare/v5.12.0...v5.13.0)
+
+### Features
+
+* Remove /bulk endpoints from api-spec (C-19507) ([#171](https://github.com/trycourier/courier-php/issues/171)) ([b39cce7](https://github.com/trycourier/courier-php/commit/b39cce702c9b4ae9ff04011530f9f9fd16e793b3))
+
 ## 5.12.0 (2026-07-20)
 
 Full Changelog: [v5.11.2...v5.12.0](https://github.com/trycourier/courier-php/compare/v5.11.2...v5.12.0)
