@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 
 /**
- * Update or Create user preferences for a specific subscription topic.
+ * Sets a user's opt-in status and channel choices for one subscription topic, overriding the tenant default for that topic only.
  *
  * @see Courier\Services\Users\PreferencesService::updateOrCreateTopic()
  *

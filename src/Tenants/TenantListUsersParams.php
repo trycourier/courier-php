@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get Users in Tenant.
+ * Returns the users belonging to a tenant with cursor paging. Use it to see who a tenant-scoped send will reach.
  *
  * @see Courier\Services\TenantsService::listUsers()
  *

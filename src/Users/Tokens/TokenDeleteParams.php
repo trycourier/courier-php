@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Delete User Token.
+ * Deletes one device token for a user, addressed by the token value, so push sends no longer target that device.
  *
  * @see Courier\Services\Users\TokensService::delete()
  *

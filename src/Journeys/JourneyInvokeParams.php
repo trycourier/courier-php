@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke a journey by id or alias to start a new run. The response includes a `runId` identifying the run.
+ * Starts a journey run for one user and returns a runId. Runs execute asynchronously, so the response arrives before any message is sent.
  *
  * @see Courier\Services\JourneysService::invoke()
  *

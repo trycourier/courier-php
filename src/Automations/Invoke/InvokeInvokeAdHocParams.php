@@ -12,7 +12,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
+ * Runs a series of automation steps supplied inline, without a saved template, and returns a runId.
  *
  * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *

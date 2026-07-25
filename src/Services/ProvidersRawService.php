@@ -29,7 +29,7 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * Create a new provider configuration. The `provider` field must be a known Courier provider key (see catalog).
+     * Configures a provider integration from a Courier provider key and its settings. Check the catalog endpoint for the schema each provider expects.
      *
      * @param array{
      *   provider: string,
@@ -65,7 +65,7 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * Fetch a single provider configuration by ID.
+     * Returns one configured provider by id, including its channel, provider key, alias, title, and current settings.
      *
      * @param string $id a unique identifier of the provider configuration
      * @param RequestOpts|null $requestOptions
@@ -90,7 +90,7 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * Replace an existing provider configuration. The `provider` key is required and determines which provider-specific settings schema is applied. All other fields are optional — omitted fields are cleared from the stored configuration (this is a full replacement, not a partial merge). Changing the provider type for an existing configuration is not supported.
+     * Replaces a provider's configuration in full, clearing any field you omit rather than merging it. Send the complete settings object.
      *
      * @param string $id a unique identifier of the provider configuration to update
      * @param array{
@@ -128,7 +128,7 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * List configured provider integrations for the current workspace. Supports cursor-based pagination.
+     * Lists the provider integrations configured in the workspace, one entry per channel and provider key with its alias and settings.
      *
      * @param array{cursor?: string}|ProviderListParams $params
      * @param RequestOpts|null $requestOptions
@@ -159,7 +159,7 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * Delete a provider configuration. Returns 409 if the provider is still referenced by routing or notifications.
+     * Deletes a provider configuration, which fails while routing strategies or templates still reference it. Update those references first.
      *
      * @param string $id a unique identifier of the provider configuration to delete
      * @param RequestOpts|null $requestOptions

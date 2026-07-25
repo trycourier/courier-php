@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Fetch all user preferences.
+ * Returns a user's preference overrides with paging, one entry per subscription topic they have set a choice for.
  *
  * @see Courier\Services\Users\PreferencesService::retrieve()
  *

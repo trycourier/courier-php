@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Removes a user from the supplied tenant.
+ * Removes a user from one tenant. Their other tenant memberships and workspace profile are managed through separate endpoints.
  *
  * @see Courier\Services\Users\TenantsService::removeSingle()
  *

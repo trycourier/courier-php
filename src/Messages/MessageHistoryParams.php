@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Fetch the array of events of a message you've previously sent.
+ * Returns the ordered event history for a sent message, one entry per status transition with its timestamp.
  *
  * @see Courier\Services\MessagesService::history()
  *

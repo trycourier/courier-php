@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Returns the catalog of available provider types with their display names, descriptions, and configuration schema fields (snake_case, with `type` and `required`). Providers with no configurable schema return only `provider`, `name`, and `description`.
+ * Returns the provider types Courier supports, each with a display name, description, and the configuration fields it requires.
  *
  * @see Courier\Services\Providers\CatalogService::list()
  *

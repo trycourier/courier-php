@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Cancel a submission for a notification template.
+ * Cancels a pending template submission, withdrawing it from the approval workflow. The template stays in draft and can be resubmitted later.
  *
  * @see Courier\Services\Notifications\ChecksService::delete()
  *

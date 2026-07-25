@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Replace an existing brand with the supplied values.
+ * Replaces a brand with the values you supply, so send the complete settings and snippets rather than only the fields you want changed.
  *
  * @see Courier\Services\BrandsService::update()
  *

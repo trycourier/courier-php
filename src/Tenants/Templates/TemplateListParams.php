@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List Templates in Tenant.
+ * Lists a tenant's notification templates, each carrying its version and published timestamp. Paged.
  *
  * @see Courier\Services\Tenants\TemplatesService::list()
  *

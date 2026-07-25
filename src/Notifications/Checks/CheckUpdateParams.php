@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\BaseCheck;
 
 /**
- * Replace the submission checks for a notification template.
+ * Replaces the approval checks on a template submission with the complete set supplied in the request body.
  *
  * @see Courier\Services\Notifications\ChecksService::update()
  *

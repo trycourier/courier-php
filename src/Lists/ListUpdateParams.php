@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * Create or replace an existing list with the supplied values.
+ * Creates or replaces a list from a name and preferences. Subscribers are managed through the separate subscriptions endpoints.
  *
  * @see Courier\Services\ListsService::update()
  *

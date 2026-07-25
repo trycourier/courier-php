@@ -27,7 +27,7 @@ final class AutomationsRawService implements AutomationsRawContract
     /**
      * @api
      *
-     * Get the list of automations.
+     * Lists the workspace's saved automation templates, each with its id and a cursor for paging to the next page of results.
      *
      * @param array{
      *   cursor?: string, version?: Version|value-of<Version>

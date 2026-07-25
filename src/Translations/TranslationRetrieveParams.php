@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get translations by locale.
+ * Returns the translation strings stored for one domain and locale, for use in localized notification content.
  *
  * @see Courier\Services\TranslationsService::retrieve()
  *

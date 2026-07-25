@@ -34,7 +34,7 @@ final class AudiencesRawService implements AudiencesRawContract
     /**
      * @api
      *
-     * Returns the specified audience by id.
+     * Returns one audience with its name, description, and the filter and AND or OR operator that decide which users belong to it.
      *
      * @param string $audienceID A unique identifier representing the audience_id
      * @param RequestOpts|null $requestOptions
@@ -59,7 +59,7 @@ final class AudiencesRawService implements AudiencesRawContract
     /**
      * @api
      *
-     * Creates or updates audience.
+     * Creates or replaces an audience from a filter and an AND or OR operator. Membership recalculates automatically as profiles change.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{
@@ -97,7 +97,7 @@ final class AudiencesRawService implements AudiencesRawContract
     /**
      * @api
      *
-     * Get the audiences associated with the authorization token.
+     * Returns the audiences in the workspace with paging. Audiences are filter-based groups that recalculate as user profiles change.
      *
      * @param array{cursor?: string|null}|AudienceListParams $params
      * @param RequestOpts|null $requestOptions
@@ -128,7 +128,7 @@ final class AudiencesRawService implements AudiencesRawContract
     /**
      * @api
      *
-     * Deletes the specified audience.
+     * Deletes an audience permanently, so update any caller sending to it by audience id first. Those sends fail once the audience is gone.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param RequestOpts|null $requestOptions
@@ -153,7 +153,7 @@ final class AudiencesRawService implements AudiencesRawContract
     /**
      * @api
      *
-     * Get list of members of an audience.
+     * Returns the users currently matching an audience filter, with paging. Membership is recalculated, so results shift as profiles change.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param array{cursor?: string|null}|AudienceListMembersParams $params

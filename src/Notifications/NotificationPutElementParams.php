@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Update a single element within a notification template. Only supported for V2 (elemental) templates.
+ * Replaces one Elemental element in a template, addressed by its element id. Supported for V2 templates only, not V1 blocks and channels.
  *
  * @see Courier\Services\NotificationsService::putElement()
  *

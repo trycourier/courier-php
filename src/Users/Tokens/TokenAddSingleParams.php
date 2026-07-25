@@ -14,7 +14,7 @@ use Courier\Users\Tokens\TokenAddSingleParams\ProviderKey;
 use Courier\Users\Tokens\TokenAddSingleParams\Tracking;
 
 /**
- * Adds a single token to a user and overwrites a matching existing token.
+ * Registers one device token for a user against a provider key, overwriting the token if it already exists. Push sends resolve tokens per user.
  *
  * @see Courier\Services\Users\TokensService::addSingle()
  *

@@ -26,12 +26,7 @@ final class VersionsRawService implements VersionsRawContract
     /**
      * @api
      *
-     * Fetches a specific version of a tenant template.
-     *
-     * Supports the following version formats:
-     * - `latest` - The most recent version of the template
-     * - `published` - The currently published version
-     * - `v{version}` - A specific version (e.g., "v1", "v2", "v1.0.0")
+     * Returns one version of a tenant template, addressed by version number or by latest, with its content and publish timestamp.
      *
      * @param string $version Version of the template to retrieve. Accepts "latest", "published", or a specific version string (e.g., "v1", "v2").
      * @param array{tenantID: string, templateID: string}|VersionRetrieveParams $params

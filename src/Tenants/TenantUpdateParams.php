@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create or Replace a Tenant.
+ * Creates or replaces a tenant from a name, parent, brand, properties, and default preferences supplied in the request body.
  *
  * @see Courier\Services\TenantsService::update()
  *

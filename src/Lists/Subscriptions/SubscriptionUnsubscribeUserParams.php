@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Delete a subscription to a list by list ID and user ID.
+ * Removes one user's subscription to a list, addressed by list id and user id. The user's profile and other subscriptions are separate resources.
  *
  * @see Courier\Services\Lists\SubscriptionsService::unsubscribeUser()
  *

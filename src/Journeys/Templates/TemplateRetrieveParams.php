@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Fetch a journey-scoped notification template by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+ * Returns a journey's own notification template with its name, brand, subscription topic, and content. Defaults to the published version.
  *
  * @see Courier\Services\Journeys\TemplatesService::retrieve()
  *

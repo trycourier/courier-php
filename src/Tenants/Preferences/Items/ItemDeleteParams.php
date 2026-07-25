@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Remove Default Preferences For Topic.
+ * Removes a tenant's default preference for one subscription topic, addressed by tenant id and topic id.
  *
  * @see Courier\Services\Tenants\Preferences\ItemsService::delete()
  *

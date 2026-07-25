@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\SubscribeToListsRequestItem;
 
 /**
- * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
+ * Subscribes a user to one or more lists, creating any list that does not yet exist. Optional preferences apply to each subscription.
  *
  * @see Courier\Services\Profiles\ListsService::subscribe()
  *

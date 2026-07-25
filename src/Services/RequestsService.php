@@ -30,7 +30,7 @@ final class RequestsService implements RequestsContract
     /**
      * @api
      *
-     * Archive message
+     * Archives a send request by its request id. Use it to remove test sends or superseded requests from the message list without deleting them.
      *
      * @param string $requestID A unique identifier representing the request ID
      * @param RequestOpts|null $requestOptions

@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get list of members of an audience.
+ * Returns the users currently matching an audience filter, with paging. Membership is recalculated, so results shift as profiles change.
  *
  * @see Courier\Services\AudiencesService::listMembers()
  *

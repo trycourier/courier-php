@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get single token available for a `:token`.
+ * Returns one device token with its provider key, status and status reason, expiry date, and any properties stored alongside it.
  *
  * @see Courier\Services\Users\TokensService::retrieve()
  *

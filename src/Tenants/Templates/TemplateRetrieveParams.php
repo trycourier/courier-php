@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get a Template in Tenant.
+ * Returns a tenant's notification template with its content, version, and created, updated, and published timestamps.
  *
  * @see Courier\Services\Tenants\TemplatesService::retrieve()
  *

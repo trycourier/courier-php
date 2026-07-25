@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke an automation run from an automation template.
+ * Starts an automation run from a saved template for one recipient, with optional data and profile, and returns a runId.
  *
  * @see Courier\Services\Automations\InvokeService::invokeByTemplate()
  *

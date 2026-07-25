@@ -44,7 +44,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Get a Template in Tenant
+     * Returns a tenant's notification template with its content, version, and created, updated, and published timestamps.
      *
      * @param string $templateID id of the template to be retrieved
      * @param string $tenantID id of the tenant for which to retrieve the template
@@ -68,7 +68,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * List Templates in Tenant
+     * Lists a tenant's notification templates, each carrying its version and published timestamp. Paged.
      *
      * @param string $tenantID id of the tenant for which to retrieve the templates
      * @param string|null $cursor Continue the pagination with the next cursor
@@ -94,12 +94,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Deletes the tenant's notification template with the given `template_id`.
-     *
-     * Returns **204 No Content** with an empty body on success.
-     *
-     * Returns **404** if there is no template with this ID for the tenant,
-     * including a second `DELETE` after a successful removal.
+     * Deletes a tenant's notification template by id. Sends for that tenant then use the workspace template registered under the same id.
      *
      * @param string $templateID id of the template to remove from the tenant
      * @param string $tenantID id of the tenant that owns the template
@@ -123,10 +118,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Publishes a specific version of a notification template for a tenant.
-     *
-     * The template must already exist in the tenant's notification map.
-     * If no version is specified, defaults to publishing the "latest" version.
+     * Publishes a version of a tenant's notification template, making it the content that tenant's sends render from until you publish another.
      *
      * @param string $templateID path param: Id of the template to be published
      * @param string $tenantID path param: Id of the tenant that owns the template
@@ -154,12 +146,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Creates or updates a notification template for a tenant.
-     *
-     * If the template already exists for the tenant, it will be updated (200).
-     * Otherwise, a new template is created (201).
-     *
-     * Optionally publishes the template immediately if the `published` flag is set to true.
+     * Creates or updates a notification template scoped to one tenant, letting a tenant override the content the workspace template would send.
      *
      * @param string $templateID path param: Id of the template to be created or updated
      * @param string $tenantID path param: Id of the tenant for which to create or update the template

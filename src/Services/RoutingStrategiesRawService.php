@@ -75,7 +75,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
     /**
      * @api
      *
-     * Retrieve a routing strategy by ID. Returns the full entity including routing content and metadata.
+     * Returns one routing strategy by id with its name, tags, channels, and the routing rules that decide provider order and fallback.
      *
      * @param string $id routing strategy ID (rs_ prefix)
      * @param RequestOpts|null $requestOptions
@@ -158,7 +158,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
     /**
      * @api
      *
-     * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+     * Returns the notification templates using a routing strategy, with paging. Check this before changing a strategy that templates depend on.
      *
      * @param string $id routing strategy ID (`rs_` prefix)
      * @param array{

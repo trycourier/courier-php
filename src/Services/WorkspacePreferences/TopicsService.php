@@ -36,7 +36,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Create a subscription preference topic inside a workspace preference. Fails with 404 if the workspace preference does not exist. The topic id is generated and returned.
+     * Creates a subscription topic inside a workspace preference. The default status sets whether users start opted in, opted out, or required.
      *
      * @param string $sectionID id of the workspace preference to create the topic in
      * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus the default subscription status applied when a recipient has not set their own
@@ -82,7 +82,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Retrieve a topic within a workspace preference. Returns 404 if the workspace preference does not exist, the topic does not exist, or the topic belongs to a different workspace preference.
+     * Returns one subscription topic with its default status, routing options, allowed preferences, and unsubscribe header setting.
      *
      * @param string $topicID id of the subscription preference topic
      * @param string $sectionID id of the workspace preference
@@ -106,7 +106,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * List the topics in a workspace preference.
+     * Returns the subscription topics inside a workspace preference, each with its default status and routing options.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -126,7 +126,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Archive a topic and remove it from its workspace preference. Same 404 rules as GET.
+     * Archives a subscription topic and removes it from its workspace preference, addressed by section id and topic id.
      *
      * @param string $topicID id of the subscription preference topic
      * @param string $sectionID id of the workspace preference
