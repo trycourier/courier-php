@@ -37,7 +37,7 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
+     * Creates a brand from a name and settings, including primary and secondary colors. Brands supply the logo, colors, and styling that templates render with.
      *
      * @param BrandSettings|BrandSettingsShape $settings
      * @param BrandSnippets|BrandSnippetsShape|null $snippets
@@ -70,7 +70,7 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Fetch a specific brand by brand ID.
+     * Returns one brand by id, including its colors, logo and styling settings, Handlebars snippets, and published version.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
      * @param RequestOpts|null $requestOptions
@@ -90,7 +90,7 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Replace an existing brand with the supplied values.
+     * Replaces a brand with the values you supply, so send the complete settings and snippets rather than only the fields you want changed.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to update
      * @param string $name the name of the brand
@@ -120,7 +120,7 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Get the list of brands.
+     * Lists the workspace's brands. Every entry carries its name, styling settings, snippets, and published version.
      *
      * @param string|null $cursor a unique identifier that allows for fetching the next set of brands
      * @param RequestOpts|null $requestOptions
@@ -142,7 +142,7 @@ final class BrandsService implements BrandsContract
     /**
      * @api
      *
-     * Delete a brand by brand ID.
+     * Deletes a brand by id. Reassign any template or tenant that references it before deleting to keep their styling intact.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
      * @param RequestOpts|null $requestOptions

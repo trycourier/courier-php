@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List the digest instances for a schedule. Each instance represents the events accumulated for a single user against the schedule, and can be used to monitor digest accumulation before the digest is released.
+ * Returns the digest instances for a schedule, one per user, with cursor paging. Use it to see what has accumulated before a digest releases.
  *
  * @see Courier\Services\Digests\SchedulesService::listInstances()
  *

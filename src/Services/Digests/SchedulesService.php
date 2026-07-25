@@ -32,7 +32,7 @@ final class SchedulesService implements SchedulesContract
     /**
      * @api
      *
-     * List the digest instances for a schedule. Each instance represents the events accumulated for a single user against the schedule, and can be used to monitor digest accumulation before the digest is released.
+     * Returns the digest instances for a schedule, one per user, with cursor paging. Use it to see what has accumulated before a digest releases.
      *
      * @param string $scheduleID The ID of the digest schedule, in the form `sch/{uuid}`. The value must be URL-encoded (e.g. `sch%2F00000000-0000-0000-0000-000000000000`).
      * @param string $cursor a cursor token from a previous response, used to fetch the next page of results

@@ -36,7 +36,7 @@ final class ListsService implements ListsContract
     /**
      * @api
      *
-     * Returns the subscribed lists for a specified user.
+     * Returns the lists a user is subscribed to, with paging. Use it to check what a recipient will receive before sending to a list.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param string|null $cursor a unique identifier that allows for fetching the next set of message statuses
@@ -60,7 +60,7 @@ final class ListsService implements ListsContract
     /**
      * @api
      *
-     * Removes all list subscriptions for given user.
+     * Removes every list subscription for a user at once. Their profile and preferences are untouched, so this only affects list-targeted sends.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param RequestOpts|null $requestOptions
@@ -80,7 +80,7 @@ final class ListsService implements ListsContract
     /**
      * @api
      *
-     * Subscribes the given user to one or more lists. If the list does not exist, it will be created.
+     * Subscribes a user to one or more lists, creating any list that does not yet exist. Optional preferences apply to each subscription.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape> $lists

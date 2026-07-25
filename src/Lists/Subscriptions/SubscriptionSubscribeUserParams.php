@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\RecipientPreferences;
 
 /**
- * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
+ * Subscribes one user to a list, creating the list if it does not yet exist. Optional preferences apply to this subscription only.
  *
  * @see Courier\Services\Lists\SubscriptionsService::subscribeUser()
  *

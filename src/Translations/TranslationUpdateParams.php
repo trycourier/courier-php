@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Update a translation.
+ * Uploads the translation strings for one domain and locale. Courier uses them to render localized content for recipients in that locale.
  *
  * @see Courier\Services\TranslationsService::update()
  *

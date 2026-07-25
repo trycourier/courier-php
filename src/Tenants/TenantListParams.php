@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get a List of Tenants.
+ * Lists the workspace's tenants, each carrying a name, parent tenant, properties, and default preferences. Paged.
  *
  * @see Courier\Services\TenantsService::list()
  *

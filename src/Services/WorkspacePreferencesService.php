@@ -42,7 +42,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Create a workspace preference. The workspace preference id is generated and returned. Topics are created inside a workspace preference via POST /preferences/sections/{section_id}/topics.
+     * Creates a workspace preference and returns its generated id. Add subscription topics to it afterwards with the topics endpoint.
      *
      * @param string $name human-readable name for the workspace preference
      * @param string|null $description optional description shown under the section on the hosted preferences page
@@ -77,7 +77,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Retrieve a workspace preference by id, including its topics.
+     * Returns one workspace preference by id, including its subscription topics, routing options, and custom routing flag.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -97,7 +97,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * List the workspace's preferences. Each workspace preference embeds its topics. Scoped to the workspace of the API key.
+     * Returns the workspace's preferences, each embedding its subscription topics, routing options, and whether custom routing is allowed.
      *
      * @param RequestOpts|null $requestOptions
      *
@@ -135,7 +135,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
+     * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
      *
      * @param string|null $brandID Brand for the hosted page - "default" (workspace default brand), "none" (no brand), or a specific brand id. Defaults to "default".
      * @param string|null $description description shown under the heading on the hosted preferences page

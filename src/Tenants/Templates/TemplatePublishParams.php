@@ -11,10 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publishes a specific version of a notification template for a tenant.
- *
- * The template must already exist in the tenant's notification map.
- * If no version is specified, defaults to publishing the "latest" version.
+ * Publishes a version of a tenant's notification template, making it the content that tenant's sends render from until you publish another.
  *
  * @see Courier\Services\Tenants\TemplatesService::publish()
  *

@@ -28,7 +28,7 @@ final class SendRawService implements SendRawContract
     /**
      * @api
      *
-     * Send a message to one or more recipients.
+     * Sends a message to one or more recipients and returns a requestId. Courier routes it to email, SMS, push, chat, or in-app based on your rules.
      *
      * @param array{message: Message|MessageShape}|SendMessageParams $params
      * @param RequestOpts|null $requestOptions

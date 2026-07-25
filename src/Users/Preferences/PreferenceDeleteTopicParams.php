@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Remove a user's preferences for a specific subscription topic, resetting the topic to its effective default. This operation is idempotent: deleting a preference that does not exist succeeds with no error.
+ * Removes a user's override for one subscription topic, resetting it to the effective default from the tenant or workspace.
  *
  * @see Courier\Services\Users\PreferencesService::deleteTopic()
  *

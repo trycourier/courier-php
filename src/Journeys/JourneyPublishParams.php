@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the current draft as a new version. Body is optional; pass `{ "version": "vN" }` to roll back to a prior version instead. Returns 404 if the journey has no draft to publish.
+ * Publishes a journey's current draft as a new version, making it live for new runs. Pass a version instead to roll back to an earlier one.
  *
  * @see Courier\Services\JourneysService::publish()
  *

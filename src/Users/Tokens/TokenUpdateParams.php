@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
 /**
- * Apply a JSON Patch (RFC 6902) to the specified token.
+ * Applies a JSON Patch to a device token, changing its status, expiry, or properties without re-registering it.
  *
  * @see Courier\Services\Users\TokensService::update()
  *

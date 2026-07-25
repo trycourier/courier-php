@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
 
 /**
- * Set locale-specific content overrides for a notification template. Each element override must reference an existing element by ID. Only supported for V2 (elemental) templates.
+ * Sets locale-specific content overrides for a template. Each override must reference an element that already exists in the default content.
  *
  * @see Courier\Services\NotificationsService::putLocale()
  *

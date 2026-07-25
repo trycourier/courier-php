@@ -10,10 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * When using `PUT`, be sure to include all the key-value pairs required by the recipient's profile.
- * Any key-value pairs that exist in the profile but fail to be included in the `PUT` request will be
- * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
- * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
+ * Overwrites a user profile in full, removing any key absent from the request body. Use the patch endpoint when changing a single field.
  *
  * @see Courier\Services\ProfilesService::replace()
  *

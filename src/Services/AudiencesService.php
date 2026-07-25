@@ -38,7 +38,7 @@ final class AudiencesService implements AudiencesContract
     /**
      * @api
      *
-     * Returns the specified audience by id.
+     * Returns one audience with its name, description, and the filter and AND or OR operator that decide which users belong to it.
      *
      * @param string $audienceID A unique identifier representing the audience_id
      * @param RequestOpts|null $requestOptions
@@ -58,7 +58,7 @@ final class AudiencesService implements AudiencesContract
     /**
      * @api
      *
-     * Creates or updates audience.
+     * Creates or replaces an audience from a filter and an AND or OR operator. Membership recalculates automatically as profiles change.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $description A description of the audience
@@ -95,7 +95,7 @@ final class AudiencesService implements AudiencesContract
     /**
      * @api
      *
-     * Get the audiences associated with the authorization token.
+     * Returns the audiences in the workspace with paging. Audiences are filter-based groups that recalculate as user profiles change.
      *
      * @param string|null $cursor A unique identifier that allows for fetching the next set of audiences
      * @param RequestOpts|null $requestOptions
@@ -117,7 +117,7 @@ final class AudiencesService implements AudiencesContract
     /**
      * @api
      *
-     * Deletes the specified audience.
+     * Deletes an audience permanently, so update any caller sending to it by audience id first. Those sends fail once the audience is gone.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param RequestOpts|null $requestOptions
@@ -137,7 +137,7 @@ final class AudiencesService implements AudiencesContract
     /**
      * @api
      *
-     * Get list of members of an audience.
+     * Returns the users currently matching an audience filter, with paging. Membership is recalculated, so results shift as profiles change.
      *
      * @param string $audienceID A unique identifier representing the audience id
      * @param string|null $cursor A unique identifier that allows for fetching the next set of members

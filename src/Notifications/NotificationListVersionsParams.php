@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List versions of a notification template.
+ * Returns a notification template's published versions, most recent first, for comparison or rollback. Paged.
  *
  * @see Courier\Services\NotificationsService::listVersions()
  *

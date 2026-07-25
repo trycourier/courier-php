@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create a new provider configuration. The `provider` field must be a known Courier provider key (see catalog).
+ * Configures a provider integration from a Courier provider key and its settings. Check the catalog endpoint for the schema each provider expects.
  *
  * @see Courier\Services\ProvidersService::create()
  *

@@ -14,7 +14,7 @@ use Courier\WorkspacePreferences\Topics\TopicCreateParams\AllowedPreference;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\DefaultStatus;
 
 /**
- * Create a subscription preference topic inside a workspace preference. Fails with 404 if the workspace preference does not exist. The topic id is generated and returned.
+ * Creates a subscription topic inside a workspace preference. The default status sets whether users start opted in, opted out, or required.
  *
  * @see Courier\Services\WorkspacePreferences\TopicsService::create()
  *

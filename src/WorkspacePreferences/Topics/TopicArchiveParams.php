@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Archive a topic and remove it from its workspace preference. Same 404 rules as GET.
+ * Archives a subscription topic and removes it from its workspace preference, addressed by section id and topic id.
  *
  * @see Courier\Services\WorkspacePreferences\TopicsService::archive()
  *

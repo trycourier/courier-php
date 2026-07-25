@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+ * Returns the notification templates using a routing strategy, with paging. Check this before changing a strategy that templates depend on.
  *
  * @see Courier\Services\RoutingStrategiesService::listNotifications()
  *

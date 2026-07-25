@@ -33,7 +33,7 @@ final class ItemsService implements ItemsContract
     /**
      * @api
      *
-     * Create or Replace Default Preferences For Topic
+     * Sets a tenant's default opt-in status for one subscription topic, which applies to every member unless a user sets their own override.
      *
      * @param string $topicID path param: Id of the subscription topic you want to have a default preference for
      * @param string $tenantID path param: Id of the tenant to update the default preferences for
@@ -70,7 +70,7 @@ final class ItemsService implements ItemsContract
     /**
      * @api
      *
-     * Remove Default Preferences For Topic
+     * Removes a tenant's default preference for one subscription topic, addressed by tenant id and topic id.
      *
      * @param string $topicID id of the subscription topic you want to have a default preference for
      * @param string $tenantID id of the tenant to update the default preferences for

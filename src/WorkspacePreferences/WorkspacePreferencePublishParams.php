@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
+ * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
  *
  * @see Courier\Services\WorkspacePreferencesService::publish()
  *

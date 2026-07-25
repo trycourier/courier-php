@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Archive the journey-scoped notification template. Archived templates cannot be sent.
+ * Archives one journey's notification template, preventing further sends. Detach any send node referencing it beforehand.
  *
  * @see Courier\Services\Journeys\TemplatesService::archive()
  *

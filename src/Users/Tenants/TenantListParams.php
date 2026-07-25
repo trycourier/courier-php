@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Returns a paginated list of user tenant associations.
+ * Returns the tenants a user belongs to, with cursor paging. A user can belong to many tenants, each with its own profile and preferences.
  *
  * @see Courier\Services\Users\TenantsService::list()
  *

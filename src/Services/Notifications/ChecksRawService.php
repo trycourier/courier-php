@@ -31,7 +31,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * Replace the submission checks for a notification template.
+     * Replaces the approval checks on a template submission with the complete set supplied in the request body.
      *
      * @param string $submissionID path param: Submission ID
      * @param array{
@@ -68,7 +68,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * Retrieve the submission checks for a notification template.
+     * Returns the approval checks recorded for a template submission, each with its pass or fail result.
      *
      * @param string $submissionID submission ID
      * @param array{id: string}|CheckListParams $params
@@ -102,7 +102,7 @@ final class ChecksRawService implements ChecksRawContract
     /**
      * @api
      *
-     * Cancel a submission for a notification template.
+     * Cancels a pending template submission, withdrawing it from the approval workflow. The template stays in draft and can be resubmitted later.
      *
      * @param string $submissionID submission ID
      * @param array{id: string}|CheckDeleteParams $params

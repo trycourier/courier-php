@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Replace an existing provider configuration. The `provider` key is required and determines which provider-specific settings schema is applied. All other fields are optional — omitted fields are cleared from the stored configuration (this is a full replacement, not a partial merge). Changing the provider type for an existing configuration is not supported.
+ * Replaces a provider's configuration in full, clearing any field you omit rather than merging it. Send the complete settings object.
  *
  * @see Courier\Services\ProvidersService::update()
  *

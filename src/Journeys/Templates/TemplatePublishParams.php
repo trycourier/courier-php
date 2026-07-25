@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
+ * Publishes a journey-scoped template's draft as a new version. Pass a version instead to roll back the template to an earlier publish.
  *
  * @see Courier\Services\Journeys\TemplatesService::publish()
  *

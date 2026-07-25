@@ -34,7 +34,7 @@ final class SendService implements SendContract
     /**
      * @api
      *
-     * Send a message to one or more recipients.
+     * Sends a message to one or more recipients and returns a requestId. Courier routes it to email, SMS, push, chat, or in-app based on your rules.
      *
      * @param Message|MessageShape $message The message property has the following primary top-level properties. They define the destination and content of the message.
      * @param RequestOpts|null $requestOptions

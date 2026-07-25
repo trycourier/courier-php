@@ -33,7 +33,7 @@ final class InboundService implements InboundContract
     /**
      * @api
      *
-     * Courier Track Event
+     * Records an inbound event that can trigger a journey. Requires an event name, a messageId you generate, a type, and a properties object.
      *
      * @param string $event A descriptive name of the event. This name will appear as a trigger in the Courier Automation Trigger node.
      * @param string $messageID A required unique identifier that will be used to de-duplicate requests. If not unique, will respond with 409 Conflict status

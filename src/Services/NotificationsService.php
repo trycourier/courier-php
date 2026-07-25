@@ -102,7 +102,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * List notification templates in your workspace.
+     * Lists the workspace's notification templates. Each carries a name, tags, brand, routing, and its draft or published state.
      *
      * @param string|null $cursor Opaque pagination cursor from a previous response. Omit for the first page.
      * @param string $eventID filter to templates linked to this event map ID
@@ -130,7 +130,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Archive a notification template.
+     * Archives a notification template, preventing new sends from referencing it. The template stays retrievable for its version history.
      *
      * @param string $id template ID (nt_ prefix)
      * @param RequestOpts|null $requestOptions
@@ -150,7 +150,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Duplicate a notification template. Creates a standalone copy within the same workspace and environment, with " COPY" appended to the title. The copy clones the source draft's tags, brand, subscription topic, routing strategy, channels, and content, and is always created as a standalone template (it is not linked to any journey or broadcast, even if the source was). Templates that are scoped to a journey or a broadcast cannot be duplicated through this endpoint.
+     * Copies a notification template within the same workspace and environment, appending " COPY" to the title. The copy is standalone and independently editable.
      *
      * @param string $id template ID (nt_ prefix)
      * @param RequestOpts|null $requestOptions
@@ -170,7 +170,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * List versions of a notification template.
+     * Returns a notification template's published versions, most recent first, for comparison or rollback. Paged.
      *
      * @param string $id template ID (nt_ prefix)
      * @param string $cursor Opaque pagination cursor from a previous response. Omit for the first page.
@@ -220,7 +220,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Replace the elemental content of a notification template. Overwrites all elements in the template with the provided content. Only supported for V2 (elemental) templates.
+     * Replaces all Elemental content in a template, overwriting every existing element. Supported for V2 templates only, not V1 blocks and channels.
      *
      * @param string $id notification template ID (`nt_` prefix)
      * @param Content|ContentShape $content Elemental content payload. The server defaults `version` when omitted.
@@ -246,7 +246,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Update a single element within a notification template. Only supported for V2 (elemental) templates.
+     * Replaces one Elemental element in a template, addressed by its element id. Supported for V2 templates only, not V1 blocks and channels.
      *
      * @param string $elementID path param: Element ID within the template
      * @param string $id path param: Notification template ID (`nt_` prefix)
@@ -295,7 +295,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Set locale-specific content overrides for a notification template. Each element override must reference an existing element by ID. Only supported for V2 (elemental) templates.
+     * Sets locale-specific content overrides for a template. Each override must reference an element that already exists in the default content.
      *
      * @param string $localeID Path param: Locale code (e.g., `es`, `fr`, `pt-BR`).
      * @param string $id path param: Notification template ID (`nt_` prefix)
@@ -325,7 +325,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Replace a notification template. All fields are required.
+     * Replaces a notification template in full, so send every field rather than only the ones you want changed. Publish separately to make it live.
      *
      * @param string $id template ID (nt_ prefix)
      * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
@@ -353,7 +353,7 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Retrieve the content of a notification template. The response shape depends on whether the template uses V1 (blocks/channels) or V2 (elemental) content. Use the `version` query parameter to select draft, published, or a specific historical version.
+     * Returns a template's content and checksum. V2 templates return Elemental elements, while V1 templates return blocks and channels instead.
      *
      * @param string $id notification template ID (`nt_` prefix)
      * @param string $version Accepts `draft`, `published`, or a version string (e.g., `v001`). Defaults to `published`.

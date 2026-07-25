@@ -32,7 +32,7 @@ final class AuthService implements AuthContract
     /**
      * @api
      *
-     * Returns a new access token.
+     * Returns a JWT for authenticating client-side SDKs such as the Inbox. You supply the scope and an expires_in duration, both required.
      *
      * @param string $expiresIn Duration for token expiration. Accepts various time formats:
      * - "2 hours" - 2 hours from now

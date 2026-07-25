@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get the list of automations.
+ * Lists the workspace's saved automation templates, each with its id and a cursor for paging to the next page of results.
  *
  * @see Courier\Services\AutomationsService::list()
  *
