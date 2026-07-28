@@ -7,6 +7,7 @@ namespace Courier\Services\Lists;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Lists\PutSubscriptionsRecipient;
 use Courier\Lists\Subscriptions\SubscriptionAddParams;
 use Courier\Lists\Subscriptions\SubscriptionListParams;
@@ -69,9 +70,11 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
      *
      * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param string $listID path param: A unique identifier representing the list you wish to retrieve
      * @param array{
-     *   recipients: list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape>
+     *   recipients: list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|SubscriptionAddParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -88,12 +91,23 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['lists/%1$s/subscriptions', $listID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: null,
         );

@@ -152,6 +152,8 @@ final class SendTest extends TestCase
                     'userID' => 'user_id',
                 ],
             ],
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

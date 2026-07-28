@@ -21,6 +21,8 @@ use Courier\Core\Contracts\BaseModel;
  *   description?: string|null,
  *   hasCustomRouting?: bool|null,
  *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class WorkspacePreferenceCreateParams implements BaseModel
@@ -59,6 +61,12 @@ final class WorkspacePreferenceCreateParams implements BaseModel
     )]
     public ?array $routingOptions;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     /**
      * `new WorkspacePreferenceCreateParams()` is missing required properties by the API.
      *
@@ -90,6 +98,8 @@ final class WorkspacePreferenceCreateParams implements BaseModel
         ?string $description = null,
         ?bool $hasCustomRouting = null,
         ?array $routingOptions = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -98,6 +108,8 @@ final class WorkspacePreferenceCreateParams implements BaseModel
         null !== $description && $self['description'] = $description;
         null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
         null !== $routingOptions && $self['routingOptions'] = $routingOptions;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -144,6 +156,23 @@ final class WorkspacePreferenceCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['routingOptions'] = $routingOptions;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

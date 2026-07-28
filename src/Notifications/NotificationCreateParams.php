@@ -21,6 +21,8 @@ use Courier\Notifications\NotificationCreateParams\State;
  * @phpstan-type NotificationCreateParamsShape = array{
  *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
  *   state?: null|State|value-of<State>,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class NotificationCreateParams implements BaseModel
@@ -42,6 +44,12 @@ final class NotificationCreateParams implements BaseModel
      */
     #[Optional(enum: State::class)]
     public ?string $state;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new NotificationCreateParams()` is missing required properties by the API.
@@ -72,13 +80,17 @@ final class NotificationCreateParams implements BaseModel
      */
     public static function with(
         NotificationTemplatePayload|array $notification,
-        State|string|null $state = null
+        State|string|null $state = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
         $self['notification'] = $notification;
 
         null !== $state && $self['state'] = $state;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -106,6 +118,23 @@ final class NotificationCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['state'] = $state;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

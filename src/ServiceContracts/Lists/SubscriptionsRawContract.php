@@ -39,7 +39,7 @@ interface SubscriptionsRawContract
     /**
      * @api
      *
-     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param string $listID path param: A unique identifier representing the list you wish to retrieve
      * @param array<string,mixed>|SubscriptionAddParams $params
      * @param RequestOpts|null $requestOptions
      *

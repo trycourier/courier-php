@@ -18,9 +18,14 @@ interface InvokeContract
     /**
      * @api
      *
-     * @param Automation|AutomationShape $automation
-     * @param array<string,mixed>|null $data
-     * @param array<string,mixed>|null $profile
+     * @param Automation|AutomationShape $automation Body param
+     * @param string|null $brand Body param
+     * @param array<string,mixed>|null $data Body param
+     * @param array<string,mixed>|null $profile Body param
+     * @param string|null $recipient Body param
+     * @param string|null $template Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -32,15 +37,22 @@ interface InvokeContract
         ?array $profile = null,
         ?string $recipient = null,
         ?string $template = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): AutomationInvokeResponse;
 
     /**
      * @api
      *
-     * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
-     * @param array<string,mixed>|null $data
-     * @param array<string,mixed>|null $profile
+     * @param string $templateID Path param: A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
+     * @param string|null $recipient Body param
+     * @param string|null $brand Body param
+     * @param array<string,mixed>|null $data Body param
+     * @param array<string,mixed>|null $profile Body param
+     * @param string|null $template Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -52,6 +64,8 @@ interface InvokeContract
         ?array $data = null,
         ?array $profile = null,
         ?string $template = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): AutomationInvokeResponse;
 }

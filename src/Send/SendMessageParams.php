@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Send;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -17,7 +18,11 @@ use Courier\Send\SendMessageParams\Message;
  *
  * @phpstan-import-type MessageShape from \Courier\Send\SendMessageParams\Message
  *
- * @phpstan-type SendMessageParamsShape = array{message: Message|MessageShape}
+ * @phpstan-type SendMessageParamsShape = array{
+ *   message: Message|MessageShape,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
+ * }
  */
 final class SendMessageParams implements BaseModel
 {
@@ -30,6 +35,12 @@ final class SendMessageParams implements BaseModel
      */
     #[Required]
     public Message $message;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new SendMessageParams()` is missing required properties by the API.
@@ -57,11 +68,17 @@ final class SendMessageParams implements BaseModel
      *
      * @param Message|MessageShape $message
      */
-    public static function with(Message|array $message): self
-    {
+    public static function with(
+        Message|array $message,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         $self['message'] = $message;
+
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -75,6 +92,23 @@ final class SendMessageParams implements BaseModel
     {
         $self = clone $this;
         $self['message'] = $message;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

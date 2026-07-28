@@ -22,7 +22,7 @@ interface ProfilesRawContract
     /**
      * @api
      *
-     * @param string $userID a unique identifier representing the user associated with the requested profile
+     * @param string $userID path param: A unique identifier representing the user associated with the requested profile
      * @param array<string,mixed>|ProfileCreateParams $params
      * @param RequestOpts|null $requestOptions
      *

@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferencesRawContract;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
@@ -38,6 +39,8 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      *   description?: string|null,
      *   hasCustomRouting?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|WorkspacePreferenceCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -53,12 +56,23 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'preferences/sections',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: WorkspacePreferenceGetResponse::class,
         );
@@ -143,7 +157,11 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
      * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
      *
      * @param array{
-     *   brandID?: string|null, description?: string|null, heading?: string|null
+     *   brandID?: string|null,
+     *   description?: string|null,
+     *   heading?: string|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|WorkspacePreferencePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -159,12 +177,23 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'preferences/publish',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: PublishPreferencesResponse::class,
         );

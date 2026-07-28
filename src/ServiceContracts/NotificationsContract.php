@@ -29,8 +29,10 @@ interface NotificationsContract
     /**
      * @api
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
-     * @param State|value-of<State> $state Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
+     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification body param: Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
+     * @param State|value-of<State> $state Body param: Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -38,6 +40,8 @@ interface NotificationsContract
     public function create(
         NotificationTemplatePayload|array $notification,
         State|string $state = 'DRAFT',
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): NotificationTemplateResponse;
 
@@ -119,8 +123,10 @@ interface NotificationsContract
     /**
      * @api
      *
-     * @param string $id template ID (nt_ prefix)
-     * @param string $version Historical version to publish (e.g. "v001"). Omit to publish the current draft.
+     * @param string $id path param: Template ID (nt_ prefix)
+     * @param string $version Body param: Historical version to publish (e.g. "v001"). Omit to publish the current draft.
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -128,6 +134,8 @@ interface NotificationsContract
     public function publish(
         string $id,
         ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): mixed;
 

@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Providers\Provider;
 use Courier\Providers\ProviderCreateParams;
 use Courier\Providers\ProviderListParams;
@@ -36,6 +37,8 @@ final class ProvidersRawService implements ProvidersRawContract
      *   alias?: string,
      *   settings?: array<string,mixed>,
      *   title?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|ProviderCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -51,12 +54,23 @@ final class ProvidersRawService implements ProvidersRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'providers',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: Provider::class,
         );

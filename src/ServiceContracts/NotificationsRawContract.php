@@ -126,7 +126,7 @@ interface NotificationsRawContract
     /**
      * @api
      *
-     * @param string $id template ID (nt_ prefix)
+     * @param string $id path param: Template ID (nt_ prefix)
      * @param array<string,mixed>|NotificationPublishParams $params
      * @param RequestOpts|null $requestOptions
      *

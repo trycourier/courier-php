@@ -14,6 +14,7 @@ use Courier\Brands\BrandUpdateParams;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsRawContract;
 
@@ -40,6 +41,8 @@ final class BrandsRawService implements BrandsRawContract
      *   settings: BrandSettings|BrandSettingsShape,
      *   id?: string|null,
      *   snippets?: BrandSnippets|BrandSnippetsShape|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|BrandCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -55,12 +58,23 @@ final class BrandsRawService implements BrandsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'brands',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: Brand::class,
         );

@@ -14,7 +14,11 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @see Courier\Services\JourneysService::publish()
  *
- * @phpstan-type JourneyPublishParamsShape = array{version?: string|null}
+ * @phpstan-type JourneyPublishParamsShape = array{
+ *   version?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
+ * }
  */
 final class JourneyPublishParams implements BaseModel
 {
@@ -24,6 +28,12 @@ final class JourneyPublishParams implements BaseModel
 
     #[Optional]
     public ?string $version;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     public function __construct()
     {
@@ -35,11 +45,16 @@ final class JourneyPublishParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?string $version = null): self
-    {
+    public static function with(
+        ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         null !== $version && $self['version'] = $version;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -48,6 +63,23 @@ final class JourneyPublishParams implements BaseModel
     {
         $self = clone $this;
         $self['version'] = $version;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

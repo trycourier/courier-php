@@ -34,7 +34,7 @@ interface InvokeRawContract
     /**
      * @api
      *
-     * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
+     * @param string $templateID Path param: A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
      * @param array<string,mixed>|InvokeInvokeByTemplateParams $params
      * @param RequestOpts|null $requestOptions
      *

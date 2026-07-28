@@ -73,6 +73,8 @@ final class NotificationsTest extends TestCase
                 'tags' => ['onboarding', 'welcome'],
             ],
             state: 'DRAFT',
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

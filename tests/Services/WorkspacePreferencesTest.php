@@ -58,6 +58,8 @@ final class WorkspacePreferencesTest extends TestCase
             description: 'description',
             hasCustomRouting: true,
             routingOptions: [ChannelClassification::DIRECT_MESSAGE],
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

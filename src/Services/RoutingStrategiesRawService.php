@@ -8,6 +8,7 @@ use Courier\Channel;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\MessageProvidersType;
 use Courier\MessageRouting;
 use Courier\RequestOptions;
@@ -46,6 +47,8 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
      *   description?: string|null,
      *   providers?: array<string,MessageProvidersType|MessageProvidersTypeShape>|null,
      *   tags?: list<string>|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|RoutingStrategyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -61,12 +64,23 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'routing-strategies',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: RoutingStrategyGetResponse::class,
         );

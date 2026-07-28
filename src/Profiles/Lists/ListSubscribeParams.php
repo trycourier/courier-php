@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Profiles\Lists;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
@@ -18,7 +19,9 @@ use Courier\Profiles\SubscribeToListsRequestItem;
  * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
  *
  * @phpstan-type ListSubscribeParamsShape = array{
- *   lists: list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape>
+ *   lists: list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape>,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class ListSubscribeParams implements BaseModel
@@ -30,6 +33,12 @@ final class ListSubscribeParams implements BaseModel
     /** @var list<SubscribeToListsRequestItem> $lists */
     #[Required(list: SubscribeToListsRequestItem::class)]
     public array $lists;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new ListSubscribeParams()` is missing required properties by the API.
@@ -57,11 +66,17 @@ final class ListSubscribeParams implements BaseModel
      *
      * @param list<SubscribeToListsRequestItem|SubscribeToListsRequestItemShape> $lists
      */
-    public static function with(array $lists): self
-    {
+    public static function with(
+        array $lists,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         $self['lists'] = $lists;
+
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -73,6 +88,23 @@ final class ListSubscribeParams implements BaseModel
     {
         $self = clone $this;
         $self['lists'] = $lists;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

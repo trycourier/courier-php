@@ -95,6 +95,8 @@ final class PreferencesService implements PreferencesContract
      * @param string $userID path param: A unique identifier associated with the user whose preferences you wish to update
      * @param list<\Courier\Users\Preferences\PreferenceBulkUpdateParams\Topic|TopicShape2> $topics Body param: The topics to create or update. Between 1 and 50 topics may be provided in a single request.
      * @param string|null $tenantID query param: Update the preferences of a user for this specific tenant context
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -103,9 +105,18 @@ final class PreferencesService implements PreferencesContract
         string $userID,
         array $topics,
         ?string $tenantID = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): PreferenceBulkUpdateResponse {
-        $params = Util::removeNulls(['topics' => $topics, 'tenantID' => $tenantID]);
+        $params = Util::removeNulls(
+            [
+                'topics' => $topics,
+                'tenantID' => $tenantID,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->bulkUpdate($userID, params: $params, requestOptions: $requestOptions);
