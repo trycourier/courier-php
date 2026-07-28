@@ -7,6 +7,7 @@ namespace Courier\Services\Journeys;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Journeys\JourneyTemplateGetResponse;
 use Courier\Journeys\JourneyTemplateListResponse;
 use Courier\Journeys\Templates\TemplateArchiveParams;
@@ -49,12 +50,14 @@ final class TemplatesRawService implements TemplatesRawContract
      *
      * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
      *
-     * @param string $templateID Journey id
+     * @param string $templateID Path param: Journey id
      * @param array{
      *   channel: string,
      *   notification: Notification|NotificationShape,
      *   providerKey?: string,
      *   state?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|TemplateCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -71,12 +74,23 @@ final class TemplatesRawService implements TemplatesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/templates', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyTemplateGetResponse::class,
         );
@@ -225,7 +239,12 @@ final class TemplatesRawService implements TemplatesRawContract
      * Publishes a journey-scoped template's draft as a new version. Pass a version instead to roll back the template to an earlier publish.
      *
      * @param string $notificationID Path param: Notification template id
-     * @param array{templateID: string, version?: string}|TemplatePublishParams $params
+     * @param array{
+     *   templateID: string,
+     *   version?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     * }|TemplatePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
@@ -243,6 +262,10 @@ final class TemplatesRawService implements TemplatesRawContract
         );
         $templateID = $parsed['templateID'];
         unset($parsed['templateID']);
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -250,7 +273,14 @@ final class TemplatesRawService implements TemplatesRawContract
             path: [
                 'journeys/%1$s/templates/%2$s/publish', $templateID, $notificationID,
             ],
-            body: (object) array_diff_key($parsed, array_flip(['templateID'])),
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                array_diff_key($parsed, array_flip(array_keys($header_params))),
+                array_flip(['templateID']),
+            ),
             options: $options,
             convert: null,
         );

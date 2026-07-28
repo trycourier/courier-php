@@ -39,8 +39,12 @@ final class BrandsService implements BrandsContract
      *
      * Creates a brand from a name and settings, including primary and secondary colors. Brands supply the logo, colors, and styling that templates render with.
      *
-     * @param BrandSettings|BrandSettingsShape $settings
-     * @param BrandSnippets|BrandSnippetsShape|null $snippets
+     * @param string $name Body param
+     * @param BrandSettings|BrandSettingsShape $settings Body param
+     * @param string|null $id Body param
+     * @param BrandSnippets|BrandSnippetsShape|null $snippets Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -50,6 +54,8 @@ final class BrandsService implements BrandsContract
         BrandSettings|array $settings,
         ?string $id = null,
         BrandSnippets|array|null $snippets = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): Brand {
         $params = Util::removeNulls(
@@ -58,6 +64,8 @@ final class BrandsService implements BrandsContract
                 'settings' => $settings,
                 'id' => $id,
                 'snippets' => $snippets,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 

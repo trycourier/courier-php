@@ -22,7 +22,7 @@ interface TopicsRawContract
     /**
      * @api
      *
-     * @param string $sectionID id of the workspace preference to create the topic in
+     * @param string $sectionID path param: Id of the workspace preference to create the topic in
      * @param array<string,mixed>|TopicCreateParams $params
      * @param RequestOpts|null $requestOptions
      *

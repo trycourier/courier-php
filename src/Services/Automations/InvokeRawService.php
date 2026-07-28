@@ -11,6 +11,7 @@ use Courier\Automations\Invoke\InvokeInvokeByTemplateParams;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeRawContract;
 
@@ -38,6 +39,8 @@ final class InvokeRawService implements InvokeRawContract
      *   profile?: array<string,mixed>|null,
      *   recipient?: string|null,
      *   template?: string|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|InvokeInvokeAdHocParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -53,12 +56,23 @@ final class InvokeRawService implements InvokeRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'automations/invoke',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: AutomationInvokeResponse::class,
         );
@@ -69,13 +83,15 @@ final class InvokeRawService implements InvokeRawContract
      *
      * Starts an automation run from a saved template for one recipient, with optional data and profile, and returns a runId.
      *
-     * @param string $templateID A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
+     * @param string $templateID Path param: A unique identifier representing the automation template to be invoked. This could be the Automation Template ID or the Automation Template Alias.
      * @param array{
      *   recipient: string|null,
      *   brand?: string|null,
      *   data?: array<string,mixed>|null,
      *   profile?: array<string,mixed>|null,
      *   template?: string|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|InvokeInvokeByTemplateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -92,12 +108,23 @@ final class InvokeRawService implements InvokeRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['automations/%1$s/invoke', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: AutomationInvokeResponse::class,
         );

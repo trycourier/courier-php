@@ -48,8 +48,12 @@ final class JourneysService implements JourneysContract
      *
      * Creates a journey from a set of nodes, in draft state unless you pass a published state. Send nodes cannot be included until their templates exist.
      *
-     * @param list<mixed> $nodes
-     * @param JourneyState|value-of<JourneyState> $state lifecycle state of a journey
+     * @param string $name Body param
+     * @param list<mixed> $nodes Body param
+     * @param bool $enabled Body param
+     * @param JourneyState|value-of<JourneyState> $state body param: Lifecycle state of a journey
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -59,6 +63,8 @@ final class JourneysService implements JourneysContract
         array $nodes,
         ?bool $enabled = null,
         JourneyState|string|null $state = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneyResponse {
         $params = Util::removeNulls(
@@ -67,6 +73,8 @@ final class JourneysService implements JourneysContract
                 'nodes' => $nodes,
                 'enabled' => $enabled,
                 'state' => $state,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 
@@ -149,6 +157,10 @@ final class JourneysService implements JourneysContract
      *
      * Cancels in-flight journey runs, either every run sharing a cancelation token or one run by id. Use it to stop a sequence when the event resolves.
      *
+     * @param string $cancelationToken Body param
+     * @param string $runID Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -156,10 +168,17 @@ final class JourneysService implements JourneysContract
     public function cancel(
         string $cancelationToken,
         string $runID,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): TokenBranch|RunIDBranch {
         $params = Util::removeNulls(
-            ['cancelationToken' => $cancelationToken, 'runID' => $runID]
+            [
+                'cancelationToken' => $cancelationToken,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+                'runID' => $runID,
+            ],
         );
 
         // @phpstan-ignore-next-line argument.type
@@ -173,10 +192,12 @@ final class JourneysService implements JourneysContract
      *
      * Starts a journey run for one user and returns a runId. Runs execute asynchronously, so the response arrives before any message is sent.
      *
-     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
-     * @param array<string,mixed> $data Data payload passed to the journey. The expected shape can be predefined using the schema builder in the journey editor. This data is available in journey steps for condition evaluation and template variable interpolation. Can also contain user identifiers (user_id, userId, anonymousId) if not provided elsewhere.
-     * @param array<string,mixed> $profile Profile data for the user. Can contain contact information (email, phone_number), user identifiers (user_id, userId, anonymousId), or any custom profile fields. Profile fields are merged with any existing stored profile for the user. Include context.tenant_id to load a tenant-scoped profile for multi-tenant scenarios.
-     * @param string $userID A unique identifier for the user. If not provided, the system will attempt to resolve the user identifier from profile or data objects.
+     * @param string $templateID Path param: A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
+     * @param array<string,mixed> $data Body param: Data payload passed to the journey. The expected shape can be predefined using the schema builder in the journey editor. This data is available in journey steps for condition evaluation and template variable interpolation. Can also contain user identifiers (user_id, userId, anonymousId) if not provided elsewhere.
+     * @param array<string,mixed> $profile Body param: Profile data for the user. Can contain contact information (email, phone_number), user identifiers (user_id, userId, anonymousId), or any custom profile fields. Profile fields are merged with any existing stored profile for the user. Include context.tenant_id to load a tenant-scoped profile for multi-tenant scenarios.
+     * @param string $userID Body param: A unique identifier for the user. If not provided, the system will attempt to resolve the user identifier from profile or data objects.
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -186,10 +207,18 @@ final class JourneysService implements JourneysContract
         ?array $data = null,
         ?array $profile = null,
         ?string $userID = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneysInvokeResponse {
         $params = Util::removeNulls(
-            ['data' => $data, 'profile' => $profile, 'userID' => $userID]
+            [
+                'data' => $data,
+                'profile' => $profile,
+                'userID' => $userID,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
         );
 
         // @phpstan-ignore-next-line argument.type
@@ -223,7 +252,10 @@ final class JourneysService implements JourneysContract
      *
      * Publishes a journey's current draft as a new version, making it live for new runs. Pass a version instead to roll back to an earlier one.
      *
-     * @param string $templateID Journey id
+     * @param string $templateID Path param: Journey id
+     * @param string $version Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -231,9 +263,17 @@ final class JourneysService implements JourneysContract
     public function publish(
         string $templateID,
         ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneyResponse {
-        $params = Util::removeNulls(['version' => $version]);
+        $params = Util::removeNulls(
+            [
+                'version' => $version,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->publish($templateID, params: $params, requestOptions: $requestOptions);

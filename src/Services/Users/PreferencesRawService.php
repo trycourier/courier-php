@@ -120,6 +120,8 @@ final class PreferencesRawService implements PreferencesRawContract
      * @param array{
      *   topics: list<PreferenceBulkUpdateParams\Topic|TopicShape2>,
      *   tenantID?: string|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|PreferenceBulkUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -137,6 +139,10 @@ final class PreferencesRawService implements PreferencesRawContract
             $requestOptions,
         );
         $query_params = array_flip(['tenantID']);
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -146,7 +152,14 @@ final class PreferencesRawService implements PreferencesRawContract
                 array_intersect_key($parsed, $query_params),
                 ['tenantID' => 'tenant_id']
             ),
-            body: (object) array_diff_key($parsed, $query_params),
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys([...$query_params, ...$header_params]))
+            ),
             options: $options,
             convert: PreferenceBulkUpdateResponse::class,
         );

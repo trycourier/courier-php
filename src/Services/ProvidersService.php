@@ -42,10 +42,12 @@ final class ProvidersService implements ProvidersContract
      *
      * Configures a provider integration from a Courier provider key and its settings. Check the catalog endpoint for the schema each provider expects.
      *
-     * @param string $provider The provider key identifying the type (e.g. "sendgrid", "twilio"). Must be a known Courier provider — see the catalog endpoint for valid keys.
-     * @param string $alias optional alias for this configuration
-     * @param array<string,mixed> $settings Provider-specific settings (snake_case keys). Defaults to an empty object when omitted. Use the catalog endpoint to discover required fields for a given provider — omitting a required field returns a 400 validation error.
-     * @param string $title Optional display title. Omit to use "Default Configuration".
+     * @param string $provider Body param: The provider key identifying the type (e.g. "sendgrid", "twilio"). Must be a known Courier provider — see the catalog endpoint for valid keys.
+     * @param string $alias body param: Optional alias for this configuration
+     * @param array<string,mixed> $settings Body param: Provider-specific settings (snake_case keys). Defaults to an empty object when omitted. Use the catalog endpoint to discover required fields for a given provider — omitting a required field returns a 400 validation error.
+     * @param string $title Body param: Optional display title. Omit to use "Default Configuration".
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -55,6 +57,8 @@ final class ProvidersService implements ProvidersContract
         ?string $alias = null,
         ?array $settings = null,
         ?string $title = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): Provider {
         $params = Util::removeNulls(
@@ -63,6 +67,8 @@ final class ProvidersService implements ProvidersContract
                 'alias' => $alias,
                 'settings' => $settings,
                 'title' => $title,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 

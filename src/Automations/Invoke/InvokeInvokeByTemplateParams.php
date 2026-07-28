@@ -21,6 +21,8 @@ use Courier\Core\Contracts\BaseModel;
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
  *   template?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class InvokeInvokeByTemplateParams implements BaseModel
@@ -45,6 +47,12 @@ final class InvokeInvokeByTemplateParams implements BaseModel
 
     #[Optional(nullable: true)]
     public ?string $template;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new InvokeInvokeByTemplateParams()` is missing required properties by the API.
@@ -79,6 +87,8 @@ final class InvokeInvokeByTemplateParams implements BaseModel
         ?array $data = null,
         ?array $profile = null,
         ?string $template = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -88,6 +98,8 @@ final class InvokeInvokeByTemplateParams implements BaseModel
         null !== $data && $self['data'] = $data;
         null !== $profile && $self['profile'] = $profile;
         null !== $template && $self['template'] = $template;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -134,6 +146,23 @@ final class InvokeInvokeByTemplateParams implements BaseModel
     {
         $self = clone $this;
         $self['template'] = $template;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

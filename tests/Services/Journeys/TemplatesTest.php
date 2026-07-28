@@ -87,6 +87,8 @@ final class TemplatesTest extends TestCase
             ],
             providerKey: 'x',
             state: 'state',
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -225,7 +227,9 @@ final class TemplatesTest extends TestCase
         $result = $this->client->journeys->templates->publish(
             'x',
             templateID: 'x',
-            version: 'v321669910225'
+            version: 'v321669910225',
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

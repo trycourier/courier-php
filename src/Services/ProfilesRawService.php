@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Profiles\ProfileCreateParams;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
@@ -34,8 +35,12 @@ final class ProfilesRawService implements ProfilesRawContract
      *
      * Merges the supplied values into a user's profile, creating it if absent and leaving any key you omit untouched. Prefer this for everyday writes.
      *
-     * @param string $userID a unique identifier representing the user associated with the requested profile
-     * @param array{profile: array<string,mixed>}|ProfileCreateParams $params
+     * @param string $userID path param: A unique identifier representing the user associated with the requested profile
+     * @param array{
+     *   profile: array<string,mixed>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     * }|ProfileCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileNewResponse>
@@ -51,12 +56,23 @@ final class ProfilesRawService implements ProfilesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['profiles/%1$s', $userID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: ProfileNewResponse::class,
         );

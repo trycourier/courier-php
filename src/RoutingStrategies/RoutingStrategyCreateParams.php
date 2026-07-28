@@ -29,6 +29,8 @@ use Courier\MessageRouting;
  *   description?: string|null,
  *   providers?: array<string,MessageProvidersType|MessageProvidersTypeShape>|null,
  *   tags?: list<string>|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class RoutingStrategyCreateParams implements BaseModel
@@ -79,6 +81,12 @@ final class RoutingStrategyCreateParams implements BaseModel
     #[Optional(list: 'string', nullable: true)]
     public ?array $tags;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     /**
      * `new RoutingStrategyCreateParams()` is missing required properties by the API.
      *
@@ -115,6 +123,8 @@ final class RoutingStrategyCreateParams implements BaseModel
         ?string $description = null,
         ?array $providers = null,
         ?array $tags = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -125,6 +135,8 @@ final class RoutingStrategyCreateParams implements BaseModel
         null !== $description && $self['description'] = $description;
         null !== $providers && $self['providers'] = $providers;
         null !== $tags && $self['tags'] = $tags;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -199,6 +211,23 @@ final class RoutingStrategyCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['tags'] = $tags;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

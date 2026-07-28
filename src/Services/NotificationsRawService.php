@@ -55,6 +55,8 @@ final class NotificationsRawService implements NotificationsRawContract
      * @param array{
      *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
      *   state?: State|value-of<State>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|NotificationCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -70,12 +72,23 @@ final class NotificationsRawService implements NotificationsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'notifications',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: NotificationTemplateResponse::class,
         );
@@ -237,8 +250,10 @@ final class NotificationsRawService implements NotificationsRawContract
      *
      * Publish a notification template. Publishes the current draft by default. Pass a version in the request body to publish a specific historical version.
      *
-     * @param string $id template ID (nt_ prefix)
-     * @param array{version?: string}|NotificationPublishParams $params
+     * @param string $id path param: Template ID (nt_ prefix)
+     * @param array{
+     *   version?: string, idempotencyKey?: string, xIdempotencyExpiration?: string
+     * }|NotificationPublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
@@ -254,12 +269,23 @@ final class NotificationsRawService implements NotificationsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['notifications/%1$s/publish', $id],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: null,
         );

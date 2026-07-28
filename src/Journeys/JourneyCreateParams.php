@@ -20,6 +20,8 @@ use Courier\Core\Contracts\BaseModel;
  *   nodes: list<mixed>,
  *   enabled?: bool|null,
  *   state?: null|JourneyState|value-of<JourneyState>,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class JourneyCreateParams implements BaseModel
@@ -45,6 +47,12 @@ final class JourneyCreateParams implements BaseModel
      */
     #[Optional(enum: JourneyState::class)]
     public ?string $state;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new JourneyCreateParams()` is missing required properties by the API.
@@ -78,6 +86,8 @@ final class JourneyCreateParams implements BaseModel
         array $nodes,
         ?bool $enabled = null,
         JourneyState|string|null $state = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -86,6 +96,8 @@ final class JourneyCreateParams implements BaseModel
 
         null !== $enabled && $self['enabled'] = $enabled;
         null !== $state && $self['state'] = $state;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -126,6 +138,23 @@ final class JourneyCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['state'] = $state;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

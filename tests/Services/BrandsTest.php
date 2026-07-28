@@ -96,6 +96,8 @@ final class BrandsTest extends TestCase
             ],
             id: 'id',
             snippets: ['items' => [['name' => 'name', 'value' => 'value']]],
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

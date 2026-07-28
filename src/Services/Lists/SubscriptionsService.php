@@ -62,8 +62,10 @@ final class SubscriptionsService implements SubscriptionsContract
      *
      * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param string $listID a unique identifier representing the list you wish to retrieve
-     * @param list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape> $recipients
+     * @param string $listID path param: A unique identifier representing the list you wish to retrieve
+     * @param list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape> $recipients Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -71,9 +73,17 @@ final class SubscriptionsService implements SubscriptionsContract
     public function add(
         string $listID,
         array $recipients,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): mixed {
-        $params = Util::removeNulls(['recipients' => $recipients]);
+        $params = Util::removeNulls(
+            [
+                'recipients' => $recipients,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->add($listID, params: $params, requestOptions: $requestOptions);

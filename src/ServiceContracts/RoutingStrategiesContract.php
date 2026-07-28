@@ -24,12 +24,14 @@ interface RoutingStrategiesContract
     /**
      * @api
      *
-     * @param string $name human-readable name for the routing strategy
-     * @param MessageRouting|MessageRoutingShape $routing routing tree defining channel selection method and order
-     * @param array<string,Channel|ChannelShape>|null $channels Per-channel delivery configuration. Defaults to empty if omitted.
-     * @param string|null $description optional description of the routing strategy
-     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers Per-provider delivery configuration. Defaults to empty if omitted.
-     * @param list<string>|null $tags optional tags for categorization
+     * @param string $name body param: Human-readable name for the routing strategy
+     * @param MessageRouting|MessageRoutingShape $routing body param: Routing tree defining channel selection method and order
+     * @param array<string,Channel|ChannelShape>|null $channels Body param: Per-channel delivery configuration. Defaults to empty if omitted.
+     * @param string|null $description body param: Optional description of the routing strategy
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers Body param: Per-provider delivery configuration. Defaults to empty if omitted.
+     * @param list<string>|null $tags body param: Optional tags for categorization
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -41,6 +43,8 @@ interface RoutingStrategiesContract
         ?string $description = null,
         ?array $providers = null,
         ?array $tags = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): RoutingStrategyGetResponse;
 

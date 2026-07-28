@@ -26,6 +26,8 @@ use Courier\WorkspacePreferences\Topics\TopicCreateParams\DefaultStatus;
  *   includeUnsubscribeHeader?: bool|null,
  *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   topicData?: array<string,mixed>|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class TopicCreateParams implements BaseModel
@@ -92,6 +94,12 @@ final class TopicCreateParams implements BaseModel
     #[Optional('topic_data', map: 'mixed', nullable: true)]
     public ?array $topicData;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     /**
      * `new TopicCreateParams()` is missing required properties by the API.
      *
@@ -129,6 +137,8 @@ final class TopicCreateParams implements BaseModel
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -140,6 +150,8 @@ final class TopicCreateParams implements BaseModel
         null !== $includeUnsubscribeHeader && $self['includeUnsubscribeHeader'] = $includeUnsubscribeHeader;
         null !== $routingOptions && $self['routingOptions'] = $routingOptions;
         null !== $topicData && $self['topicData'] = $topicData;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -226,6 +238,23 @@ final class TopicCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['topicData'] = $topicData;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

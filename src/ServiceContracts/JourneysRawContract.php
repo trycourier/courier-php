@@ -106,7 +106,7 @@ interface JourneysRawContract
     /**
      * @api
      *
-     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
+     * @param string $templateID Path param: A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array<string,mixed>|JourneyInvokeParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -138,7 +138,7 @@ interface JourneysRawContract
     /**
      * @api
      *
-     * @param string $templateID Journey id
+     * @param string $templateID Path param: Journey id
      * @param array<string,mixed>|JourneyPublishParams $params
      * @param RequestOpts|null $requestOptions
      *

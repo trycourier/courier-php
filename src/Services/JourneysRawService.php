@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Journeys\CancelJourneyResponse;
 use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
 use Courier\Journeys\CancelJourneyResponse\TokenBranch;
@@ -47,6 +48,8 @@ final class JourneysRawService implements JourneysRawContract
      *   nodes: list<mixed>,
      *   enabled?: bool,
      *   state?: JourneyState|value-of<JourneyState>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|JourneyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -62,12 +65,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'journeys',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyResponse::class,
         );
@@ -170,7 +184,10 @@ final class JourneysRawService implements JourneysRawContract
      * Cancels in-flight journey runs, either every run sharing a cancelation token or one run by id. Use it to stop a sequence when the event resolves.
      *
      * @param array{
-     *   cancelationToken: string, runID: string
+     *   cancelationToken: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     *   runID: string,
      * }|JourneyCancelParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -186,12 +203,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'journeys/cancel',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: CancelJourneyResponse::class,
         );
@@ -202,9 +230,13 @@ final class JourneysRawService implements JourneysRawContract
      *
      * Starts a journey run for one user and returns a runId. Runs execute asynchronously, so the response arrives before any message is sent.
      *
-     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
+     * @param string $templateID Path param: A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array{
-     *   data?: array<string,mixed>, profile?: array<string,mixed>, userID?: string
+     *   data?: array<string,mixed>,
+     *   profile?: array<string,mixed>,
+     *   userID?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|JourneyInvokeParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -221,12 +253,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/invoke', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneysInvokeResponse::class,
         );
@@ -262,8 +305,10 @@ final class JourneysRawService implements JourneysRawContract
      *
      * Publishes a journey's current draft as a new version, making it live for new runs. Pass a version instead to roll back to an earlier one.
      *
-     * @param string $templateID Journey id
-     * @param array{version?: string}|JourneyPublishParams $params
+     * @param string $templateID Path param: Journey id
+     * @param array{
+     *   version?: string, idempotencyKey?: string, xIdempotencyExpiration?: string
+     * }|JourneyPublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<JourneyResponse>
@@ -279,12 +324,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/publish', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyResponse::class,
         );
