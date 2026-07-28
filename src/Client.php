@@ -14,6 +14,7 @@ use Courier\Services\AutomationsService;
 use Courier\Services\BrandsService;
 use Courier\Services\DigestsService;
 use Courier\Services\InboundService;
+use Courier\Services\InboxService;
 use Courier\Services\JourneysService;
 use Courier\Services\ListsService;
 use Courier\Services\MessagesService;
@@ -92,6 +93,11 @@ class Client extends BaseClient
      * @api
      */
     public ListsService $lists;
+
+    /**
+     * @api
+     */
+    public InboxService $inbox;
 
     /**
      * @api
@@ -205,6 +211,7 @@ class Client extends BaseClient
         $this->digests = new DigestsService($this);
         $this->inbound = new InboundService($this);
         $this->lists = new ListsService($this);
+        $this->inbox = new InboxService($this);
         $this->messages = new MessagesService($this);
         $this->requests = new RequestsService($this);
         $this->notifications = new NotificationsService($this);
