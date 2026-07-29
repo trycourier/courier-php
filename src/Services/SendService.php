@@ -13,6 +13,8 @@ use Courier\Send\SendMessageResponse;
 use Courier\ServiceContracts\SendContract;
 
 /**
+ * Send a message to one or more recipients — users, lists, audiences, or tenants — across every channel you have configured.
+ *
  * @phpstan-import-type MessageShape from \Courier\Send\SendMessageParams\Message
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

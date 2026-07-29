@@ -16,6 +16,8 @@ use Courier\ServiceContracts\ProfilesContract;
 use Courier\Services\Profiles\ListsService;
 
 /**
+ * Store the contact information Courier delivers to for each user — email, phone number, push tokens, and any custom data you send to.
+ *
  * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

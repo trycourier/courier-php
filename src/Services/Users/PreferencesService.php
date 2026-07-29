@@ -17,6 +17,8 @@ use Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic;
 use Courier\Users\Preferences\PreferenceUpdateOrNewTopicResponse;
 
 /**
+ * Read and write a single user's notification preferences, per topic and per channel.
+ *
  * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceBulkReplaceParams\Topic as TopicShape1
  * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceBulkUpdateParams\Topic as TopicShape2
  * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceUpdateOrCreateTopicParams\Topic

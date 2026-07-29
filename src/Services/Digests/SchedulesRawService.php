@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Digests\SchedulesRawContract;
 
 /**
+ * Inspect what has accumulated in a digest schedule and release a digest ahead of its next scheduled delivery.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class SchedulesRawService implements SchedulesRawContract

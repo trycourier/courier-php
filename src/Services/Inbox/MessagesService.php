@@ -10,6 +10,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Inbox\MessagesContract;
 
 /**
+ * Manage the messages in a user's in-app inbox.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class MessagesService implements MessagesContract

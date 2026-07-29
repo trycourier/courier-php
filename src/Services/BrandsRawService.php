@@ -19,6 +19,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsRawContract;
 
 /**
+ * Manage the logos, colors, and layout that give the templates you send a consistent look.
+ *
  * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
  * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions

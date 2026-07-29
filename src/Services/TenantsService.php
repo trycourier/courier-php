@@ -17,6 +17,8 @@ use Courier\Tenants\TenantListResponse;
 use Courier\Tenants\TenantListUsersResponse;
 
 /**
+ * Manage tenants — the organizations, teams, or accounts your users belong to — along with their users and default preferences.
+ *
  * @phpstan-import-type DefaultPreferencesShape from \Courier\Tenants\DefaultPreferences
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

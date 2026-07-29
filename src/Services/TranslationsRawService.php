@@ -13,6 +13,8 @@ use Courier\Translations\TranslationRetrieveParams;
 use Courier\Translations\TranslationUpdateParams;
 
 /**
+ * Store and retrieve the translation strings Courier uses to render localized template content.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TranslationsRawService implements TranslationsRawContract

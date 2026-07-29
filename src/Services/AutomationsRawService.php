@@ -14,6 +14,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AutomationsRawContract;
 
 /**
+ * Invoke a stored automation template or an ad hoc automation defined in the request.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AutomationsRawService implements AutomationsRawContract

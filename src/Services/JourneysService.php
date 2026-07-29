@@ -20,6 +20,8 @@ use Courier\ServiceContracts\JourneysContract;
 use Courier\Services\Journeys\TemplatesService;
 
 /**
+ * Build, version, publish, invoke, and cancel multi-step notification workflows, along with the templates scoped to them.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class JourneysService implements JourneysContract

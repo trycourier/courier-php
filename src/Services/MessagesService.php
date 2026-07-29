@@ -17,6 +17,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\MessagesContract;
 
 /**
+ * Look up the messages Courier has accepted, inspect their delivery history and rendered output, and cancel, resend, or archive them.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class MessagesService implements MessagesContract

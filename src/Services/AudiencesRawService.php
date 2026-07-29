@@ -20,6 +20,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AudiencesRawContract;
 
 /**
+ * Define filter-based groups whose membership Courier recalculates as user profiles change.
+ *
  * @phpstan-import-type AudienceFilterConfigShape from \Courier\AudienceFilterConfig
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

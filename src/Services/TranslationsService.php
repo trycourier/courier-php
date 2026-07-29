@@ -11,6 +11,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\TranslationsContract;
 
 /**
+ * Store and retrieve the translation strings Courier uses to render localized template content.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TranslationsService implements TranslationsContract

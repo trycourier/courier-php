@@ -13,6 +13,8 @@ use Courier\Tenants\BaseTemplateTenantAssociation;
 use Courier\Tenants\Templates\Versions\VersionRetrieveParams;
 
 /**
+ * Manage the templates and template versions scoped to a single tenant, including the ones authored in the embedded designer.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class VersionsRawService implements VersionsRawContract

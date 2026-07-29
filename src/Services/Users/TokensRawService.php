@@ -21,6 +21,8 @@ use Courier\Users\Tokens\TokenUpdateParams;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
 /**
+ * Register and manage the APNS and FCM device tokens Courier delivers push notifications to.
+ *
  * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
  * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\TokenAddSingleParams\Device
  * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate

@@ -11,6 +11,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Inbox\MessagesRawContract;
 
 /**
+ * Manage the messages in a user's in-app inbox.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class MessagesRawService implements MessagesRawContract

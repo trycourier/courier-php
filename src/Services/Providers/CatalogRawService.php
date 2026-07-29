@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Providers\CatalogRawContract;
 
 /**
+ * Configure the channel providers Courier delivers through, and browse the provider types it supports.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class CatalogRawService implements CatalogRawContract

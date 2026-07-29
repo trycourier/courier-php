@@ -17,6 +17,8 @@ use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\ServiceContracts\RoutingStrategiesContract;
 
 /**
+ * Define reusable channel routing and failover strategies, and see which templates use them.
+ *
  * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
  * @phpstan-import-type ChannelShape from \Courier\Channel
  * @phpstan-import-type MessageProvidersTypeShape from \Courier\MessageProvidersType
