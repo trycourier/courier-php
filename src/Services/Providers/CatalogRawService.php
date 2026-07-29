@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Providers\CatalogRawContract;
 
 /**
+ * Configure the channel providers Courier delivers through, and browse the provider types it supports.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class CatalogRawService implements CatalogRawContract
@@ -26,7 +28,7 @@ final class CatalogRawService implements CatalogRawContract
     /**
      * @api
      *
-     * Returns the catalog of available provider types with their display names, descriptions, and configuration schema fields (snake_case, with `type` and `required`). Providers with no configurable schema return only `provider`, `name`, and `description`.
+     * Returns the provider types Courier supports, each with a display name, description, and the configuration fields it requires.
      *
      * @param array{
      *   channel?: string, keys?: string, name?: string

@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Retrieve the submission checks for a notification template.
+ * Returns the approval checks recorded for a template submission, each with its pass or fail result.
  *
  * @see Courier\Services\Notifications\ChecksService::list()
  *

@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Digests\SchedulesRawContract;
 
 /**
+ * Inspect what has accumulated in a digest schedule and release a digest ahead of its next scheduled delivery.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class SchedulesRawService implements SchedulesRawContract
@@ -26,7 +28,7 @@ final class SchedulesRawService implements SchedulesRawContract
     /**
      * @api
      *
-     * List the digest instances for a schedule. Each instance represents the events accumulated for a single user against the schedule, and can be used to monitor digest accumulation before the digest is released.
+     * Returns the digest instances for a schedule, one per user, with cursor paging. Use it to see what has accumulated before a digest releases.
      *
      * @param string $scheduleID The ID of the digest schedule, in the form `sch/{uuid}`. The value must be URL-encoded (e.g. `sch%2F00000000-0000-0000-0000-000000000000`).
      * @param array{cursor?: string, limit?: int}|ScheduleListInstancesParams $params

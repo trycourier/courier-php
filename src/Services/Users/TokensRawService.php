@@ -21,6 +21,8 @@ use Courier\Users\Tokens\TokenUpdateParams;
 use Courier\Users\Tokens\TokenUpdateParams\Patch;
 
 /**
+ * Register and manage the APNS and FCM device tokens Courier delivers push notifications to.
+ *
  * @phpstan-import-type PatchShape from \Courier\Users\Tokens\TokenUpdateParams\Patch
  * @phpstan-import-type DeviceShape from \Courier\Users\Tokens\TokenAddSingleParams\Device
  * @phpstan-import-type ExpiryDateShape from \Courier\Users\Tokens\TokenAddSingleParams\ExpiryDate
@@ -38,7 +40,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Get single token available for a `:token`
+     * Returns one device token with its provider key, status and status reason, expiry date, and any properties stored alongside it.
      *
      * @param string $token the full token string
      * @param array{userID: string}|TokenRetrieveParams $params
@@ -72,7 +74,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Apply a JSON Patch (RFC 6902) to the specified token.
+     * Applies a JSON Patch to a device token, changing its status, expiry, or properties without re-registering it.
      *
      * @param string $token path param: The full token string
      * @param array{
@@ -109,7 +111,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Gets all tokens available for a :user_id
+     * Returns every device token registered for a user, each with its provider key, status, and expiry date.
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
      * @param RequestOpts|null $requestOptions
@@ -134,7 +136,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Delete User Token
+     * Deletes one device token for a user, addressed by the token value, so push sends no longer target that device.
      *
      * @param string $token the full token string
      * @param array{userID: string}|TokenDeleteParams $params
@@ -168,7 +170,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Adds multiple tokens to a user and overwrites matching existing tokens.
+     * Registers several device tokens for a user in one call, overwriting any stored token with a matching value.
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
      * @param RequestOpts|null $requestOptions
@@ -193,7 +195,7 @@ final class TokensRawService implements TokensRawContract
     /**
      * @api
      *
-     * Adds a single token to a user and overwrites a matching existing token.
+     * Registers one device token for a user against a provider key, overwriting the token if it already exists. Push sends resolve tokens per user.
      *
      * @param string $token path param: The full token string
      * @param array{

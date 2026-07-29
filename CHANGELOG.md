@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.14.0 (2026-07-29)
+
+Full Changelog: [v5.13.0...v5.14.0](https://github.com/trycourier/courier-php/compare/v5.13.0...v5.14.0)
+
+### Features
+
+* Document DELETE/PUT restore for inbox messages (C-19268) ([#175](https://github.com/trycourier/courier-php/issues/175)) ([39d6d12](https://github.com/trycourier/courier-php/commit/39d6d12c8608e3818d9bfb610bdf1068c063609c))
+* spec: rename and reorder the API reference sections ([#179](https://github.com/trycourier/courier-php/issues/179)) ([59a7ab7](https://github.com/trycourier/courier-php/commit/59a7ab7b6aa907e45aaeba5d78b11b1fe7b809e5))
+
+
+### Documentation
+
+* **openapi:** describe user topic-preference fields explicitly ([#172](https://github.com/trycourier/courier-php/issues/172)) ([118ad39](https://github.com/trycourier/courier-php/commit/118ad3932b1feb9950ee303995db021ff183bc29))
+* **openapi:** document Idempotency-Key header on idempotent POST endpoints ([#176](https://github.com/trycourier/courier-php/issues/176)) ([35d4b77](https://github.com/trycourier/courier-php/commit/35d4b77c524620ad8cd3e14db52e556da51d02f2))
+* **openapi:** rewrite operation descriptions for agents and SEO ([#174](https://github.com/trycourier/courier-php/issues/174)) ([4cadcbf](https://github.com/trycourier/courier-php/commit/4cadcbf051dd0e32c9b1427073adf33619b70cbf))
+
 ## 5.13.0 (2026-07-23)
 
 Full Changelog: [v5.12.0...v5.13.0](https://github.com/trycourier/courier-php/compare/v5.12.0...v5.13.0)

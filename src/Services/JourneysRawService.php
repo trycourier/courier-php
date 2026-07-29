@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Journeys\CancelJourneyResponse;
 use Courier\Journeys\CancelJourneyResponse\RunIDBranch;
 use Courier\Journeys\CancelJourneyResponse\TokenBranch;
@@ -27,6 +28,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\JourneysRawContract;
 
 /**
+ * Build, version, publish, invoke, and cancel multi-step notification workflows, along with the templates scoped to them.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class JourneysRawService implements JourneysRawContract
@@ -40,13 +43,15 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Create a journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create. Send nodes are not allowed on `POST`. The standard flow is: create the journey shell here, add notification templates with `POST /journeys/{templateId}/templates`, then wire them into the journey with `PUT /journeys/{templateId}`. Call `POST /journeys/{templateId}/publish` to publish a draft after the fact.
+     * Creates a journey from a set of nodes, in draft state unless you pass a published state. Send nodes cannot be included until their templates exist.
      *
      * @param array{
      *   name: string,
      *   nodes: list<mixed>,
      *   enabled?: bool,
      *   state?: JourneyState|value-of<JourneyState>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|JourneyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -62,12 +67,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'journeys',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyResponse::class,
         );
@@ -109,7 +125,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Get the list of journeys.
+     * Lists the workspace's journeys, each carrying a name, state, and enabled flag. Paged by cursor.
      *
      * @param array{
      *   cursor?: string, version?: Version|value-of<Version>
@@ -142,7 +158,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Archive a journey. Archived journeys cannot be invoked. Existing journey runs continue to completion.
+     * Archives a journey so it can no longer be invoked. Runs already in flight continue to completion, so archiving never strands a user mid-sequence.
      *
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
@@ -167,10 +183,13 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Cancel journey runs. The request body must include EXACTLY ONE of `cancelation_token` (cancels every run associated with the token) or `run_id` (cancels a single tenant-scoped run). Supplying both or neither returns a `400`. A `run_id` that does not match a run for the tenant returns `404`. Cancelation is idempotent: a run that has already finished (`PROCESSED`/`ERROR`) or was already `CANCELED` is left unchanged and its current status is returned.
+     * Cancels in-flight journey runs, either every run sharing a cancelation token or one run by id. Use it to stop a sequence when the event resolves.
      *
      * @param array{
-     *   cancelationToken: string, runID: string
+     *   cancelationToken: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     *   runID: string,
      * }|JourneyCancelParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -186,12 +205,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'journeys/cancel',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: CancelJourneyResponse::class,
         );
@@ -200,11 +230,15 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Invoke a journey by id or alias to start a new run. The response includes a `runId` identifying the run.
+     * Starts a journey run for one user and returns a runId. Runs execute asynchronously, so the response arrives before any message is sent.
      *
-     * @param string $templateID A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
+     * @param string $templateID Path param: A unique identifier representing the journey to be invoked. Accepts a Journey ID or Journey Alias.
      * @param array{
-     *   data?: array<string,mixed>, profile?: array<string,mixed>, userID?: string
+     *   data?: array<string,mixed>,
+     *   profile?: array<string,mixed>,
+     *   userID?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|JourneyInvokeParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -221,12 +255,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/invoke', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneysInvokeResponse::class,
         );
@@ -235,7 +280,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * List published versions of a journey, ordered most recent first.
+     * Lists a journey's published versions, most recent first, so you have a version id to roll back to. Paged by cursor.
      *
      * @param string $templateID Journey id
      * @param RequestOpts|null $requestOptions
@@ -260,10 +305,12 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Publish the current draft as a new version. Body is optional; pass `{ "version": "vN" }` to roll back to a prior version instead. Returns 404 if the journey has no draft to publish.
+     * Publishes a journey's current draft as a new version, making it live for new runs. Pass a version instead to roll back to an earlier one.
      *
-     * @param string $templateID Journey id
-     * @param array{version?: string}|JourneyPublishParams $params
+     * @param string $templateID Path param: Journey id
+     * @param array{
+     *   version?: string, idempotencyKey?: string, xIdempotencyExpiration?: string
+     * }|JourneyPublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<JourneyResponse>
@@ -279,12 +326,23 @@ final class JourneysRawService implements JourneysRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/publish', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyResponse::class,
         );
@@ -293,7 +351,7 @@ final class JourneysRawService implements JourneysRawContract
     /**
      * @api
      *
-     * Replace the journey draft. Updates the working draft only; call `POST /journeys/{templateId}/publish` to make it live, or pass `state: "PUBLISHED"` in this request to publish immediately. Send-node `template` ids must already exist and be scoped to this journey, and node ids must not be claimed by another journey.
+     * Replaces a journey's working draft, leaving the published version live until you publish. Reach for this when editing a journey already running.
      *
      * @param string $templateID Journey id
      * @param array{

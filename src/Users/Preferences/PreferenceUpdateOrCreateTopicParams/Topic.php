@@ -23,12 +23,16 @@ final class Topic implements BaseModel
     /** @use SdkModel<TopicShape> */
     use SdkModel;
 
-    /** @var value-of<PreferenceStatus> $status */
+    /**
+     * The subscription status to set: OPTED_IN or OPTED_OUT. REQUIRED is a topic-level default, not a user choice; the API rejects opting a user out of a REQUIRED topic.
+     *
+     * @var value-of<PreferenceStatus> $status
+     */
     #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
     /**
-     * The Channels a user has chosen to receive notifications through for this topic.
+     * The channels to deliver this topic on when has_custom_routing is true. One or more of: direct_message, email, push, sms, webhook, inbox.
      *
      * @var list<value-of<ChannelClassification>>|null $customRouting
      */
@@ -39,6 +43,9 @@ final class Topic implements BaseModel
     )]
     public ?array $customRouting;
 
+    /**
+     * Set to true to route this topic to the channels in custom_routing instead of the topic's default routing.
+     */
     #[Optional('has_custom_routing', nullable: true)]
     public ?bool $hasCustomRouting;
 
@@ -85,6 +92,8 @@ final class Topic implements BaseModel
     }
 
     /**
+     * The subscription status to set: OPTED_IN or OPTED_OUT. REQUIRED is a topic-level default, not a user choice; the API rejects opting a user out of a REQUIRED topic.
+     *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      */
     public function withStatus(PreferenceStatus|string $status): self
@@ -96,7 +105,7 @@ final class Topic implements BaseModel
     }
 
     /**
-     * The Channels a user has chosen to receive notifications through for this topic.
+     * The channels to deliver this topic on when has_custom_routing is true. One or more of: direct_message, email, push, sms, webhook, inbox.
      *
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
      */
@@ -108,6 +117,9 @@ final class Topic implements BaseModel
         return $self;
     }
 
+    /**
+     * Set to true to route this topic to the channels in custom_routing instead of the topic's default routing.
+     */
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $self = clone $this;

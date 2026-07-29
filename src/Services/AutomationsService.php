@@ -14,6 +14,8 @@ use Courier\ServiceContracts\AutomationsContract;
 use Courier\Services\Automations\InvokeService;
 
 /**
+ * Invoke a stored automation template or an ad hoc automation defined in the request.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AutomationsService implements AutomationsContract
@@ -40,7 +42,7 @@ final class AutomationsService implements AutomationsContract
     /**
      * @api
      *
-     * Get the list of automations.
+     * Lists the workspace's saved automation templates, each with its id and a cursor for paging to the next page of results.
      *
      * @param string $cursor A cursor token for pagination. Use the cursor from the previous response to fetch the next page of results.
      * @param Version|value-of<Version> $version The version of templates to retrieve. Accepted values are published (for published templates) or draft (for draft templates). Defaults to published.

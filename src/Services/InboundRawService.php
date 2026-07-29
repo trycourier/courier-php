@@ -14,6 +14,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\InboundRawContract;
 
 /**
+ * Record an inbound event that triggers the journeys and automations mapped to it.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class InboundRawService implements InboundRawContract
@@ -27,7 +29,7 @@ final class InboundRawService implements InboundRawContract
     /**
      * @api
      *
-     * Courier Track Event
+     * Records an inbound event that can trigger a journey. Requires an event name, a messageId you generate, a type, and a properties object.
      *
      * @param array{
      *   event: string,

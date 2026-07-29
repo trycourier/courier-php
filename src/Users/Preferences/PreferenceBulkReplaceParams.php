@@ -12,11 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Preferences\PreferenceBulkReplaceParams\Topic;
 
 /**
- * Replace a user's complete set of preference overrides in a single request. The topics in the request body become the recipient's entire set of overrides: listed topics are created or updated, and every existing override that is not included in the body is reset to its topic default. Submitting an empty `topics` array is a valid clear-all that resets every existing override.
- *
- * This operation is validation-atomic (all-or-nothing): structural validation fails fast with a single `400`, and if any topic is semantically invalid (an unknown topic, a `REQUIRED` topic that cannot be opted out, or a custom routing request that is not available on the workspace's plan) the request returns a single `400` aggregating every failure in `errors` and writes nothing. On success it returns `200` with `items` (the complete resulting override set) and `deleted` (the ids of the overrides that were reset to default).
- *
- * Every `topic_id` in the response — in `items`, `deleted`, and any `errors` — is returned in Courier's canonical topic id form, regardless of the form supplied in the request.
+ * Replaces a user's entire set of preference overrides. Any topic you leave out is reset to its default, so send the full set rather than a subset.
  *
  * @see Courier\Services\Users\PreferencesService::bulkReplace()
  *

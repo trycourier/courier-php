@@ -11,11 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\TenantAssociation;
 
 /**
- * This endpoint is used to add a user to
- * multiple tenants in one call.
- * A custom profile can also be supplied for each tenant.
- * This profile will be merged with the user's main
- * profile when sending to the user with that tenant.
+ * Adds a user to several tenants in one call, each optionally with a per-tenant profile that overrides their workspace profile.
  *
  * @see Courier\Services\Users\TenantsService::addMultiple()
  *

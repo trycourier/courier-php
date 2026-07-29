@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Returns the subscribed lists for a specified user.
+ * Returns the lists a user is subscribed to, with paging. Use it to check what a recipient will receive before sending to a list.
  *
  * @see Courier\Services\Profiles\ListsService::retrieve()
  *

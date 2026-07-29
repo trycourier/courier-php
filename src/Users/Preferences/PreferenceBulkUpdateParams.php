@@ -12,18 +12,17 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Users\Preferences\PreferenceBulkUpdateParams\Topic;
 
 /**
- * Additively create or update a user's preferences for one or more subscription topics in a single request. Only the topics included in the request body are created or updated; any existing overrides for topics not listed are left untouched.
- *
- * Structural validation of the request body fails fast with a single `400`. Beyond that, each topic is processed independently (partial-success, not all-or-nothing): valid topics are written and returned in `items`, while topics that cannot be applied are collected in `errors` with a per-topic `reason` (for example an unknown topic, a `REQUIRED` topic that cannot be opted out, a custom routing request that is not available on the workspace's plan, or a write failure). The request therefore returns `200` with both lists whenever the body is structurally valid.
- *
- * Every `topic_id` in the response — in both `items` and `errors` — is returned in Courier's canonical topic id form, regardless of the form supplied in the request.
+ * Adds or updates a user's preferences for several subscription topics at once. Topics you leave out keep whatever they were set to before.
  *
  * @see Courier\Services\Users\PreferencesService::bulkUpdate()
  *
  * @phpstan-import-type TopicShape from \Courier\Users\Preferences\PreferenceBulkUpdateParams\Topic
  *
  * @phpstan-type PreferenceBulkUpdateParamsShape = array{
- *   topics: list<Topic|TopicShape>, tenantID?: string|null
+ *   topics: list<Topic|TopicShape>,
+ *   tenantID?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class PreferenceBulkUpdateParams implements BaseModel
@@ -45,6 +44,12 @@ final class PreferenceBulkUpdateParams implements BaseModel
      */
     #[Optional(nullable: true)]
     public ?string $tenantID;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new PreferenceBulkUpdateParams()` is missing required properties by the API.
@@ -72,13 +77,19 @@ final class PreferenceBulkUpdateParams implements BaseModel
      *
      * @param list<Topic|TopicShape> $topics
      */
-    public static function with(array $topics, ?string $tenantID = null): self
-    {
+    public static function with(
+        array $topics,
+        ?string $tenantID = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         $self['topics'] = $topics;
 
         null !== $tenantID && $self['tenantID'] = $tenantID;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -103,6 +114,23 @@ final class PreferenceBulkUpdateParams implements BaseModel
     {
         $self = clone $this;
         $self['tenantID'] = $tenantID;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

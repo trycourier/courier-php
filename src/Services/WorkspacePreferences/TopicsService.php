@@ -16,6 +16,8 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TopicsService implements TopicsContract
@@ -36,16 +38,18 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Create a subscription preference topic inside a workspace preference. Fails with 404 if the workspace preference does not exist. The topic id is generated and returned.
+     * Creates a subscription topic inside a workspace preference. The default status sets whether users start opted in, opted out, or required.
      *
-     * @param string $sectionID id of the workspace preference to create the topic in
-     * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus the default subscription status applied when a recipient has not set their own
-     * @param string $name human-readable name for the preference topic
-     * @param list<AllowedPreference|value-of<AllowedPreference>>|null $allowedPreferences Preference controls a recipient may customize for this topic. Defaults to empty if omitted.
-     * @param string|null $description optional description shown under the topic on the hosted preferences page
-     * @param bool|null $includeUnsubscribeHeader whether to include a list-unsubscribe header on emails for this topic
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Default channels delivered for this topic. Defaults to empty if omitted.
-     * @param array<string,mixed>|null $topicData arbitrary metadata associated with the topic
+     * @param string $sectionID path param: Id of the workspace preference to create the topic in
+     * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus body param: The default subscription status applied when a recipient has not set their own
+     * @param string $name body param: Human-readable name for the preference topic
+     * @param list<AllowedPreference|value-of<AllowedPreference>>|null $allowedPreferences Body param: Preference controls a recipient may customize for this topic. Defaults to empty if omitted.
+     * @param string|null $description body param: Optional description shown under the topic on the hosted preferences page
+     * @param bool|null $includeUnsubscribeHeader body param: Whether to include a list-unsubscribe header on emails for this topic
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Body param: Default channels delivered for this topic. Defaults to empty if omitted.
+     * @param array<string,mixed>|null $topicData body param: Arbitrary metadata associated with the topic
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -59,6 +63,8 @@ final class TopicsService implements TopicsContract
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): WorkspacePreferenceTopicGetResponse {
         $params = Util::removeNulls(
@@ -70,6 +76,8 @@ final class TopicsService implements TopicsContract
                 'includeUnsubscribeHeader' => $includeUnsubscribeHeader,
                 'routingOptions' => $routingOptions,
                 'topicData' => $topicData,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 
@@ -82,7 +90,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Retrieve a topic within a workspace preference. Returns 404 if the workspace preference does not exist, the topic does not exist, or the topic belongs to a different workspace preference.
+     * Returns one subscription topic with its default status, routing options, allowed preferences, and unsubscribe header setting.
      *
      * @param string $topicID id of the subscription preference topic
      * @param string $sectionID id of the workspace preference
@@ -106,7 +114,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * List the topics in a workspace preference.
+     * Returns the subscription topics inside a workspace preference, each with its default status and routing options.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -126,7 +134,7 @@ final class TopicsService implements TopicsContract
     /**
      * @api
      *
-     * Archive a topic and remove it from its workspace preference. Same 404 rules as GET.
+     * Archives a subscription topic and removes it from its workspace preference, addressed by section id and topic id.
      *
      * @param string $topicID id of the subscription preference topic
      * @param string $sectionID id of the workspace preference

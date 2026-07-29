@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Fetch user preferences for a specific subscription topic.
+ * Returns a user's opt-in status and channel choices for one subscription topic, or the effective default if they have set no override.
  *
  * @see Courier\Services\Users\PreferencesService::retrieveTopic()
  *

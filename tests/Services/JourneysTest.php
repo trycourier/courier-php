@@ -78,6 +78,8 @@ final class JourneysTest extends TestCase
             ],
             enabled: true,
             state: JourneyState::DRAFT,
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -148,7 +150,9 @@ final class JourneysTest extends TestCase
 
         $result = $this->client->journeys->cancel(
             cancelationToken: 'x',
-            runID: 'x'
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
+            runID: 'x',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

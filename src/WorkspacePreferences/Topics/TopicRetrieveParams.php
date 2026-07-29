@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Retrieve a topic within a workspace preference. Returns 404 if the workspace preference does not exist, the topic does not exist, or the topic belongs to a different workspace preference.
+ * Returns one subscription topic with its default status, routing options, allowed preferences, and unsubscribe header setting.
  *
  * @see Courier\Services\WorkspacePreferences\TopicsService::retrieve()
  *

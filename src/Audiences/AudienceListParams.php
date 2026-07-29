@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get the audiences associated with the authorization token.
+ * Returns the audiences in the workspace with paging. Audiences are filter-based groups that recalculate as user profiles change.
  *
  * @see Courier\Services\AudiencesService::list()
  *

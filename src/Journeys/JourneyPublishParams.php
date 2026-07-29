@@ -10,11 +10,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the current draft as a new version. Body is optional; pass `{ "version": "vN" }` to roll back to a prior version instead. Returns 404 if the journey has no draft to publish.
+ * Publishes a journey's current draft as a new version, making it live for new runs. Pass a version instead to roll back to an earlier one.
  *
  * @see Courier\Services\JourneysService::publish()
  *
- * @phpstan-type JourneyPublishParamsShape = array{version?: string|null}
+ * @phpstan-type JourneyPublishParamsShape = array{
+ *   version?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
+ * }
  */
 final class JourneyPublishParams implements BaseModel
 {
@@ -24,6 +28,12 @@ final class JourneyPublishParams implements BaseModel
 
     #[Optional]
     public ?string $version;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     public function __construct()
     {
@@ -35,11 +45,16 @@ final class JourneyPublishParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(?string $version = null): self
-    {
+    public static function with(
+        ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         null !== $version && $self['version'] = $version;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -48,6 +63,23 @@ final class JourneyPublishParams implements BaseModel
     {
         $self = clone $this;
         $self['version'] = $version;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

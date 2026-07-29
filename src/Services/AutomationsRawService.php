@@ -14,6 +14,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AutomationsRawContract;
 
 /**
+ * Invoke a stored automation template or an ad hoc automation defined in the request.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AutomationsRawService implements AutomationsRawContract
@@ -27,7 +29,7 @@ final class AutomationsRawService implements AutomationsRawContract
     /**
      * @api
      *
-     * Get the list of automations.
+     * Lists the workspace's saved automation templates, each with its id and a cursor for paging to the next page of results.
      *
      * @param array{
      *   cursor?: string, version?: Version|value-of<Version>

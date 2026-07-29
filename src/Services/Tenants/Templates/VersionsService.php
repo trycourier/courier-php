@@ -12,6 +12,8 @@ use Courier\ServiceContracts\Tenants\Templates\VersionsContract;
 use Courier\Tenants\BaseTemplateTenantAssociation;
 
 /**
+ * Manage the templates and template versions scoped to a single tenant, including the ones authored in the embedded designer.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class VersionsService implements VersionsContract
@@ -32,12 +34,7 @@ final class VersionsService implements VersionsContract
     /**
      * @api
      *
-     * Fetches a specific version of a tenant template.
-     *
-     * Supports the following version formats:
-     * - `latest` - The most recent version of the template
-     * - `published` - The currently published version
-     * - `v{version}` - A specific version (e.g., "v1", "v2", "v1.0.0")
+     * Returns one version of a tenant template, addressed by version number or by latest, with its content and publish timestamp.
      *
      * @param string $version Version of the template to retrieve. Accepts "latest", "published", or a specific version string (e.g., "v1", "v2").
      * @param string $tenantID id of the tenant for which to retrieve the template

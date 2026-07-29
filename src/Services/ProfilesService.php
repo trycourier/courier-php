@@ -16,6 +16,8 @@ use Courier\ServiceContracts\ProfilesContract;
 use Courier\Services\Profiles\ListsService;
 
 /**
+ * Store the contact information Courier delivers to for each user — email, phone number, push tokens, and any custom data you send to.
+ *
  * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -43,10 +45,12 @@ final class ProfilesService implements ProfilesContract
     /**
      * @api
      *
-     * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
+     * Merges the supplied values into a user's profile, creating it if absent and leaving any key you omit untouched. Prefer this for everyday writes.
      *
-     * @param string $userID a unique identifier representing the user associated with the requested profile
-     * @param array<string,mixed> $profile
+     * @param string $userID path param: A unique identifier representing the user associated with the requested profile
+     * @param array<string,mixed> $profile Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -54,9 +58,17 @@ final class ProfilesService implements ProfilesContract
     public function create(
         string $userID,
         array $profile,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): ProfileNewResponse {
-        $params = Util::removeNulls(['profile' => $profile]);
+        $params = Util::removeNulls(
+            [
+                'profile' => $profile,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
+        );
 
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->create($userID, params: $params, requestOptions: $requestOptions);
@@ -67,7 +79,7 @@ final class ProfilesService implements ProfilesContract
     /**
      * @api
      *
-     * Returns the specified user profile.
+     * Returns a user's stored profile and preferences, including the email address, phone number, and push tokens Courier can reach them on.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param RequestOpts|null $requestOptions
@@ -87,7 +99,7 @@ final class ProfilesService implements ProfilesContract
     /**
      * @api
      *
-     * Update a profile
+     * Applies a JSON Patch to a user profile, adding, removing, or replacing individual fields without sending the whole object.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param list<Patch|PatchShape> $patch list of patch operations to apply to the profile
@@ -111,7 +123,7 @@ final class ProfilesService implements ProfilesContract
     /**
      * @api
      *
-     * Deletes the specified user profile.
+     * Deletes a user's profile and stored contact details. List subscriptions and preferences are separate resources, so remove those too if required.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param RequestOpts|null $requestOptions
@@ -131,10 +143,7 @@ final class ProfilesService implements ProfilesContract
     /**
      * @api
      *
-     * When using `PUT`, be sure to include all the key-value pairs required by the recipient's profile.
-     * Any key-value pairs that exist in the profile but fail to be included in the `PUT` request will be
-     * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
-     * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
+     * Overwrites a user profile in full, removing any key absent from the request body. Use the patch endpoint when changing a single field.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed> $profile

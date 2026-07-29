@@ -13,6 +13,8 @@ use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantListResponse;
 
 /**
+ * Associate a user with one or more tenants, and read or remove those associations.
+ *
  * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -34,7 +36,7 @@ final class TenantsService implements TenantsContract
     /**
      * @api
      *
-     * Returns a paginated list of user tenant associations.
+     * Returns the tenants a user belongs to, with cursor paging. A user can belong to many tenants, each with its own profile and preferences.
      *
      * @param string $userID id of the user to retrieve all associated tenants for
      * @param string|null $cursor Continue the pagination with the next cursor
@@ -61,11 +63,7 @@ final class TenantsService implements TenantsContract
     /**
      * @api
      *
-     * This endpoint is used to add a user to
-     * multiple tenants in one call.
-     * A custom profile can also be supplied for each tenant.
-     * This profile will be merged with the user's main
-     * profile when sending to the user with that tenant.
+     * Adds a user to several tenants in one call, each optionally with a per-tenant profile that overrides their workspace profile.
      *
      * @param string $userID The user's ID. This can be any uniquely identifiable string.
      * @param list<TenantAssociation|TenantAssociationShape> $tenants
@@ -89,11 +87,7 @@ final class TenantsService implements TenantsContract
     /**
      * @api
      *
-     * This endpoint is used to add a single tenant.
-     *
-     * A custom profile can also be supplied with the tenant.
-     * This profile will be merged with the user's main profile
-     * when sending to the user with that tenant.
+     * Adds a user to one tenant, optionally with a tenant-specific profile that overrides their workspace profile for sends in that tenant.
      *
      * @param string $tenantID path param: Id of the tenant the user should be added to
      * @param string $userID path param: Id of the user to be added to the supplied tenant
@@ -119,7 +113,7 @@ final class TenantsService implements TenantsContract
     /**
      * @api
      *
-     * Removes a user from any tenants they may have been associated with.
+     * Removes a user from every tenant they belong to in one call. Their workspace-level profile is a separate resource.
      *
      * @param string $userID id of the user to be removed from the supplied tenant
      * @param RequestOpts|null $requestOptions
@@ -139,7 +133,7 @@ final class TenantsService implements TenantsContract
     /**
      * @api
      *
-     * Removes a user from the supplied tenant.
+     * Removes a user from one tenant. Their other tenant memberships and workspace profile are managed through separate endpoints.
      *
      * @param string $tenantID id of the tenant the user should be removed from
      * @param string $userID id of the user to be removed from the supplied tenant

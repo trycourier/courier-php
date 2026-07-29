@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Core\Conversion\ListOf;
 
 /**
- * Fetch the statuses of messages you've previously sent.
+ * Returns previously sent messages, most recent first, each carrying its status, recipient, channel, and provider. Paged by cursor.
  *
  * @see Courier\Services\MessagesService::list()
  *

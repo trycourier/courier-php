@@ -13,7 +13,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 /**
- * Create or Replace Default Preferences For Topic.
+ * Sets a tenant's default opt-in status for one subscription topic, which applies to every member unless a user sets their own override.
  *
  * @see Courier\Services\Tenants\Preferences\ItemsService::update()
  *

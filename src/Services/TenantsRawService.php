@@ -19,6 +19,8 @@ use Courier\Tenants\TenantListUsersResponse;
 use Courier\Tenants\TenantUpdateParams;
 
 /**
+ * Manage tenants — the organizations, teams, or accounts your users belong to — along with their users and default preferences.
+ *
  * @phpstan-import-type DefaultPreferencesShape from \Courier\Tenants\DefaultPreferences
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -33,7 +35,7 @@ final class TenantsRawService implements TenantsRawContract
     /**
      * @api
      *
-     * Get a Tenant
+     * Returns one tenant with its name, parent tenant id, default preferences, properties, and the user profile applied to its members.
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
      * @param RequestOpts|null $requestOptions
@@ -58,7 +60,7 @@ final class TenantsRawService implements TenantsRawContract
     /**
      * @api
      *
-     * Create or Replace a Tenant
+     * Creates or replaces a tenant from a name, parent, brand, properties, and default preferences supplied in the request body.
      *
      * @param string $tenantID a unique identifier representing the tenant to be returned
      * @param array{
@@ -98,7 +100,7 @@ final class TenantsRawService implements TenantsRawContract
     /**
      * @api
      *
-     * Get a List of Tenants
+     * Lists the workspace's tenants, each carrying a name, parent tenant, properties, and default preferences. Paged.
      *
      * @param array{
      *   cursor?: string|null, limit?: int|null, parentTenantID?: string|null
@@ -134,7 +136,7 @@ final class TenantsRawService implements TenantsRawContract
     /**
      * @api
      *
-     * Delete a Tenant
+     * Deletes a tenant. Its members' workspace-level profiles and preferences live outside the tenant and are managed separately.
      *
      * @param string $tenantID id of the tenant to be deleted
      * @param RequestOpts|null $requestOptions
@@ -159,7 +161,7 @@ final class TenantsRawService implements TenantsRawContract
     /**
      * @api
      *
-     * Get Users in Tenant
+     * Returns the users belonging to a tenant with cursor paging. Use it to see who a tenant-scoped send will reach.
      *
      * @param string $tenantID id of the tenant for user membership
      * @param array{

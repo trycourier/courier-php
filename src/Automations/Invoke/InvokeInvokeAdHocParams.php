@@ -12,7 +12,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke an ad hoc automation run. This endpoint accepts a JSON payload with a series of automation steps. For information about what steps are available, checkout the ad hoc automation guide [here](https://www.courier.com/docs/automations/steps/).
+ * Runs a series of automation steps supplied inline, without a saved template, and returns a runId.
  *
  * @see Courier\Services\Automations\InvokeService::invokeAdHoc()
  *
@@ -25,6 +25,8 @@ use Courier\Core\Contracts\BaseModel;
  *   profile?: array<string,mixed>|null,
  *   recipient?: string|null,
  *   template?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class InvokeInvokeAdHocParams implements BaseModel
@@ -52,6 +54,12 @@ final class InvokeInvokeAdHocParams implements BaseModel
 
     #[Optional(nullable: true)]
     public ?string $template;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new InvokeInvokeAdHocParams()` is missing required properties by the API.
@@ -88,6 +96,8 @@ final class InvokeInvokeAdHocParams implements BaseModel
         ?array $profile = null,
         ?string $recipient = null,
         ?string $template = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -98,6 +108,8 @@ final class InvokeInvokeAdHocParams implements BaseModel
         null !== $profile && $self['profile'] = $profile;
         null !== $recipient && $self['recipient'] = $recipient;
         null !== $template && $self['template'] = $template;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -155,6 +167,23 @@ final class InvokeInvokeAdHocParams implements BaseModel
     {
         $self = clone $this;
         $self['template'] = $template;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

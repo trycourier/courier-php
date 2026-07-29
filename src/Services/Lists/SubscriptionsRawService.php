@@ -7,6 +7,7 @@ namespace Courier\Services\Lists;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Lists\PutSubscriptionsRecipient;
 use Courier\Lists\Subscriptions\SubscriptionAddParams;
 use Courier\Lists\Subscriptions\SubscriptionListParams;
@@ -19,6 +20,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Lists\SubscriptionsRawContract;
 
 /**
+ * Manage static groups of users that you subscribe explicitly, and send to them by list id or list pattern.
+ *
  * @phpstan-import-type RecipientPreferencesShape from \Courier\RecipientPreferences
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  * @phpstan-import-type PutSubscriptionsRecipientShape from \Courier\Lists\PutSubscriptionsRecipient
@@ -34,7 +37,7 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
     /**
      * @api
      *
-     * Get the list's subscriptions.
+     * Returns the users subscribed to a list with paging, each with the preferences recorded for that subscription.
      *
      * @param string $listID a unique identifier representing the list you wish to retrieve
      * @param array{cursor?: string|null}|SubscriptionListParams $params
@@ -69,9 +72,11 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
      *
      * Subscribes additional users to the list, without modifying existing subscriptions. If the list does not exist, it will be automatically created.
      *
-     * @param string $listID a unique identifier representing the list you wish to retrieve
+     * @param string $listID path param: A unique identifier representing the list you wish to retrieve
      * @param array{
-     *   recipients: list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape>
+     *   recipients: list<PutSubscriptionsRecipient|PutSubscriptionsRecipientShape>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|SubscriptionAddParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -88,12 +93,23 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['lists/%1$s/subscriptions', $listID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: null,
         );
@@ -137,7 +153,7 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
     /**
      * @api
      *
-     * Subscribe a user to an existing list (note: if the List does not exist, it will be automatically created).
+     * Subscribes one user to a list, creating the list if it does not yet exist. Optional preferences apply to this subscription only.
      *
      * @param string $userID Path param: A unique identifier representing the recipient associated with the list
      * @param array{
@@ -175,7 +191,7 @@ final class SubscriptionsRawService implements SubscriptionsRawContract
     /**
      * @api
      *
-     * Delete a subscription to a list by list ID and user ID.
+     * Removes one user's subscription to a list, addressed by list id and user id. The user's profile and other subscriptions are separate resources.
      *
      * @param string $userID A unique identifier representing the recipient associated with the list
      * @param array{listID: string}|SubscriptionUnsubscribeUserParams $params

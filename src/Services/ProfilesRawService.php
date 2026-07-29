@@ -7,6 +7,7 @@ namespace Courier\Services;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Profiles\ProfileCreateParams;
 use Courier\Profiles\ProfileGetResponse;
 use Courier\Profiles\ProfileNewResponse;
@@ -18,6 +19,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\ProfilesRawContract;
 
 /**
+ * Store the contact information Courier delivers to for each user — email, phone number, push tokens, and any custom data you send to.
+ *
  * @phpstan-import-type PatchShape from \Courier\Profiles\ProfileUpdateParams\Patch
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -32,10 +35,14 @@ final class ProfilesRawService implements ProfilesRawContract
     /**
      * @api
      *
-     * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
+     * Merges the supplied values into a user's profile, creating it if absent and leaving any key you omit untouched. Prefer this for everyday writes.
      *
-     * @param string $userID a unique identifier representing the user associated with the requested profile
-     * @param array{profile: array<string,mixed>}|ProfileCreateParams $params
+     * @param string $userID path param: A unique identifier representing the user associated with the requested profile
+     * @param array{
+     *   profile: array<string,mixed>,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     * }|ProfileCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<ProfileNewResponse>
@@ -51,12 +58,23 @@ final class ProfilesRawService implements ProfilesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['profiles/%1$s', $userID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: ProfileNewResponse::class,
         );
@@ -65,7 +83,7 @@ final class ProfilesRawService implements ProfilesRawContract
     /**
      * @api
      *
-     * Returns the specified user profile.
+     * Returns a user's stored profile and preferences, including the email address, phone number, and push tokens Courier can reach them on.
      *
      * @param string $userID a unique identifier representing the user associated with the requested profile
      * @param RequestOpts|null $requestOptions
@@ -90,7 +108,7 @@ final class ProfilesRawService implements ProfilesRawContract
     /**
      * @api
      *
-     * Update a profile
+     * Applies a JSON Patch to a user profile, adding, removing, or replacing individual fields without sending the whole object.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{patch: list<Patch|PatchShape>}|ProfileUpdateParams $params
@@ -123,7 +141,7 @@ final class ProfilesRawService implements ProfilesRawContract
     /**
      * @api
      *
-     * Deletes the specified user profile.
+     * Deletes a user's profile and stored contact details. List subscriptions and preferences are separate resources, so remove those too if required.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param RequestOpts|null $requestOptions
@@ -148,10 +166,7 @@ final class ProfilesRawService implements ProfilesRawContract
     /**
      * @api
      *
-     * When using `PUT`, be sure to include all the key-value pairs required by the recipient's profile.
-     * Any key-value pairs that exist in the profile but fail to be included in the `PUT` request will be
-     * removed from the profile. Remember, a `PUT` update is a full replacement of the data. For partial updates,
-     * use the [Patch](https://www.courier.com/docs/reference/profiles/patch/) request.
+     * Overwrites a user profile in full, removing any key absent from the request body. Use the patch endpoint when changing a single field.
      *
      * @param string $userID a unique identifier representing the user associated with the requested user profile
      * @param array{profile: array<string,mixed>}|ProfileReplaceParams $params

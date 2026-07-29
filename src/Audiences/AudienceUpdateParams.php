@@ -12,7 +12,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Creates or updates audience.
+ * Creates or replaces an audience from a filter and an AND or OR operator. Membership recalculates automatically as profiles change.
  *
  * @see Courier\Services\AudiencesService::update()
  *

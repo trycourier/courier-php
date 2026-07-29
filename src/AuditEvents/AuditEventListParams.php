@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Fetch the list of audit events.
+ * Returns the workspace's audit event log with cursor paging. Each event records the actor, target, source, type, and timestamp of a change.
  *
  * @see Courier\Services\AuditEventsService::list()
  *

@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationPutContentParams\Content;
 
 /**
- * Replace the elemental content of a notification template. Overwrites all elements in the template with the provided content. Only supported for V2 (elemental) templates.
+ * Replaces all Elemental content in a template, overwriting every existing element. Supported for V2 templates only, not V1 blocks and channels.
  *
  * @see Courier\Services\NotificationsService::putContent()
  *

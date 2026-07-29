@@ -13,6 +13,8 @@ use Courier\Translations\TranslationRetrieveParams;
 use Courier\Translations\TranslationUpdateParams;
 
 /**
+ * Store and retrieve the translation strings Courier uses to render localized template content.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TranslationsRawService implements TranslationsRawContract
@@ -26,7 +28,7 @@ final class TranslationsRawService implements TranslationsRawContract
     /**
      * @api
      *
-     * Get translations by locale
+     * Returns the translation strings stored for one domain and locale, for use in localized notification content.
      *
      * @param string $locale The locale you want to retrieve the translations for
      * @param array{domain: string}|TranslationRetrieveParams $params
@@ -60,7 +62,7 @@ final class TranslationsRawService implements TranslationsRawContract
     /**
      * @api
      *
-     * Update a translation
+     * Uploads the translation strings for one domain and locale. Courier uses them to render localized content for recipients in that locale.
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param array{domain: string, body: string}|TranslationUpdateParams $params

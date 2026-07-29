@@ -74,6 +74,8 @@ final class InvokeTest extends TestCase
             profile: ['tenant_id' => 'bar'],
             recipient: 'user-yes',
             template: 'template',
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -110,6 +112,8 @@ final class InvokeTest extends TestCase
             data: ['foo' => 'bar'],
             profile: ['foo' => 'bar'],
             template: 'template',
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

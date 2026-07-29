@@ -17,6 +17,8 @@ use Courier\RoutingStrategies\RoutingStrategyListResponse;
 use Courier\ServiceContracts\RoutingStrategiesContract;
 
 /**
+ * Define reusable channel routing and failover strategies, and see which templates use them.
+ *
  * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
  * @phpstan-import-type ChannelShape from \Courier\Channel
  * @phpstan-import-type MessageProvidersTypeShape from \Courier\MessageProvidersType
@@ -42,12 +44,14 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
      *
      * Create a routing strategy. Requires a name and routing configuration at minimum. Channels and providers default to empty if omitted.
      *
-     * @param string $name human-readable name for the routing strategy
-     * @param MessageRouting|MessageRoutingShape $routing routing tree defining channel selection method and order
-     * @param array<string,Channel|ChannelShape>|null $channels Per-channel delivery configuration. Defaults to empty if omitted.
-     * @param string|null $description optional description of the routing strategy
-     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers Per-provider delivery configuration. Defaults to empty if omitted.
-     * @param list<string>|null $tags optional tags for categorization
+     * @param string $name body param: Human-readable name for the routing strategy
+     * @param MessageRouting|MessageRoutingShape $routing body param: Routing tree defining channel selection method and order
+     * @param array<string,Channel|ChannelShape>|null $channels Body param: Per-channel delivery configuration. Defaults to empty if omitted.
+     * @param string|null $description body param: Optional description of the routing strategy
+     * @param array<string,MessageProvidersType|MessageProvidersTypeShape>|null $providers Body param: Per-provider delivery configuration. Defaults to empty if omitted.
+     * @param list<string>|null $tags body param: Optional tags for categorization
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -59,6 +63,8 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
         ?string $description = null,
         ?array $providers = null,
         ?array $tags = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): RoutingStrategyGetResponse {
         $params = Util::removeNulls(
@@ -69,6 +75,8 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
                 'description' => $description,
                 'providers' => $providers,
                 'tags' => $tags,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 
@@ -81,7 +89,7 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
     /**
      * @api
      *
-     * Retrieve a routing strategy by ID. Returns the full entity including routing content and metadata.
+     * Returns one routing strategy by id with its name, tags, channels, and the routing rules that decide provider order and fallback.
      *
      * @param string $id routing strategy ID (rs_ prefix)
      * @param RequestOpts|null $requestOptions
@@ -145,7 +153,7 @@ final class RoutingStrategiesService implements RoutingStrategiesContract
     /**
      * @api
      *
-     * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+     * Returns the notification templates using a routing strategy, with paging. Check this before changing a strategy that templates depend on.
      *
      * @param string $id routing strategy ID (`rs_` prefix)
      * @param string|null $cursor Opaque pagination cursor from a previous response. Omit for the first page.

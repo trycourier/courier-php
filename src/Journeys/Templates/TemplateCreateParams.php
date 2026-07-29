@@ -23,6 +23,8 @@ use Courier\Journeys\Templates\TemplateCreateParams\Notification;
  *   notification: Notification|NotificationShape,
  *   providerKey?: string|null,
  *   state?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class TemplateCreateParams implements BaseModel
@@ -42,6 +44,12 @@ final class TemplateCreateParams implements BaseModel
 
     #[Optional]
     public ?string $state;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new TemplateCreateParams()` is missing required properties by the API.
@@ -74,6 +82,8 @@ final class TemplateCreateParams implements BaseModel
         Notification|array $notification,
         ?string $providerKey = null,
         ?string $state = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -82,6 +92,8 @@ final class TemplateCreateParams implements BaseModel
 
         null !== $providerKey && $self['providerKey'] = $providerKey;
         null !== $state && $self['state'] = $state;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -117,6 +129,23 @@ final class TemplateCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['state'] = $state;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

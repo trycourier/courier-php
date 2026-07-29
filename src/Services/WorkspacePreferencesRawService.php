@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferencesRawContract;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
@@ -18,6 +19,8 @@ use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class WorkspacePreferencesRawService implements WorkspacePreferencesRawContract
@@ -31,13 +34,15 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
     /**
      * @api
      *
-     * Create a workspace preference. The workspace preference id is generated and returned. Topics are created inside a workspace preference via POST /preferences/sections/{section_id}/topics.
+     * Creates a workspace preference and returns its generated id. Add subscription topics to it afterwards with the topics endpoint.
      *
      * @param array{
      *   name: string,
      *   description?: string|null,
      *   hasCustomRouting?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|WorkspacePreferenceCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -53,12 +58,23 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'preferences/sections',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: WorkspacePreferenceGetResponse::class,
         );
@@ -67,7 +83,7 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
     /**
      * @api
      *
-     * Retrieve a workspace preference by id, including its topics.
+     * Returns one workspace preference by id, including its subscription topics, routing options, and custom routing flag.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -92,7 +108,7 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
     /**
      * @api
      *
-     * List the workspace's preferences. Each workspace preference embeds its topics. Scoped to the workspace of the API key.
+     * Returns the workspace's preferences, each embedding its subscription topics, routing options, and whether custom routing is allowed.
      *
      * @param RequestOpts|null $requestOptions
      *
@@ -140,10 +156,14 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
     /**
      * @api
      *
-     * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
+     * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
      *
      * @param array{
-     *   brandID?: string|null, description?: string|null, heading?: string|null
+     *   brandID?: string|null,
+     *   description?: string|null,
+     *   heading?: string|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|WorkspacePreferencePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -159,12 +179,23 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'preferences/publish',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: PublishPreferencesResponse::class,
         );

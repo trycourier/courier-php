@@ -8,6 +8,7 @@ use Courier\Channel;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\MessageProvidersType;
 use Courier\MessageRouting;
 use Courier\RequestOptions;
@@ -21,6 +22,8 @@ use Courier\RoutingStrategies\RoutingStrategyReplaceParams;
 use Courier\ServiceContracts\RoutingStrategiesRawContract;
 
 /**
+ * Define reusable channel routing and failover strategies, and see which templates use them.
+ *
  * @phpstan-import-type MessageRoutingShape from \Courier\MessageRouting
  * @phpstan-import-type ChannelShape from \Courier\Channel
  * @phpstan-import-type MessageProvidersTypeShape from \Courier\MessageProvidersType
@@ -46,6 +49,8 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
      *   description?: string|null,
      *   providers?: array<string,MessageProvidersType|MessageProvidersTypeShape>|null,
      *   tags?: list<string>|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|RoutingStrategyCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -61,12 +66,23 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'routing-strategies',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: RoutingStrategyGetResponse::class,
         );
@@ -75,7 +91,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
     /**
      * @api
      *
-     * Retrieve a routing strategy by ID. Returns the full entity including routing content and metadata.
+     * Returns one routing strategy by id with its name, tags, channels, and the routing rules that decide provider order and fallback.
      *
      * @param string $id routing strategy ID (rs_ prefix)
      * @param RequestOpts|null $requestOptions
@@ -158,7 +174,7 @@ final class RoutingStrategiesRawService implements RoutingStrategiesRawContract
     /**
      * @api
      *
-     * List notification templates associated with a routing strategy. Includes template metadata only, not full content.
+     * Returns the notification templates using a routing strategy, with paging. Check this before changing a strategy that templates depend on.
      *
      * @param string $id routing strategy ID (`rs_` prefix)
      * @param array{

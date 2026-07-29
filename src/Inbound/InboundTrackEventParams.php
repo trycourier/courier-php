@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Inbound\InboundTrackEventParams\Type;
 
 /**
- * Courier Track Event.
+ * Records an inbound event that can trigger a journey. Requires an event name, a messageId you generate, a type, and a properties object.
  *
  * @see Courier\Services\InboundService::trackEvent()
  *

@@ -12,6 +12,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Providers\CatalogContract;
 
 /**
+ * Configure the channel providers Courier delivers through, and browse the provider types it supports.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class CatalogService implements CatalogContract
@@ -32,7 +34,7 @@ final class CatalogService implements CatalogContract
     /**
      * @api
      *
-     * Returns the catalog of available provider types with their display names, descriptions, and configuration schema fields (snake_case, with `type` and `required`). Providers with no configurable schema return only `provider`, `name`, and `description`.
+     * Returns the provider types Courier supports, each with a display name, description, and the configuration fields it requires.
      *
      * @param string $channel Exact match (case-insensitive) against the provider channel taxonomy (e.g. `email`, `sms`, `push`).
      * @param string $keys Comma-separated provider keys to filter by (e.g. `sendgrid,twilio`).

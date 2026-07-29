@@ -55,7 +55,9 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->create(
             'user_id',
-            profile: ['foo' => 'bar']
+            profile: ['foo' => 'bar'],
+            idempotencyKey: 'order-ORD-456-user-123',
+            xIdempotencyExpiration: '1785312000',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

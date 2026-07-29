@@ -53,7 +53,7 @@ interface ListsRawContract
     /**
      * @api
      *
-     * @param string $userID a unique identifier representing the user associated with the requested user profile
+     * @param string $userID path param: A unique identifier representing the user associated with the requested user profile
      * @param array<string,mixed>|ListSubscribeParams $params
      * @param RequestOpts|null $requestOptions
      *

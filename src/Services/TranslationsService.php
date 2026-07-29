@@ -11,6 +11,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\TranslationsContract;
 
 /**
+ * Store and retrieve the translation strings Courier uses to render localized template content.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TranslationsService implements TranslationsContract
@@ -31,7 +33,7 @@ final class TranslationsService implements TranslationsContract
     /**
      * @api
      *
-     * Get translations by locale
+     * Returns the translation strings stored for one domain and locale, for use in localized notification content.
      *
      * @param string $locale The locale you want to retrieve the translations for
      * @param string $domain The domain you want to retrieve translations for. Only `default` is supported at the moment
@@ -55,7 +57,7 @@ final class TranslationsService implements TranslationsContract
     /**
      * @api
      *
-     * Update a translation
+     * Uploads the translation strings for one domain and locale. Courier uses them to render localized content for recipients in that locale.
      *
      * @param string $locale Path param: The locale you want to retrieve the translations for
      * @param string $domain Path param: The domain you want to retrieve translations for. Only `default` is supported at the moment

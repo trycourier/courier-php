@@ -10,12 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Deletes the tenant's notification template with the given `template_id`.
- *
- * Returns **204 No Content** with an empty body on success.
- *
- * Returns **404** if there is no template with this ID for the tenant,
- * including a second `DELETE` after a successful removal.
+ * Deletes a tenant's notification template by id. Sends for that tenant then use the workspace template registered under the same id.
  *
  * @see Courier\Services\Tenants\TemplatesService::delete()
  *

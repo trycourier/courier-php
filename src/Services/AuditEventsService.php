@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsContract;
 
 /**
+ * Read the audit trail of configuration and access changes in your workspace.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AuditEventsService implements AuditEventsContract
@@ -33,7 +35,7 @@ final class AuditEventsService implements AuditEventsContract
     /**
      * @api
      *
-     * Fetch a specific audit event by ID.
+     * Returns one audit event by id, including the actor who performed it, the target they changed, the source, the event type, and a timestamp.
      *
      * @param string $auditEventID A unique identifier associated with the audit event you wish to retrieve
      * @param RequestOpts|null $requestOptions
@@ -53,7 +55,7 @@ final class AuditEventsService implements AuditEventsContract
     /**
      * @api
      *
-     * Fetch the list of audit events
+     * Returns the workspace's audit event log with cursor paging. Each event records the actor, target, source, type, and timestamp of a change.
      *
      * @param string|null $cursor a unique identifier that allows for fetching the next set of audit events
      * @param RequestOpts|null $requestOptions

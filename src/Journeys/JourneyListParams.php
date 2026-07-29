@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Journeys\JourneyListParams\Version;
 
 /**
- * Get the list of journeys.
+ * Lists the workspace's journeys, each carrying a name, state, and enabled flag. Paged by cursor.
  *
  * @see Courier\Services\JourneysService::list()
  *

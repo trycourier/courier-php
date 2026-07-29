@@ -11,12 +11,15 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
+ * Publishes a journey-scoped template's draft as a new version. Pass a version instead to roll back the template to an earlier publish.
  *
  * @see Courier\Services\Journeys\TemplatesService::publish()
  *
  * @phpstan-type TemplatePublishParamsShape = array{
- *   templateID: string, version?: string|null
+ *   templateID: string,
+ *   version?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class TemplatePublishParams implements BaseModel
@@ -30,6 +33,12 @@ final class TemplatePublishParams implements BaseModel
 
     #[Optional]
     public ?string $version;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new TemplatePublishParams()` is missing required properties by the API.
@@ -57,13 +66,17 @@ final class TemplatePublishParams implements BaseModel
      */
     public static function with(
         string $templateID,
-        ?string $version = null
+        ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
         $self['templateID'] = $templateID;
 
         null !== $version && $self['version'] = $version;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -80,6 +93,23 @@ final class TemplatePublishParams implements BaseModel
     {
         $self = clone $this;
         $self['version'] = $version;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

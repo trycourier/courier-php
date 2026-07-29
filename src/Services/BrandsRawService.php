@@ -14,10 +14,13 @@ use Courier\Brands\BrandUpdateParams;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\BrandsRawContract;
 
 /**
+ * Manage the logos, colors, and layout that give the templates you send a consistent look.
+ *
  * @phpstan-import-type BrandSettingsShape from \Courier\Brands\BrandSettings
  * @phpstan-import-type BrandSnippetsShape from \Courier\Brands\BrandSnippets
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
@@ -33,13 +36,15 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
+     * Creates a brand from a name and settings, including primary and secondary colors. Brands supply the logo, colors, and styling that templates render with.
      *
      * @param array{
      *   name: string,
      *   settings: BrandSettings|BrandSettingsShape,
      *   id?: string|null,
      *   snippets?: BrandSnippets|BrandSnippetsShape|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|BrandCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -55,12 +60,23 @@ final class BrandsRawService implements BrandsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: 'brands',
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: Brand::class,
         );
@@ -69,7 +85,7 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Fetch a specific brand by brand ID.
+     * Returns one brand by id, including its colors, logo and styling settings, Handlebars snippets, and published version.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
      * @param RequestOpts|null $requestOptions
@@ -94,7 +110,7 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Replace an existing brand with the supplied values.
+     * Replaces a brand with the values you supply, so send the complete settings and snippets rather than only the fields you want changed.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to update
      * @param array{
@@ -131,7 +147,7 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Get the list of brands.
+     * Lists the workspace's brands. Every entry carries its name, styling settings, snippets, and published version.
      *
      * @param array{cursor?: string|null}|BrandListParams $params
      * @param RequestOpts|null $requestOptions
@@ -162,7 +178,7 @@ final class BrandsRawService implements BrandsRawContract
     /**
      * @api
      *
-     * Delete a brand by brand ID.
+     * Deletes a brand by id. Reassign any template or tenant that references it before deleting to keep their styling intact.
      *
      * @param string $brandID a unique identifier associated with the brand you wish to retrieve
      * @param RequestOpts|null $requestOptions

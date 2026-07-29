@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create a new brand. Requires `name` and `settings` (with at least `colors.primary` and `colors.secondary`).
+ * Creates a brand from a name and settings, including primary and secondary colors. Brands supply the logo, colors, and styling that templates render with.
  *
  * @see Courier\Services\BrandsService::create()
  *
@@ -23,6 +23,8 @@ use Courier\Core\Contracts\BaseModel;
  *   settings: BrandSettings|BrandSettingsShape,
  *   id?: string|null,
  *   snippets?: null|BrandSnippets|BrandSnippetsShape,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class BrandCreateParams implements BaseModel
@@ -42,6 +44,12 @@ final class BrandCreateParams implements BaseModel
 
     #[Optional(nullable: true)]
     public ?BrandSnippets $snippets;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new BrandCreateParams()` is missing required properties by the API.
@@ -75,6 +83,8 @@ final class BrandCreateParams implements BaseModel
         BrandSettings|array $settings,
         ?string $id = null,
         BrandSnippets|array|null $snippets = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -83,6 +93,8 @@ final class BrandCreateParams implements BaseModel
 
         null !== $id && $self['id'] = $id;
         null !== $snippets && $self['snippets'] = $snippets;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -121,6 +133,23 @@ final class BrandCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['snippets'] = $snippets;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

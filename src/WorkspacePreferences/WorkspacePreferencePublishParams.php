@@ -10,12 +10,16 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
+ * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
  *
  * @see Courier\Services\WorkspacePreferencesService::publish()
  *
  * @phpstan-type WorkspacePreferencePublishParamsShape = array{
- *   brandID?: string|null, description?: string|null, heading?: string|null
+ *   brandID?: string|null,
+ *   description?: string|null,
+ *   heading?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class WorkspacePreferencePublishParams implements BaseModel
@@ -42,6 +46,12 @@ final class WorkspacePreferencePublishParams implements BaseModel
     #[Optional(nullable: true)]
     public ?string $heading;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     public function __construct()
     {
         $this->initialize();
@@ -56,12 +66,16 @@ final class WorkspacePreferencePublishParams implements BaseModel
         ?string $brandID = null,
         ?string $description = null,
         ?string $heading = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
         null !== $brandID && $self['brandID'] = $brandID;
         null !== $description && $self['description'] = $description;
         null !== $heading && $self['heading'] = $heading;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -95,6 +109,23 @@ final class WorkspacePreferencePublishParams implements BaseModel
     {
         $self = clone $this;
         $self['heading'] = $heading;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

@@ -8,6 +8,7 @@ use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferences\TopicsRawContract;
 use Courier\WorkspacePreferences\Topics\TopicArchiveParams;
@@ -20,6 +21,8 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TopicsRawService implements TopicsRawContract
@@ -33,9 +36,9 @@ final class TopicsRawService implements TopicsRawContract
     /**
      * @api
      *
-     * Create a subscription preference topic inside a workspace preference. Fails with 404 if the workspace preference does not exist. The topic id is generated and returned.
+     * Creates a subscription topic inside a workspace preference. The default status sets whether users start opted in, opted out, or required.
      *
-     * @param string $sectionID id of the workspace preference to create the topic in
+     * @param string $sectionID path param: Id of the workspace preference to create the topic in
      * @param array{
      *   defaultStatus: DefaultStatus|value-of<DefaultStatus>,
      *   name: string,
@@ -44,6 +47,8 @@ final class TopicsRawService implements TopicsRawContract
      *   includeUnsubscribeHeader?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      *   topicData?: array<string,mixed>|null,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|TopicCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -60,12 +65,23 @@ final class TopicsRawService implements TopicsRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['preferences/sections/%1$s/topics', $sectionID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: WorkspacePreferenceTopicGetResponse::class,
         );
@@ -74,7 +90,7 @@ final class TopicsRawService implements TopicsRawContract
     /**
      * @api
      *
-     * Retrieve a topic within a workspace preference. Returns 404 if the workspace preference does not exist, the topic does not exist, or the topic belongs to a different workspace preference.
+     * Returns one subscription topic with its default status, routing options, allowed preferences, and unsubscribe header setting.
      *
      * @param string $topicID id of the subscription preference topic
      * @param array{sectionID: string}|TopicRetrieveParams $params
@@ -108,7 +124,7 @@ final class TopicsRawService implements TopicsRawContract
     /**
      * @api
      *
-     * List the topics in a workspace preference.
+     * Returns the subscription topics inside a workspace preference, each with its default status and routing options.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -133,7 +149,7 @@ final class TopicsRawService implements TopicsRawContract
     /**
      * @api
      *
-     * Archive a topic and remove it from its workspace preference. Same 404 rules as GET.
+     * Archives a subscription topic and removes it from its workspace preference, addressed by section id and topic id.
      *
      * @param string $topicID id of the subscription preference topic
      * @param array{sectionID: string}|TopicArchiveParams $params

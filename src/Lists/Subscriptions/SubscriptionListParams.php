@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get the list's subscriptions.
+ * Returns the users subscribed to a list with paging, each with the preferences recorded for that subscription.
  *
  * @see Courier\Services\Lists\SubscriptionsService::list()
  *

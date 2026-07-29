@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Retrieve the content of a notification template. The response shape depends on whether the template uses V1 (blocks/channels) or V2 (elemental) content. Use the `version` query parameter to select draft, published, or a specific historical version.
+ * Returns a template's content and checksum. V2 templates return Elemental elements, while V1 templates return blocks and channels instead.
  *
  * @see Courier\Services\NotificationsService::retrieveContent()
  *

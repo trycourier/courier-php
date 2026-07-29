@@ -16,6 +16,8 @@ use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class WorkspacePreferencesService implements WorkspacePreferencesContract
@@ -42,12 +44,14 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Create a workspace preference. The workspace preference id is generated and returned. Topics are created inside a workspace preference via POST /preferences/sections/{section_id}/topics.
+     * Creates a workspace preference and returns its generated id. Add subscription topics to it afterwards with the topics endpoint.
      *
-     * @param string $name human-readable name for the workspace preference
-     * @param string|null $description optional description shown under the section on the hosted preferences page
-     * @param bool|null $hasCustomRouting whether the workspace preference defines custom routing for its topics
-     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Default channels for the workspace preference. Defaults to empty if omitted.
+     * @param string $name body param: Human-readable name for the workspace preference
+     * @param string|null $description body param: Optional description shown under the section on the hosted preferences page
+     * @param bool|null $hasCustomRouting body param: Whether the workspace preference defines custom routing for its topics
+     * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Body param: Default channels for the workspace preference. Defaults to empty if omitted.
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -57,6 +61,8 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
         ?string $description = null,
         ?bool $hasCustomRouting = null,
         ?array $routingOptions = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): WorkspacePreferenceGetResponse {
         $params = Util::removeNulls(
@@ -65,6 +71,8 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
                 'description' => $description,
                 'hasCustomRouting' => $hasCustomRouting,
                 'routingOptions' => $routingOptions,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 
@@ -77,7 +85,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Retrieve a workspace preference by id, including its topics.
+     * Returns one workspace preference by id, including its subscription topics, routing options, and custom routing flag.
      *
      * @param string $sectionID id of the workspace preference
      * @param RequestOpts|null $requestOptions
@@ -97,7 +105,7 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * List the workspace's preferences. Each workspace preference embeds its topics. Scoped to the workspace of the API key.
+     * Returns the workspace's preferences, each embedding its subscription topics, routing options, and whether custom routing is allowed.
      *
      * @param RequestOpts|null $requestOptions
      *
@@ -135,11 +143,13 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     /**
      * @api
      *
-     * Publish the workspace's preferences page. Takes a snapshot of every workspace preference with its topics under a new published version, making the current state visible on the hosted preferences page (non-draft).
+     * Publishes the workspace preference page, snapshotting every preference and topic, and returns the page id and a preview URL.
      *
-     * @param string|null $brandID Brand for the hosted page - "default" (workspace default brand), "none" (no brand), or a specific brand id. Defaults to "default".
-     * @param string|null $description description shown under the heading on the hosted preferences page
-     * @param string|null $heading heading shown at the top of the hosted preferences page
+     * @param string|null $brandID Body param: Brand for the hosted page - "default" (workspace default brand), "none" (no brand), or a specific brand id. Defaults to "default".
+     * @param string|null $description body param: Description shown under the heading on the hosted preferences page
+     * @param string|null $heading body param: Heading shown at the top of the hosted preferences page
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -148,6 +158,8 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
         ?string $brandID = null,
         ?string $description = null,
         ?string $heading = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): PublishPreferencesResponse {
         $params = Util::removeNulls(
@@ -155,6 +167,8 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
                 'brandID' => $brandID,
                 'description' => $description,
                 'heading' => $heading,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 

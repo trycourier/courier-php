@@ -10,6 +10,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\RequestsContract;
 
 /**
+ * Look up the messages Courier has accepted, inspect their delivery history and rendered output, and cancel, resend, or archive them.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class RequestsService implements RequestsContract
@@ -30,7 +32,7 @@ final class RequestsService implements RequestsContract
     /**
      * @api
      *
-     * Archive message
+     * Archives a send request by its request id. Use it to remove test sends or superseded requests from the message list without deleting them.
      *
      * @param string $requestID A unique identifier representing the request ID
      * @param RequestOpts|null $requestOptions

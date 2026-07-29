@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Profiles\ProfileUpdateParams\Patch;
 
 /**
- * Update a profile.
+ * Applies a JSON Patch to a user profile, adding, removing, or replacing individual fields without sending the whole object.
  *
  * @see Courier\Services\ProfilesService::update()
  *

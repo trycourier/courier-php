@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace Courier\Profiles;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Merge the supplied values with an existing profile or create a new profile if one doesn't already exist.
+ * Merges the supplied values into a user's profile, creating it if absent and leaving any key you omit untouched. Prefer this for everyday writes.
  *
  * @see Courier\Services\ProfilesService::create()
  *
- * @phpstan-type ProfileCreateParamsShape = array{profile: array<string,mixed>}
+ * @phpstan-type ProfileCreateParamsShape = array{
+ *   profile: array<string,mixed>,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
+ * }
  */
 final class ProfileCreateParams implements BaseModel
 {
@@ -25,6 +30,12 @@ final class ProfileCreateParams implements BaseModel
     /** @var array<string,mixed> $profile */
     #[Required(map: 'mixed')]
     public array $profile;
+
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
 
     /**
      * `new ProfileCreateParams()` is missing required properties by the API.
@@ -52,11 +63,17 @@ final class ProfileCreateParams implements BaseModel
      *
      * @param array<string,mixed> $profile
      */
-    public static function with(array $profile): self
-    {
+    public static function with(
+        array $profile,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
+    ): self {
         $self = new self;
 
         $self['profile'] = $profile;
+
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -68,6 +85,23 @@ final class ProfileCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['profile'] = $profile;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

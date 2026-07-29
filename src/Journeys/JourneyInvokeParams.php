@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Invoke a journey by id or alias to start a new run. The response includes a `runId` identifying the run.
+ * Starts a journey run for one user and returns a runId. Runs execute asynchronously, so the response arrives before any message is sent.
  *
  * @see Courier\Services\JourneysService::invoke()
  *
@@ -18,6 +18,8 @@ use Courier\Core\Contracts\BaseModel;
  *   data?: array<string,mixed>|null,
  *   profile?: array<string,mixed>|null,
  *   userID?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class JourneyInvokeParams implements BaseModel
@@ -48,6 +50,12 @@ final class JourneyInvokeParams implements BaseModel
     #[Optional('user_id')]
     public ?string $userID;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     public function __construct()
     {
         $this->initialize();
@@ -64,13 +72,17 @@ final class JourneyInvokeParams implements BaseModel
     public static function with(
         ?array $data = null,
         ?array $profile = null,
-        ?string $userID = null
+        ?string $userID = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
         null !== $data && $self['data'] = $data;
         null !== $profile && $self['profile'] = $profile;
         null !== $userID && $self['userID'] = $userID;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -108,6 +120,23 @@ final class JourneyInvokeParams implements BaseModel
     {
         $self = clone $this;
         $self['userID'] = $userID;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

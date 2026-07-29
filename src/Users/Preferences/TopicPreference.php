@@ -26,22 +26,36 @@ final class TopicPreference implements BaseModel
     /** @use SdkModel<TopicPreferenceShape> */
     use SdkModel;
 
-    /** @var value-of<PreferenceStatus> $defaultStatus */
+    /**
+     * The topic's default status, returned on reads. It applies whenever the user has no override of their own (status equals this value).
+     *
+     * @var value-of<PreferenceStatus> $defaultStatus
+     */
     #[Required('default_status', enum: PreferenceStatus::class)]
     public string $defaultStatus;
 
-    /** @var value-of<PreferenceStatus> $status */
+    /**
+     * The user's subscription status for this topic. OPTED_IN or OPTED_OUT reflect the user's own choice; REQUIRED is a topic-level default set in the preferences editor, not a user choice.
+     *
+     * @var value-of<PreferenceStatus> $status
+     */
     #[Required(enum: PreferenceStatus::class)]
     public string $status;
 
+    /**
+     * The unique identifier of the subscription topic this preference applies to.
+     */
     #[Required('topic_id')]
     public string $topicID;
 
+    /**
+     * The display name of the subscription topic, returned on reads.
+     */
     #[Required('topic_name')]
     public string $topicName;
 
     /**
-     * The Channels a user has chosen to receive notifications through for this topic.
+     * The channels the user has chosen to receive this topic on, present only when has_custom_routing is true. One or more of: direct_message, email, push, sms, webhook, inbox.
      *
      * @var list<value-of<ChannelClassification>>|null $customRouting
      */
@@ -52,6 +66,9 @@ final class TopicPreference implements BaseModel
     )]
     public ?array $customRouting;
 
+    /**
+     * Whether the user has chosen specific delivery channels for this topic (listed in custom_routing) rather than the topic's default routing.
+     */
     #[Optional('has_custom_routing', nullable: true)]
     public ?bool $hasCustomRouting;
 
@@ -111,6 +128,8 @@ final class TopicPreference implements BaseModel
     }
 
     /**
+     * The topic's default status, returned on reads. It applies whenever the user has no override of their own (status equals this value).
+     *
      * @param PreferenceStatus|value-of<PreferenceStatus> $defaultStatus
      */
     public function withDefaultStatus(
@@ -123,6 +142,8 @@ final class TopicPreference implements BaseModel
     }
 
     /**
+     * The user's subscription status for this topic. OPTED_IN or OPTED_OUT reflect the user's own choice; REQUIRED is a topic-level default set in the preferences editor, not a user choice.
+     *
      * @param PreferenceStatus|value-of<PreferenceStatus> $status
      */
     public function withStatus(PreferenceStatus|string $status): self
@@ -133,6 +154,9 @@ final class TopicPreference implements BaseModel
         return $self;
     }
 
+    /**
+     * The unique identifier of the subscription topic this preference applies to.
+     */
     public function withTopicID(string $topicID): self
     {
         $self = clone $this;
@@ -141,6 +165,9 @@ final class TopicPreference implements BaseModel
         return $self;
     }
 
+    /**
+     * The display name of the subscription topic, returned on reads.
+     */
     public function withTopicName(string $topicName): self
     {
         $self = clone $this;
@@ -150,7 +177,7 @@ final class TopicPreference implements BaseModel
     }
 
     /**
-     * The Channels a user has chosen to receive notifications through for this topic.
+     * The channels the user has chosen to receive this topic on, present only when has_custom_routing is true. One or more of: direct_message, email, push, sms, webhook, inbox.
      *
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $customRouting
      */
@@ -162,6 +189,9 @@ final class TopicPreference implements BaseModel
         return $self;
     }
 
+    /**
+     * Whether the user has chosen specific delivery channels for this topic (listed in custom_routing) rather than the topic's default routing.
+     */
     public function withHasCustomRouting(?bool $hasCustomRouting): self
     {
         $self = clone $this;

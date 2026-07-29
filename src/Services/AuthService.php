@@ -12,6 +12,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AuthContract;
 
 /**
+ * Issue scoped, short-lived JWTs so client-side SDKs — Inbox, Preferences, and the embedded designer — can call Courier as a single user. Server-side requests authenticate with your workspace API key instead.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AuthService implements AuthContract
@@ -32,7 +34,7 @@ final class AuthService implements AuthContract
     /**
      * @api
      *
-     * Returns a new access token.
+     * Returns a JWT for authenticating client-side SDKs such as the Inbox. You supply the scope and an expires_in duration, both required.
      *
      * @param string $expiresIn Duration for token expiration. Accepts various time formats:
      * - "2 hours" - 2 hours from now

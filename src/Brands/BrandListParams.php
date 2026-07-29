@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get the list of brands.
+ * Lists the workspace's brands. Every entry carries its name, styling settings, snippets, and published version.
  *
  * @see Courier\Services\BrandsService::list()
  *

@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Returns all of the lists, with the ability to filter based on a pattern.
+ * Returns the workspace's lists, filterable by a pattern to fetch a subset such as every regional list. Paged by cursor.
  *
  * @see Courier\Services\ListsService::list()
  *

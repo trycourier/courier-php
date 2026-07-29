@@ -11,7 +11,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Create a new provider configuration. The `provider` field must be a known Courier provider key (see catalog).
+ * Configures a provider integration from a Courier provider key and its settings. Check the catalog endpoint for the schema each provider expects.
  *
  * @see Courier\Services\ProvidersService::create()
  *
@@ -20,6 +20,8 @@ use Courier\Core\Contracts\BaseModel;
  *   alias?: string|null,
  *   settings?: array<string,mixed>|null,
  *   title?: string|null,
+ *   idempotencyKey?: string|null,
+ *   xIdempotencyExpiration?: string|null,
  * }
  */
 final class ProviderCreateParams implements BaseModel
@@ -54,6 +56,12 @@ final class ProviderCreateParams implements BaseModel
     #[Optional]
     public ?string $title;
 
+    #[Optional]
+    public ?string $idempotencyKey;
+
+    #[Optional]
+    public ?string $xIdempotencyExpiration;
+
     /**
      * `new ProviderCreateParams()` is missing required properties by the API.
      *
@@ -85,6 +93,8 @@ final class ProviderCreateParams implements BaseModel
         ?string $alias = null,
         ?array $settings = null,
         ?string $title = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
     ): self {
         $self = new self;
 
@@ -93,6 +103,8 @@ final class ProviderCreateParams implements BaseModel
         null !== $alias && $self['alias'] = $alias;
         null !== $settings && $self['settings'] = $settings;
         null !== $title && $self['title'] = $title;
+        null !== $idempotencyKey && $self['idempotencyKey'] = $idempotencyKey;
+        null !== $xIdempotencyExpiration && $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }
@@ -139,6 +151,23 @@ final class ProviderCreateParams implements BaseModel
     {
         $self = clone $this;
         $self['title'] = $title;
+
+        return $self;
+    }
+
+    public function withIdempotencyKey(string $idempotencyKey): self
+    {
+        $self = clone $this;
+        $self['idempotencyKey'] = $idempotencyKey;
+
+        return $self;
+    }
+
+    public function withXIdempotencyExpiration(
+        string $xIdempotencyExpiration
+    ): self {
+        $self = clone $this;
+        $self['xIdempotencyExpiration'] = $xIdempotencyExpiration;
 
         return $self;
     }

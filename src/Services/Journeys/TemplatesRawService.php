@@ -7,6 +7,7 @@ namespace Courier\Services\Journeys;
 use Courier\Client;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
+use Courier\Core\Util;
 use Courier\Journeys\JourneyTemplateGetResponse;
 use Courier\Journeys\JourneyTemplateListResponse;
 use Courier\Journeys\Templates\TemplateArchiveParams;
@@ -30,6 +31,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Journeys\TemplatesRawContract;
 
 /**
+ * Build, version, publish, invoke, and cancel multi-step notification workflows, along with the templates scoped to them.
+ *
  * @phpstan-import-type NotificationShape from \Courier\Journeys\Templates\TemplateCreateParams\Notification
  * @phpstan-import-type ContentShape from \Courier\Journeys\Templates\TemplatePutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Journeys\Templates\TemplatePutLocaleParams\Element
@@ -49,12 +52,14 @@ final class TemplatesRawService implements TemplatesRawContract
      *
      * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
      *
-     * @param string $templateID Journey id
+     * @param string $templateID Path param: Journey id
      * @param array{
      *   channel: string,
      *   notification: Notification|NotificationShape,
      *   providerKey?: string,
      *   state?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
      * }|TemplateCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -71,12 +76,23 @@ final class TemplatesRawService implements TemplatesRawContract
             $params,
             $requestOptions,
         );
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
             method: 'post',
             path: ['journeys/%1$s/templates', $templateID],
-            body: (object) $parsed,
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                $parsed,
+                array_flip(array_keys($header_params))
+            ),
             options: $options,
             convert: JourneyTemplateGetResponse::class,
         );
@@ -85,7 +101,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Fetch a journey-scoped notification template by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     * Returns a journey's own notification template with its name, brand, subscription topic, and content. Defaults to the published version.
      *
      * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateRetrieveParams $params
@@ -152,7 +168,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Archive the journey-scoped notification template. Archived templates cannot be sent.
+     * Archives one journey's notification template, preventing further sends. Detach any send node referencing it beforehand.
      *
      * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateArchiveParams $params
@@ -186,7 +202,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * List published versions of the journey-scoped notification template, ordered most recent first.
+     * Lists the published versions of a template that belongs to a journey, most recent first. Paged by cursor.
      *
      * @param string $notificationID Notification template id
      * @param array{templateID: string}|TemplateListVersionsParams $params
@@ -222,10 +238,15 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
+     * Publishes a journey-scoped template's draft as a new version. Pass a version instead to roll back the template to an earlier publish.
      *
      * @param string $notificationID Path param: Notification template id
-     * @param array{templateID: string, version?: string}|TemplatePublishParams $params
+     * @param array{
+     *   templateID: string,
+     *   version?: string,
+     *   idempotencyKey?: string,
+     *   xIdempotencyExpiration?: string,
+     * }|TemplatePublishParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<mixed>
@@ -243,6 +264,10 @@ final class TemplatesRawService implements TemplatesRawContract
         );
         $templateID = $parsed['templateID'];
         unset($parsed['templateID']);
+        $header_params = [
+            'idempotencyKey' => 'Idempotency-Key',
+            'xIdempotencyExpiration' => 'x-idempotency-expiration',
+        ];
 
         // @phpstan-ignore-next-line return.type
         return $this->client->request(
@@ -250,7 +275,14 @@ final class TemplatesRawService implements TemplatesRawContract
             path: [
                 'journeys/%1$s/templates/%2$s/publish', $templateID, $notificationID,
             ],
-            body: (object) array_diff_key($parsed, array_flip(['templateID'])),
+            headers: Util::array_transform_keys(
+                array_intersect_key($parsed, array_flip(array_keys($header_params))),
+                $header_params,
+            ),
+            body: (object) array_diff_key(
+                array_diff_key($parsed, array_flip(array_keys($header_params))),
+                array_flip(['templateID']),
+            ),
             options: $options,
             convert: null,
         );
@@ -350,7 +382,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Replace the journey-scoped notification template draft.
+     * Replaces the draft content of one journey's notification template. Publish it before send nodes referencing it render the change.
      *
      * @param string $notificationID Path param: Notification template id
      * @param array{
@@ -389,7 +421,7 @@ final class TemplatesRawService implements TemplatesRawContract
     /**
      * @api
      *
-     * Retrieve the elemental content of a journey-scoped notification template. The response contains the versioned elements along with their content checksums, which can be used to detect changes between versions. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     * Returns the Elemental elements and version of a journey-scoped template's content. Compare versions to see what changed between publishes.
      *
      * @param string $notificationID Path param: Notification template id
      * @param array{

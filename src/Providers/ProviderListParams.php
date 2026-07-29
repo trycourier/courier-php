@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List configured provider integrations for the current workspace. Supports cursor-based pagination.
+ * Lists the provider integrations configured in the workspace, one entry per channel and provider key with its alias and settings.
  *
  * @see Courier\Services\ProvidersService::list()
  *

@@ -20,6 +20,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Journeys\TemplatesContract;
 
 /**
+ * Build, version, publish, invoke, and cancel multi-step notification workflows, along with the templates scoped to them.
+ *
  * @phpstan-import-type NotificationShape from \Courier\Journeys\Templates\TemplateCreateParams\Notification
  * @phpstan-import-type ContentShape from \Courier\Journeys\Templates\TemplatePutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Journeys\Templates\TemplatePutLocaleParams\Element
@@ -46,8 +48,13 @@ final class TemplatesService implements TemplatesContract
      *
      * Create a notification template scoped to this journey. Defaults to `DRAFT` state; pass `state: "PUBLISHED"` to publish on create.
      *
-     * @param string $templateID Journey id
-     * @param Notification|NotificationShape $notification
+     * @param string $templateID Path param: Journey id
+     * @param string $channel Body param
+     * @param Notification|NotificationShape $notification Body param
+     * @param string $providerKey Body param
+     * @param string $state Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -58,6 +65,8 @@ final class TemplatesService implements TemplatesContract
         Notification|array $notification,
         ?string $providerKey = null,
         ?string $state = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): JourneyTemplateGetResponse {
         $params = Util::removeNulls(
@@ -66,6 +75,8 @@ final class TemplatesService implements TemplatesContract
                 'notification' => $notification,
                 'providerKey' => $providerKey,
                 'state' => $state,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
             ],
         );
 
@@ -78,7 +89,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Fetch a journey-scoped notification template by id. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     * Returns a journey's own notification template with its name, brand, subscription topic, and content. Defaults to the published version.
      *
      * @param string $notificationID Notification template id
      * @param string $templateID Journey id
@@ -128,7 +139,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Archive the journey-scoped notification template. Archived templates cannot be sent.
+     * Archives one journey's notification template, preventing further sends. Detach any send node referencing it beforehand.
      *
      * @param string $notificationID Notification template id
      * @param string $templateID Journey id
@@ -152,7 +163,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * List published versions of the journey-scoped notification template, ordered most recent first.
+     * Lists the published versions of a template that belongs to a journey, most recent first. Paged by cursor.
      *
      * @param string $notificationID Notification template id
      * @param string $templateID Journey id
@@ -176,11 +187,13 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Publish the current draft of the journey-scoped notification template as a new version. Optionally roll back to a prior version by passing `{ "version": "vN" }`.
+     * Publishes a journey-scoped template's draft as a new version. Pass a version instead to roll back the template to an earlier publish.
      *
      * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
      * @param string $version Body param
+     * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
+     * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -189,10 +202,17 @@ final class TemplatesService implements TemplatesContract
         string $notificationID,
         string $templateID,
         ?string $version = null,
+        ?string $idempotencyKey = null,
+        ?string $xIdempotencyExpiration = null,
         RequestOptions|array|null $requestOptions = null,
     ): mixed {
         $params = Util::removeNulls(
-            ['templateID' => $templateID, 'version' => $version]
+            [
+                'templateID' => $templateID,
+                'version' => $version,
+                'idempotencyKey' => $idempotencyKey,
+                'xIdempotencyExpiration' => $xIdempotencyExpiration,
+            ],
         );
 
         // @phpstan-ignore-next-line argument.type
@@ -271,7 +291,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Replace the journey-scoped notification template draft.
+     * Replaces the draft content of one journey's notification template. Publish it before send nodes referencing it render the change.
      *
      * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id
@@ -305,7 +325,7 @@ final class TemplatesService implements TemplatesContract
     /**
      * @api
      *
-     * Retrieve the elemental content of a journey-scoped notification template. The response contains the versioned elements along with their content checksums, which can be used to detect changes between versions. Pass `?version=draft` (default `published`) to retrieve the working draft, or `?version=vN` for a historical version.
+     * Returns the Elemental elements and version of a journey-scoped template's content. Compare versions to see what changed between publishes.
      *
      * @param string $notificationID Path param: Notification template id
      * @param string $templateID Path param: Journey id

@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * List notification templates in your workspace.
+ * Lists the workspace's notification templates. Each carries a name, tags, brand, routing, and its draft or published state.
  *
  * @see Courier\Services\NotificationsService::list()
  *

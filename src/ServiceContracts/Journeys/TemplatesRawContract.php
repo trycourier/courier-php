@@ -31,7 +31,7 @@ interface TemplatesRawContract
     /**
      * @api
      *
-     * @param string $templateID Journey id
+     * @param string $templateID Path param: Journey id
      * @param array<string,mixed>|TemplateCreateParams $params
      * @param RequestOpts|null $requestOptions
      *
