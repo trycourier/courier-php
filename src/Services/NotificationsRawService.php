@@ -34,6 +34,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsRawContract;
 
 /**
+ * Create, update, version, publish, and localize notification templates and their content.
+ *
  * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationPutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Notifications\NotificationPutLocaleParams\Element
  * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload

@@ -11,6 +11,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\RequestsRawContract;
 
 /**
+ * Look up the messages Courier has accepted, inspect their delivery history and rendered output, and cancel, resend, or archive them.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class RequestsRawService implements RequestsRawContract

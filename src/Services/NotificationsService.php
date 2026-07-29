@@ -23,6 +23,8 @@ use Courier\ServiceContracts\NotificationsContract;
 use Courier\Services\Notifications\ChecksService;
 
 /**
+ * Create, update, version, publish, and localize notification templates and their content.
+ *
  * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationPutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Notifications\NotificationPutLocaleParams\Element
  * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload

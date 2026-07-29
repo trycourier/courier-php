@@ -18,6 +18,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Profiles\ListsRawContract;
 
 /**
+ * Store the contact information Courier delivers to for each user — email, phone number, push tokens, and any custom data you send to.
+ *
  * @phpstan-import-type SubscribeToListsRequestItemShape from \Courier\Profiles\SubscribeToListsRequestItem
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

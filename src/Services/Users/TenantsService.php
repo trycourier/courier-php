@@ -13,6 +13,8 @@ use Courier\Tenants\TenantAssociation;
 use Courier\Users\Tenants\TenantListResponse;
 
 /**
+ * Associate a user with one or more tenants, and read or remove those associations.
+ *
  * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

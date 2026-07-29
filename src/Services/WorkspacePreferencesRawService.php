@@ -19,6 +19,8 @@ use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class WorkspacePreferencesRawService implements WorkspacePreferencesRawContract

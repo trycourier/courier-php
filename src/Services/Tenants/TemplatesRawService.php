@@ -21,6 +21,8 @@ use Courier\Tenants\Templates\TemplateRetrieveParams;
 use Courier\Tenants\TenantTemplateInput;
 
 /**
+ * Manage the templates and template versions scoped to a single tenant, including the ones authored in the embedded designer.
+ *
  * @phpstan-import-type TenantTemplateInputShape from \Courier\Tenants\TenantTemplateInput
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

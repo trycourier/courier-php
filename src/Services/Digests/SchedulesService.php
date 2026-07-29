@@ -12,6 +12,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Digests\SchedulesContract;
 
 /**
+ * Inspect what has accumulated in a digest schedule and release a digest ahead of its next scheduled delivery.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class SchedulesService implements SchedulesContract

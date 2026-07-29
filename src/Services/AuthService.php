@@ -12,6 +12,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AuthContract;
 
 /**
+ * Issue scoped, short-lived JWTs so client-side SDKs — Inbox, Preferences, and the embedded designer — can call Courier as a single user. Server-side requests authenticate with your workspace API key instead.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AuthService implements AuthContract

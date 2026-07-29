@@ -14,6 +14,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\AuditEventsRawContract;
 
 /**
+ * Read the audit trail of configuration and access changes in your workspace.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AuditEventsRawService implements AuditEventsRawContract

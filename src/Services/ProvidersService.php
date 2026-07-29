@@ -14,6 +14,8 @@ use Courier\ServiceContracts\ProvidersContract;
 use Courier\Services\Providers\CatalogService;
 
 /**
+ * Configure the channel providers Courier delivers through, and browse the provider types it supports.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class ProvidersService implements ProvidersContract

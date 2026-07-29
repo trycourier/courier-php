@@ -16,6 +16,8 @@ use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
 
 /**
+ * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class WorkspacePreferencesService implements WorkspacePreferencesContract

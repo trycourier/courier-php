@@ -12,6 +12,8 @@ use Courier\ServiceContracts\Tenants\Templates\VersionsContract;
 use Courier\Tenants\BaseTemplateTenantAssociation;
 
 /**
+ * Manage the templates and template versions scoped to a single tenant, including the ones authored in the embedded designer.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class VersionsService implements VersionsContract

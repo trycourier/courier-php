@@ -14,6 +14,8 @@ use Courier\ServiceContracts\AutomationsContract;
 use Courier\Services\Automations\InvokeService;
 
 /**
+ * Invoke a stored automation template or an ad hoc automation defined in the request.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class AutomationsService implements AutomationsContract

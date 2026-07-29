@@ -13,6 +13,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Automations\InvokeContract;
 
 /**
+ * Invoke a stored automation template or an ad hoc automation defined in the request.
+ *
  * @phpstan-import-type AutomationShape from \Courier\Automations\Invoke\InvokeInvokeAdHocParams\Automation
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

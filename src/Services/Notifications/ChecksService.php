@@ -14,6 +14,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Notifications\ChecksContract;
 
 /**
+ * Create, update, version, publish, and localize notification templates and their content.
+ *
  * @phpstan-import-type BaseCheckShape from \Courier\Notifications\BaseCheck
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

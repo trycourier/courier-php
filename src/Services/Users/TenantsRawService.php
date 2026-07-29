@@ -17,6 +17,8 @@ use Courier\Users\Tenants\TenantListResponse;
 use Courier\Users\Tenants\TenantRemoveSingleParams;
 
 /**
+ * Associate a user with one or more tenants, and read or remove those associations.
+ *
  * @phpstan-import-type TenantAssociationShape from \Courier\Tenants\TenantAssociation
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */

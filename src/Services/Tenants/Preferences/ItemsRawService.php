@@ -15,6 +15,8 @@ use Courier\Tenants\Preferences\Items\ItemUpdateParams;
 use Courier\Tenants\Preferences\Items\ItemUpdateParams\Status;
 
 /**
+ * Manage tenants — the organizations, teams, or accounts your users belong to — along with their users and default preferences.
+ *
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class ItemsRawService implements ItemsRawContract

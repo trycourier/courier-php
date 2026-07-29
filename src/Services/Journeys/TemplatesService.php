@@ -20,6 +20,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\Journeys\TemplatesContract;
 
 /**
+ * Build, version, publish, invoke, and cancel multi-step notification workflows, along with the templates scoped to them.
+ *
  * @phpstan-import-type NotificationShape from \Courier\Journeys\Templates\TemplateCreateParams\Notification
  * @phpstan-import-type ContentShape from \Courier\Journeys\Templates\TemplatePutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Journeys\Templates\TemplatePutLocaleParams\Element
