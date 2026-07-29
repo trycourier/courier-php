@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.15.0 (2026-07-29)
+
+Full Changelog: [v5.14.0...v5.15.0](https://github.com/trycourier/courier-php/compare/v5.14.0...v5.15.0)
+
+### Features
+
+* **broadcasts:** document Broadcasts CRUD REST API ([#170](https://github.com/trycourier/courier-php/issues/170)) ([65b0fe9](https://github.com/trycourier/courier-php/commit/65b0fe9249c2b35dbc227cf996e32f419d891574))
+
 ## 5.14.0 (2026-07-29)
 
 Full Changelog: [v5.13.0...v5.14.0](https://github.com/trycourier/courier-php/compare/v5.13.0...v5.14.0)
