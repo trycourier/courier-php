@@ -12,7 +12,7 @@ use Courier\Journeys\JourneySendNode\Message;
 use Courier\Journeys\JourneySendNode\Type;
 
 /**
- * Send to the recipient. A send node sources its content from EXACTLY ONE of `message.template` (a single notification template) or `experiment` (an A/B split across weighted template variants) — supplying both, or neither, is rejected. Optionally override the recipient address, delay the send, or attach `data`.
+ * Send to the recipient. A send node sources its content from EXACTLY ONE of `message.template` (a single notification template) or `experiment` (an A/B split across weighted template variants) — supplying both, or neither, is rejected. Optionally override the recipient address, send as a tenant, delay the send, or attach `data`.
  *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type MessageShape from \Courier\Journeys\JourneySendNode\Message
