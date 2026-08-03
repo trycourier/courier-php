@@ -43,7 +43,8 @@ final class JourneysTest extends TestCase
             name: 'Welcome Journey',
             nodes: [
                 ['triggerType' => 'api-invoke', 'type' => 'trigger'],
-                ['triggerType' => 'api-invoke', 'type' => 'trigger'],
+                ['message' => [], 'type' => 'send'],
+                ['type' => 'exit'],
             ],
         );
 
@@ -69,12 +70,41 @@ final class JourneysTest extends TestCase
                     'schema' => ['foo' => 'bar'],
                 ],
                 [
-                    'triggerType' => 'api-invoke',
-                    'type' => 'trigger',
+                    'message' => [
+                        'context' => ['tenantID' => 'x'],
+                        'data' => ['foo' => 'bar'],
+                        'delay' => ['until' => 'x', 'timezone' => 'x'],
+                        'template' => 'nt_01kx4h2jdafq8bk9aftxak4b40',
+                        'to' => [
+                            'emailOverride' => 'x',
+                            'phoneNumberOverride' => 'x',
+                            'userIDOverride' => 'x',
+                        ],
+                    ],
+                    'type' => 'send',
                     'id' => 'send-1',
                     'conditions' => ['string', 'string'],
-                    'schema' => ['foo' => 'bar'],
+                    'experiment' => [
+                        'bucketingKey' => 'x',
+                        'variants' => [
+                            [
+                                'id' => 'x',
+                                'templateID' => 'x',
+                                'weight' => 0,
+                                'name' => 'name',
+                            ],
+                            [
+                                'id' => 'x',
+                                'templateID' => 'x',
+                                'weight' => 0,
+                                'name' => 'name',
+                            ],
+                        ],
+                        'id' => 'x',
+                        'name' => 'name',
+                    ],
                 ],
+                ['type' => 'exit', 'id' => 'exit-1'],
             ],
             enabled: true,
             state: JourneyState::DRAFT,
