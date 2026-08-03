@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.16.0 (2026-08-03)
+
+Full Changelog: [v5.15.0...v5.16.0](https://github.com/trycourier/courier-php/compare/v5.15.0...v5.16.0)
+
+### Features
+
+* Merge pull request [#183](https://github.com/trycourier/courier-php/issues/183) from trycourier/dantran/c-19684-api-spec-document-messagecontexttenant_id-on-journey-send ([0bde9fd](https://github.com/trycourier/courier-php/commit/0bde9fd030d1c388c814347850d7cf464726a093))
+* spec: remove inbox message delete/restore endpoints for now (C-19268) ([#182](https://github.com/trycourier/courier-php/issues/182)) ([5581b8f](https://github.com/trycourier/courier-php/commit/5581b8f9c4cd105ae61e7dfffad3ad3c25da8a8e))
+* spec: reorder API reference sections to match the Studio nav ([#180](https://github.com/trycourier/courier-php/issues/180)) ([d4fd646](https://github.com/trycourier/courier-php/commit/d4fd646fa2f4e6400de6afebeefa00d1707fdcff))
+
 ## 5.15.0 (2026-07-29)
 
 Full Changelog: [v5.14.0...v5.15.0](https://github.com/trycourier/courier-php/compare/v5.14.0...v5.15.0)

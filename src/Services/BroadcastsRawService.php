@@ -26,6 +26,8 @@ use Courier\RequestOptions;
 use Courier\ServiceContracts\BroadcastsRawContract;
 
 /**
+ * Create a one-off send to a list or audience, author its content, then send it immediately or schedule it for later.
+ *
  * @phpstan-import-type ContentShape from \Courier\Broadcasts\BroadcastPutContentParams\Content
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
