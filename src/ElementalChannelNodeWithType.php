@@ -25,6 +25,9 @@ use Courier\ElementalChannelNodeWithType\Type;
  *   loop?: string|null,
  *   ref?: string|null,
  *   channel?: string|null,
+ *   fontSize?: string|null,
+ *   lineHeight?: string|null,
+ *   padding?: string|null,
  *   raw?: array<string,mixed>|null,
  *   type?: null|Type|value-of<Type>,
  * }
@@ -53,6 +56,24 @@ final class ElementalChannelNodeWithType implements BaseModel
      */
     #[Optional]
     public ?string $channel;
+
+    /**
+     * Email only. Document-level base font size (CSS px, e.g. `16px`) for body content — text, quote, list and action button labels. Heading styles (`h1`/`h2`/`h3`) and `subtext` keep their preset sizes.
+     */
+    #[Optional('font_size', nullable: true)]
+    public ?string $fontSize;
+
+    /**
+     * Email only. Document-level line height (CSS px or unitless multiplier, e.g. `24px` or `1.5`) applied to all body content unless overridden per block.
+     */
+    #[Optional('line_height', nullable: true)]
+    public ?string $lineHeight;
+
+    /**
+     * Email only. Document-level body padding applied once around the email body, as a CSS px shorthand (1–4 values), e.g. `48px 64px`.
+     */
+    #[Optional(nullable: true)]
+    public ?string $padding;
 
     /**
      * Raw data to apply to the channel. If `elements` has not been specified, `raw` is required.
@@ -86,6 +107,9 @@ final class ElementalChannelNodeWithType implements BaseModel
         ?string $loop = null,
         ?string $ref = null,
         ?string $channel = null,
+        ?string $fontSize = null,
+        ?string $lineHeight = null,
+        ?string $padding = null,
         ?array $raw = null,
         Type|string|null $type = null,
     ): self {
@@ -96,6 +120,9 @@ final class ElementalChannelNodeWithType implements BaseModel
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
         null !== $channel && $self['channel'] = $channel;
+        null !== $fontSize && $self['fontSize'] = $fontSize;
+        null !== $lineHeight && $self['lineHeight'] = $lineHeight;
+        null !== $padding && $self['padding'] = $padding;
         null !== $raw && $self['raw'] = $raw;
         null !== $type && $self['type'] = $type;
 
@@ -145,6 +172,39 @@ final class ElementalChannelNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['channel'] = $channel;
+
+        return $self;
+    }
+
+    /**
+     * Email only. Document-level base font size (CSS px, e.g. `16px`) for body content — text, quote, list and action button labels. Heading styles (`h1`/`h2`/`h3`) and `subtext` keep their preset sizes.
+     */
+    public function withFontSize(?string $fontSize): self
+    {
+        $self = clone $this;
+        $self['fontSize'] = $fontSize;
+
+        return $self;
+    }
+
+    /**
+     * Email only. Document-level line height (CSS px or unitless multiplier, e.g. `24px` or `1.5`) applied to all body content unless overridden per block.
+     */
+    public function withLineHeight(?string $lineHeight): self
+    {
+        $self = clone $this;
+        $self['lineHeight'] = $lineHeight;
+
+        return $self;
+    }
+
+    /**
+     * Email only. Document-level body padding applied once around the email body, as a CSS px shorthand (1–4 values), e.g. `48px 64px`.
+     */
+    public function withPadding(?string $padding): self
+    {
+        $self = clone $this;
+        $self['padding'] = $padding;
 
         return $self;
     }

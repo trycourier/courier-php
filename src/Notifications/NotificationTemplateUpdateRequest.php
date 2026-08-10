@@ -11,12 +11,12 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationTemplateUpdateRequest\State;
 
 /**
- * Request body for replacing a notification template. Same shape as create. All fields required (PUT = full replacement).
+ * Request body for replacing a notification template. Same shape as create. All fields required (PUT = full replacement), except `alias`, whose omission means "leave the existing aliases alone".
  *
- * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload
+ * @phpstan-import-type NotificationTemplateWritePayloadShape from \Courier\Notifications\NotificationTemplateWritePayload
  *
  * @phpstan-type NotificationTemplateUpdateRequestShape = array{
- *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
+ *   notification: NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape,
  *   state?: null|State|value-of<State>,
  * }
  */
@@ -26,10 +26,10 @@ final class NotificationTemplateUpdateRequest implements BaseModel
     use SdkModel;
 
     /**
-     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
+     * Template fields accepted in POST and PUT request bodies, nested under a `notification` key.
      */
     #[Required]
-    public NotificationTemplatePayload $notification;
+    public NotificationTemplateWritePayload $notification;
 
     /**
      * Template state after update. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
@@ -63,12 +63,12 @@ final class NotificationTemplateUpdateRequest implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification
      * @param State|value-of<State>|null $state
      */
     public static function with(
-        NotificationTemplatePayload|array $notification,
-        State|string|null $state = null
+        NotificationTemplateWritePayload|array $notification,
+        State|string|null $state = null,
     ): self {
         $self = new self;
 
@@ -80,12 +80,12 @@ final class NotificationTemplateUpdateRequest implements BaseModel
     }
 
     /**
-     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
+     * Template fields accepted in POST and PUT request bodies, nested under a `notification` key.
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification
      */
     public function withNotification(
-        NotificationTemplatePayload|array $notification
+        NotificationTemplateWritePayload|array $notification
     ): self {
         $self = clone $this;
         $self['notification'] = $notification;

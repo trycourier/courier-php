@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.17.0 (2026-08-10)
+
+Full Changelog: [v5.16.0...v5.17.0](https://github.com/trycourier/courier-php/compare/v5.16.0...v5.17.0)
+
+### Features
+
+* Merge pull request [#178](https://github.com/trycourier/courier-php/issues/178) from trycourier/geraldosilva/c-19484-elemental-formatting-controls ([31b8ce0](https://github.com/trycourier/courier-php/commit/31b8ce022d936dfb9b6ede45d9527daedbffec80))
+* Merge pull request [#185](https://github.com/trycourier/courier-php/issues/185) from trycourier/geraldosilva/c-19821-notifications-alias-v2 ([7267f3a](https://github.com/trycourier/courier-php/commit/7267f3a12b9d60c0c402ebf1addbf886ae71e460))
+
 ## 5.16.0 (2026-08-03)
 
 Full Changelog: [v5.15.0...v5.16.0](https://github.com/trycourier/courier-php/compare/v5.15.0...v5.16.0)
