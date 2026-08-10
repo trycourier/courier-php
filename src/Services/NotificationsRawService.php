@@ -26,10 +26,10 @@ use Courier\Notifications\NotificationPutLocaleParams\Element;
 use Courier\Notifications\NotificationReplaceParams;
 use Courier\Notifications\NotificationRetrieveContentParams;
 use Courier\Notifications\NotificationRetrieveParams;
-use Courier\Notifications\NotificationTemplatePayload;
 use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
+use Courier\Notifications\NotificationTemplateWritePayload;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsRawContract;
 
@@ -38,7 +38,7 @@ use Courier\ServiceContracts\NotificationsRawContract;
  *
  * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationPutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Notifications\NotificationPutLocaleParams\Element
- * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload
+ * @phpstan-import-type NotificationTemplateWritePayloadShape from \Courier\Notifications\NotificationTemplateWritePayload
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class NotificationsRawService implements NotificationsRawContract
@@ -55,7 +55,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * Create a notification template. Requires all fields in the notification object. Templates are created in draft state by default.
      *
      * @param array{
-     *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
+     *   notification: NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape,
      *   state?: State|value-of<State>,
      *   idempotencyKey?: string,
      *   xIdempotencyExpiration?: string,
@@ -419,7 +419,7 @@ final class NotificationsRawService implements NotificationsRawContract
      *
      * @param string $id template ID (nt_ prefix)
      * @param array{
-     *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
+     *   notification: NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape,
      *   state?: NotificationReplaceParams\State|value-of<NotificationReplaceParams\State>,
      * }|NotificationReplaceParams $params
      * @param RequestOpts|null $requestOptions

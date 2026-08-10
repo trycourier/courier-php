@@ -12,16 +12,16 @@ use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
-use Courier\Notifications\NotificationTemplatePayload;
 use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
+use Courier\Notifications\NotificationTemplateWritePayload;
 use Courier\RequestOptions;
 
 /**
  * @phpstan-import-type ContentShape from \Courier\Notifications\NotificationPutContentParams\Content
  * @phpstan-import-type ElementShape from \Courier\Notifications\NotificationPutLocaleParams\Element
- * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload
+ * @phpstan-import-type NotificationTemplateWritePayloadShape from \Courier\Notifications\NotificationTemplateWritePayload
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 interface NotificationsContract
@@ -29,7 +29,7 @@ interface NotificationsContract
     /**
      * @api
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification body param: Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification body param: Template fields accepted in POST and PUT request bodies, nested under a `notification` key
      * @param State|value-of<State> $state Body param: Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
      * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
      * @param string $xIdempotencyExpiration Header param: How long the idempotency key remains valid, as a Unix epoch timestamp in seconds or an ISO 8601 date string. Only applies when `Idempotency-Key` is provided. If omitted, the key is retained for 25 hours; the maximum is 1 year.
@@ -38,7 +38,7 @@ interface NotificationsContract
      * @throws APIException
      */
     public function create(
-        NotificationTemplatePayload|array $notification,
+        NotificationTemplateWritePayload|array $notification,
         State|string $state = 'DRAFT',
         ?string $idempotencyKey = null,
         ?string $xIdempotencyExpiration = null,
@@ -208,7 +208,7 @@ interface NotificationsContract
      * @api
      *
      * @param string $id template ID (nt_ prefix)
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification template fields accepted in POST and PUT request bodies, nested under a `notification` key
      * @param \Courier\Notifications\NotificationReplaceParams\State|value-of<\Courier\Notifications\NotificationReplaceParams\State> $state Template state after update. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
      * @param RequestOpts|null $requestOptions
      *
@@ -216,7 +216,7 @@ interface NotificationsContract
      */
     public function replace(
         string $id,
-        NotificationTemplatePayload|array $notification,
+        NotificationTemplateWritePayload|array $notification,
         \Courier\Notifications\NotificationReplaceParams\State|string $state = 'DRAFT',
         RequestOptions|array|null $requestOptions = null,
     ): NotificationTemplateResponse;

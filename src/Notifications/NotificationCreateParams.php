@@ -16,10 +16,10 @@ use Courier\Notifications\NotificationCreateParams\State;
  *
  * @see Courier\Services\NotificationsService::create()
  *
- * @phpstan-import-type NotificationTemplatePayloadShape from \Courier\Notifications\NotificationTemplatePayload
+ * @phpstan-import-type NotificationTemplateWritePayloadShape from \Courier\Notifications\NotificationTemplateWritePayload
  *
  * @phpstan-type NotificationCreateParamsShape = array{
- *   notification: NotificationTemplatePayload|NotificationTemplatePayloadShape,
+ *   notification: NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape,
  *   state?: null|State|value-of<State>,
  *   idempotencyKey?: string|null,
  *   xIdempotencyExpiration?: string|null,
@@ -32,10 +32,10 @@ final class NotificationCreateParams implements BaseModel
     use SdkParams;
 
     /**
-     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
+     * Template fields accepted in POST and PUT request bodies, nested under a `notification` key.
      */
     #[Required]
-    public NotificationTemplatePayload $notification;
+    public NotificationTemplateWritePayload $notification;
 
     /**
      * Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
@@ -75,11 +75,11 @@ final class NotificationCreateParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification
      * @param State|value-of<State>|null $state
      */
     public static function with(
-        NotificationTemplatePayload|array $notification,
+        NotificationTemplateWritePayload|array $notification,
         State|string|null $state = null,
         ?string $idempotencyKey = null,
         ?string $xIdempotencyExpiration = null,
@@ -96,12 +96,12 @@ final class NotificationCreateParams implements BaseModel
     }
 
     /**
-     * Core template fields used in POST and PUT request bodies (nested under a `notification` key) and returned at the top level in responses.
+     * Template fields accepted in POST and PUT request bodies, nested under a `notification` key.
      *
-     * @param NotificationTemplatePayload|NotificationTemplatePayloadShape $notification
+     * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification
      */
     public function withNotification(
-        NotificationTemplatePayload|array $notification
+        NotificationTemplateWritePayload|array $notification
     ): self {
         $self = clone $this;
         $self['notification'] = $notification;

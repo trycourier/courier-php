@@ -12,37 +12,28 @@ use Courier\ElementalContent;
 use Courier\Notifications\NotificationTemplatePayload\Brand;
 use Courier\Notifications\NotificationTemplatePayload\Routing;
 use Courier\Notifications\NotificationTemplatePayload\Subscription;
-use Courier\Notifications\NotificationTemplateResponse\State;
 
 /**
- * Response for GET /notifications/{id}, POST /notifications, and PUT /notifications/{id}. Returns all template fields at the top level.
+ * Template fields accepted in POST and PUT request bodies, nested under a `notification` key.
  *
- * @phpstan-import-type NotificationTemplateAliasVariants from \Courier\Notifications\NotificationTemplateAlias
  * @phpstan-import-type BrandShape from \Courier\Notifications\NotificationTemplatePayload\Brand
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
  * @phpstan-import-type RoutingShape from \Courier\Notifications\NotificationTemplatePayload\Routing
  * @phpstan-import-type SubscriptionShape from \Courier\Notifications\NotificationTemplatePayload\Subscription
- * @phpstan-import-type NotificationTemplateAliasShape from \Courier\Notifications\NotificationTemplateAlias
  *
- * @phpstan-type NotificationTemplateResponseShape = array{
+ * @phpstan-type NotificationTemplateWritePayloadShape = array{
  *   brand: null|Brand|BrandShape,
  *   content: ElementalContent|ElementalContentShape,
  *   name: string,
  *   routing: null|Routing|RoutingShape,
  *   subscription: null|Subscription|SubscriptionShape,
  *   tags: list<string>,
- *   id: string,
- *   created: int,
- *   creator: string,
- *   state: State|value-of<State>,
- *   alias?: NotificationTemplateAliasShape|null,
- *   updated?: int|null,
- *   updater?: string|null,
+ *   alias?: string|null,
  * }
  */
-final class NotificationTemplateResponse implements BaseModel
+final class NotificationTemplateWritePayload implements BaseModel
 {
-    /** @use SdkModel<NotificationTemplateResponseShape> */
+    /** @use SdkModel<NotificationTemplateWritePayloadShape> */
     use SdkModel;
 
     /**
@@ -81,84 +72,38 @@ final class NotificationTemplateResponse implements BaseModel
     public array $tags;
 
     /**
-     * The template ID.
+     * Send-time alias for this template — the value you pass as `event` to POST /send. Writes accept a single alias only.
+     * Optional, with three distinct meanings. Omit it to leave any existing aliases untouched. Send a string to make this the template's only alias — a template that already resolved from several aliases keeps just this one and the rest are detached. Send null to remove every alias from the template.
+     * An alias may not be claimed by another template — doing so returns 409 — and may not begin with "tenant/".
      */
-    #[Required]
-    public string $id;
+    #[Optional(nullable: true)]
+    public ?string $alias;
 
     /**
-     * Epoch milliseconds when the template was created.
-     */
-    #[Required]
-    public int $created;
-
-    /**
-     * User ID of the creator.
-     */
-    #[Required]
-    public string $creator;
-
-    /**
-     * The template state. Always uppercase.
-     *
-     * @var value-of<State> $state
-     */
-    #[Required(enum: State::class)]
-    public string $state;
-
-    /**
-     * A template's send-time alias as returned by a read, omitted entirely when it has none. Usually a single string; an array for a template that resolves from several aliases, which writes through this API can no longer produce — only templates predating that restriction, or aliases attached outside this API, hold more than one.
-     *
-     * @var NotificationTemplateAliasVariants|null $alias
-     */
-    #[Optional(union: NotificationTemplateAlias::class)]
-    public string|array|null $alias;
-
-    /**
-     * Epoch milliseconds of last update.
-     */
-    #[Optional]
-    public ?int $updated;
-
-    /**
-     * User ID of the last updater.
-     */
-    #[Optional]
-    public ?string $updater;
-
-    /**
-     * `new NotificationTemplateResponse()` is missing required properties by the API.
+     * `new NotificationTemplateWritePayload()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * NotificationTemplateResponse::with(
+     * NotificationTemplateWritePayload::with(
      *   brand: ...,
      *   content: ...,
      *   name: ...,
      *   routing: ...,
      *   subscription: ...,
      *   tags: ...,
-     *   id: ...,
-     *   created: ...,
-     *   creator: ...,
-     *   state: ...,
      * )
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new NotificationTemplateResponse)
+     * (new NotificationTemplateWritePayload)
      *   ->withBrand(...)
      *   ->withContent(...)
      *   ->withName(...)
      *   ->withRouting(...)
      *   ->withSubscription(...)
      *   ->withTags(...)
-     *   ->withID(...)
-     *   ->withCreated(...)
-     *   ->withCreator(...)
-     *   ->withState(...)
      * ```
      */
     public function __construct()
@@ -176,8 +121,6 @@ final class NotificationTemplateResponse implements BaseModel
      * @param Routing|RoutingShape|null $routing
      * @param Subscription|SubscriptionShape|null $subscription
      * @param list<string> $tags
-     * @param State|value-of<State> $state
-     * @param NotificationTemplateAliasShape|null $alias
      */
     public static function with(
         Brand|array|null $brand,
@@ -186,13 +129,7 @@ final class NotificationTemplateResponse implements BaseModel
         Routing|array|null $routing,
         Subscription|array|null $subscription,
         array $tags,
-        string $id,
-        int $created,
-        string $creator,
-        State|string $state,
-        string|array|null $alias = null,
-        ?int $updated = null,
-        ?string $updater = null,
+        ?string $alias = null,
     ): self {
         $self = new self;
 
@@ -202,14 +139,8 @@ final class NotificationTemplateResponse implements BaseModel
         $self['routing'] = $routing;
         $self['subscription'] = $subscription;
         $self['tags'] = $tags;
-        $self['id'] = $id;
-        $self['created'] = $created;
-        $self['creator'] = $creator;
-        $self['state'] = $state;
 
         null !== $alias && $self['alias'] = $alias;
-        null !== $updated && $self['updated'] = $updated;
-        null !== $updater && $self['updater'] = $updater;
 
         return $self;
     }
@@ -290,82 +221,14 @@ final class NotificationTemplateResponse implements BaseModel
     }
 
     /**
-     * The template ID.
+     * Send-time alias for this template — the value you pass as `event` to POST /send. Writes accept a single alias only.
+     * Optional, with three distinct meanings. Omit it to leave any existing aliases untouched. Send a string to make this the template's only alias — a template that already resolved from several aliases keeps just this one and the rest are detached. Send null to remove every alias from the template.
+     * An alias may not be claimed by another template — doing so returns 409 — and may not begin with "tenant/".
      */
-    public function withID(string $id): self
-    {
-        $self = clone $this;
-        $self['id'] = $id;
-
-        return $self;
-    }
-
-    /**
-     * Epoch milliseconds when the template was created.
-     */
-    public function withCreated(int $created): self
-    {
-        $self = clone $this;
-        $self['created'] = $created;
-
-        return $self;
-    }
-
-    /**
-     * User ID of the creator.
-     */
-    public function withCreator(string $creator): self
-    {
-        $self = clone $this;
-        $self['creator'] = $creator;
-
-        return $self;
-    }
-
-    /**
-     * The template state. Always uppercase.
-     *
-     * @param State|value-of<State> $state
-     */
-    public function withState(State|string $state): self
-    {
-        $self = clone $this;
-        $self['state'] = $state;
-
-        return $self;
-    }
-
-    /**
-     * A template's send-time alias as returned by a read, omitted entirely when it has none. Usually a single string; an array for a template that resolves from several aliases, which writes through this API can no longer produce — only templates predating that restriction, or aliases attached outside this API, hold more than one.
-     *
-     * @param NotificationTemplateAliasShape $alias
-     */
-    public function withAlias(string|array $alias): self
+    public function withAlias(?string $alias): self
     {
         $self = clone $this;
         $self['alias'] = $alias;
-
-        return $self;
-    }
-
-    /**
-     * Epoch milliseconds of last update.
-     */
-    public function withUpdated(int $updated): self
-    {
-        $self = clone $this;
-        $self['updated'] = $updated;
-
-        return $self;
-    }
-
-    /**
-     * User ID of the last updater.
-     */
-    public function withUpdater(string $updater): self
-    {
-        $self = clone $this;
-        $self['updater'] = $updater;
 
         return $self;
     }

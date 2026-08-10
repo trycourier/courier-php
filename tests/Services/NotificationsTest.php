@@ -71,6 +71,7 @@ final class NotificationsTest extends TestCase
                 'routing' => ['strategyID' => 'rs_01kx4h2jdafq8bk9amzvy6hbv0'],
                 'subscription' => ['topicID' => 'pt_01kx4h2jdafq8bk9a26x0kvd1t'],
                 'tags' => ['onboarding', 'welcome'],
+                'alias' => 'welcome',
             ],
             state: 'DRAFT',
             idempotencyKey: 'order-ORD-456-user-123',
@@ -331,6 +332,7 @@ final class NotificationsTest extends TestCase
                 'routing' => ['strategyID' => 'strategy_id'],
                 'subscription' => ['topicID' => 'topic_id'],
                 'tags' => ['updated'],
+                'alias' => 'alias',
             ],
             state: 'PUBLISHED',
         );
