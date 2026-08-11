@@ -1,0 +1,595 @@
+# Changelog
+
+## 5.17.0 (2026-08-10)
+
+Full Changelog: [v5.16.0...v5.17.0](https://github.com/trycourier/courier-php/compare/v5.16.0...v5.17.0)
+
+### Features
+
+* Merge pull request [#178](https://github.com/trycourier/courier-php/issues/178) from trycourier/geraldosilva/c-19484-elemental-formatting-controls ([31b8ce0](https://github.com/trycourier/courier-php/commit/31b8ce022d936dfb9b6ede45d9527daedbffec80))
+* Merge pull request [#185](https://github.com/trycourier/courier-php/issues/185) from trycourier/geraldosilva/c-19821-notifications-alias-v2 ([7267f3a](https://github.com/trycourier/courier-php/commit/7267f3a12b9d60c0c402ebf1addbf886ae71e460))
+
+## 5.16.0 (2026-08-03)
+
+Full Changelog: [v5.15.0...v5.16.0](https://github.com/trycourier/courier-php/compare/v5.15.0...v5.16.0)
+
+### Features
+
+* Merge pull request [#183](https://github.com/trycourier/courier-php/issues/183) from trycourier/dantran/c-19684-api-spec-document-messagecontexttenant_id-on-journey-send ([0bde9fd](https://github.com/trycourier/courier-php/commit/0bde9fd030d1c388c814347850d7cf464726a093))
+* spec: remove inbox message delete/restore endpoints for now (C-19268) ([#182](https://github.com/trycourier/courier-php/issues/182)) ([5581b8f](https://github.com/trycourier/courier-php/commit/5581b8f9c4cd105ae61e7dfffad3ad3c25da8a8e))
+* spec: reorder API reference sections to match the Studio nav ([#180](https://github.com/trycourier/courier-php/issues/180)) ([d4fd646](https://github.com/trycourier/courier-php/commit/d4fd646fa2f4e6400de6afebeefa00d1707fdcff))
+
+## 5.15.0 (2026-07-29)
+
+Full Changelog: [v5.14.0...v5.15.0](https://github.com/trycourier/courier-php/compare/v5.14.0...v5.15.0)
+
+### Features
+
+* **broadcasts:** document Broadcasts CRUD REST API ([#170](https://github.com/trycourier/courier-php/issues/170)) ([65b0fe9](https://github.com/trycourier/courier-php/commit/65b0fe9249c2b35dbc227cf996e32f419d891574))
+
+## 5.14.0 (2026-07-29)
+
+Full Changelog: [v5.13.0...v5.14.0](https://github.com/trycourier/courier-php/compare/v5.13.0...v5.14.0)
+
+### Features
+
+* Document DELETE/PUT restore for inbox messages (C-19268) ([#175](https://github.com/trycourier/courier-php/issues/175)) ([39d6d12](https://github.com/trycourier/courier-php/commit/39d6d12c8608e3818d9bfb610bdf1068c063609c))
+* spec: rename and reorder the API reference sections ([#179](https://github.com/trycourier/courier-php/issues/179)) ([59a7ab7](https://github.com/trycourier/courier-php/commit/59a7ab7b6aa907e45aaeba5d78b11b1fe7b809e5))
+
+
+### Documentation
+
+* **openapi:** describe user topic-preference fields explicitly ([#172](https://github.com/trycourier/courier-php/issues/172)) ([118ad39](https://github.com/trycourier/courier-php/commit/118ad3932b1feb9950ee303995db021ff183bc29))
+* **openapi:** document Idempotency-Key header on idempotent POST endpoints ([#176](https://github.com/trycourier/courier-php/issues/176)) ([35d4b77](https://github.com/trycourier/courier-php/commit/35d4b77c524620ad8cd3e14db52e556da51d02f2))
+* **openapi:** rewrite operation descriptions for agents and SEO ([#174](https://github.com/trycourier/courier-php/issues/174)) ([4cadcbf](https://github.com/trycourier/courier-php/commit/4cadcbf051dd0e32c9b1427073adf33619b70cbf))
+
+## 5.13.0 (2026-07-23)
+
+Full Changelog: [v5.12.0...v5.13.0](https://github.com/trycourier/courier-php/compare/v5.12.0...v5.13.0)
+
+### Features
+
+* Remove /bulk endpoints from api-spec (C-19507) ([#171](https://github.com/trycourier/courier-php/issues/171)) ([b39cce7](https://github.com/trycourier/courier-php/commit/b39cce702c9b4ae9ff04011530f9f9fd16e793b3))
+
+## 5.12.0 (2026-07-20)
+
+Full Changelog: [v5.11.2...v5.12.0](https://github.com/trycourier/courier-php/compare/v5.11.2...v5.12.0)
+
+### Features
+
+* Document POST /notifications/{id}/duplicate [C-18607] ([#165](https://github.com/trycourier/courier-php/issues/165)) ([be965ad](https://github.com/trycourier/courier-php/commit/be965adeb3c022bd988e03a976d2842634726a5c))
+* Merge pull request [#149](https://github.com/trycourier/courier-php/issues/149) from trycourier/geraldosilva/c-19201-notification-template-subscription-topic-id ([622c65e](https://github.com/trycourier/courier-php/commit/622c65e6334f628d60e5c3aa433bc37b38eb3619))
+* Merge pull request [#168](https://github.com/trycourier/courier-php/issues/168) from trycourier/geraldosilva/c-19419-topic-id-notification-template-summary ([9f7f082](https://github.com/trycourier/courier-php/commit/9f7f082b3f2f87033f9d1242aed96ebcdf141485))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([69bfa6b](https://github.com/trycourier/courier-php/commit/69bfa6b0e807f5120d48dcc1cc7aa1f532ec0a9c))
+
+
+### Bug Fixes
+
+* **ci:** drop Packagist secret requirement from release doctor ([#90](https://github.com/trycourier/courier-php/issues/90)) ([e0b992d](https://github.com/trycourier/courier-php/commit/e0b992df2ac46603779dc3c566dd178c558f42c4))
+
+## 5.11.2 (2026-07-10)
+
+Full Changelog: [v5.11.1...v5.11.2](https://github.com/trycourier/courier-php/compare/v5.11.1...v5.11.2)
+
+### Documentation
+
+* **openapi:** canonical type-id prefixes across all examples ([#162](https://github.com/trycourier/courier-php/issues/162)) ([1f883cb](https://github.com/trycourier/courier-php/commit/1f883cb20d6675abf337f0eb18b84d90472e5f4b))
+* **openapi:** use canonical type-id prefixes in id examples ([#160](https://github.com/trycourier/courier-php/issues/160)) ([e400881](https://github.com/trycourier/courier-php/commit/e4008818317bdee7b7c2f65b64d3f155bf3458a8))
+
+## 5.11.1 (2026-07-09)
+
+Full Changelog: [v5.11.0...v5.11.1](https://github.com/trycourier/courier-php/compare/v5.11.0...v5.11.1)
+
+## 5.11.0 (2026-07-09)
+
+Full Changelog: [v5.10.1...v5.11.0](https://github.com/trycourier/courier-php/compare/v5.10.1...v5.11.0)
+
+### Features
+
+* Add bulk user preference upsert and replace endpoints ([d4b4f02](https://github.com/trycourier/courier-php/commit/d4b4f02c00bffa46c3aafaf7bb040d421ee798b1))
+* Preferences v3 REST fields: section/topic description + publish body ([b1fd181](https://github.com/trycourier/courier-php/commit/b1fd1815f8091c15b9827bd2e54a83ba74c61284))
+
+## 5.10.1 (2026-07-09)
+
+Full Changelog: [v5.10.0...v5.10.1](https://github.com/trycourier/courier-php/compare/v5.10.0...v5.10.1)
+
+### Chores
+
+* update api-spec with new message resend endpoint ([34ba45f](https://github.com/trycourier/courier-php/commit/34ba45f86dca27a7032199f7a79febf1011d9c12))
+
+
+### Documentation
+
+* **openapi:** document audiences filter combinator (SUP-686) ([48e29ab](https://github.com/trycourier/courier-php/commit/48e29abcd19d53c5d07cec757eb9c2a52f80e1b3))
+
+## 5.10.0 (2026-07-06)
+
+Full Changelog: [v5.9.1...v5.10.0](https://github.com/trycourier/courier-php/compare/v5.9.1...v5.10.0)
+
+### Features
+
+* **openapi:** Journeys cancel-by-token endpoint + send-node experiments (C-18986) ([c542e49](https://github.com/trycourier/courier-php/commit/c542e49d94029803280cdbf7e9237394f073bc7f))
+
+
+### Documentation
+
+* **openapi:** reword Cancel journey runs 400 description (re-trigger deploy) ([84eaee5](https://github.com/trycourier/courier-php/commit/84eaee50a95b46ad1cf8a87766672398996773fb))
+* **openapi:** reword Cancel journey runs description (re-trigger deploy) ([bbc557c](https://github.com/trycourier/courier-php/commit/bbc557c64465c30c76976f7be1bb96105162c2bb))
+* **openapi:** tighten Journeys cancel/experiment copy (C-19177) ([4756186](https://github.com/trycourier/courier-php/commit/47561864a0c1d9c1ed4eb4adf75fdcdd8425aa59))
+
+## 5.9.1 (2026-06-25)
+
+Full Changelog: [v5.9.0...v5.9.1](https://github.com/trycourier/courier-php/compare/v5.9.0...v5.9.1)
+
+### Documentation
+
+* **openapi:** add full response examples to every endpoint ([2156650](https://github.com/trycourier/courier-php/commit/21566505bdc7cec0b9e2201a9bde234383d2ab34))
+* **openapi:** reword Cancel Submission description ([24af1ac](https://github.com/trycourier/courier-php/commit/24af1acdc52ed107ebbcce4d1aa7f61d1aa9634a))
+* **openapi:** reword Get Submission Checks description ([a65c14f](https://github.com/trycourier/courier-php/commit/a65c14f472849898f7b4e178d48df4f2863bdba0))
+* **openapi:** reword Replace Submission Checks description ([80961e9](https://github.com/trycourier/courier-php/commit/80961e9d6efa219b334c12c033eee40e5c4e6143))
+
+## 5.9.0 (2026-06-24)
+
+Full Changelog: [v5.8.0...v5.9.0](https://github.com/trycourier/courier-php/compare/v5.8.0...v5.9.0)
+
+### Features
+
+* **preferences:** workspace preference sections & nested topics endpoints ([729d312](https://github.com/trycourier/courier-php/commit/729d3125e1673b171d6dd05a8e589d68f8eada3e))
+
+## 5.8.0 (2026-06-23)
+
+Full Changelog: [v5.7.0...v5.8.0](https://github.com/trycourier/courier-php/compare/v5.7.0...v5.8.0)
+
+### Features
+
+* **journeys:** add content + locale endpoints to journey-scoped templates ([413d0bb](https://github.com/trycourier/courier-php/commit/413d0bb03f2ca09617e53f3959ae31727daf513c))
+
+
+### Documentation
+
+* **journeys:** clarify checksum usage + re-trigger docs sync for journey content endpoints ([12983b5](https://github.com/trycourier/courier-php/commit/12983b58356cc3414aa4d21bd2513ddea3ecacb3))
+
+## 5.7.0 (2026-06-17)
+
+Full Changelog: [v5.6.0...v5.7.0](https://github.com/trycourier/courier-php/compare/v5.6.0...v5.7.0)
+
+### Features
+
+* **openapi:** add add-to-digest JourneyNode variant ([e513269](https://github.com/trycourier/courier-php/commit/e51326909c6d7c7b6ac94f165c28a97ac74fe556))
+* **openapi:** add DELETE /users/{id}/preferences/{topicId} ([aee7e83](https://github.com/trycourier/courier-php/commit/aee7e8367f5cdd12e8455c53da9ec521e83ed46d))
+
+## 5.6.0 (2026-06-12)
+
+Full Changelog: [v5.5.0...v5.6.0](https://github.com/trycourier/courier-php/compare/v5.5.0...v5.6.0)
+
+### Features
+
+* **digests:** document digest REST endpoints in OpenAPI spec ([369e6af](https://github.com/trycourier/courier-php/commit/369e6afeeda98b21b381844399d7d6222155f292))
+
+## 5.5.0 (2026-05-28)
+
+Full Changelog: [v5.4.3...v5.5.0](https://github.com/trycourier/courier-php/compare/v5.4.3...v5.5.0)
+
+### Features
+
+* [C-18380] Journeys API reference: copy + naming cleanup ([f9e70b3](https://github.com/trycourier/courier-php/commit/f9e70b3e11da2abfa6e2c4609904187910392bdc))
+* [SUP-607] Add DELETE endpoint for Courier Create tenant templates ([bcbbf52](https://github.com/trycourier/courier-php/commit/bcbbf523eeeb45fca29df8762e3f5383b04dfaf0))
+* **api:** add journeys CRUD, templates subresource, journey node types ([8129a82](https://github.com/trycourier/courier-php/commit/8129a82accd8683d11d3670cd26bbf9f1610701f))
+* C-18612 Add Journeys `batch` node variant to OpenAPI spec ([41bbe4f](https://github.com/trycourier/courier-php/commit/41bbe4fadac4f4d63571e54e22982cb8312c0995))
+* Mark `settings` as required on POST /brands ([f244455](https://github.com/trycourier/courier-php/commit/f2444554869dfda572f963c5be02e43448605f14))
+* support setting headers via env ([8bdab3e](https://github.com/trycourier/courier-php/commit/8bdab3ee438fc93c58bd6831575863fc8c04a4ec))
+
+
+### Bug Fixes
+
+* guzzle requires special handling to enable streaming ([414421b](https://github.com/trycourier/courier-php/commit/414421b95017d6cc77ad4aa8db10551de74ae2f0))
+
+## 5.4.3 (2026-04-26)
+
+Full Changelog: [v5.4.2...v5.4.3](https://github.com/trycourier/courier-php/compare/v5.4.2...v5.4.3)
+
+### Bug Fixes
+
+* **client:** resolve serialization issue with unions and enums ([6334db6](https://github.com/trycourier/courier-php/commit/6334db68df2b0262ecf2fb125fe112c07dec827e))
+* populate enum-typed properties with enum instances ([021ee66](https://github.com/trycourier/courier-php/commit/021ee66cad4486cbaaab52f8edea47385f0d94ff))
+* revert enum parsing change that lead to unconditional failure ([56d6446](https://github.com/trycourier/courier-php/commit/56d6446bf80a5ac9db1534db65428fad7083326b))
+
+## 5.4.2 (2026-04-14)
+
+Full Changelog: [v5.4.1...v5.4.2](https://github.com/trycourier/courier-php/compare/v5.4.1...v5.4.2)
+
+### Bug Fixes
+
+* **types:** flatten NotificationTemplateResponse, removing nested notification field ([d10311d](https://github.com/trycourier/courier-php/commit/d10311d3d2db5381e3de2c1de6d3228a585bf302))
+* **types:** make note optional, flatten NotificationTemplateGetResponse ([367a7f9](https://github.com/trycourier/courier-php/commit/367a7f94d26df68dd169ab1aded05e6d325ee965))
+
+## 5.4.1 (2026-04-13)
+
+Full Changelog: [v5.4.0...v5.4.1](https://github.com/trycourier/courier-php/compare/v5.4.0...v5.4.1)
+
+### Bug Fixes
+
+* **api:** update notifications/routing_strategies return types, fix providers update method ([5983a88](https://github.com/trycourier/courier-php/commit/5983a88ec5e24a70ee010f094a7e031cac6041b6))
+* **client:** properly generate file params ([24f72fd](https://github.com/trycourier/courier-php/commit/24f72fd14e25e633799a05074e29241c4e8c912c))
+
+## 5.4.0 (2026-04-08)
+
+Full Changelog: [v5.3.0...v5.4.0](https://github.com/trycourier/courier-php/compare/v5.3.0...v5.4.0)
+
+### Features
+
+* **api:** add listNotifications method to routing_strategies ([5567b9e](https://github.com/trycourier/courier-php/commit/5567b9e7b905b979a6d19ec6cf5830f16d35f632))
+* **api:** add putContent/putElement/putLocale, remove draft service, update types ([68f068e](https://github.com/trycourier/courier-php/commit/68f068e8a46edb908ce1ed1133bf0ec62afcd43d))
+
+## 5.3.0 (2026-04-01)
+
+Full Changelog: [v5.2.0...v5.3.0](https://github.com/trycourier/courier-php/compare/v5.2.0...v5.3.0)
+
+### Features
+
+* **api:** add create/retrieve/archive/publish/replace to notifications, eventID to list ([58063be](https://github.com/trycourier/courier-php/commit/58063bea626f2afc1a99bbc940176f9da5d98359))
+* **api:** add HTML node variant to ElementalNode union ([4f0cbf2](https://github.com/trycourier/courier-php/commit/4f0cbf28620be26ae444e756ea0a6baadd4b98c7))
+* **api:** add providers resource with CRUD operations and catalog endpoint ([68ce279](https://github.com/trycourier/courier-php/commit/68ce2797ed05292d8609aab23977aa434eed00f4))
+* **api:** add routing_strategies create/retrieve/list/archive/replace methods ([eb26697](https://github.com/trycourier/courier-php/commit/eb266977d1bb03895711abc942ca87732a73dae1))
+
+
+### Bug Fixes
+
+* **types:** rename UnionMember7 to ElementalHTMLNodeWithType ([dd75f87](https://github.com/trycourier/courier-php/commit/dd75f87d701918fd865ea85eca5e8559e3551fa6))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([9f965b2](https://github.com/trycourier/courier-php/commit/9f965b25bb6e9b30d5d8923a32ffdee52730293a))
+
+
+### Documentation
+
+* add AGENTS.md for AI coding assistants ([1192d6d](https://github.com/trycourier/courier-php/commit/1192d6df360e9d44e96a5f1700e24f041dd72111))
+* sync README from mintlify-docs (2026-03-23 19:54 UTC) ([0160fe7](https://github.com/trycourier/courier-php/commit/0160fe7c0bd4af14cefaea22a1e9a35100e74d5f))
+
+## 5.2.0 (2026-03-12)
+
+Full Changelog: [v5.1.0...v5.2.0](https://github.com/trycourier/courier-php/compare/v5.1.0...v5.2.0)
+
+### Features
+
+* **api:** add journeys resource with list/invoke methods ([c12b977](https://github.com/trycourier/courier-php/commit/c12b977cb856309f3d2cd8dd4c33ac29dbc44760))
+
+
+### Bug Fixes
+
+* **api:** remove brand field from ElementalContent ([e7b32eb](https://github.com/trycourier/courier-php/commit/e7b32ebc7928583bcc92a33d83056b31d465652e))
+* **api:** remove duplicate token param, rename token_ in users tokens addSingle ([ba48567](https://github.com/trycourier/courier-php/commit/ba48567bb582a0f82c3678c45aff4389ed2bf061))
+* mark MessageDetails timestamp fields as optional ([3996639](https://github.com/trycourier/courier-php/commit/3996639a52e4814183522a0e805171d227a80f56))
+
+
+### Chores
+
+* **internal:** codegen related update ([350d527](https://github.com/trycourier/courier-php/commit/350d527dae713b1ea198ddfd81a8a5646267e8ff))
+* **internal:** remove mock server code ([0e4932e](https://github.com/trycourier/courier-php/commit/0e4932ea8282a21d9fe88f582aee42088b7cec6f))
+* update mock server docs ([6541bd1](https://github.com/trycourier/courier-php/commit/6541bd14ef424dec7fb51f9d0acc5ab70b64618d))
+
+
+### Documentation
+
+* add AUTO-GENERATED-OVERVIEW markers for README sync ([97bfbe3](https://github.com/trycourier/courier-php/commit/97bfbe3ce0efbcf14d6f0c54b1cfbd809a5f6eab))
+* sync README from mintlify-docs (2026-02-20 18:11 UTC) ([9e9e06f](https://github.com/trycourier/courier-php/commit/9e9e06fdb360f1a42ded040073a4363754bbab5e))
+* sync README from mintlify-docs (2026-02-20 18:36 UTC) ([af795ee](https://github.com/trycourier/courier-php/commit/af795ee277e7abce3c4b764d45e31badbf98d7dc))
+
+## 5.1.0 (2026-02-06)
+
+Full Changelog: [v5.0.2...v5.1.0](https://github.com/trycourier/courier-php/compare/v5.0.2...v5.1.0)
+
+### Features
+
+* **api:** add array of recipients support to send message to parameter ([e8c0d00](https://github.com/trycourier/courier-php/commit/e8c0d00e25e58fcfa78da330b66ea39dbd1d036d))
+* **api:** add publish, replace, versions.retrieve to tenants templates ([a99cfa0](https://github.com/trycourier/courier-php/commit/a99cfa0b711797984748c24b4921569482e844c8))
+* use `$_ENV` aware getenv helper ([49c8eb5](https://github.com/trycourier/courier-php/commit/49c8eb59701ba147483743f02d4c7b603a08d582))
+
+
+### Bug Fixes
+
+* used redirect count instead of retry count in base client ([b9ce45b](https://github.com/trycourier/courier-php/commit/b9ce45b96cbe4e4ea5adaf1f0b4342cd89e49eea))
+
+
+### Chores
+
+* **internal:** ignore stainless-internal artifacts ([b1a2935](https://github.com/trycourier/courier-php/commit/b1a29351f9511a1b11de8a1f853d14ef62747f6b))
+* **internal:** php cs fixer should not be memory limited ([210fd4b](https://github.com/trycourier/courier-php/commit/210fd4be83c5da17601c61ac1c395fdf7b504e2b))
+
+## 5.0.2 (2026-01-27)
+
+Full Changelog: [v5.0.1...v5.0.2](https://github.com/trycourier/courier-php/compare/v5.0.1...v5.0.2)
+
+### Chores
+
+* **internal:** minor test script reformatting ([a7ded5b](https://github.com/trycourier/courier-php/commit/a7ded5bbc239a2e3eb7a9a9b7b49f01996c659f3))
+* **internal:** update `actions/checkout` version ([e417ad9](https://github.com/trycourier/courier-php/commit/e417ad92a02078ad8469ad96f05a3e7601a3721e))
+* **internal:** update phpstan comments ([08a8d38](https://github.com/trycourier/courier-php/commit/08a8d38d8219522f414df3e9610891e524ae3328))
+
+
+### Documentation
+
+* **types:** clarify version field description in AutomationTemplate ([6e8ead0](https://github.com/trycourier/courier-php/commit/6e8ead0701273373081f382108b6af879ed462ea))
+
+## 5.0.1 (2026-01-14)
+
+Full Changelog: [v5.0.0...v5.0.1](https://github.com/trycourier/courier-php/compare/v5.0.0...v5.0.1)
+
+### Bug Fixes
+
+* typos in README.md ([f1a033c](https://github.com/trycourier/courier-php/commit/f1a033c8c70d2a48f5fea41af512766957d97923))
+
+
+### Chores
+
+* fix typo in descriptions ([f46d067](https://github.com/trycourier/courier-php/commit/f46d067a4a66d5a94dde8f4c02621e917c665c32))
+* **internal:** codegen related update ([7b4fa3b](https://github.com/trycourier/courier-php/commit/7b4fa3ba45681760ac59e758fa94756246e343ae))
+* **internal:** codegen related update ([89591b8](https://github.com/trycourier/courier-php/commit/89591b8dd16a7b9c3f55abac64ad65fef05fb94e))
+* **internal:** regenerate SDK with no functional changes ([eb51446](https://github.com/trycourier/courier-php/commit/eb51446e6b4e8368d8e27053d3605d1b089fcac4))
+* **internal:** regenerate SDK with no functional changes ([bd1ea2c](https://github.com/trycourier/courier-php/commit/bd1ea2c50e9c8ddee9d51c7ed6e18e30e2dc5e27))
+* **readme:** remove beta warning now that we're in ga ([c3d5ef7](https://github.com/trycourier/courier-php/commit/c3d5ef7b9481b5c2762f28cff97610277eb2880f))
+* remove custom code ([5b4f359](https://github.com/trycourier/courier-php/commit/5b4f359ac6c2664b81c080dba20e8f6b54629ded))
+
+## 5.0.0 (2026-01-12)
+
+Full Changelog: [v4.1.0...v5.0.0](https://github.com/trycourier/courier-php/compare/v4.1.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* replace special flag type `omittable` with just `null`
+
+### Features
+
+* replace special flag type `omittable` with just `null` ([dc732bd](https://github.com/trycourier/courier-php/commit/dc732bd167c823597119f44e357f64b814b7c0b2))
+
+
+### Bug Fixes
+
+* **types:** correct variants and list types in audiences filters ([65348ef](https://github.com/trycourier/courier-php/commit/65348efeefd976112df533fbecdd4cbbbbceefcc))
+
+
+### Chores
+
+* add git attributes and composer lock file ([f4733cc](https://github.com/trycourier/courier-php/commit/f4733ccba9daedee0078bbce67c4eea2699558f1))
+* **internal:** codegen related update ([c3441ed](https://github.com/trycourier/courier-php/commit/c3441edf886f03302f063c7489f0745e1927a533))
+* **internal:** codegen related update ([39c23af](https://github.com/trycourier/courier-php/commit/39c23af782e97f7e539a526e6a5b9530f76927d6))
+* **internal:** regenerate SDK with no functional changes ([edd567c](https://github.com/trycourier/courier-php/commit/edd567c6c169ff02b52cc706f157c2fca7456675))
+
+## 4.1.0 (2026-01-08)
+
+Full Changelog: [v4.0.0...v4.1.0](https://github.com/trycourier/courier-php/compare/v4.0.0...v4.1.0)
+
+### Features
+
+* simplify and make the phpstan types more consistent ([3956a7e](https://github.com/trycourier/courier-php/commit/3956a7ea3e6db25752e418fab92a5d24dacfdb49))
+
+
+### Chores
+
+* **api:** remove audit_events, automations, brands, bulk, inbound, translations endpoints ([5ba0410](https://github.com/trycourier/courier-php/commit/5ba04109024b938f57809bcce0f2bc33194b4e39))
+* **internal:** add a basic client test ([46cc7a1](https://github.com/trycourier/courier-php/commit/46cc7a16594cdb10d9465cac0ccc61772d64498e))
+* **internal:** refactor auth by moving concern from base client into client ([7aec734](https://github.com/trycourier/courier-php/commit/7aec734f4c8b9069d4a5398a9fe42f8ada095ac6))
+
+## 4.0.0 (2025-12-29)
+
+Full Changelog: [v3.3.0...v4.0.0](https://github.com/trycourier/courier-php/compare/v3.3.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* use aliases for phpstan types
+* use camel casing for all class properties
+
+### Features
+
+* add `BaseResponse` class for accessing raw responses ([5760ba2](https://github.com/trycourier/courier-php/commit/5760ba2f47a6318d66339ff2769a8927d6473da0))
+* add idempotency header support ([17408d4](https://github.com/trycourier/courier-php/commit/17408d480ec536703e68a4013b88d647719f101e))
+* Add timezone field to Delay schema ([fee5c42](https://github.com/trycourier/courier-php/commit/fee5c429790d3ac871ea5f4970d7bf1644400486))
+* **api:** add slack/teams/pagerduty/webhook/audience recipients, remove preferences model ([739d7d7](https://github.com/trycourier/courier-php/commit/739d7d7714d97f58cb6e9145608bb2f18b75c3e0))
+* improved phpstan type annotations ([d3b2bfb](https://github.com/trycourier/courier-php/commit/d3b2bfb1f6d0f9f94645c21a6fb2fb816dba0975))
+* split out services into normal & raw types ([25c65d2](https://github.com/trycourier/courier-php/commit/25c65d25a3b60c208210f1ca65f3f9c8b033a1a8))
+* support unwrapping envelopes ([83eb112](https://github.com/trycourier/courier-php/commit/83eb11240d2f16af4e9d20c664b89ac83015adb4))
+* Update bulk API spec: make event required, document profile.email req… ([72f10c2](https://github.com/trycourier/courier-php/commit/72f10c29244af3c4ae711c18f5224d8f723330ee))
+* use aliases for phpstan types ([71a9aee](https://github.com/trycourier/courier-php/commit/71a9aee4184646dfe425733d35ddc15a2d6a7aeb))
+* use camel casing for all class properties ([bac38c9](https://github.com/trycourier/courier-php/commit/bac38c9dff9a14b416775a4148e5b4acca97e036))
+
+
+### Bug Fixes
+
+* a number of serialization errors ([c71acba](https://github.com/trycourier/courier-php/commit/c71acbad72fa79821a323b9e0964234d0a91aaa5))
+* address some linter warnings and errors ([b5be14d](https://github.com/trycourier/courier-php/commit/b5be14dce568b3f32c36f3c63fa6f32f7a69a41f))
+* correctly serialize dates ([24b9a2c](https://github.com/trycourier/courier-php/commit/24b9a2c4228d69e0082385e8d333b0afec6f1c04))
+* support arrays in query param construction ([4807291](https://github.com/trycourier/courier-php/commit/4807291b2feecae43fca95cd08073cb70e7ffdd1))
+* **test:** naming collision in request parameters ([58a1fb9](https://github.com/trycourier/courier-php/commit/58a1fb932b052872e3693a16ea539b254a973986))
+
+
+### Chores
+
+* ensure constant values are marked as optional in array types ([a421af3](https://github.com/trycourier/courier-php/commit/a421af35b17f859948c4090246b304481172e944))
+* **internal:** codegen related update ([b321d32](https://github.com/trycourier/courier-php/commit/b321d3293c1c2b84f0bca17e1d569fefba8d6964))
+* **internal:** codegen related update ([851723b](https://github.com/trycourier/courier-php/commit/851723b7189178e09531df1d881a09ed840df3ff))
+* **internal:** codegen related update ([13842ed](https://github.com/trycourier/courier-php/commit/13842edc738a41f7f49d81ac9949b37a8d631d46))
+* **internal:** codegen related update ([e6f46e3](https://github.com/trycourier/courier-php/commit/e6f46e307d0801da7a39166e1b15a14fbae27537))
+* **internal:** codegen related update ([1508286](https://github.com/trycourier/courier-php/commit/1508286dfb9965c1933673de4df4613e23edef6a))
+* **internal:** codegen related update ([cfc2c5e](https://github.com/trycourier/courier-php/commit/cfc2c5e855668af09ac67c2b59f31599a432ce7f))
+* switch from `#[Api(optional: true|false)]` to `#[Required]|#[Optional]` for annotations ([f5104a3](https://github.com/trycourier/courier-php/commit/f5104a3cfd7796b164dc4ee4b2d1dff8d148b70c))
+* use `$self = clone $this;` instead of `$obj = clone $this;` ([f8143c2](https://github.com/trycourier/courier-php/commit/f8143c25aff7e1207db53b828fb479ce281a6985))
+
+## 3.3.0 (2025-12-08)
+
+Full Changelog: [v3.2.0...v3.3.0](https://github.com/trycourier/courier-php/compare/v3.2.0...v3.3.0)
+
+### Features
+
+* Fix UsersGetAllTokensResponse to return object with tokens property i… ([337c6d7](https://github.com/trycourier/courier-php/commit/337c6d74b53564a3f2b25e6425fde2a1d9b26fc5))
+
+## 3.2.0 (2025-12-08)
+
+Full Changelog: [v3.1.2...v3.2.0](https://github.com/trycourier/courier-php/compare/v3.1.2...v3.2.0)
+
+### Features
+
+* Add event_ids field to Notification schema ([63710cf](https://github.com/trycourier/courier-php/commit/63710cfac8cd466951e01be129e8cc8e35c300cf))
+* allow both model class instances and arrays in setters ([8aed1a0](https://github.com/trycourier/courier-php/commit/8aed1a045166df0f7960910b3ae3aa2b40c2373a))
+
+
+### Chores
+
+* be more targeted in suppressing superfluous linter warnings ([d46bb77](https://github.com/trycourier/courier-php/commit/d46bb77502c5eb0e5759d338ce664b92ec166a47))
+
+## 3.1.2 (2025-12-03)
+
+Full Changelog: [v3.1.1...v3.1.2](https://github.com/trycourier/courier-php/compare/v3.1.1...v3.1.2)
+
+### Bug Fixes
+
+* **client:** fix duplicate Go struct resulting from name derivations schema ([0dc084e](https://github.com/trycourier/courier-php/commit/0dc084e587c35b2047d2e9bb9cfd8d496573bd91))
+
+
+### Chores
+
+* formatting ([6e77ab0](https://github.com/trycourier/courier-php/commit/6e77ab02f8f97a4ea9bd4cb2d457deea3ae52ad8))
+
+## 3.1.1 (2025-12-02)
+
+Full Changelog: [v3.1.0...v3.1.1](https://github.com/trycourier/courier-php/compare/v3.1.0...v3.1.1)
+
+### Bug Fixes
+
+* phpStan linter errors ([53e37d8](https://github.com/trycourier/courier-php/commit/53e37d8fc665a840d66afdb6be9feb2117fe76dc))
+
+
+### Chores
+
+* **client:** refactor error type constructors ([2a806da](https://github.com/trycourier/courier-php/commit/2a806dae8753f9a655b2a43830f703ec58577db5))
+* typing updates ([4769949](https://github.com/trycourier/courier-php/commit/47699492ba30db928f52dc28428982f8fb6b61bd))
+* use non-trivial test assertions ([fe59040](https://github.com/trycourier/courier-php/commit/fe590404b8672c79f2ae2522c1d28cdc39aa2df6))
+* use single quote strings ([2787d6f](https://github.com/trycourier/courier-php/commit/2787d6f5cfdb3b83b1fbb01f0fce8311093c14f1))
+
+## 3.1.0 (2025-11-18)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/trycourier/courier-php/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* JWT scope updates ([a8404b8](https://github.com/trycourier/courier-php/commit/a8404b8f69aea56a7ed08c6eb5b3cbb1ea3fe9ad))
+* Test ([c12a38f](https://github.com/trycourier/courier-php/commit/c12a38fcdc323e9d1bd84cfd236acf34951603f3))
+
+
+### Bug Fixes
+
+* rename invalid types ([bc37024](https://github.com/trycourier/courier-php/commit/bc37024e621bcf82f65e7f0a556dede0d22961be))
+
+
+### Chores
+
+* **internal:** codegen related update ([6fc30cf](https://github.com/trycourier/courier-php/commit/6fc30cf3644dc6daff6d15e9a57ff7a034268c94))
+
+## 3.0.0 (2025-11-12)
+
+Full Changelog: [v2.4.0-alpha0...v3.0.0](https://github.com/trycourier/courier-php/compare/v2.4.0-alpha0...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** redesign methods
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()`
+
+### Features
+
+* Attempt kick off again ([c5d8240](https://github.com/trycourier/courier-php/commit/c5d8240282cf805c9ac271f551838d5a2600d2e0))
+* Changes to spec, examples and scripts ([d4f9d75](https://github.com/trycourier/courier-php/commit/d4f9d75aedae092a48782028cfe5cd0562367b0a))
+* **client:** redesign methods ([ff4799d](https://github.com/trycourier/courier-php/commit/ff4799d3586fe2702f88446ae5fe43fdf8f4834c))
+* Comment adjustment to kick of build ([c210eb1](https://github.com/trycourier/courier-php/commit/c210eb1aba2ad3917b702b9dd7cd40245b723edb))
+* Disabled for now ([e65ace8](https://github.com/trycourier/courier-php/commit/e65ace83ec0fff7950de047c05e0c4b498a45f93))
+* More PHP and attempted node automerge ([dc6ca25](https://github.com/trycourier/courier-php/commit/dc6ca25b7019784c6df3d20e979a34f6d1a2cd5c))
+* Move UUID to top ([689d90c](https://github.com/trycourier/courier-php/commit/689d90cb6722cfea4a1696e0a825bd166796bd1b))
+* NPM enabled ([799abeb](https://github.com/trycourier/courier-php/commit/799abeb4ede18e3082429bef261ce329cc2c2181))
+* Organization update ([61b7239](https://github.com/trycourier/courier-php/commit/61b7239e69df1fa2d2826fb58769a17d53f5e8db))
+* remove confusing `toArray()` alias to `__serialize()` in favour of `toProperties()` ([8a66bb3](https://github.com/trycourier/courier-php/commit/8a66bb37377e0b432231c93c60ef917de9e9c6f7))
+* Reordered spec ([440fd46](https://github.com/trycourier/courier-php/commit/440fd46250526d24a8969ad1b326106f65cd1370))
+* Run update ([bdb7840](https://github.com/trycourier/courier-php/commit/bdb7840e5fbe167b702688035489b6566ab37975))
+* Spec Comment Change ([d840af9](https://github.com/trycourier/courier-php/commit/d840af995b0564b944b3c1cdf9adf135ec594617))
+* Token Prop Description Change ([4e2f079](https://github.com/trycourier/courier-php/commit/4e2f079e5b023c8c9463f9c4a1486852d860b821))
+
+
+### Bug Fixes
+
+* Better Python Samples + Updates to naming ([acd75d9](https://github.com/trycourier/courier-php/commit/acd75d955dfc5a3904c2fb408ade087d351c6a8b))
+* Comment to kick off build ([a4c0e9d](https://github.com/trycourier/courier-php/commit/a4c0e9dd2cfc40078152c0662a4e8ba34c3d97db))
+* Dep Warning ([d8cb01f](https://github.com/trycourier/courier-php/commit/d8cb01fff918181b1734ba01cca0dc56ceb637a7))
+* ensure auth methods return non-nullable arrays ([872e675](https://github.com/trycourier/courier-php/commit/872e67502a552308d10dd6f6e999c74f263878d6))
+* inverted retry condition ([86a56d5](https://github.com/trycourier/courier-php/commit/86a56d5a012028292d76da25e7817e56b00bc564))
+* Proper PHP repo ([36896b4](https://github.com/trycourier/courier-php/commit/36896b492760aa83033fc1c741ac73c8a66c6eef))
+* Updated paths for each model and go example updates ([207f0b3](https://github.com/trycourier/courier-php/commit/207f0b36cf0cc3c590a045aa491f72fcb0381fd0))
+
+
+### Chores
+
+* **client:** send metadata headers ([2510e04](https://github.com/trycourier/courier-php/commit/2510e04cd6d5dfe9d4ba85805fc28a41713de62f))
+* update SDK settings ([571cba6](https://github.com/trycourier/courier-php/commit/571cba6108caa1270afbffd7efb03ba075f8e385))
+* update SDK settings ([7638887](https://github.com/trycourier/courier-php/commit/76388872fd6b9cfdd1b3ef5940b2b3d021cfca30))
+* update SDK settings ([c6f046a](https://github.com/trycourier/courier-php/commit/c6f046a377330cc4dfa7a4a0c2dfb0997ac0d214))
+* update SDK settings ([3a0b6ef](https://github.com/trycourier/courier-php/commit/3a0b6ef6561d1ead7d0fc329e3eb513fdfb6aa79))
+* use pascal case for phpstan typedefs ([80f8f5e](https://github.com/trycourier/courier-php/commit/80f8f5ee360bb57dd4298a646826d5967ab2c2ca))
+
+## 2.4.0-alpha0 (2025-10-11)
+
+Full Changelog: [v0.0.1...v2.4.0-alpha0](https://github.com/trycourier/courier-php/compare/v0.0.1...v2.4.0-alpha0)
+
+### Features
+
+* **api:** manual updates ([237d13b](https://github.com/trycourier/courier-php/commit/237d13b3ebfad302a2c6e7ffbef9341cb8877533))
+* **api:** manual updates ([8bf88cf](https://github.com/trycourier/courier-php/commit/8bf88cf9bdcd2ee5626f15ca7f207c1cdcf131ab))
+* **api:** manual updates ([40fb68b](https://github.com/trycourier/courier-php/commit/40fb68b14046275b87a2cf15da0aa76425781cd3))
+* **api:** manual updates ([716cc33](https://github.com/trycourier/courier-php/commit/716cc33f6ebc8773a9d752cd08cec0bb47caec0c))
+* **api:** manual updates ([2873aec](https://github.com/trycourier/courier-php/commit/2873aeccb67a923c3aa7edb8e61f6e7ace49043c))
+* **api:** manual updates ([026f0cb](https://github.com/trycourier/courier-php/commit/026f0cbd8d9aa5ed4d86c5b8a15c03d5b2eb6f77))
+* **api:** manual updates ([680b9f3](https://github.com/trycourier/courier-php/commit/680b9f3c68c6a7dd765a4d46e8873e94a1fb5762))
+* **api:** manual updates ([c342aa9](https://github.com/trycourier/courier-php/commit/c342aa90275f60cd773fd0790a64aacd71996ad4))
+* **api:** manual updates ([da0f744](https://github.com/trycourier/courier-php/commit/da0f74418100d03d188308bf46f5cf87fdaa08c0))
+* **api:** manual updates ([74177ce](https://github.com/trycourier/courier-php/commit/74177ce1d15692a5236d2b4a168606207c8caa98))
+* **api:** manual updates ([6495367](https://github.com/trycourier/courier-php/commit/6495367de6b6c571a8a42d45ba1343cd22b2b452))
+* **api:** manual updates ([d7167fe](https://github.com/trycourier/courier-php/commit/d7167fea3249979104879bcdc5aa0a538f0b1382))
+* **api:** manual updates ([0810125](https://github.com/trycourier/courier-php/commit/081012523509497335a14289ddd59f22fe0b02c0))
+* **api:** manual updates ([f7d0370](https://github.com/trycourier/courier-php/commit/f7d0370ecdd35d5d93a2af212e7d8028c71fa8b2))
+* **api:** manual updates ([8a8afa9](https://github.com/trycourier/courier-php/commit/8a8afa94e86ec90331df24ad4932b46c083ada20))
+* **api:** manual updates ([8d81af9](https://github.com/trycourier/courier-php/commit/8d81af955b6c2c0de4a79722adf2fc4af5ff5004))
+* **api:** manual updates ([1065e40](https://github.com/trycourier/courier-php/commit/1065e40e28fe126b3c25e9814d8697570e2e8377))
+* **api:** manual updates ([65e0e1d](https://github.com/trycourier/courier-php/commit/65e0e1de1119c448fb313de0d45fd2c86e101332))
+* **api:** manual updates ([b068c2c](https://github.com/trycourier/courier-php/commit/b068c2c755590086018dd1e418bf4f9cadb83919))
+* **api:** manual updates ([787bbe2](https://github.com/trycourier/courier-php/commit/787bbe2e2b1283c86e08c94fc0ed47686e4a168d))
+* **api:** manual updates ([cf91bb7](https://github.com/trycourier/courier-php/commit/cf91bb7d610e4d0941fb9108c369a6ba114cf06c))
+* **api:** manual updates ([69b8e5e](https://github.com/trycourier/courier-php/commit/69b8e5eea7b6577fa75b4b7a42765b7ffe0eeca2))
+* **api:** manual updates ([90fec6c](https://github.com/trycourier/courier-php/commit/90fec6ce4d3d9db1a6241187c2866c1ef0b0004f))
+* **api:** manual updates ([b3d8022](https://github.com/trycourier/courier-php/commit/b3d8022149be42b31798f039afe50eccac57fbf6))
+* **api:** manual updates ([7da7b55](https://github.com/trycourier/courier-php/commit/7da7b550ebeea3be87236df7cf3cef0f9a42c60f))
+* **api:** manual updates ([35136b4](https://github.com/trycourier/courier-php/commit/35136b46892428b5a9e57300469301a2e84594e2))
+* **api:** manual updates ([c0b2e9a](https://github.com/trycourier/courier-php/commit/c0b2e9addada8e39e5d59247162f109deefedc2a))
+* **api:** manual updates ([12fc69c](https://github.com/trycourier/courier-php/commit/12fc69c05c457d2c2256acc6ff38d4dd0c932c0c))
+* **api:** manual updates ([6122095](https://github.com/trycourier/courier-php/commit/61220955d4519bf0897bb10338746cddaf973613))
+* **api:** manual updates ([82256ec](https://github.com/trycourier/courier-php/commit/82256ecc695a11dc891601b07fd20272f3d01ab8))
+* **api:** manual updates ([d97cac4](https://github.com/trycourier/courier-php/commit/d97cac417308ffe27000d91c20236c7c3d552dfa))
+* Examples and ref polish ([36fb6aa](https://github.com/trycourier/courier-php/commit/36fb6aaf240088ff179a44da7363ea7a5663e8e0))
+* Kick of merge attempt ([790938f](https://github.com/trycourier/courier-php/commit/790938f61dfc1a744f23695545c3f2169c575b04))
+* Model sync ([31b1dfd](https://github.com/trycourier/courier-php/commit/31b1dfd61b239eb7a9fd2ddc3c4383cfe3af26e8))
+* Polish and Kick of Java Kit Gen ([43e657a](https://github.com/trycourier/courier-php/commit/43e657acaef85001461684996aa0276dccc37233))
+* Template Id ([fb86a41](https://github.com/trycourier/courier-php/commit/fb86a41ee85cfcf4fb09dff088716e736679d32e))
+* Test Github Action ([67f04d9](https://github.com/trycourier/courier-php/commit/67f04d94749bccf3211e929a1312a97f7dcd4654))
+
+
+### Bug Fixes
+
+* **ci:** release doctor workflow ([edaecd4](https://github.com/trycourier/courier-php/commit/edaecd47e0ddf50b3e13af1085b67268f65ee159))
+* **client:** properly import fully qualified names ([b3f0d69](https://github.com/trycourier/courier-php/commit/b3f0d69e7a2a92ed337b1402287d59bc9956922f))
+
+
+### Chores
+
+* add license ([36084b5](https://github.com/trycourier/courier-php/commit/36084b5c3d2664a8cee7043f6d59675d41bd93f0))
+* **internal:** restructure some imports ([6bfa01a](https://github.com/trycourier/courier-php/commit/6bfa01a0c6a16a9881913fb4b2d3b2ad2e3465fe))
+* refactor methods ([3360cd6](https://github.com/trycourier/courier-php/commit/3360cd6949ec8957568ea76ee99be4c9e023114a))
+* sync repo ([c391763](https://github.com/trycourier/courier-php/commit/c391763248d47831210ddadd9425f90601599122))
+* update README ([#45](https://github.com/trycourier/courier-php/issues/45)) ([506afbb](https://github.com/trycourier/courier-php/commit/506afbb0922644798c86a7003a159fd3dae50dab))
+* update SDK settings ([57448fd](https://github.com/trycourier/courier-php/commit/57448fd9d9f11881b0900009063e3023d73c4edb))
+* update SDK settings ([c12d3d9](https://github.com/trycourier/courier-php/commit/c12d3d902ba9ac4e7888d3307712101140f61022))
