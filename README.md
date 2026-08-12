@@ -1,13 +1,18 @@
-<!-- AUTO-GENERATED-OVERVIEW:START — Do not edit this section. It is synced from mintlify-docs. -->
-# Courier PHP SDK
+# Courier PHP API library
 
-> **Beta**: The PHP SDK is in beta. APIs may change between releases. [Share feedback or report issues on GitHub.](https://github.com/trycourier/courier-php/issues/new)
+The Courier PHP library provides convenient access to the Courier REST API from any PHP 8.1.0+ application.
 
-The Courier PHP SDK provides typed access to the Courier REST API from any PHP 8.1+ application. It uses named parameters for optional arguments and returns strongly typed response objects.
+It is generated with [Stainless](https://www.stainless.com/).
+
+## Documentation
+
+The REST API documentation can be found on [www.courier.com](https://www.courier.com/docs).
 
 ## Installation
 
-Add the Courier repository and package to your `composer.json`:
+To use this package, install via Composer by adding the following to your application's `composer.json`:
+
+<!-- x-release-please-start-version -->
 
 ```json
 {
@@ -18,42 +23,173 @@ Add the Courier repository and package to your `composer.json`:
     }
   ],
   "require": {
-    "trycourier/courier": "^5.0"
+    "trycourier/courier": "dev-main"
   }
 }
 ```
 
-Then run `composer install`. Find the latest version on [GitHub Releases](https://github.com/trycourier/courier-php/releases).
+<!-- x-release-please-end -->
 
-## Quick Start
+## Usage
+
+This library uses named parameters to specify optional arguments.
+Parameters with a default value must be set by name.
 
 ```php
 <?php
 
 use Courier\Client;
 
-$client = new Client(apiKey: getenv('COURIER_API_KEY'));
+$client = new Client(apiKey: getenv('COURIER_API_KEY') ?: 'My API Key');
 
 $response = $client->send->message(
   message: [
-    'to' => ['email' => 'you@example.com'],
-    'content' => [
-      'title' => 'Hello from Courier!',
-      'body' => 'Your first notification, sent with the PHP SDK.',
-    ],
+    'to' => ['userID' => 'your_user_id'],
+    'template' => 'your_template_id',
+    'data' => ['foo' => 'bar'],
   ],
 );
 
 var_dump($response->requestId);
 ```
 
-The client reads your API key from the constructor argument. Set `COURIER_API_KEY` in your environment and pass it with `getenv('COURIER_API_KEY')`.
+### Value Objects
 
-## Documentation
+It is recommended to use the static `with` constructor `AudienceFilter::with(operator: 'MEMBER_OF', ...)`
+and named parameters to initialize value objects.
 
-Full documentation: **[courier.com/docs/sdk-libraries/php](https://www.courier.com/docs/sdk-libraries/php/)**
+However, builders are also provided `(new AudienceFilter)->withOperator('MEMBER_OF')`.
 
-- [Quickstart](https://www.courier.com/docs/getting-started/quickstart/)
-- [Send API](https://www.courier.com/docs/platform/sending/send-message/)
-- [API Reference](https://www.courier.com/docs/reference/get-started/)
-<!-- AUTO-GENERATED-OVERVIEW:END -->
+### Handling errors
+
+When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Courier\Core\Exceptions\APIException` will be thrown:
+
+```php
+<?php
+
+use Courier\Core\Exceptions\APIConnectionException;
+use Courier\Core\Exceptions\RateLimitException;
+use Courier\Core\Exceptions\APIStatusException;
+
+try {
+  $response = $client->send->message(
+    message: [
+      'to' => ['userID' => 'your_user_id'],
+      'template' => 'your_template_id',
+      'data' => ['foo' => 'bar'],
+    ],
+  );
+} catch (APIConnectionException $e) {
+  echo "The server could not be reached", PHP_EOL;
+  var_dump($e->getPrevious());
+} catch (RateLimitException $e) {
+  echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
+} catch (APIStatusException $e) {
+  echo "Another non-200-range status code was received", PHP_EOL;
+  echo $e->getMessage();
+}
+```
+
+Error codes are as follows:
+
+| Cause            | Error Type                     |
+| ---------------- | ------------------------------ |
+| HTTP 400         | `BadRequestException`          |
+| HTTP 401         | `AuthenticationException`      |
+| HTTP 403         | `PermissionDeniedException`    |
+| HTTP 404         | `NotFoundException`            |
+| HTTP 409         | `ConflictException`            |
+| HTTP 422         | `UnprocessableEntityException` |
+| HTTP 429         | `RateLimitException`           |
+| HTTP >= 500      | `InternalServerException`      |
+| Other HTTP error | `APIStatusException`           |
+| Timeout          | `APITimeoutException`          |
+| Network error    | `APIConnectionException`       |
+
+### Retries
+
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
+
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.
+
+You can use the `maxRetries` option to configure or disable this:
+
+```php
+<?php
+
+use Courier\Client;
+
+// Configure the default for all requests:
+$client = new Client(requestOptions: ['maxRetries' => 0]);
+
+// Or, configure per-request:
+$result = $client->send->message(
+  message: [
+    'to' => ['userID' => 'your_user_id'],
+    'template' => 'your_template_id',
+    'data' => ['foo' => 'bar'],
+  ],
+  requestOptions: ['maxRetries' => 5],
+);
+```
+
+## Advanced concepts
+
+### Making custom or undocumented requests
+
+#### Undocumented properties
+
+You can send undocumented parameters to any endpoint, and read undocumented response properties, like so:
+
+Note: the `extra*` parameters of the same name overrides the documented parameters.
+
+```php
+<?php
+
+$response = $client->send->message(
+  message: [
+    'to' => ['userID' => 'your_user_id'],
+    'template' => 'your_template_id',
+    'data' => ['foo' => 'bar'],
+  ],
+  requestOptions: [
+    'extraQueryParams' => ['my_query_parameter' => 'value'],
+    'extraBodyParams' => ['my_body_parameter' => 'value'],
+    'extraHeaders' => ['my-header' => 'value'],
+  ],
+);
+```
+
+#### Undocumented request params
+
+If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.
+
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:
+
+```php
+<?php
+
+$response = $client->request(
+  method: "post",
+  path: '/undocumented/endpoint',
+  query: ['dog' => 'woof'],
+  headers: ['useful-header' => 'interesting-value'],
+  body: ['hello' => 'world']
+);
+```
+
+## Versioning
+
+This package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.
+
+This package considers improvements to the (non-runtime) PHPDoc type definitions to be non-breaking changes.
+
+## Requirements
+
+PHP 8.1.0 or higher.
+
+## Contributing
+
+See [the contributing documentation](https://github.com/trycourier/courier-php/tree/main/CONTRIBUTING.md).
