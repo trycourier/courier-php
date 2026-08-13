@@ -10,7 +10,7 @@ use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
 
 /**
- * Get Bulk Job Users.
+ * Returns the users ingested into a bulk job with paging, each carrying the status Courier recorded for it and the id of the message it produced.
  *
  * @see Courier\Services\BulkService::listUsers()
  *
