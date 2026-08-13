@@ -13,6 +13,7 @@ use Courier\Services\AuthService;
 use Courier\Services\AutomationsService;
 use Courier\Services\BrandsService;
 use Courier\Services\BroadcastsService;
+use Courier\Services\BulkService;
 use Courier\Services\DigestsService;
 use Courier\Services\InboundService;
 use Courier\Services\JourneysService;
@@ -78,6 +79,11 @@ class Client extends BaseClient
      * @api
      */
     public BroadcastsService $broadcasts;
+
+    /**
+     * @api
+     */
+    public BulkService $bulk;
 
     /**
      * @api
@@ -177,7 +183,7 @@ class Client extends BaseClient
             'Accept' => 'application/json',
             'User-Agent' => sprintf('Courier/PHP %s', VERSION),
             'X-Stainless-Lang' => 'php',
-            'X-Stainless-Package-Version' => '5.4.2',
+            'X-Stainless-Package-Version' => '5.17.0',
             'X-Stainless-Arch' => Util::machtype(),
             'X-Stainless-OS' => Util::ostype(),
             'X-Stainless-Runtime' => php_sapi_name(),
@@ -208,6 +214,7 @@ class Client extends BaseClient
         $this->automations = new AutomationsService($this);
         $this->journeys = new JourneysService($this);
         $this->broadcasts = new BroadcastsService($this);
+        $this->bulk = new BulkService($this);
         $this->brands = new BrandsService($this);
         $this->digests = new DigestsService($this);
         $this->inbound = new InboundService($this);
