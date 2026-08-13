@@ -39,6 +39,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to retrieve, identified by the `id` returned when it was created
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -51,6 +52,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to rename
      * @param string $name new human-readable name
      * @param RequestOpts|null $requestOptions
      *
@@ -80,6 +82,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to archive
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -92,6 +95,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to cancel
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -104,6 +108,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID The broadcast to copy. The duplicate is created as a new draft and this broadcast is left unchanged.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -116,6 +121,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast whose content you want to replace
      * @param Content|ContentShape $content Elemental content payload. The server defaults `version` when omitted.
      * @param NotificationTemplateState|value-of<NotificationTemplateState> $state Template state. Defaults to `DRAFT`.
      * @param RequestOpts|null $requestOptions
@@ -132,6 +138,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast whose content you want to read
      * @param string $version Accepts `draft`, `published`, or a version string (e.g. `v001`). Defaults to `draft`.
      * @param RequestOpts|null $requestOptions
      *
@@ -146,6 +153,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to schedule
      * @param string $recipientID ID of the target list or audience
      * @param RecipientType|value-of<RecipientType> $recipientType whether the broadcast targets a list or an audience
      * @param string $scheduledTo Wall-clock timestamp of the future send, no timezone offset (e.g. "2026-07-21T20:00:00"). The zone is given by `timezone`.
@@ -166,6 +174,7 @@ interface BroadcastsContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to send
      * @param string $recipientID ID of the target list or audience
      * @param \Courier\Broadcasts\BroadcastSendParams\RecipientType|value-of<\Courier\Broadcasts\BroadcastSendParams\RecipientType> $recipientType whether the broadcast targets a list or an audience
      * @param RequestOpts|null $requestOptions

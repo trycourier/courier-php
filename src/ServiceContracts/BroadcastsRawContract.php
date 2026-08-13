@@ -42,6 +42,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to retrieve, identified by the `id` returned when it was created
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -56,6 +57,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to rename
      * @param array<string,mixed>|BroadcastUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -87,6 +89,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to archive
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -101,6 +104,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to cancel
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -115,6 +119,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID The broadcast to copy. The duplicate is created as a new draft and this broadcast is left unchanged.
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -129,6 +134,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast whose content you want to replace
      * @param array<string,mixed>|BroadcastPutContentParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -145,6 +151,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast whose content you want to read
      * @param array<string,mixed>|BroadcastRetrieveContentParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -161,6 +168,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to schedule
      * @param array<string,mixed>|BroadcastScheduleParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -177,6 +185,7 @@ interface BroadcastsRawContract
     /**
      * @api
      *
+     * @param string $broadcastID the broadcast to send
      * @param array<string,mixed>|BroadcastSendParams $params
      * @param RequestOpts|null $requestOptions
      *
