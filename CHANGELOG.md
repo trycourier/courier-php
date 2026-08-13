@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.17.1](https://github.com/trycourier/courier-php/compare/v5.17.0...v5.17.1) (2026-08-13)
+
+
+### Chores
+
+* **api:** regenerate SDK ([#106](https://github.com/trycourier/courier-php/issues/106)) ([08f471c](https://github.com/trycourier/courier-php/commit/08f471cc26190213319e4cb0b221ebf6fb4770ff))
+
+
+### Documentation
+
+* sync README from api-spec ([#102](https://github.com/trycourier/courier-php/issues/102)) ([46067f6](https://github.com/trycourier/courier-php/commit/46067f6f3527c027681561660fb342094d1f6621))
+
 ## 5.17.0 (2026-08-10)
 
 Full Changelog: [v5.16.0...v5.17.0](https://github.com/trycourier/courier-php/compare/v5.16.0...v5.17.0)
