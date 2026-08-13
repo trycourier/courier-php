@@ -77,6 +77,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Retrieve a broadcast by ID. Archived broadcasts return 404.
      *
+     * @param string $broadcastID the broadcast to retrieve, identified by the `id` returned when it was created
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -101,6 +102,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Update a broadcast's name. Content is edited via the broadcast's notification template, not this endpoint.
      *
+     * @param string $broadcastID the broadcast to rename
      * @param array{name: string}|BroadcastUpdateParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -164,6 +166,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Archive a broadcast. This is a soft delete — the archived broadcast is returned and no longer appears in list results.
      *
+     * @param string $broadcastID the broadcast to archive
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -188,6 +191,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Cancel a broadcast's pending schedule, returning it to the draft state. Only valid for a scheduled broadcast.
      *
+     * @param string $broadcastID the broadcast to cancel
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -212,6 +216,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Duplicate a broadcast (and its template) into a new draft named "{source name} (copy)".
      *
+     * @param string $broadcastID The broadcast to copy. The duplicate is created as a new draft and this broadcast is left unchanged.
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Broadcast>
@@ -236,6 +241,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Author the broadcast's content by replacing the draft elemental content of its private notification template. The draft is published automatically when the broadcast is sent or scheduled.
      *
+     * @param string $broadcastID the broadcast whose content you want to replace
      * @param array{
      *   content: Content|ContentShape,
      *   state?: NotificationTemplateState|value-of<NotificationTemplateState>,
@@ -271,6 +277,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Retrieve the broadcast's content — the elemental content of its private notification template. Defaults to the working draft, since broadcast content is authored as a draft until the broadcast is sent.
      *
+     * @param string $broadcastID the broadcast whose content you want to read
      * @param array{version?: string}|BroadcastRetrieveContentParams $params
      * @param RequestOpts|null $requestOptions
      *
@@ -303,6 +310,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Schedule a broadcast for a future send to a list or audience. Publishes the broadcast template first. Not allowed once the broadcast is sending or sent. For an immediate send use POST /broadcasts/{broadcastId}/send.
      *
+     * @param string $broadcastID the broadcast to schedule
      * @param array{
      *   recipientID: string,
      *   recipientType: RecipientType|value-of<RecipientType>,
@@ -340,6 +348,7 @@ final class BroadcastsRawService implements BroadcastsRawContract
      *
      * Send a broadcast immediately to a list or audience. Publishes the broadcast template first. Not allowed once the broadcast is sending or sent.
      *
+     * @param string $broadcastID the broadcast to send
      * @param array{
      *   recipientID: string,
      *   recipientType: BroadcastSendParams\RecipientType|value-of<BroadcastSendParams\RecipientType>,

@@ -68,6 +68,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Retrieve a broadcast by ID. Archived broadcasts return 404.
      *
+     * @param string $broadcastID the broadcast to retrieve, identified by the `id` returned when it was created
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -87,6 +88,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Update a broadcast's name. Content is edited via the broadcast's notification template, not this endpoint.
      *
+     * @param string $broadcastID the broadcast to rename
      * @param string $name new human-readable name
      * @param RequestOpts|null $requestOptions
      *
@@ -134,6 +136,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Archive a broadcast. This is a soft delete — the archived broadcast is returned and no longer appears in list results.
      *
+     * @param string $broadcastID the broadcast to archive
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -153,6 +156,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Cancel a broadcast's pending schedule, returning it to the draft state. Only valid for a scheduled broadcast.
      *
+     * @param string $broadcastID the broadcast to cancel
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -172,6 +176,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Duplicate a broadcast (and its template) into a new draft named "{source name} (copy)".
      *
+     * @param string $broadcastID The broadcast to copy. The duplicate is created as a new draft and this broadcast is left unchanged.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -191,6 +196,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Author the broadcast's content by replacing the draft elemental content of its private notification template. The draft is published automatically when the broadcast is sent or scheduled.
      *
+     * @param string $broadcastID the broadcast whose content you want to replace
      * @param Content|ContentShape $content Elemental content payload. The server defaults `version` when omitted.
      * @param NotificationTemplateState|value-of<NotificationTemplateState> $state Template state. Defaults to `DRAFT`.
      * @param RequestOpts|null $requestOptions
@@ -216,6 +222,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Retrieve the broadcast's content — the elemental content of its private notification template. Defaults to the working draft, since broadcast content is authored as a draft until the broadcast is sent.
      *
+     * @param string $broadcastID the broadcast whose content you want to read
      * @param string $version Accepts `draft`, `published`, or a version string (e.g. `v001`). Defaults to `draft`.
      * @param RequestOpts|null $requestOptions
      *
@@ -239,6 +246,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Schedule a broadcast for a future send to a list or audience. Publishes the broadcast template first. Not allowed once the broadcast is sending or sent. For an immediate send use POST /broadcasts/{broadcastId}/send.
      *
+     * @param string $broadcastID the broadcast to schedule
      * @param string $recipientID ID of the target list or audience
      * @param RecipientType|value-of<RecipientType> $recipientType whether the broadcast targets a list or an audience
      * @param string $scheduledTo Wall-clock timestamp of the future send, no timezone offset (e.g. "2026-07-21T20:00:00"). The zone is given by `timezone`.
@@ -275,6 +283,7 @@ final class BroadcastsService implements BroadcastsContract
      *
      * Send a broadcast immediately to a list or audience. Publishes the broadcast template first. Not allowed once the broadcast is sending or sent.
      *
+     * @param string $broadcastID the broadcast to send
      * @param string $recipientID ID of the target list or audience
      * @param \Courier\Broadcasts\BroadcastSendParams\RecipientType|value-of<\Courier\Broadcasts\BroadcastSendParams\RecipientType> $recipientType whether the broadcast targets a list or an audience
      * @param RequestOpts|null $requestOptions
