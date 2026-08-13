@@ -95,7 +95,7 @@ final class BulkService implements BulkContract
     /**
      * @api
      *
-     * Get Bulk Job Users
+     * Returns the users ingested into a bulk job with paging, each carrying the status Courier recorded for it and the id of the message it produced.
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param string|null $cursor A unique identifier that allows for fetching the next set of users added to the bulk job
@@ -119,7 +119,7 @@ final class BulkService implements BulkContract
     /**
      * @api
      *
-     * Get a bulk job
+     * Returns a bulk job's message definition, its status — CREATED, PROCESSING, COMPLETED, or ERROR — and running counts of users received, messages enqueued, and failures. Poll it to follow a job through to completion.
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param RequestOpts|null $requestOptions
@@ -139,7 +139,7 @@ final class BulkService implements BulkContract
     /**
      * @api
      *
-     * Run a bulk job
+     * Starts processing a bulk job, sending to every user ingested into it. Returns 204 immediately; the job runs asynchronously, so poll the job to watch its status and counts.
      *
      * @param string $jobID A unique identifier representing the bulk job
      * @param RequestOpts|null $requestOptions
