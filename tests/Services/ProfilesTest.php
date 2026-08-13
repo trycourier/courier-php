@@ -39,7 +39,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->create(
             'user_id',
-            profile: ['foo' => 'bar']
+            profile: ['email' => 'bar', 'phone_number' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -55,7 +55,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->create(
             'user_id',
-            profile: ['foo' => 'bar'],
+            profile: ['email' => 'bar', 'phone_number' => 'bar'],
             idempotencyKey: 'order-ORD-456-user-123',
             xIdempotencyExpiration: '1785312000',
         );
@@ -86,7 +86,9 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']]
+            patch: [
+                ['op' => 'replace', 'path' => '/email', 'value' => 'jdoe@example.com'],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -102,7 +104,9 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->update(
             'user_id',
-            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']]
+            patch: [
+                ['op' => 'replace', 'path' => '/email', 'value' => 'jdoe@example.com'],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -131,7 +135,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->replace(
             'user_id',
-            profile: ['foo' => 'bar']
+            profile: ['email' => 'bar', 'phone_number' => 'bar', 'locale' => 'bar'],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -147,7 +151,7 @@ final class ProfilesTest extends TestCase
 
         $result = $this->client->profiles->replace(
             'user_id',
-            profile: ['foo' => 'bar']
+            profile: ['email' => 'bar', 'phone_number' => 'bar', 'locale' => 'bar'],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

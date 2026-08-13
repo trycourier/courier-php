@@ -63,7 +63,7 @@ final class TranslationsTest extends TestCase
         $result = $this->client->translations->update(
             'locale',
             domain: 'domain',
-            body: 'body'
+            body: "msgid \"Hello\"\nmsgstr \"Hola\""
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -80,7 +80,7 @@ final class TranslationsTest extends TestCase
         $result = $this->client->translations->update(
             'locale',
             domain: 'domain',
-            body: 'body'
+            body: "msgid \"Hello\"\nmsgstr \"Hola\""
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

@@ -124,7 +124,7 @@ final class BrandsTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->brands->update('brand_id', name: 'name');
+        $result = $this->client->brands->update('brand_id', name: 'My Brand');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Brand::class, $result);
@@ -139,9 +139,9 @@ final class BrandsTest extends TestCase
 
         $result = $this->client->brands->update(
             'brand_id',
-            name: 'name',
+            name: 'My Brand',
             settings: [
-                'colors' => ['primary' => 'primary', 'secondary' => 'secondary'],
+                'colors' => ['primary' => '#9D3789', 'secondary' => '#FFFFFF'],
                 'email' => [
                     'footer' => ['content' => 'content', 'inheritDefault' => true],
                     'head' => ['inheritDefault' => true, 'content' => 'content'],

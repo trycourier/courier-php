@@ -134,7 +134,7 @@ final class TemplatesTest extends TestCase
         $result = $this->client->tenants->templates->publish(
             'template_id',
             tenantID: 'tenant_id',
-            version: 'version'
+            version: 'latest'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -151,7 +151,7 @@ final class TemplatesTest extends TestCase
         $result = $this->client->tenants->templates->replace(
             'template_id',
             tenantID: 'tenant_id',
-            template: ['content' => ['elements' => [[]], 'version' => 'version']],
+            template: ['content' => ['elements' => [[]], 'version' => '2022-01-01']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -179,7 +179,7 @@ final class TemplatesTest extends TestCase
                             'type' => 'text',
                         ],
                     ],
-                    'version' => 'version',
+                    'version' => '2022-01-01',
                 ],
                 'channels' => [
                     'foo' => [
@@ -216,7 +216,7 @@ final class TemplatesTest extends TestCase
                         'timeouts' => 0,
                     ],
                 ],
-                'routing' => ['channels' => ['string'], 'method' => 'all'],
+                'routing' => ['channels' => ['email'], 'method' => 'single'],
             ],
             published: true,
         );

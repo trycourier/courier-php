@@ -50,7 +50,7 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->users->tenants->addMultiple(
             'user_id',
-            tenants: [['tenantID' => 'tenant_id']]
+            tenants: [['tenantID' => 'tenant_abc'], ['tenantID' => 'tenant_def']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -68,7 +68,13 @@ final class TenantsTest extends TestCase
             'user_id',
             tenants: [
                 [
-                    'tenantID' => 'tenant_id',
+                    'tenantID' => 'tenant_abc',
+                    'profile' => ['foo' => 'bar'],
+                    'type' => 'user',
+                    'userID' => 'user_id',
+                ],
+                [
+                    'tenantID' => 'tenant_def',
                     'profile' => ['foo' => 'bar'],
                     'type' => 'user',
                     'userID' => 'user_id',
@@ -106,7 +112,7 @@ final class TenantsTest extends TestCase
         $result = $this->client->users->tenants->addSingle(
             'tenant_id',
             userID: 'user_id',
-            profile: ['foo' => 'bar']
+            profile: ['role' => 'bar']
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

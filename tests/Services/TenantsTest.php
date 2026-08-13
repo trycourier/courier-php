@@ -51,7 +51,7 @@ final class TenantsTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->tenants->update('tenant_id', name: 'name');
+        $result = $this->client->tenants->update('tenant_id', name: 'Acme Corp');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Tenant::class, $result);
@@ -66,8 +66,8 @@ final class TenantsTest extends TestCase
 
         $result = $this->client->tenants->update(
             'tenant_id',
-            name: 'name',
-            brandID: 'brand_id',
+            name: 'Acme Corp',
+            brandID: 'bnd_01kx4mrd0pfzw8wt7pn7p2fzag',
             defaultPreferences: [
                 'items' => [
                     [
@@ -79,7 +79,7 @@ final class TenantsTest extends TestCase
                 ],
             ],
             parentTenantID: 'parent_tenant_id',
-            properties: ['foo' => 'bar'],
+            properties: ['plan' => 'bar'],
             userProfile: ['foo' => 'bar'],
         );
 

@@ -173,8 +173,8 @@ final class TopicsTest extends TestCase
         $result = $this->client->workspacePreferences->topics->replace(
             'topic_id',
             sectionID: 'section_id',
-            defaultStatus: 'OPTED_OUT',
-            name: 'name',
+            defaultStatus: 'OPTED_IN',
+            name: 'Product Updates',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -194,12 +194,14 @@ final class TopicsTest extends TestCase
         $result = $this->client->workspacePreferences->topics->replace(
             'topic_id',
             sectionID: 'section_id',
-            defaultStatus: 'OPTED_OUT',
-            name: 'name',
-            allowedPreferences: ['snooze'],
+            defaultStatus: 'OPTED_IN',
+            name: 'Product Updates',
+            allowedPreferences: ['channel_preferences'],
             description: 'description',
             includeUnsubscribeHeader: true,
-            routingOptions: [ChannelClassification::DIRECT_MESSAGE],
+            routingOptions: [
+                ChannelClassification::EMAIL, ChannelClassification::INBOX,
+            ],
             topicData: ['foo' => 'bar'],
         );
 
