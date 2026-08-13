@@ -1,29 +1,26 @@
-<!-- AUTO-GENERATED-OVERVIEW:START — Do not edit this section. It is synced from mintlify-docs. -->
 # Courier PHP SDK
 
-> **Beta**: The PHP SDK is in beta. APIs may change between releases. [Share feedback or report issues on GitHub.](https://github.com/trycourier/courier-php/issues/new)
-
-The Courier PHP SDK provides typed access to the Courier REST API from any PHP 8.1+ application. It uses named parameters for optional arguments and returns strongly typed response objects.
+The Courier PHP SDK provides typed access to the Courier REST API from PHP applications. Use it to send notifications, manage user profiles, check message status, issue JWT tokens for client-side SDKs, and more.
 
 ## Installation
 
-Add the Courier repository and package to your `composer.json`:
+The package is not on Packagist, so add the repository to your `composer.json` first:
 
 ```json
 {
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:trycourier/courier-php.git"
-    }
-  ],
-  "require": {
-    "trycourier/courier": "^5.0"
-  }
+    { "type": "vcs", "url": "https://github.com/trycourier/courier-php.git" }
+  ]
 }
 ```
 
-Then run `composer install`. Find the latest version on [GitHub Releases](https://github.com/trycourier/courier-php/releases).
+Then require it:
+
+```bash
+composer require trycourier/courier-php
+```
+
+Requires PHP 8.1+.
 
 ## Quick Start
 
@@ -36,18 +33,16 @@ $client = new Client(apiKey: getenv('COURIER_API_KEY'));
 
 $response = $client->send->message(
   message: [
-    'to' => ['email' => 'you@example.com'],
-    'content' => [
-      'title' => 'Hello from Courier!',
-      'body' => 'Your first notification, sent with the PHP SDK.',
-    ],
+    'to' => ['userID' => 'your_user_id'],
+    'template' => 'your_template_id',
+    'data' => ['foo' => 'bar'],
   ],
 );
 
 var_dump($response->requestId);
 ```
 
-The client reads your API key from the constructor argument. Set `COURIER_API_KEY` in your environment and pass it with `getenv('COURIER_API_KEY')`.
+The client reads `COURIER_API_KEY` from your environment automatically.
 
 ## Documentation
 
@@ -56,4 +51,3 @@ Full documentation: **[courier.com/docs/sdk-libraries/php](https://www.courier.c
 - [Quickstart](https://www.courier.com/docs/getting-started/quickstart/)
 - [Send API](https://www.courier.com/docs/platform/sending/send-message/)
 - [API Reference](https://www.courier.com/docs/reference/get-started/)
-<!-- AUTO-GENERATED-OVERVIEW:END -->
