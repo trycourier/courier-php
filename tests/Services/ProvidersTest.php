@@ -36,7 +36,7 @@ final class ProvidersTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->providers->create(provider: 'provider');
+        $result = $this->client->providers->create(provider: 'sendgrid');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Provider::class, $result);
@@ -50,10 +50,10 @@ final class ProvidersTest extends TestCase
         }
 
         $result = $this->client->providers->create(
-            provider: 'provider',
+            provider: 'sendgrid',
             alias: 'alias',
-            settings: ['foo' => 'bar'],
-            title: 'title',
+            settings: ['api_key' => 'bar'],
+            title: 'Production SendGrid',
             idempotencyKey: 'order-ORD-456-user-123',
             xIdempotencyExpiration: '1785312000',
         );
@@ -82,7 +82,7 @@ final class ProvidersTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->providers->update('id', provider: 'provider');
+        $result = $this->client->providers->update('id', provider: 'sendgrid');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Provider::class, $result);
@@ -97,10 +97,10 @@ final class ProvidersTest extends TestCase
 
         $result = $this->client->providers->update(
             'id',
-            provider: 'provider',
+            provider: 'sendgrid',
             alias: 'alias',
-            settings: ['foo' => 'bar'],
-            title: 'title',
+            settings: ['api_key' => 'bar'],
+            title: 'Production SendGrid',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

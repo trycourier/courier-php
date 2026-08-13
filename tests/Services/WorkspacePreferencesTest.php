@@ -127,7 +127,7 @@ final class WorkspacePreferencesTest extends TestCase
 
         $result = $this->client->workspacePreferences->replace(
             'section_id',
-            name: 'name'
+            name: 'Account Notifications'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -143,10 +143,12 @@ final class WorkspacePreferencesTest extends TestCase
 
         $result = $this->client->workspacePreferences->replace(
             'section_id',
-            name: 'name',
+            name: 'Account Notifications',
             description: 'description',
             hasCustomRouting: true,
-            routingOptions: [ChannelClassification::DIRECT_MESSAGE],
+            routingOptions: [
+                ChannelClassification::EMAIL, ChannelClassification::PUSH,
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

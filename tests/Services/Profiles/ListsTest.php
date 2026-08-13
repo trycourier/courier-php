@@ -67,7 +67,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->profiles->lists->subscribe(
             'user_id',
-            lists: [['listID' => 'listId']]
+            lists: [['listID' => 'example.list.id']]
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -85,7 +85,7 @@ final class ListsTest extends TestCase
             'user_id',
             lists: [
                 [
-                    'listID' => 'listId',
+                    'listID' => 'example.list.id',
                     'preferences' => [
                         'categories' => [
                             'foo' => [

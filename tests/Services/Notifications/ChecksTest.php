@@ -39,7 +39,7 @@ final class ChecksTest extends TestCase
         $result = $this->client->notifications->checks->update(
             'submissionId',
             id: 'id',
-            checks: [['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom']],
+            checks: [['id' => 'abc-123', 'status' => 'RESOLVED', 'type' => 'custom']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -56,7 +56,7 @@ final class ChecksTest extends TestCase
         $result = $this->client->notifications->checks->update(
             'submissionId',
             id: 'id',
-            checks: [['id' => 'id', 'status' => 'RESOLVED', 'type' => 'custom']],
+            checks: [['id' => 'abc-123', 'status' => 'RESOLVED', 'type' => 'custom']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

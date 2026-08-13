@@ -71,7 +71,7 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->update(
             'token',
             userID: 'user_id',
-            patch: [['op' => 'op', 'path' => 'path']]
+            patch: [['op' => 'replace', 'path' => '/expiry_date']],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -88,7 +88,13 @@ final class TokensTest extends TestCase
         $result = $this->client->users->tokens->update(
             'token',
             userID: 'user_id',
-            patch: [['op' => 'op', 'path' => 'path', 'value' => 'value']],
+            patch: [
+                [
+                    'op' => 'replace',
+                    'path' => '/expiry_date',
+                    'value' => '2024-12-31T00:00:00.000Z',
+                ],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -177,7 +183,7 @@ final class TokensTest extends TestCase
             providerKey: 'firebase-fcm',
             device: [
                 'adID' => 'ad_id',
-                'appID' => 'app_id',
+                'appID' => 'com.example.app',
                 'deviceID' => 'device_id',
                 'manufacturer' => 'manufacturer',
                 'model' => 'model',

@@ -91,7 +91,7 @@ final class InvokeTest extends TestCase
 
         $result = $this->client->automations->invoke->invokeByTemplate(
             'templateId',
-            recipient: 'recipient'
+            recipient: 'user_abc'
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -107,10 +107,10 @@ final class InvokeTest extends TestCase
 
         $result = $this->client->automations->invoke->invokeByTemplate(
             'templateId',
-            recipient: 'recipient',
+            recipient: 'user_abc',
             brand: 'brand',
-            data: ['foo' => 'bar'],
-            profile: ['foo' => 'bar'],
+            data: ['orderId' => 'bar'],
+            profile: ['email' => 'bar'],
             template: 'template',
             idempotencyKey: 'order-ORD-456-user-123',
             xIdempotencyExpiration: '1785312000',

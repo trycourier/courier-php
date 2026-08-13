@@ -51,7 +51,7 @@ final class ListsTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->lists->update('list_id', name: 'name');
+        $result = $this->client->lists->update('list_id', name: 'Product Updates');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
@@ -66,7 +66,7 @@ final class ListsTest extends TestCase
 
         $result = $this->client->lists->update(
             'list_id',
-            name: 'name',
+            name: 'Product Updates',
             preferences: [
                 'categories' => [
                     'foo' => [

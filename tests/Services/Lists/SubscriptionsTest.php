@@ -52,7 +52,9 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->add(
             'list_id',
-            recipients: [['recipientID' => 'recipientId']]
+            recipients: [
+                ['recipientID' => 'user_abc'], ['recipientID' => 'user_def'],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -70,7 +72,30 @@ final class SubscriptionsTest extends TestCase
             'list_id',
             recipients: [
                 [
-                    'recipientID' => 'recipientId',
+                    'recipientID' => 'user_abc',
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                            ],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'recipientID' => 'user_def',
                     'preferences' => [
                         'categories' => [
                             'foo' => [
@@ -110,7 +135,9 @@ final class SubscriptionsTest extends TestCase
 
         $result = $this->client->lists->subscriptions->subscribe(
             'list_id',
-            recipients: [['recipientID' => 'recipientId']]
+            recipients: [
+                ['recipientID' => 'user_abc'], ['recipientID' => 'user_def'],
+            ],
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -128,7 +155,30 @@ final class SubscriptionsTest extends TestCase
             'list_id',
             recipients: [
                 [
-                    'recipientID' => 'recipientId',
+                    'recipientID' => 'user_abc',
+                    'preferences' => [
+                        'categories' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                            ],
+                        ],
+                        'notifications' => [
+                            'foo' => [
+                                'status' => PreferenceStatus::OPTED_IN,
+                                'channelPreferences' => [
+                                    ['channel' => ChannelClassification::DIRECT_MESSAGE],
+                                ],
+                                'rules' => [['until' => 'until', 'start' => 'start']],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'recipientID' => 'user_def',
                     'preferences' => [
                         'categories' => [
                             'foo' => [
@@ -194,7 +244,7 @@ final class SubscriptionsTest extends TestCase
                     ],
                 ],
                 'notifications' => [
-                    'foo' => [
+                    'nt_01kx4h2jdafq8bk9aftxak4b40' => [
                         'status' => PreferenceStatus::OPTED_IN,
                         'channelPreferences' => [
                             ['channel' => ChannelClassification::DIRECT_MESSAGE],

@@ -56,7 +56,7 @@ final class BulkTest extends TestCase
             'job_id',
             users: [
                 [
-                    'data' => (object) [],
+                    'data' => ['name' => 'Jane'],
                     'preferences' => [
                         'categories' => [
                             'foo' => [
@@ -77,8 +77,8 @@ final class BulkTest extends TestCase
                             ],
                         ],
                     ],
-                    'profile' => ['foo' => 'bar'],
-                    'recipient' => 'recipient',
+                    'profile' => ['email' => 'bar'],
+                    'recipient' => 'user_abc',
                     'to' => [
                         'accountID' => 'account_id',
                         'context' => ['tenantID' => 'tenant_id'],
@@ -128,7 +128,9 @@ final class BulkTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->bulk->createJob(message: ['event' => 'event']);
+        $result = $this->client->bulk->createJob(
+            message: ['event' => 'welcome-series']
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BulkNewJobResponse::class, $result);
@@ -143,10 +145,10 @@ final class BulkTest extends TestCase
 
         $result = $this->client->bulk->createJob(
             message: [
-                'event' => 'event',
-                'brand' => 'brand',
+                'event' => 'welcome-series',
+                'brand' => 'bnd_01kx4mrd0pfzw8wt7pn7p2fzag',
                 'content' => ['body' => 'body', 'title' => 'title'],
-                'data' => ['foo' => 'bar'],
+                'data' => ['campaign' => 'bar'],
                 'locale' => ['foo' => ['foo' => 'bar']],
                 'override' => ['foo' => 'bar'],
                 'template' => 'template',
