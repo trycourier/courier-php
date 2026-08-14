@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.17.2](https://github.com/trycourier/courier-php/compare/v5.17.1...v5.17.2) (2026-08-13)
+
+
+### Documentation
+
+* **api:** describe every broadcast id path parameter ([#113](https://github.com/trycourier/courier-php/issues/113)) ([2ab5ec1](https://github.com/trycourier/courier-php/commit/2ab5ec1ffb45b604ce93c795c73d60530c949eea))
+* **api:** say what the bulk job endpoints return ([#115](https://github.com/trycourier/courier-php/issues/115)) ([273e18f](https://github.com/trycourier/courier-php/commit/273e18f62aca4637060013bb735b8f94c2b14cb7))
+
 ## [5.17.1](https://github.com/trycourier/courier-php/compare/v5.17.0...v5.17.1) (2026-08-13)
 
 
