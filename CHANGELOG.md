@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/trycourier/courier-php/compare/v5.17.2...v6.0.0) (2026-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** nest the AWS SNS target_arn under aws_sns on the user profile ([#116](https://github.com/trycourier/courier-php/issues/116))
+
+### Features
+
+* **api:** nest the AWS SNS target_arn under aws_sns on the user profile ([#116](https://github.com/trycourier/courier-php/issues/116)) ([35f262f](https://github.com/trycourier/courier-php/commit/35f262fe9854c8d6da951aecc46b765522c44c28))
+
 ## [5.17.2](https://github.com/trycourier/courier-php/compare/v5.17.1...v5.17.2) (2026-08-13)
 
 
