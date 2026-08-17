@@ -161,26 +161,6 @@ final class NotificationsService implements NotificationsContract
     /**
      * @api
      *
-     * Copies a notification template within the same workspace and environment, appending " COPY" to the title. The copy is standalone and independently editable.
-     *
-     * @param string $id template ID (nt_ prefix)
-     * @param RequestOpts|null $requestOptions
-     *
-     * @throws APIException
-     */
-    public function duplicate(
-        string $id,
-        RequestOptions|array|null $requestOptions = null
-    ): NotificationTemplateResponse {
-        // @phpstan-ignore-next-line argument.type
-        $response = $this->raw->duplicate($id, requestOptions: $requestOptions);
-
-        return $response->parse();
-    }
-
-    /**
-     * @api
-     *
      * Returns a notification template's published versions, most recent first, for comparison or rollback. Paged.
      *
      * @param string $id template ID (nt_ prefix)

@@ -7,20 +7,26 @@ namespace Courier;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\MultipleTokens\Tokens;
 
 /**
- * @phpstan-import-type TokenShape from \Courier\Token
+ * @phpstan-import-type TokensVariants from \Courier\MultipleTokens\Tokens
+ * @phpstan-import-type TokensShape from \Courier\MultipleTokens\Tokens
  *
- * @phpstan-type MultipleTokensShape = array{tokens: list<Token|TokenShape>}
+ * @phpstan-type MultipleTokensShape = array{tokens: TokensShape}
  */
 final class MultipleTokens implements BaseModel
 {
     /** @use SdkModel<MultipleTokensShape> */
     use SdkModel;
 
-    /** @var list<Token> $tokens */
-    #[Required(list: Token::class)]
-    public array $tokens;
+    /**
+     * One device token, or an array of them. The values are the token strings themselves — not objects.
+     *
+     * @var TokensVariants $tokens
+     */
+    #[Required(union: Tokens::class)]
+    public string|array $tokens;
 
     /**
      * `new MultipleTokens()` is missing required properties by the API.
@@ -46,9 +52,9 @@ final class MultipleTokens implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Token|TokenShape> $tokens
+     * @param TokensShape $tokens
      */
-    public static function with(array $tokens): self
+    public static function with(string|array $tokens): self
     {
         $self = new self;
 
@@ -58,9 +64,11 @@ final class MultipleTokens implements BaseModel
     }
 
     /**
-     * @param list<Token|TokenShape> $tokens
+     * One device token, or an array of them. The values are the token strings themselves — not objects.
+     *
+     * @param TokensShape $tokens
      */
-    public function withTokens(array $tokens): self
+    public function withTokens(string|array $tokens): self
     {
         $self = clone $this;
         $self['tokens'] = $tokens;

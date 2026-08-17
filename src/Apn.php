@@ -9,15 +9,15 @@ use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
- * Expo push tokens. Supply either a single `token` or a `tokens` value.
+ * Apple Push Notification device tokens. Supply either a single `token` or a `tokens` value. A bare string is rejected by the provider — the token must be wrapped in this object.
  *
  * @phpstan-import-type TokenShape from \Courier\Token
  * @phpstan-import-type MultipleTokensShape from \Courier\MultipleTokens
  *
- * @phpstan-type ExpoVariants = Token|MultipleTokens
- * @phpstan-type ExpoShape = ExpoVariants|TokenShape|MultipleTokensShape
+ * @phpstan-type ApnVariants = Token|MultipleTokens
+ * @phpstan-type ApnShape = ApnVariants|TokenShape|MultipleTokensShape
  */
-final class Expo implements ConverterSource
+final class Apn implements ConverterSource
 {
     use SdkUnion;
 
