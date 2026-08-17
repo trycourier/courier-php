@@ -17,6 +17,7 @@ use Courier\UserProfile\Address;
  * @phpstan-import-type SlackVariants from \Courier\Slack
  * @phpstan-import-type AddressShape from \Courier\UserProfile\Address
  * @phpstan-import-type AirshipProfileShape from \Courier\AirshipProfile
+ * @phpstan-import-type AwsSnsShape from \Courier\AwsSns
  * @phpstan-import-type DiscordShape from \Courier\Discord
  * @phpstan-import-type ExpoShape from \Courier\Expo
  * @phpstan-import-type UserProfileFirebaseTokenShape from \Courier\UserProfileFirebaseToken
@@ -28,6 +29,7 @@ use Courier\UserProfile\Address;
  *   address?: null|Address|AddressShape,
  *   airship?: null|AirshipProfile|AirshipProfileShape,
  *   apn?: string|null,
+ *   awsSns?: null|AwsSns|AwsSnsShape,
  *   birthdate?: string|null,
  *   custom?: array<string,mixed>|null,
  *   discord?: DiscordShape|null,
@@ -52,7 +54,6 @@ use Courier\UserProfile\Address;
  *   profile?: string|null,
  *   slack?: SlackShape|null,
  *   sub?: string|null,
- *   targetArn?: string|null,
  *   updatedAt?: string|null,
  *   website?: string|null,
  *   zoneinfo?: string|null,
@@ -71,6 +72,12 @@ final class UserProfile implements BaseModel
 
     #[Optional(nullable: true)]
     public ?string $apn;
+
+    /**
+     * Routes a push notification through the AWS SNS provider. The target ARN must be nested under `aws_sns` — a top-level `target_arn` on the profile is ignored by the provider.
+     */
+    #[Optional('aws_sns', nullable: true)]
+    public ?AwsSns $awsSns;
 
     #[Optional(nullable: true)]
     public ?string $birthdate;
@@ -154,9 +161,6 @@ final class UserProfile implements BaseModel
     #[Optional(nullable: true)]
     public ?string $sub;
 
-    #[Optional('target_arn', nullable: true)]
-    public ?string $targetArn;
-
     #[Optional('updated_at', nullable: true)]
     public ?string $updatedAt;
 
@@ -178,6 +182,7 @@ final class UserProfile implements BaseModel
      *
      * @param Address|AddressShape|null $address
      * @param AirshipProfile|AirshipProfileShape|null $airship
+     * @param AwsSns|AwsSnsShape|null $awsSns
      * @param array<string,mixed>|null $custom
      * @param DiscordShape|null $discord
      * @param ExpoShape|null $expo
@@ -190,6 +195,7 @@ final class UserProfile implements BaseModel
         Address|array|null $address = null,
         AirshipProfile|array|null $airship = null,
         ?string $apn = null,
+        AwsSns|array|null $awsSns = null,
         ?string $birthdate = null,
         ?array $custom = null,
         SendToChannel|array|SendDirectMessage|null $discord = null,
@@ -214,7 +220,6 @@ final class UserProfile implements BaseModel
         ?string $profile = null,
         SendToSlackChannel|array|SendToSlackEmail|SendToSlackUserID|null $slack = null,
         ?string $sub = null,
-        ?string $targetArn = null,
         ?string $updatedAt = null,
         ?string $website = null,
         ?string $zoneinfo = null,
@@ -224,6 +229,7 @@ final class UserProfile implements BaseModel
         null !== $address && $self['address'] = $address;
         null !== $airship && $self['airship'] = $airship;
         null !== $apn && $self['apn'] = $apn;
+        null !== $awsSns && $self['awsSns'] = $awsSns;
         null !== $birthdate && $self['birthdate'] = $birthdate;
         null !== $custom && $self['custom'] = $custom;
         null !== $discord && $self['discord'] = $discord;
@@ -248,7 +254,6 @@ final class UserProfile implements BaseModel
         null !== $profile && $self['profile'] = $profile;
         null !== $slack && $self['slack'] = $slack;
         null !== $sub && $self['sub'] = $sub;
-        null !== $targetArn && $self['targetArn'] = $targetArn;
         null !== $updatedAt && $self['updatedAt'] = $updatedAt;
         null !== $website && $self['website'] = $website;
         null !== $zoneinfo && $self['zoneinfo'] = $zoneinfo;
@@ -282,6 +287,19 @@ final class UserProfile implements BaseModel
     {
         $self = clone $this;
         $self['apn'] = $apn;
+
+        return $self;
+    }
+
+    /**
+     * Routes a push notification through the AWS SNS provider. The target ARN must be nested under `aws_sns` — a top-level `target_arn` on the profile is ignored by the provider.
+     *
+     * @param AwsSns|AwsSnsShape|null $awsSns
+     */
+    public function withAwsSns(AwsSns|array|null $awsSns): self
+    {
+        $self = clone $this;
+        $self['awsSns'] = $awsSns;
 
         return $self;
     }
@@ -500,14 +518,6 @@ final class UserProfile implements BaseModel
     {
         $self = clone $this;
         $self['sub'] = $sub;
-
-        return $self;
-    }
-
-    public function withTargetArn(?string $targetArn): self
-    {
-        $self = clone $this;
-        $self['targetArn'] = $targetArn;
 
         return $self;
     }
