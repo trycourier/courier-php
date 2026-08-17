@@ -10,6 +10,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\UserProfile\Address;
 
 /**
+ * @phpstan-import-type ApnVariants from \Courier\Apn
  * @phpstan-import-type DiscordVariants from \Courier\Discord
  * @phpstan-import-type ExpoVariants from \Courier\Expo
  * @phpstan-import-type UserProfileFirebaseTokenVariants from \Courier\UserProfileFirebaseToken
@@ -17,6 +18,7 @@ use Courier\UserProfile\Address;
  * @phpstan-import-type SlackVariants from \Courier\Slack
  * @phpstan-import-type AddressShape from \Courier\UserProfile\Address
  * @phpstan-import-type AirshipProfileShape from \Courier\AirshipProfile
+ * @phpstan-import-type ApnShape from \Courier\Apn
  * @phpstan-import-type AwsSnsShape from \Courier\AwsSns
  * @phpstan-import-type DiscordShape from \Courier\Discord
  * @phpstan-import-type ExpoShape from \Courier\Expo
@@ -28,7 +30,7 @@ use Courier\UserProfile\Address;
  * @phpstan-type UserProfileShape = array{
  *   address?: null|Address|AddressShape,
  *   airship?: null|AirshipProfile|AirshipProfileShape,
- *   apn?: string|null,
+ *   apn?: ApnShape|null,
  *   awsSns?: null|AwsSns|AwsSnsShape,
  *   birthdate?: string|null,
  *   custom?: array<string,mixed>|null,
@@ -70,8 +72,13 @@ final class UserProfile implements BaseModel
     #[Optional(nullable: true)]
     public ?AirshipProfile $airship;
 
+    /**
+     * Apple Push Notification device tokens. Supply either a single `token` or a `tokens` value. A bare string is rejected by the provider — the token must be wrapped in this object.
+     *
+     * @var ApnVariants|null $apn
+     */
     #[Optional(nullable: true)]
-    public ?string $apn;
+    public Token|MultipleTokens|null $apn;
 
     /**
      * Routes a push notification through the AWS SNS provider. The target ARN must be nested under `aws_sns` — a top-level `target_arn` on the profile is ignored by the provider.
@@ -100,7 +107,11 @@ final class UserProfile implements BaseModel
     #[Optional('email_verified', nullable: true)]
     public ?bool $emailVerified;
 
-    /** @var ExpoVariants|null $expo */
+    /**
+     * Expo push tokens. Supply either a single `token` or a `tokens` value.
+     *
+     * @var ExpoVariants|null $expo
+     */
     #[Optional(nullable: true)]
     public Token|MultipleTokens|null $expo;
 
@@ -182,6 +193,7 @@ final class UserProfile implements BaseModel
      *
      * @param Address|AddressShape|null $address
      * @param AirshipProfile|AirshipProfileShape|null $airship
+     * @param ApnShape|null $apn
      * @param AwsSns|AwsSnsShape|null $awsSns
      * @param array<string,mixed>|null $custom
      * @param DiscordShape|null $discord
@@ -194,7 +206,7 @@ final class UserProfile implements BaseModel
     public static function with(
         Address|array|null $address = null,
         AirshipProfile|array|null $airship = null,
-        ?string $apn = null,
+        Token|array|MultipleTokens|null $apn = null,
         AwsSns|array|null $awsSns = null,
         ?string $birthdate = null,
         ?array $custom = null,
@@ -283,7 +295,12 @@ final class UserProfile implements BaseModel
         return $self;
     }
 
-    public function withApn(?string $apn): self
+    /**
+     * Apple Push Notification device tokens. Supply either a single `token` or a `tokens` value. A bare string is rejected by the provider — the token must be wrapped in this object.
+     *
+     * @param ApnShape|null $apn
+     */
+    public function withApn(Token|array|MultipleTokens|null $apn): self
     {
         $self = clone $this;
         $self['apn'] = $apn;
@@ -354,6 +371,8 @@ final class UserProfile implements BaseModel
     }
 
     /**
+     * Expo push tokens. Supply either a single `token` or a `tokens` value.
+     *
      * @param ExpoShape|null $expo
      */
     public function withExpo(Token|array|MultipleTokens|null $expo): self

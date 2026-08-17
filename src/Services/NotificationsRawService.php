@@ -190,31 +190,6 @@ final class NotificationsRawService implements NotificationsRawContract
     /**
      * @api
      *
-     * Copies a notification template within the same workspace and environment, appending " COPY" to the title. The copy is standalone and independently editable.
-     *
-     * @param string $id template ID (nt_ prefix)
-     * @param RequestOpts|null $requestOptions
-     *
-     * @return BaseResponse<NotificationTemplateResponse>
-     *
-     * @throws APIException
-     */
-    public function duplicate(
-        string $id,
-        RequestOptions|array|null $requestOptions = null
-    ): BaseResponse {
-        // @phpstan-ignore-next-line return.type
-        return $this->client->request(
-            method: 'post',
-            path: ['notifications/%1$s/duplicate', $id],
-            options: $requestOptions,
-            convert: NotificationTemplateResponse::class,
-        );
-    }
-
-    /**
-     * @api
-     *
      * Returns a notification template's published versions, most recent first, for comparison or rollback. Paged.
      *
      * @param string $id template ID (nt_ prefix)
