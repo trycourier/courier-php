@@ -19,6 +19,8 @@ use Courier\PreferenceStatus;
  *   topicName: string,
  *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   hasCustomRouting?: bool|null,
+ *   sectionID?: string|null,
+ *   sectionName?: string|null,
  * }
  */
 final class TopicPreference implements BaseModel
@@ -73,6 +75,18 @@ final class TopicPreference implements BaseModel
     public ?bool $hasCustomRouting;
 
     /**
+     * The unique identifier of the section this topic belongs to. Always present when listing a user's preferences; omitted by the single-topic read when the topic has no resolvable section.
+     */
+    #[Optional('section_id')]
+    public ?string $sectionID;
+
+    /**
+     * The display name of the section this topic belongs to. Always present when listing a user's preferences; omitted by the single-topic read when the topic has no resolvable section.
+     */
+    #[Optional('section_name')]
+    public ?string $sectionName;
+
+    /**
      * `new TopicPreference()` is missing required properties by the API.
      *
      * To enforce required parameters use
@@ -113,6 +127,8 @@ final class TopicPreference implements BaseModel
         string $topicName,
         ?array $customRouting = null,
         ?bool $hasCustomRouting = null,
+        ?string $sectionID = null,
+        ?string $sectionName = null,
     ): self {
         $self = new self;
 
@@ -123,6 +139,8 @@ final class TopicPreference implements BaseModel
 
         null !== $customRouting && $self['customRouting'] = $customRouting;
         null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
+        null !== $sectionID && $self['sectionID'] = $sectionID;
+        null !== $sectionName && $self['sectionName'] = $sectionName;
 
         return $self;
     }
@@ -196,6 +214,28 @@ final class TopicPreference implements BaseModel
     {
         $self = clone $this;
         $self['hasCustomRouting'] = $hasCustomRouting;
+
+        return $self;
+    }
+
+    /**
+     * The unique identifier of the section this topic belongs to. Always present when listing a user's preferences; omitted by the single-topic read when the topic has no resolvable section.
+     */
+    public function withSectionID(string $sectionID): self
+    {
+        $self = clone $this;
+        $self['sectionID'] = $sectionID;
+
+        return $self;
+    }
+
+    /**
+     * The display name of the section this topic belongs to. Always present when listing a user's preferences; omitted by the single-topic read when the topic has no resolvable section.
+     */
+    public function withSectionName(string $sectionName): self
+    {
+        $self = clone $this;
+        $self['sectionName'] = $sectionName;
 
         return $self;
     }
