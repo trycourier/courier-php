@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0](https://github.com/trycourier/courier-php/compare/v6.0.0...v7.0.0) (2026-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** match the spec to the backend — apn/expo token types and the phantom notifications.duplicate ([#118](https://github.com/trycourier/courier-php/issues/118))
+
+### Features
+
+* **api:** match the spec to the backend — apn/expo token types and the phantom notifications.duplicate ([#118](https://github.com/trycourier/courier-php/issues/118)) ([4ca71ee](https://github.com/trycourier/courier-php/commit/4ca71ee1bb15747abae2be07c5b7b2b90bfc0e49))
+
 ## [6.0.0](https://github.com/trycourier/courier-php/compare/v5.17.2...v6.0.0) (2026-08-17)
 
 
