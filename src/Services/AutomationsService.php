@@ -12,6 +12,7 @@ use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\AutomationsContract;
 use Courier\Services\Automations\InvokeService;
+use Courier\Services\Automations\RunsService;
 
 /**
  * Invoke a stored automation template or an ad hoc automation defined in the request.
@@ -31,12 +32,18 @@ final class AutomationsService implements AutomationsContract
     public InvokeService $invoke;
 
     /**
+     * @api
+     */
+    public RunsService $runs;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->raw = new AutomationsRawService($client);
         $this->invoke = new InvokeService($client);
+        $this->runs = new RunsService($client);
     }
 
     /**
