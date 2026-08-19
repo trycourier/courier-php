@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.1.0](https://github.com/trycourier/courier-php/compare/v7.0.0...v7.1.0) (2026-08-19)
+
+
+### Features
+
+* **api:** add automation and journey run log endpoints ([#123](https://github.com/trycourier/courier-php/issues/123)) ([88af14d](https://github.com/trycourier/courier-php/commit/88af14df36b69836874790d5314a9caffb1458b6))
+* **api:** document section_id and section_name on a user's topic preference ([#122](https://github.com/trycourier/courier-php/issues/122)) ([4c9a1c3](https://github.com/trycourier/courier-php/commit/4c9a1c32ec735657d726e8e0f424bbf59660a9c4))
+
+
+### Chores
+
+* **api:** regenerate SDK ([#120](https://github.com/trycourier/courier-php/issues/120)) ([5dbde44](https://github.com/trycourier/courier-php/commit/5dbde4433e8d3a823164f892c3e141a6989631eb))
+
 ## [7.0.0](https://github.com/trycourier/courier-php/compare/v6.0.0...v7.0.0) (2026-08-17)
 
 
