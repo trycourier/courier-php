@@ -17,6 +17,7 @@ use Courier\Journeys\JourneyState;
 use Courier\Journeys\JourneyVersionsListResponse;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\JourneysContract;
+use Courier\Services\Journeys\RunsService;
 use Courier\Services\Journeys\TemplatesService;
 
 /**
@@ -37,12 +38,18 @@ final class JourneysService implements JourneysContract
     public TemplatesService $templates;
 
     /**
+     * @api
+     */
+    public RunsService $runs;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->raw = new JourneysRawService($client);
         $this->templates = new TemplatesService($client);
+        $this->runs = new RunsService($client);
     }
 
     /**

@@ -8,33 +8,33 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Journeys\JourneySegmentTriggerNode\RequestType;
-use Courier\Journeys\JourneySegmentTriggerNode\TriggerType;
-use Courier\Journeys\JourneySegmentTriggerNode\Type;
+use Courier\Journeys\JourneyAudienceTriggerNode\TriggerType;
+use Courier\Journeys\JourneyAudienceTriggerNode\Type;
 
 /**
- * Trigger fired by a segment event (`identify`, `group`, `track`, or `page`). A trigger with no `event_id` fires on any event of its type — the only shape `identify` and `group` can take, and the one that catches a stock `analytics.page()` call.
+ * Trigger fired when a user newly matches an Audience. Leaving and re-joining the Audience re-enters the Journey. Membership is new-members-only: users already in the Audience when the Journey is published do not enter. Unlike the v2 Automations audience trigger, there is no member scope, event type, or frequency mode to configure, and `audience_id` must name one Audience — wildcards are not supported.
  *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *
- * @phpstan-type JourneySegmentTriggerNodeShape = array{
- *   requestType: RequestType|value-of<RequestType>,
+ * @phpstan-type JourneyAudienceTriggerNodeShape = array{
+ *   audienceID: string,
  *   triggerType: TriggerType|value-of<TriggerType>,
  *   type: Type|value-of<Type>,
  *   id?: string|null,
  *   conditions?: JourneyConditionsFieldShape|null,
- *   eventID?: string|null,
  * }
  */
-final class JourneySegmentTriggerNode implements BaseModel
+final class JourneyAudienceTriggerNode implements BaseModel
 {
-    /** @use SdkModel<JourneySegmentTriggerNodeShape> */
+    /** @use SdkModel<JourneyAudienceTriggerNodeShape> */
     use SdkModel;
 
-    /** @var value-of<RequestType> $requestType */
-    #[Required('request_type', enum: RequestType::class)]
-    public string $requestType;
+    /**
+     * The Audience to watch. Must name a single Audience; wildcards are not supported.
+     */
+    #[Required('audience_id')]
+    public string $audienceID;
 
     /** @var value-of<TriggerType> $triggerType */
     #[Required('trigger_type', enum: TriggerType::class)]
@@ -55,22 +55,19 @@ final class JourneySegmentTriggerNode implements BaseModel
     #[Optional(union: JourneyConditionsField::class)]
     public array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions;
 
-    #[Optional('event_id')]
-    public ?string $eventID;
-
     /**
-     * `new JourneySegmentTriggerNode()` is missing required properties by the API.
+     * `new JourneyAudienceTriggerNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * JourneySegmentTriggerNode::with(requestType: ..., triggerType: ..., type: ...)
+     * JourneyAudienceTriggerNode::with(audienceID: ..., triggerType: ..., type: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new JourneySegmentTriggerNode)
-     *   ->withRequestType(...)
+     * (new JourneyAudienceTriggerNode)
+     *   ->withAudienceID(...)
      *   ->withTriggerType(...)
      *   ->withType(...)
      * ```
@@ -85,39 +82,36 @@ final class JourneySegmentTriggerNode implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RequestType|value-of<RequestType> $requestType
      * @param TriggerType|value-of<TriggerType> $triggerType
      * @param Type|value-of<Type> $type
      * @param JourneyConditionsFieldShape|null $conditions
      */
     public static function with(
-        RequestType|string $requestType,
+        string $audienceID,
         TriggerType|string $triggerType,
         Type|string $type,
         ?string $id = null,
         array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions = null,
-        ?string $eventID = null,
     ): self {
         $self = new self;
 
-        $self['requestType'] = $requestType;
+        $self['audienceID'] = $audienceID;
         $self['triggerType'] = $triggerType;
         $self['type'] = $type;
 
         null !== $id && $self['id'] = $id;
         null !== $conditions && $self['conditions'] = $conditions;
-        null !== $eventID && $self['eventID'] = $eventID;
 
         return $self;
     }
 
     /**
-     * @param RequestType|value-of<RequestType> $requestType
+     * The Audience to watch. Must name a single Audience; wildcards are not supported.
      */
-    public function withRequestType(RequestType|string $requestType): self
+    public function withAudienceID(string $audienceID): self
     {
         $self = clone $this;
-        $self['requestType'] = $requestType;
+        $self['audienceID'] = $audienceID;
 
         return $self;
     }
@@ -162,14 +156,6 @@ final class JourneySegmentTriggerNode implements BaseModel
     ): self {
         $self = clone $this;
         $self['conditions'] = $conditions;
-
-        return $self;
-    }
-
-    public function withEventID(string $eventID): self
-    {
-        $self = clone $this;
-        $self['eventID'] = $eventID;
 
         return $self;
     }

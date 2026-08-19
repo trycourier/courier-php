@@ -8,18 +8,17 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\Journeys\JourneySegmentTriggerNode\RequestType;
-use Courier\Journeys\JourneySegmentTriggerNode\TriggerType;
-use Courier\Journeys\JourneySegmentTriggerNode\Type;
+use Courier\Journeys\JourneyWebhookTriggerNode\TriggerType;
+use Courier\Journeys\JourneyWebhookTriggerNode\Type;
 
 /**
- * Trigger fired by a segment event (`identify`, `group`, `track`, or `page`). A trigger with no `event_id` fires on any event of its type — the only shape `identify` and `group` can take, and the one that catches a stock `analytics.page()` call.
+ * Trigger fired when an external system POSTs to the webhook URL minted for `event_source`. Narrow it to one event with `event_id`, or omit `event_id` to accept every event delivered to the URL.
  *
  * @phpstan-import-type JourneyConditionsFieldVariants from \Courier\Journeys\JourneyConditionsField
  * @phpstan-import-type JourneyConditionsFieldShape from \Courier\Journeys\JourneyConditionsField
  *
- * @phpstan-type JourneySegmentTriggerNodeShape = array{
- *   requestType: RequestType|value-of<RequestType>,
+ * @phpstan-type JourneyWebhookTriggerNodeShape = array{
+ *   eventSource: string,
  *   triggerType: TriggerType|value-of<TriggerType>,
  *   type: Type|value-of<Type>,
  *   id?: string|null,
@@ -27,14 +26,16 @@ use Courier\Journeys\JourneySegmentTriggerNode\Type;
  *   eventID?: string|null,
  * }
  */
-final class JourneySegmentTriggerNode implements BaseModel
+final class JourneyWebhookTriggerNode implements BaseModel
 {
-    /** @use SdkModel<JourneySegmentTriggerNodeShape> */
+    /** @use SdkModel<JourneyWebhookTriggerNodeShape> */
     use SdkModel;
 
-    /** @var value-of<RequestType> $requestType */
-    #[Required('request_type', enum: RequestType::class)]
-    public string $requestType;
+    /**
+     * The provider key the webhook URL is minted for. Required, and must not contain a forward slash.
+     */
+    #[Required('event_source')]
+    public string $eventSource;
 
     /** @var value-of<TriggerType> $triggerType */
     #[Required('trigger_type', enum: TriggerType::class)]
@@ -55,22 +56,25 @@ final class JourneySegmentTriggerNode implements BaseModel
     #[Optional(union: JourneyConditionsField::class)]
     public array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions;
 
+    /**
+     * An optional event filter, matched against the payload's `event` field. A sender that supplies no `event` matches the literal `custom`. Must not contain a forward slash. Omit to accept every event delivered to the URL.
+     */
     #[Optional('event_id')]
     public ?string $eventID;
 
     /**
-     * `new JourneySegmentTriggerNode()` is missing required properties by the API.
+     * `new JourneyWebhookTriggerNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * JourneySegmentTriggerNode::with(requestType: ..., triggerType: ..., type: ...)
+     * JourneyWebhookTriggerNode::with(eventSource: ..., triggerType: ..., type: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new JourneySegmentTriggerNode)
-     *   ->withRequestType(...)
+     * (new JourneyWebhookTriggerNode)
+     *   ->withEventSource(...)
      *   ->withTriggerType(...)
      *   ->withType(...)
      * ```
@@ -85,13 +89,12 @@ final class JourneySegmentTriggerNode implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param RequestType|value-of<RequestType> $requestType
      * @param TriggerType|value-of<TriggerType> $triggerType
      * @param Type|value-of<Type> $type
      * @param JourneyConditionsFieldShape|null $conditions
      */
     public static function with(
-        RequestType|string $requestType,
+        string $eventSource,
         TriggerType|string $triggerType,
         Type|string $type,
         ?string $id = null,
@@ -100,7 +103,7 @@ final class JourneySegmentTriggerNode implements BaseModel
     ): self {
         $self = new self;
 
-        $self['requestType'] = $requestType;
+        $self['eventSource'] = $eventSource;
         $self['triggerType'] = $triggerType;
         $self['type'] = $type;
 
@@ -112,12 +115,12 @@ final class JourneySegmentTriggerNode implements BaseModel
     }
 
     /**
-     * @param RequestType|value-of<RequestType> $requestType
+     * The provider key the webhook URL is minted for. Required, and must not contain a forward slash.
      */
-    public function withRequestType(RequestType|string $requestType): self
+    public function withEventSource(string $eventSource): self
     {
         $self = clone $this;
-        $self['requestType'] = $requestType;
+        $self['eventSource'] = $eventSource;
 
         return $self;
     }
@@ -166,6 +169,9 @@ final class JourneySegmentTriggerNode implements BaseModel
         return $self;
     }
 
+    /**
+     * An optional event filter, matched against the payload's `event` field. A sender that supplies no `event` matches the literal `custom`. Must not contain a forward slash. Omit to accept every event delivered to the URL.
+     */
     public function withEventID(string $eventID): self
     {
         $self = clone $this;

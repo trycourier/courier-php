@@ -11,4 +11,6 @@ enum RequestType: string
     case GROUP = 'group';
 
     case TRACK = 'track';
+
+    case PAGE = 'page';
 }

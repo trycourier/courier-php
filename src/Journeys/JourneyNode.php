@@ -16,6 +16,8 @@ use Courier\Journeys\JourneyNode\JourneyBranchNode;
  *
  * @phpstan-import-type JourneyAPIInvokeTriggerNodeShape from \Courier\Journeys\JourneyAPIInvokeTriggerNode
  * @phpstan-import-type JourneySegmentTriggerNodeShape from \Courier\Journeys\JourneySegmentTriggerNode
+ * @phpstan-import-type JourneyAudienceTriggerNodeShape from \Courier\Journeys\JourneyAudienceTriggerNode
+ * @phpstan-import-type JourneyWebhookTriggerNodeShape from \Courier\Journeys\JourneyWebhookTriggerNode
  * @phpstan-import-type JourneySendNodeShape from \Courier\Journeys\JourneySendNode
  * @phpstan-import-type JourneyDelayDurationNodeShape from \Courier\Journeys\JourneyDelayDurationNode
  * @phpstan-import-type JourneyDelayUntilNodeShape from \Courier\Journeys\JourneyDelayUntilNode
@@ -29,8 +31,8 @@ use Courier\Journeys\JourneyNode\JourneyBranchNode;
  * @phpstan-import-type JourneyExitNodeShape from \Courier\Journeys\JourneyExitNode
  * @phpstan-import-type JourneyBranchNodeShape from \Courier\Journeys\JourneyNode\JourneyBranchNode
  *
- * @phpstan-type JourneyNodeVariants = JourneyAPIInvokeTriggerNode|JourneySegmentTriggerNode|JourneySendNode|JourneyDelayDurationNode|JourneyDelayUntilNode|JourneyFetchGetDeleteNode|JourneyFetchPostPutNode|JourneyAINode|JourneyThrottleStaticNode|JourneyThrottleDynamicNode|JourneyBatchNode|JourneyAddToDigestNode|JourneyExitNode|JourneyBranchNode
- * @phpstan-type JourneyNodeShape = JourneyNodeVariants|JourneyAPIInvokeTriggerNodeShape|JourneySegmentTriggerNodeShape|JourneySendNodeShape|JourneyDelayDurationNodeShape|JourneyDelayUntilNodeShape|JourneyFetchGetDeleteNodeShape|JourneyFetchPostPutNodeShape|JourneyAINodeShape|JourneyThrottleStaticNodeShape|JourneyThrottleDynamicNodeShape|JourneyBatchNodeShape|JourneyAddToDigestNodeShape|JourneyExitNodeShape|JourneyBranchNodeShape
+ * @phpstan-type JourneyNodeVariants = JourneyAPIInvokeTriggerNode|JourneySegmentTriggerNode|JourneyAudienceTriggerNode|JourneyWebhookTriggerNode|JourneySendNode|JourneyDelayDurationNode|JourneyDelayUntilNode|JourneyFetchGetDeleteNode|JourneyFetchPostPutNode|JourneyAINode|JourneyThrottleStaticNode|JourneyThrottleDynamicNode|JourneyBatchNode|JourneyAddToDigestNode|JourneyExitNode|JourneyBranchNode
+ * @phpstan-type JourneyNodeShape = JourneyNodeVariants|JourneyAPIInvokeTriggerNodeShape|JourneySegmentTriggerNodeShape|JourneyAudienceTriggerNodeShape|JourneyWebhookTriggerNodeShape|JourneySendNodeShape|JourneyDelayDurationNodeShape|JourneyDelayUntilNodeShape|JourneyFetchGetDeleteNodeShape|JourneyFetchPostPutNodeShape|JourneyAINodeShape|JourneyThrottleStaticNodeShape|JourneyThrottleDynamicNodeShape|JourneyBatchNodeShape|JourneyAddToDigestNodeShape|JourneyExitNodeShape|JourneyBranchNodeShape
  */
 final class JourneyNode implements ConverterSource
 {
@@ -44,6 +46,8 @@ final class JourneyNode implements ConverterSource
         return [
             JourneyAPIInvokeTriggerNode::class,
             JourneySegmentTriggerNode::class,
+            JourneyAudienceTriggerNode::class,
+            JourneyWebhookTriggerNode::class,
             JourneySendNode::class,
             JourneyDelayDurationNode::class,
             JourneyDelayUntilNode::class,
