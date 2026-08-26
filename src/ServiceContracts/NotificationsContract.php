@@ -9,7 +9,9 @@ use Courier\Notifications\NotificationContentGetResponse;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationCreateParams\State;
 use Courier\Notifications\NotificationGetContent;
+use Courier\Notifications\NotificationGetMetricsParams\Granularity;
 use Courier\Notifications\NotificationListResponse;
+use Courier\Notifications\NotificationMetricsResponse;
 use Courier\Notifications\NotificationPutContentParams\Content;
 use Courier\Notifications\NotificationPutLocaleParams\Element;
 use Courier\Notifications\NotificationTemplateResponse;
@@ -89,6 +91,27 @@ interface NotificationsContract
         string $id,
         RequestOptions|array|null $requestOptions = null
     ): mixed;
+
+    /**
+     * @api
+     *
+     * @param string $id The Notification Template to report on — its ID (`nt_` prefix) or an alias. Must not contain commas or whitespace.
+     * @param \DateTimeInterface $end The end of the window, as an ISO 8601 timestamp with an offset. Must be supplied together with `start`. An `end` in the future is accepted and not clamped — the trailing buckets come back empty.
+     * @param Granularity|value-of<Granularity> $granularity The size of each bucket in the series. Defaults to `DAY`. `WEEK` buckets start on Sunday. A fine granularity caps the window it can cover: `HOUR` spans at most 7 days and `DAY` at most 90 days, and a wider window returns `400` — request a coarser granularity instead. `WEEK` and `MONTH` are uncapped, subject to the 1000-bucket limit on a single response.
+     * @param string $lookback The length of the window, counted back from now, as an ISO 8601 duration (`P30D`, `P12W`, `PT12H`). Defaults to `P30D`, and is ignored when `start` and `end` are supplied. A malformed or non-positive duration returns `400`.
+     * @param \DateTimeInterface $start The inclusive start of the window, as an ISO 8601 timestamp with an offset (`2026-04-01T00:00:00Z`). Must be supplied together with `end` and be earlier than it; either one alone returns `400`.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function getMetrics(
+        string $id,
+        ?\DateTimeInterface $end = null,
+        Granularity|string $granularity = 'DAY',
+        string $lookback = 'P30D',
+        ?\DateTimeInterface $start = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): NotificationMetricsResponse;
 
     /**
      * @api

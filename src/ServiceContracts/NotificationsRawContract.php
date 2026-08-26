@@ -10,9 +10,11 @@ use Courier\Notifications\NotificationContentGetResponse;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationCreateParams;
 use Courier\Notifications\NotificationGetContent;
+use Courier\Notifications\NotificationGetMetricsParams;
 use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationListVersionsParams;
+use Courier\Notifications\NotificationMetricsResponse;
 use Courier\Notifications\NotificationPublishParams;
 use Courier\Notifications\NotificationPutContentParams;
 use Courier\Notifications\NotificationPutElementParams;
@@ -89,6 +91,23 @@ interface NotificationsRawContract
     public function archive(
         string $id,
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $id The Notification Template to report on — its ID (`nt_` prefix) or an alias. Must not contain commas or whitespace.
+     * @param array<string,mixed>|NotificationGetMetricsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationMetricsResponse>
+     *
+     * @throws APIException
+     */
+    public function getMetrics(
+        string $id,
+        array|NotificationGetMetricsParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**
