@@ -6,6 +6,7 @@ use Courier\Client;
 use Courier\Core\Util;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationListResponse;
+use Courier\Notifications\NotificationMetricsResponse;
 use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
@@ -119,6 +120,19 @@ final class NotificationsTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testGetMetrics(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->notifications->getMetrics('x');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(NotificationMetricsResponse::class, $result);
     }
 
     #[Test]

@@ -14,9 +14,12 @@ use Courier\Notifications\NotificationCreateParams;
 use Courier\Notifications\NotificationCreateParams\State;
 use Courier\Notifications\NotificationGetContent;
 use Courier\Notifications\NotificationGetContentResponse;
+use Courier\Notifications\NotificationGetMetricsParams;
+use Courier\Notifications\NotificationGetMetricsParams\Granularity;
 use Courier\Notifications\NotificationListParams;
 use Courier\Notifications\NotificationListResponse;
 use Courier\Notifications\NotificationListVersionsParams;
+use Courier\Notifications\NotificationMetricsResponse;
 use Courier\Notifications\NotificationPublishParams;
 use Courier\Notifications\NotificationPutContentParams;
 use Courier\Notifications\NotificationPutContentParams\Content;
@@ -184,6 +187,50 @@ final class NotificationsRawService implements NotificationsRawContract
             path: ['notifications/%1$s', $id],
             options: $requestOptions,
             convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Fetch the delivery funnel for one Notification Template as a time series — sent, delivered, opened, clicked, errors, and undeliverable — broken out per provider and channel inside each bucket. Sum the entries in a bucket for its totals; there is no bucket-level total.
+     *
+     * Choose the window absolutely with `start` and `end`, or relatively with `lookback` (an ISO 8601 duration). `start` and `end` take precedence when both are supplied, and a request carrying neither defaults to `lookback=P30D`. The window is snapped outwards onto the `granularity` grid so every bucket it overlaps is returned whole, and the snapped boundaries come back as `start` and `end` — align a chart on those rather than on what was requested. Every boundary is UTC; there is no timezone support.
+     *
+     * Every bucket in the window is returned, including the quiet ones, whose `data` array is empty, so a series is directly plottable with no gap filling client-side. An unknown template id returns `200` with an all-empty series rather than `404`, and messages sent without a Notification Template never appear here.
+     *
+     * Available in the US region only.
+     *
+     * @param string $id The Notification Template to report on — its ID (`nt_` prefix) or an alias. Must not contain commas or whitespace.
+     * @param array{
+     *   end?: \DateTimeInterface,
+     *   granularity?: Granularity|value-of<Granularity>,
+     *   lookback?: string,
+     *   start?: \DateTimeInterface,
+     * }|NotificationGetMetricsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<NotificationMetricsResponse>
+     *
+     * @throws APIException
+     */
+    public function getMetrics(
+        string $id,
+        array|NotificationGetMetricsParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = NotificationGetMetricsParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: ['notifications/%1$s/metrics', $id],
+            query: $parsed,
+            options: $options,
+            convert: NotificationMetricsResponse::class,
         );
     }
 
