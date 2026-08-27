@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Courier;
 
-use Courier\Core\Attributes\Required;
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Tenant context shared by every MS Teams send variant. Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree — a `service_url` pointing at a different Microsoft tenant than `tenant_id` is rejected.
+ *
  * @phpstan-type MsTeamsBasePropertiesShape = array{
- *   serviceURL: string, tenantID: string
+ *   serviceURL?: string|null, tenantID?: string|null
  * }
  */
 final class MsTeamsBaseProperties implements BaseModel
@@ -18,26 +20,12 @@ final class MsTeamsBaseProperties implements BaseModel
     /** @use SdkModel<MsTeamsBasePropertiesShape> */
     use SdkModel;
 
-    #[Required('service_url')]
-    public string $serviceURL;
+    #[Optional('service_url')]
+    public ?string $serviceURL;
 
-    #[Required('tenant_id')]
-    public string $tenantID;
+    #[Optional('tenant_id')]
+    public ?string $tenantID;
 
-    /**
-     * `new MsTeamsBaseProperties()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * MsTeamsBaseProperties::with(serviceURL: ..., tenantID: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new MsTeamsBaseProperties)->withServiceURL(...)->withTenantID(...)
-     * ```
-     */
     public function __construct()
     {
         $this->initialize();
@@ -48,12 +36,14 @@ final class MsTeamsBaseProperties implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(string $serviceURL, string $tenantID): self
-    {
+    public static function with(
+        ?string $serviceURL = null,
+        ?string $tenantID = null
+    ): self {
         $self = new self;
 
-        $self['serviceURL'] = $serviceURL;
-        $self['tenantID'] = $tenantID;
+        null !== $serviceURL && $self['serviceURL'] = $serviceURL;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
         return $self;
     }

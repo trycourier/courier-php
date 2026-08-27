@@ -77,7 +77,17 @@ final class JourneysTest extends TestCase
                         'template' => 'nt_01kx4h2jdafq8bk9aftxak4b40',
                         'to' => [
                             'emailOverride' => 'x',
+                            'msTeams' => [
+                                'channelID' => 'x',
+                                'channelName' => 'x',
+                                'email' => 'x',
+                                'serviceURL' => 'x',
+                                'teamID' => 'x',
+                                'tenantID' => 'x',
+                                'userID' => 'x',
+                            ],
                             'phoneNumberOverride' => 'x',
+                            'slack' => ['channel' => 'x', 'accessToken' => 'x'],
                             'userIDOverride' => 'x',
                         ],
                     ],

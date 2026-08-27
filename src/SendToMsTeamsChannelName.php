@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace Courier;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * `team_id` is required alongside `channel_name`. Also provide at least one of `tenant_id` or `service_url`; if you provide both, they must agree.
+ *
  * @phpstan-type SendToMsTeamsChannelNameShape = array{
- *   channelName: string, serviceURL: string, teamID: string, tenantID: string
+ *   channelName: string,
+ *   teamID: string,
+ *   serviceURL?: string|null,
+ *   tenantID?: string|null,
  * }
  */
 final class SendToMsTeamsChannelName implements BaseModel
@@ -21,33 +27,27 @@ final class SendToMsTeamsChannelName implements BaseModel
     #[Required('channel_name')]
     public string $channelName;
 
-    #[Required('service_url')]
-    public string $serviceURL;
-
     #[Required('team_id')]
     public string $teamID;
 
-    #[Required('tenant_id')]
-    public string $tenantID;
+    #[Optional('service_url')]
+    public ?string $serviceURL;
+
+    #[Optional('tenant_id')]
+    public ?string $tenantID;
 
     /**
      * `new SendToMsTeamsChannelName()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendToMsTeamsChannelName::with(
-     *   channelName: ..., serviceURL: ..., teamID: ..., tenantID: ...
-     * )
+     * SendToMsTeamsChannelName::with(channelName: ..., teamID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendToMsTeamsChannelName)
-     *   ->withChannelName(...)
-     *   ->withServiceURL(...)
-     *   ->withTeamID(...)
-     *   ->withTenantID(...)
+     * (new SendToMsTeamsChannelName)->withChannelName(...)->withTeamID(...)
      * ```
      */
     public function __construct()
@@ -62,16 +62,17 @@ final class SendToMsTeamsChannelName implements BaseModel
      */
     public static function with(
         string $channelName,
-        string $serviceURL,
         string $teamID,
-        string $tenantID
+        ?string $serviceURL = null,
+        ?string $tenantID = null,
     ): self {
         $self = new self;
 
         $self['channelName'] = $channelName;
-        $self['serviceURL'] = $serviceURL;
         $self['teamID'] = $teamID;
-        $self['tenantID'] = $tenantID;
+
+        null !== $serviceURL && $self['serviceURL'] = $serviceURL;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
         return $self;
     }
@@ -84,18 +85,18 @@ final class SendToMsTeamsChannelName implements BaseModel
         return $self;
     }
 
-    public function withServiceURL(string $serviceURL): self
-    {
-        $self = clone $this;
-        $self['serviceURL'] = $serviceURL;
-
-        return $self;
-    }
-
     public function withTeamID(string $teamID): self
     {
         $self = clone $this;
         $self['teamID'] = $teamID;
+
+        return $self;
+    }
+
+    public function withServiceURL(string $serviceURL): self
+    {
+        $self = clone $this;
+        $self['serviceURL'] = $serviceURL;
 
         return $self;
     }
