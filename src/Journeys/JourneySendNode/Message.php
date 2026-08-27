@@ -45,6 +45,9 @@ final class Message implements BaseModel
     #[Optional]
     public ?string $template;
 
+    /**
+     * Recipient override for this send. Provide exactly one of `email_override`, `phone_number_override`, `user_id_override`, `slack`, or `ms_teams` — not a combination.
+     */
     #[Optional]
     public ?To $to;
 
@@ -125,6 +128,8 @@ final class Message implements BaseModel
     }
 
     /**
+     * Recipient override for this send. Provide exactly one of `email_override`, `phone_number_override`, `user_id_override`, `slack`, or `ms_teams` — not a combination.
+     *
      * @param To|ToShape $to
      */
     public function withTo(To|array $to): self

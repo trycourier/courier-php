@@ -21,7 +21,11 @@ final class MsTeamsRecipient implements BaseModel
     /** @use SdkModel<MsTeamsRecipientShape> */
     use SdkModel;
 
-    /** @var MsTeamsVariants $msTeams */
+    /**
+     * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+     *
+     * @var MsTeamsVariants $msTeams
+     */
     #[Required('ms_teams')]
     public SendToMsTeamsUserID|SendToMsTeamsEmail|SendToMsTeamsChannelID|SendToMsTeamsConversationID|SendToMsTeamsChannelName $msTeams;
 
@@ -62,6 +66,8 @@ final class MsTeamsRecipient implements BaseModel
     }
 
     /**
+     * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+     *
      * @param MsTeamsShape $msTeams
      */
     public function withMsTeams(

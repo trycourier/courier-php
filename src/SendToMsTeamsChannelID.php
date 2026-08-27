@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Courier;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Sends directly to a Microsoft Teams channel by its Bot Framework ID. Still provide at least one of `tenant_id` or `service_url` — sends without either have failed Bot Framework authentication in testing.
+ *
  * @phpstan-type SendToMsTeamsChannelIDShape = array{
- *   channelID: string, serviceURL: string, tenantID: string
+ *   channelID: string, serviceURL?: string|null, tenantID?: string|null
  * }
  */
 final class SendToMsTeamsChannelID implements BaseModel
@@ -21,27 +24,24 @@ final class SendToMsTeamsChannelID implements BaseModel
     #[Required('channel_id')]
     public string $channelID;
 
-    #[Required('service_url')]
-    public string $serviceURL;
+    #[Optional('service_url')]
+    public ?string $serviceURL;
 
-    #[Required('tenant_id')]
-    public string $tenantID;
+    #[Optional('tenant_id')]
+    public ?string $tenantID;
 
     /**
      * `new SendToMsTeamsChannelID()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendToMsTeamsChannelID::with(channelID: ..., serviceURL: ..., tenantID: ...)
+     * SendToMsTeamsChannelID::with(channelID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendToMsTeamsChannelID)
-     *   ->withChannelID(...)
-     *   ->withServiceURL(...)
-     *   ->withTenantID(...)
+     * (new SendToMsTeamsChannelID)->withChannelID(...)
      * ```
      */
     public function __construct()
@@ -56,14 +56,15 @@ final class SendToMsTeamsChannelID implements BaseModel
      */
     public static function with(
         string $channelID,
-        string $serviceURL,
-        string $tenantID
+        ?string $serviceURL = null,
+        ?string $tenantID = null
     ): self {
         $self = new self;
 
         $self['channelID'] = $channelID;
-        $self['serviceURL'] = $serviceURL;
-        $self['tenantID'] = $tenantID;
+
+        null !== $serviceURL && $self['serviceURL'] = $serviceURL;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
         return $self;
     }

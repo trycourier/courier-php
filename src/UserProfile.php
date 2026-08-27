@@ -140,7 +140,11 @@ final class UserProfile implements BaseModel
     #[Optional('middle_name', nullable: true)]
     public ?string $middleName;
 
-    /** @var MsTeamsVariants|null $msTeams */
+    /**
+     * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+     *
+     * @var MsTeamsVariants|null $msTeams
+     */
     #[Optional('ms_teams', nullable: true)]
     public SendToMsTeamsUserID|SendToMsTeamsEmail|SendToMsTeamsChannelID|SendToMsTeamsConversationID|SendToMsTeamsChannelName|null $msTeams;
 
@@ -454,6 +458,8 @@ final class UserProfile implements BaseModel
     }
 
     /**
+     * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+     *
      * @param MsTeamsShape|null $msTeams
      */
     public function withMsTeams(

@@ -9,6 +9,8 @@ use Courier\Core\Conversion\Contracts\Converter;
 use Courier\Core\Conversion\Contracts\ConverterSource;
 
 /**
+ * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+ *
  * @phpstan-import-type SendToMsTeamsUserIDShape from \Courier\SendToMsTeamsUserID
  * @phpstan-import-type SendToMsTeamsEmailShape from \Courier\SendToMsTeamsEmail
  * @phpstan-import-type SendToMsTeamsChannelIDShape from \Courier\SendToMsTeamsChannelID

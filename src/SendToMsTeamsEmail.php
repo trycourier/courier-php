@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Courier;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+ *
  * @phpstan-type SendToMsTeamsEmailShape = array{
- *   email: string, serviceURL: string, tenantID: string
+ *   email: string, serviceURL?: string|null, tenantID?: string|null
  * }
  */
 final class SendToMsTeamsEmail implements BaseModel
@@ -21,24 +24,24 @@ final class SendToMsTeamsEmail implements BaseModel
     #[Required]
     public string $email;
 
-    #[Required('service_url')]
-    public string $serviceURL;
+    #[Optional('service_url')]
+    public ?string $serviceURL;
 
-    #[Required('tenant_id')]
-    public string $tenantID;
+    #[Optional('tenant_id')]
+    public ?string $tenantID;
 
     /**
      * `new SendToMsTeamsEmail()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendToMsTeamsEmail::with(email: ..., serviceURL: ..., tenantID: ...)
+     * SendToMsTeamsEmail::with(email: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendToMsTeamsEmail)->withEmail(...)->withServiceURL(...)->withTenantID(...)
+     * (new SendToMsTeamsEmail)->withEmail(...)
      * ```
      */
     public function __construct()
@@ -53,14 +56,15 @@ final class SendToMsTeamsEmail implements BaseModel
      */
     public static function with(
         string $email,
-        string $serviceURL,
-        string $tenantID
+        ?string $serviceURL = null,
+        ?string $tenantID = null
     ): self {
         $self = new self;
 
         $self['email'] = $email;
-        $self['serviceURL'] = $serviceURL;
-        $self['tenantID'] = $tenantID;
+
+        null !== $serviceURL && $self['serviceURL'] = $serviceURL;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
 
         return $self;
     }

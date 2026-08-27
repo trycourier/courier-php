@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Courier;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 
 /**
+ * Provide at least one of `tenant_id` or `service_url`. If you provide both, they must agree.
+ *
  * @phpstan-type SendToMsTeamsUserIDShape = array{
- *   serviceURL: string, tenantID: string, userID: string
+ *   userID: string, serviceURL?: string|null, tenantID?: string|null
  * }
  */
 final class SendToMsTeamsUserID implements BaseModel
@@ -18,30 +21,27 @@ final class SendToMsTeamsUserID implements BaseModel
     /** @use SdkModel<SendToMsTeamsUserIDShape> */
     use SdkModel;
 
-    #[Required('service_url')]
-    public string $serviceURL;
-
-    #[Required('tenant_id')]
-    public string $tenantID;
-
     #[Required('user_id')]
     public string $userID;
+
+    #[Optional('service_url')]
+    public ?string $serviceURL;
+
+    #[Optional('tenant_id')]
+    public ?string $tenantID;
 
     /**
      * `new SendToMsTeamsUserID()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * SendToMsTeamsUserID::with(serviceURL: ..., tenantID: ..., userID: ...)
+     * SendToMsTeamsUserID::with(userID: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new SendToMsTeamsUserID)
-     *   ->withServiceURL(...)
-     *   ->withTenantID(...)
-     *   ->withUserID(...)
+     * (new SendToMsTeamsUserID)->withUserID(...)
      * ```
      */
     public function __construct()
@@ -55,14 +55,23 @@ final class SendToMsTeamsUserID implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $serviceURL,
-        string $tenantID,
-        string $userID
+        string $userID,
+        ?string $serviceURL = null,
+        ?string $tenantID = null
     ): self {
         $self = new self;
 
-        $self['serviceURL'] = $serviceURL;
-        $self['tenantID'] = $tenantID;
+        $self['userID'] = $userID;
+
+        null !== $serviceURL && $self['serviceURL'] = $serviceURL;
+        null !== $tenantID && $self['tenantID'] = $tenantID;
+
+        return $self;
+    }
+
+    public function withUserID(string $userID): self
+    {
+        $self = clone $this;
         $self['userID'] = $userID;
 
         return $self;
@@ -80,14 +89,6 @@ final class SendToMsTeamsUserID implements BaseModel
     {
         $self = clone $this;
         $self['tenantID'] = $tenantID;
-
-        return $self;
-    }
-
-    public function withUserID(string $userID): self
-    {
-        $self = clone $this;
-        $self['userID'] = $userID;
 
         return $self;
     }
