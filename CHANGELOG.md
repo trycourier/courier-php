@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.0](https://github.com/trycourier/courier-php/compare/v7.1.0...v7.2.0) (2026-08-27)
+
+
+### Features
+
+* **api:** document Slack and MS Teams on journey send nodes, and fix over-strict MsTeams tenant requirements [C-20302] ([#125](https://github.com/trycourier/courier-php/issues/125)) ([d5bb314](https://github.com/trycourier/courier-php/commit/d5bb31421c1cdaadc380fea73570fbec1cbab3c1))
+
 ## [7.1.0](https://github.com/trycourier/courier-php/compare/v7.0.0...v7.1.0) (2026-08-26)
 
 
