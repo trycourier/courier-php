@@ -93,6 +93,7 @@ final class JourneysTest extends TestCase
                     ],
                     'type' => 'send',
                     'id' => 'send-1',
+                    'channel' => 'email',
                     'conditions' => ['string', 'string'],
                     'experiment' => [
                         'bucketingKey' => 'x',
