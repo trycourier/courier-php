@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.1](https://github.com/trycourier/courier-php/compare/v7.3.0...v7.3.1) (2026-08-28)
+
+
+### Bug Fixes
+
+* **api:** give Elemental nodes their properties in every SDK ([#129](https://github.com/trycourier/courier-php/issues/129)) ([ce1ca3f](https://github.com/trycourier/courier-php/commit/ce1ca3f80d569b6e493d91b196579da63235652a))
+
 ## [7.3.0](https://github.com/trycourier/courier-php/compare/v7.2.0...v7.3.0) (2026-08-28)
 
 
