@@ -8,6 +8,7 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Journeys\JourneySendNode\Channel;
 use Courier\Journeys\JourneySendNode\Message;
 use Courier\Journeys\JourneySendNode\Type;
 
@@ -23,6 +24,7 @@ use Courier\Journeys\JourneySendNode\Type;
  *   message: Message|MessageShape,
  *   type: Type|value-of<Type>,
  *   id?: string|null,
+ *   channel?: null|Channel|value-of<Channel>,
  *   conditions?: JourneyConditionsFieldShape|null,
  *   experiment?: null|JourneyExperiment|JourneyExperimentShape,
  * }
@@ -41,6 +43,14 @@ final class JourneySendNode implements BaseModel
 
     #[Optional]
     public ?string $id;
+
+    /**
+     * The channel this node sends through. Optional — when omitted, the field is absent from the node, including on `GET`; nodes created before this field existed have it unset. Setting it makes the node's channel explicit to any client reading the journey.
+     *
+     * @var value-of<Channel>|null $channel
+     */
+    #[Optional(enum: Channel::class)]
+    public ?string $channel;
 
     /**
      * Condition spec for a journey node. Accepts a single condition atom, an AND/OR group, or an AND/OR nested group. Omit the `conditions` property entirely to express "no conditions".
@@ -82,6 +92,7 @@ final class JourneySendNode implements BaseModel
      *
      * @param Message|MessageShape $message
      * @param Type|value-of<Type> $type
+     * @param Channel|value-of<Channel>|null $channel
      * @param JourneyConditionsFieldShape|null $conditions
      * @param JourneyExperiment|JourneyExperimentShape|null $experiment
      */
@@ -89,6 +100,7 @@ final class JourneySendNode implements BaseModel
         Message|array $message,
         Type|string $type,
         ?string $id = null,
+        Channel|string|null $channel = null,
         array|JourneyConditionGroup|JourneyConditionNestedGroup|null $conditions = null,
         JourneyExperiment|array|null $experiment = null,
     ): self {
@@ -98,6 +110,7 @@ final class JourneySendNode implements BaseModel
         $self['type'] = $type;
 
         null !== $id && $self['id'] = $id;
+        null !== $channel && $self['channel'] = $channel;
         null !== $conditions && $self['conditions'] = $conditions;
         null !== $experiment && $self['experiment'] = $experiment;
 
@@ -130,6 +143,19 @@ final class JourneySendNode implements BaseModel
     {
         $self = clone $this;
         $self['id'] = $id;
+
+        return $self;
+    }
+
+    /**
+     * The channel this node sends through. Optional — when omitted, the field is absent from the node, including on `GET`; nodes created before this field existed have it unset. Setting it makes the node's channel explicit to any client reading the journey.
+     *
+     * @param Channel|value-of<Channel> $channel
+     */
+    public function withChannel(Channel|string $channel): self
+    {
+        $self = clone $this;
+        $self['channel'] = $channel;
 
         return $self;
     }
