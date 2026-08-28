@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.0](https://github.com/trycourier/courier-php/compare/v7.2.0...v7.3.0) (2026-08-28)
+
+
+### Features
+
+* **api:** document channel on journey send nodes [C-20309] ([#127](https://github.com/trycourier/courier-php/issues/127)) ([36b7093](https://github.com/trycourier/courier-php/commit/36b709309f94456056306dd1600a25f9fc5e320d))
+
 ## [7.2.0](https://github.com/trycourier/courier-php/compare/v7.1.0...v7.2.0) (2026-08-27)
 
 
