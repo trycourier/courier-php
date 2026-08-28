@@ -190,22 +190,7 @@ final class BroadcastsTest extends TestCase
         $result = $this->client->broadcasts->putContent(
             'broadcastId',
             content: [
-                'elements' => [
-                    [
-                        'channels' => ['string'],
-                        'if' => 'if',
-                        'loop' => 'loop',
-                        'ref' => 'ref',
-                        'type' => 'meta',
-                    ],
-                    [
-                        'channels' => ['string'],
-                        'if' => 'if',
-                        'loop' => 'loop',
-                        'ref' => 'ref',
-                        'type' => 'text',
-                    ],
-                ],
+                'elements' => [['type' => 'meta'], ['type' => 'text']],
                 'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,

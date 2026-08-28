@@ -7,23 +7,21 @@ namespace Courier;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalMetaNodeWithType\Type;
 
 /**
  * The meta element contains information describing the notification that may  be used by a particular channel or provider. One important field is the title  field which will be used as the title for channels that support it.
  *
- * @phpstan-type ElementalMetaNodeWithTypeShape = array{
+ * @phpstan-type ElementalMetaNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
  *   title?: string|null,
- *   type?: null|Type|value-of<Type>,
  * }
  */
-final class ElementalMetaNodeWithType implements BaseModel
+final class ElementalMetaNode implements BaseModel
 {
-    /** @use SdkModel<ElementalMetaNodeWithTypeShape> */
+    /** @use SdkModel<ElementalMetaNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -45,10 +43,6 @@ final class ElementalMetaNodeWithType implements BaseModel
     #[Optional(nullable: true)]
     public ?string $title;
 
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
-
     public function __construct()
     {
         $this->initialize();
@@ -60,7 +54,6 @@ final class ElementalMetaNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         ?array $channels = null,
@@ -68,7 +61,6 @@ final class ElementalMetaNodeWithType implements BaseModel
         ?string $loop = null,
         ?string $ref = null,
         ?string $title = null,
-        Type|string|null $type = null,
     ): self {
         $self = new self;
 
@@ -77,7 +69,6 @@ final class ElementalMetaNodeWithType implements BaseModel
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
         null !== $title && $self['title'] = $title;
-        null !== $type && $self['type'] = $type;
 
         return $self;
     }
@@ -124,17 +115,6 @@ final class ElementalMetaNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['title'] = $title;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
 
         return $self;
     }

@@ -9,14 +9,13 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalActionNode\Style;
-use Courier\ElementalActionNodeWithType\Type;
 
 /**
  * Allows the user to execute an action. Can be a button or a link.
  *
  * @phpstan-import-type LocaleItemShape from \Courier\LocaleItem
  *
- * @phpstan-type ElementalActionNodeWithTypeShape = array{
+ * @phpstan-type ElementalActionNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -33,12 +32,11 @@ use Courier\ElementalActionNodeWithType\Type;
  *   locales?: array<string,LocaleItem|LocaleItemShape>|null,
  *   padding?: string|null,
  *   style?: null|Style|value-of<Style>,
- *   type?: null|Type|value-of<Type>,
  * }
  */
-final class ElementalActionNodeWithType implements BaseModel
+final class ElementalActionNode implements BaseModel
 {
-    /** @use SdkModel<ElementalActionNodeWithTypeShape> */
+    /** @use SdkModel<ElementalActionNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -128,22 +126,18 @@ final class ElementalActionNodeWithType implements BaseModel
     #[Optional(enum: Style::class, nullable: true)]
     public ?string $style;
 
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
-
     /**
-     * `new ElementalActionNodeWithType()` is missing required properties by the API.
+     * `new ElementalActionNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ElementalActionNodeWithType::with(content: ..., href: ...)
+     * ElementalActionNode::with(content: ..., href: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new ElementalActionNodeWithType)->withContent(...)->withHref(...)
+     * (new ElementalActionNode)->withContent(...)->withHref(...)
      * ```
      */
     public function __construct()
@@ -160,7 +154,6 @@ final class ElementalActionNodeWithType implements BaseModel
      * @param Alignment|value-of<Alignment>|null $align
      * @param array<string,LocaleItem|LocaleItemShape>|null $locales
      * @param Style|value-of<Style>|null $style
-     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         string $content,
@@ -179,7 +172,6 @@ final class ElementalActionNodeWithType implements BaseModel
         ?array $locales = null,
         ?string $padding = null,
         Style|string|null $style = null,
-        Type|string|null $type = null,
     ): self {
         $self = new self;
 
@@ -200,7 +192,6 @@ final class ElementalActionNodeWithType implements BaseModel
         null !== $locales && $self['locales'] = $locales;
         null !== $padding && $self['padding'] = $padding;
         null !== $style && $self['style'] = $style;
-        null !== $type && $self['type'] = $type;
 
         return $self;
     }
@@ -372,17 +363,6 @@ final class ElementalActionNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['style'] = $style;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
 
         return $self;
     }
