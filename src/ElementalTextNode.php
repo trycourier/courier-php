@@ -10,14 +10,13 @@ use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalTextNode\Align;
 use Courier\ElementalTextNode\Format;
-use Courier\ElementalTextNodeWithType\Type;
 
 /**
  * Represents a body of text to be rendered inside of the notification.
  *
  * @phpstan-import-type LocaleItemShape from \Courier\LocaleItem
  *
- * @phpstan-type ElementalTextNodeWithTypeShape = array{
+ * @phpstan-type ElementalTextNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -34,12 +33,11 @@ use Courier\ElementalTextNodeWithType\Type;
  *   strikethrough?: string|null,
  *   textStyle?: null|TextStyle|value-of<TextStyle>,
  *   underline?: string|null,
- *   type?: null|Type|value-of<Type>,
  * }
  */
-final class ElementalTextNodeWithType implements BaseModel
+final class ElementalTextNode implements BaseModel
 {
-    /** @use SdkModel<ElementalTextNodeWithTypeShape> */
+    /** @use SdkModel<ElementalTextNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -128,22 +126,18 @@ final class ElementalTextNodeWithType implements BaseModel
     #[Optional(nullable: true)]
     public ?string $underline;
 
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
-
     /**
-     * `new ElementalTextNodeWithType()` is missing required properties by the API.
+     * `new ElementalTextNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ElementalTextNodeWithType::with(content: ...)
+     * ElementalTextNode::with(content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new ElementalTextNodeWithType)->withContent(...)
+     * (new ElementalTextNode)->withContent(...)
      * ```
      */
     public function __construct()
@@ -161,7 +155,6 @@ final class ElementalTextNodeWithType implements BaseModel
      * @param Format|value-of<Format>|null $format
      * @param array<string,LocaleItem|LocaleItemShape>|null $locales
      * @param TextStyle|value-of<TextStyle>|null $textStyle
-     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         string $content,
@@ -180,7 +173,6 @@ final class ElementalTextNodeWithType implements BaseModel
         ?string $strikethrough = null,
         TextStyle|string|null $textStyle = null,
         ?string $underline = null,
-        Type|string|null $type = null,
     ): self {
         $self = new self;
 
@@ -201,7 +193,6 @@ final class ElementalTextNodeWithType implements BaseModel
         null !== $strikethrough && $self['strikethrough'] = $strikethrough;
         null !== $textStyle && $self['textStyle'] = $textStyle;
         null !== $underline && $self['underline'] = $underline;
-        null !== $type && $self['type'] = $type;
 
         return $self;
     }
@@ -374,17 +365,6 @@ final class ElementalTextNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['underline'] = $underline;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
 
         return $self;
     }

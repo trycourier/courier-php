@@ -7,23 +7,21 @@ namespace Courier;
 use Courier\Core\Attributes\Optional;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalMetaNodeWithType\Type;
 
 /**
- * The meta element contains information describing the notification that may  be used by a particular channel or provider. One important field is the title  field which will be used as the title for channels that support it.
+ * Renders a dividing line between elements.
  *
- * @phpstan-type ElementalMetaNodeWithTypeShape = array{
+ * @phpstan-type ElementalDividerNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   title?: string|null,
- *   type?: null|Type|value-of<Type>,
+ *   color?: string|null,
  * }
  */
-final class ElementalMetaNodeWithType implements BaseModel
+final class ElementalDividerNode implements BaseModel
 {
-    /** @use SdkModel<ElementalMetaNodeWithTypeShape> */
+    /** @use SdkModel<ElementalDividerNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -40,14 +38,10 @@ final class ElementalMetaNodeWithType implements BaseModel
     public ?string $ref;
 
     /**
-     * The title to be displayed by supported channels. For example, the email subject.
+     * The CSS color to render the line with. For example, `#fff`.
      */
     #[Optional(nullable: true)]
-    public ?string $title;
-
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
+    public ?string $color;
 
     public function __construct()
     {
@@ -60,15 +54,13 @@ final class ElementalMetaNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
-        ?string $title = null,
-        Type|string|null $type = null,
+        ?string $color = null,
     ): self {
         $self = new self;
 
@@ -76,8 +68,7 @@ final class ElementalMetaNodeWithType implements BaseModel
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
-        null !== $title && $self['title'] = $title;
-        null !== $type && $self['type'] = $type;
+        null !== $color && $self['color'] = $color;
 
         return $self;
     }
@@ -118,23 +109,12 @@ final class ElementalMetaNodeWithType implements BaseModel
     }
 
     /**
-     * The title to be displayed by supported channels. For example, the email subject.
+     * The CSS color to render the line with. For example, `#fff`.
      */
-    public function withTitle(?string $title): self
+    public function withColor(?string $color): self
     {
         $self = clone $this;
-        $self['title'] = $title;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
+        $self['color'] = $color;
 
         return $self;
     }

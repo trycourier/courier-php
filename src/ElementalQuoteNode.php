@@ -8,30 +8,29 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalImageNodeWithType\Type;
 
 /**
- * Used to embed an image into the notification.
+ * Renders a quote block.
  *
- * @phpstan-type ElementalImageNodeWithTypeShape = array{
+ * @phpstan-import-type LocaleItemShape from \Courier\LocaleItem
+ *
+ * @phpstan-type ElementalQuoteNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   src: string,
+ *   content: string,
  *   align?: null|Alignment|value-of<Alignment>,
- *   altText?: string|null,
  *   borderColor?: string|null,
- *   borderSize?: string|null,
- *   href?: string|null,
- *   padding?: string|null,
- *   width?: string|null,
- *   type?: null|Type|value-of<Type>,
+ *   fontSize?: string|null,
+ *   lineHeight?: string|null,
+ *   locales?: array<string,LocaleItem|LocaleItemShape>|null,
+ *   textStyle?: null|TextStyle|value-of<TextStyle>,
  * }
  */
-final class ElementalImageNodeWithType implements BaseModel
+final class ElementalQuoteNode implements BaseModel
 {
-    /** @use SdkModel<ElementalImageNodeWithTypeShape> */
+    /** @use SdkModel<ElementalQuoteNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -48,67 +47,57 @@ final class ElementalImageNodeWithType implements BaseModel
     public ?string $ref;
 
     /**
-     * The source of the image.
+     * The text value of the quote.
      */
     #[Required]
-    public string $src;
+    public string $content;
 
     /** @var value-of<Alignment>|null $align */
     #[Optional(enum: Alignment::class)]
     public ?string $align;
 
     /**
-     * Alternate text for the image.
+     * CSS border color property. For example, `#fff`.
      */
     #[Optional(nullable: true)]
-    public ?string $altText;
-
-    /**
-     * CSS border color applied to the image. For example, `#ccc`.
-     */
-    #[Optional('border_color', nullable: true)]
     public ?string $borderColor;
 
     /**
-     * CSS border width applied to the image. For example, `1px`.
+     * CSS px font size for this quote block, e.g. `16px`. Overrides the size of the `text_style` preset. Email only.
      */
-    #[Optional('border_size', nullable: true)]
-    public ?string $borderSize;
+    #[Optional('font_size', nullable: true)]
+    public ?string $fontSize;
 
     /**
-     * A URL to link to when the image is clicked.
+     * CSS line height for this quote block, as a px value or a unitless multiplier, e.g. `24px` or `1.5`. Email only.
      */
-    #[Optional(nullable: true)]
-    public ?string $href;
+    #[Optional('line_height', nullable: true)]
+    public ?string $lineHeight;
 
     /**
-     * CSS padding applied around the image. For example, `10px`.
+     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
+     *
+     * @var array<string,LocaleItem>|null $locales
      */
-    #[Optional(nullable: true)]
-    public ?string $padding;
+    #[Optional(map: LocaleItem::class, nullable: true)]
+    public ?array $locales;
+
+    /** @var value-of<TextStyle>|null $textStyle */
+    #[Optional('text_style', enum: TextStyle::class)]
+    public ?string $textStyle;
 
     /**
-     * CSS width properties to apply to the image. For example, 50px.
-     */
-    #[Optional(nullable: true)]
-    public ?string $width;
-
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
-
-    /**
-     * `new ElementalImageNodeWithType()` is missing required properties by the API.
+     * `new ElementalQuoteNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ElementalImageNodeWithType::with(src: ...)
+     * ElementalQuoteNode::with(content: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new ElementalImageNodeWithType)->withSrc(...)
+     * (new ElementalQuoteNode)->withContent(...)
      * ```
      */
     public function __construct()
@@ -123,39 +112,36 @@ final class ElementalImageNodeWithType implements BaseModel
      *
      * @param list<string>|null $channels
      * @param Alignment|value-of<Alignment>|null $align
-     * @param Type|value-of<Type>|null $type
+     * @param array<string,LocaleItem|LocaleItemShape>|null $locales
+     * @param TextStyle|value-of<TextStyle>|null $textStyle
      */
     public static function with(
-        string $src,
+        string $content,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
         Alignment|string|null $align = null,
-        ?string $altText = null,
         ?string $borderColor = null,
-        ?string $borderSize = null,
-        ?string $href = null,
-        ?string $padding = null,
-        ?string $width = null,
-        Type|string|null $type = null,
+        ?string $fontSize = null,
+        ?string $lineHeight = null,
+        ?array $locales = null,
+        TextStyle|string|null $textStyle = null,
     ): self {
         $self = new self;
 
-        $self['src'] = $src;
+        $self['content'] = $content;
 
         null !== $channels && $self['channels'] = $channels;
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
         null !== $align && $self['align'] = $align;
-        null !== $altText && $self['altText'] = $altText;
         null !== $borderColor && $self['borderColor'] = $borderColor;
-        null !== $borderSize && $self['borderSize'] = $borderSize;
-        null !== $href && $self['href'] = $href;
-        null !== $padding && $self['padding'] = $padding;
-        null !== $width && $self['width'] = $width;
-        null !== $type && $self['type'] = $type;
+        null !== $fontSize && $self['fontSize'] = $fontSize;
+        null !== $lineHeight && $self['lineHeight'] = $lineHeight;
+        null !== $locales && $self['locales'] = $locales;
+        null !== $textStyle && $self['textStyle'] = $textStyle;
 
         return $self;
     }
@@ -196,12 +182,12 @@ final class ElementalImageNodeWithType implements BaseModel
     }
 
     /**
-     * The source of the image.
+     * The text value of the quote.
      */
-    public function withSrc(string $src): self
+    public function withContent(string $content): self
     {
         $self = clone $this;
-        $self['src'] = $src;
+        $self['content'] = $content;
 
         return $self;
     }
@@ -218,18 +204,7 @@ final class ElementalImageNodeWithType implements BaseModel
     }
 
     /**
-     * Alternate text for the image.
-     */
-    public function withAltText(?string $altText): self
-    {
-        $self = clone $this;
-        $self['altText'] = $altText;
-
-        return $self;
-    }
-
-    /**
-     * CSS border color applied to the image. For example, `#ccc`.
+     * CSS border color property. For example, `#fff`.
      */
     public function withBorderColor(?string $borderColor): self
     {
@@ -240,56 +215,47 @@ final class ElementalImageNodeWithType implements BaseModel
     }
 
     /**
-     * CSS border width applied to the image. For example, `1px`.
+     * CSS px font size for this quote block, e.g. `16px`. Overrides the size of the `text_style` preset. Email only.
      */
-    public function withBorderSize(?string $borderSize): self
+    public function withFontSize(?string $fontSize): self
     {
         $self = clone $this;
-        $self['borderSize'] = $borderSize;
+        $self['fontSize'] = $fontSize;
 
         return $self;
     }
 
     /**
-     * A URL to link to when the image is clicked.
+     * CSS line height for this quote block, as a px value or a unitless multiplier, e.g. `24px` or `1.5`. Email only.
      */
-    public function withHref(?string $href): self
+    public function withLineHeight(?string $lineHeight): self
     {
         $self = clone $this;
-        $self['href'] = $href;
+        $self['lineHeight'] = $lineHeight;
 
         return $self;
     }
 
     /**
-     * CSS padding applied around the image. For example, `10px`.
+     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
+     *
+     * @param array<string,LocaleItem|LocaleItemShape>|null $locales
      */
-    public function withPadding(?string $padding): self
+    public function withLocales(?array $locales): self
     {
         $self = clone $this;
-        $self['padding'] = $padding;
+        $self['locales'] = $locales;
 
         return $self;
     }
 
     /**
-     * CSS width properties to apply to the image. For example, 50px.
+     * @param TextStyle|value-of<TextStyle> $textStyle
      */
-    public function withWidth(?string $width): self
+    public function withTextStyle(TextStyle|string $textStyle): self
     {
         $self = clone $this;
-        $self['width'] = $width;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
+        $self['textStyle'] = $textStyle;
 
         return $self;
     }

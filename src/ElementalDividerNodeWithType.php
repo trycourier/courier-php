@@ -10,11 +10,14 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalDividerNodeWithType\Type;
 
 /**
+ * Renders a dividing line between elements.
+ *
  * @phpstan-type ElementalDividerNodeWithTypeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
+ *   color?: string|null,
  *   type?: null|Type|value-of<Type>,
  * }
  */
@@ -35,6 +38,12 @@ final class ElementalDividerNodeWithType implements BaseModel
 
     #[Optional(nullable: true)]
     public ?string $ref;
+
+    /**
+     * The CSS color to render the line with. For example, `#fff`.
+     */
+    #[Optional(nullable: true)]
+    public ?string $color;
 
     /** @var value-of<Type>|null $type */
     #[Optional(enum: Type::class)]
@@ -58,6 +67,7 @@ final class ElementalDividerNodeWithType implements BaseModel
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
+        ?string $color = null,
         Type|string|null $type = null,
     ): self {
         $self = new self;
@@ -66,6 +76,7 @@ final class ElementalDividerNodeWithType implements BaseModel
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
+        null !== $color && $self['color'] = $color;
         null !== $type && $self['type'] = $type;
 
         return $self;
@@ -102,6 +113,17 @@ final class ElementalDividerNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['ref'] = $ref;
+
+        return $self;
+    }
+
+    /**
+     * The CSS color to render the line with. For example, `#fff`.
+     */
+    public function withColor(?string $color): self
+    {
+        $self = clone $this;
+        $self['color'] = $color;
 
         return $self;
     }

@@ -5,25 +5,27 @@ declare(strict_types=1);
 namespace Courier;
 
 use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalMetaNodeWithType\Type;
 
 /**
- * The meta element contains information describing the notification that may  be used by a particular channel or provider. One important field is the title  field which will be used as the title for channels that support it.
+ * Raw HTML string inside an Elemental document. When rendering a message, this node is turned into output only for the email channel; for other channels it produces no blocks.
  *
- * @phpstan-type ElementalMetaNodeWithTypeShape = array{
+ * @phpstan-import-type LocaleItemShape from \Courier\LocaleItem
+ *
+ * @phpstan-type ElementalHTMLNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   title?: string|null,
- *   type?: null|Type|value-of<Type>,
+ *   content: string,
+ *   locales?: array<string,LocaleItem|LocaleItemShape>|null,
  * }
  */
-final class ElementalMetaNodeWithType implements BaseModel
+final class ElementalHTMLNode implements BaseModel
 {
-    /** @use SdkModel<ElementalMetaNodeWithTypeShape> */
+    /** @use SdkModel<ElementalHTMLNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -40,15 +42,33 @@ final class ElementalMetaNodeWithType implements BaseModel
     public ?string $ref;
 
     /**
-     * The title to be displayed by supported channels. For example, the email subject.
+     * Raw HTML string to render inside the notification.
      */
-    #[Optional(nullable: true)]
-    public ?string $title;
+    #[Required]
+    public string $content;
 
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
+    /**
+     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
+     *
+     * @var array<string,LocaleItem>|null $locales
+     */
+    #[Optional(map: LocaleItem::class, nullable: true)]
+    public ?array $locales;
 
+    /**
+     * `new ElementalHTMLNode()` is missing required properties by the API.
+     *
+     * To enforce required parameters use
+     * ```
+     * ElementalHTMLNode::with(content: ...)
+     * ```
+     *
+     * Otherwise ensure the following setters are called
+     *
+     * ```
+     * (new ElementalHTMLNode)->withContent(...)
+     * ```
+     */
     public function __construct()
     {
         $this->initialize();
@@ -60,24 +80,25 @@ final class ElementalMetaNodeWithType implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
-     * @param Type|value-of<Type>|null $type
+     * @param array<string,LocaleItem|LocaleItemShape>|null $locales
      */
     public static function with(
+        string $content,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
         ?string $ref = null,
-        ?string $title = null,
-        Type|string|null $type = null,
+        ?array $locales = null,
     ): self {
         $self = new self;
+
+        $self['content'] = $content;
 
         null !== $channels && $self['channels'] = $channels;
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
-        null !== $title && $self['title'] = $title;
-        null !== $type && $self['type'] = $type;
+        null !== $locales && $self['locales'] = $locales;
 
         return $self;
     }
@@ -118,23 +139,25 @@ final class ElementalMetaNodeWithType implements BaseModel
     }
 
     /**
-     * The title to be displayed by supported channels. For example, the email subject.
+     * Raw HTML string to render inside the notification.
      */
-    public function withTitle(?string $title): self
+    public function withContent(string $content): self
     {
         $self = clone $this;
-        $self['title'] = $title;
+        $self['content'] = $content;
 
         return $self;
     }
 
     /**
-     * @param Type|value-of<Type> $type
+     * Region specific content. See [locales docs](https://www.courier.com/docs/platform/content/elemental/locales/) for more details.
+     *
+     * @param array<string,LocaleItem|LocaleItemShape>|null $locales
      */
-    public function withType(Type|string $type): self
+    public function withLocales(?array $locales): self
     {
         $self = clone $this;
-        $self['type'] = $type;
+        $self['locales'] = $locales;
 
         return $self;
     }

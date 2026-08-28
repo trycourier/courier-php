@@ -8,12 +8,11 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalImageNodeWithType\Type;
 
 /**
  * Used to embed an image into the notification.
  *
- * @phpstan-type ElementalImageNodeWithTypeShape = array{
+ * @phpstan-type ElementalImageNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
@@ -26,12 +25,11 @@ use Courier\ElementalImageNodeWithType\Type;
  *   href?: string|null,
  *   padding?: string|null,
  *   width?: string|null,
- *   type?: null|Type|value-of<Type>,
  * }
  */
-final class ElementalImageNodeWithType implements BaseModel
+final class ElementalImageNode implements BaseModel
 {
-    /** @use SdkModel<ElementalImageNodeWithTypeShape> */
+    /** @use SdkModel<ElementalImageNodeShape> */
     use SdkModel;
 
     /** @var list<string>|null $channels */
@@ -93,22 +91,18 @@ final class ElementalImageNodeWithType implements BaseModel
     #[Optional(nullable: true)]
     public ?string $width;
 
-    /** @var value-of<Type>|null $type */
-    #[Optional(enum: Type::class)]
-    public ?string $type;
-
     /**
-     * `new ElementalImageNodeWithType()` is missing required properties by the API.
+     * `new ElementalImageNode()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * ElementalImageNodeWithType::with(src: ...)
+     * ElementalImageNode::with(src: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new ElementalImageNodeWithType)->withSrc(...)
+     * (new ElementalImageNode)->withSrc(...)
      * ```
      */
     public function __construct()
@@ -123,7 +117,6 @@ final class ElementalImageNodeWithType implements BaseModel
      *
      * @param list<string>|null $channels
      * @param Alignment|value-of<Alignment>|null $align
-     * @param Type|value-of<Type>|null $type
      */
     public static function with(
         string $src,
@@ -138,7 +131,6 @@ final class ElementalImageNodeWithType implements BaseModel
         ?string $href = null,
         ?string $padding = null,
         ?string $width = null,
-        Type|string|null $type = null,
     ): self {
         $self = new self;
 
@@ -155,7 +147,6 @@ final class ElementalImageNodeWithType implements BaseModel
         null !== $href && $self['href'] = $href;
         null !== $padding && $self['padding'] = $padding;
         null !== $width && $self['width'] = $width;
-        null !== $type && $self['type'] = $type;
 
         return $self;
     }
@@ -279,17 +270,6 @@ final class ElementalImageNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['width'] = $width;
-
-        return $self;
-    }
-
-    /**
-     * @param Type|value-of<Type> $type
-     */
-    public function withType(Type|string $type): self
-    {
-        $self = clone $this;
-        $self['type'] = $type;
 
         return $self;
     }
