@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.3](https://github.com/trycourier/courier-php/compare/v7.3.2...v7.3.3) (2026-08-29)
+
+
+### Bug Fixes
+
+* **api:** text content is not required ([#133](https://github.com/trycourier/courier-php/issues/133)) ([4c84781](https://github.com/trycourier/courier-php/commit/4c84781c4d6c80a09e1b8cf020f2976d04360cfe))
+
 ## [7.3.2](https://github.com/trycourier/courier-php/compare/v7.3.1...v7.3.2) (2026-08-29)
 
 
