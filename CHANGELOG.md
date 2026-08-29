@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.2](https://github.com/trycourier/courier-php/compare/v7.3.1...v7.3.2) (2026-08-29)
+
+
+### Bug Fixes
+
+* **api:** correct two Elemental field names the REST API rejects ([#131](https://github.com/trycourier/courier-php/issues/131)) ([ba11312](https://github.com/trycourier/courier-php/commit/ba113127bcad91a84c93c949e81cff012bf0f117))
+
 ## [7.3.1](https://github.com/trycourier/courier-php/compare/v7.3.0...v7.3.1) (2026-08-28)
 
 
