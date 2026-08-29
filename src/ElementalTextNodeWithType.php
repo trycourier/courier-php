@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Courier;
 
 use Courier\Core\Attributes\Optional;
-use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalTextNode\Align;
@@ -22,10 +21,10 @@ use Courier\ElementalTextNodeWithType\Type;
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
- *   content: string,
  *   align?: null|Align|value-of<Align>,
  *   bold?: string|null,
  *   color?: string|null,
+ *   content?: string|null,
  *   fontSize?: string|null,
  *   format?: null|Format|value-of<Format>,
  *   italic?: string|null,
@@ -56,13 +55,6 @@ final class ElementalTextNodeWithType implements BaseModel
     public ?string $ref;
 
     /**
-     * The text content displayed in the notification. Either this
-     * field must be specified, or the elements field.
-     */
-    #[Required]
-    public string $content;
-
-    /**
      * Text alignment.
      *
      * @var value-of<Align>|null $align
@@ -81,6 +73,13 @@ final class ElementalTextNodeWithType implements BaseModel
      */
     #[Optional(nullable: true)]
     public ?string $color;
+
+    /**
+     * The text content displayed in the notification. Either this
+     * field must be specified, or the elements field.
+     */
+    #[Optional]
+    public ?string $content;
 
     /**
      * CSS px font size for this text block, e.g. `16px`. Overrides the size of the `text_style` preset. Email only.
@@ -132,20 +131,6 @@ final class ElementalTextNodeWithType implements BaseModel
     #[Optional(enum: Type::class)]
     public ?string $type;
 
-    /**
-     * `new ElementalTextNodeWithType()` is missing required properties by the API.
-     *
-     * To enforce required parameters use
-     * ```
-     * ElementalTextNodeWithType::with(content: ...)
-     * ```
-     *
-     * Otherwise ensure the following setters are called
-     *
-     * ```
-     * (new ElementalTextNodeWithType)->withContent(...)
-     * ```
-     */
     public function __construct()
     {
         $this->initialize();
@@ -164,7 +149,6 @@ final class ElementalTextNodeWithType implements BaseModel
      * @param Type|value-of<Type>|null $type
      */
     public static function with(
-        string $content,
         ?array $channels = null,
         ?string $if = null,
         ?string $loop = null,
@@ -172,6 +156,7 @@ final class ElementalTextNodeWithType implements BaseModel
         Align|string|null $align = null,
         ?string $bold = null,
         ?string $color = null,
+        ?string $content = null,
         ?string $fontSize = null,
         Format|string|null $format = null,
         ?string $italic = null,
@@ -184,8 +169,6 @@ final class ElementalTextNodeWithType implements BaseModel
     ): self {
         $self = new self;
 
-        $self['content'] = $content;
-
         null !== $channels && $self['channels'] = $channels;
         null !== $if && $self['if'] = $if;
         null !== $loop && $self['loop'] = $loop;
@@ -193,6 +176,7 @@ final class ElementalTextNodeWithType implements BaseModel
         null !== $align && $self['align'] = $align;
         null !== $bold && $self['bold'] = $bold;
         null !== $color && $self['color'] = $color;
+        null !== $content && $self['content'] = $content;
         null !== $fontSize && $self['fontSize'] = $fontSize;
         null !== $format && $self['format'] = $format;
         null !== $italic && $self['italic'] = $italic;
@@ -242,18 +226,6 @@ final class ElementalTextNodeWithType implements BaseModel
     }
 
     /**
-     * The text content displayed in the notification. Either this
-     * field must be specified, or the elements field.
-     */
-    public function withContent(string $content): self
-    {
-        $self = clone $this;
-        $self['content'] = $content;
-
-        return $self;
-    }
-
-    /**
      * Text alignment.
      *
      * @param Align|value-of<Align> $align
@@ -284,6 +256,18 @@ final class ElementalTextNodeWithType implements BaseModel
     {
         $self = clone $this;
         $self['color'] = $color;
+
+        return $self;
+    }
+
+    /**
+     * The text content displayed in the notification. Either this
+     * field must be specified, or the elements field.
+     */
+    public function withContent(string $content): self
+    {
+        $self = clone $this;
+        $self['content'] = $content;
 
         return $self;
     }
