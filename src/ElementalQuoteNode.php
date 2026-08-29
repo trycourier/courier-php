@@ -59,7 +59,7 @@ final class ElementalQuoteNode implements BaseModel
     /**
      * CSS border color property. For example, `#fff`.
      */
-    #[Optional(nullable: true)]
+    #[Optional('border_color', nullable: true)]
     public ?string $borderColor;
 
     /**

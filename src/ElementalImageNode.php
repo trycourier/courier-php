@@ -58,7 +58,7 @@ final class ElementalImageNode implements BaseModel
     /**
      * Alternate text for the image.
      */
-    #[Optional(nullable: true)]
+    #[Optional('alt_text', nullable: true)]
     public ?string $altText;
 
     /**
