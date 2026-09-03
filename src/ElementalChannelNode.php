@@ -11,12 +11,16 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * The channel element allows a notification to be customized based on which channel it is sent through.  For example, you may want to display a detailed message when the notification is sent through email,  and a more concise message in a push notification. Channel elements are only valid as top-level  elements; you cannot nest channel elements. If there is a channel element specified at the top-level  of the document, all sibling elements must be channel elements. Note: As an alternative, most elements support a `channel` property. Which allows you to selectively  display an individual element on a per channel basis. See the  [control flow docs](https://www.courier.com/docs/platform/content/elemental/control-flow/) for more details.
  *
+ * @phpstan-import-type ElementalNodeNonChannelVariants from \Courier\ElementalNodeNonChannel
+ * @phpstan-import-type ElementalNodeNonChannelShape from \Courier\ElementalNodeNonChannel
+ *
  * @phpstan-type ElementalChannelNodeShape = array{
  *   channels?: list<string>|null,
  *   if?: string|null,
  *   loop?: string|null,
  *   ref?: string|null,
  *   channel?: string|null,
+ *   elements?: list<ElementalNodeNonChannelShape>|null,
  *   fontSize?: string|null,
  *   lineHeight?: string|null,
  *   padding?: string|null,
@@ -46,6 +50,16 @@ final class ElementalChannelNode implements BaseModel
      */
     #[Optional]
     public ?string $channel;
+
+    /**
+     * An array of elements to apply to the channel. If `raw` has not been
+     * specified, `elements` is `required`. Channel elements cannot nest, so
+     * these are any node except another channel block.
+     *
+     * @var list<ElementalNodeNonChannelVariants>|null $elements
+     */
+    #[Optional(list: ElementalNodeNonChannel::class, nullable: true)]
+    public ?array $elements;
 
     /**
      * Email only. Document-level base font size (CSS px, e.g. `16px`) for body content — text, quote, list and action button labels. Heading styles (`h1`/`h2`/`h3`) and `subtext` keep their preset sizes.
@@ -84,6 +98,7 @@ final class ElementalChannelNode implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param list<string>|null $channels
+     * @param list<ElementalNodeNonChannelShape>|null $elements
      * @param array<string,mixed>|null $raw
      */
     public static function with(
@@ -92,6 +107,7 @@ final class ElementalChannelNode implements BaseModel
         ?string $loop = null,
         ?string $ref = null,
         ?string $channel = null,
+        ?array $elements = null,
         ?string $fontSize = null,
         ?string $lineHeight = null,
         ?string $padding = null,
@@ -104,6 +120,7 @@ final class ElementalChannelNode implements BaseModel
         null !== $loop && $self['loop'] = $loop;
         null !== $ref && $self['ref'] = $ref;
         null !== $channel && $self['channel'] = $channel;
+        null !== $elements && $self['elements'] = $elements;
         null !== $fontSize && $self['fontSize'] = $fontSize;
         null !== $lineHeight && $self['lineHeight'] = $lineHeight;
         null !== $padding && $self['padding'] = $padding;
@@ -154,6 +171,21 @@ final class ElementalChannelNode implements BaseModel
     {
         $self = clone $this;
         $self['channel'] = $channel;
+
+        return $self;
+    }
+
+    /**
+     * An array of elements to apply to the channel. If `raw` has not been
+     * specified, `elements` is `required`. Channel elements cannot nest, so
+     * these are any node except another channel block.
+     *
+     * @param list<ElementalNodeNonChannelShape>|null $elements
+     */
+    public function withElements(?array $elements): self
+    {
+        $self = clone $this;
+        $self['elements'] = $elements;
 
         return $self;
     }

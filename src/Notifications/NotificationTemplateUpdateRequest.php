@@ -11,7 +11,7 @@ use Courier\Core\Contracts\BaseModel;
 use Courier\Notifications\NotificationTemplateUpdateRequest\State;
 
 /**
- * Request body for replacing a notification template. Same shape as create. All fields required (PUT = full replacement), except `alias`, whose omission means "leave the existing aliases alone".
+ * Request body for replacing a notification template. All fields are required, since `PUT` is a full replacement, except `alias`, whose omission leaves the existing aliases in place. Unlike `NotificationTemplateCreateRequest`, `notification.content` is not required to place its elements inside a channel block: the requirement applies to creation only, so templates already stored without one stay editable.
  *
  * @phpstan-import-type NotificationTemplateWritePayloadShape from \Courier\Notifications\NotificationTemplateWritePayload
  *
