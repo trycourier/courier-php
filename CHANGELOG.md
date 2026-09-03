@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.4](https://github.com/trycourier/courier-php/compare/v7.3.3...v7.3.4) (2026-09-03)
+
+
+### Documentation
+
+* **api:** document the channel-block requirement on template creation ([#135](https://github.com/trycourier/courier-php/issues/135)) ([bb6a677](https://github.com/trycourier/courier-php/commit/bb6a6774051548c9bdd7480e1d3c54b36ddba13a))
+
 ## [7.3.3](https://github.com/trycourier/courier-php/compare/v7.3.2...v7.3.3) (2026-08-29)
 
 
