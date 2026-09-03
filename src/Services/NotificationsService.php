@@ -58,6 +58,8 @@ final class NotificationsService implements NotificationsContract
      *
      * Create a notification template. Requires all fields in the notification object. Templates are created in draft state by default.
      *
+     * Content must place its elements inside a channel block — `{ "type": "channel", "channel": "email", "elements": [...] }` — or the request returns `400`. The template designer renders only the channel block matching the tab it draws, so content stored without one cannot be opened. An empty `elements` array is accepted, and the requirement applies to creation only: `PUT /notifications/{id}` still accepts unwrapped content. Note this endpoint takes versioned content only — the `{ title, body }` shorthand accepted by `/send` is rejected here with an `invalid_request_error` on `notification.content.version`.
+     *
      * @param NotificationTemplateWritePayload|NotificationTemplateWritePayloadShape $notification body param: Template fields accepted in POST and PUT request bodies, nested under a `notification` key
      * @param State|value-of<State> $state Body param: Template state after creation. Case-insensitive input, normalized to uppercase in the response. Defaults to "DRAFT".
      * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.

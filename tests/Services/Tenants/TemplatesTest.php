@@ -170,7 +170,7 @@ final class TemplatesTest extends TestCase
             tenantID: 'tenant_id',
             template: [
                 'content' => [
-                    'elements' => [['type' => 'text']], 'version' => '2022-01-01',
+                    'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
                 ],
                 'channels' => [
                     'foo' => [
