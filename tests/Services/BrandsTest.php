@@ -54,7 +54,17 @@ final class BrandsTest extends TestCase
             settings: [
                 'colors' => ['primary' => '#9D3789', 'secondary' => '#FFFFFF'],
                 'email' => [
-                    'footer' => ['content' => 'content', 'inheritDefault' => true],
+                    'footer' => [
+                        'inheritDefault' => true,
+                        'markdown' => 'markdown',
+                        'social' => [
+                            'facebook' => ['url' => 'url'],
+                            'instagram' => ['url' => 'url'],
+                            'linkedin' => ['url' => 'url'],
+                            'medium' => ['url' => 'url'],
+                            'twitter' => ['url' => 'url'],
+                        ],
+                    ],
                     'head' => ['inheritDefault' => true, 'content' => 'content'],
                     'header' => [
                         'logo' => ['href' => 'href', 'image' => 'image'],
@@ -143,7 +153,17 @@ final class BrandsTest extends TestCase
             settings: [
                 'colors' => ['primary' => '#9D3789', 'secondary' => '#FFFFFF'],
                 'email' => [
-                    'footer' => ['content' => 'content', 'inheritDefault' => true],
+                    'footer' => [
+                        'inheritDefault' => true,
+                        'markdown' => 'markdown',
+                        'social' => [
+                            'facebook' => ['url' => 'url'],
+                            'instagram' => ['url' => 'url'],
+                            'linkedin' => ['url' => 'url'],
+                            'medium' => ['url' => 'url'],
+                            'twitter' => ['url' => 'url'],
+                        ],
+                    ],
                     'head' => ['inheritDefault' => true, 'content' => 'content'],
                     'header' => [
                         'logo' => ['href' => 'href', 'image' => 'image'],
