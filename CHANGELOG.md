@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.4.0](https://github.com/trycourier/courier-php/compare/v7.3.4...v7.4.0) (2026-09-04)
+
+
+### Features
+
+* **api:** document the expiry_date contract and allow boolean patch values ([#137](https://github.com/trycourier/courier-php/issues/137)) ([583ae3d](https://github.com/trycourier/courier-php/commit/583ae3df8d1a5124652daeaa6a784d26e1b5009f))
+
 ## [7.3.4](https://github.com/trycourier/courier-php/compare/v7.3.3...v7.3.4) (2026-09-03)
 
 
