@@ -8,9 +8,15 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Users\Tokens\TokenUpdateParams\Patch\Value;
 
 /**
- * @phpstan-type PatchShape = array{op: string, path: string, value?: string|null}
+ * @phpstan-import-type ValueVariants from \Courier\Users\Tokens\TokenUpdateParams\Patch\Value
+ * @phpstan-import-type ValueShape from \Courier\Users\Tokens\TokenUpdateParams\Patch\Value
+ *
+ * @phpstan-type PatchShape = array{
+ *   op: string, path: string, value?: ValueShape|null
+ * }
  */
 final class Patch implements BaseModel
 {
@@ -30,10 +36,12 @@ final class Patch implements BaseModel
     public string $path;
 
     /**
-     * The value for the operation.
+     * The value for the operation. A string for most fields; boolean `false` when disabling token expiration via `expiry_date`, which cannot be expressed as a string.
+     *
+     * @var ValueVariants|null $value
      */
-    #[Optional(nullable: true)]
-    public ?string $value;
+    #[Optional(union: Value::class, nullable: true)]
+    public string|bool|array|null $value;
 
     /**
      * `new Patch()` is missing required properties by the API.
@@ -58,11 +66,13 @@ final class Patch implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param ValueShape|null $value
      */
     public static function with(
         string $op,
         string $path,
-        ?string $value = null
+        string|bool|array|null $value = null
     ): self {
         $self = new self;
 
@@ -97,9 +107,11 @@ final class Patch implements BaseModel
     }
 
     /**
-     * The value for the operation.
+     * The value for the operation. A string for most fields; boolean `false` when disabling token expiration via `expiry_date`, which cannot be expressed as a string.
+     *
+     * @param ValueShape|null $value
      */
-    public function withValue(?string $value): self
+    public function withValue(string|bool|array|null $value): self
     {
         $self = clone $this;
         $self['value'] = $value;
