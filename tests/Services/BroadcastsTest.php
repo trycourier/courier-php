@@ -225,7 +225,7 @@ final class BroadcastsTest extends TestCase
 
         $result = $this->client->broadcasts->schedule(
             'broadcastId',
-            recipientID: 'aud_01kx4h2jdafq8bk9amzvy6hbv0',
+            recipientID: 'active-business-users',
             recipientType: 'audience',
             scheduledTo: '2026-08-01T15:00:00',
         );
@@ -243,7 +243,7 @@ final class BroadcastsTest extends TestCase
 
         $result = $this->client->broadcasts->schedule(
             'broadcastId',
-            recipientID: 'aud_01kx4h2jdafq8bk9amzvy6hbv0',
+            recipientID: 'active-business-users',
             recipientType: 'audience',
             scheduledTo: '2026-08-01T15:00:00',
             timezone: 'America/New_York',
