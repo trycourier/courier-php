@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.5.0](https://github.com/trycourier/courier-php/compare/v7.4.0...v7.5.0) (2026-09-15)
+
+
+### Features
+
+* **api:** digest configuration, per-recipient schedules, and release ([#143](https://github.com/trycourier/courier-php/issues/143)) ([6334b74](https://github.com/trycourier/courier-php/commit/6334b74cfd7341a996b10f983ee72f93c7630f42))
+
+
+### Documentation
+
+* **api:** group the topic digest endpoints under Digests, and match the docs voice ([#144](https://github.com/trycourier/courier-php/issues/144)) ([cd4946c](https://github.com/trycourier/courier-php/commit/cd4946ca3a0f5f1fea1c856fc7710c8f7fe7b0fa))
+* **api:** stop teaching an aud_ prefix that Courier does not issue ([#141](https://github.com/trycourier/courier-php/issues/141)) ([4d77179](https://github.com/trycourier/courier-php/commit/4d7717953512d434c6023c43b21d75bae3311d93))
+
 ## [7.4.0](https://github.com/trycourier/courier-php/compare/v7.3.4...v7.4.0) (2026-09-04)
 
 
