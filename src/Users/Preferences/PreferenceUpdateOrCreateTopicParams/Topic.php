@@ -45,7 +45,7 @@ final class Topic implements BaseModel
     public ?array $customRouting;
 
     /**
-     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone -- unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
+     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone, unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
      */
     #[Optional('digest_schedule_id', nullable: true)]
     public ?string $digestScheduleID;
@@ -127,7 +127,7 @@ final class Topic implements BaseModel
     }
 
     /**
-     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone -- unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
+     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone, unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
      */
     public function withDigestScheduleID(?string $digestScheduleID): self
     {
