@@ -9,6 +9,8 @@ use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
 use Courier\WorkspacePreferences\Topics\TopicArchiveParams;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams;
+use Courier\WorkspacePreferences\Topics\TopicDeleteDigestParams;
+use Courier\WorkspacePreferences\Topics\TopicReleaseDigestParams;
 use Courier\WorkspacePreferences\Topics\TopicReplaceParams;
 use Courier\WorkspacePreferences\Topics\TopicRetrieveParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
@@ -82,6 +84,40 @@ interface TopicsRawContract
     public function archive(
         string $topicID,
         array|TopicArchiveParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $topicID the preference topic whose digest to turn off
+     * @param array<string,mixed>|TopicDeleteDigestParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function deleteDigest(
+        string $topicID,
+        array|TopicDeleteDigestParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $topicID path param: The preference topic whose digest to release
+     * @param array<string,mixed>|TopicReleaseDigestParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function releaseDigest(
+        string $topicID,
+        array|TopicReleaseDigestParams $params,
         RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 

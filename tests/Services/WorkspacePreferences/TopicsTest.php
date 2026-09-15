@@ -5,6 +5,8 @@ namespace Tests\Services\WorkspacePreferences;
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Util;
+use Courier\Digests\DigestDayOfWeek;
+use Courier\Digests\DigestFrequency;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -63,6 +65,32 @@ final class TopicsTest extends TestCase
             name: 'Marketing',
             allowedPreferences: ['snooze'],
             description: 'description',
+            digest: [
+                'schedules' => [
+                    [
+                        'frequency' => DigestFrequency::INSTANT,
+                        'dayOfMonth' => 1,
+                        'dayOfWeek' => DigestDayOfWeek::SUNDAY,
+                        'daysOfWeek' => [DigestDayOfWeek::SUNDAY],
+                        'disabled' => true,
+                        'isDefault' => true,
+                        'scheduleID' => 'schedule_id',
+                        'time' => 'time',
+                        'timezone' => 'timezone',
+                    ],
+                ],
+                'templateID' => 'template_id',
+                'audienceID' => 'audience_id',
+                'categories' => [
+                    [
+                        'categoryKey' => 'category_key',
+                        'limit' => 1,
+                        'retain' => 'FIRST',
+                        'sortKey' => 'sort_key',
+                    ],
+                ],
+                'triggerEmpty' => true,
+            ],
             includeUnsubscribeHeader: true,
             routingOptions: [ChannelClassification::DIRECT_MESSAGE],
             topicData: ['foo' => 'bar'],
@@ -164,6 +192,73 @@ final class TopicsTest extends TestCase
     }
 
     #[Test]
+    public function testDeleteDigest(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->workspacePreferences->topics->deleteDigest(
+            'topic_id',
+            sectionID: 'section_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testDeleteDigestWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->workspacePreferences->topics->deleteDigest(
+            'topic_id',
+            sectionID: 'section_id'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testReleaseDigest(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->workspacePreferences->topics->releaseDigest(
+            'topic_id',
+            sectionID: 'section_id',
+            userID: 'user_01h1p2c3d4e5f6g7h8'
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testReleaseDigestWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->workspacePreferences->topics->releaseDigest(
+            'topic_id',
+            sectionID: 'section_id',
+            userID: 'user_01h1p2c3d4e5f6g7h8',
+            tenantID: 'x',
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertNull($result);
+    }
+
+    #[Test]
     public function testReplace(): void
     {
         if (UnsupportedMockTests::$skip) {
@@ -198,6 +293,32 @@ final class TopicsTest extends TestCase
             name: 'Product Updates',
             allowedPreferences: ['channel_preferences'],
             description: 'description',
+            digest: [
+                'schedules' => [
+                    [
+                        'frequency' => DigestFrequency::INSTANT,
+                        'dayOfMonth' => 1,
+                        'dayOfWeek' => DigestDayOfWeek::SUNDAY,
+                        'daysOfWeek' => [DigestDayOfWeek::SUNDAY],
+                        'disabled' => true,
+                        'isDefault' => true,
+                        'scheduleID' => 'schedule_id',
+                        'time' => 'time',
+                        'timezone' => 'timezone',
+                    ],
+                ],
+                'templateID' => 'template_id',
+                'audienceID' => 'audience_id',
+                'categories' => [
+                    [
+                        'categoryKey' => 'category_key',
+                        'limit' => 1,
+                        'retain' => 'FIRST',
+                        'sortKey' => 'sort_key',
+                    ],
+                ],
+                'triggerEmpty' => true,
+            ],
             includeUnsubscribeHeader: true,
             routingOptions: [
                 ChannelClassification::EMAIL, ChannelClassification::INBOX,

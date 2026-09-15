@@ -15,6 +15,7 @@ use Courier\PreferenceStatus;
  * @phpstan-type TopicShape = array{
  *   status: PreferenceStatus|value-of<PreferenceStatus>,
  *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   digestScheduleID?: string|null,
  *   hasCustomRouting?: bool|null,
  * }
  */
@@ -42,6 +43,12 @@ final class Topic implements BaseModel
         nullable: true
     )]
     public ?array $customRouting;
+
+    /**
+     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone -- unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
+     */
+    #[Optional('digest_schedule_id', nullable: true)]
+    public ?string $digestScheduleID;
 
     /**
      * Set to true to route this topic to the channels in custom_routing instead of the topic's default routing.
@@ -79,6 +86,7 @@ final class Topic implements BaseModel
     public static function with(
         PreferenceStatus|string $status,
         ?array $customRouting = null,
+        ?string $digestScheduleID = null,
         ?bool $hasCustomRouting = null,
     ): self {
         $self = new self;
@@ -86,6 +94,7 @@ final class Topic implements BaseModel
         $self['status'] = $status;
 
         null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $digestScheduleID && $self['digestScheduleID'] = $digestScheduleID;
         null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
 
         return $self;
@@ -113,6 +122,17 @@ final class Topic implements BaseModel
     {
         $self = clone $this;
         $self['customRouting'] = $customRouting;
+
+        return $self;
+    }
+
+    /**
+     * Put this recipient on one of the topic's digest schedules. Send `null` to clear the choice and return them to the topic's default. Omit to leave an existing choice alone -- unlike the routing fields, which this endpoint replaces. An id that is not an active schedule on the topic is rejected with a `400` before anything is written.
+     */
+    public function withDigestScheduleID(?string $digestScheduleID): self
+    {
+        $self = clone $this;
+        $self['digestScheduleID'] = $digestScheduleID;
 
         return $self;
     }
