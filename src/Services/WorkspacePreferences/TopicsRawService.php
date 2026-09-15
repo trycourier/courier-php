@@ -11,18 +11,20 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferences\TopicsRawContract;
+use Courier\WorkspacePreferences\TopicDigestRequest;
 use Courier\WorkspacePreferences\Topics\TopicArchiveParams;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\AllowedPreference;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\DefaultStatus;
+use Courier\WorkspacePreferences\Topics\TopicDeleteDigestParams;
+use Courier\WorkspacePreferences\Topics\TopicReleaseDigestParams;
 use Courier\WorkspacePreferences\Topics\TopicReplaceParams;
 use Courier\WorkspacePreferences\Topics\TopicRetrieveParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 
 /**
- * Manage the workspace catalog of subscription topics, the sections that group them, and publishing the preference page.
- *
+ * @phpstan-import-type TopicDigestRequestShape from \Courier\WorkspacePreferences\TopicDigestRequest
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class TopicsRawService implements TopicsRawContract
@@ -44,6 +46,7 @@ final class TopicsRawService implements TopicsRawContract
      *   name: string,
      *   allowedPreferences?: list<AllowedPreference|value-of<AllowedPreference>>|null,
      *   description?: string|null,
+     *   digest?: TopicDigestRequest|TopicDigestRequestShape|null,
      *   includeUnsubscribeHeader?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      *   topicData?: array<string,mixed>|null,
@@ -183,6 +186,85 @@ final class TopicsRawService implements TopicsRawContract
     /**
      * @api
      *
+     * Turn off a topic's digest, leaving the topic itself in place. The template is unlinked and the digest's schedules are removed along with their delivery rules. Equivalent to sending `digest: null` on a topic replace.
+     *
+     * @param string $topicID the preference topic whose digest to turn off
+     * @param array{sectionID: string}|TopicDeleteDigestParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function deleteDigest(
+        string $topicID,
+        array|TopicDeleteDigestParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TopicDeleteDigestParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $sectionID = $parsed['sectionID'];
+        unset($parsed['sectionID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'delete',
+            path: [
+                'preferences/sections/%1$s/topics/%2$s/digest', $sectionID, $topicID,
+            ],
+            options: $options,
+            convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Send one recipient's held digest now, instead of waiting for its schedule. Use it to preview what a digest will look like, or to let someone flush their own.
+     *
+     * Keyed on the topic because that is how a held digest is stored: one per recipient per topic, with the schedule recorded on it rather than part of its identity. To flush every recipient on a schedule instead, use `POST /digests/schedules/{schedule_id}/trigger`.
+     *
+     * @param string $topicID path param: The preference topic whose digest to release
+     * @param array{
+     *   sectionID: string, userID: string, tenantID?: string
+     * }|TopicReleaseDigestParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<mixed>
+     *
+     * @throws APIException
+     */
+    public function releaseDigest(
+        string $topicID,
+        array|TopicReleaseDigestParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = TopicReleaseDigestParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+        $sectionID = $parsed['sectionID'];
+        unset($parsed['sectionID']);
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'post',
+            path: [
+                'preferences/sections/%1$s/topics/%2$s/digest/release',
+                $sectionID,
+                $topicID,
+            ],
+            body: (object) array_diff_key($parsed, array_flip(['sectionID'])),
+            options: $options,
+            convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
      * Replace a topic within a workspace preference. Full document replacement; missing optional fields are cleared. Same 404 rules as GET.
      *
      * @param string $topicID path param: Id of the subscription preference topic
@@ -192,6 +274,7 @@ final class TopicsRawService implements TopicsRawContract
      *   name: string,
      *   allowedPreferences?: list<TopicReplaceParams\AllowedPreference|value-of<TopicReplaceParams\AllowedPreference>>|null,
      *   description?: string|null,
+     *   digest?: TopicDigestRequest|TopicDigestRequestShape|null,
      *   includeUnsubscribeHeader?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      *   topicData?: array<string,mixed>|null,

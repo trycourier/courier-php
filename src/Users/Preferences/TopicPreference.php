@@ -18,6 +18,7 @@ use Courier\PreferenceStatus;
  *   topicID: string,
  *   topicName: string,
  *   customRouting?: list<ChannelClassification|value-of<ChannelClassification>>|null,
+ *   digestScheduleID?: string|null,
  *   hasCustomRouting?: bool|null,
  *   sectionID?: string|null,
  *   sectionName?: string|null,
@@ -67,6 +68,12 @@ final class TopicPreference implements BaseModel
         nullable: true
     )]
     public ?array $customRouting;
+
+    /**
+     * The digest schedule this recipient is on for the topic. Omitted -- not null -- when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
+     */
+    #[Optional('digest_schedule_id')]
+    public ?string $digestScheduleID;
 
     /**
      * Whether the user has chosen specific delivery channels for this topic (listed in custom_routing) rather than the topic's default routing.
@@ -126,6 +133,7 @@ final class TopicPreference implements BaseModel
         string $topicID,
         string $topicName,
         ?array $customRouting = null,
+        ?string $digestScheduleID = null,
         ?bool $hasCustomRouting = null,
         ?string $sectionID = null,
         ?string $sectionName = null,
@@ -138,6 +146,7 @@ final class TopicPreference implements BaseModel
         $self['topicName'] = $topicName;
 
         null !== $customRouting && $self['customRouting'] = $customRouting;
+        null !== $digestScheduleID && $self['digestScheduleID'] = $digestScheduleID;
         null !== $hasCustomRouting && $self['hasCustomRouting'] = $hasCustomRouting;
         null !== $sectionID && $self['sectionID'] = $sectionID;
         null !== $sectionName && $self['sectionName'] = $sectionName;
@@ -203,6 +212,17 @@ final class TopicPreference implements BaseModel
     {
         $self = clone $this;
         $self['customRouting'] = $customRouting;
+
+        return $self;
+    }
+
+    /**
+     * The digest schedule this recipient is on for the topic. Omitted -- not null -- when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
+     */
+    public function withDigestScheduleID(string $digestScheduleID): self
+    {
+        $self = clone $this;
+        $self['digestScheduleID'] = $digestScheduleID;
 
         return $self;
     }

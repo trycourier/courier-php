@@ -242,6 +242,7 @@ final class PreferencesTest extends TestCase
                 'customRouting' => [
                     ChannelClassification::INBOX, ChannelClassification::EMAIL,
                 ],
+                'digestScheduleID' => 'x',
                 'hasCustomRouting' => true,
             ],
             tenantID: 'tenant_id',

@@ -15,6 +15,8 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse\DefaultStat
 /**
  * A subscription preference topic in your workspace.
  *
+ * @phpstan-import-type TopicDigestResponseShape from \Courier\WorkspacePreferences\TopicDigestResponse
+ *
  * @phpstan-type WorkspacePreferenceTopicGetResponseShape = array{
  *   id: string,
  *   allowedPreferences: list<AllowedPreference|value-of<AllowedPreference>>,
@@ -27,6 +29,7 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse\DefaultStat
  *   updated: string,
  *   creator?: string|null,
  *   description?: string|null,
+ *   digest?: null|TopicDigestResponse|TopicDigestResponseShape,
  *   updater?: string|null,
  * }
  */
@@ -110,6 +113,12 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
     public ?string $description;
 
     /**
+     * A topic's digest configuration.
+     */
+    #[Optional(nullable: true)]
+    public ?TopicDigestResponse $digest;
+
+    /**
      * Id of the last updater.
      */
     #[Optional(nullable: true)]
@@ -162,6 +171,7 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
      * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus
      * @param list<ChannelClassification|value-of<ChannelClassification>> $routingOptions
      * @param array<string,mixed> $topicData
+     * @param TopicDigestResponse|TopicDigestResponseShape|null $digest
      */
     public static function with(
         string $id,
@@ -175,6 +185,7 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
         string $updated,
         ?string $creator = null,
         ?string $description = null,
+        TopicDigestResponse|array|null $digest = null,
         ?string $updater = null,
     ): self {
         $self = new self;
@@ -191,6 +202,7 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
 
         null !== $creator && $self['creator'] = $creator;
         null !== $description && $self['description'] = $description;
+        null !== $digest && $self['digest'] = $digest;
         null !== $updater && $self['updater'] = $updater;
 
         return $self;
@@ -322,6 +334,19 @@ final class WorkspacePreferenceTopicGetResponse implements BaseModel
     {
         $self = clone $this;
         $self['description'] = $description;
+
+        return $self;
+    }
+
+    /**
+     * A topic's digest configuration.
+     *
+     * @param TopicDigestResponse|TopicDigestResponseShape|null $digest
+     */
+    public function withDigest(TopicDigestResponse|array|null $digest): self
+    {
+        $self = clone $this;
+        $self['digest'] = $digest;
 
         return $self;
     }

@@ -10,6 +10,7 @@ use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\WorkspacePreferences\TopicDigestRequest;
 use Courier\WorkspacePreferences\Topics\TopicReplaceParams\AllowedPreference;
 use Courier\WorkspacePreferences\Topics\TopicReplaceParams\DefaultStatus;
 
@@ -18,12 +19,15 @@ use Courier\WorkspacePreferences\Topics\TopicReplaceParams\DefaultStatus;
  *
  * @see Courier\Services\WorkspacePreferences\TopicsService::replace()
  *
+ * @phpstan-import-type TopicDigestRequestShape from \Courier\WorkspacePreferences\TopicDigestRequest
+ *
  * @phpstan-type TopicReplaceParamsShape = array{
  *   sectionID: string,
  *   defaultStatus: DefaultStatus|value-of<DefaultStatus>,
  *   name: string,
  *   allowedPreferences?: list<AllowedPreference|value-of<AllowedPreference>>|null,
  *   description?: string|null,
+ *   digest?: null|TopicDigestRequest|TopicDigestRequestShape,
  *   includeUnsubscribeHeader?: bool|null,
  *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
  *   topicData?: array<string,mixed>|null,
@@ -69,6 +73,14 @@ final class TopicReplaceParams implements BaseModel
      */
     #[Optional(nullable: true)]
     public ?string $description;
+
+    /**
+     * A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
+     *
+     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected -- both states are un-deliverable rather than merely off.
+     */
+    #[Optional(nullable: true)]
+    public ?TopicDigestRequest $digest;
 
     /**
      * Whether to include a list-unsubscribe header on emails for this topic.
@@ -125,6 +137,7 @@ final class TopicReplaceParams implements BaseModel
      *
      * @param DefaultStatus|value-of<DefaultStatus> $defaultStatus
      * @param list<AllowedPreference|value-of<AllowedPreference>>|null $allowedPreferences
+     * @param TopicDigestRequest|TopicDigestRequestShape|null $digest
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions
      * @param array<string,mixed>|null $topicData
      */
@@ -134,6 +147,7 @@ final class TopicReplaceParams implements BaseModel
         string $name,
         ?array $allowedPreferences = null,
         ?string $description = null,
+        TopicDigestRequest|array|null $digest = null,
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
@@ -146,6 +160,7 @@ final class TopicReplaceParams implements BaseModel
 
         null !== $allowedPreferences && $self['allowedPreferences'] = $allowedPreferences;
         null !== $description && $self['description'] = $description;
+        null !== $digest && $self['digest'] = $digest;
         null !== $includeUnsubscribeHeader && $self['includeUnsubscribeHeader'] = $includeUnsubscribeHeader;
         null !== $routingOptions && $self['routingOptions'] = $routingOptions;
         null !== $topicData && $self['topicData'] = $topicData;
@@ -205,6 +220,21 @@ final class TopicReplaceParams implements BaseModel
     {
         $self = clone $this;
         $self['description'] = $description;
+
+        return $self;
+    }
+
+    /**
+     * A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
+     *
+     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected -- both states are un-deliverable rather than merely off.
+     *
+     * @param TopicDigestRequest|TopicDigestRequestShape|null $digest
+     */
+    public function withDigest(TopicDigestRequest|array|null $digest): self
+    {
+        $self = clone $this;
+        $self['digest'] = $digest;
 
         return $self;
     }
