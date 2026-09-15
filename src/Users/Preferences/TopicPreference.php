@@ -70,7 +70,7 @@ final class TopicPreference implements BaseModel
     public ?array $customRouting;
 
     /**
-     * The digest schedule this recipient is on for the topic. Omitted -- not null -- when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
+     * The digest schedule this recipient is on for the topic. Omitted rather than null when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
      */
     #[Optional('digest_schedule_id')]
     public ?string $digestScheduleID;
@@ -217,7 +217,7 @@ final class TopicPreference implements BaseModel
     }
 
     /**
-     * The digest schedule this recipient is on for the topic. Omitted -- not null -- when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
+     * The digest schedule this recipient is on for the topic. Omitted rather than null when they have not chosen one, in which case the topic's default schedule applies. Ids come from the topic's digest configuration or from `GET /digests/schedules`.
      */
     public function withDigestScheduleID(string $digestScheduleID): self
     {

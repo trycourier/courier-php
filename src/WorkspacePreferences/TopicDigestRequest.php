@@ -12,7 +12,7 @@ use Courier\Core\Contracts\BaseModel;
 /**
  * A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
  *
- * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected -- both states are un-deliverable rather than merely off.
+ * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected, because both states are un-deliverable rather than merely off.
  *
  * @phpstan-import-type TopicDigestScheduleRequestShape from \Courier\WorkspacePreferences\TopicDigestScheduleRequest
  * @phpstan-import-type TopicDigestCategoryShape from \Courier\WorkspacePreferences\TopicDigestCategory

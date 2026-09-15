@@ -29,7 +29,7 @@ interface TopicsContract
      * @param string|null $description body param: Optional description shown under the topic on the hosted preferences page
      * @param TopicDigestRequest|TopicDigestRequestShape|null $digest Body param: A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
      *
-     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected -- both states are un-deliverable rather than merely off.
+     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected, because both states are un-deliverable rather than merely off.
      * @param bool|null $includeUnsubscribeHeader body param: Whether to include a list-unsubscribe header on emails for this topic
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Body param: Default channels delivered for this topic. Defaults to empty if omitted.
      * @param array<string,mixed>|null $topicData body param: Arbitrary metadata associated with the topic
@@ -142,7 +142,7 @@ interface TopicsContract
      * @param string|null $description Body param: Optional description shown under the topic on the hosted preferences page. Omit to clear.
      * @param TopicDigestRequest|TopicDigestRequestShape|null $digest Body param: A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
      *
-     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected -- both states are un-deliverable rather than merely off.
+     * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected, because both states are un-deliverable rather than merely off.
      * @param bool|null $includeUnsubscribeHeader body param: Whether to include a list-unsubscribe header on emails for this topic
      * @param list<ChannelClassification|value-of<ChannelClassification>>|null $routingOptions Body param: Default channels delivered for this topic. Omit to clear.
      * @param array<string,mixed>|null $topicData Body param: Arbitrary metadata associated with the topic. Omit to clear.
