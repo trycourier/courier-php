@@ -33,6 +33,8 @@ final class TopicDigestScheduleResponse implements BaseModel
 
     /**
      * The schedule's identifier, assigned by the server. This is the value the `/digests/schedules/{schedule_id}` endpoints are keyed by.
+     *
+     * Two formats are in circulation and only one is safe to drop into a URL. Schedules created through the API are `sch_01m26xfcn3endt3nxy4e2kx2rh` and need no encoding. Schedules created in the Preferences Editor before that format are `sch/{uuid}` and contain a literal `/`, so they must be URL-encoded as `sch%2F{uuid}` — unencoded, the path does not match the route and the response is a bare `404` that reads like a broken endpoint. Existing ids are never migrated.
      */
     #[Required('schedule_id')]
     public string $scheduleID;
@@ -160,6 +162,8 @@ final class TopicDigestScheduleResponse implements BaseModel
 
     /**
      * The schedule's identifier, assigned by the server. This is the value the `/digests/schedules/{schedule_id}` endpoints are keyed by.
+     *
+     * Two formats are in circulation and only one is safe to drop into a URL. Schedules created through the API are `sch_01m26xfcn3endt3nxy4e2kx2rh` and need no encoding. Schedules created in the Preferences Editor before that format are `sch/{uuid}` and contain a literal `/`, so they must be URL-encoded as `sch%2F{uuid}` — unencoded, the path does not match the route and the response is a bare `404` that reads like a broken endpoint. Existing ids are never migrated.
      */
     public function withScheduleID(string $scheduleID): self
     {

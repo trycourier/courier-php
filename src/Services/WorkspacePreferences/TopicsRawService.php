@@ -16,6 +16,7 @@ use Courier\WorkspacePreferences\Topics\TopicArchiveParams;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\AllowedPreference;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\DefaultStatus;
+use Courier\WorkspacePreferences\Topics\TopicCreateParams\Digest;
 use Courier\WorkspacePreferences\Topics\TopicDeleteDigestParams;
 use Courier\WorkspacePreferences\Topics\TopicReleaseDigestParams;
 use Courier\WorkspacePreferences\Topics\TopicReplaceParams;
@@ -24,6 +25,7 @@ use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 
 /**
+ * @phpstan-import-type DigestShape from \Courier\WorkspacePreferences\Topics\TopicCreateParams\Digest
  * @phpstan-import-type TopicDigestRequestShape from \Courier\WorkspacePreferences\TopicDigestRequest
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -46,7 +48,7 @@ final class TopicsRawService implements TopicsRawContract
      *   name: string,
      *   allowedPreferences?: list<AllowedPreference|value-of<AllowedPreference>>|null,
      *   description?: string|null,
-     *   digest?: TopicDigestRequest|TopicDigestRequestShape|null,
+     *   digest?: Digest|DigestShape|null,
      *   includeUnsubscribeHeader?: bool|null,
      *   routingOptions?: list<ChannelClassification|value-of<ChannelClassification>>|null,
      *   topicData?: array<string,mixed>|null,

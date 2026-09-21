@@ -294,6 +294,16 @@ final class TopicsTest extends TestCase
             allowedPreferences: ['channel_preferences'],
             description: 'description',
             digest: [
+                'templateID' => 'template_id',
+                'audienceID' => 'audience_id',
+                'categories' => [
+                    [
+                        'categoryKey' => 'category_key',
+                        'limit' => 1,
+                        'retain' => 'FIRST',
+                        'sortKey' => 'sort_key',
+                    ],
+                ],
                 'schedules' => [
                     [
                         'frequency' => DigestFrequency::INSTANT,
@@ -305,16 +315,6 @@ final class TopicsTest extends TestCase
                         'scheduleID' => 'schedule_id',
                         'time' => 'time',
                         'timezone' => 'timezone',
-                    ],
-                ],
-                'templateID' => 'template_id',
-                'audienceID' => 'audience_id',
-                'categories' => [
-                    [
-                        'categoryKey' => 'category_key',
-                        'limit' => 1,
-                        'retain' => 'FIRST',
-                        'sortKey' => 'sort_key',
                     ],
                 ],
                 'triggerEmpty' => true,
