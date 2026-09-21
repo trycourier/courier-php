@@ -10,10 +10,12 @@ use Courier\RequestOptions;
 use Courier\WorkspacePreferences\TopicDigestRequest;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\AllowedPreference;
 use Courier\WorkspacePreferences\Topics\TopicCreateParams\DefaultStatus;
+use Courier\WorkspacePreferences\Topics\TopicCreateParams\Digest;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceTopicListResponse;
 
 /**
+ * @phpstan-import-type DigestShape from \Courier\WorkspacePreferences\Topics\TopicCreateParams\Digest
  * @phpstan-import-type TopicDigestRequestShape from \Courier\WorkspacePreferences\TopicDigestRequest
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
@@ -27,7 +29,9 @@ interface TopicsContract
      * @param string $name body param: Human-readable name for the preference topic
      * @param list<AllowedPreference|value-of<AllowedPreference>>|null $allowedPreferences Body param: Preference controls a recipient may customize for this topic. Defaults to empty if omitted.
      * @param string|null $description body param: Optional description shown under the topic on the hosted preferences page
-     * @param TopicDigestRequest|TopicDigestRequestShape|null $digest Body param: A topic's digest configuration: the template that renders it, the cadences it delivers on, and how collected events are retained.
+     * @param Digest|DigestShape|null $digest Body param: A topic's digest, as supplied when the topic itself is created: the template that renders it, the cadences it delivers on, and how collected events are retained.
+     *
+     * Identical to `TopicDigestRequest`, which a replace uses, except that `schedules` is required — a topic being created has no stored schedules for an absent key to leave alone.
      *
      * Send `null` for the whole object to turn a digest off, which unlinks the template and removes its schedules. There is no `enabled` flag, and `schedules: []` is rejected, because both states are un-deliverable rather than merely off.
      * @param bool|null $includeUnsubscribeHeader body param: Whether to include a list-unsubscribe header on emails for this topic
@@ -45,7 +49,7 @@ interface TopicsContract
         string $name,
         ?array $allowedPreferences = null,
         ?string $description = null,
-        TopicDigestRequest|array|null $digest = null,
+        Digest|array|null $digest = null,
         ?bool $includeUnsubscribeHeader = null,
         ?array $routingOptions = null,
         ?array $topicData = null,
