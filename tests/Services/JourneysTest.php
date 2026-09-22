@@ -117,6 +117,7 @@ final class JourneysTest extends TestCase
                 ],
                 ['type' => 'exit', 'id' => 'exit-1'],
             ],
+            cancelationToken: 'order-{{data.order_id}}',
             enabled: true,
             state: JourneyState::DRAFT,
             idempotencyKey: 'order-ORD-456-user-123',
@@ -275,6 +276,7 @@ final class JourneysTest extends TestCase
                     'schema' => ['foo' => 'bar'],
                 ],
             ],
+            cancelationToken: 'order-{{data.order_id}}',
             enabled: true,
             state: JourneyState::DRAFT,
         );

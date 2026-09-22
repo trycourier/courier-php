@@ -59,6 +59,7 @@ final class JourneysService implements JourneysContract
      *
      * @param string $name Body param
      * @param list<mixed> $nodes Body param
+     * @param string $cancelationToken Body param: Cancelation token stored on the journey definition. It tags every run the journey creates so that `POST /journeys/cancel` can later cancel those runs by token. Accepts a templated string such as `order-{{data.order_id}}`, which is resolved per run when the journey is invoked. On a replace, omitting this field preserves any existing token and sending a value replaces it.
      * @param bool $enabled Body param
      * @param JourneyState|value-of<JourneyState> $state body param: Lifecycle state of a journey
      * @param string $idempotencyKey Header param: A unique key that makes this request idempotent. If Courier receives another request with the same `Idempotency-Key`, it returns the stored response from the first request without performing the operation again (including the original status code and any error). Use it to safely retry `POST` requests after network failures without risking duplicate sends. The key is scoped to this endpoint.
@@ -70,6 +71,7 @@ final class JourneysService implements JourneysContract
     public function create(
         string $name,
         array $nodes,
+        ?string $cancelationToken = null,
         ?bool $enabled = null,
         JourneyState|string|null $state = null,
         ?string $idempotencyKey = null,
@@ -80,6 +82,7 @@ final class JourneysService implements JourneysContract
             [
                 'name' => $name,
                 'nodes' => $nodes,
+                'cancelationToken' => $cancelationToken,
                 'enabled' => $enabled,
                 'state' => $state,
                 'idempotencyKey' => $idempotencyKey,
@@ -297,6 +300,7 @@ final class JourneysService implements JourneysContract
      *
      * @param string $templateID Journey id
      * @param list<mixed> $nodes
+     * @param string $cancelationToken Cancelation token stored on the journey definition. It tags every run the journey creates so that `POST /journeys/cancel` can later cancel those runs by token. Accepts a templated string such as `order-{{data.order_id}}`, which is resolved per run when the journey is invoked. On a replace, omitting this field preserves any existing token and sending a value replaces it.
      * @param JourneyState|value-of<JourneyState> $state lifecycle state of a journey
      * @param RequestOpts|null $requestOptions
      *
@@ -306,6 +310,7 @@ final class JourneysService implements JourneysContract
         string $templateID,
         string $name,
         array $nodes,
+        ?string $cancelationToken = null,
         ?bool $enabled = null,
         JourneyState|string|null $state = null,
         RequestOptions|array|null $requestOptions = null,
@@ -314,6 +319,7 @@ final class JourneysService implements JourneysContract
             [
                 'name' => $name,
                 'nodes' => $nodes,
+                'cancelationToken' => $cancelationToken,
                 'enabled' => $enabled,
                 'state' => $state,
             ],
