@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.6.0](https://github.com/trycourier/courier-php/compare/v7.5.0...v7.6.0) (2026-09-22)
+
+
+### Features
+
+* **api:** add cancelation_token to journey create, replace, and get ([#147](https://github.com/trycourier/courier-php/issues/147)) ([695b626](https://github.com/trycourier/courier-php/commit/695b626bda90b71258992ae3738beb7cec6211b8))
+
+
+### Documentation
+
+* **api:** correct the digest schedule contract, and make `schedules` optional ([#145](https://github.com/trycourier/courier-php/issues/145)) ([29b006e](https://github.com/trycourier/courier-php/commit/29b006e88622f6ae13dafdb5f6c913bdd8082a95))
+
 ## [7.5.0](https://github.com/trycourier/courier-php/compare/v7.4.0...v7.5.0) (2026-09-15)
 
 
