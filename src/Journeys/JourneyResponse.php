@@ -13,6 +13,7 @@ use Courier\Core\Contracts\BaseModel;
  *
  * @phpstan-type JourneyResponseShape = array{
  *   id: string,
+ *   cancelationToken: string|null,
  *   created: int|null,
  *   creator: string|null,
  *   enabled: bool,
@@ -31,6 +32,12 @@ final class JourneyResponse implements BaseModel
 
     #[Required]
     public string $id;
+
+    /**
+     * The journey cancelation token, or null when none is set. A token authored in the dashboard is returned in its raw templated form, such as `order-{{data.order_id}}`, so it can be read back and asserted.
+     */
+    #[Required('cancelation_token')]
+    public ?string $cancelationToken;
 
     #[Required]
     public ?int $created;
@@ -72,6 +79,7 @@ final class JourneyResponse implements BaseModel
      * ```
      * JourneyResponse::with(
      *   id: ...,
+     *   cancelationToken: ...,
      *   created: ...,
      *   creator: ...,
      *   enabled: ...,
@@ -89,6 +97,7 @@ final class JourneyResponse implements BaseModel
      * ```
      * (new JourneyResponse)
      *   ->withID(...)
+     *   ->withCancelationToken(...)
      *   ->withCreated(...)
      *   ->withCreator(...)
      *   ->withEnabled(...)
@@ -115,6 +124,7 @@ final class JourneyResponse implements BaseModel
      */
     public static function with(
         string $id,
+        ?string $cancelationToken,
         ?int $created,
         ?string $creator,
         bool $enabled,
@@ -128,6 +138,7 @@ final class JourneyResponse implements BaseModel
         $self = new self;
 
         $self['id'] = $id;
+        $self['cancelationToken'] = $cancelationToken;
         $self['created'] = $created;
         $self['creator'] = $creator;
         $self['enabled'] = $enabled;
@@ -145,6 +156,17 @@ final class JourneyResponse implements BaseModel
     {
         $self = clone $this;
         $self['id'] = $id;
+
+        return $self;
+    }
+
+    /**
+     * The journey cancelation token, or null when none is set. A token authored in the dashboard is returned in its raw templated form, such as `order-{{data.order_id}}`, so it can be read back and asserted.
+     */
+    public function withCancelationToken(?string $cancelationToken): self
+    {
+        $self = clone $this;
+        $self['cancelationToken'] = $cancelationToken;
 
         return $self;
     }

@@ -15,6 +15,7 @@ use Courier\Core\Contracts\BaseModel;
  * @phpstan-type CreateJourneyRequestShape = array{
  *   name: string,
  *   nodes: list<mixed>,
+ *   cancelationToken?: string|null,
  *   enabled?: bool|null,
  *   state?: null|JourneyState|value-of<JourneyState>,
  * }
@@ -30,6 +31,12 @@ final class CreateJourneyRequest implements BaseModel
     /** @var list<mixed> $nodes */
     #[Required(list: JourneyNode::class)]
     public array $nodes;
+
+    /**
+     * Cancelation token stored on the journey definition. It tags every run the journey creates so that `POST /journeys/cancel` can later cancel those runs by token. Accepts a templated string such as `order-{{data.order_id}}`, which is resolved per run when the journey is invoked. On a replace, omitting this field preserves any existing token and sending a value replaces it.
+     */
+    #[Optional('cancelation_token')]
+    public ?string $cancelationToken;
 
     #[Optional]
     public ?bool $enabled;
@@ -72,6 +79,7 @@ final class CreateJourneyRequest implements BaseModel
     public static function with(
         string $name,
         array $nodes,
+        ?string $cancelationToken = null,
         ?bool $enabled = null,
         JourneyState|string|null $state = null,
     ): self {
@@ -80,6 +88,7 @@ final class CreateJourneyRequest implements BaseModel
         $self['name'] = $name;
         $self['nodes'] = $nodes;
 
+        null !== $cancelationToken && $self['cancelationToken'] = $cancelationToken;
         null !== $enabled && $self['enabled'] = $enabled;
         null !== $state && $self['state'] = $state;
 
@@ -101,6 +110,17 @@ final class CreateJourneyRequest implements BaseModel
     {
         $self = clone $this;
         $self['nodes'] = $nodes;
+
+        return $self;
+    }
+
+    /**
+     * Cancelation token stored on the journey definition. It tags every run the journey creates so that `POST /journeys/cancel` can later cancel those runs by token. Accepts a templated string such as `order-{{data.order_id}}`, which is resolved per run when the journey is invoked. On a replace, omitting this field preserves any existing token and sending a value replaces it.
+     */
+    public function withCancelationToken(string $cancelationToken): self
+    {
+        $self = clone $this;
+        $self['cancelationToken'] = $cancelationToken;
 
         return $self;
     }

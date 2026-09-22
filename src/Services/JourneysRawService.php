@@ -48,6 +48,7 @@ final class JourneysRawService implements JourneysRawContract
      * @param array{
      *   name: string,
      *   nodes: list<mixed>,
+     *   cancelationToken?: string,
      *   enabled?: bool,
      *   state?: JourneyState|value-of<JourneyState>,
      *   idempotencyKey?: string,
@@ -357,6 +358,7 @@ final class JourneysRawService implements JourneysRawContract
      * @param array{
      *   name: string,
      *   nodes: list<mixed>,
+     *   cancelationToken?: string,
      *   enabled?: bool,
      *   state?: JourneyState|value-of<JourneyState>,
      * }|JourneyReplaceParams $params
