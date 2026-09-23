@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.7.0](https://github.com/trycourier/courier-php/compare/v7.6.0...v7.7.0) (2026-09-23)
+
+
+### Features
+
+* **api:** publish the secondary and tertiary action styles [C-19961] ([#148](https://github.com/trycourier/courier-php/issues/148)) ([1065ae7](https://github.com/trycourier/courier-php/commit/1065ae75129821ca09008c8a1acff0b722462a33))
+
 ## [7.6.0](https://github.com/trycourier/courier-php/compare/v7.5.0...v7.6.0) (2026-09-22)
 
 
