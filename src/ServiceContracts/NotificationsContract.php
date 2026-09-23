@@ -68,6 +68,7 @@ interface NotificationsContract
      * @param string|null $cursor Opaque pagination cursor from a previous response. Omit for the first page.
      * @param string $eventID filter to templates linked to this event map ID
      * @param bool|null $notes Include template notes in the response. Only applies to legacy templates.
+     * @param string $tags Comma-delimited list of tag names. Only templates carrying all of the listed tags are returned. Matching is case-insensitive. Filtering is applied before pagination.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -76,6 +77,7 @@ interface NotificationsContract
         ?string $cursor = null,
         ?string $eventID = null,
         ?bool $notes = null,
+        ?string $tags = null,
         RequestOptions|array|null $requestOptions = null,
     ): NotificationListResponse;
 
