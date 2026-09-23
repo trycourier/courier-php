@@ -15,7 +15,10 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\NotificationsService::list()
  *
  * @phpstan-type NotificationListParamsShape = array{
- *   cursor?: string|null, eventID?: string|null, notes?: bool|null
+ *   cursor?: string|null,
+ *   eventID?: string|null,
+ *   notes?: bool|null,
+ *   tags?: string|null,
  * }
  */
 final class NotificationListParams implements BaseModel
@@ -42,6 +45,12 @@ final class NotificationListParams implements BaseModel
     #[Optional(nullable: true)]
     public ?bool $notes;
 
+    /**
+     * Comma-delimited list of tag names. Only templates carrying all of the listed tags are returned. Matching is case-insensitive. Filtering is applied before pagination.
+     */
+    #[Optional]
+    public ?string $tags;
+
     public function __construct()
     {
         $this->initialize();
@@ -55,13 +64,15 @@ final class NotificationListParams implements BaseModel
     public static function with(
         ?string $cursor = null,
         ?string $eventID = null,
-        ?bool $notes = null
+        ?bool $notes = null,
+        ?string $tags = null,
     ): self {
         $self = new self;
 
         null !== $cursor && $self['cursor'] = $cursor;
         null !== $eventID && $self['eventID'] = $eventID;
         null !== $notes && $self['notes'] = $notes;
+        null !== $tags && $self['tags'] = $tags;
 
         return $self;
     }
@@ -95,6 +106,17 @@ final class NotificationListParams implements BaseModel
     {
         $self = clone $this;
         $self['notes'] = $notes;
+
+        return $self;
+    }
+
+    /**
+     * Comma-delimited list of tag names. Only templates carrying all of the listed tags are returned. Matching is case-insensitive. Filtering is applied before pagination.
+     */
+    public function withTags(string $tags): self
+    {
+        $self = clone $this;
+        $self['tags'] = $tags;
 
         return $self;
     }

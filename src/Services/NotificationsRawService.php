@@ -140,7 +140,7 @@ final class NotificationsRawService implements NotificationsRawContract
      * Lists the workspace's notification templates. Each carries a name, tags, brand, routing, and its draft or published state.
      *
      * @param array{
-     *   cursor?: string|null, eventID?: string, notes?: bool|null
+     *   cursor?: string|null, eventID?: string, notes?: bool|null, tags?: string
      * }|NotificationListParams $params
      * @param RequestOpts|null $requestOptions
      *
