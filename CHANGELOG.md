@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.8.0](https://github.com/trycourier/courier-php/compare/v7.7.0...v7.8.0) (2026-09-23)
+
+
+### Features
+
+* **api:** filter notification templates by tag [C-21172] ([#150](https://github.com/trycourier/courier-php/issues/150)) ([9caf750](https://github.com/trycourier/courier-php/commit/9caf750e05abc0c3aa48b39021efc33218d9e516))
+
 ## [7.7.0](https://github.com/trycourier/courier-php/compare/v7.6.0...v7.7.0) (2026-09-23)
 
 
