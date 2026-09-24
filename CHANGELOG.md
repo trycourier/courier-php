@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.9.0](https://github.com/trycourier/courier-php/compare/v7.8.0...v7.9.0) (2026-09-24)
+
+
+### Features
+
+* **api:** add GET /preferences/logs [C-21018] ([f1b7dde](https://github.com/trycourier/courier-php/commit/f1b7dde8c93f0cc37cdc11009454d4af0343aae0))
+
 ## [7.8.0](https://github.com/trycourier/courier-php/compare/v7.7.0...v7.8.0) (2026-09-23)
 
 
