@@ -20,6 +20,7 @@ use Courier\Services\JourneysService;
 use Courier\Services\ListsService;
 use Courier\Services\MessagesService;
 use Courier\Services\NotificationsService;
+use Courier\Services\PreviewsService;
 use Courier\Services\ProfilesService;
 use Courier\Services\ProvidersService;
 use Courier\Services\RequestsService;
@@ -79,6 +80,11 @@ class Client extends BaseClient
      * @api
      */
     public BroadcastsService $broadcasts;
+
+    /**
+     * @api
+     */
+    public PreviewsService $previews;
 
     /**
      * @api
@@ -214,6 +220,7 @@ class Client extends BaseClient
         $this->automations = new AutomationsService($this);
         $this->journeys = new JourneysService($this);
         $this->broadcasts = new BroadcastsService($this);
+        $this->previews = new PreviewsService($this);
         $this->bulk = new BulkService($this);
         $this->brands = new BrandsService($this);
         $this->digests = new DigestsService($this);
