@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.10.2](https://github.com/trycourier/courier-php/compare/v7.10.1...v7.10.2) (2026-09-24)
+
+
+### Chores
+
+* **api:** regenerate SDK ([#158](https://github.com/trycourier/courier-php/issues/158)) ([dffba8b](https://github.com/trycourier/courier-php/commit/dffba8b682afc39fd14d8d25c7f38f110edf3d31))
+
 ## [7.10.1](https://github.com/trycourier/courier-php/compare/v7.10.0...v7.10.1) (2026-09-24)
 
 
