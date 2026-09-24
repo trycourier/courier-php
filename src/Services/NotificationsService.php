@@ -23,6 +23,7 @@ use Courier\Notifications\NotificationTemplateWritePayload;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\NotificationsContract;
 use Courier\Services\Notifications\ChecksService;
+use Courier\Services\Notifications\PreviewsService;
 
 /**
  * Create, update, version, publish, and localize notification templates and their content.
@@ -45,12 +46,18 @@ final class NotificationsService implements NotificationsContract
     public ChecksService $checks;
 
     /**
+     * @api
+     */
+    public PreviewsService $previews;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->raw = new NotificationsRawService($client);
         $this->checks = new ChecksService($client);
+        $this->previews = new PreviewsService($client);
     }
 
     /**
