@@ -7,6 +7,7 @@ namespace Courier\ServiceContracts;
 use Courier\ChannelClassification;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\WorkspacePreferences\PreferenceLogsListResponse;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
@@ -75,6 +76,27 @@ interface WorkspacePreferencesContract
         string $sectionID,
         RequestOptions|array|null $requestOptions = null
     ): mixed;
+
+    /**
+     * @api
+     *
+     * @param string $cursor A cursor from a previous response's paging.cursor. Continue only while paging.more is true; the cursor is omitted on the last page.
+     * @param int $limit How many entries to return. Defaults to 25.
+     * @param string $since Return only changes at or after this time, as an ISO-8601 date or date-time. A date alone is read as the start of that day in UTC.
+     * @param string $tenantID Narrow to the changes this user made in one tenant context. Only valid together with user_id.
+     * @param string $userID Return only this user's changes. Omit it to read every change in the environment.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listLogs(
+        ?string $cursor = null,
+        int $limit = 25,
+        ?string $since = null,
+        ?string $tenantID = null,
+        ?string $userID = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): PreferenceLogsListResponse;
 
     /**
      * @api

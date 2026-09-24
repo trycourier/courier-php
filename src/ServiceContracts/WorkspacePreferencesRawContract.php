@@ -7,9 +7,11 @@ namespace Courier\ServiceContracts;
 use Courier\Core\Contracts\BaseResponse;
 use Courier\Core\Exceptions\APIException;
 use Courier\RequestOptions;
+use Courier\WorkspacePreferences\PreferenceLogsListResponse;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceCreateParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
+use Courier\WorkspacePreferences\WorkspacePreferenceListLogsParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
 use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
@@ -75,6 +77,21 @@ interface WorkspacePreferencesRawContract
     public function archive(
         string $sectionID,
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param array<string,mixed>|WorkspacePreferenceListLogsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<PreferenceLogsListResponse>
+     *
+     * @throws APIException
+     */
+    public function listLogs(
+        array|WorkspacePreferenceListLogsParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 
     /**

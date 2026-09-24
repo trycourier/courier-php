@@ -5,6 +5,7 @@ namespace Tests\Services;
 use Courier\ChannelClassification;
 use Courier\Client;
 use Courier\Core\Util;
+use Courier\WorkspacePreferences\PreferenceLogsListResponse;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
@@ -103,6 +104,19 @@ final class WorkspacePreferencesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
+    }
+
+    #[Test]
+    public function testListLogs(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->workspacePreferences->listLogs();
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(PreferenceLogsListResponse::class, $result);
     }
 
     #[Test]

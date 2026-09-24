@@ -11,6 +11,7 @@ use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferencesContract;
 use Courier\Services\WorkspacePreferences\TopicsService;
+use Courier\WorkspacePreferences\PreferenceLogsListResponse;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
@@ -136,6 +137,44 @@ final class WorkspacePreferencesService implements WorkspacePreferencesContract
     ): mixed {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->archive($sectionID, requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Returns the history of preference changes in this environment, newest first. Each entry records one change a user made to one subscription topic, and carries the value before it where there was one. Supply user_id to read a single user's history instead of the whole environment.
+     *
+     * @param string $cursor A cursor from a previous response's paging.cursor. Continue only while paging.more is true; the cursor is omitted on the last page.
+     * @param int $limit How many entries to return. Defaults to 25.
+     * @param string $since Return only changes at or after this time, as an ISO-8601 date or date-time. A date alone is read as the start of that day in UTC.
+     * @param string $tenantID Narrow to the changes this user made in one tenant context. Only valid together with user_id.
+     * @param string $userID Return only this user's changes. Omit it to read every change in the environment.
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function listLogs(
+        ?string $cursor = null,
+        int $limit = 25,
+        ?string $since = null,
+        ?string $tenantID = null,
+        ?string $userID = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): PreferenceLogsListResponse {
+        $params = Util::removeNulls(
+            [
+                'cursor' => $cursor,
+                'limit' => $limit,
+                'since' => $since,
+                'tenantID' => $tenantID,
+                'userID' => $userID,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->listLogs(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
