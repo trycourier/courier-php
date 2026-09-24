@@ -11,9 +11,11 @@ use Courier\Core\Exceptions\APIException;
 use Courier\Core\Util;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\WorkspacePreferencesRawContract;
+use Courier\WorkspacePreferences\PreferenceLogsListResponse;
 use Courier\WorkspacePreferences\PublishPreferencesResponse;
 use Courier\WorkspacePreferences\WorkspacePreferenceCreateParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceGetResponse;
+use Courier\WorkspacePreferences\WorkspacePreferenceListLogsParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceListResponse;
 use Courier\WorkspacePreferences\WorkspacePreferencePublishParams;
 use Courier\WorkspacePreferences\WorkspacePreferenceReplaceParams;
@@ -150,6 +152,46 @@ final class WorkspacePreferencesRawService implements WorkspacePreferencesRawCon
             path: ['preferences/sections/%1$s', $sectionID],
             options: $requestOptions,
             convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Returns the history of preference changes in this environment, newest first. Each entry records one change a user made to one subscription topic, and carries the value before it where there was one. Supply user_id to read a single user's history instead of the whole environment.
+     *
+     * @param array{
+     *   cursor?: string,
+     *   limit?: int,
+     *   since?: string,
+     *   tenantID?: string,
+     *   userID?: string,
+     * }|WorkspacePreferenceListLogsParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<PreferenceLogsListResponse>
+     *
+     * @throws APIException
+     */
+    public function listLogs(
+        array|WorkspacePreferenceListLogsParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = WorkspacePreferenceListLogsParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: 'preferences/logs',
+            query: Util::array_transform_keys(
+                $parsed,
+                ['tenantID' => 'tenant_id', 'userID' => 'user_id']
+            ),
+            options: $options,
+            convert: PreferenceLogsListResponse::class,
         );
     }
 
