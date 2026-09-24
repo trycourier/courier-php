@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.10.0](https://github.com/trycourier/courier-php/compare/v7.9.0...v7.10.0) (2026-09-24)
+
+
+### Features
+
+* **api:** cross-client previews endpoints ([#154](https://github.com/trycourier/courier-php/issues/154)) ([964a5df](https://github.com/trycourier/courier-php/commit/964a5df1885d467ffd780e511ed48d9841d55a72))
+
 ## [7.9.0](https://github.com/trycourier/courier-php/compare/v7.8.0...v7.9.0) (2026-09-24)
 
 
