@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.10.1](https://github.com/trycourier/courier-php/compare/v7.10.0...v7.10.1) (2026-09-24)
+
+
+### Documentation
+
+* **api:** use OpenAPI 3.0 example on the preview schemas ([#156](https://github.com/trycourier/courier-php/issues/156)) ([f2bf465](https://github.com/trycourier/courier-php/commit/f2bf465d97b1c1a32e7ef88b91cf4e8af5fd7cad))
+
 ## [7.10.0](https://github.com/trycourier/courier-php/compare/v7.9.0...v7.10.0) (2026-09-24)
 
 
