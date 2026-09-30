@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.10.3](https://github.com/trycourier/courier-php/compare/v7.10.2...v7.10.3) (2026-09-30)
+
+
+### Documentation
+
+* **api:** remove the plan gate from the bulk preferences replace errors [C-21256] ([#160](https://github.com/trycourier/courier-php/issues/160)) ([c4dabbd](https://github.com/trycourier/courier-php/commit/c4dabbd996635938b3a918a2437102a3265ab638))
+
 ## [7.10.2](https://github.com/trycourier/courier-php/compare/v7.10.1...v7.10.2) (2026-09-24)
 
 
