@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Courier\Notifications;
 
+use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
@@ -19,6 +20,7 @@ use Courier\Notifications\NotificationTemplatePayload\Subscription;
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
  * @phpstan-import-type RoutingShape from \Courier\Notifications\NotificationTemplatePayload\Routing
  * @phpstan-import-type SubscriptionShape from \Courier\Notifications\NotificationTemplatePayload\Subscription
+ * @phpstan-import-type NotificationTemplateEmailShape from \Courier\Notifications\NotificationTemplateEmail
  *
  * @phpstan-type NotificationTemplatePayloadShape = array{
  *   brand: null|Brand|BrandShape,
@@ -27,6 +29,7 @@ use Courier\Notifications\NotificationTemplatePayload\Subscription;
  *   routing: null|Routing|RoutingShape,
  *   subscription: null|Subscription|SubscriptionShape,
  *   tags: list<string>,
+ *   email?: null|NotificationTemplateEmail|NotificationTemplateEmailShape,
  * }
  */
 final class NotificationTemplatePayload implements BaseModel
@@ -73,6 +76,14 @@ final class NotificationTemplatePayload implements BaseModel
     public array $tags;
 
     /**
+     * Email header fields for the template's email channel: the From, Reply-to, CC and BCC values set in the Studio email channel settings. Each value may use template variables, such as `{{data.cc}}`, which are resolved at send time.
+     * Reads omit `email` when no header is set, and omit each unset field.
+     * Writes treat it as optional, with three meanings. Omit it to keep the stored headers. Send null to clear all four. Send an object to replace all four: a field the object leaves out is cleared. Other email channel settings, such as the subject, are kept either way. Headers only apply while `content` has an email channel; with no email channel they are not stored.
+     */
+    #[Optional(nullable: true)]
+    public ?NotificationTemplateEmail $email;
+
+    /**
      * `new NotificationTemplatePayload()` is missing required properties by the API.
      *
      * To enforce required parameters use
@@ -114,6 +125,7 @@ final class NotificationTemplatePayload implements BaseModel
      * @param Routing|RoutingShape|null $routing
      * @param Subscription|SubscriptionShape|null $subscription
      * @param list<string> $tags
+     * @param NotificationTemplateEmail|NotificationTemplateEmailShape|null $email
      */
     public static function with(
         Brand|array|null $brand,
@@ -122,6 +134,7 @@ final class NotificationTemplatePayload implements BaseModel
         Routing|array|null $routing,
         Subscription|array|null $subscription,
         array $tags,
+        NotificationTemplateEmail|array|null $email = null,
     ): self {
         $self = new self;
 
@@ -131,6 +144,8 @@ final class NotificationTemplatePayload implements BaseModel
         $self['routing'] = $routing;
         $self['subscription'] = $subscription;
         $self['tags'] = $tags;
+
+        null !== $email && $self['email'] = $email;
 
         return $self;
     }
@@ -208,6 +223,21 @@ final class NotificationTemplatePayload implements BaseModel
     {
         $self = clone $this;
         $self['tags'] = $tags;
+
+        return $self;
+    }
+
+    /**
+     * Email header fields for the template's email channel: the From, Reply-to, CC and BCC values set in the Studio email channel settings. Each value may use template variables, such as `{{data.cc}}`, which are resolved at send time.
+     * Reads omit `email` when no header is set, and omit each unset field.
+     * Writes treat it as optional, with three meanings. Omit it to keep the stored headers. Send null to clear all four. Send an object to replace all four: a field the object leaves out is cleared. Other email channel settings, such as the subject, are kept either way. Headers only apply while `content` has an email channel; with no email channel they are not stored.
+     *
+     * @param NotificationTemplateEmail|NotificationTemplateEmailShape|null $email
+     */
+    public function withEmail(NotificationTemplateEmail|array|null $email): self
+    {
+        $self = clone $this;
+        $self['email'] = $email;
 
         return $self;
     }

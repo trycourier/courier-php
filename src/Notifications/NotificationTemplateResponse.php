@@ -22,6 +22,7 @@ use Courier\Notifications\NotificationTemplateResponse\State;
  * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
  * @phpstan-import-type RoutingShape from \Courier\Notifications\NotificationTemplatePayload\Routing
  * @phpstan-import-type SubscriptionShape from \Courier\Notifications\NotificationTemplatePayload\Subscription
+ * @phpstan-import-type NotificationTemplateEmailShape from \Courier\Notifications\NotificationTemplateEmail
  * @phpstan-import-type NotificationTemplateAliasShape from \Courier\Notifications\NotificationTemplateAlias
  *
  * @phpstan-type NotificationTemplateResponseShape = array{
@@ -31,6 +32,7 @@ use Courier\Notifications\NotificationTemplateResponse\State;
  *   routing: null|Routing|RoutingShape,
  *   subscription: null|Subscription|SubscriptionShape,
  *   tags: list<string>,
+ *   email?: null|NotificationTemplateEmail|NotificationTemplateEmailShape,
  *   id: string,
  *   created: int,
  *   creator: string,
@@ -79,6 +81,14 @@ final class NotificationTemplateResponse implements BaseModel
      */
     #[Required(list: 'string')]
     public array $tags;
+
+    /**
+     * Email header fields for the template's email channel: the From, Reply-to, CC and BCC values set in the Studio email channel settings. Each value may use template variables, such as `{{data.cc}}`, which are resolved at send time.
+     * Reads omit `email` when no header is set, and omit each unset field.
+     * Writes treat it as optional, with three meanings. Omit it to keep the stored headers. Send null to clear all four. Send an object to replace all four: a field the object leaves out is cleared. Other email channel settings, such as the subject, are kept either way. Headers only apply while `content` has an email channel; with no email channel they are not stored.
+     */
+    #[Optional(nullable: true)]
+    public ?NotificationTemplateEmail $email;
 
     /**
      * The template ID.
@@ -177,6 +187,7 @@ final class NotificationTemplateResponse implements BaseModel
      * @param Subscription|SubscriptionShape|null $subscription
      * @param list<string> $tags
      * @param State|value-of<State> $state
+     * @param NotificationTemplateEmail|NotificationTemplateEmailShape|null $email
      * @param NotificationTemplateAliasShape|null $alias
      */
     public static function with(
@@ -190,6 +201,7 @@ final class NotificationTemplateResponse implements BaseModel
         int $created,
         string $creator,
         State|string $state,
+        NotificationTemplateEmail|array|null $email = null,
         string|array|null $alias = null,
         ?int $updated = null,
         ?string $updater = null,
@@ -207,6 +219,7 @@ final class NotificationTemplateResponse implements BaseModel
         $self['creator'] = $creator;
         $self['state'] = $state;
 
+        null !== $email && $self['email'] = $email;
         null !== $alias && $self['alias'] = $alias;
         null !== $updated && $self['updated'] = $updated;
         null !== $updater && $self['updater'] = $updater;
@@ -285,6 +298,21 @@ final class NotificationTemplateResponse implements BaseModel
     {
         $self = clone $this;
         $self['tags'] = $tags;
+
+        return $self;
+    }
+
+    /**
+     * Email header fields for the template's email channel: the From, Reply-to, CC and BCC values set in the Studio email channel settings. Each value may use template variables, such as `{{data.cc}}`, which are resolved at send time.
+     * Reads omit `email` when no header is set, and omit each unset field.
+     * Writes treat it as optional, with three meanings. Omit it to keep the stored headers. Send null to clear all four. Send an object to replace all four: a field the object leaves out is cleared. Other email channel settings, such as the subject, are kept either way. Headers only apply while `content` has an email channel; with no email channel they are not stored.
+     *
+     * @param NotificationTemplateEmail|NotificationTemplateEmailShape|null $email
+     */
+    public function withEmail(NotificationTemplateEmail|array|null $email): self
+    {
+        $self = clone $this;
+        $self['email'] = $email;
 
         return $self;
     }
