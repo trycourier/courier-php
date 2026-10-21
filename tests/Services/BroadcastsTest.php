@@ -9,6 +9,7 @@ use Courier\Core\Util;
 use Courier\Notifications\NotificationContentGetResponse;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationTemplateState;
+use Courier\TextStyle;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -190,7 +191,35 @@ final class BroadcastsTest extends TestCase
         $result = $this->client->broadcasts->putContent(
             'broadcastId',
             content: [
-                'elements' => [['type' => 'meta'], ['type' => 'text']],
+                'elements' => [
+                    [
+                        'channels' => ['string'],
+                        'if' => 'if',
+                        'loop' => 'loop',
+                        'ref' => 'ref',
+                        'title' => 'Spring Sale is here',
+                        'type' => 'meta',
+                    ],
+                    [
+                        'channels' => ['string'],
+                        'if' => 'if',
+                        'loop' => 'loop',
+                        'ref' => 'ref',
+                        'align' => 'left',
+                        'bold' => 'bold',
+                        'color' => 'color',
+                        'content' => 'Hello! Check out our spring sale.',
+                        'fontSize' => 'font_size',
+                        'format' => 'markdown',
+                        'italic' => 'italic',
+                        'lineHeight' => 'line_height',
+                        'locales' => ['foo' => ['content' => 'content']],
+                        'strikethrough' => 'strikethrough',
+                        'textStyle' => TextStyle::TEXT,
+                        'underline' => 'underline',
+                        'type' => 'text',
+                    ],
+                ],
                 'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,

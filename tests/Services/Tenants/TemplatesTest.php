@@ -8,6 +8,7 @@ use Courier\Tenants\BaseTemplateTenantAssociation;
 use Courier\Tenants\PostTenantTemplatePublishResponse;
 use Courier\Tenants\PutTenantTemplateResponse;
 use Courier\Tenants\Templates\TemplateListResponse;
+use Courier\TextStyle;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -170,7 +171,42 @@ final class TemplatesTest extends TestCase
             tenantID: 'tenant_id',
             template: [
                 'content' => [
-                    'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+                    'elements' => [
+                        [
+                            'channels' => ['string'],
+                            'if' => 'if',
+                            'loop' => 'loop',
+                            'ref' => 'ref',
+                            'channel' => 'email',
+                            'elements' => [
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'align' => 'left',
+                                    'bold' => 'bold',
+                                    'color' => 'color',
+                                    'content' => 'Hello {{name}}',
+                                    'fontSize' => 'font_size',
+                                    'format' => 'markdown',
+                                    'italic' => 'italic',
+                                    'lineHeight' => 'line_height',
+                                    'locales' => ['foo' => ['content' => 'content']],
+                                    'strikethrough' => 'strikethrough',
+                                    'textStyle' => TextStyle::TEXT,
+                                    'underline' => 'underline',
+                                    'type' => 'text',
+                                ],
+                            ],
+                            'fontSize' => 'font_size',
+                            'lineHeight' => 'line_height',
+                            'padding' => 'padding',
+                            'raw' => ['foo' => 'bar'],
+                            'type' => 'channel',
+                        ],
+                    ],
+                    'version' => '2022-01-01',
                 ],
                 'channels' => [
                     'foo' => [

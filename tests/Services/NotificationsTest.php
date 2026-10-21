@@ -10,6 +10,7 @@ use Courier\Notifications\NotificationMetricsResponse;
 use Courier\Notifications\NotificationTemplateResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
+use Courier\TextStyle;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -66,7 +67,50 @@ final class NotificationsTest extends TestCase
             notification: [
                 'brand' => ['id' => 'bnd_01kx4mrd0pfzw8wt7pn7p2fzag'],
                 'content' => [
-                    'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+                    'elements' => [
+                        [
+                            'channels' => ['string'],
+                            'if' => 'if',
+                            'loop' => 'loop',
+                            'ref' => 'ref',
+                            'channel' => 'email',
+                            'elements' => [
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'title' => 'Welcome!',
+                                    'type' => 'meta',
+                                ],
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'align' => 'left',
+                                    'bold' => 'bold',
+                                    'color' => 'color',
+                                    'content' => 'Hello {{data.name}}.',
+                                    'fontSize' => 'font_size',
+                                    'format' => 'markdown',
+                                    'italic' => 'italic',
+                                    'lineHeight' => 'line_height',
+                                    'locales' => ['foo' => ['content' => 'content']],
+                                    'strikethrough' => 'strikethrough',
+                                    'textStyle' => TextStyle::TEXT,
+                                    'underline' => 'underline',
+                                    'type' => 'text',
+                                ],
+                            ],
+                            'fontSize' => 'font_size',
+                            'lineHeight' => 'line_height',
+                            'padding' => 'padding',
+                            'raw' => ['foo' => 'bar'],
+                            'type' => 'channel',
+                        ],
+                    ],
+                    'version' => '2022-01-01',
                 ],
                 'name' => 'Welcome Email',
                 'routing' => ['strategyID' => 'rs_01kx4h2jdafq8bk9amzvy6hbv0'],
@@ -199,7 +243,50 @@ final class NotificationsTest extends TestCase
         $result = $this->client->notifications->putContent(
             'id',
             content: [
-                'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+                'elements' => [
+                    [
+                        'channels' => ['string'],
+                        'if' => 'if',
+                        'loop' => 'loop',
+                        'ref' => 'ref',
+                        'channel' => 'email',
+                        'elements' => [
+                            [
+                                'channels' => ['string'],
+                                'if' => 'if',
+                                'loop' => 'loop',
+                                'ref' => 'ref',
+                                'title' => 'Welcome!',
+                                'type' => 'meta',
+                            ],
+                            [
+                                'channels' => ['string'],
+                                'if' => 'if',
+                                'loop' => 'loop',
+                                'ref' => 'ref',
+                                'align' => 'left',
+                                'bold' => 'bold',
+                                'color' => 'color',
+                                'content' => 'Hello {{data.name}}.',
+                                'fontSize' => 'font_size',
+                                'format' => 'markdown',
+                                'italic' => 'italic',
+                                'lineHeight' => 'line_height',
+                                'locales' => ['foo' => ['content' => 'content']],
+                                'strikethrough' => 'strikethrough',
+                                'textStyle' => TextStyle::TEXT,
+                                'underline' => 'underline',
+                                'type' => 'text',
+                            ],
+                        ],
+                        'fontSize' => 'font_size',
+                        'lineHeight' => 'line_height',
+                        'padding' => 'padding',
+                        'raw' => ['foo' => 'bar'],
+                        'type' => 'channel',
+                    ],
+                ],
+                'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,
         );
@@ -333,7 +420,50 @@ final class NotificationsTest extends TestCase
             notification: [
                 'brand' => ['id' => 'id'],
                 'content' => [
-                    'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+                    'elements' => [
+                        [
+                            'channels' => ['string'],
+                            'if' => 'if',
+                            'loop' => 'loop',
+                            'ref' => 'ref',
+                            'channel' => 'email',
+                            'elements' => [
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'title' => 'Updated',
+                                    'type' => 'meta',
+                                ],
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'align' => 'left',
+                                    'bold' => 'bold',
+                                    'color' => 'color',
+                                    'content' => 'Updated content.',
+                                    'fontSize' => 'font_size',
+                                    'format' => 'markdown',
+                                    'italic' => 'italic',
+                                    'lineHeight' => 'line_height',
+                                    'locales' => ['foo' => ['content' => 'content']],
+                                    'strikethrough' => 'strikethrough',
+                                    'textStyle' => TextStyle::TEXT,
+                                    'underline' => 'underline',
+                                    'type' => 'text',
+                                ],
+                            ],
+                            'fontSize' => 'font_size',
+                            'lineHeight' => 'line_height',
+                            'padding' => 'padding',
+                            'raw' => ['foo' => 'bar'],
+                            'type' => 'channel',
+                        ],
+                    ],
+                    'version' => '2022-01-01',
                 ],
                 'name' => 'Updated Name',
                 'routing' => ['strategyID' => 'strategy_id'],
