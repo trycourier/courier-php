@@ -1,5 +1,24 @@
 # Changelog
 
+## [7.11.0](https://github.com/trycourier/courier-php/compare/v7.10.3...v7.11.0) (2026-10-21)
+
+
+### Features
+
+* **api:** add PATCH /providers/{id} for partial provider updates [C-21790] ([#167](https://github.com/trycourier/courier-php/issues/167)) ([5b7865e](https://github.com/trycourier/courier-php/commit/5b7865e6103f7a192bc4cff30eed95102e0bc011))
+* **api:** expose email From, Reply-to, CC and BCC on notification templates [C-21709] ([#165](https://github.com/trycourier/courier-php/issues/165)) ([52cd9f6](https://github.com/trycourier/courier-php/commit/52cd9f6ed08ebb94825ad5c7216ad322d44dcff1))
+
+
+### Chores
+
+* **api:** regenerate SDK ([#166](https://github.com/trycourier/courier-php/issues/166)) ([eb6b9aa](https://github.com/trycourier/courier-php/commit/eb6b9aae8c793d9809b54b20108b4a0238e52e7f))
+
+
+### Documentation
+
+* **api:** describe the AI node model constraint [C-21614] ([#162](https://github.com/trycourier/courier-php/issues/162)) ([41a8131](https://github.com/trycourier/courier-php/commit/41a813139a58e92d65f4148c249ebfea93884b27))
+* **api:** document provider settings.rate_limit [C-21732] ([#164](https://github.com/trycourier/courier-php/issues/164)) ([8b1fe57](https://github.com/trycourier/courier-php/commit/8b1fe570c702a6a44e391fef4b20935d8f13c641))
+
 ## [7.10.3](https://github.com/trycourier/courier-php/compare/v7.10.2...v7.10.3) (2026-09-30)
 
 
