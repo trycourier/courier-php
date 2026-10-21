@@ -132,4 +132,17 @@ final class ProvidersTest extends TestCase
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertNull($result);
     }
+
+    #[Test]
+    public function testPatch(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->providers->patch('id');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Provider::class, $result);
+    }
 }

@@ -10,6 +10,7 @@ use Courier\Providers\Provider;
 use Courier\Providers\ProviderCreateParams;
 use Courier\Providers\ProviderListParams;
 use Courier\Providers\ProviderListResponse;
+use Courier\Providers\ProviderPatchParams;
 use Courier\Providers\ProviderUpdateParams;
 use Courier\RequestOptions;
 
@@ -93,5 +94,22 @@ interface ProvidersRawContract
     public function delete(
         string $id,
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param string $id a unique identifier of the provider configuration to update
+     * @param array<string,mixed>|ProviderPatchParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Provider>
+     *
+     * @throws APIException
+     */
+    public function patch(
+        string $id,
+        array|ProviderPatchParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

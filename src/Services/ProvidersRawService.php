@@ -12,6 +12,7 @@ use Courier\Providers\Provider;
 use Courier\Providers\ProviderCreateParams;
 use Courier\Providers\ProviderListParams;
 use Courier\Providers\ProviderListResponse;
+use Courier\Providers\ProviderPatchParams;
 use Courier\Providers\ProviderUpdateParams;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProvidersRawContract;
@@ -194,6 +195,44 @@ final class ProvidersRawService implements ProvidersRawContract
             path: ['providers/%1$s', $id],
             options: $requestOptions,
             convert: null,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Updates part of a provider's configuration and keeps every field you omit. Settings merge into the stored settings key by key, and a setting sent as null is removed.
+     *
+     * @param string $id a unique identifier of the provider configuration to update
+     * @param array{
+     *   alias?: string|null,
+     *   provider?: string,
+     *   settings?: array<string,mixed>,
+     *   title?: string,
+     * }|ProviderPatchParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<Provider>
+     *
+     * @throws APIException
+     */
+    public function patch(
+        string $id,
+        array|ProviderPatchParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = ProviderPatchParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'patch',
+            path: ['providers/%1$s', $id],
+            body: (object) $parsed,
+            options: $options,
+            convert: Provider::class,
         );
     }
 }
