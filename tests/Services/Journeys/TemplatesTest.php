@@ -10,6 +10,7 @@ use Courier\Notifications\NotificationContentGetResponse;
 use Courier\Notifications\NotificationContentMutationResponse;
 use Courier\Notifications\NotificationTemplateState;
 use Courier\Notifications\NotificationTemplateVersionListResponse;
+use Courier\TextStyle;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -69,7 +70,41 @@ final class TemplatesTest extends TestCase
             notification: [
                 'brand' => ['id' => 'id'],
                 'content' => [
-                    'elements' => [['type' => 'channel']],
+                    'elements' => [
+                        [
+                            'channels' => ['string'],
+                            'if' => 'if',
+                            'loop' => 'loop',
+                            'ref' => 'ref',
+                            'channel' => 'email',
+                            'elements' => [
+                                [
+                                    'channels' => ['string'],
+                                    'if' => 'if',
+                                    'loop' => 'loop',
+                                    'ref' => 'ref',
+                                    'align' => 'left',
+                                    'bold' => 'bold',
+                                    'color' => 'color',
+                                    'content' => 'Welcome!',
+                                    'fontSize' => 'font_size',
+                                    'format' => 'markdown',
+                                    'italic' => 'italic',
+                                    'lineHeight' => 'line_height',
+                                    'locales' => ['foo' => ['content' => 'content']],
+                                    'strikethrough' => 'strikethrough',
+                                    'textStyle' => TextStyle::TEXT,
+                                    'underline' => 'underline',
+                                    'type' => 'text',
+                                ],
+                            ],
+                            'fontSize' => 'font_size',
+                            'lineHeight' => 'line_height',
+                            'padding' => 'padding',
+                            'raw' => ['foo' => 'bar'],
+                            'type' => 'channel',
+                        ],
+                    ],
                     'version' => '2022-01-01',
                     'scope' => 'default',
                 ],
@@ -259,7 +294,50 @@ final class TemplatesTest extends TestCase
             'x',
             templateID: 'x',
             content: [
-                'elements' => [['type' => 'channel']], 'version' => '2022-01-01',
+                'elements' => [
+                    [
+                        'channels' => ['string'],
+                        'if' => 'if',
+                        'loop' => 'loop',
+                        'ref' => 'ref',
+                        'channel' => 'email',
+                        'elements' => [
+                            [
+                                'channels' => ['string'],
+                                'if' => 'if',
+                                'loop' => 'loop',
+                                'ref' => 'ref',
+                                'title' => 'Welcome!',
+                                'type' => 'meta',
+                            ],
+                            [
+                                'channels' => ['string'],
+                                'if' => 'if',
+                                'loop' => 'loop',
+                                'ref' => 'ref',
+                                'align' => 'left',
+                                'bold' => 'bold',
+                                'color' => 'color',
+                                'content' => 'Hello {{data.name}}.',
+                                'fontSize' => 'font_size',
+                                'format' => 'markdown',
+                                'italic' => 'italic',
+                                'lineHeight' => 'line_height',
+                                'locales' => ['foo' => ['content' => 'content']],
+                                'strikethrough' => 'strikethrough',
+                                'textStyle' => TextStyle::TEXT,
+                                'underline' => 'underline',
+                                'type' => 'text',
+                            ],
+                        ],
+                        'fontSize' => 'font_size',
+                        'lineHeight' => 'line_height',
+                        'padding' => 'padding',
+                        'raw' => ['foo' => 'bar'],
+                        'type' => 'channel',
+                    ],
+                ],
+                'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,
         );
@@ -350,7 +428,27 @@ final class TemplatesTest extends TestCase
             notification: [
                 'brand' => ['id' => 'id'],
                 'content' => [
-                    'elements' => [['type' => 'text']],
+                    'elements' => [
+                        [
+                            'channels' => ['string'],
+                            'if' => 'if',
+                            'loop' => 'loop',
+                            'ref' => 'ref',
+                            'align' => 'left',
+                            'bold' => 'bold',
+                            'color' => 'color',
+                            'content' => 'content',
+                            'fontSize' => 'font_size',
+                            'format' => 'markdown',
+                            'italic' => 'italic',
+                            'lineHeight' => 'line_height',
+                            'locales' => ['foo' => ['content' => 'content']],
+                            'strikethrough' => 'strikethrough',
+                            'textStyle' => TextStyle::TEXT,
+                            'underline' => 'underline',
+                            'type' => 'text',
+                        ],
+                    ],
                     'version' => '2022-01-01',
                     'scope' => 'default',
                 ],
