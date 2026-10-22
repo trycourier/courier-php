@@ -8,12 +8,17 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Journeys\JourneyRunStep\Error;
 
 /**
  * One executed node of a Journey run. `node_id` is the id of the node in the published Journey, so a step maps directly onto the Journey graph.
  *
+ * @phpstan-import-type ErrorShape from \Courier\Journeys\JourneyRunStep\Error
+ *
  * @phpstan-type JourneyRunStepShape = array{
  *   action: string,
+ *   error: null|Error|ErrorShape,
+ *   skipReason: string|null,
  *   status: string,
  *   createdAt?: string|null,
  *   messageID?: string|null,
@@ -31,6 +36,18 @@ final class JourneyRunStep implements BaseModel
      */
     #[Required]
     public string $action;
+
+    /**
+     * Why the step failed. Set when `status` is `ERROR`, `null` otherwise.
+     */
+    #[Required]
+    public ?Error $error;
+
+    /**
+     * Why the step was skipped, e.g. `Node conditions not met`. Set when `status` is `SKIPPED`, `null` otherwise.
+     */
+    #[Required('skip_reason')]
+    public ?string $skipReason;
 
     /**
      * The state of the step: the seven run statuses, plus `SKIPPED` and `COMPUTING`. Not an enum — new values have been added before.
@@ -67,13 +84,17 @@ final class JourneyRunStep implements BaseModel
      *
      * To enforce required parameters use
      * ```
-     * JourneyRunStep::with(action: ..., status: ...)
+     * JourneyRunStep::with(action: ..., error: ..., skipReason: ..., status: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new JourneyRunStep)->withAction(...)->withStatus(...)
+     * (new JourneyRunStep)
+     *   ->withAction(...)
+     *   ->withError(...)
+     *   ->withSkipReason(...)
+     *   ->withStatus(...)
      * ```
      */
     public function __construct()
@@ -85,9 +106,13 @@ final class JourneyRunStep implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param Error|ErrorShape|null $error
      */
     public static function with(
         string $action,
+        Error|array|null $error,
+        ?string $skipReason,
         string $status,
         ?string $createdAt = null,
         ?string $messageID = null,
@@ -97,6 +122,8 @@ final class JourneyRunStep implements BaseModel
         $self = new self;
 
         $self['action'] = $action;
+        $self['error'] = $error;
+        $self['skipReason'] = $skipReason;
         $self['status'] = $status;
 
         null !== $createdAt && $self['createdAt'] = $createdAt;
@@ -114,6 +141,30 @@ final class JourneyRunStep implements BaseModel
     {
         $self = clone $this;
         $self['action'] = $action;
+
+        return $self;
+    }
+
+    /**
+     * Why the step failed. Set when `status` is `ERROR`, `null` otherwise.
+     *
+     * @param Error|ErrorShape|null $error
+     */
+    public function withError(Error|array|null $error): self
+    {
+        $self = clone $this;
+        $self['error'] = $error;
+
+        return $self;
+    }
+
+    /**
+     * Why the step was skipped, e.g. `Node conditions not met`. Set when `status` is `SKIPPED`, `null` otherwise.
+     */
+    public function withSkipReason(?string $skipReason): self
+    {
+        $self = clone $this;
+        $self['skipReason'] = $skipReason;
 
         return $self;
     }
