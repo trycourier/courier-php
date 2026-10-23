@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.12.0](https://github.com/trycourier/courier-php/compare/v7.11.0...v7.12.0) (2026-10-23)
+
+
+### Features
+
+* **api:** journey run steps return error and skip_reason ([#168](https://github.com/trycourier/courier-php/issues/168)) ([7860477](https://github.com/trycourier/courier-php/commit/78604771a7bb6733cde2dbd71ca51a6151658940))
+
+
+### Chores
+
+* **api:** regenerate SDK ([#170](https://github.com/trycourier/courier-php/issues/170)) ([ff2727c](https://github.com/trycourier/courier-php/commit/ff2727c7e747efb8d10903f4bce5a6e6dea8dbc8))
+
 ## [7.11.0](https://github.com/trycourier/courier-php/compare/v7.10.3...v7.11.0) (2026-10-21)
 
 
