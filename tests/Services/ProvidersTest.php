@@ -140,7 +140,42 @@ final class ProvidersTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->providers->patch('id');
+        $result = $this->client->providers->patch(
+            'id',
+            patch: [
+                ['op' => 'replace', 'path' => '/title'],
+                ['op' => 'replace', 'path' => '/settings/api_key'],
+            ],
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(Provider::class, $result);
+    }
+
+    #[Test]
+    public function testPatchWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->providers->patch(
+            'id',
+            patch: [
+                [
+                    'op' => 'replace',
+                    'path' => '/title',
+                    'from' => 'from',
+                    'value' => 'Production SendGrid',
+                ],
+                [
+                    'op' => 'replace',
+                    'path' => '/settings/api_key',
+                    'from' => 'from',
+                    'value' => 'SG.xxxxxxxx',
+                ],
+            ],
+        );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(Provider::class, $result);

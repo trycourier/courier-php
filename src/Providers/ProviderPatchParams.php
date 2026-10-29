@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Courier\Providers;
 
-use Courier\Core\Attributes\Optional;
+use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
+use Courier\Providers\ProviderPatchParams\Patch;
 
 /**
- * Updates part of a provider's configuration and keeps every field you omit. Settings merge into the stored settings key by key, and a setting sent as null is removed.
+ * Applies JSON Patch (RFC 6902) operations to a provider configuration and keeps every field the operations don't touch. Paths address the provider as it is returned: /title, /alias and /settings/<key>. The operations apply in order, and if one fails, nothing is saved.
  *
  * @see Courier\Services\ProvidersService::patch()
  *
- * @phpstan-type ProviderPatchParamsShape = array{
- *   alias?: string|null,
- *   provider?: string|null,
- *   settings?: array<string,mixed>|null,
- *   title?: string|null,
- * }
+ * @phpstan-import-type PatchShape from \Courier\Providers\ProviderPatchParams\Patch
+ *
+ * @phpstan-type ProviderPatchParamsShape = array{patch: list<Patch|PatchShape>}
  */
 final class ProviderPatchParams implements BaseModel
 {
@@ -28,31 +26,27 @@ final class ProviderPatchParams implements BaseModel
     use SdkParams;
 
     /**
-     * Updated alias. Set to null to clear it.
-     */
-    #[Optional(nullable: true)]
-    public ?string $alias;
-
-    /**
-     * The provider key identifying the type. Optional. When sent, it must match the stored provider, otherwise the request returns a 400.
-     */
-    #[Optional]
-    public ?string $provider;
-
-    /**
-     * Provider-specific settings (snake_case keys) to merge into the stored settings, using JSON Merge Patch (RFC 7396). Each key you send replaces the stored value, a key set to null is removed, nested objects merge recursively, and arrays replace the stored value. Keys you omit keep their stored values. Set `rate_limit` to null to remove this configuration's send rate limit.
+     * Operations to apply, in order. Paths address the provider as it is returned: `/title`, `/alias`, `/provider`, and `/settings/<key>` with the snake_case setting keys, including nested paths such as `/settings/rate_limit/rate`. If any operation fails, for example a `test`, nothing is saved and the request returns a 400. The result can't change `provider`, remove `title`, or add other top-level fields. Removing `/alias` clears it.
      *
-     * @var array<string,mixed>|null $settings
+     * @var list<Patch> $patch
      */
-    #[Optional(map: 'mixed')]
-    public ?array $settings;
+    #[Required(list: Patch::class)]
+    public array $patch;
 
     /**
-     * Updated display title.
+     * `new ProviderPatchParams()` is missing required properties by the API.
+     *
+     * To enforce required parameters use
+     * ```
+     * ProviderPatchParams::with(patch: ...)
+     * ```
+     *
+     * Otherwise ensure the following setters are called
+     *
+     * ```
+     * (new ProviderPatchParams)->withPatch(...)
+     * ```
      */
-    #[Optional]
-    public ?string $title;
-
     public function __construct()
     {
         $this->initialize();
@@ -63,66 +57,26 @@ final class ProviderPatchParams implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param array<string,mixed>|null $settings
+     * @param list<Patch|PatchShape> $patch
      */
-    public static function with(
-        ?string $alias = null,
-        ?string $provider = null,
-        ?array $settings = null,
-        ?string $title = null,
-    ): self {
+    public static function with(array $patch): self
+    {
         $self = new self;
 
-        null !== $alias && $self['alias'] = $alias;
-        null !== $provider && $self['provider'] = $provider;
-        null !== $settings && $self['settings'] = $settings;
-        null !== $title && $self['title'] = $title;
+        $self['patch'] = $patch;
 
         return $self;
     }
 
     /**
-     * Updated alias. Set to null to clear it.
-     */
-    public function withAlias(?string $alias): self
-    {
-        $self = clone $this;
-        $self['alias'] = $alias;
-
-        return $self;
-    }
-
-    /**
-     * The provider key identifying the type. Optional. When sent, it must match the stored provider, otherwise the request returns a 400.
-     */
-    public function withProvider(string $provider): self
-    {
-        $self = clone $this;
-        $self['provider'] = $provider;
-
-        return $self;
-    }
-
-    /**
-     * Provider-specific settings (snake_case keys) to merge into the stored settings, using JSON Merge Patch (RFC 7396). Each key you send replaces the stored value, a key set to null is removed, nested objects merge recursively, and arrays replace the stored value. Keys you omit keep their stored values. Set `rate_limit` to null to remove this configuration's send rate limit.
+     * Operations to apply, in order. Paths address the provider as it is returned: `/title`, `/alias`, `/provider`, and `/settings/<key>` with the snake_case setting keys, including nested paths such as `/settings/rate_limit/rate`. If any operation fails, for example a `test`, nothing is saved and the request returns a 400. The result can't change `provider`, remove `title`, or add other top-level fields. Removing `/alias` clears it.
      *
-     * @param array<string,mixed> $settings
+     * @param list<Patch|PatchShape> $patch
      */
-    public function withSettings(array $settings): self
+    public function withPatch(array $patch): self
     {
         $self = clone $this;
-        $self['settings'] = $settings;
-
-        return $self;
-    }
-
-    /**
-     * Updated display title.
-     */
-    public function withTitle(string $title): self
-    {
-        $self = clone $this;
-        $self['title'] = $title;
+        $self['patch'] = $patch;
 
         return $self;
     }
