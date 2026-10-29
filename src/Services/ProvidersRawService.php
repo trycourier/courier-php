@@ -13,6 +13,7 @@ use Courier\Providers\ProviderCreateParams;
 use Courier\Providers\ProviderListParams;
 use Courier\Providers\ProviderListResponse;
 use Courier\Providers\ProviderPatchParams;
+use Courier\Providers\ProviderPatchParams\Patch;
 use Courier\Providers\ProviderUpdateParams;
 use Courier\RequestOptions;
 use Courier\ServiceContracts\ProvidersRawContract;
@@ -20,6 +21,7 @@ use Courier\ServiceContracts\ProvidersRawContract;
 /**
  * Configure the channel providers Courier delivers through, and browse the provider types it supports.
  *
+ * @phpstan-import-type PatchShape from \Courier\Providers\ProviderPatchParams\Patch
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 final class ProvidersRawService implements ProvidersRawContract
@@ -201,15 +203,10 @@ final class ProvidersRawService implements ProvidersRawContract
     /**
      * @api
      *
-     * Updates part of a provider's configuration and keeps every field you omit. Settings merge into the stored settings key by key, and a setting sent as null is removed.
+     * Applies JSON Patch (RFC 6902) operations to a provider configuration and keeps every field the operations don't touch. Paths address the provider as it is returned: /title, /alias and /settings/<key>. The operations apply in order, and if one fails, nothing is saved.
      *
      * @param string $id a unique identifier of the provider configuration to update
-     * @param array{
-     *   alias?: string|null,
-     *   provider?: string,
-     *   settings?: array<string,mixed>,
-     *   title?: string,
-     * }|ProviderPatchParams $params
+     * @param array{patch: list<Patch|PatchShape>}|ProviderPatchParams $params
      * @param RequestOpts|null $requestOptions
      *
      * @return BaseResponse<Provider>

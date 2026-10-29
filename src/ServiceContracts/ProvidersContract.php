@@ -7,9 +7,11 @@ namespace Courier\ServiceContracts;
 use Courier\Core\Exceptions\APIException;
 use Courier\Providers\Provider;
 use Courier\Providers\ProviderListResponse;
+use Courier\Providers\ProviderPatchParams\Patch;
 use Courier\RequestOptions;
 
 /**
+ * @phpstan-import-type PatchShape from \Courier\Providers\ProviderPatchParams\Patch
  * @phpstan-import-type RequestOpts from \Courier\RequestOptions
  */
 interface ProvidersContract
@@ -101,20 +103,14 @@ interface ProvidersContract
      * @api
      *
      * @param string $id a unique identifier of the provider configuration to update
-     * @param string|null $alias Updated alias. Set to null to clear it.
-     * @param string $provider The provider key identifying the type. Optional. When sent, it must match the stored provider, otherwise the request returns a 400.
-     * @param array<string,mixed> $settings Provider-specific settings (snake_case keys) to merge into the stored settings, using JSON Merge Patch (RFC 7396). Each key you send replaces the stored value, a key set to null is removed, nested objects merge recursively, and arrays replace the stored value. Keys you omit keep their stored values. Set `rate_limit` to null to remove this configuration's send rate limit.
-     * @param string $title updated display title
+     * @param list<Patch|PatchShape> $patch Operations to apply, in order. Paths address the provider as it is returned: `/title`, `/alias`, `/provider`, and `/settings/<key>` with the snake_case setting keys, including nested paths such as `/settings/rate_limit/rate`. If any operation fails, for example a `test`, nothing is saved and the request returns a 400. The result can't change `provider`, remove `title`, or add other top-level fields. Removing `/alias` clears it.
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
      */
     public function patch(
         string $id,
-        ?string $alias = null,
-        ?string $provider = null,
-        ?array $settings = null,
-        ?string $title = null,
-        RequestOptions|array|null $requestOptions = null,
+        array $patch,
+        RequestOptions|array|null $requestOptions = null
     ): Provider;
 }
