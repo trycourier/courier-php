@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0](https://github.com/trycourier/courier-php/compare/v7.12.0...v8.0.0) (2026-10-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** PATCH /providers/{id} takes JSON Patch operations [C-22022] ([#171](https://github.com/trycourier/courier-php/issues/171))
+
+### Features
+
+* **api:** PATCH /providers/{id} takes JSON Patch operations [C-22022] ([#171](https://github.com/trycourier/courier-php/issues/171)) ([cff9eac](https://github.com/trycourier/courier-php/commit/cff9eaccab55167bb7cb21ca139648e9c126e08c))
+
 ## [7.12.0](https://github.com/trycourier/courier-php/compare/v7.11.0...v7.12.0) (2026-10-23)
 
 
