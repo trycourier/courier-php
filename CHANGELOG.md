@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.1](https://github.com/trycourier/courier-php/compare/v8.0.0...v8.0.1) (2026-10-29)
+
+
+### Documentation
+
+* **api:** add gpt-6.1-terra to AI node model ids [C-22053] ([#173](https://github.com/trycourier/courier-php/issues/173)) ([0b96eaa](https://github.com/trycourier/courier-php/commit/0b96eaaee35164c6845c6bfed399820821d26d9e))
+
 ## [8.0.0](https://github.com/trycourier/courier-php/compare/v7.12.0...v8.0.0) (2026-10-29)
 
 
