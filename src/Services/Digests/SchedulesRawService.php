@@ -30,7 +30,7 @@ final class SchedulesRawService implements SchedulesRawContract
      *
      * Returns the digest instances for a schedule, one per user, with cursor paging. Use it to see what has accumulated before a digest releases.
      *
-     * @param string $scheduleID The ID of the digest schedule, in the form `sch/{uuid}`. The value must be URL-encoded (e.g. `sch%2F00000000-0000-0000-0000-000000000000`).
+     * @param string $scheduleID The ID of the digest schedule. Newer schedules are `sch_01m26xfcn3endt3nxy4e2kx2rh` and need no encoding. Schedules created before that format are `sch/{uuid}` and contain a literal `/`, so those must be URL-encoded (e.g. `sch%2F00000000-0000-0000-0000-000000000000`). Both forms remain valid; existing ids are never migrated.
      * @param array{cursor?: string, limit?: int}|ScheduleListInstancesParams $params
      * @param RequestOpts|null $requestOptions
      *
