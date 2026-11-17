@@ -1,5 +1,18 @@
 # Changelog
 
+## [8.0.2](https://github.com/trycourier/courier-php/compare/v8.0.1...v8.0.2) (2026-11-17)
+
+
+### Chores
+
+* **api:** regenerate SDK ([#177](https://github.com/trycourier/courier-php/issues/177)) ([41d125f](https://github.com/trycourier/courier-php/commit/41d125f20e894e13e32969bda59ebc8871f8b6cb))
+
+
+### Documentation
+
+* **api:** list both digest schedule id formats on the instances endpoint ([#179](https://github.com/trycourier/courier-php/issues/179)) ([560b4e8](https://github.com/trycourier/courier-php/commit/560b4e87873084f0da3d244397f4f3ef5f3beb7c))
+* **api:** list Claude Fable 5.2 as a JourneyAINode model [C-22567] ([#180](https://github.com/trycourier/courier-php/issues/180)) ([e00165d](https://github.com/trycourier/courier-php/commit/e00165d685798bafae3c387820bbc19abf1c665a))
+
 ## [8.0.1](https://github.com/trycourier/courier-php/compare/v8.0.0...v8.0.1) (2026-11-17)
 
 
