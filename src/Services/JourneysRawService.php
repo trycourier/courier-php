@@ -187,10 +187,10 @@ final class JourneysRawService implements JourneysRawContract
      * Cancels in-flight journey runs, either every run sharing a cancelation token or one run by id. Use it to stop a sequence when the event resolves.
      *
      * @param array{
-     *   cancelationToken: string,
+     *   cancelationToken?: string,
      *   idempotencyKey?: string,
      *   xIdempotencyExpiration?: string,
-     *   runID: string,
+     *   runID?: string,
      * }|JourneyCancelParams $params
      * @param RequestOpts|null $requestOptions
      *

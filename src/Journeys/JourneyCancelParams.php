@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Courier\Journeys;
 
 use Courier\Core\Attributes\Optional;
-use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Concerns\SdkParams;
 use Courier\Core\Contracts\BaseModel;
@@ -16,10 +15,10 @@ use Courier\Core\Contracts\BaseModel;
  * @see Courier\Services\JourneysService::cancel()
  *
  * @phpstan-type JourneyCancelParamsShape = array{
- *   cancelationToken: string,
+ *   cancelationToken: string|null,
  *   idempotencyKey?: string|null,
  *   xIdempotencyExpiration?: string|null,
- *   runID: string,
+ *   runID: string|null,
  * }
  */
 final class JourneyCancelParams implements BaseModel
@@ -28,8 +27,8 @@ final class JourneyCancelParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    #[Required('cancelation_token')]
-    public string $cancelationToken;
+    #[Optional('cancelation_token')]
+    public ?string $cancelationToken;
 
     #[Optional]
     public ?string $idempotencyKey;
@@ -37,8 +36,8 @@ final class JourneyCancelParams implements BaseModel
     #[Optional]
     public ?string $xIdempotencyExpiration;
 
-    #[Required('run_id')]
-    public string $runID;
+    #[Optional('run_id')]
+    public ?string $runID;
 
     /**
      * `new JourneyCancelParams()` is missing required properties by the API.
@@ -65,10 +64,10 @@ final class JourneyCancelParams implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $cancelationToken,
-        string $runID,
+        ?string $cancelationToken = null,
         ?string $idempotencyKey = null,
         ?string $xIdempotencyExpiration = null,
+        ?string $runID = null,
     ): self {
         $self = new self;
 
