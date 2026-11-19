@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.1.0](https://github.com/trycourier/courier-php/compare/v8.0.2...v8.1.0) (2026-11-19)
+
+
+### Features
+
+* **api:** add POST /feedback for agent and tool feedback [C-22903] ([#183](https://github.com/trycourier/courier-php/issues/183)) ([7ea43e9](https://github.com/trycourier/courier-php/commit/7ea43e93e11e06e16020ca6b10cb113ab9320a9e))
+
+
+### Documentation
+
+* **api:** list GPT-6.2 Astra and Sol as JourneyAINode models [C-22881] ([#181](https://github.com/trycourier/courier-php/issues/181)) ([15b301a](https://github.com/trycourier/courier-php/commit/15b301a7447145aa1b795aac87cb9c79893d0303))
+
 ## [8.0.2](https://github.com/trycourier/courier-php/compare/v8.0.1...v8.0.2) (2026-11-17)
 
 
