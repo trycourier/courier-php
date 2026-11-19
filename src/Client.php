@@ -15,6 +15,7 @@ use Courier\Services\BrandsService;
 use Courier\Services\BroadcastsService;
 use Courier\Services\BulkService;
 use Courier\Services\DigestsService;
+use Courier\Services\FeedbackService;
 use Courier\Services\InboundService;
 use Courier\Services\JourneysService;
 use Courier\Services\ListsService;
@@ -100,6 +101,11 @@ class Client extends BaseClient
      * @api
      */
     public DigestsService $digests;
+
+    /**
+     * @api
+     */
+    public FeedbackService $feedback;
 
     /**
      * @api
@@ -224,6 +230,7 @@ class Client extends BaseClient
         $this->bulk = new BulkService($this);
         $this->brands = new BrandsService($this);
         $this->digests = new DigestsService($this);
+        $this->feedback = new FeedbackService($this);
         $this->inbound = new InboundService($this);
         $this->lists = new ListsService($this);
         $this->messages = new MessagesService($this);
