@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.1.1](https://github.com/trycourier/courier-php/compare/v8.1.0...v8.1.1) (2026-11-20)
+
+
+### Chores
+
+* add context7.json to claim the Context7 library ([#184](https://github.com/trycourier/courier-php/issues/184)) ([1c63f11](https://github.com/trycourier/courier-php/commit/1c63f11e7e9c24c1c7b3b93668474c4b50ecb992))
+
 ## [8.1.0](https://github.com/trycourier/courier-php/compare/v8.0.2...v8.1.0) (2026-11-19)
 
 
