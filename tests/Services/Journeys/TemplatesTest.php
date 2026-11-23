@@ -337,6 +337,7 @@ final class TemplatesTest extends TestCase
                         'type' => 'channel',
                     ],
                 ],
+                'scope' => 'default',
                 'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,

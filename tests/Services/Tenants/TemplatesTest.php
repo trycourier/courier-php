@@ -207,6 +207,7 @@ final class TemplatesTest extends TestCase
                         ],
                     ],
                     'version' => '2022-01-01',
+                    'scope' => 'default',
                 ],
                 'channels' => [
                     'foo' => [
