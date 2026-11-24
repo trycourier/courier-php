@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.3.0](https://github.com/trycourier/courier-php/compare/v8.2.0...v8.3.0) (2026-11-24)
+
+
+### Features
+
+* **api:** remove `scope` from v2 notification, journey and broadcast template content ([#188](https://github.com/trycourier/courier-php/issues/188)) ([5ce917a](https://github.com/trycourier/courier-php/commit/5ce917a5dc140f6b741a84b3ecef8d6f741e262f))
+
 ## [8.2.0](https://github.com/trycourier/courier-php/compare/v8.1.0...v8.2.0) (2026-11-23)
 
 
