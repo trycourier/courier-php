@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Courier\Journeys\Templates\TemplateReplaceParams\Notification;
 
-use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
 use Courier\ElementalNode;
-use Courier\Journeys\Templates\TemplateReplaceParams\Notification\Content\Scope;
 use Courier\Journeys\Templates\TemplateReplaceParams\Notification\Content\Version;
 
 /**
@@ -17,9 +15,7 @@ use Courier\Journeys\Templates\TemplateReplaceParams\Notification\Content\Versio
  * @phpstan-import-type ElementalNodeShape from \Courier\ElementalNode
  *
  * @phpstan-type ContentShape = array{
- *   elements: list<ElementalNodeShape>,
- *   version: Version|value-of<Version>,
- *   scope?: null|Scope|value-of<Scope>,
+ *   elements: list<ElementalNodeShape>, version: Version|value-of<Version>
  * }
  */
 final class Content implements BaseModel
@@ -34,10 +30,6 @@ final class Content implements BaseModel
     /** @var value-of<Version> $version */
     #[Required(enum: Version::class)]
     public string $version;
-
-    /** @var value-of<Scope>|null $scope */
-    #[Optional(enum: Scope::class)]
-    public ?string $scope;
 
     /**
      * `new Content()` is missing required properties by the API.
@@ -65,19 +57,13 @@ final class Content implements BaseModel
      *
      * @param list<ElementalNodeShape> $elements
      * @param Version|value-of<Version> $version
-     * @param Scope|value-of<Scope>|null $scope
      */
-    public static function with(
-        array $elements,
-        Version|string $version,
-        Scope|string|null $scope = null
-    ): self {
+    public static function with(array $elements, Version|string $version): self
+    {
         $self = new self;
 
         $self['elements'] = $elements;
         $self['version'] = $version;
-
-        null !== $scope && $self['scope'] = $scope;
 
         return $self;
     }
@@ -100,17 +86,6 @@ final class Content implements BaseModel
     {
         $self = clone $this;
         $self['version'] = $version;
-
-        return $self;
-    }
-
-    /**
-     * @param Scope|value-of<Scope> $scope
-     */
-    public function withScope(Scope|string $scope): self
-    {
-        $self = clone $this;
-        $self['scope'] = $scope;
 
         return $self;
     }

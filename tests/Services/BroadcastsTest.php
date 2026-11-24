@@ -220,7 +220,6 @@ final class BroadcastsTest extends TestCase
                         'type' => 'text',
                     ],
                 ],
-                'scope' => 'default',
                 'version' => '2022-01-01',
             ],
             state: NotificationTemplateState::DRAFT,

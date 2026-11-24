@@ -8,7 +8,6 @@ use Courier\Core\Attributes\Optional;
 use Courier\Core\Attributes\Required;
 use Courier\Core\Concerns\SdkModel;
 use Courier\Core\Contracts\BaseModel;
-use Courier\ElementalContent;
 use Courier\Notifications\NotificationTemplatePayload\Brand;
 use Courier\Notifications\NotificationTemplatePayload\Routing;
 use Courier\Notifications\NotificationTemplatePayload\Subscription;
@@ -19,7 +18,7 @@ use Courier\Notifications\NotificationTemplateResponse\State;
  *
  * @phpstan-import-type NotificationTemplateAliasVariants from \Courier\Notifications\NotificationTemplateAlias
  * @phpstan-import-type BrandShape from \Courier\Notifications\NotificationTemplatePayload\Brand
- * @phpstan-import-type ElementalContentShape from \Courier\ElementalContent
+ * @phpstan-import-type NotificationTemplateContentShape from \Courier\Notifications\NotificationTemplateContent
  * @phpstan-import-type RoutingShape from \Courier\Notifications\NotificationTemplatePayload\Routing
  * @phpstan-import-type SubscriptionShape from \Courier\Notifications\NotificationTemplatePayload\Subscription
  * @phpstan-import-type NotificationTemplateEmailShape from \Courier\Notifications\NotificationTemplateEmail
@@ -27,7 +26,7 @@ use Courier\Notifications\NotificationTemplateResponse\State;
  *
  * @phpstan-type NotificationTemplateResponseShape = array{
  *   brand: null|Brand|BrandShape,
- *   content: ElementalContent|ElementalContentShape,
+ *   content: NotificationTemplateContent|NotificationTemplateContentShape,
  *   name: string,
  *   routing: null|Routing|RoutingShape,
  *   subscription: null|Subscription|SubscriptionShape,
@@ -53,8 +52,11 @@ final class NotificationTemplateResponse implements BaseModel
     #[Required]
     public ?Brand $brand;
 
+    /**
+     * Elemental content of a notification template. Template variables read the data sent with the message through the `data.` prefix, as in `{{data.name}}`, and the recipient's profile through `profile.`.
+     */
     #[Required]
-    public ElementalContent $content;
+    public NotificationTemplateContent $content;
 
     /**
      * Display name for the template.
@@ -182,7 +184,7 @@ final class NotificationTemplateResponse implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      *
      * @param Brand|BrandShape|null $brand
-     * @param ElementalContent|ElementalContentShape $content
+     * @param NotificationTemplateContent|NotificationTemplateContentShape $content
      * @param Routing|RoutingShape|null $routing
      * @param Subscription|SubscriptionShape|null $subscription
      * @param list<string> $tags
@@ -192,7 +194,7 @@ final class NotificationTemplateResponse implements BaseModel
      */
     public static function with(
         Brand|array|null $brand,
-        ElementalContent|array $content,
+        NotificationTemplateContent|array $content,
         string $name,
         Routing|array|null $routing,
         Subscription|array|null $subscription,
@@ -241,10 +243,13 @@ final class NotificationTemplateResponse implements BaseModel
     }
 
     /**
-     * @param ElementalContent|ElementalContentShape $content
+     * Elemental content of a notification template. Template variables read the data sent with the message through the `data.` prefix, as in `{{data.name}}`, and the recipient's profile through `profile.`.
+     *
+     * @param NotificationTemplateContent|NotificationTemplateContentShape $content
      */
-    public function withContent(ElementalContent|array $content): self
-    {
+    public function withContent(
+        NotificationTemplateContent|array $content
+    ): self {
         $self = clone $this;
         $self['content'] = $content;
 
