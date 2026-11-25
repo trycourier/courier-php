@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.3.1](https://github.com/trycourier/courier-php/compare/v8.3.0...v8.3.1) (2026-11-25)
+
+
+### Chores
+
+* **api:** regenerate SDK ([#190](https://github.com/trycourier/courier-php/issues/190)) ([09cfed0](https://github.com/trycourier/courier-php/commit/09cfed04002545d359add264be863ae3acf62141))
+
 ## [8.3.0](https://github.com/trycourier/courier-php/compare/v8.2.0...v8.3.0) (2026-11-24)
 
 
