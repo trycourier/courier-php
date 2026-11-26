@@ -4,20 +4,10 @@ The Courier PHP SDK provides typed access to the Courier REST API from PHP appli
 
 ## Installation
 
-The package is not on Packagist, so add the repository to your `composer.json` first:
-
-```json
-{
-  "repositories": [
-    { "type": "vcs", "url": "https://github.com/trycourier/courier-php.git" }
-  ]
-}
-```
-
-Then require it:
+Install from Packagist with Composer:
 
 ```bash
-composer require trycourier/courier-php
+composer require trycourier/courier
 ```
 
 Requires PHP 8.1+.
@@ -39,7 +29,7 @@ $response = $client->send->message(
   ],
 );
 
-var_dump($response->requestId);
+var_dump($response->requestID);
 ```
 
 The client reads `COURIER_API_KEY` from your environment automatically.
